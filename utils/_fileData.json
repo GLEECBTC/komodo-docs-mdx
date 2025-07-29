@@ -4916,8 +4916,12 @@
     ]
   },
   "/komodo-defi-framework/api/v20/swaps_and_orders/best_orders": {
-    "dateModified": "2024-11-25T06:53:05.000Z",
+    "dateModified": "2025-07-18T17:48:34.000Z",
     "contributors": [
+      {
+        "name": "\"dimxy\"",
+        "email": "dimxy@komodoplatform.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4933,8 +4937,8 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"dimxy\"",
+      "email": "dimxy@komodoplatform.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/best_orders"
