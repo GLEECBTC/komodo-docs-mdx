@@ -505,5 +505,18 @@
         "id": 112006229,
         "avatar_url": "https://avatars.githubusercontent.com/u/112006229?v=4",
         "image": "harsenyan3.png"
+    },
+    "0xsot": {
+        "username": "0xsot",
+        "commit_emails": [
+            "samiodev@icloud.com"
+        ],
+        "socials": {
+            "twitter": "",
+            "linkedin": ""
+        },
+        "id": 51881311,
+        "avatar_url": "https://avatars.githubusercontent.com/u/51881311?v=4",
+        "image": "0xsot.jpeg"
     }
 }
