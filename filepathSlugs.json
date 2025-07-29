@@ -5494,10 +5494,8 @@
   ],
   "src/pages/smart-chains/changelog/index.mdx": [
     "change-log",
-    "v0-9-1",
-    "whats-changed",
     "v0-9-0",
-    "whats-changed-2",
+    "whats-changed",
     "v0-8-1-falkor",
     "v0-8-0-beta1-viserion",
     "v0-7-2-longpan",
