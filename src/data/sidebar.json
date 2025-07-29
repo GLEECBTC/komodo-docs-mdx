@@ -844,6 +844,10 @@
             "href": "/komodo-defi-framework/api/v20/utils/change_mnemonic_password/"
           },
           {
+            "title": "delete_wallet",
+            "href": "/komodo-defi-framework/api/v20/wallet/delete_wallet/"
+          },
+          {
             "title": "get_wallet_names",
             "href": "/komodo-defi-framework/api/v20/wallet/get_wallet_names/"
           },

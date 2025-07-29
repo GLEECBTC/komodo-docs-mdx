@@ -12896,6 +12896,104 @@ The `update_version_stat_collection` method updates the polling interval for ver
   "id": null
 }
 ```
+export const title = "Komodo DeFi Framework Method: Delete Wallet";
+export const description = "Securely deletes a wallet from the Komodo DeFi Framework.";
+
+# Delete Wallet
+
+## delete\_wallet {{label : 'delete_wallet', tag : 'API-v2'}}
+
+Securely deletes a wallet. The wallet must not be the currently active wallet. This action is irreversible.
+
+### Request Parameters
+
+| Parameter    | Type   | Required | Description                       |
+| ------------ | ------ | :------: | --------------------------------- |
+| wallet\_name | string |     ✓    | The name of the wallet to delete. |
+| password     | string |     ✓    | The password of the wallet.       |
+
+### Response Parameters
+
+The response for a successful request is `null`.
+
+#### 📌 Examples
+
+#### Request (Successful Deletion)
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "delete_wallet",
+  "mmrpc": "2.0",
+  "params": {
+    "wallet_name": "wallet-to-delete",
+    "password": "pass1"
+  }
+}
+```
+
+#### Response (Success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": null,
+  "id": 0
+}
+```
+
+### Error Types
+
+| Parameter                | Type   | Description                                                   |
+| :----------------------- | :----- | :------------------------------------------------------------ |
+| InvalidRequest           | string | The request is malformed or missing required parameters.      |
+| WalletNotFound           | string | The specified `wallet_name` was not found.                    |
+| InvalidPassword          | string | The provided `password` is incorrect.                         |
+| CannotDeleteActiveWallet | string | An attempt was made to delete the currently active wallet.    |
+| WalletsStorageError      | string | A storage-related error occurred while accessing wallet data. |
+| InternalError            | string | An internal server error occurred.                            |
+
+#### Error Response (Wallet Not Found)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Wallet 'non-existent-wallet' not found.",
+    "error_path": "mm2_main:lp_wallet:665",
+    "error_trace": "mm2_main:lp_wallet:665",
+    "error_type": "WalletNotFound",
+    "error_data": "Wallet 'non-existent-wallet' not found.",
+    "id": 0
+}
+```
+
+#### Error Response (Invalid Password)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Invalid password",
+    "error_path": "mm2_main:lp_wallet:665",
+    "error_trace": "mm2_main:lp_wallet:665",
+    "error_type": "InvalidPassword",
+    "error_data": "Invalid password",
+    "id": 0
+}
+```
+
+#### Error Response (Cannot Delete Active Wallet)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Cannot delete wallet 'active-wallet' as it is currently active.",
+    "error_path": "mm2_main:lp_wallet:658",
+    "error_trace": "mm2_main:lp_wallet:658",
+    "error_type": "CannotDeleteActiveWallet",
+    "error_data": "Cannot delete wallet 'active-wallet' as it is currently active.",
+    "id": 0
+}
+```
 export const title = "Komodo DeFi Framework Method: Get ETH Estimated Fee per Gas";
 export const description =
   "The get_eth_estimated_fee_per_gas method allows you to get the gas priority fee estimates for an active coin of your choice.";

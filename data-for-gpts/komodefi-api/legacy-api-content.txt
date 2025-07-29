@@ -7878,12 +7878,12 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
   "userpass": "RPC_UserP@SSW0RD",
   "method": "unban_pubkeys",
   "unban_by": {
-    "type": "Few"
-  },
-  "data": [
-    "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
-    "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
-  ]
+    "type": "Few",
+    "data": [
+      "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+      "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
+    ]
+  }
 }
 ```
 

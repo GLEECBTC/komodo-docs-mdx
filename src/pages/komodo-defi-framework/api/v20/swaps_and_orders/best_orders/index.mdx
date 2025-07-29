@@ -26,10 +26,10 @@ For coins with segwit, they may appear twice in the output (once for each addres
 
 ### Response Parameters
 
-| Parameter         | Type          | Description                                                                                                                 |
-| ----------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| orders            | object (map)  | The `ticker -> array of standard [OrderData](/komodo-defi-framework/api/common_structures/orders/#order-data) objects` map. |
-| original\_tickers | list (string) | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file.                    |
+| Structure         | Type          | Description                                                                                                                                                                                                                          |
+| ----------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| orders            | object (map)  | Map of the `ticker` -> array of standard [OrderDataV2](https://komodoplatform.com/en/docs/komodo-defi-framework/api/common_structures/orders/#order-data-v2) objects, where the `ticker` denotes the other coin of the trading pair. |
+| original\_tickers | list (string) | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file.                                                                                                                             |
 
 #### 📌 Examples
 
