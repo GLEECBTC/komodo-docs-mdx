@@ -2962,8 +2962,12 @@
     }
   },
   "/komodo-defi-framework/api": {
-    "dateModified": "2025-06-13T05:31:18.000Z",
+    "dateModified": "2025-07-04T02:46:27.000Z",
     "contributors": [
+      {
+        "name": "\"smk762\"",
+        "email": "smk762@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -2983,10 +2987,6 @@
       {
         "name": "\"gcharang\"",
         "email": "21151592+gcharang@users.noreply.github.com"
-      },
-      {
-        "name": "\"smk762\"",
-        "email": "smk762@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
@@ -3016,7 +3016,7 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "email": "smk762@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/legacy/active_swaps": {
@@ -4088,8 +4088,12 @@
     }
   },
   "/komodo-defi-framework/api/legacy/unban_pubkeys": {
-    "dateModified": "2024-03-12T16:57:58.000Z",
+    "dateModified": "2025-06-24T15:11:41.000Z",
     "contributors": [
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
+      },
       {
         "name": "\"gcharang\"",
         "email": "21151592+gcharang@users.noreply.github.com"
@@ -4105,8 +4109,8 @@
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
-      "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "name": "\"smk762\"",
+      "email": "smk@komodoplatform.com"
     }
   },
   "/komodo-defi-framework/api/legacy/update_maker_order": {
@@ -4881,7 +4885,7 @@
     }
   },
   "/komodo-defi-framework/api/v20/streaming/tx_history_enable": {
-    "dateModified": "2025-05-05T08:47:38.000Z",
+    "dateModified": "2025-07-04T02:17:21.000Z",
     "contributors": [
       {
         "name": "\"smk762\"",
@@ -5531,6 +5535,20 @@
     "previousPaths": [
       "/komodo-defi-framework/api/v20/update_version_stat_collection"
     ]
+  },
+  "/komodo-defi-framework/api/v20/wallet/delete_wallet": {
+    "dateModified": "2025-06-23T12:14:48.000Z",
+    "contributors": [
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
+      }
+    ],
+    "dateCreated": "2025-06-23T12:14:48.000Z",
+    "lastContributor": {
+      "name": "\"smk762\"",
+      "email": "smk@komodoplatform.com"
+    }
   },
   "/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas": {
     "dateModified": "2025-05-05T07:22:00.000Z",
@@ -6420,7 +6438,7 @@
     }
   },
   "/komodo-defi-framework/tutorials/api-walkthrough": {
-    "dateModified": "2025-05-28T07:02:21.000Z",
+    "dateModified": "2025-06-27T05:28:31.000Z",
     "contributors": [
       {
         "name": "\"smk762\"",

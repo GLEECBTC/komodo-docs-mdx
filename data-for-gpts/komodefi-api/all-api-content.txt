@@ -3355,6 +3355,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 | [coins\_needed\_for\_kick\_start](/komodo-defi-framework/api/legacy/coins_needed_for_kick_start/#coins-needed-for-kick-start)   |                                                                                                                                                              |                                                                                                                                                                               |
 | [convert\_utxo\_address](/komodo-defi-framework/api/legacy/convert_utxo_address/#convert-utxo-address)                          |                                                                                                                                                              |                                                                                                                                                                               |
 | [convertaddress](/komodo-defi-framework/api/legacy/convertaddress/#convertaddress)                                              |                                                                                                                                                              |                                                                                                                                                                               |
+|                                                                                                                                 | [delete\_wallet](/komodo-defi-framework/api/v20/wallet/delete_wallet/#delete-wallet)                                                                         |                                                                                                                                                                               |
 |                                                                                                                                 | [disable](/komodo-defi-framework/api/v20/streaming/disable/#disable)                                                                                         |                                                                                                                                                                               |
 | [disable\_coin](/komodo-defi-framework/api/legacy/disable_coin/#disable-coin)                                                   |                                                                                                                                                              |                                                                                                                                                                               |
 | [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method)                                                  |                                                                                                                                                              |                                                                                                                                                                               |
@@ -3493,6 +3494,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [task::withdraw::init](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-init)                                                      |                                                                                                                                                                               |
 |                                                                                                                                 | [task::withdraw::status](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-status)                                                  |                                                                                                                                                                               |
 | [trade\_preimage](/komodo-defi-framework/api/legacy/trade_preimage/#trade-preimage)                                             | [trade\_preimage](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/#trade-preimage)                                                            |                                                                                                                                                                               |
+|                                                                                                                                 | [tx\_history\_enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/#tx-history-enable)                                                         |                                                                                                                                                                               |
 | [unban\_pubkeys](/komodo-defi-framework/api/legacy/unban_pubkeys/#unban-pubkeys)                                                |                                                                                                                                                              |                                                                                                                                                                               |
 |                                                                                                                                 | [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/#update-channel)                                                                         |                                                                                                                                                                               |
 | [update\_maker\_order](/komodo-defi-framework/api/legacy/update_maker_order/#update-maker-order)                                |                                                                                                                                                              |                                                                                                                                                                               |
@@ -11389,12 +11391,12 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
   "userpass": "RPC_UserP@SSW0RD",
   "method": "unban_pubkeys",
   "unban_by": {
-    "type": "Few"
-  },
-  "data": [
-    "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
-    "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
-  ]
+    "type": "Few",
+    "data": [
+      "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+      "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
+    ]
+  }
 }
 ```
 
@@ -25000,6 +25002,104 @@ The `update_version_stat_collection` method updates the polling interval for ver
   "error_trace": "lp_stats:374]",
   "error_type": "NotRunning",
   "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Delete Wallet";
+export const description = "Securely deletes a wallet from the Komodo DeFi Framework.";
+
+# Delete Wallet
+
+## delete\_wallet {{label : 'delete_wallet', tag : 'API-v2'}}
+
+Securely deletes a wallet. The wallet must not be the currently active wallet. This action is irreversible.
+
+### Request Parameters
+
+| Parameter    | Type   | Required | Description                       |
+| ------------ | ------ | :------: | --------------------------------- |
+| wallet\_name | string |     ✓    | The name of the wallet to delete. |
+| password     | string |     ✓    | The password of the wallet.       |
+
+### Response Parameters
+
+The response for a successful request is `null`.
+
+#### 📌 Examples
+
+#### Request (Successful Deletion)
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "delete_wallet",
+  "mmrpc": "2.0",
+  "params": {
+    "wallet_name": "wallet-to-delete",
+    "password": "pass1"
+  }
+}
+```
+
+#### Response (Success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": null,
+  "id": 0
+}
+```
+
+### Error Types
+
+| Parameter                | Type   | Description                                                   |
+| :----------------------- | :----- | :------------------------------------------------------------ |
+| InvalidRequest           | string | The request is malformed or missing required parameters.      |
+| WalletNotFound           | string | The specified `wallet_name` was not found.                    |
+| InvalidPassword          | string | The provided `password` is incorrect.                         |
+| CannotDeleteActiveWallet | string | An attempt was made to delete the currently active wallet.    |
+| WalletsStorageError      | string | A storage-related error occurred while accessing wallet data. |
+| InternalError            | string | An internal server error occurred.                            |
+
+#### Error Response (Wallet Not Found)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Wallet 'non-existent-wallet' not found.",
+    "error_path": "mm2_main:lp_wallet:665",
+    "error_trace": "mm2_main:lp_wallet:665",
+    "error_type": "WalletNotFound",
+    "error_data": "Wallet 'non-existent-wallet' not found.",
+    "id": 0
+}
+```
+
+#### Error Response (Invalid Password)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Invalid password",
+    "error_path": "mm2_main:lp_wallet:665",
+    "error_trace": "mm2_main:lp_wallet:665",
+    "error_type": "InvalidPassword",
+    "error_data": "Invalid password",
+    "id": 0
+}
+```
+
+#### Error Response (Cannot Delete Active Wallet)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Cannot delete wallet 'active-wallet' as it is currently active.",
+    "error_path": "mm2_main:lp_wallet:658",
+    "error_trace": "mm2_main:lp_wallet:658",
+    "error_type": "CannotDeleteActiveWallet",
+    "error_data": "Cannot delete wallet 'active-wallet' as it is currently active.",
+    "id": 0
 }
 ```
 export const title = "Komodo DeFi Framework Method: Get ETH Estimated Fee per Gas";
