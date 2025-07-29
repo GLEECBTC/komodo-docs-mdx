@@ -1,8 +1,31 @@
-export const title = "ChangeLog";
+export const title = "Komodo DeFi Framework Change Log";
 export const description =
-  "Find the Changelogs of various versions of Komodo DeFi Framework  on this page.";
+  "Find the Changelogs of various versions of Komodo DeFi Framework on this page.";
 
 # Change Log
+
+## Komodo DeFi Framework v2.5.1-beta
+
+### Offline Private Key Export and First AI Agent Contribution
+
+This hotfix release addresses critical wallet management limitations by introducing essential functionality for offline private key export and wallet recovery operations. This release also marks a historic milestone as the first direct contribution from an AI agent to the Komodo DeFi Framework.
+
+### Release Notes
+
+#### 🔐 Private Key Management
+
+*   [feat(wallet): comprehensive offline private key export](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542): A comprehensive `get_private_keys` RPC method was implemented by Devin AI to provide robust offline private key, public key, and address export capabilities for any configured coin without requiring activation. This critical functionality supports both HD and Iguana wallet modes with protocol-specific logic for UTXO, EVM, Tendermint, and ZHTLC (shielded) coins, enabling essential wallet recovery operations.
+
+***
+
+### 🆕 New Contributors
+
+*   🤖 **Devin AI** made their first contribution in [PR #2542](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542)
+
+***
+
+**Full Changelog**: [Compare v2.5.0-beta...v2.5.1-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.0-beta...v2.5.1-beta)\
+**Release Binaries**: [v2.5.1-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.1-beta)
 
 ## Komodo DeFi Framework v2.4.0-beta
 
