@@ -5,19 +5,18 @@ export const description = "Return aggregated statistics on swap statuses (legac
 
 ## stats\_swap\_status {{label : 'stats_swap_status', tag : 'API-v1'}}
 
-
 ### Request Parameters
 
-| Parameter | Type   | Required | Description                        |
-| --------- | ------ | :------: | ---------------------------------- |
+| Parameter | Type   | Required | Description                                                                                           |
+| --------- | ------ | :------: | ----------------------------------------------------------------------------------------------------- |
 | uuid      | string |     ✓    | A valid swap UUID. For non-seed nodes, this must be a swap the querying KDF instance was involved in. |
 
 ### Response Parameters
 
-| Parameter     | Type             | Description                     |
-| ------------- | ---------------- | ------------------------------- |
-| maker         | object          | Maker side swap JSON data. |
-| taker         | object | Taker side swap JSON data. |
+| Parameter | Type   | Description                |
+| --------- | ------ | -------------------------- |
+| maker     | object | Maker side swap JSON data. |
+| taker     | object | Taker side swap JSON data. |
 
 <Note type="info">
   This method does not require a `userpass` value in the request.
@@ -30,8 +29,9 @@ export const description = "Return aggregated statistics on swap statuses (legac
   {
     "method": "stats_swap_status",
     "params": {
-        "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62"
-    }
+      "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   }
   ```
 </CodeGroup>

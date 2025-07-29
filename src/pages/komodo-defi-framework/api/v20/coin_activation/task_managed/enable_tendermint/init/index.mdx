@@ -9,15 +9,15 @@ Use this method for task managed activation of Tendermint coins. Refer to the [t
 
 ### Request Parameters
 
-| Parameter               | Type             | Required | Default | Description                                                                                                                                                                                                              |
-| ----------------------- | ---------------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ticker                  | string           |     ✓    |    -    | Ticker of the Tendermint-based coin you want to enable. |
-| nodes                   | array of objects |     ✓    |    -    | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |
-| tokens\_params           | array of objects |     ✗    |    -    | A list of standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) objects representing IBC assets to activate alongside the platform coin. |
-| get\_balances           | boolean          |     ✗    | `true`  | If `false`, balances will not be returned in the response, resulting in a faster reply. |
-| tx\_history             | boolean          |     ✗    | `false` | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method. |
-| path\_to\_address       | object           |     ✗    |    -    | A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object (`account/change/index`) used to derive a non-standard address. |
-| activation\_params      | object           |     ✗    |    -    | A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) object used when activating via Keplr, Ledger, or WalletConnect. |
+| Parameter          | Type             | Required | Default | Description                                                                                                                                                                                                                  |
+| ------------------ | ---------------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string           |     ✓    |    -    | Ticker of the Tendermint-based coin you want to enable.                                                                                                                                                                      |
+| nodes              | array of objects |     ✓    |    -    | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects.                                                                                                                   |
+| tokens\_params     | array of objects |     ✗    |    -    | A list of standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) objects representing IBC assets to activate alongside the platform coin.                        |
+| get\_balances      | boolean          |     ✗    |  `true` | If `false`, balances will not be returned in the response, resulting in a faster reply.                                                                                                                                      |
+| tx\_history        | boolean          |     ✗    | `false` | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method. |
+| path\_to\_address  | object           |     ✗    |    -    | A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object (`account/change/index`) used to derive a non-standard address.                                                           |
+| activation\_params | object           |     ✗    |    -    | A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) object used when activating via Keplr, Ledger, or WalletConnect.                                                   |
 
 ### Response Parameters
 
@@ -38,8 +38,12 @@ Use this method for task managed activation of Tendermint coins. Refer to the [t
     "params": {
       "ticker": "ATOM",
       "nodes": [
-        { "url": "https://cosmos-rpc.alpha.komodo.earth/" },
-        { "url": "https://cosmoshub.rpc.stakin-nodes.com/" }
+        {
+          "url": "https://cosmos-rpc.alpha.komodo.earth/"
+        },
+        {
+          "url": "https://cosmoshub.rpc.stakin-nodes.com/"
+        }
       ],
       "tx_history": true
     }
@@ -58,12 +62,18 @@ Use this method for task managed activation of Tendermint coins. Refer to the [t
     "params": {
       "ticker": "OSMO",
       "nodes": [
-        { "url": "https://osmosis-rpc.alpha.komodo.earth/" },
-        { "url": "https://osmosis.rpc.stakin-nodes.com" }
+        {
+          "url": "https://osmosis-rpc.alpha.komodo.earth/"
+        },
+        {
+          "url": "https://osmosis.rpc.stakin-nodes.com"
+        }
       ],
       "activation_params": {
         "type": "WalletConnect",
-        "params": { "session_topic": "YOUR_WC_SESSION_TOPIC" }
+        "params": {
+          "session_topic": "YOUR_WC_SESSION_TOPIC"
+        }
       }
     }
   }

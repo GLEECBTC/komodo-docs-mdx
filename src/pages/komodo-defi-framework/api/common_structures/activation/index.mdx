@@ -65,7 +65,7 @@ The `ActivationParams` object defines additional parameters used for activation.
 | min\_addresses\_number       | integer |     ✗    |          `-`         | HD wallets only. Number of addresses to generate. If not specified, addresses will be generated up to `path_to_address::address_index`.                                                                                                               |
 | scan\_policy                 | string  |     ✗    | `scan_if_new_wallet` | HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi API and may take some time to complete.                     |
 | gap\_limit                   | integer |     ✗    |         `20`         | HD wallets only. The max number of empty addresses in a row. Transactions sent to an address outside the `gap_limit`, will not be identified when scanning.                                                                                           |
-| path\_to\_address            | object  |     ✗    |          `-`         | HD wallets only. A standard [AddressDerivationPath](/komodo-defi-framework/api/common_structures/wallet/#address-derivation-path) object.                                                                                                             |
+| path\_to\_address            | object  |     ✗    |          `-`         | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.                                                                                                                                  |
 | get\_balances                | boolean |     ✗    |        `true`        | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                             |
 
 <DevComment>
@@ -84,7 +84,6 @@ The `ActivationParams` object defines additional parameters used for activation.
   desktop operating systems do not appear to have any problems with high CPU
   load during ZHTLC coin activation.
 </Note>
-
 
 ### ActivationServers
 

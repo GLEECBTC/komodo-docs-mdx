@@ -30,7 +30,8 @@ The `help` method returns the full API documentation in the terminal.
 <CodeGroup title="help" tag="POST" label="help" mm2MethodDecorate="true">
   ```json
   {
-    "method": "help"
+    "method": "help",
+    "userpass": "RPC_UserP@SSW0RD"
   }
   ```
 </CodeGroup>
@@ -43,7 +44,7 @@ The `help` method returns the full API documentation in the terminal.
   #### Response
 
   ```text
-  
+
         buy(base, rel, price, relvolume, timeout=10, duration=3600)
         electrum(coin, urls)
         enable(coin, urls, swap_contract_address)

@@ -22,17 +22,17 @@ It is the low-level (non-task-managed) variant of the `task::account_balance::*`
 
 ### Response Parameters
 
-| Parameter        | Type   | Description                                                               |
-| ---------------- | ------ | ------------------------------------------------------------------------- |
-| account\_index   | number | Account number that was queried.                                          |
-| derivation\_path | string | Root derivation path of the account (e.g., `m/44'/0'/0'`).                |
-| addresses        | list   | A list of objects containing each derived address and its balance.        |
-| page\_balance    | object | Combined balance of all addresses in the current page.                    |
-| limit            | number | Page size that was applied.                                               |
-| skipped          | number | Number of addresses skipped before the first item in `addresses`.         |
-| total            | number | Total number of known addresses for the account/chain.                    |
-| total\_pages     | number | Total number of pages based on `total` and `limit`.                       |
-| paging\_options  | object | Echoes the effective paging options that were used to in the request.     |
+| Parameter        | Type   | Description                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------- |
+| account\_index   | number | Account number that was queried.                                      |
+| derivation\_path | string | Root derivation path of the account (e.g., `m/44'/0'/0'`).            |
+| addresses        | list   | A list of objects containing each derived address and its balance.    |
+| page\_balance    | object | Combined balance of all addresses in the current page.                |
+| limit            | number | Page size that was applied.                                           |
+| skipped          | number | Number of addresses skipped before the first item in `addresses`.     |
+| total            | number | Total number of known addresses for the account/chain.                |
+| total\_pages     | number | Total number of pages based on `total` and `limit`.                   |
+| paging\_options  | object | Echoes the effective paging options that were used to in the request. |
 
 ### Address Balance Object
 
@@ -70,7 +70,7 @@ Each element of the `addresses` list has the following structure:
 
 <DevComment>
   The pagination params here are an abberation.
-  https://github.com/KomodoPlatform/komodo-defi-framework/issues/2511
+  [https://github.com/KomodoPlatform/komodo-defi-framework/issues/2511](https://github.com/KomodoPlatform/komodo-defi-framework/issues/2511)
 </DevComment>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
