@@ -61,8 +61,12 @@ const fileData = {};
             const authorSocials = authorsData[contributorLogin].socials
 
             const { response: userDataRes } = await httpsGet(userDataUrl(contributorLogin), options)
-            const userData = JSON.parse(userDataRes)
-            console.log(userData)
+            const userData = JSON.parse(userDataRes);
+
+            if (userData.message === "Not Found" || userData.status === "404") {
+                console.warn(`User data not found for: ${contributorLogin}`);
+                continue; // Skip to next contributor
+            }
 
             authorsData[contributorLogin].socials = {
                 ...authorSocials,
