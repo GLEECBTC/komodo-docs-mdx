@@ -2864,6 +2864,134 @@ The `FeeInfo` response object includes the following items for [withdraw (v2)](/
 }
 ```
 
+### HdCoinKeys
+
+Returned from the [`get_private_keys`](/komodo-defi-framework/api/v20/wallet/get_private_keys/) method, when `"mode": "hd"`.
+
+| Structure | Type                | Description                         |
+| --------- | ------------------- | ----------------------------------- |
+| coin      | string              | the coin ticker                     |
+| addresses | array of HdKeysInfo | array of derived addresses and keys |
+
+#### Example
+
+```json
+      {
+          "coin": "KMD",
+          "addresses": [...]
+      },
+```
+
+### HdKeysInfo
+
+| Structure        | Type              | Description                           |
+| ---------------- | ----------------- | ------------------------------------- |
+| derivation\_path | string            | BIP44 derivation path used            |
+| pubkey           | string            | public key                            |
+| address          | string            | derived address                       |
+| priv\_key        | string            | private key in appropriate format     |
+| viewing\_key     | string (optional) | viewing key for ZHTLC coins like ARRR |
+
+#### UTXO coin Example
+
+```json
+  {
+      "derivation_path": "m/44'/141'/0/0/0",
+      "pubkey": "02416813acfc3d051f2a3163241528331cb1407814ca7eda035e29dd81ce1a7360",
+      "address": "RLEiXpHJrBBFGLHfBVyKwB8pWyuZvTX46Q",
+      "priv_key": "Ur57s4Btk5zv7ts2Rb1vHUjDzcBUuPGXZtuLUKK2yUTSCyNiA82f"
+  }
+```
+
+#### ETH coin Example
+
+```json
+  {
+      "derivation_path": "m/44'/60'/0/0/0",
+      "pubkey": "0x47d306e1d039d958539d7b292c62a1da1d61eff2f4d8d96d35f3074032ef4a28f2434dab1170092591b955043792e6d8278d16b37363d79d34b5029dbe2d9a51",
+      "address": "0x614b89716A94b5be94a67540dF9A5bF1bE1685F3",
+      "priv_key": "0x4718e83c33159c53c19fbb44b98a5006a902d682ad096b2e1dbb7c55619463ac"
+  }
+```
+
+#### ZHTLC coin Example
+
+```json
+  {
+      "derivation_path": "m/44'/141'/0/0/0",
+      "pubkey": "02416813acfc3d051f2a3163241528331cb1407814ca7eda035e29dd81ce1a7360",
+      "address": "zs1tc85uguljgmhrhreqnsphanu4xura9lcn6zmz7qr3unsq5yr34kvl6938rvz7d2uml5g53ae3ys",
+      "priv_key": "secret-extended-key-main1qd0cv2y2qqqqpqye077hevux884lgksjtcqrxnc2qtdrfs05qh3h2wc99s8zc2fpke4auwnrwhpzqfzdudqn2t34t08d8rfvx3df02cgff82x5spg7lq28tvsr9vvwx6sdsymjc7fgk2ued06z9rzkp6lfczlx5ykj3mrqcy4l4wavgqsgzem0nunwzllely77k0ra86nhl936auh2qkuc3j3k75nmdw3cwaaevty6pq5wv57nxfqhwc2q4a97wpg2duxezegpkqe4cg05smz",
+      "viewing_key": "zxviews1qd0cv2y2qqqqpqye077hevux884lgksjtcqrxnc2qtdrfs05qh3h2wc99s8zc2fpkepkc20seu8dr44353s5ydt2vmlzr9jmk6dnqx2su6g2tp7jetqalgd45qweck6r54dexp2397m3qj2kwd5d8rq4fdu3lddh7fjc4awv4l4wavgqsgzem0nunwzllely77k0ra86nhl936auh2qkuc3j3k75nmdw3cwaaevty6pq5wv57nxfqhwc2q4a97wpg2duxezegpkqe4czeh3g2"
+  }
+```
+
+#### Tendermint coin Example
+
+```json
+  {
+      "derivation_path": "m/44'/118'/0/0/0",
+      "pubkey": "03888f72d067742f86922ed59e2e9c5ed4ac169ab930a1ef09d1073e8315c9057f",
+      "address": "cosmos1cfzlpyygw0vnjsqvgp0gnx52pd8ca4xqjs5cfu",
+      "priv_key": "c53a59347d214359d8b180c7d9d0ed4571d3e28e073ed3d4e366ab7556eaaa44"
+  }
+```
+
+### IguanaKeysInfo
+
+Returned from the [`get_private_keys`](/komodo-defi-framework/api/v20/wallet/get_private_keys/) method, when `"mode": "iguana"`.
+
+| Structure | Type   | Description                              |
+| --------- | ------ | ---------------------------------------- |
+| coin      | string | the coin ticker                          |
+| pubkey    | string | public key                               |
+| address   | string | coin address                             |
+| priv\_key | string | private key in WIF or appropriate format |
+
+#### UTXO coin Example
+
+```json
+  {
+      "coin": "KMD",
+      "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+      "address": "RQbyMz5jSBjidHkM4wRAhmbHUTSR7UehXG",
+      "priv_key": "UpaMPnKdPZJWBGb8whpQWjP5A61WpT6e2SUYQz4KyfkE4JzVU9ZF"
+  }
+```
+
+#### ETH coin Example
+
+```json
+  {
+      "coin": "ETH",
+      "pubkey": "0x99e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f4e4a134020143df1d5cc243bb558db3eb94060247efd2c0a92878378ec424957",
+      "address": "0x2E75c8e10541C1202bFA8E38440b51A78263a914",
+      "priv_key": "0x10e0c6d3fcfdfe38f9200d83d5d17383f8bc756bfbcf01d7ec147110eccaf67a"
+  }
+```
+
+#### ZHTLC coin Example
+
+```json
+  {
+      "coin": "ARRR",
+      "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+      "address": "zs1dapmqsrrepxxw9qy4x97k5wpztjd2z6tzkgtgnyhyukzks92tttm9cnye02c2yd8qd6ug7uysvf",
+      "priv_key": "secret-extended-key-main1qqqqqqqqqqqqqqqqn7vs773606gx6lu3yhnmefhmcq887pxauktferk7530gcjdag0ggkajtt2c0vprldflng26q20veqyeuywlfmzpvjypnup59mmcqzalxgdvh294lucfwa9dx9c4c5ufh8aqdnyuxcznuw87jdkcg6xg88f282k6f4vzkzprfqaxv0fe7spe7c7a0z35y4zrq9y8wllm0c680lp7rc6z555szreu2mh8kgztm2jp3u5e8erp320mftv30v7egzzg9tjxx5"
+  }
+```
+
+#### Tendermint coin Example
+
+```json
+  {
+      "coin": "ATOM",
+      "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+      "address": "cosmos14qtjek3vhdavfxv5q4mtywe75uvuatvud6fvv4",
+      "priv_key": "10e0c6d3fcfdfe38f9200d83d5d17383f8bc756bfbcf01d7ec147110eccaf67a"
+  }
+```
+
 ### HistoryTarget
 
 Used to specify a HD wallet `account_id` or `address_id` for [my\_tx\_history v2](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) requests.
@@ -3389,6 +3517,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [get\_nft\_list](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_list/#get-a-list-of-nfts)                                                        |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_nft\_metadata](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_metadata/#get-nft-metadata)                                                  |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_nft\_transfers](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_transfers/#get-a-list-of-nft-transfers)                                     |                                                                                                                                                                               |
+|                                                                                                                                 | [get\_private\_keys](/komodo-defi-framework/api/v20/wallet/get_private_keys/#get-private-keys)                                                               |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_public\_key](/komodo-defi-framework/api/v20/utils/get_public_key/#get-public-key)                                                                      |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_public\_key\_hash](/komodo-defi-framework/api/v20/utils/get_public_key_hash/#get-public-key-hash)                                                      |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_raw\_transaction](/komodo-defi-framework/api/v20/wallet/tx/get_raw_transaction/#get-raw-transaction)                                                   |                                                                                                                                                                               |
@@ -10902,12 +11031,10 @@ If your `setprice` order includes UTXO coins activated via electrum, and connect
 ```json
 { "error": "Rel coin REL is not found" }
 ```
-export const title = "Komodo DeFi Framework Method: Setprice";
-export const description = "The show_priv_key method returns the private key of the specified coin in a format compatible with coin wallets.";
+export const title = "Komodo DeFi Framework Method: show_priv_key";
+export const description = "The deprecated show_priv_key method returns the private key of a specified coin.";
 
 # show\_priv\_key
-
-**show\_priv\_key coin**
 
 The `show_priv_key` method returns the private key of the specified `coin` in a format compatible with `coin` wallets.
 The output can be used for the `importprivkey` method (UTXO coins) or as a private key for MyEtherWallet (ETH/ERC20).
@@ -10924,6 +11051,13 @@ The output can be used for the `importprivkey` method (UTXO coins) or as a priva
 | --------- | ------ | --------------------------- |
 | coin      | string | the name of the coin        |
 | priv\_key | string | the private key of the coin |
+
+This method is deprecated in favor of the v2.0 [`get_private_keys`](/komodo-defi-framework/api/v20/wallet/get_private_keys/) method. The new method offers several advantages:
+
+*   No requirement to activate coins prior to private key export
+*   Support for Hierarchical Deterministic (HD) derivation paths with configurable account and address indices
+*   Batch export capabilities for multiple coins
+*   Enhanced protocol support including ZHTLC coins with viewing keys
 
 #### 📌 Examples
 
@@ -25412,6 +25546,402 @@ The `set_swap_transaction_fee_policy` method allows you to set the gas fee polic
     "id": null
 }
 ```
+export const title = "Komodo DeFi Framework Method: get_private_keys";
+export const description = "The get_private_keys method provides unified offline private key export for a given array of coins.";
+
+# get\_private\_keys
+
+The `get_private_keys` method provides unified offline private key export functionality, with optional HD support.
+There are two export modes: `iguana` and `hd`. The mode to be used should match the MM2.json `enable_hd` configuration.
+This method supports various coin protocols including UTXO-based coins (Bitcoin, Komodo, etc.), Ethereum-based tokens, Tendermint-based coins, and ZHTLC.
+
+## Arguments
+
+| Structure      | Type               | Description                                                                                                      |
+| -------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| coins          | array of strings   | array of coin tickers to export private keys for                                                                 |
+| mode           | string (optional)  | export mode: `"hd"` for HD wallet export, `"iguana"` for legacy Iguana format. Defaults based on MM2.json config |
+| start\_index   | integer (optional) | `"mode": hd` only. starting address index for HD mode (default: 0).                                              |
+| end\_index     | integer (optional) | `"mode": hd` only. ending address index for HD mode (default: start\_index + 10).                                |
+| account\_index | integer (optional) | `"mode": hd` only. account index for HD derivation path (default: 0).                                            |
+
+## Response
+
+The response format depends on the `mode` value:
+
+### HD Mode Response
+
+| Structure | Type                                                                                     | Description                                           |
+| --------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| result    | array of [HdCoinKeys](/komodo-defi-framework/api/common_structures/wallet/#hd-coin-keys) | array of coin key information with HD derivation data |
+
+### Iguana Mode Response
+
+| Structure | Type                                                                                             | Description                                    |
+| --------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| result    | array of [IguanaKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#iguana-keys-info) | array of coin key information in Iguana format |
+
+For detailed information about the structure fields and examples for different coin types (UTXO, ETH, ZHTLC, Tendermint), refer to the [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) and [IguanaKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#iguana-keys-info) common structures.
+
+*   This method replaces the legacy `show_priv_key`, and works with coins that are not currently activated in MM2 (as long as they are in the `coins` configuration).
+*   For HD mode, the maximum range is 100 addresses per request to prevent excessive resource usage. Make multiple requests if you need more addresses.
+*   For HD mode, keys from any account or address index are available for any coin which includes a `derivation_path` value in the `coins` configuration.
+*   ZHTLC coins like ARRR include additional `viewing_key` field in HD mode responses for enhanced privacy features.
+
+#### 📌 Examples
+
+#### Command (HD Mode)
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "method": "get_private_keys",
+  "params": {
+    "mode": "hd",
+    "coins": [
+      "KMD",
+      "ETH",
+      "ARRR",
+      "ATOM",
+      "LTC-segwit"
+    ],
+    "start_index": 0,
+    "end_index": 1,
+    "account_index": 0
+  }
+}
+```
+
+#### Response (HD Mode)
+
+Each coin object contains an array of [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) objects:
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": [
+      {
+          "coin": "KMD",
+          "addresses": [
+              {
+                  "derivation_path": "m/44'/141'/0/0/0",
+                  "pubkey": "02416813acfc3d051f2a3163241528331cb1407814ca7eda035e29dd81ce1a7360",
+                  "address": "RLEiXpHJrBBFGLHfBVyKwB8pWyuZvTX46Q",
+                  "priv_key": "Ur57s4Btk5zv7ts2Rb1vHUjDzcBUuPGXZtuLUKK2yUTSCyNiA82f"
+              },
+              {
+                  "derivation_path": "m/44'/141'/0/0/1",
+                  "pubkey": "02acd4bb36d93065879be4aae17c62791898ce366adb732b03dc0ce8092d04944b",
+                  "address": "RJyVMQknrJnGBQVUrSBNffc2BD8j7kM6w1",
+                  "priv_key": "UuMf4R7qEccYNDQWKYeooBANodhfev37QyoAnqZyb2VQz3CFGPH2"
+              }
+          ]
+      },
+      {
+          "coin": "ETH",
+          "addresses": [
+              {
+                  "derivation_path": "m/44'/60'/0/0/0",
+                  "pubkey": "0x47d306e1d039d958539d7b292c62a1da1d61eff2f4d8d96d35f3074032ef4a28f2434dab1170092591b955043792e6d8278d16b37363d79d34b5029dbe2d9a51",
+                  "address": "0x614b89716A94b5be94a67540dF9A5bF1bE1685F3",
+                  "priv_key": "0x4718e83c33159c53c19fbb44b98a5006a902d682ad096b2e1dbb7c55619463ac"
+              },
+              {
+                  "derivation_path": "m/44'/60'/0/0/1",
+                  "pubkey": "0xde36fe6b0b1eaea7447e4bb3a56c8755fd5cf5d3fd9885a0582c99777229052e1b7019075669c5d65d4878b3db06e0b534159b0ba762714737677711b3375a3f",
+                  "address": "0x49F4A1c47579d9603100Fc50e227079794335f20",
+                  "priv_key": "0xe6a0f10b28192d2823433ec7121633c5d85239799b50e1e93280d000ad6a1341"
+              }
+          ]
+      },
+      {
+          "coin": "ARRR",
+          "addresses": [
+              {
+                  "derivation_path": "m/44'/141'/0/0/0",
+                  "pubkey": "02416813acfc3d051f2a3163241528331cb1407814ca7eda035e29dd81ce1a7360",
+                  "address": "zs1tc85uguljgmhrhreqnsphanu4xura9lcn6zmz7qr3unsq5yr34kvl6938rvz7d2uml5g53ae3ys",
+                  "priv_key": "secret-extended-key-main1qd0cv2y2qqqqpqye077hevux884lgksjtcqrxnc2qtdrfs05qh3h2wc99s8zc2fpke4auwnrwhpzqfzdudqn2t34t08d8rfvx3df02cgff82x5spg7lq28tvsr9vvwx6sdsymjc7fgk2ued06z9rzkp6lfczlx5ykj3mrqcy4l4wavgqsgzem0nunwzllely77k0ra86nhl936auh2qkuc3j3k75nmdw3cwaaevty6pq5wv57nxfqhwc2q4a97wpg2duxezegpkqe4cg05smz",
+                  "viewing_key": "zxviews1qd0cv2y2qqqqpqye077hevux884lgksjtcqrxnc2qtdrfs05qh3h2wc99s8zc2fpkepkc20seu8dr44353s5ydt2vmlzr9jmk6dnqx2su6g2tp7jetqalgd45qweck6r54dexp2397m3qj2kwd5d8rq4fdu3lddh7fjc4awv4l4wavgqsgzem0nunwzllely77k0ra86nhl936auh2qkuc3j3k75nmdw3cwaaevty6pq5wv57nxfqhwc2q4a97wpg2duxezegpkqe4czeh3g2"
+              },
+              {
+                  "derivation_path": "m/44'/141'/0/0/1",
+                  "pubkey": "02acd4bb36d93065879be4aae17c62791898ce366adb732b03dc0ce8092d04944b",
+                  "address": "zs1gzddrvely0w04ugfgqaqnmsfdastjpgncedzk9duepvfwfwv3gnz7sqtwypp3g76szhxvky9fct",
+                  "priv_key": "secret-extended-key-main1qhcqkcgnqyqqqq9mxw0qagvy89vdgmxn97jekuuatm3vcta2ejc9ehqdj7zafu370h2ph55942ysapxklzx4mv79mzceh0yxx5xfe3kau0lt7l5c5hfqfqg93fwm9rjq2avx8rpq77j38cwk8zgezn22qa097r5pezmg5qcfq86sup92ffwjachkeqfmla94ta5vp5jp3fzl32d669602w05xxavm0zr4nc476dy8gk2dytl79zcwrvpmnl5mg94r5mdecnsnwwexqsp3k56y",
+                  "viewing_key": "zxviews1qhcqkcgnqyqqqq9mxw0qagvy89vdgmxn97jekuuatm3vcta2ejc9ehqdj7zafu370k24wlc7y7w6we2eck5cxa675cjmmhu8ya8ujlq37fvf8sdkl0tvqad6s8qscj7aynlw9wpta7meyap5z02ha8hq5eta0v7je7zv6esuq86sup92ffwjachkeqfmla94ta5vp5jp3fzl32d669602w05xxavm0zr4nc476dy8gk2dytl79zcwrvpmnl5mg94r5mdecnsnwwexqs8ypfm4"
+              }
+          ]
+      },
+      {
+          "coin": "ATOM",
+          "addresses": [
+              {
+                  "derivation_path": "m/44'/118'/0/0/0",
+                  "pubkey": "03888f72d067742f86922ed59e2e9c5ed4ac169ab930a1ef09d1073e8315c9057f",
+                  "address": "cosmos1cfzlpyygw0vnjsqvgp0gnx52pd8ca4xqjs5cfu",
+                  "priv_key": "c53a59347d214359d8b180c7d9d0ed4571d3e28e073ed3d4e366ab7556eaaa44"
+              },
+              {
+                  "derivation_path": "m/44'/118'/0/0/1",
+                  "pubkey": "03d4da08e60e30d01dd9a17f4056302139461b168dbc3ef1fe6e4a97d467106774",
+                  "address": "cosmos1zx32jeyv22quwke3rl75076l53rqusve9vcnuy",
+                  "priv_key": "f297934a5b4bfbd814e3201dd9ebfa806eec220eed0382253ecbca9bd153286d"
+              }
+          ]
+      },
+      {
+          "coin": "LTC-segwit",
+          "addresses": [
+              {
+                  "derivation_path": "m/84'/2'/0/0/0",
+                  "pubkey": "02e32887fa81f83a4ff7a19f0852fd81bd55777e9b18c5568c677ea15259072cab",
+                  "address": "ltc1qmqpl475drzjhlun0fpap2ktq2ctflhzyqqzphl",
+                  "priv_key": "T87JyKC4cVCEtjEHjUDEH5vZibLb6VjjvKiaS9pre9JM77NrDcMe"
+              },
+              {
+                  "derivation_path": "m/84'/2'/0/0/1",
+                  "pubkey": "03a99ef21c9df994f508f893490efad0677697dffd7f16b61082b89e5057bd9196",
+                  "address": "ltc1qrm26v0v6m58r3wa0nrzs90f7gd7tqrl92fpup8",
+                  "priv_key": "T5BeXdbLb6JhJbUaLAiHJVLk2GB6ZZizGQWWBefQWuJuJrzYRtUZ"
+              }
+          ]
+      }
+  ],
+  "id": null
+}
+```
+
+#### Command (Iguana Mode)
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "get_private_keys",
+  "coins": [
+    "KMD",
+    "ETH",
+    "ARRR",
+    "ATOM",
+    "LTC-segwit"
+  ],
+  "mode": "iguana"
+}
+```
+
+#### Response (Iguana Mode)
+
+Each item is an [IguanaKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#iguana-keys-info) object:
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": [
+      {
+          "coin": "KMD",
+          "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+          "address": "RQbyMz5jSBjidHkM4wRAhmbHUTSR7UehXG",
+          "priv_key": "UpaMPnKdPZJWBGb8whpQWjP5A61WpT6e2SUYQz4KyfkE4JzVU9ZF"
+      },
+      {
+          "coin": "ETH",
+          "pubkey": "0x99e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f4e4a134020143df1d5cc243bb558db3eb94060247efd2c0a92878378ec424957",
+          "address": "0x2E75c8e10541C1202bFA8E38440b51A78263a914",
+          "priv_key": "0x10e0c6d3fcfdfe38f9200d83d5d17383f8bc756bfbcf01d7ec147110eccaf67a"
+      },
+      {
+          "coin": "ARRR",
+          "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+          "address": "zs1dapmqsrrepxxw9qy4x97k5wpztjd2z6tzkgtgnyhyukzks92tttm9cnye02c2yd8qd6ug7uysvf",
+          "priv_key": "secret-extended-key-main1qqqqqqqqqqqqqqqqn7vs773606gx6lu3yhnmefhmcq887pxauktferk7530gcjdag0ggkajtt2c0vprldflng26q20veqyeuywlfmzpvjypnup59mmcqzalxgdvh294lucfwa9dx9c4c5ufh8aqdnyuxcznuw87jdkcg6xg88f282k6f4vzkzprfqaxv0fe7spe7c7a0z35y4zrq9y8wllm0c680lp7rc6z555szreu2mh8kgztm2jp3u5e8erp320mftv30v7egzzg9tjxx5"
+      },
+      {
+          "coin": "ATOM",
+          "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+          "address": "cosmos14qtjek3vhdavfxv5q4mtywe75uvuatvud6fvv4",
+          "priv_key": "10e0c6d3fcfdfe38f9200d83d5d17383f8bc756bfbcf01d7ec147110eccaf67a"
+      },
+      {
+          "coin": "LTC-segwit",
+          "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+          "address": "LaYjYgWGv2BCp65JmuRLtGKqvQM6crcRD4",
+          "priv_key": "T3cnXqzqHiJrV4RvJo5gxeFEAsbgoRqv58zyhXuC5vhggLfJvQF7"
+      }
+  ],
+  "id": null
+}
+```
+
+## Error Types
+
+| Error Type               | Description                                                              |
+| ------------------------ | ------------------------------------------------------------------------ |
+| HdRangeTooLarge          | `end_index` must not be > 100 higher than `start_index`                  |
+| InvalidHdRange           | `start_index`must be ≤ `end_index`                                       |
+| InvalidRequest           | `start_index`, `end_index` or `account_index` value must not be negative |
+| KeyDerivationFailed      | Many causes, see examples below for more information                     |
+| CoinConfigNotFound       | Requested coin does not exist in coins configuration                     |
+| InvalidParametersForMode | HD-specific parameters provided when using Iguana mode                   |
+
+#### Response (Error)
+
+#### HdRangeTooLarge (negative index)
+
+When the `end_index` value is less than the `start_index` value
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "HD index range is too large: maximum range is 100 addresses",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:672]",
+  "error_type": "HdRangeTooLarge",
+  "id": null
+}
+```
+
+#### InvalidHdRange (negative index)
+
+When the `end_index` value is less than the `start_index` value
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "HD index range is invalid: start_index 22 must be less than or equal to end_index 1",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:637]",
+  "error_type": "InvalidHdRange",
+  "error_data": {
+      "start_index": 22,
+      "end_index": 1
+  },
+  "id": null
+}
+```
+
+#### InvalidRequest (negative index)
+
+When the `start_index`, `end_index` or `account_index` value is negative
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Error parsing request: invalid value: integer `-560`, expected u32",
+  "error_path": "dispatcher",
+  "error_trace": "dispatcher:125]",
+  "error_type": "InvalidRequest",
+  "error_data": "invalid value: integer `-560`, expected u32",
+  "id": null
+}
+```
+
+#### KeyDerivationFailed (index overflow)
+
+When the `start_index`, `end_index` or `account_index` value is too high
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Failed to derive keys for KMD: Invalid derivation path m/44'/141'/4294967295'/0/0: Bip32Error(ChildNumber)",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:314]",
+  "error_type": "KeyDerivationFailed",
+  "error_data": {
+      "ticker": "KMD",
+      "error": "Invalid derivation path m/44'/141'/4294967295'/0/0: Bip32Error(ChildNumber)"
+  },
+  "id": null
+}
+```
+
+#### CoinConfigNotFound (Unsupported coin)
+
+When sending a query to a coin which is not present in the coins configuration file.
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Coin configuration not found for COVID",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:275]",
+  "error_type": "CoinConfigNotFound",
+  "error_data": "COVID",
+  "id": null
+}
+```
+
+#### KeyDerivationFailed (Unsupported coin)
+
+When sending a query to a coin which has no `derivation_path` defined in the coins configuration file.
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Failed to derive keys for BBK: Derivation path not defined for this coin. HD mode requires a valid derivation_path in the coin configuration.",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:281]",
+  "error_type": "KeyDerivationFailed",
+  "error_data": {
+      "ticker": "BBK",
+      "error": "Derivation path not defined for this coin. HD mode requires a valid derivation_path in the coin configuration."
+  },
+  "id": null
+}
+```
+
+#### KeyDerivationFailed (wrong mode)
+
+When sending a query with `"mode": "hd"`, while KDF configuration is set to `"enable_hd": false`
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Failed to derive keys for ETH: HD key derivation requires GlobalHDAccount mode. Please initialize with HD wallet.",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:303]",
+  "error_type": "KeyDerivationFailed",
+  "error_data": {
+      "ticker": "ETH",
+      "error": "HD key derivation requires GlobalHDAccount mode. Please initialize with HD wallet."
+  },
+  "id": null
+}
+```
+
+#### KeyDerivationFailed (wrong mode)
+
+When sending a query with `"mode": "iguana"`, while KDF configuration is set to `"enable_hd": true`
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Failed to derive keys for ARRR: Iguana key derivation requires Iguana mode",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:583]",
+  "error_type": "KeyDerivationFailed",
+  "error_data": {
+      "ticker": "ARRR",
+      "error": "Iguana key derivation requires Iguana mode"
+  },
+  "id": null
+}
+```
+
+#### InvalidParametersForMode
+
+When attempting to use the `start_index`, `end_index` or `account_index` when `"mode": "iguana"`
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Invalid parameters: start_index and end_index are only valid for HD mode",
+  "error_path": "offline_keys",
+  "error_trace": "offline_keys:650]",
+  "error_type": "InvalidParametersForMode",
+  "id": null
+}
+```
 export const title = "Komodo DeFi Framework Method: Get Wallet Names";
 export const description = "The get_wallet_names method returns a list of wallet names for a user's device.";
 
@@ -30420,11 +30950,34 @@ Both of the above queries return the same result.
 
 ```json
 ```
-export const title = "ChangeLog";
+export const title = "Komodo DeFi Framework Change Log";
 export const description =
-  "Find the Changelogs of various versions of Komodo DeFi Framework  on this page.";
+  "Find the Changelogs of various versions of Komodo DeFi Framework on this page.";
 
 # Change Log
+
+## Komodo DeFi Framework v2.5.1-beta
+
+### Offline Private Key Export and First AI Agent Contribution
+
+This hotfix release addresses critical wallet management limitations by introducing essential functionality for offline private key export and wallet recovery operations. This release also marks a historic milestone as the first direct contribution from an AI agent to the Komodo DeFi Framework.
+
+### Release Notes
+
+#### 🔐 Private Key Management
+
+*   [feat(wallet): comprehensive offline private key export](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542): A comprehensive `get_private_keys` RPC method was implemented by Devin AI to provide robust offline private key, public key, and address export capabilities for any configured coin without requiring activation. This critical functionality supports both HD and Iguana wallet modes with protocol-specific logic for UTXO, EVM, Tendermint, and ZHTLC (shielded) coins, enabling essential wallet recovery operations.
+
+***
+
+### 🆕 New Contributors
+
+*   🤖 **Devin AI** made their first contribution in [PR #2542](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542)
+
+***
+
+**Full Changelog**: [Compare v2.5.0-beta...v2.5.1-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.0-beta...v2.5.1-beta)\
+**Release Binaries**: [v2.5.1-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.1-beta)
 
 ## Komodo DeFi Framework v2.4.0-beta
 
