@@ -710,6 +710,10 @@
           {
             "title": "Task: Withdraw",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/"
+          },
+          {
+            "title": "get_private_keys",
+            "href": "/komodo-defi-framework/api/v20/wallet/get_private_keys/"
           }
         ]
       },
