@@ -48,6 +48,86 @@ The `send_raw_transaction` method broadcasts the transaction to the network of t
   ```
 </CollapsibleSection>
 
+#### Request (SIA protocol)
+
+For SIA protocol withdrawals, instead of using the `tx_hex`, we use the `tx_json` value returned from the v1 [withdraw](/komodo-defi-framework/api/legacy/withdraw/#withdraw) method, or the non-task v2 [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/#withdraw) method.
+
+<CodeGroup title="send_raw_transaction" tag="POST" label="send_raw_transaction" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "send_raw_transaction",
+    "coin": "SC",
+    "tx_json": {
+      "siacoinInputs": [
+        {
+          "parent": {
+            "id": "db712a113806580ec2cce966135ebf139d0e1086bf04cf84b7fe554ec25bb5a7",
+            "stateElement": {
+              "leafIndex": 72996955,
+              "merkleProof": [
+                "a6f1306840881651aea186e25ae4de9932e58c8178fef43586a9f9fa52b99d1a",
+                "c7158f7aba1d3954f0d56e8a96a1bfe360038b249b7cdcf941da4c974974be89",
+                "64295af67329a2f6f91e10ace99a379e4df6cdfc2405db967f4857226dafaa53",
+                "42a6529a8ef4a849b716071d66bb84d7e929fc1ad671d04229992ff670e3627f",
+                "665e3a2f25267de5e35b5076895438745cd1101ae7c337a3139b910460d8bb36",
+                "84b54d73a6b74c3abb152e7d6f30a1fae6b411522353a7f25220095ed4ae5cbf",
+                "73c4dd35635c1707d322035c52a9cc9cf96766e9adcea4ed675c851d6ae50b3b",
+                "bad7c9a405bbc576a99718cb4c3889b8710db975b2b03e327653170956457bef",
+                "c734b54b9e42c8aa3d6adf11ffa257b474d9cc7036a31aff7c11d0a02b7f2ca4",
+                "c72d15d701e5f83c3db6a0b2ab5f85a932541d4bef41028f19751081996e0f2c",
+                "f2eab142e8a752abb6fc6a0b3f2e3199ed22ff74c701e44676192696e784675a",
+                "d3a9e8d681ba7231fdcef7d795ff5acb1469bf7c17317c8ea59f60fd3963d776",
+                "80a16928a727b386dd824ba1f82a03da2f41a1583b14c21cc1fc0de7af2f5c4e",
+                "7dece8216b769ba9b15b27d00a728cbdbc2d4c72bc7cf93fe9ff48c7f739069e",
+                "cd2dd16a38a0443dc2ad93faefaf7974842dcab419ea1ce1f1b82f97adb81b1a",
+                "ab734606431ad3a6c50a5d3cbff9f340cedef606407e952af55476e6b51f43a6",
+                "5f728bfbc9494ec8ec9f76b229bf85f184fddd3c305b2a91e74546a821a664b6"
+              ]
+            },
+            "siacoinOutput": {
+              "value": "50000000000000000000000000",
+              "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+            },
+            "maturityHeight": 0
+          },
+          "satisfiedPolicy": {
+            "policy": {
+              "type": "pk",
+              "policy": "ed25519:c94acdcbd6a44c25a2640191afd80d6ef6c692c3a0faa0db3cec0189d90f6cd1"
+            },
+            "signatures": [
+              "2ab2ef985c6ebc396caddf60671a5205d4b62201293b90ccdb939fc70fb1a9dd5449a53d21541362cc194674d4e8bc215116b9014b1cee6d625176e647df670d"
+            ]
+          }
+        }
+      ],
+      "siacoinOutputs": [
+        {
+          "value": "1025000000000000000000000",
+          "address": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2"
+        },
+        {
+          "value": "48974990000000000000000000",
+          "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+        }
+      ],
+      "minerFee": "10000000000000000000"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "tx_hash": "0b024ea6997e16387c0931de9f203d534c6b2b8500e4bda2df51a36b52a3ef33"
+  }
+  ```
+</CollapsibleSection>
+
 
 #### Request (SIA protocol)
 

@@ -30,9 +30,8 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
 | current\_block | number           | the number of the latest block of coin blockchain                                                                                                                                                    |
 | sync\_status   | object           | A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status) object. Provides the information that helps to track the progress of transaction history preloading at background |
 
-
 <Note>
-  For SIA protocol coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method. 
+  For SIA protocol coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method.
   The v2 [my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/#my-tx-history) method is not yet compatible.
 </Note>
 
@@ -511,15 +510,15 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   ### Error Response
-```json
-{
-    "mmrpc": "2.0",
-    "error": "SC",
-    "error_path": "my_tx_history_v2",
-    "error_trace": "my_tx_history_v2:385]",
-    "error_type": "NotSupportedFor",
-    "error_data": "SC",
-    "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "SC",
+      "error_path": "my_tx_history_v2",
+      "error_trace": "my_tx_history_v2:385]",
+      "error_type": "NotSupportedFor",
+      "error_data": "SC",
+      "id": null
+  }
+  ```
 </CollapsibleSection>
