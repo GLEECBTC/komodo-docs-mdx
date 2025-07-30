@@ -50,7 +50,7 @@ Some reasons you might not be able to get a new address are:
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response (success - Single Token Platform)
 
   ```json
   {
@@ -61,8 +61,40 @@ Some reasons you might not be able to get a new address are:
               "derivation_path": "m/44'/141'/0'/0/3",
               "chain": "External",
               "balance": {
-                  "spendable": "0",
-                  "unspendable": "0"
+                  "DOC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                  }
+              }
+          }
+      },
+      "id": null
+  }
+  ```
+
+  #### Response (success - Multi-Token Platform)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "new_address": {
+              "address": "0xAcDf1eb42FF03F5a2aCFc4B40CBDE459A515498A",
+              "derivation_path": "m/44'/60'/0'/0/1",
+              "chain": "External",
+              "balance": {
+                  "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                  },
+                  "USDT-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                  },
+                  "XRP-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                  }
               }
           }
       },
