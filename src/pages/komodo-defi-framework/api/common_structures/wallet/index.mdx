@@ -455,8 +455,53 @@ The `NewAddressInfo` response object includes the following items for request in
 | ---------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | address          | string | The account address for a specific derivation path under the `account_index`.                                                                                                                                                                                                 |
 | derivation\_path | string | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address. If there are no more addresses with balances within the gap limit, the address index will increment.                                                              |
-| balance          | object | A map/object where keys are token/coin tickers and values are [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) objects. Single-token platforms (like KMD) will have one entry, while multi-token platforms (like ETH) can have multiple entries for different tokens. |
+| balance          | map    | A map of [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) objects, sitting under their coin ticker. Platforms like ETH will may also return for balance info for activated tokens. |
 | chain            | string | `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change. |
+
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+
+#### UTXO response
+
+  ```json
+  {
+      "address": "RU6M7iE1X1LddbmSfvsW66KQJmbAegePrJ",
+      "derivation_path": "m/44'/141'/0'/0/3",
+      "chain": "External",
+      "balance": {
+          "KMD": {
+              "spendable": "0",
+              "unspendable": "0"
+          }
+      }
+  }
+  ```
+
+
+#### Platform with tokens response
+
+  ```json
+  {
+    "address": "0xAcDf1eb42FF03F5a2aCFc4B40CBDE459A515498A",
+    "derivation_path": "m/44'/60'/0'/0/1",
+    "chain": "External",
+    "balance": {
+      "XRP-ERC20": {
+        "spendable": 0,
+        "unspendable": 0
+      },
+      "USDT-ERC20": {
+        "spendable": 0,
+        "unspendable": 0
+      },
+      "ETH": {
+        "spendable": 0,
+        "unspendable": 0
+      }
+    }
+  }
+  ```
+
+</CollapsibleSection>
 
 ### PayForGas
 
