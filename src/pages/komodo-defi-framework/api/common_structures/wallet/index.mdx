@@ -3,31 +3,6 @@ export const description = "Starting with version beta-2.1.3434, the Komodo DeFi
 
 # Wallet Operations Structures
 
-### AccountAddressInfo
-
-The `AccountAddressInfo` object includes the following items for active addresses in the activation response for a coin in HD mode:
-
-| Parameter        | Type   | Description                                                                                                 |
-| ---------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
-| address          | string | The account address for a specific derivation path under the `account_index`.                               |
-| derivation\_path | string | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address. |
-| chain            | string | `External` or `Internal`, as defined in the activation request.                                             |
-| balance          | object | A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.         |
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  ```json
-  {
-      "address": "RXNtAyDSsY3DS3VxTpJegzoHU9bUX54j56",
-      "derivation_path": "m/44'/141'/0'/0/0",
-      "chain": "External",
-      "balance": {
-          "spendable": "7.64018255",
-          "unspendable": "0"
-      }
-  }
-  ```
-</CollapsibleSection>
-
 ### AddressDerivationPath
 
 The `AddressDerivationPath` object defines the account / change / address\_index of the [derivation path](https://medium.com/mycrypto/wtf-is-a-derivation-path-c3493ca2eb52) used for your wallet. Using different values for `account_id` or `address_id` parameters will result in a different address and private key for each combination. The `chain` parameter is used to specify if the change from a transaction. Set to `External` for addresses that are intended to be visible outside of the wallet (e.g. for receiving payments). `Internal` is used for addresses which are not meant to be visible outside of the wallet and is used to return the leftover change from a transaction.
