@@ -1,23 +1,107 @@
-export const title = "Komodo DeFi SDK RPC Protocol v2.0";
+export const title = "Komodo DeFi Framework Method: Common Structures";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
 
-# Komodo DeFi SDK Common Structures
+# Common Structures
+
+## common-structures {{label : 'common_structures', tag : 'overview'}}
 
 The objects are in the request or response of multiple Komodo DeFi SDK methods have been grouped into the following sections:
 
-<TocForIndex />
+*   [Activation Common Structures](/komodo-defi-framework/api/common_structures/activation/): Details on activation modes, parameters, and server configurations for various coin types.
+*   [Enums](/komodo-defi-framework/api/common_structures/enums/): Enumerated values used across multiple methods, such as swap types, order statuses, and key policies.
+*   [Lightning Common Structures](/komodo-defi-framework/api/common_structures/lightning/): Objects for Lightning Network operations, including channel and payment configurations.
+*   [NFT Common Structures](/komodo-defi-framework/api/common_structures/nfts/): Structures for non-fungible token (NFT) operations, filters, and metadata.
+*   [Order Common Structures](/komodo-defi-framework/api/common_structures/orders/): Structures for orderbook entries, order data, and related parameters.
+*   [Swap Common Structures](/komodo-defi-framework/api/common_structures/swaps/): Objects and events related to atomic swaps, including event types and swap status.
+    *   [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/): Step-by-step events and outcomes for atomic swaps from the maker's perspective.
+    *   [Taker Events](/komodo-defi-framework/api/common_structures/swaps/taker_events/): Step-by-step events and outcomes for atomic swaps from the taker's perspective.
+*   [Wallet Common Structures](/komodo-defi-framework/api/common_structures/wallet/): Structures for wallet operations, address derivation, balances, and key management.
 
 Structures which are used in more than one section are listed below:
+
+### EventStreamConfig
+
+The `EventStreamConfig` object defines which events will be streamed to the client:
+
+| Parameter                      | Type   | Required | Default | Description                                                |
+| ------------------------------ | ------ | :------: | :-----: | ---------------------------------------------------------- |
+| access\_control\_allow\_origin | string |     ✗    |   `-`   | Defines CORS whitelist. Use "\*" to allow from any origin. |
+| worker\_path                   | string |     ✗    |   `-`   | WASM only. Path to a custom `worker.js` file.              |
+
+Configurable events, and how to enable them, is detailed in the [streaming methods doc](/komodo-defi-framework/api/v20/streaming/)
+
+An example of the event stream output can then be viewed in [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=CLIENT\_ID](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=0)
+
+The `CLIENT_ID` value used in the url must match the `client_id` value used when enabling streaming events. In the case of a single client only, defining the client\_id is not required (it will default to `0`).
+
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  ```json
+  {
+      "access_control_allow_origin": "*",
+      "worker_path": "index.js"
+  }
+  ```
+</CollapsibleSection>
+
+### FilterCriteria
+
+The 'FilterCriteria' object allows you to filter the results based on specific parameters.
+
+| Parameter       | Type   | Required | Default | Description                                    |
+| --------------- | ------ | :------: | :-----: | ---------------------------------------------- |
+| status          | string |     ✗    |   `-`   | Status of the transactions (e.g., "completed") |
+| date\_from      | string |     ✗    |   `-`   | Start date in ISO 8601 format                  |
+| date\_to        | string |     ✗    |   `-`   | End date in ISO 8601 format                    |
+| my\_coin        | string |     ✗    |   `-`   | Coin being used by you for the swap/trade.     |
+| other\_coin     | string |     ✗    |   `-`   | Coin you are trading against                   |
+| from\_timestamp | number |     ✗    |   `-`   | Start timestamp in UNIX format                 |
+| to\_timestamp   | number |     ✗    |   `-`   | End timestamp in UNIX format                   |
+
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  #### Example
+
+  ```json
+  {
+    "filter": {
+      "status": "completed",
+      "date_from": "2024-01-01T00:00:00Z",
+      "date_to": "2024-07-01T00:00:00Z",
+      "my_coin": "BTC",
+      "other_coin": "ETH",
+      "from_timestamp": 1672531200,
+      "to_timestamp": 1704067200
+    }
+  }
+  ```
+</CollapsibleSection>
+
+### FractionalValue
+
+The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
+
+| Parameter | Type             | Required | Description                              |
+| --------- | ---------------- | :------: | ---------------------------------------- |
+| numer     | string (numeric) |     ✓    | The numerator of the fractional value.   |
+| denom     | string (numeric) |     ✓    | The denominator of the fractional value. |
+
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  ```json
+  {
+      "numer": "4561782244811",
+      "denom": "4000000"
+  }
+  ```
+</CollapsibleSection>
 
 ### NumericFormatsValue
 
 The `NumericFormatsValue` returns a price or amount in three different formats: `fraction`, `rational`, and `decimal`.
 
-| Parameter | Type           | Description                                                                                          |
-| --------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| decimal   | numeric string | A decimal number as a string.                                                                        |
-| rational  | object         | A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.     |
-| fraction  | object         | A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
+| Parameter | Type           | Required | Description                                                                                          |
+| --------- | -------------- | :------: | ---------------------------------------------------------------------------------------------------- |
+| decimal   | numeric string |     ✓    | A decimal number as a string.                                                                        |
+| rational  | object         |     ✓    | A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.     |
+| fraction  | object         |     ✓    | A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -35,20 +119,26 @@ The `NumericFormatsValue` returns a price or amount in three different formats: 
   ```
 </CollapsibleSection>
 
-### FractionalValue
+### PagingOptions
 
-The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
+The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
 
-| Parameter | Type             | Description                              |
-| --------- | ---------------- | ---------------------------------------- |
-| numer     | string (numeric) | The numerator of the fractional value.   |
-| denom     | string (numeric) | The denominator of the fractional value. |
+| Parameter    | Type             | Required | Default | Description                                                                                                            |
+| ------------ | ---------------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------- |
+| from\_uuid   | string (or null) |     ✗    |  `null` | Skips records until this UUID, excluding the record with this UUID. Convenient for infinite scrolling implementations. |
+| limit        | number           |     ✗    |   `-`   | Limits the number of returned swaps.                                                                                   |
+| page\_number | number           |     ✗    |   `-`   | Returns limit swaps from the selected page. This parameter is ignored if from\_uuid is set.                            |
 
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  #### Example
+
   ```json
   {
-      "numer": "4561782244811",
-      "denom": "4000000"
+    "paging_options": {
+      "from_uuid": null,
+      "limit": 10,
+      "page_number": 1
+    }
   }
   ```
 </CollapsibleSection>
@@ -57,10 +147,10 @@ The `FractionalValue` object includes a [numerator and denominator](https://www.
 
 For requests which return many results, pagination offsets may be applied. \*\* Use either value, not both. \*\*
 
-| Parameter  | Type    | Description                                             |
-| ---------- | ------- | ------------------------------------------------------- |
-| PageNumber | integer | Optional, defaults to `1`. Offset for paginated results |
-| FromId     | integer | Optional. Ignores any results prior to this UUID        |
+| Parameter  | Type    | Required | Default | Description                            |
+| ---------- | ------- | :------: | :-----: | -------------------------------------- |
+| PageNumber | integer |     ✗    |   `1`   | Offset for paginated results           |
+| FromId     | integer |     ✗    |   `-`   | Ignores any results prior to this UUID |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -82,29 +172,31 @@ For requests which return many results, pagination offsets may be applied. \*\* 
 
 The Komodo DeFi SDK now offers the [num-rational crate](https://crates.io/crates/num-rational) feature which allows for higher precision numeric values to represent order volumes and prices in a unique format as explained below:
 
-```json
-[
-  [1, [0, 1]],
-  [1, [1]]
-]
-```
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  ```json
+  [
+    [1, [0, 1]],
+    [1, [1]]
+  ]
+  ```
 
-In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
+  In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
 
-The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
+  The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
 
-`[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
+  `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
-`[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
+  `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
+</CollapsibleSection>
 
 ### StreamingConfig
 
 You can optionally apply more detailed configuration to event streaming methods.
 
-| Parameter                 | Type    | Description                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| stream\_interval\_seconds | float   | Interval in seconds between streaming event update requests. Defaults to `10` for [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) and `5` for [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)/[stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/) |
-| always\_send              | boolean | [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/) only. Optional, defaults to `false`. If `true`, network data will always be sent every `stream_interval_seconds`, even when there is no change. If `false`, network data will be sent regardless.                                                                         |
+| Parameter                 | Type    | Required |  Default | Description                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------- | ------- | :------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| stream\_interval\_seconds | float   |     ✗    | `10`/`5` | Interval in seconds between streaming event update requests. Defaults to `10` for [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) and `5` for [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)/[stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/) |
+| always\_send              | boolean |     ✗    |  `false` | [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/) only. If `true`, network data will always be sent every `stream_interval_seconds`, even when there is no change. If `false`, network data will be sent regardless.                                                                                                        |
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -114,13 +206,15 @@ You can optionally apply more detailed configuration to event streaming methods.
       "stream_interval_seconds": 33.3
   }
   ```
+</CollapsibleSection>
 
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ### StreamingFeeConfig
 
-  | Parameter       | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                   |
-  | --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | estimate\_every | float  | Optional, defaults to `15`. Interval in seconds between fee estimate updates.                                                                                                                                                                                                                                                                                                                                                 |
-  | estimate\_type  | string | Optional, defaults to `Simple`. If set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/) Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/streaming/fee_estimator/) only. |
+  | Parameter       | Type   | Required |  Default | Description                                                                                                                                                                                                                                                                                                                                                                                   |
+  | --------------- | ------ | :------: | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | estimate\_every | float  |     ✗    |   `15`   | Interval in seconds between fee estimate updates.                                                                                                                                                                                                                                                                                                                                             |
+  | estimate\_type  | string |     ✗    | `Simple` | If set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/) Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/streaming/fee_estimator/) only. |
 
   #### Example (stream::fee\_estimator::enable)
 
@@ -132,45 +226,21 @@ You can optionally apply more detailed configuration to event streaming methods.
   ```
 </CollapsibleSection>
 
-### EventStreamConfig
-
-The `EventStreamConfig` object defines which events will be streamed to the client:
-
-| Parameter                      | Type   | Description                                                |
-| ------------------------------ | ------ | ---------------------------------------------------------- |
-| access\_control\_allow\_origin | string | Defines CORS whitelist. Use "\*" to allow from any origin. |
-| worker\_path                   | string | WASM only. Path to a custom `worker.js` file.              |
-
-Configurable events, and how to enable them, is detailed in the [streaming methods doc](/komodo-defi-framework/api/v20/streaming/)
-
-An example of the event stream output can then be viewed in [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=CLIENT\_ID](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=0)
-
-The `CLIENT_ID` value used in the url must match the `client_id` value used when enabling streaming events. In the case of a single client only, defining the client\_id is not required (it will default to `0`).
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  ```json
-  {
-      "access_control_allow_origin": "*",
-      "worker_path": "index.js"
-  }
-  ```
-</CollapsibleSection>
-
 ### SyncStatus
 
-| Parameter        | Type   | Description                                                                                                                                                                                                     |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| state            | string | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                                                                                           |
-| additional\_info | object | A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only. |
+| Parameter        | Type   | Required | Description                                                                                                                                                                                                     |
+| ---------------- | ------ | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| state            | string |     ✓    | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                                                                                           |
+| additional\_info | object |     ✓    | A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only. |
 
 ### SyncStatusExtended
 
-| Parameter          | Type   | Description                                                                                                  |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
-| blocks\_left       | number | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state  |
-| transactions\_left | number | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state |
-| code               | number | displays the error code for `Error` state                                                                    |
-| message            | number | displays the error message for `Error` state                                                                 |
+| Parameter          | Type   | Required | Description                                                                                                  |
+| ------------------ | ------ | :------: | ------------------------------------------------------------------------------------------------------------ |
+| blocks\_left       | number |     ✗    | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state  |
+| transactions\_left | number |     ✗    | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state |
+| code               | number |     ✗    | displays the error code for `Error` state                                                                    |
+| message            | number |     ✗    | displays the error message for `Error` state                                                                 |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -199,62 +269,6 @@ The `CLIENT_ID` value used in the url must match the `client_id` value used when
       "sync_status": {
         "state": "Finished"
       }
-  }
-  ```
-</CollapsibleSection>
-
-### FilterCriteria
-
-The 'FilterCriteria' object allows you to filter the results based on specific parameters.
-
-| Parameter       | Type   | Description                                    |
-| --------------- | ------ | ---------------------------------------------- |
-| status          | string | Status of the transactions (e.g., "completed") |
-| date\_from      | string | \`Start date in ISO 8601 format                |
-| date\_to        | string | End date in ISO 8601 format                    |
-| my\_coin        | string | Coin being used by you for the swap/trade.     |
-| other\_coin     | string | Coin you are trading against                   |
-| from\_timestamp | number | Start timestamp in UNIX format                 |
-| to\_timestamp   | number | End timestamp in UNIX format                   |
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  #### Example
-
-  ```json
-  {
-    "filter": {
-      "status": "completed",
-      "date_from": "2024-01-01T00:00:00Z",
-      "date_to": "2024-07-01T00:00:00Z",
-      "my_coin": "BTC",
-      "other_coin": "ETH",
-      "from_timestamp": 1672531200,
-      "to_timestamp": 1704067200
-    }
-  }
-  ```
-</CollapsibleSection>
-
-### PagingOptions
-
-The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
-
-| Parameter    | Type             | Description                                                                                                            |
-| ------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| from\_uuid   | string (or null) | Skips records until this UUID, excluding the record with this UUID. Convenient for infinite scrolling implementations. |
-| limit        | number           | Limits the number of returned swaps.                                                                                   |
-| page\_number | number           | Returns limit swaps from the selected page. This parameter is ignored if from\_uuid is set.                            |
-
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
-  #### Example
-
-  ```json
-  {
-    "paging_options": {
-      "from_uuid": null,
-      "limit": 10,
-      "page_number": 1
-    }
   }
   ```
 </CollapsibleSection>
@@ -323,16 +337,17 @@ The `WcSession` object contains details of active WalletConnect sessions.
 | namespaces     | object  | Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection). |
 | expiry         | integer | A timestamp in [unix epoch format](https://www.epochconverter.com/) indicating when the connection will expire if not otherwise closed.                                                                                                                                    |
 
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
-  #### Example
-
-  ```json
-
-
-  ```
-</CollapsibleSection>
-
 Within each session object, there are a some values which are required as input in other WalletConnect methods:
 
 *   `pairing_topic`: Only used when initally connecting with external wallets/dapps.
 *   `topic`: Once connected, this is use for communications with the connected external wallet/dapp.
+
+### ErrorResponse
+
+| Parameter    | Type   | Description                                    |
+| ------------ | ------ | ---------------------------------------------- |
+| error        | string | A human-readable error message.                |
+| error\_path  | string | The path in the code where the error occurred. |
+| error\_trace | string | A stack trace of the error.                    |
+| error\_type  | string | The type of the error.                         |
+| error\_data  | object | Additional data related to the error.          |

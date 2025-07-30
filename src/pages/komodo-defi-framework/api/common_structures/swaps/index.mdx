@@ -1,16 +1,18 @@
 export const title = "Komodo DeFi SDK Common Structures: Swaps";
 export const description = "Each active or completed trade from the Komodo DeFi SDK includes an unique identifier (UUID), a summary of the trade and detailed information relating to each swap event.";
 
-# Swap Structures
+# Swap Common Structures
+
+## swaps\_common\_structures {{label : 'swaps_common_structures', tag : 'structures'}}
 
 ### SwapEvent
 
 There are a variety if swap events which may occur during a trade. See [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) and [Taker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) for more info.
 
-| Parameter | Type   | Description                                                                                                                                                                              |
-| --------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type      | string | See [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) and [Taker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) for more info. |
-| data      | varies | The data field may contain contextual information (e.g. txids) releated to a swap event. In some cases, it will be `null`.                                                               |
+| Parameter | Type   | Required | Description                                                                                                                                                                              |
+| --------- | ------ | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type      | string |     ✓    | See [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) and [Taker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) for more info. |
+| data      | varies |     ✓    | The data field may contain contextual information (e.g. txids) releated to a swap event. In some cases, it will be `null`.                                                               |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -30,10 +32,10 @@ There are a variety if swap events which may occur during a trade. See [Maker Ev
 
 For each step of a trade, a `SwapEvent` will be created, alongside the timestamp of the event. See [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) and [Taker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/) for more info.
 
-| Parameter | Type    | Description                                                                                    |
-| --------- | ------- | ---------------------------------------------------------------------------------------------- |
-| timestamp | integer | Timestamp for the `SwapEvent` in UNIX format.                                                  |
-| event     | object  | A standard [SwapEvent](/komodo-defi-framework/api/common_structures/swaps/#swap-event) object. |
+| Parameter | Type    | Required | Description                                                                                    |
+| --------- | ------- | :------: | ---------------------------------------------------------------------------------------------- |
+| timestamp | integer |     ✓    | Timestamp for the `SwapEvent` in UNIX format.                                                  |
+| event     | object  |     ✓    | A standard [SwapEvent](/komodo-defi-framework/api/common_structures/swaps/#swap-event) object. |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -56,19 +58,19 @@ Each swap status will be nested under its associated UUID.
   We should add a "maker" resonse example also. Unsure if `uuid` on maker side is swap or order uuid in response.
 </DevComment>
 
-| Parameter       | Type           | Description                                                                                                                                                                                                                                                                 |
-| --------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type            | string         | `Maker` or `Taker`. Indicates if the user created the order (maker), or matched with an existing order (taker).                                                                                                                                                             |
-| uuid            | string         | A unique identifier for the swap.                                                                                                                                                                                                                                           |
-| events          | list           | A list of swap events. The structure of each event varies depending on its type, as detailed in the [SwapEvents](/komodo-defi-framework/api/common_structures/swaps/) section.                                                                                              |
-| maker\_coin     | string         | The coin being sent by the maker and received by the taker.                                                                                                                                                                                                                 |
-| taker\_coin     | string         | The coin being sent by the taker and received by the maker.                                                                                                                                                                                                                 |
-| maker\_amount   | numeric string | The amount of `maker_coin` being traded.                                                                                                                                                                                                                                    |
-| taker\_amount   | numeric string | The amount of `taker_coin` being traded.                                                                                                                                                                                                                                    |
-| gui             | string         | An identifier for the GUI used to initiate the swap, as defined in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/). May be `null` if not defined.                                                                                                    |
-| mm\_version     | string         | The release version and/or commit hash of the Komodo DeFi SDK used to initiate the swap.                                                                                                                                                                                    |
-| success\_events | list           | A list of possible swap event types for a successful swap, for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-success-events) and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-success-events).         |
-| error\_events   | list           | A list of possible swap event types which may appear in a failed swap, for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-error-events) and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-error-events). |
+| Parameter       | Type           | Required | Default | Description                                                                                                                                                                                                                                                                 |
+| --------------- | -------------- | :------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type            | string         |     ✓    |   `-`   | `Maker` or `Taker`. Indicates if the user created the order (maker), or matched with an existing order (taker).                                                                                                                                                             |
+| uuid            | string         |     ✓    |   `-`   | A unique identifier for the swap.                                                                                                                                                                                                                                           |
+| events          | list           |     ✓    |   `-`   | A list of swap events. The structure of each event varies depending on its type, as detailed in the [SwapEvents](/komodo-defi-framework/api/common_structures/swaps/) section.                                                                                              |
+| maker\_coin     | string         |     ✓    |   `-`   | The coin being sent by the maker and received by the taker.                                                                                                                                                                                                                 |
+| taker\_coin     | string         |     ✓    |   `-`   | The coin being sent by the taker and received by the maker.                                                                                                                                                                                                                 |
+| maker\_amount   | numeric string |     ✓    |   `-`   | The amount of `maker_coin` being traded.                                                                                                                                                                                                                                    |
+| taker\_amount   | numeric string |     ✓    |   `-`   | The amount of `taker_coin` being traded.                                                                                                                                                                                                                                    |
+| gui             | string         |     ✗    |  `null` | An identifier for the GUI used to initiate the swap, as defined in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/).                                                                                                                                  |
+| mm\_version     | string         |     ✓    |   `-`   | The release version and/or commit hash of the Komodo DeFi SDK used to initiate the swap.                                                                                                                                                                                    |
+| success\_events | list           |     ✓    |   `-`   | A list of possible swap event types for a successful swap, for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-success-events) and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-success-events).         |
+| error\_events   | list           |     ✓    |   `-`   | A list of possible swap event types which may appear in a failed swap, for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-error-events) and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-error-events). |
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
