@@ -3064,8 +3064,12 @@
     }
   },
   "/komodo-defi-framework/api/legacy/ban_pubkey": {
-    "dateModified": "2025-06-13T04:52:26.000Z",
+    "dateModified": "2025-07-30T04:58:45.000Z",
     "contributors": [
+      {
+        "name": "\"smk762\"",
+        "email": "smk762@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -3086,7 +3090,7 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "email": "smk762@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/legacy/batch_requests": {
@@ -3562,8 +3566,12 @@
     }
   },
   "/komodo-defi-framework/api/legacy/list_banned_pubkeys": {
-    "dateModified": "2024-03-12T16:57:58.000Z",
+    "dateModified": "2025-07-30T04:35:41.000Z",
     "contributors": [
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
+      },
       {
         "name": "\"gcharang\"",
         "email": "21151592+gcharang@users.noreply.github.com"
@@ -3575,8 +3583,8 @@
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
-      "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "name": "\"smk762\"",
+      "email": "smk@komodoplatform.com"
     }
   },
   "/komodo-defi-framework/api/legacy/max_taker_vol": {
@@ -4092,7 +4100,7 @@
     }
   },
   "/komodo-defi-framework/api/legacy/unban_pubkeys": {
-    "dateModified": "2025-06-24T15:11:41.000Z",
+    "dateModified": "2025-07-30T04:35:41.000Z",
     "contributors": [
       {
         "name": "\"smk762\"",
@@ -8426,15 +8434,15 @@
     }
   },
   "/smart-chains/changelog": {
-    "dateModified": "2025-07-29T09:59:05.000Z",
+    "dateModified": "2025-07-29T14:11:58.000Z",
     "contributors": [
-      {
-        "name": "\"smk762\"",
-        "email": "smk@komodoplatform.com"
-      },
       {
         "name": "\"gcharang\"",
         "email": "gcharang@users.noreply.github.com"
+      },
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
       },
       {
         "name": "\"gcharang\"",
@@ -8451,8 +8459,8 @@
     ],
     "dateCreated": "2023-05-02T11:06:41.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/smart-chains": {
