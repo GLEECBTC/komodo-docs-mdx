@@ -1136,6 +1136,23 @@
         "links": []
       },
       {
+        "title": "Structure Types",
+        "links": [
+          {
+            "title": "Enums",
+            "href": "/komodo-defi-framework/api/common_structures/enums/"
+          },
+          {
+            "title": "Error Types",
+            "href": "/komodo-defi-framework/api/common_structures/error_types/"
+          },
+          {
+            "title": "Rational Number Note",
+            "href": "/komodo-defi-framework/api/common_structures/rational_number_note/"
+          }
+        ]
+      },
+      {
         "title": "Activation Structures",
         "titleLink": "/komodo-defi-framework/api/common_structures/activation/",
         "links": []
