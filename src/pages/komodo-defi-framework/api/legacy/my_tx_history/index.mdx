@@ -54,20 +54,6 @@ The coin that is used must have `tx_history` set to true in its [enable](/komodo
   ```
 </CodeGroup>
 
-#### Command (max = true)
-
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "my_tx_history",
-    "coin": "DOC",
-    "max": true,
-    "from_id": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1"
-  }
-  ```
-</CodeGroup>
-
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
@@ -244,6 +230,119 @@ The coin that is used must have `tx_history` set to true in its [enable](/komodo
   }
   ```
 </CollapsibleSection>
+
+#### Command (SIA protocol)
+
+<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "coin": "SC"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+```json
+{
+    "result": {
+        "transactions": [
+            {
+                "tx_json": {
+                    "siacoinInputs": [
+                        {
+                            "parent": {
+                                "id": "e232c76500158d111693aa0a2f92683b929a93a9023ec3435716948fde0831cb",
+                                "stateElement": {
+                                    "leafIndex": 72991968,
+                                    "merkleProof": [
+                                        "e526b7e1a12c33386df66bc9ed69badf3b9e0c7fc851a21696acfe1ec439dc06",
+                                        "d0074383fe04c814b0d0b15ec8b9159f2953a6d58d9c4727b204cb86de72fa01",
+                                        "74d3023099e6b583339ed87c4cc63cad3847be1c269eef65250edabdff1e5bc1",
+                                        "10f71682b0c4b579381ff27cf79fd36e1832e845c7d82099b798db193d9b99f3",
+                                        "1b6d93d9e88ae6d60947fa760e244de57b642841b52a3656b9f45330508c3220",
+                                        "9a89aa85a8aa158b79f902ec38f83e597ed5108183e8e8c1c3eeb05bd3e13796",
+                                        "5b952646b357c6ddfc755b21dacd01872d14b796cadcf47a073c2b25e19023e2",
+                                        "e270234376eecef1f27d5fed84afa31797e5b5112b10c2d180ce69b5474e6102",
+                                        "280b21d97d2de7349f2b6013ae0ad7f815b971422e251e563b9f52a3c8d9d467",
+                                        "6f947f44a03528a2aa668e5acbca4eb111c0ec64a7486dd9e0280e35d1464d1f",
+                                        "2a4aedff9498f57d8b9ab2ca2799454c7764145cd72c3435562466ab51f20e17",
+                                        "07890c9cedb91eb153c3a3a7d0625835936cda1dd71d7bbbef5f9b2a3ee8474e"
+                                    ]
+                                },
+                                "siacoinOutput": {
+                                    "value": "500000000000000000000000000",
+                                    "address": "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a"
+                                },
+                                "maturityHeight": 0
+                            },
+                            "satisfiedPolicy": {
+                                "policy": {
+                                    "type": "pk",
+                                    "policy": "ed25519:3517d3f1e892076895f996bf220fad4578bcbda8064840644175e4ef86834946"
+                                },
+                                "signatures": [
+                                    "fdac21b9fd51754e48d4884c46fbc81b57ee92d249e49fc47df546a30cf4fcb824e5ea4a8bd5e6e9a7714b2a830a75acf5c2b282b3736bf098ea2977a32d7f09"
+                                ]
+                            }
+                        }
+                    ],
+                    "siacoinOutputs": [
+                        {
+                            "value": "50000000000000000000000000",
+                            "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+                        },
+                        {
+                            "value": "449999990000000000000000000",
+                            "address": "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a"
+                        }
+                    ],
+                    "minerFee": "10000000000000000000"
+                },
+                "tx_hash": "bdf2c3885adaacf88f0042d2738daff4dc5ae8b3d3a61ea3c3497c28be6d2499",
+                "from": [
+                    "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a"
+                ],
+                "to": [
+                    "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db",
+                    "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a"
+                ],
+                "total_amount": "500.000000000000000000000000",
+                "spent_by_me": "0.000000000000000000000000",
+                "received_by_me": "50.000000000000000000000000",
+                "my_balance_change": "50.000000000000000000000000",
+                "block_height": 528310,
+                "timestamp": 1750438004,
+                "fee_details": {
+                    "type": "Sia",
+                    "coin": "SC",
+                    "policy": "Unknown",
+                    "total_amount": "0.000010000000000000000000"
+                },
+                "coin": "SC",
+                "internal_id": "",
+                "transaction_type": "SiaV2Transaction",
+                "memo": null,
+                "confirmations": 705
+            }
+        ],
+        "limit": 10,
+        "skipped": 0,
+        "from_id": null,
+        "total": 1,
+        "current_block": 529014,
+        "sync_status": {
+            "state": "NotEnabled"
+        },
+        "page_number": null,
+        "total_pages": 1
+    }
+}
+```
+</CollapsibleSection>
+
+### Error Responses
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   ### Error - Coin not active

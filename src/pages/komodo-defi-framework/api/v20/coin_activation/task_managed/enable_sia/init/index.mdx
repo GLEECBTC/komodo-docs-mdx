@@ -1,0 +1,67 @@
+export const title = "Komodo DeFi Framework Method: Initialize SIA Activation";
+export const description = "Initializes the activation of the SIA coin.";
+
+# Initialize SIA Activation
+
+## task::enable\_sia::init {{label : 'task::enable_sia::init', tag : 'API-v2'}}
+
+This method starts the task of activating the SIA coin. It returns a task ID that can be used with the `status` and `user_action` methods to monitor and complete the activation process.
+
+<Note>
+  For SIA protocol coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method.
+  The v2 [my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/#my-tx-history) method is not yet compatible.
+  To access the SIA methods, KDF must be built with the `--features "enable-sia,run-sia-functional-tests"` flags.
+</Note>
+
+### Request Parameters
+
+| Parameter                | Type   | Required | Default | Description                                                                |
+| :----------------------- | :----- | :------: | :-----: | :------------------------------------------------------------------------- |
+| client\_conf             | object |     ✓    |    -    | An object containing the SIA client configuration.                         |
+| client\_conf.server\_url | string |     ✓    |    -    | The URL of the SIA public node. e.g., `https://api.siascan.com/wallet/api` |
+| client\_conf.password    | string |     ✓    |    -    | The password for the SIA wallet daemon.                                    |
+| tx\_history              | bool   |     ✗    | `false` | Whether to enable transaction history for the coin.                        |
+
+### Response Parameters
+
+| Parameter | Type    | Description                    |
+| :-------- | :------ | :----------------------------- |
+| task\_id  | integer | The ID of the activation task. |
+
+#### 📌 Examples
+
+#### Request (Initialize SIA Activation)
+
+<CodeGroup title="Initialize SIA Activation" tag="POST" label="task::enable_sia::init">
+  ```json
+  {
+    "userpass": "{{userpass}}",
+    "mmrpc": "2.0",
+    "method": "task::enable_sia::init",
+    "params": {
+        "ticker": "SC",
+        "tx_history": true,
+        "activation_params": {
+            "client_conf": {
+                "server_url": "https://api.siascan.com/wallet/api",
+                "password": "password"
+            }
+        }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (Success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

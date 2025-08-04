@@ -2559,11 +2559,12 @@
     "response",
     "examples",
     "command",
-    "command-max-true",
     "response-success",
     "response-sync-in-progress-for-utxo-coins",
     "response-sync-in-progress-for-eth-erc-20-coins",
     "response-successful-result-in-case-of-eth-erc-20-coins",
+    "command-sia-protocol",
+    "error-responses",
     "error-coin-not-active",
     "error-coin-not-compatible",
     "error-coin-enabled-without-tx-history-true",
@@ -2648,11 +2649,14 @@
   ],
   "src/pages/komodo-defi-framework/api/legacy/send_raw_transaction/index.mdx": [
     "send-raw-transaction",
-    "arguments",
+    "send-raw-transaction-2",
+    "request-arguments",
+    "response-parameters",
+    "example",
+    "request",
     "response",
-    "examples",
-    "command",
-    "response-success"
+    "request-sia-protocol",
+    "response-2"
   ],
   "src/pages/komodo-defi-framework/api/legacy/set_required_confirmations/index.mdx": [
     "set-required-confirmations",
@@ -2760,6 +2764,8 @@
     "examples",
     "withdraw-utxo-based-coins",
     "response-kmd-success",
+    "withdraw-sia-protocol-coins",
+    "response-kmd-success-2",
     "withdraw-utxo-based-coins-with-fixed-fee",
     "response-success",
     "response-error-attempt-to-use-eth-gas-for-utxo-coin",
@@ -2936,6 +2942,47 @@
     "examples-3",
     "command-3",
     "response-success-2"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/cancel/index.mdx": [
+    "cancel-sia-activation",
+    "task-enable-sia-cancel",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "request-cancel-task",
+    "response-success"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/index.mdx": [
+    "enable-sia",
+    "task-enable-sia"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/init/index.mdx": [
+    "initialize-sia-activation",
+    "task-enable-sia-init",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "request-initialize-sia-activation",
+    "response-success"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/status/index.mdx": [
+    "sia-activation-status",
+    "task-enable-sia-status",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "request-check-status",
+    "response-in-progress",
+    "response-success"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/user_action/index.mdx": [
+    "sia-user-action",
+    "task-enable-sia-user-action",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "request-provide-user-action",
+    "response-success"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/index.mdx": [
     "task-tendermint-activation",
@@ -3985,7 +4032,8 @@
     "request-bch-with-from-id",
     "response-5",
     "request-iris-with-limit-50",
-    "response-6"
+    "response-6",
+    "error-response"
   ],
   "src/pages/komodo-defi-framework/api/v20/wallet/tx/sign_raw_transaction/index.mdx": [
     "sign-raw-transaction",
@@ -4022,10 +4070,12 @@
     "response-success-3",
     "eth-erc-20-and-other-eth-based-forks-with-gas-fee",
     "response-success-4",
-    "withdraw-maximum",
+    "withdraw-sia-protocol",
     "response-success-5",
-    "withdraw-qrc-20-coins",
+    "withdraw-maximum",
     "response-success-6",
+    "withdraw-qrc-20-coins",
+    "response-success-7",
     "withdraw-qrc-20-coins-with-gas-limit",
     "withdraw-with-broadcast-true",
     "withdraw-tendermint-coins-with-a-memo-and-custom-gas-fee",

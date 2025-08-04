@@ -1,0 +1,47 @@
+export const title = "Komodo DeFi Framework Method: Cancel SIA Activation";
+export const description = "Cancels an ongoing SIA coin activation task.";
+
+# Cancel SIA Activation
+
+## task::enable\_sia::cancel {{label : 'task::enable_sia::cancel', tag : 'API-v2'}}
+
+This method cancels an ongoing SIA activation task.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                              |
+| :-------- | :------ | :------: | :--------------------------------------- |
+| task\_id  | integer |     ✓    | The ID of the activation task to cancel. |
+
+### Response Parameters
+
+The response indicates if the task was successfully cancelled.
+
+#### 📌 Examples
+
+#### Request (Cancel Task)
+
+<CodeGroup title="Cancel SIA Activation" tag="POST" label="task::enable_sia::cancel">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_sia::cancel",
+    "params": {
+      "task_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (Success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

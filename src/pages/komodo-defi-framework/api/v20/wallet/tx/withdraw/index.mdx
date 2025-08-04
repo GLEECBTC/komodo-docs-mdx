@@ -366,6 +366,116 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CollapsibleSection>
 
+#### Withdraw SIA protocol
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "SC",
+      "to": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2",
+      "max": true
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "tx_json": {
+            "siacoinInputs": [
+                {
+                    "parent": {
+                        "id": "db712a113806580ec2cce966135ebf139d0e1086bf04cf84b7fe554ec25bb5a7",
+                        "stateElement": {
+                            "leafIndex": 72996955,
+                            "merkleProof": [
+                                "a6f1306840881651aea186e25ae4de9932e58c8178fef43586a9f9fa52b99d1a",
+                                "c7158f7aba1d3954f0d56e8a96a1bfe360038b249b7cdcf941da4c974974be89",
+                                "64295af67329a2f6f91e10ace99a379e4df6cdfc2405db967f4857226dafaa53",
+                                "42a6529a8ef4a849b716071d66bb84d7e929fc1ad671d04229992ff670e3627f",
+                                "665e3a2f25267de5e35b5076895438745cd1101ae7c337a3139b910460d8bb36",
+                                "84b54d73a6b74c3abb152e7d6f30a1fae6b411522353a7f25220095ed4ae5cbf",
+                                "73c4dd35635c1707d322035c52a9cc9cf96766e9adcea4ed675c851d6ae50b3b",
+                                "bad7c9a405bbc576a99718cb4c3889b8710db975b2b03e327653170956457bef",
+                                "c734b54b9e42c8aa3d6adf11ffa257b474d9cc7036a31aff7c11d0a02b7f2ca4",
+                                "c72d15d701e5f83c3db6a0b2ab5f85a932541d4bef41028f19751081996e0f2c",
+                                "f2eab142e8a752abb6fc6a0b3f2e3199ed22ff74c701e44676192696e784675a",
+                                "d3a9e8d681ba7231fdcef7d795ff5acb1469bf7c17317c8ea59f60fd3963d776",
+                                "80a16928a727b386dd824ba1f82a03da2f41a1583b14c21cc1fc0de7af2f5c4e",
+                                "7dece8216b769ba9b15b27d00a728cbdbc2d4c72bc7cf93fe9ff48c7f739069e",
+                                "cd2dd16a38a0443dc2ad93faefaf7974842dcab419ea1ce1f1b82f97adb81b1a",
+                                "ab734606431ad3a6c50a5d3cbff9f340cedef606407e952af55476e6b51f43a6",
+                                "5f728bfbc9494ec8ec9f76b229bf85f184fddd3c305b2a91e74546a821a664b6"
+                            ]
+                        },
+                        "siacoinOutput": {
+                            "value": "50000000000000000000000000",
+                            "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+                        },
+                        "maturityHeight": 0
+                    },
+                    "satisfiedPolicy": {
+                        "policy": {
+                            "type": "pk",
+                            "policy": "ed25519:c94acdcbd6a44c25a2640191afd80d6ef6c692c3a0faa0db3cec0189d90f6cd1"
+                        },
+                        "signatures": [
+                            "63e098063a54b59d43d8be73975a329df4a85e8a3b76f7a273c06436f1e6054a59e0b1653a8c35eceacb1bd042af7e7c8e76e419af8434d9533b0fdd45245004"
+                        ]
+                    }
+                }
+            ],
+            "siacoinOutputs": [
+                {
+                    "value": "76200000000000000000000",
+                    "address": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2"
+                },
+                {
+                    "value": "49923790000000000000000000",
+                    "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+                }
+            ],
+            "minerFee": "10000000000000000000"
+        },
+        "tx_hash": "37dbf68cba4125714b7ca10e00e3166c434fa622b61837b43b74e4eefc179f0d",
+        "from": [
+            "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+        ],
+        "to": [
+            "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2"
+        ],
+        "total_amount": "50.000000000000000000000000",
+        "spent_by_me": "50.000000000000000000000000",
+        "received_by_me": "49.923790000000000000000000",
+        "my_balance_change": "-0.076210000000000000000000",
+        "block_height": 0,
+        "timestamp": 1750747840,
+        "fee_details": {
+            "type": "Sia",
+            "coin": "SC",
+            "policy": "Fixed",
+            "total_amount": "0.000010000000000000000000"
+        },
+        "coin": "SC",
+        "internal_id": "",
+        "transaction_type": "SiaV2Transaction",
+        "memo": null
+    },
+    "id": null
+}
+  ```
+</CollapsibleSection>
+
 #### Withdraw maximum
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
