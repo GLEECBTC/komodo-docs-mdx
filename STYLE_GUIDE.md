@@ -76,6 +76,93 @@ For example:
 | max       | boolean | Optional, defaults to `false`. Send whole balance.                                            |
 | memo      | string  | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.       |
 
+### CompactTable Component
+
+For improved table layout and responsive design, use the `CompactTable` component instead of standard markdown tables when dealing with API parameters:
+
+#### When to Use CompactTable
+
+- **API documentation** with parameter tables
+- **Pages with multiple tables** that need consistent formatting
+- **Mobile-heavy content** requiring responsive design
+- **Tables with many required parameters** needing clear indication
+
+#### Required Parameter Best Practices
+
+**✅ Do:**
+- Use asterisk (*) + bold styling + color for required parameters
+- Include legend in table header: "* = required"
+- Combine visual cues for accessibility
+- Use `required: true/false` in data structure
+
+**❌ Don't:**
+- Rely on bold text alone
+- Use separate Required/Default columns (wastes space)
+- Use unclear symbols like ✓/✗ without legend
+
+#### Usage Examples
+
+**Basic Usage:**
+```jsx
+<CompactTable 
+  data={[
+    {
+      parameter: "coin",
+      type: "string", 
+      required: true,
+      description: "The name of the coin the user desires to activate."
+    },
+    {
+      parameter: "amount",
+      type: "float",
+      required: false,
+      default: "false", 
+      description: "The amount of balance to send."
+    }
+  ]}
+/>
+```
+
+**Compact Variant (for dense pages):**
+```jsx
+<CompactTable 
+  variant="compact"
+  data={parameterData}
+/>
+```
+
+**Minimal Variant (for sidebars/inline docs):**
+```jsx
+<CompactTable 
+  variant="minimal"
+  data={parameterData}
+  columns={['Parameter', 'Type', 'Description']}
+/>
+```
+
+#### Migration from Standard Tables
+
+**Before (problematic layout):**
+```markdown
+| Parameter | Type | Required | Default | Description |
+| --------- | ---- | :------: | :-----: | ----------- |
+| coin      | string |    ✓   |   `-`   | Name of coin |
+```
+
+**After (space-efficient):**
+```jsx
+<CompactTable data={[
+  { parameter: "coin", type: "string", required: true, description: "Name of coin" }
+]} />
+```
+
+#### Benefits
+- **~30% space reduction** compared to 5-column tables
+- **Consistent required parameter styling** across all documentation
+- **Responsive design** with mobile/tablet breakpoints  
+- **Accessibility compliant** with ARIA labels and screen reader support
+- **Dark mode support** built-in
+
 ## Variables
 
 - For Komodo DeFi Framework API methods, the userpass variable should always be `RPC_UserP@SSW0RD`
