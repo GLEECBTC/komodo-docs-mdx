@@ -9,10 +9,10 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ### ActivationMode
 
+<CompactTable source="activation.ActivationMode" />
+
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   Defines the activation mode for QTUM, BCH, UTXO & ZHTLC coins.
-
-  <CompactTable source="activation.ActivationMode" />
 
   ```json
   {
@@ -47,7 +47,7 @@ Contains information about electrum & lightwallet\_d servers for coins being use
 
 The `ActivationParams` object defines additional parameters used for activation. These params may vary depending on the coin type.
 
-<CompactTable source="activation.ActivationServers" variant="compact" />
+<CompactTable source="activation.ActivationParams" variant="compact" />
 
 <DevComment>
   Is priv\_key\_policy still a thing?
@@ -70,7 +70,7 @@ The `ActivationParams` object defines additional parameters used for activation.
 
 Contains information electrum servers for coins being used in `Electrum` or `Light` mode.
 
-<CompactTable source="activation.AddressInfo" />
+<CompactTable source="activation.ActivationServers" variant="compact" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### ZHTLC Example
@@ -134,7 +134,7 @@ Contains information electrum servers for coins being used in `Electrum` or `Lig
 
 The `AddressInfo` object includes the following items for a given address:
 
-<CompactTable source="activation.CoinProtocol" />
+<CompactTable source="activation.AddressInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example with balances
@@ -167,17 +167,17 @@ The `AddressInfo` object includes the following items for a given address:
 
 ### CoinProtocol
 
-<CompactTable source="activation.CoinProtocolData" />
+<CompactTable source="activation.CoinProtocol" />
 
 ### CoinProtocolData
 
-<CompactTable source="activation.CoinNode" />
+<CompactTable source="activation.CoinProtocolData" />
 
 ### CoinNode
 
 The `CoinNode` object includes the following items for a given coin or token:
 
-<CompactTable source="activation.TokenActivationParams" />
+<CompactTable source="activation.CoinNode" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -208,7 +208,7 @@ The `SwapV2Contracts` object includes the following items for a given coin or to
 
 Standard object structure used in token activation methods for specifying activation parameters.
 
-<CompactTable source="activation.UtxoMergeParams" />
+<CompactTable source="activation.TokenActivationParams" />
 
 ### TokensRequest
 

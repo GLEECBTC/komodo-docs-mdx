@@ -210,7 +210,7 @@
       }
     ]
   },
-  "ConfSettings_1": {
+  "MatchBy": {
     "data": [
       {
         "parameter": "Type",
@@ -227,7 +227,7 @@
       }
     ]
   },
-  "ConfSettings_2": {
+  "OrderAddress": {
     "data": [
       {
         "parameter": "address_type",
