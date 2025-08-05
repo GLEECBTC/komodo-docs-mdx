@@ -1,0 +1,64 @@
+export const title = "task::init_trezor::init";
+export const description = "Initialise your Trezor device for use in the Komodo DeFi Framework API.";
+
+# Komodo DeFi Framework Method: task::init\_trezor::init
+
+## task::init\_trezor::init {{label : 'task::init_trezor::init', tag : 'API-v2'}}
+
+Before using this method, launch the Komodo DeFi Framework API, and plug in your Trezor.
+
+### Request Parameters
+
+| Parameter      | Type   | Required | Description                                                                                                                                                                                                                |
+| -------------- | ------ | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| device\_pubkey | string |     ✗    | If known, you can specify the device pubkey. If not known, this will be part of the [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/) response which you can save for future use |
+
+### Response Parameters
+
+| Parameter | Type    | Required | Description                                               |
+| --------- | ------- | :------: | --------------------------------------------------------- |
+| task\_id  | integer |     ✓    | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Command (without device\_pubkey)
+
+<CodeGroup title="task::init_trezor::init" tag="POST" label="task::init_trezor::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::init",
+    "params": {}
+  }
+  ```
+</CodeGroup>
+
+#### Command (with device\_pubkey)
+
+<CodeGroup title="task::init_trezor::init" tag="POST" label="task::init_trezor::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::init",
+    "params": {
+      "device_pubkey": "066deb87b0d0500ec2e9b85f5314870b03a53517"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 0
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,32 +1,35 @@
-export const title = "Komodo DeFi Framework Method: Signing and Verifying Messages";
-export const description = "The methods in this section allow you to sign and verify messages for all coins supported by Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method Overview: Message Signing and Verification";
+export const description = "This document provides an overview of message signing and verification methods available in the Komodo DeFi Framework.";
 
-# Signing\_and\_Verifying\_Messages
+# Message Signing and Verification Overview
 
-Cryptographically signed messages are a useful feature which can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
+## message\_signing {{label : 'message_signing', tag : 'overview'}}
+
+*   [Sign Message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/)
+*   [Verify Message](/komodo-defi-framework/api/v20/utils/message_signing/verify_message/)
+
+Cryptographically signed messages are a useful feature that can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
 
 If your [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [`sign_message_prefix`](https://bitcoin.stackexchange.com/questions/77324/how-are-bitcoin-signed-messages-generated/77325#77325) parameter value for a coin, you can sign messages with the [Komodo DeFi Framework API](https://github.com/KomodoPlatform/komodo-defi-framework).
-For signing with a HD wallet, the [`coins`](https://github.com/KomodoPlatform/coins) file must also contain the coin's [derivation path](https://www.blockplate.com/blogs/blockplate/what-is-a-derivation-path) prefix.
+For signing with an HD wallet, the [`coins`](https://github.com/KomodoPlatform/coins) file must also contain the coin's [derivation path](https://www.blockplate.com/blogs/blockplate/what-is-a-derivation-path) prefix.
+
+#### Example coin config
 
 ```json
-  {
+{
     "coin": "DGB",
     "name": "digibyte",
     "fname": "DigiByte",
     "protocol": {
-      "type": "UTXO"
+        "type": "UTXO"
     },
     ...
     "sign_message_prefix": "DigiByte Signed Message:\n",
     "derivation_path": "m/44'/20'",
     "trezor_coin": "DigiByte",
     "links": {
-      "github": "https://github.com/digibyte/digibyte",
-      "homepage": "https://digibyte.io"
+        "github": "https://github.com/digibyte/digibyte",
+        "homepage": "https://digibyte.io"
     }
-  }
+}
 ```
-
-See the individual methods for signing and Verifying below:
-
-<TocForIndex />

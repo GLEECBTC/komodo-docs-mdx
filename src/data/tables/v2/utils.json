@@ -1,0 +1,1043 @@
+{
+  "AddNodeToVersionStatRequest": {
+    "data": [
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": true,
+        "description": "The name assigned to the node"
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The IP address of the node"
+      },
+      {
+        "parameter": "peer_id",
+        "type": "string",
+        "required": true,
+        "description": "The node's unique Peer ID"
+      }
+    ]
+  },
+  "AddNodeToVersionStatResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "AddNodeToVersionStatErrors": {
+    "data": [
+      {
+        "parameter": "DatabaseError",
+        "type": "string",
+        "required": false,
+        "description": "Database constraint error occurred."
+      },
+      {
+        "parameter": "PeerIdParseError",
+        "type": "string",
+        "required": false,
+        "description": "The provided peer ID format is invalid."
+      }
+    ]
+  },
+  "ChangeMnemonicPasswordRequest": {
+    "data": [
+      {
+        "parameter": "current_password",
+        "type": "string",
+        "required": true,
+        "description": "the active mnemonic password for your wallet"
+      },
+      {
+        "parameter": "new_password",
+        "type": "string",
+        "required": true,
+        "description": "the new password to use for encrypting your active mnemonic password"
+      }
+    ]
+  },
+  "ChangeMnemonicPasswordResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "null",
+        "required": true,
+        "description": "Returns null on successful password change."
+      }
+    ]
+  },
+  "ChangeMnemonicPasswordErrors": {
+    "data": [
+      {
+        "parameter": "WalletsStorageError",
+        "type": "string",
+        "required": false,
+        "description": "Error decrypting or accessing wallet storage."
+      }
+    ]
+  },
+  "GetCurrentMtpRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "default": "-",
+        "description": "A compatible (UTXO) coin's ticker"
+      },
+      {
+        "parameter": "id",
+        "type": "integer",
+        "required": false,
+        "default": "null",
+        "description": "Optional. Identifies a request to allow matching it with a response. Defaults to `null`"
+      }
+    ]
+  },
+  "GetCurrentMtpResponse": {
+    "data": [
+      {
+        "parameter": "mtp",
+        "type": "integer",
+        "required": true,
+        "description": "Unix timestamp"
+      },
+      {
+        "parameter": "id",
+        "type": "integer",
+        "required": true,
+        "description": "Identifies a response to allow matching it with a request. Defaults to `null` if `id` not provided in request"
+      }
+    ]
+  },
+  "GetEnabledCoinsRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "GetEnabledCoinsResponse": {
+    "data": [
+      {
+        "parameter": "coins",
+        "type": "array of objects",
+        "required": true,
+        "description": "A list of key value pairs for activated tickers"
+      },
+      {
+        "parameter": "coins.ticker",
+        "type": "string",
+        "required": true,
+        "description": "The ticker of an activated coin"
+      }
+    ]
+  },
+  "GetMnemonicRequest": {
+    "data": [
+      {
+        "parameter": "format",
+        "type": "string",
+        "required": false,
+        "default": "encrypted",
+        "description": "Either `encrypted` or `plaintext`. Defaults to `encrypted`."
+      },
+      {
+        "parameter": "password",
+        "type": "string",
+        "required": false,
+        "default": "-",
+        "description": "The password to decrypt your stored mnemonic phrase. Only required if `plaintext` format is requested."
+      }
+    ]
+  },
+  "GetMnemonicResponse": {
+    "data": [
+      {
+        "parameter": "format",
+        "type": "string",
+        "required": true,
+        "description": "Same as the input `format` parameter."
+      },
+      {
+        "parameter": "mnemonic",
+        "type": "string",
+        "required": false,
+        "description": "For `plaintext` requests, the decrypted mnemonic seed phrase."
+      },
+      {
+        "parameter": "encrypted_mnemonic_data",
+        "type": "object",
+        "required": false,
+        "description": "For `encrypted` requests, the encrypted format and ciphertext for the mnemonic seed phrase."
+      }
+    ]
+  },
+  "GetPublicKeyRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "GetPublicKeyResponse": {
+    "data": [
+      {
+        "parameter": "public_key",
+        "type": "string",
+        "required": true,
+        "description": "User's pubkey"
+      }
+    ]
+  },
+  "GetPublicKeyHashRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "GetPublicKeyHashResponse": {
+    "data": [
+      {
+        "parameter": "public_key_hash",
+        "type": "string",
+        "required": true,
+        "description": "User's RIPEMD-160 public key hash"
+      }
+    ]
+  },
+  "GetSharedDbIdRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "GetSharedDbIdResponse": {
+    "data": [
+      {
+        "parameter": "shared_db_id",
+        "type": "string",
+        "required": true,
+        "description": "42-hex-char (H160) identifier with 0x prefix used for the node's DB directory."
+      }
+    ]
+  },
+  "GetSharedDbIdErrors": {
+    "data": [
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error (rare)."
+      }
+    ]
+  },
+  "GetTokenInfoRequest": {
+    "data": [
+      {
+        "parameter": "protocol",
+        "type": "object",
+        "required": true,
+        "description": "A standard [TokenProtocol](/komodo-defi-framework/api/common_structures/nfts/#token-protocol) object."
+      }
+    ]
+  },
+  "GetTokenInfoResponse": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Token type—e.g., `PLG20` for tokens on the Polygon network."
+      },
+      {
+        "parameter": "info.symbol",
+        "type": "string",
+        "required": true,
+        "description": "The ticker of the token linked to the contract address and network requested."
+      },
+      {
+        "parameter": "info.decimals",
+        "type": "integer",
+        "required": true,
+        "description": "Defines the number of digits after the decimal point that should be used to display the orderbook amounts, balance, and the value of inputs to be used in the case of order creation or a `withdraw` transaction. The default value used for a UTXO type coin (Bitcoin protocol) is `8`, and the default value used for an ERC20 token is `18`. It is **very important** for this value to be set correctly. For example, if this value was set as `9` for BTC, a command to withdraw `1 BTC` tries to withdraw `10^9` satoshis of Bitcoin, i.e., `10 BTC`."
+      }
+    ]
+  },
+  "GetTokenInfoErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified platform coin was not found or is not activated yet."
+      }
+    ]
+  },
+  "PeerConnectionHealthcheckRequest": {
+    "data": [
+      {
+        "parameter": "peer_address",
+        "type": "string",
+        "required": true,
+        "description": "The peer address to check for connectivity"
+      }
+    ]
+  },
+  "PeerConnectionHealthcheckResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "boolean",
+        "required": true,
+        "description": "True if peer found connected to network"
+      }
+    ]
+  },
+  "RemoveNodeFromVersionStatRequest": {
+    "data": [
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": true,
+        "description": "The name assigned to the node"
+      }
+    ]
+  },
+  "RemoveNodeFromVersionStatResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "SendAskedDataRequest": {
+    "data": [
+      {
+        "parameter": "data_id",
+        "type": "integer",
+        "required": true,
+        "description": "Identifier supplied by the original `DataNeeded` event."
+      },
+      {
+        "parameter": "data",
+        "type": "object",
+        "required": true,
+        "description": "Arbitrary JSON value satisfying the original request."
+      }
+    ]
+  },
+  "SendAskedDataResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "boolean",
+        "required": true,
+        "description": "`true` on success."
+      }
+    ]
+  },
+  "SendAskedDataErrors": {
+    "data": [
+      {
+        "parameter": "NotFound",
+        "type": "integer",
+        "required": false,
+        "description": "No awaiting `ask_for_data` with the specified `data_id`."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal error while delivering data (rare)."
+      }
+    ]
+  },
+  "StartVersionStatCollectionRequest": {
+    "data": [
+      {
+        "parameter": "interval",
+        "type": "integer",
+        "required": true,
+        "description": "polling rate (in seconds) to check node versions"
+      }
+    ]
+  },
+  "StartVersionStatCollectionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "StartVersionStatCollectionErrors": {
+    "data": [
+      {
+        "parameter": "DatabaseError",
+        "type": "string",
+        "required": false,
+        "description": "Database constraint error occurred."
+      }
+    ]
+  },
+  "StopVersionStatCollectionRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "StopVersionStatCollectionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "`success` or error"
+      }
+    ]
+  },
+  "StopVersionStatCollectionErrors": {
+    "data": [
+      {
+        "parameter": "NotRunning",
+        "type": "string",
+        "required": false,
+        "description": "Version stat collection is not currently running"
+      }
+    ]
+  },
+  "TaskConnectMetamaskCancelRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when the task was first initiated."
+      }
+    ]
+  },
+  "TaskConnectMetamaskCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": false,
+        "description": "Returns `success` on success, otherwise the standard error fields below are populated."
+      },
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": false,
+        "description": "Description of the error."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": false,
+        "description": "Used for debugging. A reference to the function in code base which returned the error."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": false,
+        "description": "Used for debugging. A trace of lines of code which led to the returned error."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": false,
+        "description": "An enumerated error identifier to indicate the category of error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "string",
+        "required": false,
+        "description": "Additional context for the error type."
+      }
+    ]
+  },
+  "TaskConnectMetamaskInitRequest": {
+    "data": [
+      {
+        "parameter": "project",
+        "type": "string",
+        "required": true,
+        "description": "A short, human-readable identifier for the DApp or integration requesting the context."
+      }
+    ]
+  },
+  "TaskConnectMetamaskInitResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "An identifying number that is used to query task status or to cancel it"
+      }
+    ]
+  },
+  "TaskConnectMetamaskInitErrors": {
+    "data": [
+      {
+        "parameter": "MetamaskInitializingAlready",
+        "type": "string",
+        "required": false,
+        "description": "A MetaMask initialisation task is already in progress."
+      },
+      {
+        "parameter": "EthProviderNotFound",
+        "type": "string",
+        "required": false,
+        "description": "No MetaMask provider detected in the browser / environment."
+      },
+      {
+        "parameter": "UnexpectedAccountSelected",
+        "type": "string",
+        "required": false,
+        "description": "A different ETH account is currently selected in MetaMask."
+      },
+      {
+        "parameter": "UserCancelled",
+        "type": "string",
+        "required": false,
+        "description": "The user rejected the signature/request in MetaMask."
+      },
+      {
+        "parameter": "Timeout",
+        "type": "string",
+        "required": false,
+        "description": "MetaMask did not respond within the expected time-out window."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "The request failed due to a Komodo DeFi Framework API internal error."
+      }
+    ]
+  },
+  "TaskConnectMetamaskStatusRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "default": "-",
+        "description": "The `task_id` returned by the *init* call."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "If `false`, the final (completed) response is returned on every call."
+      }
+    ]
+  },
+  "TaskConnectMetamaskStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "A short indication of how the connection process is progressing (`Initializing`, `SigningLoginMetadata`, `Ok`, or `Error`)."
+      },
+      {
+        "parameter": "details",
+        "type": "object",
+        "required": true,
+        "description": "Extra data whose structure depends on the current `status`. See examples below. In the successful case it contains `eth_address`."
+      }
+    ]
+  },
+  "TaskConnectMetamaskStatusErrors": {
+    "data": [
+      {
+        "parameter": "MetamaskCtxNotInitialized",
+        "type": "string",
+        "required": false,
+        "description": "The MetaMask context was not yet created (call *init* first)."
+      },
+      {
+        "parameter": "EthProviderNotFound",
+        "type": "string",
+        "required": false,
+        "description": "No MetaMask provider detected."
+      },
+      {
+        "parameter": "UserCancelled",
+        "type": "string",
+        "required": false,
+        "description": "The user rejected the MetaMask signature / request."
+      },
+      {
+        "parameter": "Timeout",
+        "type": "string",
+        "required": false,
+        "description": "MetaMask did not respond within the expected time-out window."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "The request failed due to an internal error in the Komodo DeFi Framework API."
+      }
+    ]
+  },
+  "TaskInitTrezorCancelRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the initialisation process."
+      }
+    ]
+  },
+  "TaskInitTrezorCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": false,
+        "description": "Returns with value `success` when successful, otherwise returns the error values below"
+      },
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": false,
+        "description": "Description of the error"
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": false,
+        "description": "Used for debugging. A reference to the function in code base which returned the error"
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": false,
+        "description": "Used for debugging. A trace of lines of code which led to the returned error"
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": false,
+        "description": "An enumerated error identifier to indicate the category of error"
+      },
+      {
+        "parameter": "error_data",
+        "type": "string",
+        "required": false,
+        "description": "Additonal context for the error type"
+      }
+    ]
+  },
+  "TaskInitTrezorInitRequest": {
+    "data": [
+      {
+        "parameter": "device_pubkey",
+        "type": "string",
+        "required": false,
+        "description": "If known, you can specify the device pubkey. If not known, this will be part of the [task::init_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/) response which you can save for future use"
+      }
+    ]
+  },
+  "TaskInitTrezorInitResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "An identifying number which is used to query task status."
+      }
+    ]
+  },
+  "TaskInitTrezorStatusRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "default": "-",
+        "description": "The identifying number returned when initiating the initialisation process."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "If `false`, will return final response for completed tasks."
+      }
+    ]
+  },
+  "TaskInitTrezorStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "A short indication of how the requested process is progressing."
+      },
+      {
+        "parameter": "details",
+        "type": "object",
+        "required": true,
+        "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
+      },
+      {
+        "parameter": "details.type",
+        "type": "string",
+        "required": true,
+        "description": "Type of hardware wallet device (e.g. `Trezor`)"
+      },
+      {
+        "parameter": "details.model",
+        "type": "string",
+        "required": true,
+        "description": "The model of the hardware wallet device (e.g. `One` or `T`)"
+      },
+      {
+        "parameter": "details.device_name",
+        "type": "string",
+        "required": true,
+        "description": "The name of the device as defined by user in Trezor Suite or another wallet application."
+      },
+      {
+        "parameter": "details.device_id",
+        "type": "string (hex)",
+        "required": true,
+        "description": "A unique identifier of the device, set during manufacturing."
+      },
+      {
+        "parameter": "details.device_pubkey",
+        "type": "string (hex)",
+        "required": true,
+        "description": "The hardware wallet device's pubkey. If included in the `task::init_trezor::init` request, it will be the same as input. If not, it should be stored for future use."
+      }
+    ]
+  },
+  "TaskInitTrezorUserActionRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the initialisation process."
+      },
+      {
+        "parameter": "user_action",
+        "type": "object",
+        "required": true,
+        "description": "Object containing the params below"
+      },
+      {
+        "parameter": "user_action.action_type",
+        "type": "string",
+        "required": true,
+        "description": "Either `TrezorPin` or `TrezorPassphrase`, depending on which is requested by responses from related methods returning `\"status\": \"UserActionRequired\"`"
+      },
+      {
+        "parameter": "user_action.pin",
+        "type": "string (number)",
+        "required": false,
+        "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
+      },
+      {
+        "parameter": "user_action.passphrase",
+        "type": "string",
+        "required": false,
+        "description": "The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets) functions like an extra word added to your recovery seed, and it used to access hidden wallets. To access the default wallet, input an empty string here."
+      }
+    ]
+  },
+  "TaskInitTrezorUserActionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "TrezorConnectionStatusRequest": {
+    "data": [
+      {
+        "parameter": "device_pubkey",
+        "type": "string",
+        "required": false,
+        "description": "(Optional) Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned."
+      }
+    ]
+  },
+  "TrezorConnectionStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "One of: `Connected`, `Disconnected`, `Busy`."
+      }
+    ]
+  },
+  "TrezorConnectionStatusErrors": {
+    "data": [
+      {
+        "parameter": "TrezorNotInitialized",
+        "type": "string",
+        "required": false,
+        "description": "A Trezor device has not been initialized on this node."
+      },
+      {
+        "parameter": "FoundUnexpectedDevice",
+        "type": "string",
+        "required": false,
+        "description": "A connected device does not match the supplied `device_pubkey`."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "UpdateVersionStatCollectionRequest": {
+    "data": [
+      {
+        "parameter": "interval",
+        "type": "integer",
+        "required": true,
+        "description": "Polling rate (in seconds) to query node versions"
+      }
+    ]
+  },
+  "UpdateVersionStatCollectionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "UpdateVersionStatCollectionErrors": {
+    "data": [
+      {
+        "parameter": "NotRunning",
+        "type": "string",
+        "required": false,
+        "description": "Version stat collection is not currently running"
+      }
+    ]
+  },
+  "SignMessageRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "default": "-",
+        "description": "The coin to sign a message with."
+      },
+      {
+        "parameter": "message",
+        "type": "string",
+        "required": true,
+        "default": "-",
+        "description": "The message you want to sign."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": false,
+        "default": "0",
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`."
+      }
+    ]
+  },
+  "SignMessageResponse": {
+    "data": [
+      {
+        "parameter": "signature",
+        "type": "string",
+        "required": true,
+        "description": "The signature generated for the message."
+      }
+    ]
+  },
+  "SignMessageErrors": {
+    "data": [
+      {
+        "parameter": "PrefixNotFound",
+        "type": "string",
+        "required": false,
+        "description": "`sign_message_prefix` is not set in coin config file"
+      },
+      {
+        "parameter": "CoinIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Specified coin is not found"
+      },
+      {
+        "parameter": "SigningError",
+        "type": "string",
+        "required": false,
+        "description": "Error attempting to sign message"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Message signing is not supported by the given coin type"
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "An internal error occurred during the signing process"
+      }
+    ]
+  },
+  "VerifyMessageRequest": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The address used to sign the message."
+      },
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin to verify the message with."
+      },
+      {
+        "parameter": "message",
+        "type": "string",
+        "required": true,
+        "description": "The message input via the `sign_message` method."
+      },
+      {
+        "parameter": "signature",
+        "type": "string",
+        "required": true,
+        "description": "The signature generated for the message."
+      }
+    ]
+  },
+  "VerifyMessageResponse": {
+    "data": [
+      {
+        "parameter": "is_valid",
+        "type": "boolean",
+        "required": true,
+        "description": "`true` if the message signature is valid; `false` if it is not."
+      }
+    ]
+  },
+  "VerifyMessageErrors": {
+    "data": [
+      {
+        "parameter": "PrefixNotFound",
+        "type": "string",
+        "required": false,
+        "description": "`sign_message_prefix` is not set in coin config"
+      },
+      {
+        "parameter": "CoinIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Specified coin is not found"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Message verification is not supported by the given coin type"
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "An internal error occurred during the verification process"
+      },
+      {
+        "parameter": "SignatureDecodingError",
+        "type": "string",
+        "required": false,
+        "description": "Given signature could not be decoded"
+      },
+      {
+        "parameter": "AddressDecodingError",
+        "type": "string",
+        "required": false,
+        "description": "Given address could not be decoded"
+      }
+    ]
+  },
+  "TelegramAlertsConfig": {
+    "data": [
+      {
+        "parameter": "api_key",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram bot API token"
+      },
+      {
+        "parameter": "chat_registry.default",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
+      },
+      {
+        "parameter": "chat_registry.maker_bot",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
+      },
+      {
+        "parameter": "chat_registry.swap_events",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
+      }
+    ]
+  }
+}

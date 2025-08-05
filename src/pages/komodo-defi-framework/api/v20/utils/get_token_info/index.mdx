@@ -1,36 +1,26 @@
 export const title = "Komodo DeFi Framework Method: Get Token Info";
 export const description = "The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_token\_info
+# Get Token Info
 
-The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input.
-The platform parent coin (e.g. ETH, AVAX, MATIC etc) must be activated before using this method. After requesting the token info, you will be able to activate the custom token.
+## get\_token\_info {{label : 'get_token_info', tag : 'API-v2'}}
+
+The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input. The platform parent coin (e.g., ETH, AVAX, MATIC, etc.) must be activated before using this method. After requesting the token info, you will be able to activate the custom token.
 
 <Note>
-  Custom tokens will be `wallet_only` - i.e. you can send and recieve tokens, but will not be able to do atomic swaps.
-  To apply for a formal listing of the custom token, please [review the requirements](/komodo-defi-framework/tutorials/listing-a-new-coin/) in our "coins" github repository, and get in our with our team on the [KomodoPlatform Discord](https://komodoplatform.com/discord).
+  Custom tokens will be `wallet_only`—i.e., you can send and receive tokens, but will not be able to do atomic swaps. To apply for a formal listing of the custom token, please [review the requirements](/komodo-defi-framework/tutorials/listing-a-new-coin/) in our "coins" GitHub repository, and get in touch with our team on the [KomodoPlatform Discord](https://komodoplatform.com/discord).
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure                                 | Type   | Description                                                                                                                                                                                                        |
-| ----------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| protocol.type                             | string | Token type - e.g `ERC20` for tokens on the Ethereum network                                                                                                                                                        |
-| protocol.protocol\_data                   | object | Required for tokens only.                                                                                                                                                                                          |
-| protocol.protocol\_data.platform          | string | The parent coin of the token's platform - e.g `MATIC` for PLG20 tokens                                                                                                                                             |
-| protocol.protocol\_data.contract\_address | string | **Must be mixed case** The identifying hex string for the token's contract. Can be found on sites like [EthScan](https://etherscan.io/), [BscScan](https://bscscan.com/) & [PolygonScan](https://polygonscan.com/) |
+<CompactTable source="v2-utils.GetTokenInfoRequest" />
 
-### Response
+### Response Parameters
 
-| Structure     | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type          | string  | Token type - e.g `PLG20` for tokens on the Polygon network                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| info.symbol   | string  | The ticker of the token linked to the contract address and network requested                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| info.decimals | integer | Defines the number of digits after the decimal point that should be used to display the orderbook amounts, balance, and the value of inputs to be used in the case of order creation or a `withdraw` transaction. The default value used for a UTXO type coin (Bitcoin Protocol) is `8` and the default value used for a ERC20 Token is `18`. It is **very important** for this value to be set correctly. For example, if this value was set as `9` for BTC, a command to withdraw `1 BTC` tries to withdraw `10^9` satoshis of Bitcoin, i.e., `10 BTC` |
+<CompactTable source="v2-utils.GetTokenInfoResponse" />
 
-### 📌 Examples
-
-#### Get Token Info on Avalanche
+#### 📌 Examples
 
 <CodeGroup title="Get Token Info" tag="POST" label="get_token_info" mm2MethodDecorate="true">
   ```json
@@ -51,38 +41,44 @@ The platform parent coin (e.g. ETH, AVAX, MATIC etc) must be activated before us
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get Token Info Response" collapsedText="Show Get Token Info Response">
   #### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "type": "ERC20",
-        "info": {
-            "symbol": "PNIC",
-            "decimals": 18
-        }
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "result": {
+          "type": "ERC20",
+          "info": {
+              "symbol": "PNIC",
+              "decimals": 18
+          }
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-### Error Responses
+### Error Types
 
-#### InvalidRequest: Protocol parent coin not active
+<CompactTable source="v2-utils.GetTokenInfoErrors" />
 
-```json
-{
-    "mmrpc": "2.0",
-    "error": "No such coin AVAX",
-    "error_path": "tokens.lp_coins",
-    "error_trace": "tokens:68] lp_coins:4744]",
-    "error_type": "NoSuchCoin",
-    "error_data": {
-        "coin": "AVAX"
-    },
-    "id": null
-}
-```
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### NoSuchCoin
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin AVAX",
+      "error_path": "tokens.lp_coins",
+      "error_trace": "tokens:68] lp_coins:4744]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "AVAX"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
