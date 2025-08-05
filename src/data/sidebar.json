@@ -749,10 +749,6 @@
             "href": "/komodo-defi-framework/api/v20/utils/trezor_connection_status/"
           },
           {
-            "title": "Trezor Initialisation",
-            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/"
-          },
-          {
             "title": "Task: Init Trezor",
             "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/"
           },
