@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Start Version Stat Collection";
 export const description = "The start_version_stat_collection method initiates storing version statistics for nodes previously registered via the add_node_to_version_stat method.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Start Version Stat Collection
 
@@ -9,15 +10,11 @@ The `start_version_stat_collection` method initiates storing version statistics 
 
 ### Request Parameters
 
-| Parameter | Type    | Required | Description                                      |
-| --------- | ------- | :------: | ------------------------------------------------ |
-| interval  | integer |     ✓    | polling rate (in seconds) to check node versions |
+<CompactTable source="v2-utils.StartVersionStatCollectionRequest" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+<CompactTable source="v2-utils.StartVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
@@ -50,9 +47,7 @@ The `start_version_stat_collection` method initiates storing version statistics 
 
 ### Error Types
 
-| Parameter     | Type   | Description                         |
-| ------------- | ------ | ----------------------------------- |
-| DatabaseError | string | Database constraint error occurred. |
+<CompactTable source="v2-utils.StartVersionStatCollectionErrors" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### ⚠️ Error Responses

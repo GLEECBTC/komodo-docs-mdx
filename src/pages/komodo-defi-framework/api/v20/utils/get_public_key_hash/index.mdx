@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Get Public Key Hash";
 export const description = "The get_public_key_hash method returns the RIPEMD-160 hash version of your public key.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Get Public Key Hash
 
@@ -9,15 +10,11 @@ The `get_public_key_hash` method returns the [RIPEMD-160](https://en.bitcoin.it/
 
 ### Request Parameters
 
-| Parameter | Type  | Required | Description                      |
-| :-------- | :---- | :------: | :------------------------------- |
-| *None*    | *N/A* |          | *This method has no parameters.* |
+<CompactTable source="v2-utils.GetPublicKeyHashRequest" />
 
 ### Response Parameters
 
-| Parameter         | Type   | Description                       |
-| ----------------- | ------ | --------------------------------- |
-| public\_key\_hash | string | User's RIPEMD-160 public key hash |
+<CompactTable source="v2-utils.GetPublicKeyHashResponse" />
 
 #### 📌 Examples
 

@@ -89,7 +89,6 @@
         "parameter": "coin",
         "type": "string",
         "required": true,
-        "default": "-",
         "description": "A compatible (UTXO) coin's ticker"
       },
       {
@@ -97,7 +96,7 @@
         "type": "integer",
         "required": false,
         "default": "null",
-        "description": "Optional. Identifies a request to allow matching it with a response. Defaults to `null`"
+        "description": "Identifies a request to allow matching it with a response."
       }
     ]
   },
@@ -112,8 +111,9 @@
       {
         "parameter": "id",
         "type": "integer",
-        "required": true,
-        "description": "Identifies a response to allow matching it with a request. Defaults to `null` if `id` not provided in request"
+        "required": false,
+        "default": "null",
+        "description": "Identifies a response to allow matching it with a request."
       }
     ]
   },
@@ -150,13 +150,12 @@
         "type": "string",
         "required": false,
         "default": "encrypted",
-        "description": "Either `encrypted` or `plaintext`. Defaults to `encrypted`."
+        "description": "Either `encrypted` or `plaintext`."
       },
       {
         "parameter": "password",
         "type": "string",
         "required": false,
-        "default": "-",
         "description": "The password to decrypt your stored mnemonic phrase. Only required if `plaintext` format is requested."
       }
     ]
@@ -553,14 +552,13 @@
         "parameter": "task_id",
         "type": "integer",
         "required": true,
-        "default": "-",
         "description": "The `task_id` returned by the *init* call."
       },
       {
         "parameter": "forget_if_finished",
         "type": "boolean",
         "required": false,
-        "default": "true",
+        "default": true,
         "description": "If `false`, the final (completed) response is returned on every call."
       }
     ]
@@ -691,14 +689,13 @@
         "parameter": "task_id",
         "type": "integer",
         "required": true,
-        "default": "-",
         "description": "The identifying number returned when initiating the initialisation process."
       },
       {
         "parameter": "forget_if_finished",
         "type": "boolean",
         "required": false,
-        "default": "true",
+        "default": true,
         "description": "If `false`, will return final response for completed tasks."
       }
     ]
@@ -799,7 +796,7 @@
         "parameter": "device_pubkey",
         "type": "string",
         "required": false,
-        "description": "(Optional) Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned."
+        "description": "Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned."
       }
     ]
   },
@@ -871,21 +868,18 @@
         "parameter": "coin",
         "type": "string",
         "required": true,
-        "default": "-",
         "description": "The coin to sign a message with."
       },
       {
         "parameter": "message",
         "type": "string",
         "required": true,
-        "default": "-",
         "description": "The message you want to sign."
       },
       {
         "parameter": "address",
         "type": "string",
         "required": false,
-        "default": "0",
         "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`."
       }
     ]

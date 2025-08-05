@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Update Version Stat Collection";
 export const description = "The update_version_stat_collection method updates the polling interval for version stats collection.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Update Version Stat Collection
 
@@ -9,15 +10,11 @@ The `update_version_stat_collection` method updates the polling interval for ver
 
 ### Request Parameters
 
-| Parameter | Type    | Required | Description                                      |
-| --------- | ------- | :------: | ------------------------------------------------ |
-| interval  | integer |     ✓    | Polling rate (in seconds) to query node versions |
+<CompactTable source="v2-utils.UpdateVersionStatCollectionRequest" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+<CompactTable source="v2-utils.UpdateVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
@@ -48,9 +45,7 @@ The `update_version_stat_collection` method updates the polling interval for ver
 
 ### Error Types
 
-| Parameter  | Type   | Description                                      |
-| ---------- | ------ | ------------------------------------------------ |
-| NotRunning | string | Version stat collection is not currently running |
+<CompactTable source="v2-utils.UpdateVersionStatCollectionErrors" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### ⚠️ Error Responses

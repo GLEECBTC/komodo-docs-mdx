@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Peer Connection Healthcheck";
 export const description = "The peer_connection_healthcheck method checks if a peer is connected to the KDF network.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Peer Connection Healthcheck
 
@@ -9,15 +10,11 @@ The `peer_connection_healthcheck` method checks if a peer is connected to the KD
 
 ### Request Parameters
 
-| Parameter     | Type   | Required | Description                                |
-| ------------- | ------ | :------: | ------------------------------------------ |
-| peer\_address | string |     ✓    | The peer address to check for connectivity |
+<CompactTable source="v2-utils.PeerConnectionHealthcheckRequest" />
 
 ### Response Parameters
 
-| Parameter | Type    | Description                             |
-| --------- | ------- | --------------------------------------- |
-| result    | boolean | True if peer found connected to network |
+<CompactTable source="v2-utils.PeerConnectionHealthcheckResponse" />
 
 #### 📌 Examples
 

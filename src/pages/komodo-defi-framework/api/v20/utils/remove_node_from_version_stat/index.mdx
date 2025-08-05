@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Remove Node from Version Stat";
 export const description = "Removes a node from the local version stat database in Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Remove Node from Version Stat
 
@@ -9,15 +10,11 @@ The `remove_node_from_version_stat` method removes a node (by name) from the loc
 
 ### Request Parameters
 
-| Parameter | Type   | Required | Description                   |
-| --------- | ------ | :------: | ----------------------------- |
-| name      | string |     ✓    | The name assigned to the node |
+<CompactTable source="v2-utils.RemoveNodeFromVersionStatRequest" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+<CompactTable source="v2-utils.RemoveNodeFromVersionStatResponse" />
 
 #### 📌 Examples
 

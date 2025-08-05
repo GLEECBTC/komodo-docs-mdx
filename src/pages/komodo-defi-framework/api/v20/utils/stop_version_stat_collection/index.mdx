@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Stop Version Stat Collection";
 export const description = "The stop_version_stat_collection method stops the collection of version stats at the end of the current loop interval.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Stop Version Stat Collection
 
@@ -9,15 +10,11 @@ The `stop_version_stat_collection` method stops the collection of version stats 
 
 ### Request Parameters
 
-| Parameter | Type  | Required | Description                      |
-| :-------- | :---- | :------: | :------------------------------- |
-| *None*    | *N/A* |          | *This method has no parameters.* |
+<CompactTable source="v2-utils.StopVersionStatCollectionRequest" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description        |
-| --------- | ------ | ------------------ |
-| result    | string | `success` or error |
+<CompactTable source="v2-utils.StopVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
@@ -46,9 +43,7 @@ The `stop_version_stat_collection` method stops the collection of version stats 
 
 ### Error Types
 
-| Parameter  | Type   | Description                                      |
-| ---------- | ------ | ------------------------------------------------ |
-| NotRunning | string | Version stat collection is not currently running |
+<CompactTable source="v2-utils.StopVersionStatCollectionErrors" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### ⚠️ Error Responses

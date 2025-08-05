@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Trezor Connection Status";
 export const description = "Check whether a Trezor device linked to the node is currently connected and ready for use.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Trezor Connection Status
 
@@ -9,15 +10,11 @@ The `trezor_connection_status` method reports the real-time connection state of 
 
 ### Request Parameters
 
-| Parameter      | Type   | Required | Description                                                                                                                    |
-| -------------- | ------ | :------: | ------------------------------------------------------------------------------------------------------------------------------ |
-| device\_pubkey | string |     ✗    | (Optional) Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned. |
+<CompactTable source="v2-utils.TrezorConnectionStatusRequest" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description                                  |
-| --------- | ------ | -------------------------------------------- |
-| status    | string | One of: `Connected`, `Disconnected`, `Busy`. |
+<CompactTable source="v2-utils.TrezorConnectionStatusResponse" />
 
 ### 📌 Example
 
@@ -46,8 +43,4 @@ The `trezor_connection_status` method reports the real-time connection state of 
 
 ### Error Types
 
-| Parameter             | Type   | Description                                                     |
-| --------------------- | ------ | --------------------------------------------------------------- |
-| TrezorNotInitialized  | string | A Trezor device has not been initialized on this node.          |
-| FoundUnexpectedDevice | string | A connected device does not match the supplied `device_pubkey`. |
-| Internal              | string | Unhandled internal error.                                       |
+<CompactTable source="v2-utils.TrezorConnectionStatusErrors" />
