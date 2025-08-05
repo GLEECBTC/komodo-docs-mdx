@@ -1,0 +1,32 @@
+{
+  "TakerPaymentWaitForSpendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentSpendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": false,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerPaymentRefundFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": false,
+        "description": "error description with stack trace"
+      }
+    ]
+  }
+}
