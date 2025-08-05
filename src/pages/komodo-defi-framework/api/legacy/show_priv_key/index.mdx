@@ -1,11 +1,12 @@
-export const title = "Komodo DeFi Framework Method: Show Priv Key";
-export const description = "The show_priv_key method returns the private key of the specified coin in a format compatible with coin wallets.";
+export const title = "Komodo DeFi Framework Method: show_priv_key";
+export const description = "The deprecated show_priv_key method returns the private key of a specified coin.";
 
 # Show Priv Key
 
-## show\_priv\_key {{label: 'show_priv_key', tag: 'API-v1'}}
+## show\_priv\_key {{label : 'show_priv_key', tag : 'API-v1'}}
 
-The `show_priv_key` method returns the private key of the specified coin in a format compatible with coin wallets. The output can be used for the `importprivkey` method (UTXO coins) or as a private key for MyEtherWallet (ETH/ERC20).
+The `show_priv_key` method returns the private key of the specified `coin` in a format compatible with `coin` wallets.
+The output can be used for the `importprivkey` method (UTXO coins) or as a private key for MyEtherWallet (ETH/ERC20).
 
 ### Request Parameters
 
@@ -20,7 +21,16 @@ The `show_priv_key` method returns the private key of the specified coin in a fo
 | coin      | string | The name of the coin        |
 | priv\_key | string | The private key of the coin |
 
-#### 📌 Example
+<Note>
+  This method is deprecated in favor of the v2.0 [`get_private_keys`](/komodo-defi-framework/api/v20/wallet/get_private_keys/) method. The new method offers several advantages:
+
+  *   No requirement to activate coins prior to private key export
+  *   Support for Hierarchical Deterministic (HD) derivation paths with configurable account and address indices
+  *   Batch export capabilities for multiple coins
+  *   Enhanced protocol support including ZHTLC coins with viewing keys
+</Note>
+
+#### 📌 Examples
 
 #### Request
 

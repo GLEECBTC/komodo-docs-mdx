@@ -1014,6 +1014,10 @@
           {
             "title": "gui_storage::set_account_balance",
             "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_balance/"
+          },
+          {
+            "title": "get_private_keys",
+            "href": "/komodo-defi-framework/api/v20/wallet/get_private_keys/"
           }
         ]
       },

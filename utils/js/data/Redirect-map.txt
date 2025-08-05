@@ -295,6 +295,7 @@
 /basic-docs/atomicdex-api-20/wallet/fee_management/set_swap_transaction_fee_policy.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/fee_management/set_swap_transaction_fee_policy/;
 /basic-docs/atomicdex-api-20/wallet/get_my_address.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/get_my_address/;
 /basic-docs/atomicdex-api-20/wallet/get_new_address.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/get_new_address/;
+/basic-docs/atomicdex-api-20/wallet/get_private_keys.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/get_private_keys/;
 /basic-docs/atomicdex-api-20/wallet/get_wallet_names.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/get_wallet_names/;
 /basic-docs/atomicdex-api-20/wallet/gui_storage/activate_coins.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/gui_storage/activate_coins/;
 /basic-docs/atomicdex-api-20/wallet/gui_storage/add_account.html https://komodoplatform.com/en/docs/komodo-defi-framework/api/v20/wallet/gui_storage/add_account/;
