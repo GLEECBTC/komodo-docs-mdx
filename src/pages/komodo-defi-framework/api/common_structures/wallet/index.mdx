@@ -1,5 +1,7 @@
 export const title = "Komodo DeFi SDK Common Structures: Wallet Operations";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
+import CompactTable from '@/components/CompactTable';
+
 
 # Wallet Common Structures
 
@@ -9,12 +11,7 @@ export const description = "Starting with version beta-2.1.3434, the Komodo DeFi
 
 The `AccountAddressInfo` object includes the following items for active addresses in the activation response for a coin in HD mode:
 
-| Parameter        | Type   | Required | Description                                                                                                 |
-| ---------------- | ------ | :------: | ----------------------------------------------------------------------------------------------------------- |
-| address          | string |     ✓    | The account address for a specific derivation path under the `account_index`.                               |
-| derivation\_path | string |     ✓    | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address. |
-| chain            | string |     ✓    | `External` or `Internal`, as defined in the activation request.                                             |
-| balance          | object |     ✓    | A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.         |
+<CompactTable source="wallet.AccountAddressInfo" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -32,10 +29,7 @@ The `AccountAddressInfo` object includes the following items for active addresse
 
 ## AddressFormat
 
-| Parameter | Type          | Required | Default | Description                                                                                                                                                                                        |
-| --------- | ------------- | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| format    | string (enum) |     ✓    |   `-`   | address format to which the input address should be converted. Possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins; `contract` or `wallet` for QTUM/QRC20 |
-| network   | string (enum) |     ✗    |   `-`   | Network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest                                                       |
+<CompactTable source="wallet.AccountAddressInfo_1" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -58,12 +52,7 @@ The `AccountAddressInfo` object includes the following items for active addresse
 
 The `AddressInfo` object includes the following items for a given address:
 
-| Parameter          | Type   | Required | Description                                                                                                                                                    |
-| ------------------ | ------ | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| balances           | object |     ✗    | A standard [balanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false` |
-| derivation\_method | object |     ✓    | A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object                                                   |
-| pubkey             | string |     ✓    | The public key associated with the seed used to launch Komodo DeFi Framework                                                                                   |
-| tickers            | array  |     ✗    | A list of tokens which were successfully activated. Only included in responses where `get_balances` is `false`                                                 |
+<CompactTable source="wallet.AddressInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example with balances
@@ -98,12 +87,7 @@ The `AddressInfo` object includes the following items for a given address:
 
 The `AddressPath` object includes the following items:
 
-| Parameter        | Type    | Required | Description                                                                                                                                                                 |
-| ---------------- | ------- | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| account\_id      | integer |     ✓    | The index of the account in the wallet, starting from `0`.                                                                                                                  |
-| chain            | integer |     ✗    | The `chain` is either `External` or `Internal`, and expressed as an integer with `External` being 0 and `Internal` being 1.                                                 |
-| address\_id      | integer |     ✗    | The index of the address in the account, starting from `0`.                                                                                                                 |
-| derivation\_path | string  |     ✗    | The derivation path of the address, following the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` (or `m/84'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` for segwit coins). |
+<CompactTable source="wallet.AddressPath" />
 
 <CollapsibleSection expandedText="Hide Account/Chain/Address Example" collapsedText="Show Account/Chain/Address Example">
   ```json
@@ -127,10 +111,7 @@ The `AddressPath` object includes the following items:
 
 The `BalanceInfo` object includes the following items for a given coin or token:
 
-| Parameter   | Type             | Required | Description                                                                                                              |
-| ----------- | ---------------- | :------: | ------------------------------------------------------------------------------------------------------------------------ |
-| spendable   | string (numeric) |     ✓    | The available amount of a coin or token which is ready to be traded or withdrawn.                                        |
-| unspendable | string (numeric) |     ✓    | The amount of a coin or token which is awaiting confirmation on the block chain for an incoming or outgoing transaction. |
+<CompactTable source="wallet.BalanceInfo" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -145,9 +126,7 @@ The `BalanceInfo` object includes the following items for a given coin or token:
 
 The `DerivationMethod` object includes the following items for a given coin or token:
 
-| Parameter | Type   | Required | Description                                                                     |
-| --------- | ------ | :------: | ------------------------------------------------------------------------------- |
-| type      | string |     ✓    | Defines how keypairs will be generated. Possible values: `Iguana` or `HDWallet` |
+<CompactTable source="wallet.DerivationMethod" />
 
 <Note>
   Using the same seed or private key to generate keypairs using different derivation methods will result in a different address and private key for each method.
@@ -168,73 +147,37 @@ Where the value indicates:
 
 ### ExtendedFeeInfo
 
-| Parameter                | Type             | Required | Description                                                                                                                                                   |
-| ------------------------ | ---------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                     | string           |     ✓    | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount                   | string (numeric) |     ✓    | fee amount (in decimal representation)                                                                                                                        |
-| amount\_rat              | rational         |     ✓    | fee amount (in rational representation)                                                                                                                       |
-| amount\_fraction         | fraction         |     ✓    | fee amount (in fraction representation)                                                                                                                       |
-| paid\_from\_trading\_vol | bool             |     ✓    | whether the fee is paid from trading volume and not use actual `coin` balance                                                                                 |
+<CompactTable source="wallet.ExtendedFeeInfo" />
 
 ### FeeInfo
 
 The `FeeInfo` response object includes the following items for [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests:
 
-| Parameter  | Type             | Required | Description                                                                                                                               |
-| ---------- | ---------------- | :------: | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| type       | string           |     ✓    | Type of transaction fee. Possible values: `UtxoFixed`, `UtxoPerKbyte`, `UtxoPriority`, `EthGas`, `Qrc20Gas`, `CosmosGas`                  |
-| amount     | string (numeric) |     ✗    | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
-| priority   | string           |     ✗    | Used only when type is `UtxoPriority`. Possible values: 'Low', 'Normal', 'High'.                                                          |
-| gas\_price | string (numeric) |     ✗    | Used only when fee type is `Qrc20Gas` or `EthGas`; sets the gas price in `gwei` units.                                                    |
-| gas\_price | number (double)  |     ✗    | Used only when fee type is `CosmosGas`; sets the gas price.                                                                               |
-| gas        | number (integer) |     ✗    | Used only when fee type is `EthGas`; sets the gas limit for transaction                                                                   |
-| gas\_limit | number (integer) |     ✗    | Used only when fee type is `Qrc20Gas` or `CosmosGas`; sets the gas limit for transaction                                                  |
+<CompactTable source="wallet.FeeInfo" />
 
 ### HistoryTarget
 
 Used to specify a HD wallet `account_id` or `address_id` for [my\_tx\_history v2](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) requests.
 
-| Parameter   | Type    | Required | Default | Description                                                                                                                                                                                                                                                                   |
-| ----------- | ------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type        | string  |     ✓    |   `-`   | Filters results by `account_id` or `address_id` part of the derivation path.                                                                                                                                                                                                  |
-| account\_id | integer |     ✓    |   `-`   | `ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path.                                                                                                                                                                                   |
-| address\_id | integer |     ✗    |   `-`   | `ADDRESS_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path.                                                                                                                                                                                   |
-| chain       | string  |     ✗    |   `-`   | `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change. |
+<CompactTable source="wallet.HistoryTarget" />
 
 ### InputTxns
 
 The `InputTxns` object includes the following items:
 
-| Parameter        | Type    | Required | Description                                                                                                                                         |
-| ---------------- | ------- | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tx\_hash         | string  |     ✓    | The transaction id of an unspent transaction from the same wallet output.                                                                           |
-| index            | integer |     ✓    | The [output index](https://bitcoin.stackexchange.com/questions/100765/what-does-the-index-of-an-utxo-stand-for) of this unspent transaction output. |
-| script\_pub\_key | string  |     ✓    | The [scriptpubkey](https://learnmeabitcoin.com/technical/scriptPubKey) of this unspent transaction output.                                          |
-| amount           | float   |     ✓    | The value of this unspent transaction output.                                                                                                       |
+<CompactTable source="wallet.InputTxns" />
 
 ### NewAddressInfo
 
 The `NewAddressInfo` response object includes the following items for request in HD mode:
 
-| Parameter        | Type   | Required | Description                                                                                                                                                                                                                                                                   |
-| ---------------- | ------ | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address          | string |     ✓    | The account address for a specific derivation path under the `account_index`.                                                                                                                                                                                                 |
-| derivation\_path | string |     ✓    | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address. If there are no more addresses with balances within the gap limit, the address index will increment.                                                              |
-| balance          | object |     ✓    | A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.                                                                                                                                                                           |
-| chain            | string |     ✓    | `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change. |
+<CompactTable source="wallet.NewAddressInfo" />
 
 ### PayForGas
 
 The `PayForGas` object includes the following items:
 
-| Parameter                    | Type    | Required | Default | Description                                                                                                                                                                  |
-| ---------------------------- | ------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tx\_type                     | string  |     ✓    |   `-`   | ETH/EVM coins and tokens only. Options are `Legacy` or `Eip1559`. The type of transaction values being configured.                                                           |
-| gas\_price                   | decimal |     ✗    |   `-`   | Only used if tx\_type is `Legacy`. Values are in Gwei. The maximium price per gas unit the user is willing to pay for the transaction.                                       |
-| max\_fee\_per\_gas           | decimal |     ✗    |   `-`   | Only used if tx\_type is `Eip1559`. Values are in Gwei. The maximum amount to pay per unit of gas to get your transaction included in a block.                               |
-| max\_priority\_fee\_per\_gas | decimal |     ✗    |   `-`   | Only used if tx\_type is `Eip1559`. Values are in Gwei. This is paid directly to the miner, and can be set by the user to attract minimal delay in transaction confirmation. |
-| min\_wait\_time              | integer |     ✗    |   `-`   | Only used if tx\_type is `Eip1559`. Estimated minimum transaction wait time in mempool (in ms) for this priority level.                                                      |
-| max\_wait\_time              | integer |     ✗    |   `-`   | Only used if tx\_type is `Eip1559`. Estimated maximum transaction wait time in mempool (in ms) for this priority level.                                                      |
+<CompactTable source="wallet.PayForGas" variant="compact" />
 
 <Note>
   [Eip1559](https://www.coinbase.com/en-au/blog/the-technical-benefits-of-eip-1559) allows users to save on gas fees. To use this feature for a coin/token, its entry in your `coins` file must include fields for `chain_id` and `max_eth_tx_type`. To allow eip-1559 transactions, `max_eth_tx_type` should be set to `2`. To find the `chain_id` for an \[EVM network([https://blog.thirdweb.com/evm-compatible-blockchains-and-ethereum-virtual-machine/](https://blog.thirdweb.com/evm-compatible-blockchains-and-ethereum-virtual-machine/))], refer to [chainlist.org](https://chainlist.org). There is also a new `gas_fee_estimator` parameter in the coins file, which can be set to `Provider` or `Simple`.
@@ -269,11 +212,7 @@ The `PayForGas` object includes the following items:
 
 The `StakingDetails` object includes the following items:
 
-| Parameter          | Type   | Description                                                                                                                  |
-| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| type               | string | The coin type. Currently, only 'Cosmos' and `Qtum` are supported.                                                            |
-| validator\_address | string | The address of the validator to delegate staking to.                                                                         |
-| amount             | string | The amount of coins to stake send to the validator for delegated staking (Cosmos only - QTUM will stake your whole balance). |
+<CompactTable source="wallet.StakingDetails" />
 
 <CollapsibleSection expandedText="Hide Cosmos Example" collapsedText="Show Cosmos Example">
   ```json
@@ -298,12 +237,7 @@ The `StakingDetails` object includes the following items:
 
 The `StakingInfoDetails` object includes the following items:
 
-| Parameter          | Type    | Description                                                                                                           |
-| ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| type               | string  | The coin type. Currently, only 'Cosmos' is supported.                                                                 |
-| filter\_by\_status | string  | Return only validators matching a specific status. Options are `Bonded`, `Unbonded`, and `All`. Defaults to `Bonded`. |
-| limit              | integer | Optional, defaults to `10`. The number of validators displayed per page in response.                                  |
-| page\_number       | integer | Optional, defaults to `1`. The page offset for items in response.                                                     |
+<CompactTable source="wallet.StakingInfoDetails" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -320,11 +254,7 @@ The `StakingInfoDetails` object includes the following items:
 
 The `ClaimingDetails` object includes the following items:
 
-| Parameter          | Type    | Description                                                                                                  |
-| ------------------ | ------- | ------------------------------------------------------------------------------------------------------------ |
-| type               | string  | The coin type. Currently, only 'Cosmos' and `Qtum` are supported.                                            |
-| validator\_address | string  | The address of the validator to delegate staking to.                                                         |
-| force              | boolean | Defaults to `false`. If `true`, will process unprofitable transactions (reward value less than network fees) |
+<CompactTable source="wallet.ClaimingDetails" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -340,10 +270,7 @@ The `ClaimingDetails` object includes the following items:
 
 The `PrivKeyPolicy` object includes the following items:
 
-| Parameter | Type   | Description                                                                                                                                                                              |
-| --------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type      | string | Options are `ContextPrivKey`, `WalletConnect`, `Metamask`, or `Trezor`. Defaults to `ContextPrivKey`.                                                                                    |
-| data      | list   | `WalletConnect` type only. The `session_topic` hex string, returned from the response to [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection). |
+<CompactTable source="wallet.PrivKeyPolicy" />
 
 <CollapsibleSection expandedText="Hide Trezor Example" collapsedText="Show Trezor Example">
   ```json
@@ -365,14 +292,7 @@ The `PrivKeyPolicy` object includes the following items:
 
 The `RawTxInfo` object includes the following items:
 
-| Parameter     | Type   | Required | Description                                                                                                                                                                                                                  |
-| ------------- | ------ | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tx\_hex       | string |     ✗    | UTXO only. The raw unsigned hex of a proposed transaction.                                                                                                                                                                   |
-| prev\_txns    | list   |     ✗    | UTXO only. A list of standard [InputTxns objects](/komodo-defi-framework/api/common_structures/wallet/#input-txns).                                                                                                          |
-| to            | string |     ✗    | ETH/EVM only. A destination address to send the funds to.                                                                                                                                                                    |
-| value         | string |     ✗    | ETH/EVM only. The amount of funds to be sent as a string with a `0x` prefix, in [wei](https://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na) units. |
-| gas\_limit    | string |     ✗    | ETH/EVM only. The maximum gas to be used for sending the transaction, in [gwei](https://eth-converter.com/) units.                                                                                                           |
-| pay\_for\_gas | object |     ✗    | ETH/EVM only. Used for EIP-1559 fee policy config. A standard [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas) object.                                                                          |
+<CompactTable source="wallet.RawTxInfo" />
 
 <DevComment>
   TODO: Confirm units used in ETH/EVM transactions.
@@ -408,11 +328,7 @@ The `RawTxInfo` object includes the following items:
 
 The `ScanAddressesInfo` response object includes the following items for request in HD mode:
 
-| Parameter        | Type    | Required | Description                                                                                                                                   |
-| ---------------- | ------- | :------: | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| account\_index   | integer |     ✓    | `ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.** |
-| derivation\_path | string  |     ✓    | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the account.                                   |
-| new\_addresses   | list    |     ✓    | A list of standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) objects.                           |
+<CompactTable source="wallet.ScanAddressesInfo" />
 
 <DevComment>
   Confirm `new_addresses` array has the structure of `NewAddressInfo`.
@@ -420,31 +336,13 @@ The `ScanAddressesInfo` response object includes the following items for request
 
 ### TotalFeeInfo
 
-| Parameter                   | Type             | Required | Description                                                                                                                                                   |
-| --------------------------- | ---------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                        | string           |     ✓    | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount                      | string (numeric) |     ✓    | fee amount (in decimal representation)                                                                                                                        |
-| amount\_rat                 | rational         |     ✓    | fee amount (in rational representation)                                                                                                                       |
-| amount\_fraction            | fraction         |     ✓    | fee amount (in fraction representation)                                                                                                                       |
-| required\_balance           | string (numeric) |     ✓    | the required `coin` balance to pay the fee                                                                                                                    |
-| required\_balance\_rat      | rational         |     ✓    | `required_balance` in rational representation                                                                                                                 |
-| required\_balance\_fraction | fraction         |     ✓    | `required_balance` in fraction representation                                                                                                                 |
+<CompactTable source="wallet.TotalFeeInfo" />
 
 ### WithdrawFee
 
 The `WithdrawFee` object varies depending on the coin or token type. Refer to the examples to view the object structure for each type.
 
-| Parameter       | Type           | Required | Description                                                                       |
-| --------------- | -------------- | :------: | --------------------------------------------------------------------------------- |
-| type            | string         |     ✓    | The fee type. Either `Utxo`, `Tendermint`, `Qrc20` or `Eth`.                      |
-| amount          | numeric string |     ✗    | `Utxo` or `Tendermint` type only. The fee amount.                                 |
-| coin            | string         |     ✓    | The coin which will be used to pay the transaction fee.                           |
-| gas             | integer        |     ✗    | `Eth` type only. The amount of gas to be used for the transaction.                |
-| gas\_price      | numeric string |     ✗    | `Eth` or `Qrc20` type only. Price per unit of gas to be used for the transaction. |
-| gas\_limit      | numeric string |     ✗    | `Tendermint` or `Qrc20` type only. Maximum gas to be used for the transaction.    |
-| miner\_fee      | numeric string |     ✗    | `Tendermint` type only. Fee to mine the transaction.                              |
-| total\_fee      | numeric string |     ✗    | `Eth` type only. Gas price multiplied by gas amount.                              |
-| total\_gas\_fee | numeric string |     ✗    | `Qrc20` type only. Gas price multiplied by gas amount.                            |
+<CompactTable source="wallet.WithdrawFee" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example of Eth type
@@ -497,12 +395,7 @@ The `WithdrawFee` object varies depending on the coin or token type. Refer to th
 
 The `WalletAccountInfo` object includes the following items in the activation response for a coin in HD mode:
 
-| Parameter        | Type    | Required | Description                                                                                                                                   |
-| ---------------- | ------- | :------: | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| account\_index   | integer |     ✓    | `ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.** |
-| derivation\_path | string  |     ✓    | Derivation path up to the `COIN` child. E.g. `"m/44'/141'/0'"`                                                                                |
-| total\_balance   | object  |     ✓    | A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.                                           |
-| addresses        | list    |     ✓    | A list of standard [AccountAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#account-address-info) objects.                   |
+<CompactTable source="wallet.WalletAccountInfo" />
 
 ```json
 {
@@ -522,10 +415,7 @@ The `WalletAccountInfo` object includes the following items in the activation re
 
 The `WalletBalanceInfo` object includes the following items in the activation response for a coin in HD mode:
 
-| Parameter    | Type   | Required | Description                                                                                                      |
-| ------------ | ------ | :------: | ---------------------------------------------------------------------------------------------------------------- |
-| wallet\_type | string |     ✓    | In HD wallet mode, this will return `HD`. <DevComment> What are the other values? </DevComment>                  |
-| accounts     | object |     ✓    | A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object. |
+<CompactTable source="wallet.WalletBalanceInfo" />
 
 ```json
 {
@@ -543,22 +433,13 @@ The `WalletBalanceInfo` object includes the following items in the activation re
 The `WithdrawFromInfo` response object includes the following items for HD Wallet [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests.
 You can use either the `derivation_path` on its own, or the `account_id`, `chain` and `address_id` together.
 
-| Parameter        | Type    | Required | Default | Description                                                                                                                                                                                                                                                                   |
-| ---------------- | ------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| derivation\_path | string  |     ✗    |   `-`   | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address.                                                                                                                                                                   |
-| account\_id      | integer |     ✗    |   `-`   | `ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**                                                                                                                                 |
-| address\_id      | integer |     ✗    |   `-`   | `ADDRESS_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path.                                                                                                                                                                                   |
-| chain            | string  |     ✗    |   `-`   | `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change. |
+<CompactTable source="wallet.WithdrawFromInfo" />
 
 ### AccountId
 
 Identifier used across GUI-storage methods to reference a stored account.
 
-| Parameter      | Type    | Required | Description                                                                |
-| -------------- | ------- | :------: | -------------------------------------------------------------------------- |
-| type           | string  |     ✓    | Defines account kind. Possible values: `iguana`, `hd`, `hw`.               |
-| account\_idx   | integer |     ✗    | Only when `type` = `hd`. Index of the HD account (starting at 0).          |
-| device\_pubkey | string  |     ✗    | Only when `type` = `hw`. Hex-encoded pubkey of the hardware wallet device. |
+<CompactTable source="wallet.AccountId" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -577,10 +458,7 @@ Identifier used across GUI-storage methods to reference a stored account.
 
 The `HdCoinKeys` object includes the following items for HD mode private key export responses:
 
-| Parameter | Type   | Required | Description                                                                                                        |
-| --------- | ------ | :------: | ------------------------------------------------------------------------------------------------------------------ |
-| coin      | string |     ✓    | The ticker symbol of the coin.                                                                                     |
-| addresses | array  |     ✓    | Array of [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) objects for each address. |
+<CompactTable source="wallet.HdCoinKeys" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -602,13 +480,7 @@ The `HdCoinKeys` object includes the following items for HD mode private key exp
 
 The `HdKeysInfo` object includes the following items for individual address information in HD mode:
 
-| Parameter        | Type   | Required | Description                                                                                                      |
-| ---------------- | ------ | :------: | ---------------------------------------------------------------------------------------------------------------- |
-| derivation\_path | string |     ✓    | The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address.      |
-| pubkey           | string |     ✓    | The public key for the address.                                                                                  |
-| address          | string |     ✓    | The wallet address.                                                                                              |
-| priv\_key        | string |     ✓    | The private key for the address.                                                                                 |
-| viewing\_key     | string |     ✗    | The viewing key for the address. Only included for ZHTLC coins like ARRR that support enhanced privacy features. |
+<CompactTable source="wallet.HdKeysInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Standard Coin Example (KMD)
@@ -639,13 +511,7 @@ The `HdKeysInfo` object includes the following items for individual address info
 
 The `IguanaKeysInfo` object includes the following items for private key information in Iguana mode:
 
-| Parameter | Type   | Required | Description                      |
-| --------- | ------ | :------: | -------------------------------- |
-| coin      | string |     ✓    | The ticker symbol of the coin.   |
-| pubkey    | string |     ✓    | The public key for the coin.     |
-| address   | string |     ✓    | The wallet address for the coin. |
-| priv\_key | string |     ✓    | The private key for the coin.    |
-
+<CompactTable source="wallet.IguanaKeysInfo" />
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### UTXO Coin Example (KMD)
 
@@ -698,12 +564,7 @@ The `IguanaKeysInfo` object includes the following items for private key informa
 
 The `available` balance is not sufficient to transfer the specified amount.
 
-| Parameter | Type             | Required | Description                                                                                                                                            |
-| --------- | ---------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| coin      | string           |     ✓    | the name of the coin which balance is not sufficient. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas) |
-| available | string (numeric) |     ✓    | the balance available for transfer                                                                                                                     |
-| required  | string (numeric) |     ✓    | the amount required to transfer the specified amount. This amount is necessary but may not be sufficient                                               |
-
+<CompactTable source="wallet.NotSufficientBalance" />
 #### Response (NotSufficientBalance error)
 
 ```json
@@ -722,39 +583,22 @@ The `available` balance is not sufficient to transfer the specified amount.
 }
 ```
 
-#### ZeroBalanceToWithdrawMax
-
-The available balance is zero.
-
-| Parameter | Type | Required | Description |
-| --------- | ---- | :------: | ----------- |
-| (none)    |      |     -    |             |
 
 #### AmountTooLow
 
 The specified amount is too low. Required at least `threshold`.
 
-| Parameter | Type             | Required | Description                                          |
-| --------- | ---------------- | :------: | ---------------------------------------------------- |
-| amount    | string (numeric) |     ✓    | the amount the user was willing to transfer          |
-| threshold | string (numeric) |     ✓    | the `amount` has not to be less than the `threshold` |
-
+<CompactTable source="wallet.AmountTooLow" />
 #### InvalidAddress
 
 The specified `to` address is not valid.
 
-| Parameter | Type   | Required | Description           |
-| --------- | ------ | :------: | --------------------- |
-| (none)    | string |     ✓    | the error description |
-
+<CompactTable source="wallet.InvalidAddress" />
 #### InvalidFeePolicy
 
 The specified `fee` is not valid.
 
-| Parameter | Type   | Required | Description           |
-| --------- | ------ | :------: | --------------------- |
-| (none)    | string |     ✓    | the error description |
-
+<CompactTable source="wallet.InvalidFeePolicy" />
 #### Response (InvalidFeePolicy error - attempt to use EthGas for UTXO coin)
 
 ```json
@@ -785,22 +629,15 @@ The specified `fee` is not valid.
 
 ### AccruedRewards
 
-Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/) responses to represent either accrued reward amounts or the reason why rewards were not accrued.
+Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/)
 
-This is a union type that can have one of two structures:
+<CompactTable source="wallet.AccruedRewards" />
 
-#### Accrued Variant
+### NotAccruedReason
 
-| Parameter | Type             | Required | Description                   |
-| --------- | ---------------- | :------: | ----------------------------- |
-| Accrued   | string (numeric) |     ✓    | the amount of accrued rewards |
+Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/)
 
-#### NotAccruedReason Variant
-
-| Parameter        | Type   | Required | Description                            |
-| ---------------- | ------ | :------: | -------------------------------------- |
-| NotAccruedReason | string |     ✓    | the reason why rewards are not accrued |
-
+<CompactTable source="wallet.NotAccruedReason" />
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   Example with accrued rewards:
 
@@ -827,10 +664,7 @@ This is a union type that can have one of two structures:
 
 Represents the identifier of an account that can be set as the **enabled** (active) GUI-storage account.
 
-| Parameter    | Type    | Required | Description                                                                                  |
-| ------------ | ------- | :------: | -------------------------------------------------------------------------------------------- |
-| type         | string  |     ✓    | Account kind. Accepted values are `iguana` and `hd`.                                         |
-| account\_idx | integer |     ✗    | Required only when `type` = `hd`. The index of the HD account to enable (starting from `0`). |
+<CompactTable source="wallet.EnabledAccountId" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -846,12 +680,7 @@ Represents the identifier of an account that can be set as the **enabled** (acti
 
 Used when creating a brand-new account via the `gui_storage::enable_account` method (when `policy` = `new`) or the `gui_storage::add_account` method.
 
-| Parameter    | Type             | Required | Description                                                              |
-| ------------ | ---------------- | :------: | ------------------------------------------------------------------------ |
-| account\_id  | EnabledAccountId |     ✓    | Identifier of the new account.                                           |
-| name         | string           |     ✓    | User-friendly name for the account (maximum 255 characters).             |
-| description  | string           |     ✗    | Optional longer description (maximum 600 characters).                    |
-| balance\_usd | string (numeric) |     ✗    | Optional initial USD balance shown in GUIs. If omitted, defaults to `0`. |
+<CompactTable source="wallet.NewAccount" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json

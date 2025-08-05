@@ -1,5 +1,7 @@
 export const title = "Komodo DeFi Framework Method: Common Structures";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
+import CompactTable from '@/components/CompactTable';
+
 
 # Common Structures
 
@@ -23,10 +25,7 @@ Structures which are used in more than one section are listed below:
 
 The `EventStreamConfig` object defines which events will be streamed to the client:
 
-| Parameter                      | Type   | Required | Default | Description                                                |
-| ------------------------------ | ------ | :------: | :-----: | ---------------------------------------------------------- |
-| access\_control\_allow\_origin | string |     ✗    |   `-`   | Defines CORS whitelist. Use "\*" to allow from any origin. |
-| worker\_path                   | string |     ✗    |   `-`   | WASM only. Path to a custom `worker.js` file.              |
+<CompactTable source="common.EventStreamConfig" />
 
 Configurable events, and how to enable them, is detailed in the [streaming methods doc](/komodo-defi-framework/api/v20/streaming/)
 
@@ -47,15 +46,7 @@ The `CLIENT_ID` value used in the url must match the `client_id` value used when
 
 The 'FilterCriteria' object allows you to filter the results based on specific parameters.
 
-| Parameter       | Type   | Required | Default | Description                                    |
-| --------------- | ------ | :------: | :-----: | ---------------------------------------------- |
-| status          | string |     ✗    |   `-`   | Status of the transactions (e.g., "completed") |
-| date\_from      | string |     ✗    |   `-`   | Start date in ISO 8601 format                  |
-| date\_to        | string |     ✗    |   `-`   | End date in ISO 8601 format                    |
-| my\_coin        | string |     ✗    |   `-`   | Coin being used by you for the swap/trade.     |
-| other\_coin     | string |     ✗    |   `-`   | Coin you are trading against                   |
-| from\_timestamp | number |     ✗    |   `-`   | Start timestamp in UNIX format                 |
-| to\_timestamp   | number |     ✗    |   `-`   | End timestamp in UNIX format                   |
+<CompactTable source="common.FractionalValue" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -79,10 +70,7 @@ The 'FilterCriteria' object allows you to filter the results based on specific p
 
 The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
 
-| Parameter | Type             | Required | Description                              |
-| --------- | ---------------- | :------: | ---------------------------------------- |
-| numer     | string (numeric) |     ✓    | The numerator of the fractional value.   |
-| denom     | string (numeric) |     ✓    | The denominator of the fractional value. |
+<CompactTable source="common.NumericFormatsValue" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -97,11 +85,7 @@ The `FractionalValue` object includes a [numerator and denominator](https://www.
 
 The `NumericFormatsValue` returns a price or amount in three different formats: `fraction`, `rational`, and `decimal`.
 
-| Parameter | Type           | Required | Description                                                                                          |
-| --------- | -------------- | :------: | ---------------------------------------------------------------------------------------------------- |
-| decimal   | numeric string |     ✓    | A decimal number as a string.                                                                        |
-| rational  | object         |     ✓    | A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.     |
-| fraction  | object         |     ✓    | A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
+<CompactTable source="common.PagingOptions" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -123,11 +107,7 @@ The `NumericFormatsValue` returns a price or amount in three different formats: 
 
 The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
 
-| Parameter    | Type             | Required | Default | Description                                                                                                            |
-| ------------ | ---------------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------- |
-| from\_uuid   | string (or null) |     ✗    |  `null` | Skips records until this UUID, excluding the record with this UUID. Convenient for infinite scrolling implementations. |
-| limit        | number           |     ✗    |   `-`   | Limits the number of returned swaps.                                                                                   |
-| page\_number | number           |     ✗    |   `-`   | Returns limit swaps from the selected page. This parameter is ignored if from\_uuid is set.                            |
+<CompactTable source="common.Pagination" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -147,10 +127,7 @@ The `PagingOptions` object includes options of page selection to consult when lo
 
 For requests which return many results, pagination offsets may be applied. \*\* Use either value, not both. \*\*
 
-| Parameter  | Type    | Required | Default | Description                            |
-| ---------- | ------- | :------: | :-----: | -------------------------------------- |
-| PageNumber | integer |     ✗    |   `1`   | Offset for paginated results           |
-| FromId     | integer |     ✗    |   `-`   | Ignores any results prior to this UUID |
+<CompactTable source="common.StreamingConfig" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -193,10 +170,7 @@ The Komodo DeFi SDK now offers the [num-rational crate](https://crates.io/crates
 
 You can optionally apply more detailed configuration to event streaming methods.
 
-| Parameter                 | Type    | Required |  Default | Description                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------------- | ------- | :------: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| stream\_interval\_seconds | float   |     ✗    | `10`/`5` | Interval in seconds between streaming event update requests. Defaults to `10` for [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) and `5` for [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)/[stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/) |
-| always\_send              | boolean |     ✗    |  `false` | [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/) only. If `true`, network data will always be sent every `stream_interval_seconds`, even when there is no change. If `false`, network data will be sent regardless.                                                                                                        |
+<CompactTable source="common.StreamingFeeConfig" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -211,10 +185,7 @@ You can optionally apply more detailed configuration to event streaming methods.
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ### StreamingFeeConfig
 
-  | Parameter       | Type   | Required |  Default | Description                                                                                                                                                                                                                                                                                                                                                                                   |
-  | --------------- | ------ | :------: | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | estimate\_every | float  |     ✗    |   `15`   | Interval in seconds between fee estimate updates.                                                                                                                                                                                                                                                                                                                                             |
-  | estimate\_type  | string |     ✗    | `Simple` | If set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/) Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/streaming/fee_estimator/) only. |
+  <CompactTable source="common.SyncStatus" />
 
   #### Example (stream::fee\_estimator::enable)
 
@@ -228,19 +199,11 @@ You can optionally apply more detailed configuration to event streaming methods.
 
 ### SyncStatus
 
-| Parameter        | Type   | Required | Description                                                                                                                                                                                                     |
-| ---------------- | ------ | :------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| state            | string |     ✓    | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                                                                                           |
-| additional\_info | object |     ✓    | A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only. |
+<CompactTable source="common.SyncStatusExtended" />
 
 ### SyncStatusExtended
 
-| Parameter          | Type   | Required | Description                                                                                                  |
-| ------------------ | ------ | :------: | ------------------------------------------------------------------------------------------------------------ |
-| blocks\_left       | number |     ✗    | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state  |
-| transactions\_left | number |     ✗    | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state |
-| code               | number |     ✗    | displays the error code for `Error` state                                                                    |
-| message            | number |     ✗    | displays the error message for `Error` state                                                                 |
+<CompactTable source="common.WcConnNs" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -277,11 +240,7 @@ You can optionally apply more detailed configuration to event streaming methods.
 
 The `WcConnNs` object contains details of approved chains, methods and events while connected via [WalletConnect](https://specs.walletconnect.com/2.0/).
 
-| Parameter | Type            | Description                                                                                                                                                                                                                                                                                                                                                                              |
-| --------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| chains    | list of strings | A list of chain IDs. For EIP155, refer to [https://chainid.network/](https://chainid.network/). For Cosmos, refer to [https://cosmos.directory/](https://cosmos.directory/)                                                                                                                                                                                                              |
-| methods   | list of strings | A list of approved methods, usable while connected. For EIP155, refer to [https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc). For Cosmos, refer to [https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc) |
-| events    | list of strings | A list of events to track during the connection. For EIP155, refer to [https://docs.reown.com/advanced/providers/ethereum#events](https://docs.reown.com/advanced/providers/ethereum#events). For Cosmos, refer to [https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html](https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html)                |
+<CompactTable source="common.WcSession" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### EIP155 Example
@@ -329,13 +288,7 @@ The `WcConnNs` object contains details of approved chains, methods and events wh
 
 The `WcSession` object contains details of active WalletConnect sessions.
 
-| Parameter      | Type    | Description                                                                                                                                                                                                                                                                |
-| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| topic          | string  | The session topic hex string, used to identify the session for communications with the external wallet/dapp.                                                                                                                                                               |
-| metadata       | object  | Arbitrary data returned from the external wallet/dapp on connection.                                                                                                                                                                                                       |
-| pairing\_topic | string  | The pairing topic hex string, used for the initial external wallet/dapp connection.                                                                                                                                                                                        |
-| namespaces     | object  | Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection). |
-| expiry         | integer | A timestamp in [unix epoch format](https://www.epochconverter.com/) indicating when the connection will expire if not otherwise closed.                                                                                                                                    |
+<CompactTable source="common.ErrorResponse" />
 
 Within each session object, there are a some values which are required as input in other WalletConnect methods:
 
@@ -344,10 +297,4 @@ Within each session object, there are a some values which are required as input 
 
 ### ErrorResponse
 
-| Parameter    | Type   | Description                                    |
-| ------------ | ------ | ---------------------------------------------- |
-| error        | string | A human-readable error message.                |
-| error\_path  | string | The path in the code where the error occurred. |
-| error\_trace | string | A stack trace of the error.                    |
-| error\_type  | string | The type of the error.                         |
-| error\_data  | object | Additional data related to the error.          |
+<CompactTable source="common.ErrorResponse" />

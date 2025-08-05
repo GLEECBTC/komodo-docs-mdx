@@ -1,5 +1,7 @@
 export const title = "Komodo Defi SDK Swaps: Maker Events";
 export const description = "A description of events and outcomes for each step of an atomic swap from the maker's perspective.";
+import CompactTable from '@/components/CompactTable';
+
 
 # Maker Events
 
@@ -52,26 +54,7 @@ Click on the Events below to view thier structure:
 
   The swap goes to the negotiation stage after this event occurs.
 
-  | Parameter                      | Type                              | Required | Description                                                                                                                                                                                                                  |
-  | ------------------------------ | --------------------------------- | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | taker\_coin                    | string                            |     ✓    | the ticker of the taker coin                                                                                                                                                                                                 |
-  | maker\_coin                    | string                            |     ✓    | the ticker of the maker coin                                                                                                                                                                                                 |
-  | taker                          | string (hexadecimal)              |     ✓    | the p2p ID of taker node                                                                                                                                                                                                     |
-  | secret                         | string (hexadecimal)              |     ✓    | a random secret, the hash of which is used to lock atomic-swap payments                                                                                                                                                      |
-  | secret\_hash                   | string (hexadecimal)              |     ✓    | the hash of the swap secret                                                                                                                                                                                                  |
-  | my\_persistent\_pub            | string (hexadecimal)              |     ✓    | a persistent secp256k1 public key of maker node                                                                                                                                                                              |
-  | lock\_duration                 | number (integer)                  |     ✓    | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration \* 2 |
-  | maker\_amount                  | string (numeric)                  |     ✓    | the amount of coins to be swapped by maker                                                                                                                                                                                   |
-  | taker\_amount                  | string (numeric)                  |     ✓    | the amount of coins to be swapped by taker                                                                                                                                                                                   |
-  | maker\_payment\_confirmations  | number (integer)                  |     ✓    | the required number of blockchain confirmations for maker payment                                                                                                                                                            |
-  | maker\_payment\_requires\_nota | bool                              |     ✗    | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
-  | taker\_payment\_confirmations  | number (integer)                  |     ✓    | the required number of blockchain confirmations for taker payment                                                                                                                                                            |
-  | taker\_payment\_requires\_nota | bool                              |     ✗    | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
-  | maker\_payment\_lock           | number (UTC timestamp in seconds) |     ✓    | the maker payment is locked until this timestamp                                                                                                                                                                             |
-  | uuid                           | string                            |     ✓    | the swap uuid                                                                                                                                                                                                                |
-  | started\_at                    | number (UTC timestamp in seconds) |     ✓    | the timestamp at the start of the swap                                                                                                                                                                                       |
-  | maker\_coin\_start\_block      | number (integer)                  |     ✓    | the maker coin block number at the start of the swap                                                                                                                                                                         |
-  | taker\_coin\_start\_block      | number (integer)                  |     ✓    | the taker coin block number at the start of the swap                                                                                                                                                                         |
+  <CompactTable source="maker-events.Started" variant="compact" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -85,9 +68,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
+  <CompactTable source="maker-events.StartFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -101,10 +82,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker to send the dex fee after this event occurs.
 
-  | Parameter                | Type                              | Required | Description                                      |
-  | ------------------------ | --------------------------------- | :------: | ------------------------------------------------ |
-  | taker\_payment\_locktime | number (UTC timestamp in seconds) |     ✓    | the taker payment is locked until this timestamp |
-  | taker\_pubkey            | string (hexadecimal)              |     ✓    | a persistent secp256k1 public key of taker node  |
+  <CompactTable source="maker-events.Negotiated" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -137,9 +115,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
+  <CompactTable source="maker-events.NegotiateFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -158,10 +134,7 @@ Click on the Events below to view thier structure:
 
   Maker sends their payment after this event occurs.
 
-  | Parameter | Type   | Required | Description                             |
-  | --------- | ------ | :------: | --------------------------------------- |
-  | tx\_hash  | string |     ✓    | the hash of the transaction             |
-  | tx\_hex   | string |     ✓    | transaction bytes in hexadecimal format |
+  <CompactTable source="maker-events.TakerFeeValidated" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -181,9 +154,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
+  <CompactTable source="maker-events.TakerFeeValidateFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -197,9 +168,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
+  <CompactTable source="maker-events.MakerPaymentTransactionFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -218,11 +187,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker to send his payment after this event occurs.
 
-  | Parameter | Type   | Required | Description                             |
-  | --------- | ------ | :------: | --------------------------------------- |
-  | tx\_hash  | string |     ✓    | the hash of the transaction             |
-  | tx\_hex   | string |     ✓    | transaction bytes in hexadecimal format |
-
+  <CompactTable source="maker-events.MakerPaymentSent" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -240,10 +205,7 @@ Click on the Events below to view thier structure:
   The `MakerPaymentDataSendFailed` event indicates that maker was not able to send his payment data to taker due to a network error.
   When this event occurs, maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.MakerPaymentDataSendFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -256,10 +218,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.MakerPaymentWaitConfirmFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -277,11 +236,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker payment confirmation after this event occurs.
 
-  | Parameter | Type   | Required | Description                             |
-  | --------- | ------ | :------: | --------------------------------------- |
-  | tx\_hash  | string |     ✓    | the hash of the transaction             |
-  | tx\_hex   | string |     ✓    | transaction bytes in hexadecimal format |
-
+  <CompactTable source="maker-events.TakerPaymentReceived" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -306,10 +261,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.TakerPaymentValidateFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -327,10 +279,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.TakerPaymentWaitConfirmFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -351,10 +300,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.TakerPaymentSpendFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -369,11 +315,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
-  | Parameter | Type   | Required | Description                             |
-  | --------- | ------ | :------: | --------------------------------------- |
-  | tx\_hash  | string |     ✓    | the hash of the transaction             |
-  | tx\_hex   | string |     ✓    | transaction bytes in hexadecimal format |
-
+  <CompactTable source="maker-events.TakerPaymentSpent" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -401,10 +343,7 @@ Click on the Events below to view thier structure:
 
   Maker attempts to refund the maker payment.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.TakerPaymentSpendConfirmFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -423,10 +362,7 @@ Click on the Events below to view thier structure:
 
   The `MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
 
-  | Parameter   | Type                   | Required | Description                                |
-  | ----------- | ---------------------- | :------: | ------------------------------------------ |
-  | wait\_until | number (UTC timestamp) |     ✓    | the timestamp at which a refund will occur |
-
+  <CompactTable source="maker-events.MakerPaymentWaitRefundStarted" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -441,10 +377,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                        |
-  | --------- | ------ | :------: | ---------------------------------- |
-  | error     | string |     ✓    | error description with stack trace |
-
+  <CompactTable source="maker-events.MakerPaymentRefundFailed" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -457,11 +390,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  | Parameter | Type   | Required | Description                             |
-  | --------- | ------ | :------: | --------------------------------------- |
-  | tx\_hash  | string |     ✓    | the hash of the transaction             |
-  | tx\_hex   | string |     ✓    | transaction bytes in hexadecimal format |
-
+  <CompactTable source="maker-events.MakerPaymentRefunded" />
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA

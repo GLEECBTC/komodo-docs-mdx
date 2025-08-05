@@ -1,6 +1,8 @@
 export const title = "Komodo DeFi Framework Method: Delete Wallet";
 export const description = "Securely deletes a wallet from the Komodo DeFi Framework.";
 
+import CompactTable from '@/components/CompactTable';
+
 # Delete Wallet
 
 ## delete\_wallet {{label : 'delete_wallet', tag : 'API-v2'}}
@@ -9,11 +11,7 @@ Securely deletes a wallet. The wallet must not be the currently active wallet. T
 
 ### Request Parameters
 
-| Parameter    | Type   | Required | Description                       |
-| ------------ | ------ | :------: | --------------------------------- |
-| wallet\_name | string |     ✓    | The name of the wallet to delete. |
-| password     | string |     ✓    | The password of the wallet.       |
-
+<CompactTable source="v2-wallet.RequestParameters" />
 ### Response Parameters
 
 The response for a successful request is `null`.
@@ -50,15 +48,7 @@ The response for a successful request is `null`.
 
 ### Error Types
 
-| Parameter                | Type   | Description                                                   |
-| :----------------------- | :----- | :------------------------------------------------------------ |
-| InvalidRequest           | string | The request is malformed or missing required parameters.      |
-| WalletNotFound           | string | The specified `wallet_name` was not found.                    |
-| InvalidPassword          | string | The provided `password` is incorrect.                         |
-| CannotDeleteActiveWallet | string | An attempt was made to delete the currently active wallet.    |
-| WalletsStorageError      | string | A storage-related error occurred while accessing wallet data. |
-| InternalError            | string | An internal server error occurred.                            |
-
+<CompactTable source="v2-wallet.ErrorTypes" />
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### Error Response (Wallet Not Found)
 

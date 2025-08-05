@@ -27,7 +27,7 @@ The `kmd_rewards_info` method returns information about the active user rewards 
 | output\_index     | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                             |
 | amount            | string (numeric)           | the transaction output’s value                                                                                                                      |
 | locktime          | number (integer)           | the transaction output's locktime                                                                                                                   |
-| accrued\_rewards  | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                   |
+| accrued\_rewards  | object                     | either a [NotAccruedReason](/komodo-defi-framework/api/common_structures/wallet/#not-accrued-reason/) or [Accrued](/komodo-defi-framework/api/common_structures/wallet/#accrued/) object, showing the amount of acrued rewards, or the reason why rewards are not accrued.                                                                    |
 | accrue\_start\_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                   |
 | accrue\_stop\_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)          |
 
