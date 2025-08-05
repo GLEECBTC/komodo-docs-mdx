@@ -824,6 +824,26 @@
       }
     ]
   },
+  "AccruedRewards": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of accrued rewards"
+      }
+    ]
+  },
+  "NotAccruedReason": {
+    "data": [
+      {
+        "parameter": "reason",
+        "type": "string",
+        "required": true,
+        "description": "the reason why rewards were not accrued"
+      }
+    ]
+  },
   "EnabledAccountId": {
     "data": [
       {
