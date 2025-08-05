@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Cancel MetaMask Connection Task";
 export const description = "Cancel a running MetaMask connection task in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Cancel MetaMask Connection Task
 
@@ -9,20 +10,11 @@ Use `task::connect_metamask::cancel` to abort the MetaMask initialisation task.
 
 ### Request Parameters
 
-| Parameter | Type    | Required | Description                                                        |
-| --------- | ------- | :------: | ------------------------------------------------------------------ |
-| task\_id  | integer |     ✓    | The identifying number returned when the task was first initiated. |
+<CompactTable source="v2-utils.TaskConnectMetamaskCancelRequest" />
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                            |
-| ------------ | ------ | -------------------------------------------------------------------------------------- |
-| result       | string | Returns `success` on success, otherwise the standard error fields below are populated. |
-| error        | string | Description of the error.                                                              |
-| error\_path  | string | Used for debugging. A reference to the function in code base which returned the error. |
-| error\_trace | string | Used for debugging. A trace of lines of code which led to the returned error.          |
-| error\_type  | string | An enumerated error identifier to indicate the category of error.                      |
-| error\_data  | string | Additional context for the error type.                                                 |
+<CompactTable source="v2-utils.TaskConnectMetamaskCancelResponse" />
 
 #### 📌 Cancel MetaMask Connection Task
 

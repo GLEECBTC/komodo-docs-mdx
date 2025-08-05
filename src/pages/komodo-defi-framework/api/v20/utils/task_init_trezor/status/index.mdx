@@ -1,5 +1,6 @@
 export const title = "task::init_trezor::status";
 export const description = "Query the status of Trezor device initialisation in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Komodo DeFi Framework Method: task::init\_trezor::status
 
@@ -9,22 +10,11 @@ After running the `task::init_trezor::init` method, you can query the status of 
 
 ### Request Parameters
 
-| Parameter            | Type    | Required | Default | Description                                                                 |
-| -------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------- |
-| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the initialisation process. |
-| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks.                 |
+<CompactTable source="v2-utils.TaskInitTrezorStatusRequest" />
 
 ### Response Parameters
 
-| Parameter              | Type         | Required | Description                                                                                                                                                          |
-| ---------------------- | ------------ | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| status                 | string       |     ✓    | A short indication of how the requested process is progressing.                                                                                                      |
-| details                | object       |     ✓    | Depending on the state of process progress, this will contain different information as detailed in the items below.                                                  |
-| details.type           | string       |     ✓    | Type of hardware wallet device (e.g. `Trezor`)                                                                                                                       |
-| details.model          | string       |     ✓    | The model of the hardware wallet device (e.g. `One` or `T`)                                                                                                          |
-| details.device\_name   | string       |     ✓    | The name of the device as defined by user in Trezor Suite or another wallet application.                                                                             |
-| details.device\_id     | string (hex) |     ✓    | A unique identifier of the device, set during manufacturing.                                                                                                         |
-| details.device\_pubkey | string (hex) |     ✓    | The hardware wallet device's pubkey. If included in the `task::init_trezor::init` request, it will be the same as input. If not, it should be stored for future use. |
+<CompactTable source="v2-utils.TaskInitTrezorStatusResponse" />
 
 #### 📌 Examples
 

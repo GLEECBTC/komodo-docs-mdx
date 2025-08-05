@@ -1,5 +1,6 @@
 export const title = "task::init_trezor::init";
 export const description = "Initialise your Trezor device for use in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Komodo DeFi Framework Method: task::init\_trezor::init
 
@@ -9,15 +10,11 @@ Before using this method, launch the Komodo DeFi Framework API, and plug in your
 
 ### Request Parameters
 
-| Parameter      | Type   | Required | Description                                                                                                                                                                                                                |
-| -------------- | ------ | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| device\_pubkey | string |     ✗    | If known, you can specify the device pubkey. If not known, this will be part of the [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/) response which you can save for future use |
+<CompactTable source="v2-utils.TaskInitTrezorInitRequest" />
 
 ### Response Parameters
 
-| Parameter | Type    | Required | Description                                               |
-| --------- | ------- | :------: | --------------------------------------------------------- |
-| task\_id  | integer |     ✓    | An identifying number which is used to query task status. |
+<CompactTable source="v2-utils.TaskInitTrezorInitResponse" />
 
 #### 📌 Examples
 
