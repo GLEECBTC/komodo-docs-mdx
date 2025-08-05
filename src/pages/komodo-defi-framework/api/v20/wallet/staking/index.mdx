@@ -1,11 +1,15 @@
-export const title = "Komodo DeFi Framework: Staking";
-export const description =
-  "Komodo DeFi Framework Method: Staking";
+export const title = "Komodo DeFi Framework Method Overview: Staking Methods";
+export const description = "An overview of the staking methods in the Komodo DeFi Framework API.";
 
-# Staking
+# Staking Methods
 
-<TocForIndex />
+## experimental::staking {{label : 'experimental::staking', tag : 'overview'}}
 
-<DevComment>
-  TODO: Add summary for other methods, along with detail for HD methods
-</DevComment>
+This section provides an overview of the staking methods available in the Komodo DeFi Framework API. Each method is documented in its own dedicated page:
+
+*   [Claim Staking Rewards](/komodo-defi-framework/api/v20/wallet/staking/claim_rewards/): Claim all delegated staking rewards from a validator using the `experimental::staking::claim_rewards` method.
+*   [Add Delegation](/komodo-defi-framework/api/v20/wallet/staking/delegate/): Initiate staking of a compatible coin with the `experimental::staking::delegate` method.
+*   [Delegations](/komodo-defi-framework/api/v20/wallet/staking/delegations/): View information about your node's staking using the `experimental::staking::query::delegations` method.
+*   [Ongoing Undelegations](/komodo-defi-framework/api/v20/wallet/staking/ongoing_delegations/): View information about undelegations in progress with the `experimental::staking::query::ongoing_undelegations` method.
+*   [Remove Delegation](/komodo-defi-framework/api/v20/wallet/staking/undelegate/): Stop staking of a compatible coin using the `experimental::staking::undelegate` method.
+*   [Validators](/komodo-defi-framework/api/v20/wallet/staking/validators/): View information about validators on the network with the `experimental::staking::query::validators` method.

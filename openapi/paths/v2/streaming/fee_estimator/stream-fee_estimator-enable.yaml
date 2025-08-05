@@ -1,0 +1,56 @@
+/stream::fee_estimator::enable:
+  post:
+    summary: Using this method, you can enable the fee estimation stream.
+    description: Using this method, you can enable the fee estimation stream.
+    operationId: stream::fee_estimator::enable
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - stream::fee_estimator::enable
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  client_id:
+                    type: integer
+                    description: This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))
+                  coin:
+                    type: string
+                    description: The coin or token to enable the fee estimation stream
+                      for.
+                required:
+                - client_id
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              streamer_id:
+                type: string
+                description: An identifier for the data stream. This can be used later
+                  to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/).
+          example: {}

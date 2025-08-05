@@ -1,0 +1,37 @@
+components:
+  schemas:
+    OrderStatusEnum:
+      type: string
+      description: 'Used in [orders\_history\_by\_filter](/komodo-defi-framework/api/legacy/orders_history_by_filter/)
+        to filter by order status:
+
+
+        **Active Order Statuses:**
+
+
+        **Values:**
+
+        - `Created`: Order has been created
+
+        - `Updated`: Maker order has been updated
+
+        - `Value`: Description
+
+        - `Fulfilled`: Order has been completely filled
+
+        - `Insufficient Balance`: Insufficient funds to complete order
+
+        - `Cancelled`: Order has been manually cancelled
+
+        - `Timed Out`: Taker order expired before matching
+
+        '
+      enum:
+      - Created
+      - Updated
+      - Value
+      - Fulfilled
+      - Insufficient Balance
+      - Cancelled
+      - Timed Out
+      title: 'Component: OrderStatusEnum'

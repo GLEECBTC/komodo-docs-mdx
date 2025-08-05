@@ -1,0 +1,16 @@
+components:
+  schemas:
+    LightningChannelValue:
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`Exact` for a specific amount or `Max` for whole balance.'
+          default: '`-`'
+        value:
+          type: object
+          description: Required if type is `Exact`. The amount in BTC you want to
+            open the channel with.
+          default: '`-`'
+      required:
+      - type

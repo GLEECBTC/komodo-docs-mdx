@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Komodo DeFi Framework Task API
+  version: 2.0.0
+  description: 'Focused OpenAPI specification for task endpoints in the Komodo DeFi
+    Framework.
+
+
+    For the complete API specification, see the main openapi.yaml file.'
+servers:
+- url: /
+  description: Local Komodo DeFi Framework instance
+tags:
+- name: Task
+  description: Methods for task
+paths:
+  /v2/task_enable\_eth:
+    $ref: ./paths/v2/task/enable\_eth.yaml
+  /v2/task_enable\_tendermint:
+    $ref: ./paths/v2/task/enable\_tendermint.yaml
+  /v2/task_enable\_utxo:
+    $ref: ./paths/v2/task/enable\_utxo.yaml
+  /v2/task_enable\_bch:
+    $ref: ./paths/v2/task/enable\_bch.yaml
+  /v2/task_enable\_qtum:
+    $ref: ./paths/v2/task/enable\_qtum.yaml
+  /v2/task_enable\_z\_coin:
+    $ref: ./paths/v2/task/enable\_z\_coin.yaml
+  /v2/task_enable\_eth_init:
+    $ref: ./paths/v2/task/enable\_eth/init.yaml
+  /v2/task_enable\_eth_user\_action:
+    $ref: ./paths/v2/task/enable\_eth/user\_action.yaml
+  /v2/task_enable\_eth_cancel:
+    $ref: ./paths/v2/task/enable\_eth/cancel.yaml
+  /v2/task_enable\_eth_status:
+    $ref: ./paths/v2/task/enable\_eth/status.yaml
+  /v2/task_enable\_tendermint_init:
+    $ref: ./paths/v2/task/enable\_tendermint/init.yaml
+  /v2/task_enable\_tendermint_user\_action:
+    $ref: ./paths/v2/task/enable\_tendermint/user\_action.yaml
+  /v2/task_enable\_tendermint_cancel:
+    $ref: ./paths/v2/task/enable\_tendermint/cancel.yaml
+  /v2/task_enable\_tendermint_status:
+    $ref: ./paths/v2/task/enable\_tendermint/status.yaml
+  /v2/task_enable\_utxo_init:
+    $ref: ./paths/v2/task/enable\_utxo/init.yaml
+  /v2/task_enable\_utxo_user\_action:
+    $ref: ./paths/v2/task/enable\_utxo/user\_action.yaml
+  /v2/task_enable\_utxo_cancel:
+    $ref: ./paths/v2/task/enable\_utxo/cancel.yaml
+  /v2/task_enable\_utxo_status:
+    $ref: ./paths/v2/task/enable\_utxo/status.yaml
+  /v2/task_enable\_bch_init:
+    $ref: ./paths/v2/task/enable\_bch/init.yaml
+  /v2/task_enable\_bch_user\_action:
+    $ref: ./paths/v2/task/enable\_bch/user\_action.yaml
+  /v2/task_enable\_bch_cancel:
+    $ref: ./paths/v2/task/enable\_bch/cancel.yaml
+  /v2/task_enable\_bch_status:
+    $ref: ./paths/v2/task/enable\_bch/status.yaml
+  /v2/task_enable\_qtum_init:
+    $ref: ./paths/v2/task/enable\_qtum/init.yaml
+  /v2/task_enable\_qtum_user\_action:
+    $ref: ./paths/v2/task/enable\_qtum/user\_action.yaml
+  /v2/task_enable\_qtum_cancel:
+    $ref: ./paths/v2/task/enable\_qtum/cancel.yaml
+  /v2/task_enable\_qtum_status:
+    $ref: ./paths/v2/task/enable\_qtum/status.yaml
+  /v2/task_enable\_z\_coin_init:
+    $ref: ./paths/v2/task/enable\_z\_coin/init.yaml
+  /v2/task_enable\_z\_coin_user\_action:
+    $ref: ./paths/v2/task/enable\_z\_coin/user\_action.yaml
+  /v2/task_enable\_z\_coin_cancel:
+    $ref: ./paths/v2/task/enable\_z\_coin/cancel.yaml
+  /v2/task_enable\_z\_coin_status:
+    $ref: ./paths/v2/task/enable\_z\_coin/status.yaml
+  /v2/task_enable\_lightning_init:
+    $ref: ./paths/v2/task/enable\_lightning/init.yaml
+  /v2/task_enable\_lightning_cancel:
+    $ref: ./paths/v2/task/enable\_lightning/cancel.yaml
+  /v2/task_enable\_lightning_status:
+    $ref: ./paths/v2/task/enable\_lightning/status.yaml
+  /v2/task_wallet_task\_managed:
+    $ref: ./paths/v2/task/wallet/task\_managed.yaml
+  /v2/task_get\_new\_address:
+    $ref: ./paths/v2/task/get\_new\_address.yaml
+  /v2/task_account\_balance:
+    $ref: ./paths/v2/task/account\_balance.yaml
+  /v2/task_create\_new\_account:
+    $ref: ./paths/v2/task/create\_new\_account.yaml
+  /v2/task_scan\_for\_new\_addresses:
+    $ref: ./paths/v2/task/scan\_for\_new\_addresses.yaml
+  /v2/task_withdraw:
+    $ref: ./paths/v2/task/withdraw.yaml
+  /v2/task_get\_new\_address_init:
+    $ref: ./paths/v2/task/get\_new\_address/init.yaml
+  /v2/task_get\_new\_address_user\_action:
+    $ref: ./paths/v2/task/get\_new\_address/user\_action.yaml
+  /v2/task_get\_new\_address_cancel:
+    $ref: ./paths/v2/task/get\_new\_address/cancel.yaml
+  /v2/task_get\_new\_address_status:
+    $ref: ./paths/v2/task/get\_new\_address/status.yaml
+  /v2/task_account\_balance_init:
+    $ref: ./paths/v2/task/account\_balance/init.yaml
+  /v2/task_account\_balance_cancel:
+    $ref: ./paths/v2/task/account\_balance/cancel.yaml
+  /v2/task_account\_balance_status:
+    $ref: ./paths/v2/task/account\_balance/status.yaml
+  /v2/task_create\_new\_account_init:
+    $ref: ./paths/v2/task/create\_new\_account/init.yaml
+  /v2/task_create\_new\_account_user\_action:
+    $ref: ./paths/v2/task/create\_new\_account/user\_action.yaml
+  /v2/task_create\_new\_account_cancel:
+    $ref: ./paths/v2/task/create\_new\_account/cancel.yaml
+  /v2/task_create\_new\_account_status:
+    $ref: ./paths/v2/task/create\_new\_account/status.yaml
+  /v2/task_scan\_for\_new\_addresses_init:
+    $ref: ./paths/v2/task/scan\_for\_new\_addresses/init.yaml
+  /v2/task_scan\_for\_new\_addresses_cancel:
+    $ref: ./paths/v2/task/scan\_for\_new\_addresses/cancel.yaml
+  /v2/task_scan\_for\_new\_addresses_status:
+    $ref: ./paths/v2/task/scan\_for\_new\_addresses/status.yaml
+  /v2/task_withdraw_init:
+    $ref: ./paths/v2/task/withdraw/init.yaml
+  /v2/task_withdraw_user\_action:
+    $ref: ./paths/v2/task/withdraw/user\_action.yaml
+  /v2/task_withdraw_cancel:
+    $ref: ./paths/v2/task/withdraw/cancel.yaml
+  /v2/task_withdraw_status:
+    $ref: ./paths/v2/task/withdraw/status.yaml
+  /v2/task_init\_trezor_init:
+    $ref: ./paths/v2/task/init\_trezor/init.yaml
+  /v2/task_init\_trezor_user\_action:
+    $ref: ./paths/v2/task/init\_trezor/user\_action.yaml
+  /v2/task_init\_trezor_cancel:
+    $ref: ./paths/v2/task/init\_trezor/cancel.yaml
+  /v2/task_init\_trezor_status:
+    $ref: ./paths/v2/task/init\_trezor/status.yaml
+components:
+  securitySchemes:
+    userpass:
+      type: apiKey
+      in: header
+      name: userpass
+      description: "The API key for authentication. Use the 'userpass' value from\
+        \ your \nKomodo DeFi Framework instance configuration.\n"
+  schemas:
+    Common:
+      $ref: ./components/schemas/Common.yaml
+    Activation:
+      $ref: ./components/schemas/Activation.yaml
+security:
+- userpass: []

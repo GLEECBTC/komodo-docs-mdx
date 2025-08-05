@@ -1,0 +1,60 @@
+/gui_storage::get_enabled_account:
+  post:
+    summary: Return the account currently marked as enabled (active) in GUI storage.
+    description: Return the account currently marked as enabled (active) in GUI storage.
+    operationId: gui_storage::get_enabled_account
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::get_enabled_account
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  '*None*':
+                    type: string
+                    description: '*This method has no parameters.*'
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              account_id:
+                type: string
+                description: Identifier of the enabled account.
+              name:
+                type: string
+                description: Account display name.
+              description:
+                type: string
+                description: Optional description.
+              balance_usd:
+                type: string
+                description: USD balance snapshot.
+              coins:
+                type: string
+                description: Set of tickers linked to the account.
+          example: {}

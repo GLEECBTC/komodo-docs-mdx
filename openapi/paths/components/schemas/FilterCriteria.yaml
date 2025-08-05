@@ -1,0 +1,33 @@
+components:
+  schemas:
+    FilterCriteria:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the transactions (e.g., "completed")
+          default: '`-`'
+        date_from:
+          type: string
+          description: Start date in ISO 8601 format
+          default: '`-`'
+        date_to:
+          type: string
+          description: End date in ISO 8601 format
+          default: '`-`'
+        my_coin:
+          type: string
+          description: Coin being used by you for the swap/trade.
+          default: '`-`'
+        other_coin:
+          type: string
+          description: Coin you are trading against
+          default: '`-`'
+        from_timestamp:
+          type: number
+          description: Start timestamp in UNIX format
+          default: '`-`'
+        to_timestamp:
+          type: number
+          description: End timestamp in UNIX format
+          default: '`-`'

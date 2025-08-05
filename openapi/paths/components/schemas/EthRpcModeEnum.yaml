@@ -1,0 +1,19 @@
+components:
+  schemas:
+    EthRpcModeEnum:
+      type: string
+      description: 'Used in ETH/EVM coin activation requests to specify the RPC mode.
+
+
+        **Values:**
+
+        - `Default`: Use the default RPC mode for ETH/EVM coins.
+
+        - `Metamask`: (WASM only) Use the Metamask extension for RPC calls in web-based
+        contexts.
+
+        '
+      enum:
+      - Default
+      - Metamask
+      title: 'Component: EthRpcModeEnum'

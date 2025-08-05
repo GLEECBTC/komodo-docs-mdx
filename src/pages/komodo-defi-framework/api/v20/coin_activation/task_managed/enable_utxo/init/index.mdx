@@ -1,0 +1,76 @@
+export const title = "Komodo DeFi Framework Method: Enable UTXO Task: Init";
+export const description = "Task managed activation of UTXO coins like KMD, LTC, BTC & DOGE.";
+
+# Enable UTXO Task: Init
+
+## task::enable\_utxo::init {{label : 'task::enable_utxo::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of UTXO coins like KMD, LTC, BTC & DOGE. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+### Request Parameter Table
+
+| Parameter          | Type   | Required |            Default           | Description                                                                                                                                                                                                                                                                                              |
+| ------------------ | ------ | :------: | :--------------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    |               -              | Ticker of the UTXO-based coin you want to enable.                                                                                                                                                                                                                                                        |
+| activation\_params | object |     ✓    |               -              | A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) object containing activation configuration parameters for UTXO coins.                                                                                                                          |
+| priv\_key\_policy  | object |     ✗    | `{"type": "ContextPrivKey"}` | Object specifying the policy to access a private key during activation. Must include a `type` field from [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum). When using `WalletConnect`, also add a `data` field with the session topic. |
+
+### Response Parameter Table
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Activation in Trezor mode
+
+<CodeGroup title="UTXO Activation (Trezor mode)" tag="POST" label="task::enable_utxo::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_utxo::init",
+    "params": {
+      "ticker": "KMD",
+      "activation_params": {
+        "mode": {
+          "rpc": "Electrum",
+          "rpc_data": {
+            "servers": [
+              {
+                "url": "electrum2.cipig.net:10001"
+              },
+              {
+                "url": "electrum3.cipig.net:20001",
+                "ws_url": "electrum3.cipig.net:30001",
+                "protocol": "SSL"
+              }
+            ]
+          }
+        },
+        "scan_policy": "scan_if_new_wallet",
+        "min_addresses_number": 3,
+        "gap_limit": 20
+      },
+      "priv_key_policy": {
+        "type": "Trezor"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

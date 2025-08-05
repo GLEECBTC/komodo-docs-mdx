@@ -1,11 +1,10 @@
-export const title = "Komodo DeFi Framework Method: Walletconnect: new connection";
+export const title = "Komodo DeFi Framework Method: Walletconnect: New Connection";
 export const description =
   "The wc_new_connection method returns a connection string which can be scanned as a QR code.";
 
-# wc\_new\_connection
+# Walletconnect: New Connection
 
-The `wc_new_connection` method returns a connection string which can be scanned as a QR code.
-Once the connection has been established, you can activate EVM and Tendermint coins/tokens with WalletConnect via the [`priv_key_policy`](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) parameter in [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/#enable-eth-with-tokens) and [enable\_tendermint\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/#enable-tendermint-with-assets).
+## wc\_new\_connection {{label : 'wc_new_connection', tag : 'API-v2'}}
 
 <Note>
   EIP155 chain IDs are listed at [https://chainid.network/](https://chainid.network/).
@@ -13,19 +12,21 @@ Once the connection has been established, you can activate EVM and Tendermint co
   For more detailed technical information, check out the [Walletconnect documentation](https://specs.walletconnect.com/2.0).
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure            | Type   | Description                                                                                                                                                                                                   |
-| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| required\_namespaces | object | Contains two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects under the keys `eip155` and `cosmos`, which contain details of approved chains, methods and events while connected. |
+| Parameter            | Type   | Required | Description                                                                                                                                                                                                   |
+| :------------------- | :----- | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| required\_namespaces | object |     ✓    | Contains two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects under the keys `eip155` and `cosmos`, which contain details of approved chains, methods and events while connected. |
 
-## Response
+### Response Parameters
 
 | Structure | Type   | Description                                                                                                                               |
 | --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | url       | string | A WalletConnect URI address ([EIP-1328](https://eips.ethereum.org/EIPS/eip-1328)) used to send a connection request to the bridge server. |
 
 Generally, this WalletConnect URI will be converted into a scanable [QR code](https://www.qr-code-generator.com/) in graphic user interfaces, so mobile dapps can easily request a connection.
+
+After being scanned, the mobile app (Trust Wallet, Keplr etc.) will ask for confirmation. Once confirmed, you can use the `session_topic` value (returned from the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method) for activating WalletConnect compatible coins/tokens via the [`priv_key_policy`](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) parameter. For a working example, refer to [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/#request-using-wallet-connect).
 
 <Note>
   When connecting with Metamask, only the network currently active in the mobile app should be included under the `required_namespaces.eip155.chains` parameter. The Metamask app will handle any subsequent coin network changes.

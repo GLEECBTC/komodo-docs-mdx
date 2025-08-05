@@ -1,0 +1,52 @@
+/experimental::staking::query::ongoing_undelegations:
+  post:
+    summary: Method description for experimental::staking::query::ongoing_undelegations
+    description: Method description for experimental::staking::query::ongoing_undelegations
+    operationId: experimental::staking::query::ongoing_undelegations
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - experimental::staking::query::ongoing_undelegations
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin being staked.
+                  info_details:
+                    description: A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details)
+                      object.
+                    $ref: ../../components/schemas/StakingInfoDetails.yaml
+                required:
+                - coin
+                - info_details
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

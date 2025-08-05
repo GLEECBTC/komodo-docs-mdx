@@ -1,0 +1,57 @@
+components:
+  schemas:
+    OrderDataV2:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: The ticker of the coin
+        address:
+          description: A standard [OrderAddress](/komodo-defi-framework/api/common_structures/orders/#order-address)
+            object.
+          $ref: '#/components/schemas/OrderAddress'
+        price:
+          description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the coin price.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        base_min_volume:
+          description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the minimum base volume.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        base_max_volume:
+          description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the maximum base volume.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        base_max_volume_aggr:
+          description: Orderbook (v2) only. A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the maximum aggregated base amount at the specified
+            price. The sum of max base volumes of the current order and all orders
+            with a worse price.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        rel_min_volume:
+          description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the minimum rel volume.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        rel_max_volume:
+          description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the maximum rel volume.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        rel_max_volume_aggr:
+          description: Orderbook (v2) only. A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+            object representing the maximum aggregated rel amount at the specified
+            price. The sum of max rel volumes of the current order and all orders
+            with a worse price.
+          $ref: '#/components/schemas/NumericFormatsValue'
+        pubkey:
+          type: string
+          description: The pubkey of the offer provider
+        uuid:
+          type: string
+          description: The uuid of order
+        is_mine:
+          type: boolean
+          description: Whether the order is placed by me
+        conf_settings:
+          description: A standard [ConfSettings](/komodo-defi-framework/api/common_structures/orders/#conf-settings)
+            object.
+          $ref: '#/components/schemas/ConfSettings'

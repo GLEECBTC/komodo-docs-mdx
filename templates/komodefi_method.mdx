@@ -14,16 +14,16 @@ If there are optional paramaters which need a more detailed explanation, it shou
 
 ### Request Parameters
 
-| Parameter     | Type             | Description                                                                                     |
-| ------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
-| someText      | string           | This text string has a purpose and here it is.                                                  |
-| numberText    | string (numeric) | This text string has a purpose and here it is.                                                  |
-| wholeNumber   | integer          | What is the reason for this number?                                                             |
-| decimalNumber | float            | What is the reason for this number?                                                             |
-| someObject    | object           | There should be a link here to a separate table for this object                                 |
-| listOfObjects | array of objects | There should be a link here to a separate table for an instance of the object within this array |
-| isOrIsNot     | boolean          | What does this turn on or off?                                                                  |
-| optionalParam | boolean          | Optional, defaults to `something`. What difference does it make?                                |
+| Parameter     | Type             | Required | Default     | Description                                                                                     |
+| ------------- | ---------------- | :------: | :---------: | ----------------------------------------------------------------------------------------------- |
+| decimalNumber | float            | ✓        | -           | What is the reason for this number?                                                             |
+| someObject    | object           | ✓        | -           | There should be a link here to a separate table for this object                                 |
+| someText      | string           | ✓        | -           | This text string has a purpose and here it is.                                                  |
+| wholeNumber   | integer          | ✓        | -           | What is the reason for this number?                                                             |
+| isOrIsNot     | boolean          | ✗        | `false`     | What does this turn on or off?                                                                  |
+| listOfObjects | array of objects | ✗        | -           | There should be a link here to a separate table for an instance of the object within this array |
+| numberText    | string (numeric) | ✗        | -           | This text string has a purpose and here it is.                                                  |
+| optionalParam | boolean          | ✗        | `something` | What difference does it make?                                                                    |
 
 
 #### 📌 Example(s)
@@ -54,14 +54,14 @@ If there are optional paramaters which need a more detailed explanation, it shou
 
 | Parameter     | Type             | Description                                                                                     |
 | --------------| ---------------- | ----------------------------------------------------------------------------------------------- |
-| someText      | string           | This text string has a purpose and here it is.                                                  |
-| numberText    | string (numeric) | This text string has a purpose and here it is.                                                  |
-| wholeNumber   | integer          | What is the reason for this number?                                                             |
 | decimalNumber | float            | What is the reason for this number?                                                             |
-| someObject    | object           | There should be a link here to a separate table for this object                                 |
-| listOfObjects | array of objects | There should be a link here to a separate table for an instance of the object within this array |
 | isOrIsNot     | boolean          | What does this turn on or off?                                                                  |
-| optionalParam | boolean          | Optional, defaults to `something`. What difference does it make?                                |
+| listOfObjects | array of objects | There should be a link here to a separate table for an instance of the object within this array |
+| numberText    | string (numeric) | This text string has a purpose and here it is.                                                  |
+| optionalParam | boolean          | What difference does it make?                                                                    |
+| someObject    | object           | There should be a link here to a separate table for this object                                 |
+| someText      | string           | This text string has a purpose and here it is.                                                  |
+| wholeNumber   | integer          | What is the reason for this number?                                                             |
 
 
 <CollapsibleSection expandedText='Hide Response' collapsedText='Show Response'>

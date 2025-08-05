@@ -1,9 +1,9 @@
 export const title = "Komodo DeFi Framework Method: List Banned Pubkeys";
 export const description = "The list_banned_pubkeys method returns a list of public keys of nodes that are banned from interacting with the node executing the method.";
 
-# list\_banned\_pubkeys
+# List Banned Pubkeys
 
-**list\_banned\_pubkeys**
+## list\_banned\_pubkeys {{label : 'list_banned_pubkeys', tag : 'API-v1'}}
 
 The `list_banned_pubkeys` method returns a list of public keys of nodes that are banned from interacting with the node executing the method.
 
@@ -13,27 +13,27 @@ Banned nodes cannot complete orders and order matching requests with the node ex
   Some cases of swap failures give cause for banning a node. For example, a market taker may not follow the atomic-swap protocol by not sending the dex fee. The <b>list\_banned\_pubkeys</b> method is useful in these circumstances.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response
 
-| Structure                   | Type                                                        | Description                                                                         |
-| --------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| result                      | map of objects (key - pubkey in hexadecimal representation) | the list of pubkeys banned by current node                                          |
-| result.\*.type              | string                                                      | the type of the ban; possible values: `Manual` or `FailedSwap`                      |
-| result.\*.caused\_by\_swap  | string (optional)                                           | the uuid of the swap that triggered the ban; present only for the `FailedSwap` type |
-| result.\*.caused\_by\_event | object (optional)                                           | the swap event that triggered the ban; present only for the `FailedSwap` type       |
-| result.\*.reason            | string (optional)                                           | the reason for the `Manual` ban                                                     |
+| Parameter                   | Type                                                        | Description                                                                                                           |
+| --------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| result                      | map of objects (key - pubkey in hexadecimal representation) | The list of pubkeys banned by current node                                                                            |
+| result.\*.type              | string                                                      | A standard [BanTypeEnum](/komodo-defi-framework/api/common_structures/enums/#ban-type-enum) enum. The type of the ban |
+| result.\*.caused\_by\_swap  | string (optional)                                           | The uuid of the swap that triggered the ban; present only for the `FailedSwap` type                                   |
+| result.\*.caused\_by\_event | object (optional)                                           | The swap event that triggered the ban; present only for the `FailedSwap` type                                         |
+| result.\*.reason            | string (optional)                                           | The reason for the `Manual` ban                                                                                       |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="list_banned_pubkeys" mm2MethodDecorate="true">
+<CodeGroup title="list_banned_pubkeys" tag="POST" label="list_banned_pubkeys" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -47,25 +47,33 @@ Banned nodes cannot complete orders and order matching requests with the node ex
 
   ```json
   {
-    "result": {
-      "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732": {
-        "type": "FailedSwap",
-        "caused_by_event": {
-          "event": {
-            "data": {
-              "error": "taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
-            },
-            "type": "NegotiateFailed"
+      "result": {
+          "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732": {
+              "type": "FailedSwap",
+              "caused_by_event": {
+                  "event": {
+                      "data": {
+                          "error": "taker_swap:547] \"taker_swap:543] timeout (180.0 > 180.0)\""
+                      },
+                      "type": "NegotiateFailed"
+                  },
+                  "type": "Taker"
+              },
+              "caused_by_swap": "e8400870-e85a-42af-bb4f-9658ac86ffdf"
           },
-          "type": "Taker"
-        },
-        "caused_by_swap": "e8400870-e85a-42af-bb4f-9658ac86ffdf"
-      },
-      "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044730": {
-        "type": "Manual",
-        "reason": "Being Australian"
+          "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044730": {
+              "type": "Manual",
+              "reason": "Only posts low value orders"
+          }
       }
-    }
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "No banned pubkeys found" }
   ```
 </CollapsibleSection>

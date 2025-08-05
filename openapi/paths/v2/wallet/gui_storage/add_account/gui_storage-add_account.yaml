@@ -1,0 +1,66 @@
+/gui_storage::add_account:
+  post:
+    summary: Create a new account record in the GUI-storage database.
+    description: Create a new account record in the GUI-storage database.
+    operationId: gui_storage::add_account
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::add_account
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: A unique identifier of the account (e.g., wallet
+                      UUID or key fingerprint).
+                    default: –
+                  name:
+                    type: string
+                    description: Display name (max `64` characters).
+                    default: –
+                  description:
+                    type: string
+                    description: Optional longer description (max `256` characters).
+                    default: '""'
+                  balance_usd:
+                    type: string
+                    description: Initial USD balance for UI display; can be updated
+                      later via `set_account_balance`.
+                    default: '0'
+                required:
+                - account_id
+                - name
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns `success` when the account is stored.
+          example: {}

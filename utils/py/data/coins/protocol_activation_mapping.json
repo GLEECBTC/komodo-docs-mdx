@@ -1,0 +1,98 @@
+{
+    "UTXO": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_utxo::init",
+        "default": "task"
+    },
+    "ETH": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "ERC20": {
+        "v1": "enable_erc20",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "QTUM": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_qtum::init",
+        "default": "task"
+    },
+    "QRC20": {
+        "v1": "enable_qtum",
+        "v2": "",
+        "task": "task::enable_qtum::init",
+        "default": "task"
+    },
+    "TENDERMINT": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_tendermint::init",
+        "default": "task"
+    },
+    "TENDERMINTTOKEN": {
+        "v1": "",
+        "v2": "enable_tendermint_token",
+        "task": "task::enable_tendermint::init",
+        "default": "task"
+    },
+    "BCH": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_utxo::init",
+        "default": "task"
+    },
+    "ARBITRUM": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "ETC": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "MOVR": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "SBCH": {
+        "v1": "",
+        "v2": "",
+        "task": "",
+        "default": ""
+    },
+    "UBIQ": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_eth::init",
+        "default": "task"
+    },
+    "TRC20": {
+        "v1": "",
+        "v2": "",
+        "task": "",
+        "default": ""
+    },
+    "ZHTLC": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_z_coin::init",
+        "default": "task"
+    },
+    "SIA": {
+        "v1": "",
+        "v2": "",
+        "task": "task::enable_sia::init",
+        "default": "task"
+    }
+}

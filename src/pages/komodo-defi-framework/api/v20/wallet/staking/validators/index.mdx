@@ -1,17 +1,19 @@
-export const title = "Komodo DeFi Framework Method: Validators";
+export const title = "Komodo DeFi Framework Method: Staking: Query Validators";
 export const description =
   "The experimental::staking::query::validators method returns information about validators on the network.";
 
-# Validators
+# Staking: Query Validators
+
+## experimental::staking::query::validators {{label : 'experimental::staking::query::validators', tag : 'API-v2'}}
 
 The `experimental::staking::query::validators` method returns information about validators on the network. Currently only Cosmos/Tendermint coins are supported.
 
-## Arguments
+### Request Parameters
 
-| Structure     | Type   | Description                                                                                                        |
-| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
-| coin          | string | the coin being staked                                                                                              |
-| info\_details | object | A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+| Parameter     | Type   | Required | Description                                                                                                        |
+| :------------ | :----- | :------: | :----------------------------------------------------------------------------------------------------------------- |
+| coin          | string |     ✓    | The coin being staked.                                                                                             |
+| info\_details | object |     ✓    | A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
 
 #### 📌 Examples
 

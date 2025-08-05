@@ -1,0 +1,51 @@
+export const title = "Komodo DeFi Framework Method: Cancel ERC20 Activation Task";
+export const description = "Cancel a pending or in-progress ERC-20 token activation task.";
+
+# Cancel ERC20 Activation Task
+
+## task::enable\_erc20::cancel {{label : 'task::enable_erc20::cancel', tag : 'API-v2'}}
+
+<Note type="info">Skeleton documentation.</Note>
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                 |
+| --------- | ------- | :------: | --------------------------- |
+| task\_id  | integer |     ✓    | Activation task identifier. |
+| userpass  | string  |     ✓    | RPC password.               |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                              |
+| --------- | ------ | -------------------------------------------------------- |
+| status    | string | Task status after cancellation (`Cancelled` on success). |
+
+#### 📌 Examples
+
+<CodeGroup title="enable_erc20::cancel" tag="POST" label="task::enable_erc20::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_erc20::cancel",
+    "params": {
+      "task_id": 1
+    },
+    "id": 4,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Cancelled"
+    },
+    "id": 4
+  }
+  ```
+</CollapsibleSection>

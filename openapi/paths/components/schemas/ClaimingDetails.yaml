@@ -1,0 +1,15 @@
+components:
+  schemas:
+    ClaimingDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The coin type. Currently, only 'Cosmos' and `Qtum` are supported.
+        validator_address:
+          type: string
+          description: The address of the validator to delegate staking to.
+        force:
+          type: boolean
+          description: Defaults to `false`. If `true`, will process unprofitable transactions
+            (reward value less than network fees)

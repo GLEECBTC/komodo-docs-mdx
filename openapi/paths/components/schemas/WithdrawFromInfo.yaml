@@ -1,0 +1,27 @@
+components:
+  schemas:
+    WithdrawFromInfo:
+      type: object
+      properties:
+        derivation_path:
+          type: string
+          description: The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+            of the address.
+          default: '`-`'
+        account_id:
+          type: integer
+          description: '`ACCOUNT_ID` child in the `m/44''/COIN''/ACCOUNT_ID''/CHAIN/ADDRESS_ID`
+            BIP44 derivation path. **Please don''t confuse with the global account.**'
+          default: '`-`'
+        address_id:
+          type: integer
+          description: '`ADDRESS_ID` child in the `m/44''/COIN''/ACCOUNT_ID''/CHAIN/ADDRESS_ID`
+            BIP44 derivation path.'
+          default: '`-`'
+        chain:
+          type: string
+          description: '`Internal`, or `External`. External is used for addresses
+            that are meant to be visible outside of the wallet (e.g. for receiving
+            payments). Internal is used for addresses which are not meant to be visible
+            outside of the wallet and is used for return transaction change.'
+          default: '`-`'

@@ -1,0 +1,72 @@
+export const title = "Komodo DeFi Framework Method: Generate Lightning Invoice";
+export const description = "Generate a Lightning Network invoice using the Komodo DeFi Framework API.";
+
+# Generate Lightning Invoice
+
+## lightning::payments::generate\_invoice {{label : 'lightning::payments::generate_invoice', tag : 'API-v2'}}
+
+Generates a Lightning Network invoice for receiving payments.
+
+### Request Parameters
+
+| Parameter   | Type    | Required | Description                               |
+| ----------- | ------- | :------: | ----------------------------------------- |
+| coin        | string  |     ✓    | The ticker of the coin for the invoice.   |
+| amount      | string  |     ✓    | Amount to receive (in satoshis or msats). |
+| description | string  |     ✗    | Invoice description.                      |
+| expiry      | integer |     ✗    | Invoice expiry time in seconds.           |
+
+### Response Parameters
+
+| Parameter | Type   | Description                      |
+| --------- | ------ | -------------------------------- |
+| invoice   | string | The generated Lightning invoice. |
+| id        | int    | Request identifier.              |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::payments::generate_invoice" tag="POST" label="lightning::payments::generate_invoice" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::payments::generate_invoice",
+    "params": {
+      "coin": "tBTC-lightning",
+      "amount": "10000",
+      "description": "Test invoice"
+    },
+    "id": 101
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "invoice": "lnbc1..."
+      },
+      "id": 101
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### InvalidRequest (invalid paramater value)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Error parsing request: invalid type: string '56', expected u64",
+   "error_path": "dispatcher",
+   "error_trace": "dispatcher:109]",
+   "error_type": "InvalidRequest",
+   "error_data": "invalid type: string '56', expected u64",
+   "id": 762
+  }
+  ```
+</CollapsibleSection>

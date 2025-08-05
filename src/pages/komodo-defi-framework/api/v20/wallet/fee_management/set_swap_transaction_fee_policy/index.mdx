@@ -2,18 +2,28 @@ export const title = "Komodo DeFi Framework Method: Set Swap Transaction Fee Pol
 export const description =
   "The set_swap_transaction_fee_policy method allows you to set the gas fee policy used by supported ETH/EVM coins or tokens when estimating swap transaction fees.";
 
-# set\_swap\_transaction\_fee\_policy
+# Set Swap Transaction Fee Policy
+
+## set\_swap\_transaction\_fee\_policy {{label : 'set_swap_transaction_fee_policy', tag : 'API-v2'}}
 
 The `set_swap_transaction_fee_policy` method allows you to set the gas fee policy used by supported ETH/EVM coins or tokens when estimating swap transaction fees.
 
-| parameter             | Type   | Description                                                                                 |
-| --------------------- | ------ | ------------------------------------------------------------------------------------------- |
-| coin                  | string | Ticker of the supported ETH/EVM coin or tokens for which we want to set the fee policy for. |
-| swap\_tx\_fee\_policy | string | Possible values: `Low`, `Medium`, `High`, `Internal`.                                       |
+### Request Parameters
 
-## Request
+| Parameter             | Type   | Required | Description                                                                             |
+| --------------------- | ------ | :------: | --------------------------------------------------------------------------------------- |
+| coin                  | string |     ✓    | Ticker of the supported ETH/EVM coin or token for which you want to set the fee policy. |
+| swap\_tx\_fee\_policy | string |     ✓    | Possible values: `Low`, `Medium`, `High`, `Internal`.                                   |
 
-<CodeGroup title="" tag="POST" label="set_swap_transaction_fee_policy" mm2MethodDecorate="true">
+### Response Parameters
+
+| Parameter | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| result    | string | The fee policy that was set for the given coin. |
+
+#### 📌 Examples
+
+<CodeGroup title="Set Swap Transaction Fee Policy" tag="POST" label="set_swap_transaction_fee_policy" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -27,12 +37,14 @@ The `set_swap_transaction_fee_policy` method allows you to set the gas fee polic
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Set Swap Transaction Fee Policy Response" collapsedText="Show Set Swap Transaction Fee Policy Response">
+  ### Response (success)
 
-```json
-{
-    "mmrpc": "2.0",
-    "result": "High",
-    "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": "High",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

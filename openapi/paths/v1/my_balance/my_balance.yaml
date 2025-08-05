@@ -1,0 +1,38 @@
+/my_balance:
+  post:
+    summary: The my_balance method returns the current balance of the specified coin.
+    description: The my_balance method returns the current balance of the specified
+      coin.
+    operationId: my_balance
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - my_balance
+              coin:
+                type: string
+                description: The name of the coin to retrieve the balance
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

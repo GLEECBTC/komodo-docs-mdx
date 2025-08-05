@@ -1,7 +1,9 @@
 export const title = "Komodo DeFi Framework Method: Best Orders";
 export const description = "The best_orders method returns the best priced trades available on the orderbook.";
 
-# best\_orders
+# Best Orders
+
+## best\_orders {{label : 'best_orders', tag : 'API-v2'}}
 
 The `best_orders` method returns the best priced trades available on the orderbook. There are two options for the request, either `volume` or `number`.
 If request is made by `volume`, the returned results will show the best prices for trades that can fill the requested volume.
@@ -13,16 +15,16 @@ For coins with segwit, they may appear twice in the output (once for each addres
   Activation will be required to proceed with the trade.
 </Note>
 
-#### Arguments
+### Request Parameters
 
-| Structure     | Type   | Description                                                                                     |
-| ------------- | ------ | ----------------------------------------------------------------------------------------------- |
-| coin          | string | The ticker of the coin to get best orders                                                       |
-| action        | string | Whether to `buy` or `sell` the selected coin                                                    |
-| exclude\_mine | bool   | Defaults to `false`. If `true`, the users orders will be excluded from the response.            |
-| request\_by   | object | A standard [RequestBy](/komodo-defi-framework/api/common_structures/orders/#request-by) object. |
+| Parameter     | Type   | Required | Default | Description                                                                                                                                  |
+| ------------- | ------ | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| action        | string |     ✓    |   `-`   | A standard [ActionEnum](/komodo-defi-framework/api/common_structures/enums/#action-enum) enum. Whether to `buy` or `sell` the selected coin. |
+| coin          | string |     ✓    |   `-`   | The ticker of the coin to get best orders.                                                                                                   |
+| exclude\_mine | bool   |     ✗    | `false` | If `true`, the users orders will be excluded from the response.                                                                              |
+| request\_by   | object |     ✓    |   `-`   | A standard [RequestBy](/komodo-defi-framework/api/common_structures/orders/#request-by) object.                                              |
 
-#### Response
+### Response Parameters
 
 | Structure         | Type          | Description                                                                                                                                                                                                                          |
 | ----------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -33,7 +35,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
 
 #### Command (by number)
 
-<CodeGroup title="" tag="POST" label="best_orders" mm2MethodDecorate="true">
+<CodeGroup title="Best Orders by Number" tag="POST" label="best_orders" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -51,7 +53,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Best Orders by Number Response" collapsedText="Show Best Orders by Number Response">
   #### Response (by number - success)
 
   ```json
@@ -219,7 +221,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
 
 #### Command (by number, exclude own orders)
 
-<CodeGroup title="" tag="POST" label="best_orders" mm2MethodDecorate="true">
+<CodeGroup title="Best Orders by Number (Exclude Own)" tag="POST" label="best_orders" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -238,7 +240,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Best Orders by Number (Exclude Own) Response" collapsedText="Show Best Orders by Number (Exclude Own) Response">
   #### Response (by number - success)
 
   ```json
@@ -333,7 +335,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
 
 #### Command (by volume)
 
-<CodeGroup title="" tag="POST" label="best_orders" mm2MethodDecorate="true">
+<CodeGroup title="Best Orders by Volume" tag="POST" label="best_orders" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -353,7 +355,7 @@ For coins with segwit, they may appear twice in the output (once for each addres
 
 #### Response (by volume - success)
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Best Orders by Volume Response" collapsedText="Show Best Orders by Volume Response">
   ```json
   {
     "mmrpc": "2.0",
@@ -878,11 +880,45 @@ For coins with segwit, they may appear twice in the output (once for each addres
   ```
 </CollapsibleSection>
 
-#### Error Responses
+### Error Types
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  *   `InvalidRequest` - Invalid type (`number` value must be integer)
-  *   `InvalidRequest` - Invalid type (type must be either `volume` or `number`, action mut be either `buy` or `sell`)
-  *   `CoinIsWalletOnly` - Wallet only coins can not be traded.
-  *   `P2PError` - There is a connection problem.
+| Parameter        | Type   | Description                                                                                                              |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| InvalidRequest   | string | Returned if the request type or action is invalid (e.g., `number` value must be integer, or type/action is not allowed). |
+| CoinIsWalletOnly | string | Returned if the coin is wallet only and cannot be traded.                                                                |
+| P2PError         | string | Returned if there is a connection problem.                                                                               |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (InvalidRequest)
+
+  ```json
+  {
+      "error": "Invalid request type or action",
+      "error_type": "InvalidRequest"
+  }
+  ```
+
+  ##### Error Response (CoinIsWalletOnly)
+
+  ```json
+  {
+      "error": "Coin is wallet only and cannot be traded",
+      "error_type": "CoinIsWalletOnly"
+  }
+  ```
+
+  ##### Error Response (P2PError)
+
+  ```json
+  {
+      "error": "Connection problem",
+      "error_type": "P2PError"
+  }
+  ```
+
+  ##### P2PError
 </CollapsibleSection>
+
+<DevComment>
+  These errors appear to be generated by AI. Replace with actual.
+</DevComment>

@@ -1,0 +1,17 @@
+components:
+  schemas:
+    SyncStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          description: 'current state of sync; possible values: `NotEnabled`, `NotStarted`,
+            `InProgress`, `Error`, `Finished`'
+        additional_info:
+          description: A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended)
+            object. Additional info that helps to track the progress; present for
+            `InProgress` and `Error` states only.
+          $ref: '#/components/schemas/SyncStatusExtended'
+      required:
+      - additional_info
+      - state

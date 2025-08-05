@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ZcoinRpcModeEnum:
+      type: string
+      description: 'Used in ZHTLC coin activation requests to specify the RPC mode.
+
+
+        **Values:**
+
+        - `Native`: (Non-WASM) Use the native daemon for RPC calls.
+
+        - `Light`: Use Electrum/light client mode for RPC calls. Includes server settings
+        and sync parameters.
+
+        '
+      enum:
+      - Native
+      - Light
+      title: 'Component: ZcoinRpcModeEnum'

@@ -1,0 +1,220 @@
+export const title = "Komodo DeFi Framework Method: List Lightning Payments by Filter";
+export const description = "Returns a list of Lightning Network payments filtered by the provided filter object.";
+
+# List Lightning Payments by Filter
+
+## lightning::payments::list\_payments\_by\_filter {{label : 'lightning::payments::list_payments_by_filter', tag : 'API-v2'}}
+
+Returns a list of Lightning Network payments filtered by the provided filter object.
+
+### Request Parameters
+
+| Parameter       | Type    | Required | Description                                |
+| --------------- | ------- | :------: | ------------------------------------------ |
+| coin            | string  |     ✓    | The ticker of the coin for the payments.   |
+| filter          | object  |     ✗    | A standard LightningPaymentsFilter object. |
+| paging\_options | object  |     ✗    | A standard Pagination object.              |
+| limit           | integer |     ✗    | Maximum number of results to return.       |
+
+### Response Parameters
+
+| Parameter | Type  | Description                |
+| --------- | ----- | -------------------------- |
+| result    | array | List of filtered payments. |
+| id        | int   | Request identifier.        |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::payments::list_payments_by_filter" tag="POST" label="lightning::payments::list_payments_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::payments::list_payments_by_filter",
+    "params": {
+      "coin": "tBTC-lightning"
+    },
+    "id": 104
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": [ /* ... payments ... */ ],
+      "id": 104
+  }
+  ```
+</CollapsibleSection>
+
+#### Example for Inbound Payment `payment_type`, `limit` and `pagination`
+
+<CodeGroup title="List Payments by Filter" tag="POST" label="lightning::payments::list_payments_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "lightning::payments::list_payments_by_filter",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "tBTC-lightning",
+      "filter": {
+        "payment_type": {
+          "type": "Inbound Payment"
+        }
+      },
+      "limit": 2,
+      "paging_options": {
+        "PageNumber": 2
+      }
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+   "mmrpc": "2.0",
+   "result": {
+    "payments": [{
+     "payment_hash": "e51f1526d3322ddc0aaa0e893e5875418ddd12f206b7e1545c8e4375c97d0e31",
+     "payment_type": {
+      "type": "Inbound Payment"
+     },
+     "description": "For the burger on Tuesday",
+     "amount_in_msat": 10000,
+     "status": "pending",
+     "created_at": 1683916900,
+     "last_updated": 1683916900
+    }, {
+     "payment_hash": "605f214a4b4b159f9c4f44c94de3a273f3ff39300042ca18b7cbb4159f3d62f2",
+     "payment_type": {
+      "type": "Inbound Payment"
+     },
+     "description": "14 pallets of frozen spinach",
+     "amount_in_msat": 56005000,
+     "status": "succeeded",
+     "created_at": 1683815625,
+     "last_updated": 1683815721
+    }],
+    "limit": 2,
+    "skipped": 2,
+    "total": 7,
+    "total_pages": 4,
+    "paging_options": {
+     "PageNumber": 2
+    }
+   },
+   "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+#### Example for `pending` payments between 10000 and 40000 millisatoshis
+
+<CodeGroup title="List Payments by Filter" tag="POST" label="lightning::payments::list_payments_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "lightning::payments::list_payments_by_filter",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "tBTC-lightning",
+      "filter": {
+        "status": "pending",
+        "from_amount_msat": 10000,
+        "to_amount_msat": 40000
+      }
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "result": {
+    "payments": [{
+     "payment_hash": "e51f1526d3322ddc0aaa0e893e5875418ddd12f206b7e1545c8e4375c97d0e31",
+     "payment_type": {
+      "type": "Inbound Payment"
+     },
+     "description": "For the burger on Tuesday",
+     "amount_in_msat": 10000,
+     "status": "pending",
+     "created_at": 1683916900,
+     "last_updated": 1683916900
+    }],
+    "limit": 10,
+    "skipped": 6,
+    "total": 1,
+    "total_pages": 1,
+    "paging_options": {
+     "PageNumber": 1
+    }
+   },
+   "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+#### Example for successful payments on the 20th of April 2023
+
+<CodeGroup title="List Payments by Filter" tag="POST" label="lightning::payments::list_payments_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "lightning::payments::list_payments_by_filter",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "tBTC-lightning",
+      "filter": {
+        "status": "succeeded",
+        "from_timestamp": 1681948800,
+        "to_timestamp": 1682035199
+      }
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "result": {
+    "payments": [{
+     "payment_hash": "c4f44c94214a4b4159f9273f30de3a3ff39605f18b7c27b3d62f0a9ebc",
+     "payment_type": {
+      "type": "Inbound Payment"
+     },
+     "description": "For the burger on Tuesday",
+     "amount_in_msat": 10000,
+     "status": "pending",
+     "created_at": 1683916900,
+     "last_updated": 1683916900
+    }],
+    "limit": 10,
+    "skipped": 6,
+    "total": 1,
+    "total_pages": 1,
+    "paging_options": {
+     "PageNumber": 1
+    }
+   },
+   "id": 1
+  }
+  ```
+</CollapsibleSection>

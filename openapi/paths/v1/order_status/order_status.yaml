@@ -1,0 +1,54 @@
+/order_status:
+  post:
+    summary: The order_status method returns the data of the order with the selected
+      uuid created by the Komodo DeFi Framework API node.
+    description: The order_status method returns the data of the order with the selected
+      uuid created by the Komodo DeFi Framework API node.
+    operationId: order_status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - order_status
+              uuid:
+                type: string
+                description: UUID of order to display
+            required:
+            - userpass
+            - method
+            - uuid
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              base_orderbook_ticker:
+                type: string
+                description: The orderbook ticker for base coin. This field is used
+                  to group segwit and non-segwit versions of UTXO coins.
+              order:
+                description: A standard [OrderStatusData](/komodo-defi-framework/api/common_structures/orders/#order-status-data)
+                  object.
+                $ref: ../../components/schemas/OrderStatusData.yaml
+              rel_orderbook_ticker:
+                type: string
+                description: The orderbook ticker for rel coin. This field is used
+                  to group segwit and non-segwit versions of UTXO coins.
+              type:
+                type: string
+                description: Type of the order ("Maker" or "Taker")
+          example: {}

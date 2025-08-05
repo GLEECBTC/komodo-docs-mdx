@@ -1,0 +1,24 @@
+components:
+  schemas:
+    ActivationRpcData:
+      type: object
+      properties:
+        light_wallet_d_servers:
+          type: string
+          description: ZHTLC only. A list of urls which are hosting lightwallet\_d
+            servers for a coin.
+          default: '`-`'
+        electrum_servers:
+          description: ZHTLC only. A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers)
+            objects.
+          $ref: '#/components/schemas/ActivationServers'
+        electrum:
+          description: QTUM, BCH & UTXO coins only. A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers)
+            objects.
+          $ref: '#/components/schemas/ActivationServers'
+        sync_params:
+          type: string
+          description: 'ZHTLC coins only. Defines where to start scanning blockchain
+            data upon initial activation. Options: `"earliest"` (the coin''s sapling\_activation\_height),
+            `height` (a specific block height) or `date` (a unix timestamp).'
+          default: '`2 days ago`'

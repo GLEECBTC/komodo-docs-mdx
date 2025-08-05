@@ -6,9 +6,15 @@ import path from 'path'
 import { remark } from 'remark'
 import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const pagesDir = path.resolve(__dirname, '../../src/pages');
+
 (async function () {
 
-    await walkDir("./src/pages", async (filePath) => {
+    await walkDir(pagesDir, async (filePath) => {
         try {
             const markdown = await fs.readFile(filePath, 'utf-8');
             //console.log(filePath)

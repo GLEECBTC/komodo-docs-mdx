@@ -1,0 +1,62 @@
+/get_mnemonic:
+  post:
+    summary: The get_mnemonic method returns the user
+    description: The get_mnemonic method returns the user
+    operationId: get_mnemonic
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_mnemonic
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  format:
+                    type: string
+                    description: Either `encrypted` or `plaintext`. Defaults to `encrypted`.
+                    default: encrypted
+                  password:
+                    type: string
+                    description: The password to decrypt your stored mnemonic phrase.
+                      Only required if `plaintext` format is requested.
+                    default: '-'
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              format:
+                type: string
+                description: Same as the input `format` parameter.
+              mnemonic:
+                type: string
+                description: For `plaintext` requests, the decrypted mnemonic seed
+                  phrase.
+              encrypted_mnemonic_data:
+                type: object
+                description: For `encrypted` requests, the encrypted format and ciphertext
+                  for the mnemonic seed phrase.
+          example: {}

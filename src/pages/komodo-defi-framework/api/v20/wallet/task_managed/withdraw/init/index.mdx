@@ -1,0 +1,205 @@
+export const title = "Komodo DeFi Framework Method: Initialize Withdraw Task";
+export const description = "Generate, sign, and return a withdrawal transaction in the Komodo DeFi Framework API.";
+
+# Initialize Withdraw Task
+
+## task::withdraw::init {{label : 'task::withdraw::init', tag : 'API-v2'}}
+
+The `task::withdraw::init` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument. The status of this method can be queried via the [task::withdraw::status](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/status/) method.
+
+It will return the transaction hex (via `task::withdraw::status`), which then needs to be broadcast with the [sendrawtransaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the withdrawal. This method is uses the same input fields as the [standard v2 withdraw method](/komodo-defi-framework/api/v20/wallet/tx/withdraw/), with additional optional fields to specify the `from` address when using a hardware or HD wallet. There are two way to indicate which HD address to send funds from:
+
+*   Using `derivation_path` as a single input. E.g `m/44'/20'/0'/0/2`
+*   Using `account_id` (0), `chain` (External) & `address_id` (2) inputs. The bracketed values are the equavalent of the derivation path above.
+
+To cancel the transaction generation, use the [withdraw\_cancel](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/cancel/) method.
+
+<Note>
+  When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to
+  complete.
+</Note>
+
+### Request Parameters
+
+| Parameter             | Type             | Required | Default | Description                                                                                                                                                                                                                                                                                                            |
+| --------------------- | ---------------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                  | string           |     ✓    |   `-`   | The name of the coin the user desires to withdraw                                                                                                                                                                                                                                                                      |
+| to                    | string           |     ✓    |   `-`   | Coins are withdrawn to this address                                                                                                                                                                                                                                                                                    |
+| amount                | string (numeric) |     ✗    |   `-`   | The amount the user desires to withdraw, ignored when `max=true`                                                                                                                                                                                                                                                       |
+| memo                  | string           |     ✗    |   `-`   | Used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.                                                                                                                                                                                                                                          |
+| from                  | string           |     ✗    |   `-`   | Used only for transactions using a hardware wallet. For more information, see the [Trezor Integration guide](/komodo-defi-framework/api/v20/utils/task_init_trezor/)                                                                                                                                                   |
+| from.derivation\_path | string           |     ✗    |   `-`   | HD wallets only. Follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`                                                                                                                                                                                                                                      |
+| from.account\_id      | integer          |     ✗    |   `-`   | HD wallets only. Generally this will be `0` unless you have multiple accounts registered on your HD wallet                                                                                                                                                                                                             |
+| from.chain            | string           |     ✗    |   `-`   | HD wallets only. `Internal`, or `External`. External is used for addresses that are intended to be visible outside of the wallet (e.g. for receiving payments). `Internal` is used for addresses which are not meant to be visible outside of the wallet and is used to return the leftover change from a transaction. |
+| from.address\_id      | integer          |     ✗    |   `-`   | HD wallets only. Check the output from coin activation to find the ID of an address with balance.                                                                                                                                                                                                                      |
+| max                   | bool             |     ✗    | `false` | Withdraw the maximum available amount.                                                                                                                                                                                                                                                                                 |
+| fee                   | object           |     ✗    |   `-`   | Used only to set a custom fee, otherwise fee value will be derived from a deamon's `estimatefee` (or similar) RPC method                                                                                                                                                                                               |
+| fee.type              | string           |     ✗    |   `-`   | Type of transaction fee; possible values: `UtxoFixed` or `UtxoPerKbyte`                                                                                                                                                                                                                                                |
+| fee.amount            | string (numeric) |     ✗    |   `-`   | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte)                                                                                                                                                                              |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "SC",
+      "to": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db",
+      "amount": "1"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "TSIA",
+      "to": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db",
+      "max": true
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "DOC",
+      "to": "RGKiExg7Z1i94zrcYgKyknv7nDq3A8ud9p",
+      "amount": "1",
+      "fee": {
+        "type": "UtxoFixed",
+        "amount": "0.001"
+      }
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "DOC",
+      "to": "RGKiExg7Z1i94zrcYgKyknv7nDq3A8ud9p",
+      "amount": "1",
+      "fee": {
+        "type": "UtxoPerKbyte",
+        "amount": "0.00097"
+      }
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "MARTY",
+      "to": "RGKiExg7Z1i94zrcYgKyknv7nDq3A8ud9p",
+      "amount": "1",
+      "from": {
+        "derivation_path": "m/44'/141'"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title="task::withdraw::init" tag="POST" label="task::withdraw::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::withdraw::init",
+    "params": {
+      "coin": "MARTY",
+      "to": "RGKiExg7Z1i94zrcYgKyknv7nDq3A8ud9p",
+      "amount": "1",
+      "from": {
+        "account_id": 0,
+        "chain": "External",
+        "address_id": "0"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 0
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                          |
+| ------------ | ------ | ---------------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired.         |
+| TaskFinished | string | The task is already finished and cannot be canceled. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
+  }
+  ```
+
+  ##### Error Response (Task Finished)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
+  }
+  ```
+</CollapsibleSection>

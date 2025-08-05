@@ -1,0 +1,25 @@
+components:
+  schemas:
+    InputTxns:
+      type: object
+      properties:
+        tx_hash:
+          type: string
+          description: The transaction id of an unspent transaction from the same
+            wallet output.
+        index:
+          type: integer
+          description: The [output index](https://bitcoin.stackexchange.com/questions/100765/what-does-the-index-of-an-utxo-stand-for)
+            of this unspent transaction output.
+        script_pub_key:
+          type: string
+          description: The [scriptpubkey](https://learnmeabitcoin.com/technical/scriptPubKey)
+            of this unspent transaction output.
+        amount:
+          type: number
+          description: The value of this unspent transaction output.
+      required:
+      - amount
+      - index
+      - script_pub_key
+      - tx_hash

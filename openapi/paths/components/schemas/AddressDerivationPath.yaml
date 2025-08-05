@@ -1,0 +1,17 @@
+components:
+  schemas:
+    AddressDerivationPath:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          description: Used as a layer of separation or hierarchy.
+          default: '`0`'
+        chain:
+          type: string
+          description: Accepted values are `External` (0) and `Internal` (1).
+          default: '`External`'
+        address_id:
+          type: integer
+          description: Used as a layer of separation or hierarchy.
+          default: '`0`'

@@ -1,0 +1,57 @@
+/get_raw_transaction:
+  post:
+    summary: The get_raw_transaction method returns the full signed raw transaction
+      hex for a given coin and transaction hash.
+    description: The get_raw_transaction method returns the full signed raw transaction
+      hex for a given coin and transaction hash.
+    operationId: get_raw_transaction
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_raw_transaction
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The name of the coin for which you want to request
+                      the transaction.
+                  tx_hash:
+                    type: string
+                    description: Hash of the transaction.
+                required:
+                - coin
+                - tx_hash
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tx_hex:
+                type: string
+                description: Bytes of signed transaction in string format.
+          example: {}

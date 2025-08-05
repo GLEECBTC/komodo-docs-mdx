@@ -1,0 +1,19 @@
+components:
+  schemas:
+    StakingInfoDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The coin type. Currently, only 'Cosmos' is supported.
+        filter_by_status:
+          type: string
+          description: Return only validators matching a specific status. Options
+            are `Bonded`, `Unbonded`, and `All`. Defaults to `Bonded`.
+        limit:
+          type: integer
+          description: Optional, defaults to `10`. The number of validators displayed
+            per page in response.
+        page_number:
+          type: integer
+          description: Optional, defaults to `1`. The page offset for items in response.

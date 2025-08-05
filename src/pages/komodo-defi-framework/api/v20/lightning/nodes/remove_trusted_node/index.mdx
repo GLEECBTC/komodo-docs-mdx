@@ -1,0 +1,53 @@
+export const title = "Komodo DeFi Framework Method: Remove Trusted Lightning Node";
+export const description = "Remove a trusted Lightning node using the Komodo DeFi Framework API.";
+
+# Remove Trusted Lightning Node
+
+## lightning::nodes::remove\_trusted\_node {{label : 'lightning::nodes::remove_trusted_node', tag : 'API-v2'}}
+
+The `lightning::nodes::remove_trusted_node` method allows you to remove a node from your trusted list.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                   |
+| --------- | ------ | :------: | ------------------------------------------------------------- |
+| coin      | string |     ✓    | The coin ticker you would like to remove a trusted node from. |
+| node\_id  | string |     ✓    | ID of node you would like to remove from your trusted list.   |
+
+### Response Parameters
+
+| Parameter     | Type        | Description                                         |
+| ------------- | ----------- | --------------------------------------------------- |
+| removed\_node | string      | The node ID that was removed from the trusted list. |
+| id            | int or null | Request identifier, or null.                        |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::nodes::remove_trusted_node" tag="POST" label="lightning::nodes::remove_trusted_node" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::nodes::remove_trusted_node",
+    "params": {
+      "coin": "tBTC-lightning",
+      "node_id": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "removed_node": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
+      },
+      "id": 1
+  }
+  ```
+</CollapsibleSection>

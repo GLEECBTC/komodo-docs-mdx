@@ -1,0 +1,140 @@
+/withdraw:
+  post:
+    summary: The withdraw method generates, signs, and returns a transaction that
+      transfers the amount of coin to the address indicated in the to argument.
+    description: The withdraw method generates, signs, and returns a transaction that
+      transfers the amount of coin to the address indicated in the to argument.
+    operationId: withdraw
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - withdraw
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The name of the coin the user desires to withdraw.
+                  to:
+                    type: string
+                    description: Coins are withdrawn to this address.
+                  amount:
+                    type: string
+                    description: The amount the user desires to withdraw, ignored
+                      when `max=true`.
+                  fee:
+                    description: A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info)
+                      object.
+                    $ref: ../../components/schemas/FeeInfo.yaml
+                  from:
+                    description: HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info)
+                      object.
+                    $ref: ../../components/schemas/WithdrawFromInfo.yaml
+                  ibc_source_channel:
+                    type: integer
+                    description: Tendermint IBC transfers only. The source channel
+                      for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html)
+                      transaction.
+                  max:
+                    type: boolean
+                    description: Withdraw the maximum available amount.
+                    default: false
+                  memo:
+                    type: string
+                    description: Adds a transaction memo for compatible coins (e.g.,
+                      Tendermint ecosystem).
+                  broadcast:
+                    type: boolean
+                    description: Optional, defaults to `false`. When `false`, signed
+                      transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
+                      Must be set to `true` for Metamask managed transactions.
+                    default: false
+                required:
+                - coin
+                - to
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The name of the coin the user wants to withdraw.
+              fee_details:
+                type: object
+                description: The fee details of the generated transaction; this value
+                  differs for UTXO and ETH/ERC20 coins. Check the examples for more
+                  details.
+              from:
+                type: string
+                description: Coins are withdrawn from this address; the array contains
+                  a single element, but transactions may be sent from several addresses
+                  (UTXO coins).
+              kmd_rewards:
+                type: object
+                description: An object containing information about accrued rewards;
+                  always exists if the coin is `KMD`.
+              kmd_rewards.amount:
+                type: string
+                description: The amount of accrued rewards.
+              kmd_rewards.claimed_by_me:
+                type: boolean
+                description: Whether the rewards have been claimed by me.
+              my_balance_change:
+                type: string
+                description: The expected balance change in `my_address` after the
+                  transaction broadcasts.
+              received_by_me:
+                type: string
+                description: The amount of coins received by `my_address` after the
+                  transaction broadcasts; the value may be above zero when the transaction
+                  requires that the Komodo DeFi Framework API send change to `my_address`.
+              spent_by_me:
+                type: string
+                description: The amount of coins spent by `my_address`; this value
+                  may differ from the request amount, as the transaction fee is added
+                  here.
+              to:
+                type: string
+                description: Coins are withdrawn to this address; this may contain
+                  the `my_address` address, where change from UTXO coins is sent.
+              total_amount:
+                type: string
+                description: The total amount of coins transferred.
+              tx_hash:
+                type: string
+                description: The hash of the generated transaction.
+              tx_hex:
+                type: string
+                description: Transaction bytes in hexadecimal format; use this value
+                  as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
+                  Not used for Sia protocol coins.
+              tx_json:
+                type: object
+                description: For Sia protocol coins only. The transaction details
+                  in JSON format. Use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
+          example: {}

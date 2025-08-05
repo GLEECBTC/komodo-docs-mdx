@@ -1,0 +1,55 @@
+/task::enable_z_coin::init:
+  post:
+    summary: Task managed activation of ZHTLC coins like ARRR & ZOMBIE.
+    description: Task managed activation of ZHTLC coins like ARRR & ZOMBIE.
+    operationId: task::enable_z_coin::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_z_coin::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: Ticker of coin to activate
+                  activation_params:
+                    description: A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data)
+                      object.
+                    $ref: ../../components/schemas/ActivationRpcData.yaml
+                required:
+                - ticker
+                - activation_params
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

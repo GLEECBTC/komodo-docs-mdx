@@ -1,0 +1,38 @@
+components:
+  schemas:
+    1inchTokenInfo:
+      type: object
+      properties:
+        address:
+          type: string
+          description: Token contract address.
+        symbol:
+          type: string
+          description: Token symbol.
+        name:
+          type: string
+          description: Token name.
+        decimals:
+          type: string
+          description: Number of digits after decimal point for the token amount.
+        eip2612:
+          type: boolean
+          description: Is Eip-2612 supported.
+        is_fot:
+          type: boolean
+          description: Is FoT token.
+        logo_uri:
+          type: string
+          description: Token logo uri.
+        tags:
+          type: string
+          description: Token tags.
+      required:
+      - address
+      - decimals
+      - eip2612
+      - is_fot
+      - logo_uri
+      - name
+      - symbol
+      - tags

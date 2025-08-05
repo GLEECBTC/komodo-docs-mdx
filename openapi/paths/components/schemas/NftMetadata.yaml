@@ -1,0 +1,40 @@
+components:
+  schemas:
+    NftMetadata:
+      type: object
+      properties:
+        image:
+          type: string
+          description: Direct URL to the NFT's image.
+        image_url:
+          type: string
+          description: Url to the NFT's image. Derived from the `image` or `image_url`
+            fields to prioritize the non-null value. Can be null if neither is provided.
+        image_domain:
+          type: string
+          description: Extracted domain from the 'image\_url', if valid.
+        name:
+          type: string
+          description: Name of the token.
+        description:
+          type: string
+          description: Description of the token.
+        attributes:
+          type: array
+          description: The values within this parameter will vary, and are set by
+            the creator. Often used to store traits.
+        animation_url:
+          type: string
+          description: Url to an animation to be displayed instead of a static image.
+        animation_domain:
+          type: string
+          description: Extracted domain from the `animation_url`, if valid.
+        external_url:
+          type: string
+          description: URL to the external source related to the token.
+        external_domain:
+          type: string
+          description: Extracted domain from the `external_url`, if valid.
+        image_details:
+          type: object
+          description: JSON containing additional details or attributes of the image.

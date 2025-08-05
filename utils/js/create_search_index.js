@@ -5,9 +5,15 @@ import { mdxAnnotations } from "mdx-annotations";
 import path from "path";
 import remarkGfm from "remark-gfm";
 import { visit } from "unist-util-visit";
+import { fileURLToPath } from 'url';
 
 import { removedWords } from "./_removed_search_words.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '../../');
+const pagesDir = path.resolve(__dirname, '../../src/pages');
+const dataDir = path.resolve(__dirname, '../../src/data');
 
 const listOfAllowedElementsToCheck = [
   "h1",
@@ -38,7 +44,7 @@ const textContentElementArrayToCheck = [
   "td",
 ];
 
-const jsonFile = JSON.parse(fs.readFileSync("./src/data/sidebar.json"));
+const jsonFile = JSON.parse(fs.readFileSync(path.join(dataDir, 'sidebar.json'), 'utf8'));
 
 const extractSidebarTitles = (jsonData, linksArray = []) => {
   Object.values(jsonData).forEach((data) => {
@@ -232,7 +238,7 @@ async function compileMdxFile(mdxFilePathToCompile) {
 
 const runSearchIndexingOnAllMdxFiles = async () => {
   try {
-    const mdxFiles = getMDXFiles("./src/pages");
+    const mdxFiles = getMDXFiles(pagesDir);
     for (let index = 0; index < mdxFiles.length; index++) {
       const file = mdxFiles[index];
       try {
@@ -242,14 +248,8 @@ const runSearchIndexingOnAllMdxFiles = async () => {
           ${error}`);
       }
     }
-    fs.writeFileSync(
-      "./utils/_searchIndex.json",
-      JSON.stringify(mdxFileWordsResultsWithFilePaths)
-    );
-    fs.writeFileSync(
-      "./utils/_allMdxFileContentTree.json",
-      JSON.stringify(allMdxFileContentTree)
-    );
+    fs.writeFileSync(path.join(projectRoot, '_searchIndex.json'), JSON.stringify(mdxFileWordsResultsWithFilePaths));
+    fs.writeFileSync(path.join(projectRoot, '_allMdxFileContentTree.json'), JSON.stringify(allMdxFileContentTree));
   } catch (error) {
     throw new Error(error);
   }

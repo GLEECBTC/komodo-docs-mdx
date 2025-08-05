@@ -1,0 +1,104 @@
+/withdraw_nft:
+  post:
+    summary: The withdraw_nft method creates a signed transaction to withdraw an NFT,
+      supporting both ERC721 and ERC1155 types.
+    description: The withdraw_nft method creates a signed transaction to withdraw
+      an NFT, supporting both ERC721 and ERC1155 types.
+    operationId: withdraw_nft
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - withdraw_nft
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: The contract type of the NFT to withdraw. Either
+                      `withdraw_erc721` or `withdraw_erc1155`.
+                    default: '-'
+                  withdraw_data:
+                    description: A standard [WithdrawNftData](/komodo-defi-framework/api/common_structures/nfts/#withdraw-nft-data)
+                      object.
+                    $ref: ../../components/schemas/WithdrawNftData.yaml
+                required:
+                - type
+                - withdraw_data
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              amount:
+                type: string
+                description: Amount of tokens to withdraw.
+              block_height:
+                type: integer
+                description: Block height of the transaction. If the value is `0`,
+                  the transaction is unconfirmed.
+              coin:
+                type: string
+                description: Coin name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`,
+                  or `POLYGON`.
+              contract_type:
+                type: string
+                description: Contract type. `ERC721` or `ERC1155`.
+              fee_details:
+                description: A standard [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee)
+                  object.
+                $ref: ../../components/schemas/WithdrawFee.yaml
+              from:
+                type: array
+                description: List of source addresses.
+              internal_id:
+                type: integer
+                description: Used for internal transaction identification; for some
+                  coins, it may be equal to transaction hash.
+              timestamp:
+                type: integer
+                description: Timestamp of the block containing the withdrawal transaction
+                  in [unix epoch format](https://www.epochconverter.com/).
+              to:
+                type: array
+                description: List of destination addresses.
+              token_address:
+                type: string
+                description: Token address.
+              token_id:
+                type: string
+                description: Token ID.
+              transaction_type:
+                type: string
+                description: This will always be `NftTransfer`.
+              tx_hash:
+                type: string
+                description: Transaction ID of the withdrawal.
+              tx_hex:
+                type: string
+                description: Raw hex of signed transaction. Use this with the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)
+                  RPC to broadcast the transaction.
+          example: {}

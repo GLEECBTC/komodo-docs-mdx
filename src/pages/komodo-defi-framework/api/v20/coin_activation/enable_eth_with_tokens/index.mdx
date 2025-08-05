@@ -1,31 +1,33 @@
 export const title = "Komodo DeFi Framework Method: Enable ETH with Tokens";
 export const description = "The enable_eth_with_tokens method allows you to enable a platform coin like ETH along with multiple ERC20 like tokens of the platform coin chain in a single command.";
 
-# enable\_eth\_with\_tokens
+# Enable ETH with Tokens
+
+## enable\_eth\_with\_tokens {{label : 'enable_eth_with_tokens', tag : 'API-v2'}}
 
 The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum).
-Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 like tokens on the rest of the platform coin chains.Using this method, you can enable a platform coin along with multiple ERC20 like tokens of the platform coin chain in a single command.
+Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 like tokens on the rest of the platform coin chains. Using this method, you can enable a platform coin along with multiple ERC20 like tokens of the platform coin chain in a single command.
 
 ### Request Parameters
 
-| Parameter                   | Type             | Description                                                                                                                                                                                                                                                                                                                                  |
-| --------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                      | string           | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`                                                                                                                                                                                                                                      |
-| mm2                         | integer          | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                                                                                   |
-| swap\_contract\_address     | string           | Address of etomic swap smart contract                                                                                                                                                                                                                                                                                                        |
-| fallback\_swap\_contract    | string           | Address of backup etomic swap smart contract.                                                                                                                                                                                                                                                                                                |
-| nodes                       | array of objects | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects.                                                                                                                                                                                                                                   |
-| erc20\_tokens\_requests     | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                                                                                                         |
-| gas\_station\_decimals      | integer          | Optional, for ETH/ERC20 and other gas model chains. Defaults to `8`. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |
-| gas\_station\_policy.policy | string           | Optional, for ETH/ERC20 and other gas model chains. Defaults to `"MeanAverageFast"`. Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value.                                                           |
-| get\_balances               | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                                                                                      |
-| priv\_key\_policy           | object           | Optional. A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. Defaults to `{"type": "ContextPrivKey"}`.                                                                                                                                                                                 |
-| required\_confirmations     | integer          | Optional, defaults to `3`. When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap                                                                                                                                                          |
-| requires\_notarization      | boolean          | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                                                    |
-| rpc\_mode                   | string           | Optional, defaults to `Default`. Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`.                                                                                                                                                                                                                      |
-| tx\_history                 | boolean          | Optional, defaults to `false`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                                                   |
-| nft\_req                    | object           | Optional, encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.                                                                                                                                    |
-| swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object.                                                                                     |
+| Parameter                   | Type             | Required |            Default           | Description                                                                                                                                                                                                                                                                                                                            |
+| --------------------------- | ---------------- | :------: | :--------------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| erc20\_tokens\_requests     | array of objects |     ✓    |               -              | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                                                                                                   |
+| nodes                       | array of objects |     ✓    |               -              | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects.                                                                                                                                                                                                                             |
+| swap\_contract\_address     | string           |     ✓    |               -              | Address of etomic swap smart contract.                                                                                                                                                                                                                                                                                                 |
+| ticker                      | string           |     ✓    |               -              | Ticker of the platform protocol coin.                                                                                                                                                                                                                                                                                                  |
+| fallback\_swap\_contract    | string           |     ✗    |               -              | Address of backup etomic swap smart contract.                                                                                                                                                                                                                                                                                          |
+| gas\_station\_decimals      | integer          |     ✗    |               8              | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units.                                                                                                                                                                                                              |
+| gas\_station\_policy.policy | string           |     ✗    |       `MeanAverageFast`      | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. Value can be [gas-station-policy-enum](/komodo-defi-framework/api/common_structures/enums/#gas-station-policy-enum).                                                                                                  |
+| get\_balances               | boolean          |     ✗    |             true             | If false, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                                                                                                                |
+| mm2                         | integer          |     ✗    |               -              | Required if not set in coins file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are 0 or 1.                                                                                                                                                                                  |
+| nft\_req                    | object           |     ✗    |               -              | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.                                                                                                                                        |
+| priv\_key\_policy           | object           |     ✗    | `{"type": "ContextPrivKey"}` | Object specifying the policy to access a private key during activation. Must include a `type` field with a value from [EthPrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#eth-priv-key-activation-policy-enum). If `type` is `WalletConnect`, a `data` field with the session topic is also required. |
+| required\_confirmations     | integer          |     ✗    |               3              | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                                                                              |
+| requires\_notarization      | boolean          |     ✗    |             false            | If true, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                                                                               |
+| rpc\_mode                   | string           |     ✗    |            Default           | Value can be [EthRpcModeEnum](/komodo-defi-framework/api/common_structures/enums/#eth-rpc-mode-enum).                                                                                                                                                                                                                                  |
+| swap\_v2\_contracts         | object           |     ✗    |               -              | Must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.                                                                                      |
+| tx\_history                 | boolean          |     ✗    |             false            | If true the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to true to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method.                                                                                                               |
 
 <Note>
   When running in HD mode, do not use the `nft_req` object paramater when activating your NFT network coins. Instead, use the [enable\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/enable_nft/) method after activating.
@@ -35,16 +37,16 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 | Parameter               | Type    | Description                                                                                                                                                                          |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| current\_block          | integer | Block height of the coin being activated                                                                                                                                             |
-| eth\_addresses\_infos   | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
+| current\_block          | integer | Block height of the coin being activated.                                                                                                                                            |
 | erc20\_addresses\_infos | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
+| eth\_addresses\_infos   | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
 | nfts\_infos             | list    | A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects.                                                                              |
 
-### 📌 Examples
+#### 📌 Examples
 
 #### Request including optional gas station parameters
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
+<CodeGroup title="Enable ETH with Tokens (with gas station parameters)" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -158,7 +160,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request with `get_balances` set to false
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
+<CodeGroup title="Enable ETH with Tokens (get_balances false)" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -241,7 +243,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request including NFT initialization
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
+<CodeGroup title="Enable ETH with Tokens and NFT initialization" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -397,25 +399,25 @@ Prior to coin activation using WalletConnect, you need to establish a connection
   ```
 </CollapsibleSection>
 
-### Error Responses
+### Error Types
+
+| Parameter                  | Type   | Description                                                                         |
+| -------------------------- | ------ | ----------------------------------------------------------------------------------- |
+| CoinProtocolParseError     | string | Parsing the protocol of the platform coin you are trying to activate failed         |
+| InternalError              | string | The request was failed due to an Komodo DeFi Framework API internal error           |
+| PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin                        |
+| PlatformConfigIsNotFound   | string | Config of the platform coin you are trying to activate is not found                 |
+| PlatformIsAlreadyActivated | string | The platform coin you are trying to activate is already activated                   |
+| PrivKeyNotAllowed          | string | The privkey is not allowed                                                          |
+| TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                         |
+| TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                 |
+| Transport                  | string | The request was failed due to a network error                                       |
+| UnexpectedDerivationMethod | string | The derivation method used is unexpected                                            |
+| UnexpectedPlatformProtocol | string | Unexpected platform protocol found for the platform coin you are trying to activate |
+| UnexpectedTokenProtocol    | string | Unexpected protocol is found in the config of the token you are trying to activate  |
 
 <CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  ### Error Types
-
-  | Structure                  | Type   | Description                                                                         |
-  | -------------------------- | ------ | ----------------------------------------------------------------------------------- |
-  | CoinProtocolParseError     | string | Parsing the protocol of the platform coin you are trying to activate failed         |
-  | InternalError              | string | The request was failed due to an Komodo DeFi Framework API internal error           |
-  | PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin                        |
-  | PlatformConfigIsNotFound   | string | Config of the platform coin you are trying to activate is not found                 |
-  | PlatformIsAlreadyActivated | string | The platform coin you are trying to activate is already activated                   |
-  | PrivKeyNotAllowed          | string | The privkey is not allowed                                                          |
-  | TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                         |
-  | TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                 |
-  | Transport                  | string | The request was failed due to a network error                                       |
-  | UnexpectedDerivationMethod | string | The derivation method used is unexpected                                            |
-  | UnexpectedPlatformProtocol | string | Unexpected platform protocol found for the platform coin you are trying to activate |
-  | UnexpectedTokenProtocol    | string | Unexpected protocol is found in the config of the token you are trying to activate  |
+  ### ⚠️ Error Responses
 
   #### PlatformIsAlreadyActivated Error
 

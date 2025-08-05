@@ -1,0 +1,8 @@
+components:
+  schemas:
+    MakerPaymentSpendFailed:
+      type: object
+      properties:
+        error:
+          type: string
+          description: error description with stack trace

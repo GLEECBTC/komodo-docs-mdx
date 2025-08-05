@@ -1,0 +1,39 @@
+components:
+  schemas:
+    EthActivationStatusEnum:
+      type: string
+      description: '| Value                      | Description                                                                                                                 |
+
+
+        **Values:**
+
+        - `ActivatingCoin`: The first step of activation. It does not require any
+        action from the user.
+
+        - `RequestingWalletBalance`: The first step of activation, while initial balances
+        info is being requested. It does not require any action from the user.
+
+        - `Finishing`: Activation process completed.
+
+        - `WaitingForTrezorToConnect`: Waiting for the user to plugin a Trezor device.
+
+        - `FollowHwDeviceInstructions`: Waiting for the user to follow the instructions
+        on the device.
+
+        - `Ok`: Activation complete and successful.
+
+        - `InProgress`: Activation is still in progress.
+
+        - `UserActionRequired`: User input is required to continue.
+
+        '
+      enum:
+      - ActivatingCoin
+      - RequestingWalletBalance
+      - Finishing
+      - WaitingForTrezorToConnect
+      - FollowHwDeviceInstructions
+      - Ok
+      - InProgress
+      - UserActionRequired
+      title: 'Component: EthActivationStatusEnum'

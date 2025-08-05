@@ -1,0 +1,67 @@
+/get_new_address:
+  post:
+    summary: Method description for get_new_address
+    description: Method description for get_new_address
+    operationId: get_new_address
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_new_address
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Coin ticker (e.g., `BTC`, `LTC`, `ETH`).
+                    default: –
+                  account_id:
+                    type: number
+                    description: BIP-44 account number (usually `0`).
+                    default: –
+                  chain:
+                    type: string
+                    description: '`External` (receive) or `Internal` (change). If
+                      omitted, defaults to `External`.'
+                    default: External
+                  gap_limit:
+                    type: number
+                    description: Maximum allowed consecutive empty addresses (overrides
+                      wallet default).
+                    default: implementation-default
+                required:
+                - coin
+                - account_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              new_address:
+                description: A standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info)
+                  object containing `address`, `derivation_path`, `chain`, and `balance`.
+                $ref: ../../components/schemas/NewAddressInfo.yaml
+          example: {}

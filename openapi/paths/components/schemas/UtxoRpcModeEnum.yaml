@@ -1,0 +1,19 @@
+components:
+  schemas:
+    UtxoRpcModeEnum:
+      type: string
+      description: 'Used in UTXO coin activation requests to specify the RPC mode.
+
+
+        **Values:**
+
+        - `Native`: Use the native daemon for RPC calls.
+
+        - `Electrum`: Use Electrum servers for RPC calls. Includes server settings
+        and connection parameters.
+
+        '
+      enum:
+      - Native
+      - Electrum
+      title: 'Component: UtxoRpcModeEnum'

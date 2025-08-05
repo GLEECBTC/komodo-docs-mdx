@@ -4,6 +4,8 @@ export const description =
 
 # Delegate
 
+## experimental::staking::delegate {{label : 'experimental::staking::delegate', tag : 'API-v2'}}
+
 The `experimental::staking::delegate` method initiates your node's staking of a compatible coin. Currently QTUM and tQTUM (test tokens avalable at `https://testnet-faucet.qtum.info/`), along with Cosmos/Tendermint coins are supported.
 
 After running `experimental::staking::delegate`, you will need to broadcast the returned hex via [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
@@ -13,12 +15,12 @@ After running `experimental::staking::delegate`, you will need to broadcast the 
   Staking will only work with legacy QTUM addresses (segwit addresses are not supported).
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure        | Type   | Description                                                                                               |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------------------- |
-| coin             | string | the coin being staked                                                                                     |
-| staking\_details | object | A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-details) object. |
+| Parameter        | Type   | Required | Description                                                                                               |
+| :--------------- | :----- | :------: | :-------------------------------------------------------------------------------------------------------- |
+| coin             | string |     ✓    | The coin being staked                                                                                     |
+| staking\_details | object |     ✓    | A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-details) object. |
 
 #### 📌 Examples
 

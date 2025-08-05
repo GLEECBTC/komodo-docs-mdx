@@ -1,0 +1,21 @@
+components:
+  schemas:
+    NftProvider:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Specifies the type of the provider.
+        info:
+          type: object
+          description: Additional information about the provider
+        info.url:
+          type: string
+          description: URL of the provider's endpoint
+        info.komodo_proxy:
+          type: boolean
+          description: Indicates whether proxy authentication is enabled for the endpoint
+      required:
+      - info
+      - info.url
+      - type

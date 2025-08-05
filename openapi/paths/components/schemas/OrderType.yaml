@@ -1,0 +1,15 @@
+components:
+  schemas:
+    OrderType:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: 'There are two types from which to choose: `GoodTillCancelled`
+            and `FillOrKill`. The `GoodTillCancelled` order is automatically converted
+            to a `maker` order if the order is not matched in 30 seconds, and this
+            `maker` order stays in the orderbook until explicitly cancelled. On the
+            other hand, a `FillOrKill` order is cancelled if it is not matched within
+            30 seconds. The default type is `GoodTillCancelled`'
+      required:
+      - Type

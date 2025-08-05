@@ -1,0 +1,51 @@
+/task::enable_tendermint_token::cancel:
+  post:
+    summary: Cancel a pending or in-progress Tendermint token activation task.
+    description: Cancel a pending or in-progress Tendermint token activation task.
+    operationId: task::enable_tendermint_token::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_tendermint_token::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifier returned by [`task::enable_tendermint_token::init`](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/init/).
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Task status after the cancellation attempt (`Cancelled`
+                  on success).
+          example: {}

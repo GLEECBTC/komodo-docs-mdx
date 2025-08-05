@@ -1,0 +1,66 @@
+components:
+  schemas:
+    SwapStatus:
+      type: object
+      properties:
+        type:
+          type: string
+          description: '`Maker` or `Taker`. Indicates if the user created the order
+            (maker), or matched with an existing order (taker).'
+          default: '`-`'
+        uuid:
+          type: string
+          description: A unique identifier for the swap.
+          default: '`-`'
+        events:
+          description: A list of swap events. The structure of each event varies depending
+            on its type, as detailed in the [SwapEvents](/komodo-defi-framework/api/common_structures/swaps/)
+            section.
+          $ref: '#/components/schemas/SwapEvents'
+        maker_coin:
+          type: string
+          description: The coin being sent by the maker and received by the taker.
+          default: '`-`'
+        taker_coin:
+          type: string
+          description: The coin being sent by the taker and received by the maker.
+          default: '`-`'
+        maker_amount:
+          type: string
+          description: The amount of `maker_coin` being traded.
+          default: '`-`'
+        taker_amount:
+          type: string
+          description: The amount of `taker_coin` being traded.
+          default: '`-`'
+        gui:
+          type: string
+          description: An identifier for the GUI used to initiate the swap, as defined
+            in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/).
+          default: '`null`'
+        mm_version:
+          type: string
+          description: The release version and/or commit hash of the Komodo DeFi SDK
+            used to initiate the swap.
+          default: '`-`'
+        success_events:
+          description: A list of possible swap event types for a successful swap,
+            for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-success-events)
+            and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-success-events).
+          $ref: '#/components/schemas/makers'
+        error_events:
+          description: A list of possible swap event types which may appear in a failed
+            swap, for [makers](/komodo-defi-framework/api/common_structures/swaps/maker_events/#maker-error-events)
+            and [takers](/komodo-defi-framework/api/common_structures/swaps/taker_events/#taker-error-events).
+          $ref: '#/components/schemas/makers'
+      required:
+      - error_events
+      - events
+      - maker_amount
+      - maker_coin
+      - mm_version
+      - success_events
+      - taker_amount
+      - taker_coin
+      - type
+      - uuid

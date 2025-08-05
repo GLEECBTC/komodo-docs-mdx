@@ -1,0 +1,132 @@
+/get_nft_metadata:
+  post:
+    summary: The get_nft_metadata method returns metadata for a specific NFT, including
+      collection, contract type, and ownership details.
+    description: The get_nft_metadata method returns metadata for a specific NFT,
+      including collection, contract type, and ownership details.
+    operationId: get_nft_metadata
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_nft_metadata
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  chain:
+                    description: The token chain. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum)
+                      for allowed values.
+                    $ref: ../../components/schemas/NftNetworkEnum.yaml
+                  token_address:
+                    type: string
+                    description: The token address.
+                    default: '-'
+                  token_id:
+                    type: string
+                    description: Token ID.
+                    default: '-'
+                  protect_from_spam:
+                    type: boolean
+                    description: If `true`, any potential spam link found in collection
+                      name, token name, or symbol will be replaced with `URL redacted
+                      for user protection`.
+                    default: false
+                required:
+                - chain
+                - token_address
+                - token_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              amount:
+                type: string
+                description: The amount of this NFT the user owns (used by `ERC1155`).
+              block_number_minted:
+                type: integer
+                description: The block height when the NFT was minted. May be `null`.
+              block_number:
+                type: integer
+                description: The block height when the amount or owner changed.
+              chain:
+                type: string
+                description: Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`,
+                  or `POLYGON`.
+              name:
+                type: string
+                description: May be `null`. An NFT collection name.
+              contract_type:
+                type: string
+                description: The type of NFT contract standard. One of `ERC721` or
+                  `ERC1155`.
+              last_token_uri_sync:
+                type: string
+                description: When the token\_uri was last updated.
+              last_metadata_sync:
+                type: string
+                description: When the metadata was last updated.
+              metadata:
+                type: string
+                description: The metadata of the token. May be `null`.
+              minter_address:
+                type: string
+                description: Minter address. May be `null`.
+              owner_of:
+                type: string
+                description: The wallet address of the owner of the NFT.
+              possible_spam:
+                type: boolean
+                description: If `true`, the contract address has [been identified](https://docs.moralis.io/web3-data-api/evm/nft-spam-detection)
+                  as associated with spam or suspicious activities.
+              possible_phishing:
+                type: boolean
+                description: If `true`, the token has been identified as associated
+                  with phishing, as at least one of domain fields is found in database
+                  with phishing domains.
+              symbol:
+                type: string
+                description: May be `null`. The symbol of the NFT contract.
+              token_address:
+                type: string
+                description: The address of the NFT contract.
+              token_id:
+                type: string
+                description: The token ID of the NFT.
+              token_hash:
+                type: string
+                description: The token hash. May be `null`.
+              token_uri:
+                type: string
+                description: The URI to the metadata of the token. May be `null`.
+              token_domain:
+                type: string
+                description: Token domain. May be `null`.
+              uri_meta:
+                description: A standard [NftMetadata](/komodo-defi-framework/api/common_structures/nfts/#nft-metadata)
+                  object.
+                $ref: ../../components/schemas/NftMetadata.yaml
+          example: {}

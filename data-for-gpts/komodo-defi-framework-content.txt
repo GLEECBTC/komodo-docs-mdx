@@ -12708,7 +12708,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 | rpc\_mode                   | string           | Optional, defaults to `Default`. Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`.                                                                                                                                                                                                                      |
 | tx\_history                 | boolean          | Optional, defaults to `false`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                                                   |
 | nft\_req                    | object           | Optional, encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.                                                                                                                                    |
-| swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object.                                                                                     |
+| swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.                                                                                     |
 
 When running in HD mode, do not use the `nft_req` object paramater when activating your NFT network coins. Instead, use the [enable\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/enable_nft/) method after activating.
 
@@ -16269,7 +16269,7 @@ Any methods with a `task::` prefix will be linked to a numeric `task_id` value w
 
 #### L2ConfigIsNotFound Error
 
-Coin is not in `coins` file. Refer to the [coins file configuration for lightning](/komodo-defi-framework/api/v20/lightning/#lightning-coin-config-parameters) for more information.
+Coin is not in `coins` file. Refer to the [coins file configuration for lightning](/komodo-defi-framework/api/v20/lightning/#coin-config-parameters) for more information.
 
 ```json
 {
@@ -16362,7 +16362,7 @@ Another bug found, will fix it in an upcoming PR. Platform coin should be tBTC-s
 
 #### InvalidPlatformConfiguration Error
 
-Coin's configuration is missing a required parameter.  Refer to the [coins file configuration for lightning](/komodo-defi-framework/api/v20/lightning/#lightning-network-coins-file-configuration) for more information.
+Coin's configuration is missing a required parameter.  Refer to the [coins file configuration for lightning](/komodo-defi-framework/api/v20/lightning/#coin-configuration) for more information.
 
 ```json
 {
@@ -21590,7 +21590,7 @@ The `get_locked_amount` method returns the amount of a coin which is currently l
 | coin                    | string          | The ticker of the coin you queried.                                                              |
 | locked\_amount          | object          | An object cointaining the locked amount in decimal, fraction and rational formats.               |
 | locked\_amount.decimal  | numeric string  | The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).      |
-| locked\_amount.rational | rational object | The locked amount in [rational format](/komodo-defi-framework/api/legacy/rational_number_note/). |
+| locked\_amount.rational | rational object | The locked amount in [rational format](/komodo-defi-framework/api/common_structures/rational_number_note/). |
 | locked\_amount.fraction | fraction object | The locked amount in [fraction format](https://www.mathsisfun.com/definitions/fraction.html).    |
 
 #### 📌 Examples

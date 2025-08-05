@@ -1,0 +1,56 @@
+export const title = "Komodo DeFi Framework Method: Fund Value";
+export const description = "Calculate the current portfolio value across enabled coins (legacy API).";
+
+# Fund Value
+
+## fundvalue {{label : 'fundvalue', tag : 'API-v1'}}
+
+<Note type="info">
+  This is a legacy Komodo DeFi Framework API v1 method. New integrations should prefer API-v2 equivalents when available.
+  This documentation was generated automatically - use with caution.
+</Note>
+
+### Request Parameters
+
+| Parameter | Type             | Required | Description                                                  |
+| --------- | ---------------- | :------: | ------------------------------------------------------------ |
+| coins     | array of strings |     ✗    | If provided, restrict calculation to specified coin tickers. |
+| userpass  | string           |     ✓    | RPC password (`RPC_UserP@SSW0RD`).                           |
+
+### Response Parameters
+
+| Parameter         | Type             | Description                                  |
+| ----------------- | ---------------- | -------------------------------------------- |
+| total\_value\_usd | string (numeric) | Portfolio value denominated in USD.          |
+| per\_coin\_values | object           | Key/value map of coin symbol → value in USD. |
+
+#### 📌 Examples
+
+<CodeGroup title="fundvalue" tag="POST" label="fundvalue" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "fundvalue",
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "total_value_usd": "1234.56",
+    "per_coin_values": {
+      "KMD": "500.00",
+      "BTC": "734.56"
+    }
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter     | Type   | Description         |
+| ------------- | ------ | ------------------- |
+| InternalError | string | Internal API error. |

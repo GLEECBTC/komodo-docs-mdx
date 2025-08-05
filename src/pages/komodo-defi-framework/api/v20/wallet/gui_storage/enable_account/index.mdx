@@ -1,0 +1,92 @@
+export const title = "Komodo DeFi Framework Method: Enable GUI Storage Account";
+export const description = "Set or create the active (enabled) account in the GUI-storage database.";
+
+# Enable GUI Storage Account
+
+## gui\_storage::enable\_account {{label : 'gui_storage::enable_account', tag : 'API-v2'}}
+
+Marks a specific account as the active (enabled) account within GUI storage.  If the account doesn't yet exist you can create-and-enable it in a single call.
+
+### Request Parameters
+
+| Parameter    | Type                                                                                                      | Required | Description                                                                          |
+| ------------ | --------------------------------------------------------------------------------------------------------- | :------: | ------------------------------------------------------------------------------------ |
+| policy       | [EnableAccountPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#enable-account-policy-enum) |     ✓    | Determines whether to enable an `existing` account or create-and-enable a `new` one. |
+| account\_id  | [EnabledAccountId](/komodo-defi-framework/api/common_structures/wallet/#enabled-account-id)               |     ✗    | Required when `policy` = `existing`. Identifies the account to enable.               |
+| balance\_usd | string (numeric)                                                                                          |     ✗    | Optional initial USD balance when `policy` = `new`; defaults to `0`.                 |
+| description  | string                                                                                                    |     ✗    | Optional description (≤ 600 chars) for a new account.                                |
+| name         | string                                                                                                    |     ✗    | Required when `policy` = `new`. Display name for the new account (≤ 255 chars).      |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                    |
+| --------- | ------ | ---------------------------------------------- |
+| result    | string | Returns `success` when the account is enabled. |
+
+#### 📌 Examples
+
+Enable an existing Iguana account:
+
+<CodeGroup title="enable_account (existing)" tag="POST" label="gui_storage::enable_account" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::enable_account",
+    "params": {
+      "policy": "existing",
+      "account_id": {
+        "type": "iguana"
+      }
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+Create and enable a new HD account:
+
+<CodeGroup title="enable_account (new)" tag="POST" label="gui_storage::enable_account" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::enable_account",
+    "params": {
+      "policy": "new",
+      "account_id": {
+        "type": "hd",
+        "account_idx": 0
+      },
+      "name": "HD-0",
+      "description": "Hardware HD account",
+      "balance_usd": "0"
+    },
+    "id": 2,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter            | Type   | Description                                                          |
+| -------------------- | ------ | -------------------------------------------------------------------- |
+| NameTooLong          | string | Provided `name` exceeds maximum length.                              |
+| DescriptionTooLong   | string | `description` exceeds maximum length.                                |
+| AccountExistsAlready | string | Attempted to create an account that already exists (policy = `new`). |
+| NoSuchAccount        | string | `policy` = `existing` but the given `account_id` was not found.      |
+| ErrorLoadingAccount  | string | Storage read error.                                                  |
+| ErrorSavingAccount   | string | Storage write error.                                                 |
+| InternalError        | string | Unhandled internal error.                                            |

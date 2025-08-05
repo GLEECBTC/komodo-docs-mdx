@@ -1,11 +1,12 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
+export const title = "Komodo DeFi Framework Method: Update NFT";
 export const description =
-  "This document describes the update_nft method Komodo DeFi Framework provides to update NFT information in your local database";
+  "This document describes the update_nft method Komodo DeFi Framework provides to update NFT information in your local database.";
 
-# Update NFT {{label : 'update_nft', tag : 'API-v2'}}
+# Update NFT
 
-This method will scan selected networks to update NFT information stored in the local database.
-To interact with your NFTs, you will first need to activate the coin for the network the NFT is on.
+## update\_nft {{label : 'update_nft', tag : 'API-v2'}}
+
+This method scans selected networks to update NFT information stored in the local database. To interact with your NFTs, you must first activate the coin for the network the NFT is on.
 
 See below for which coin to activate for each network:
 
@@ -17,16 +18,16 @@ See below for which coin to activate for each network:
 | FANTOM    | FTM   |
 | POLYGON   | MATIC |
 
-These coins can be activated using the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) or method.
+These coins can be activated using the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method.
 
 ### Request Parameters
 
-| Parameter     | Type    | Description                                                                                                                                                                    |
-| ------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| chains        | array   | List of networks to scan for NFTs. Options are: `POLYGON`, `FANTOM`, `ETH`, `BSC`, or `AVALANCHE`.                                                                             |
-| komodo\_proxy | boolean | Optional. Indicates whether authentication is required for accessing the proxy URLs.                                                                                           |
-| url           | string  | URL link to the [Moralis API proxy base url](https://moralis-proxy.komodo.earth) or equivalent (if komodo\_proxy is set to true, will need to provide a new Komodo Proxy URL). |
-| url\_antispam | string  | URL link to the [Antispam API proxy base url](https://nft.antispam.dragonhound.info) or equivalent.                                                                            |
+| Parameter     | Type    | Required | Default | Description                                                                                                                                                               |
+| ------------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| chains        | array   |     ✓    |   `-`   | List of networks to scan for NFTs. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values.                         |
+| komodo\_proxy | boolean |     ✗    |   `-`   | Indicates whether authentication is required for accessing the proxy URLs.                                                                                                |
+| url           | string  |     ✓    |   `-`   | URL link to the [Moralis API proxy base URL](https://moralis-proxy.komodo.earth) or equivalent. If komodo\_proxy is set to true, you must provide a new Komodo Proxy URL. |
+| url\_antispam | string  |     ✓    |   `-`   | URL link to the [Antispam API proxy base URL](https://nft.antispam.dragonhound.info) or equivalent.                                                                       |
 
 <Note>
   If there are no errors, this request will return an empty response.
@@ -54,20 +55,20 @@ These coins can be activated using the [enable\_eth\_with\_tokens](/komodo-defi-
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Update NFT Response" collapsedText="Show Update NFT Response">
   ```json
   {
-  	"mmrpc": "2.0",
-  	"result": null,
-  	"id": null
+      "mmrpc": "2.0",
+      "result": null,
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  ### Error Types
+<CollapsibleSection expandedText="Hide Update NFT Error Responses" collapsedText="Show Update NFT Error Responses">
+  #### ⚠️ Error Responses
 
-  #### TokenIsAlreadyActivated
+  ##### TokenIsAlreadyActivated
 
   This error occurs when NFTs are already activated for the selected network.
 
@@ -83,9 +84,9 @@ These coins can be activated using the [enable\_eth\_with\_tokens](/komodo-defi-
   }
   ```
 
-  #### TokenIsAlreadyActivated
+  ##### TokenConfigIsNotFound
 
-  This error occurs when NFTs are already activated for the selected network.
+  This error occurs when the token config is not found.
 
   ```json
   {

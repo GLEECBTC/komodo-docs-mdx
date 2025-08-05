@@ -1,0 +1,39 @@
+components:
+  schemas:
+    PayForGas:
+      type: object
+      properties:
+        tx_type:
+          type: string
+          description: ETH/EVM coins and tokens only. Options are `Legacy` or `Eip1559`.
+            The type of transaction values being configured.
+          default: '`-`'
+        gas_price:
+          type: string
+          description: Only used if tx\_type is `Legacy`. Values are in Gwei. The
+            maximium price per gas unit the user is willing to pay for the transaction.
+          default: '`-`'
+        max_fee_per_gas:
+          type: string
+          description: Only used if tx\_type is `Eip1559`. Values are in Gwei. The
+            maximum amount to pay per unit of gas to get your transaction included
+            in a block.
+          default: '`-`'
+        max_priority_fee_per_gas:
+          type: string
+          description: Only used if tx\_type is `Eip1559`. Values are in Gwei. This
+            is paid directly to the miner, and can be set by the user to attract minimal
+            delay in transaction confirmation.
+          default: '`-`'
+        min_wait_time:
+          type: integer
+          description: Only used if tx\_type is `Eip1559`. Estimated minimum transaction
+            wait time in mempool (in ms) for this priority level.
+          default: '`-`'
+        max_wait_time:
+          type: integer
+          description: Only used if tx\_type is `Eip1559`. Estimated maximum transaction
+            wait time in mempool (in ms) for this priority level.
+          default: '`-`'
+      required:
+      - tx_type

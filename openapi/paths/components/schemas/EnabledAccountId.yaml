@@ -1,0 +1,14 @@
+components:
+  schemas:
+    EnabledAccountId:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Account kind. Accepted values are `iguana` and `hd`.
+        account_idx:
+          type: integer
+          description: Required only when `type` = `hd`. The index of the HD account
+            to enable (starting from `0`).
+      required:
+      - type

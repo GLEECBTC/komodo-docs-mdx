@@ -1,0 +1,53 @@
+/get_enabled_coins:
+  post:
+    summary: The get_enabled_coins method returns data of coins that are currently
+      enabled on the user
+    description: The get_enabled_coins method returns data of coins that are currently
+      enabled on the user
+    operationId: get_enabled_coins
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_enabled_coins
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  '*None*':
+                    type: string
+                    description: '*This method has no parameters.*'
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coins:
+                type: array
+                description: A list of key value pairs for activated tickers
+              coins.ticker:
+                type: string
+                description: The ticker of an activated coin
+          example: {}

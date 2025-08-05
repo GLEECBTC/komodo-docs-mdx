@@ -1,0 +1,16 @@
+components:
+  schemas:
+    WalletBalanceInfo:
+      type: object
+      properties:
+        wallet_type:
+          type: string
+          description: In HD wallet mode, this will return `HD`. <DevComment> What
+            are the other values? </DevComment>
+        accounts:
+          description: A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info)
+            object.
+          $ref: '#/components/schemas/WalletAccountInfo'
+      required:
+      - accounts
+      - wallet_type

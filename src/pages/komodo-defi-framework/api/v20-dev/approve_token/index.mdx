@@ -2,23 +2,25 @@ export const title = "Komodo DeFi Framework Method: Approve Token (v2)";
 export const description =
   "The approve_token method approves token spending for address";
 
-# approve\_token
+# Approve Token
+
+## approve\_token {{label : 'approve_token', tag : 'API-v2'}}
 
 The `approve_token` method grants permission for a given smart contract to spend a defined amount of your tokens.
 
 Refer to the [1inch Classic Swap documentation](https://portal.1inch.dev/documentation/apis/swap/classic-swap/quick-start) for more information.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                       |
-| --------- | ------ | ------------------------------------------------- |
-| coin      | string | Token ticker                                      |
-| spender   | string | Address of smart contract to approve for spending |
-| amount    | float  | Approved amount to spend (in coins units)         |
+| Parameter | Type   | Required | Description                                       |
+| --------- | ------ | :------: | ------------------------------------------------- |
+| coin      | string |     ✓    | Token ticker                                      |
+| spender   | string |     ✓    | Address of smart contract to approve for spending |
+| amount    | float  |     ✓    | Approved amount to spend (in coins units)         |
 
-## Response
+### Response Parameters
 
-| Structure | Type   | Description             |
+| Parameter | Type   | Description             |
 | --------- | ------ | ----------------------- |
 | result    | string | Approval transaction id |
 

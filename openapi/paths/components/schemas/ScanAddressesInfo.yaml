@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ScanAddressesInfo:
+      type: object
+      properties:
+        account_index:
+          type: integer
+          description: '`ACCOUNT_ID` child in the `m/44''/COIN''/ACCOUNT_ID''/CHAIN/ADDRESS_ID`
+            BIP44 derivation path. **Please don''t confuse with the global account.**'
+        derivation_path:
+          type: string
+          description: The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+            of the account.
+        new_addresses:
+          description: A list of standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info)
+            objects.
+          $ref: '#/components/schemas/NewAddressInfo'
+      required:
+      - account_index
+      - derivation_path
+      - new_addresses

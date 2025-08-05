@@ -1,0 +1,22 @@
+components:
+  schemas:
+    CancelByTypeEnum:
+      type: string
+      description: 'Used in [cancel\_all\_orders](/komodo-defi-framework/api/legacy/cancel_all_orders/)
+        method to specify which orders to cancel:
+
+
+        **Values:**
+
+        - `All`: Cancel all active orders created by the node
+
+        - `Pair`: Cancel all orders for a specific trading pair (base/rel)
+
+        - `Coin`: Cancel all orders involving a specific coin (as base or rel)
+
+        '
+      enum:
+      - All
+      - Pair
+      - Coin
+      title: 'Component: CancelByTypeEnum'

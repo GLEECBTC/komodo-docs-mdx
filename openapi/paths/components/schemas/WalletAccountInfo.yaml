@@ -1,0 +1,25 @@
+components:
+  schemas:
+    WalletAccountInfo:
+      type: object
+      properties:
+        account_index:
+          type: integer
+          description: '`ACCOUNT_ID` child in the `m/44''/COIN''/ACCOUNT_ID''/CHAIN/ADDRESS_ID`
+            BIP44 derivation path. **Please don''t confuse with the global account.**'
+        derivation_path:
+          type: string
+          description: Derivation path up to the `COIN` child. E.g. `"m/44'/141'/0'"`
+        total_balance:
+          description: A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info)
+            object.
+          $ref: '#/components/schemas/BalanceInfo'
+        addresses:
+          description: A list of standard [AccountAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#account-address-info)
+            objects.
+          $ref: '#/components/schemas/AccountAddressInfo'
+      required:
+      - account_index
+      - addresses
+      - derivation_path
+      - total_balance

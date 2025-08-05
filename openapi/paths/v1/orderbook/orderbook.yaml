@@ -1,0 +1,113 @@
+/orderbook:
+  post:
+    summary: The orderbook method requests from the network the currently available
+      orders for the specified trading pair.
+    description: The orderbook method requests from the network the currently available
+      orders for the specified trading pair.
+    operationId: orderbook
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - orderbook
+              base:
+                type: string
+                description: Base currency of a pair
+              rel:
+                type: string
+                description: Related currency, also known as the "quote currency"
+            required:
+            - userpass
+            - method
+            - base
+            - rel
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asks:
+                description: An array of standard [OrderDataV1](/komodo-defi-framework/api/common_structures/orders/#order-data-v1)
+                  objects containing outstanding asks
+                $ref: ../../components/schemas/OrderDataV1.yaml
+              base:
+                type: string
+                description: The name of the coin the user desires to receive
+              netid:
+                type: number
+                description: The id of the network on which the request is made
+              numbids:
+                type: number
+                description: The number of outstanding bids
+              numasks:
+                type: number
+                description: The number of outstanding asks
+              rel:
+                type: string
+                description: The name of the coin the user will trade
+              timestamp:
+                type: number
+                description: The timestamp of the orderbook request
+              bids:
+                description: An array of standard [OrderDataV1](/komodo-defi-framework/api/common_structures/orders/#order-data-v1)
+                  objects containing outstanding bids
+                $ref: ../../components/schemas/OrderDataV1.yaml
+              total_asks_base_vol:
+                type: string
+                description: The base volumes sum of all asks
+              total_asks_base_vol_fraction:
+                description: The `total_asks_base_vol` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  object.
+                $ref: ../../components/schemas/FractionalValue.yaml
+              total_asks_base_vol_rat:
+                description: The `total_asks_base_vol` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.
+                $ref: ../../components/schemas/RationalValue.yaml
+              total_asks_rel_vol:
+                type: string
+                description: The rel volumes sum of all asks
+              total_asks_rel_vol_fraction:
+                description: The `total_asks_rel_vol` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  object.
+                $ref: ../../components/schemas/FractionalValue.yaml
+              total_asks_rel_vol_rat:
+                description: The `total_asks_rel_vol` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.
+                $ref: ../../components/schemas/RationalValue.yaml
+              total_bids_base_vol:
+                type: string
+                description: The base volumes sum of all bids
+              total_bids_base_vol_fraction:
+                description: The `total_bids_base_vol` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  object.
+                $ref: ../../components/schemas/FractionalValue.yaml
+              total_bids_base_vol_rat:
+                description: The `total_bids_base_vol` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.
+                $ref: ../../components/schemas/RationalValue.yaml
+              total_bids_rel_vol:
+                type: string
+                description: The rel volumes sum of all bids
+              total_bids_rel_vol_fraction:
+                description: The `total_bids_rel_vol` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  object.
+                $ref: ../../components/schemas/FractionalValue.yaml
+              total_bids_rel_vol_rat:
+                description: The `total_bids_rel_vol` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.
+                $ref: ../../components/schemas/RationalValue.yaml
+          example: {}

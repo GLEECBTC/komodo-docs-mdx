@@ -1,0 +1,144 @@
+export const title = "Komodo DeFi Framework Method: Send Lightning Payment";
+export const description = "Send a Lightning Network payment using the Komodo DeFi Framework API.";
+
+# Send Lightning Payment
+
+## lightning::payments::send\_payment {{label : 'lightning::payments::send_payment', tag : 'API-v2'}}
+
+Sends a Lightning Network payment to a specified invoice.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                  |
+| --------- | ------ | :------: | -------------------------------------------- |
+| coin      | string |     ✓    | The ticker of the coin to send payment from. |
+| invoice   | string |     ✓    | The Lightning invoice to pay.                |
+| amount    | string |     ✗    | Amount to pay (if not specified in invoice). |
+
+### Response Parameters
+
+| Parameter     | Type   | Description              |
+| ------------- | ------ | ------------------------ |
+| payment\_hash | string | The hash of the payment. |
+| status        | string | Status of the payment.   |
+| id            | int    | Request identifier.      |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::payments::send_payment" tag="POST" label="lightning::payments::send_payment" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::payments::send_payment",
+    "params": {
+      "coin": "tBTC-lightning",
+      "invoice": "lnbc1..."
+    },
+    "id": 102
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "payment_hash": "abcdef123456...",
+          "status": "success"
+      },
+      "id": 102
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### ⚠️ Error Responses
+
+  ##### PaymentError (attempt to pay self)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Payment error: Error paying invoice: Routing(LightningError { err: 'Cannot generate a route to ourselves', action: IgnoreError })",
+   "error_path": "send_payment.lightning",
+   "error_trace": "send_payment:102] lightning:231]",
+   "error_type": "PaymentError",
+   "error_data": "Error paying invoice: Routing(LightningError { err: 'Cannot generate a route to ourselves', action: IgnoreError })",
+   "id": 6
+  }
+  ```
+
+  ##### PaymentError (no outbound routes)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Payment error: Error paying invoice: Routing(LightningError { err: 'Cannot route when there are no outbound routes away from us ', action: IgnoreError })",
+   "error_path": "send_payment.lightning",
+   "error_trace": "send_payment:102] lightning:232]",
+   "error_type": "PaymentError",
+   "error_data": "Error paying invoice: Routing(LightningError { err: 'Cannot route when there are no outbound routes away from us ', action: IgnoreError })",
+   "id": 762
+  }
+  ```
+
+  ##### PaymentError (keysend - no path to destination)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Payment error: Keysend error: Routing(LightningError { err: 'Failed to find a path to the given destination', action: IgnoreError })",
+   "error_path": "send_payment.lightning",
+   "error_trace": "send_payment:107] lightning:256]",
+   "error_type": "PaymentError",
+   "error_data": "Keysend error: Routing(LightningError { err: 'Failed to find a path to the given destination', action: IgnoreError })",
+   "id": 762
+  }
+  ```
+
+  ##### PaymentError (invoice - no path to destination)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Payment error: Error paying invoice: Routing(LightningError { err: 'Failed to find a path to the given destination', action: IgnoreError })",
+   "error_path": "send_payment.lightning",
+   "error_trace": "send_payment:102] lightning:232]",
+   "error_type": "PaymentError",
+   "error_data": "Error paying invoice: Routing(LightningError { err: 'Failed to find a path to the given destination', action: IgnoreError })",
+   "id": 762
+  }
+  ```
+
+  ##### InvalidRequest (request is missing a required field)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Error parsing request: missing field `payment`",
+   "error_path": "dispatcher",
+   "error_trace": "dispatcher:109]",
+   "error_type": "InvalidRequest",
+   "error_data": "missing field `payment`",
+   "id": 762
+  }
+  ```
+
+  ##### InvalidRequest (a required field is invalid)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Error parsing request: ParseError(Bech32Error(MissingSeparator))",
+   "error_path": "dispatcher",
+   "error_trace": "dispatcher:109]",
+   "error_type": "InvalidRequest",
+   "error_data": "ParseError(Bech32Error(MissingSeparator))",
+   "id": 762
+  }
+  ```
+</CollapsibleSection>

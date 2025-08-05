@@ -1,0 +1,15 @@
+components:
+  schemas:
+    NftFilter:
+      type: object
+      properties:
+        exclude_spam:
+          type: boolean
+          description: If `true`, only tokens which have param `possible_spam:false`
+            are included in the response.
+          default: '`false`'
+        exclude_phishing:
+          type: boolean
+          description: If `true`, only tokens which have param `possible_phishing:false`
+            are included in the response.
+          default: '`false`'

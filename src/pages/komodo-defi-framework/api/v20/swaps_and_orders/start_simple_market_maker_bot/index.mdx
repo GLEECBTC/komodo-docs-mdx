@@ -3,39 +3,41 @@ export const title =
 export const description =
   "The Komodo DeFi Framework API allows for simple bot trading via the start_simple_market_maker_bot method.";
 
-# start\_simple\_market\_maker\_bot
+# Start Simple Market Maker Bot
 
-The Komodo DeFi Framework API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a url to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. It will update orders every 30 seconds (or higher values if defined with the `bot_refresh_rate` parameter).
+## start\_simple\_market\_maker\_bot {{label : 'start_simple_market_maker_bot', tag : 'API-v2'}}
 
-Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the url in the example.
+The Komodo DeFi Framework API allows for simple bot trading via the `start_simple_market_maker_bot` method. This method takes as input a URL to a price service, and configuration parameters of the pair to trade at a defined spread percentage value. It will update orders every 30 seconds (or higher values if defined with the `bot_refresh_rate` parameter).
+
+Note: If using a custom prices API endpoint, please ensure it conforms to the same schema as the URL in the example.
 
 For convenience, an online [tool for generating configs](https://stats.kmd.io/atomicdex/makerbot_config_form/) is available.
 
-## Arguments
+### Request Parameters
 
-| Structure                                                | Type    | Description                                                                                                                                                                                                                                                                                            |
-| -------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| price\_urls                                              | list    | Optional. A list of URLs serving price data in JSON format. During each update loop, price data will be sourced from the first working URL in the list. If not defined, a [default list](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/lp_price.rs#L13) will be used. |
-| bot\_refresh\_rate                                       | float   | Bot loop interval in seconds (optional, 30 sec default)                                                                                                                                                                                                                                                |
-| cfg.name                                                 | string  | The name assigned to this configuration (e.g. the pair being configured)                                                                                                                                                                                                                               |
-| cfg.name.base                                            | string  | Ticker of the coin you wish to sell                                                                                                                                                                                                                                                                    |
-| cfg.name.rel                                             | string  | Ticker of the coin you wish to buy                                                                                                                                                                                                                                                                     |
-| cfg.name.max                                             | boolean | Set to `true` if you would like to trade your whole balance (optional)                                                                                                                                                                                                                                 |
-| cfg.name.max\_volume.percentage                          | string  | Percentage of balance to trade (optional; can not use at same time as `max_volume.usd`; if greater than 1.0 `max=true` is implied)                                                                                                                                                                     |
-| cfg.name.max\_volume.usd                                 | string  | Maximum USD trade volume value to trade (optional; can not use at same time as `max_volume.percentage`; if greater than full balance `max=true` is implied)                                                                                                                                            |
-| cfg.name.min\_volume.percentage                          | string  | Minimum percentage of balance to accept in trade (optional, can not use at same time as `min_volume.usd`)                                                                                                                                                                                              |
-| cfg.name.min\_volume.usd                                 | float   | Minimum USD trade volume of trades accepted for order (optional, can not use at same time as `min_volume.percentage`)                                                                                                                                                                                  |
-| cfg.name.min\_base\_price                                | float   | Minimum USD price of base coin to accept in trade (optional)                                                                                                                                                                                                                                           |
-| cfg.name.min\_rel\_price                                 | float   | Minimum USD price of rel coin to accept in trade (optional)                                                                                                                                                                                                                                            |
-| cfg.name.min\_pair\_price                                | float   | Minimum USD price of pair (base/rel) to accept in trade (optional)                                                                                                                                                                                                                                     |
-| cfg.name.spread\*\*                                      | string  | Target price in relation to prices API value                                                                                                                                                                                                                                                           |
-| cfg.name.base\_confs                                     | integer | number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                       |
-| cfg.name.base\_nota                                      | boolean | whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                             |
-| cfg.name.rel\_confs                                      | integer | number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                         |
-| cfg.name.rel\_nota                                       | boolean | whether dPoW notarization is required for rel coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                              |
-| cfg.name.enable                                          | boolean | Bot will ignore this config entry if set to false                                                                                                                                                                                                                                                      |
-| cfg.name.price\_elapsed\_validity                        | float   | Will cancel current orders for this pair and not submit a new order if last price update time has been longer than this value in seconds (optional; defaults to 5 minutes)                                                                                                                             |
-| cfg.name.check\_last\_bidirectional\_trade\_thresh\_hold | boolean | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a [VWAP logic](https://www.investopedia.com/terms/v/vwap.asp) (optional; defaults to false)                                                                                            |
+| Parameter                                                | Type    | Required | Default | Description                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------- | ------- | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bot\_refresh\_rate                                       | float   |     ✗    |   `30`  | Bot loop interval in seconds                                                                                                                                                                                                                                                                 |
+| cfg.name.base                                            | string  |     ✓    |   `-`   | Ticker of the coin you wish to sell                                                                                                                                                                                                                                                          |
+| cfg.name.base\_confs                                     | integer |     ✗    |   `-`   | Number of required blockchain confirmations for base coin atomic swap transaction; defaults to base coin configuration if not set                                                                                                                                                            |
+| cfg.name.base\_nota                                      | boolean |     ✗    |   `-`   | Whether dPoW notarization is required for base coin atomic swap transaction; defaults to base coin configuration if not set                                                                                                                                                                  |
+| cfg.name.check\_last\_bidirectional\_trade\_thresh\_hold | boolean |     ✗    | `false` | Will readjust the calculated cex price if a precedent trade exists for the pair (or reversed pair), applied via a [VWAP logic](https://www.investopedia.com/terms/v/vwap.asp)                                                                                                                |
+| cfg.name.enable                                          | boolean |     ✓    |   `-`   | Bot will ignore this config entry if set to false                                                                                                                                                                                                                                            |
+| cfg.name.max                                             | boolean |     ✗    |   `-`   | Set to `true` if you would like to trade your whole balance                                                                                                                                                                                                                                  |
+| cfg.name.max\_volume.percentage                          | string  |     ✗    |   `-`   | Percentage of balance to trade (cannot use at same time as `max_volume.usd`; if greater than 1.0 `max=true` is implied)                                                                                                                                                                      |
+| cfg.name.max\_volume.usd                                 | string  |     ✗    |   `-`   | Maximum USD trade volume value to trade (cannot use at same time as `max_volume.percentage`; if greater than full balance `max=true` is implied)                                                                                                                                             |
+| cfg.name.min\_base\_price                                | float   |     ✗    |   `-`   | Minimum USD price of base coin to accept in trade                                                                                                                                                                                                                                            |
+| cfg.name.min\_pair\_price                                | float   |     ✗    |   `-`   | Minimum USD price of pair (base/rel) to accept in trade                                                                                                                                                                                                                                      |
+| cfg.name.min\_rel\_price                                 | float   |     ✗    |   `-`   | Minimum USD price of rel coin to accept in trade                                                                                                                                                                                                                                             |
+| cfg.name.min\_volume.percentage                          | string  |     ✗    |   `-`   | Minimum percentage of balance to accept in trade (cannot use at same time as `min_volume.usd`)                                                                                                                                                                                               |
+| cfg.name.min\_volume.usd                                 | float   |     ✗    |   `-`   | Minimum USD trade volume of trades accepted for order (cannot use at same time as `min_volume.percentage`)                                                                                                                                                                                   |
+| cfg.name.name                                            | string  |     ✓    |   `-`   | The name assigned to this configuration (e.g. the pair being configured)                                                                                                                                                                                                                     |
+| cfg.name.price\_elapsed\_validity                        | float   |     ✗    |  `300`  | Will cancel current orders for this pair and not submit a new order if last price update time has been longer than this value in seconds                                                                                                                                                     |
+| cfg.name.rel                                             | string  |     ✓    |   `-`   | Ticker of the coin you wish to buy                                                                                                                                                                                                                                                           |
+| cfg.name.rel\_confs                                      | integer |     ✗    |   `-`   | Number of required blockchain confirmations for rel coin atomic swap transaction; defaults to rel coin configuration if not set                                                                                                                                                              |
+| cfg.name.rel\_nota                                       | boolean |     ✗    |   `-`   | Whether dPoW notarization is required for rel coin atomic swap transaction; defaults to base coin configuration if not set                                                                                                                                                                   |
+| cfg.name.spread                                          | string  |     ✓    |   `-`   | Target price in relation to prices API value                                                                                                                                                                                                                                                 |
+| price\_urls                                              | list    |     ✗    |   `-`   | A list of URLs serving price data in JSON format. During each update loop, price data will be sourced from the first working URL in the list. If not defined, a [default list](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/lp_price.rs#L13) will be used. |
 
 *   Percentage values are within the range of 0-1, such that 0.25 = 25%
 *   For spread, a value of 1.05 equates to 5% over the value returned from the prices API url.
@@ -151,6 +153,12 @@ The third config tells the bot to:
 As we have `\"bot_refresh_rate\": 60,` in the above command, our bot loop will update order prices every 60 seconds, as long as the price service returns data that is no more than 30 seconds old (for DASH/KMD) or no more than 60 seconds old (for DASH/DGB).
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ### Response Parameters
+
+  | Parameter | Type   | Description                 |
+  | --------- | ------ | --------------------------- |
+  | result    | string | The outcome of the request. |
+
   #### Response (success) {{class : 'text-green-500'}}
 
   ```json
@@ -162,8 +170,18 @@ As we have `\"bot_refresh_rate\": 60,` in the above command, our bot loop will u
     "id": 0
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error - bot already started) {{class : 'text-red-500'}}
+### Error Types
+
+| Parameter      | Type   | Description                       |
+| -------------- | ------ | --------------------------------- |
+| AlreadyStarted | string | The bot has already been started. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### AlreadyStarted
 
   ```json
   {

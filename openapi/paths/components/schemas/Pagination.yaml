@@ -1,0 +1,13 @@
+components:
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        PageNumber:
+          type: integer
+          description: Offset for paginated results
+          default: '`1`'
+        FromId:
+          type: integer
+          description: Ignores any results prior to this UUID
+          default: '`-`'

@@ -1,0 +1,62 @@
+/task::enable_utxo::init:
+  post:
+    summary: Task managed activation of UTXO coins like KMD, LTC, BTC & DOGE.
+    description: Task managed activation of UTXO coins like KMD, LTC, BTC & DOGE.
+    operationId: task::enable_utxo::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_utxo::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: Ticker of the UTXO-based coin you want to enable.
+                  activation_params:
+                    description: A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params)
+                      object containing activation configuration parameters for UTXO
+                      coins.
+                    $ref: ../../components/schemas/ActivationParams.yaml
+                  priv_key_policy:
+                    description: Object specifying the policy to access a private
+                      key during activation. Must include a `type` field from [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum).
+                      When using `WalletConnect`, also add a `data` field with the
+                      session topic.
+                    $ref: ../../components/schemas/PrivKeyActivationPolicyEnum.yaml
+                required:
+                - ticker
+                - activation_params
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

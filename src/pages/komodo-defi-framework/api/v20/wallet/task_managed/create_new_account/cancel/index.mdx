@@ -1,0 +1,64 @@
+export const title = "Komodo DeFi Framework Method: Cancel Create New Account Task";
+export const description = "Cancel a HD account creation task in the Komodo DeFi Framework API.";
+
+# Cancel Create New Account Task
+
+## task::create\_new\_account::cancel {{label : 'task::create_new_account::cancel', tag : 'API-v2'}}
+
+Use the `task::create_new_account::cancel` method to cancel a HD account creation task.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                                                                   |
+| --------- | ------- | :------: | ----------------------------------------------------------------------------- |
+| task\_id  | integer |     ✓    | The identifying number returned when initiating the account creation process. |
+
+### Response Parameters
+
+| Parameter    | Type   | Description                                                     |
+| ------------ | ------ | --------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was successful.                     |
+| error        | string | An error message to explain what went wrong.                    |
+| error\_path  | string | An indicator of the class or function which returned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown.  |
+| error\_type  | string | An enumerated value for the returned error.                     |
+| error\_data  | string | The input task ID which resulted in the error.                  |
+
+#### 📌 Examples
+
+<CodeGroup title="task::create_new_account::cancel" tag="POST" label="task::create_new_account::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::cancel",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '3'",
+    "error_path": "create_new_account.manager",
+    "error_trace": "create_new_account:92] manager:97]",
+    "error_type": "NoSuchTask",
+    "error_data": 3,
+    "id": 0
+  }
+  ```
+</CollapsibleSection>

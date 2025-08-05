@@ -1,0 +1,65 @@
+export const title = "Komodo DeFi Framework Method: List Open Lightning Channels by Filter";
+export const description = "List open Lightning Network channels by filter using the Komodo DeFi Framework API.";
+
+# List Open Lightning Channels by Filter
+
+## lightning::channels::list\_open\_channels\_by\_filter {{label : 'lightning::channels::list_open_channels_by_filter', tag : 'API-v2'}}
+
+Returns a list of open channels filtered by the provided filter object.
+
+### Request Parameters
+
+| Parameter       | Type    | Required | Default | Description                                                                                                                              |
+| --------------- | ------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| coin            | string  |     ✓    |    -    | The ticker of the coin you would like to view open channels for.                                                                         |
+| filter          | object  |     ✗    |    -    | A standard [LightningOpenChannelsFilter](/komodo-defi-framework/api/common_structures/lightning/#lightning-open-channels-filter) object. |
+| paging\_options | object  |     ✗    |    -    | A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination) object.                                                |
+| limit           | integer |     ✗    |   `10`  | Maximum number of results to return.                                                                                                     |
+
+### Response Parameters
+
+| Parameter | Type   | Description                               |
+| --------- | ------ | ----------------------------------------- |
+| result    | object | The filtered open channels result object. |
+| id        | int    | Request identifier.                       |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::channels::list_open_channels_by_filter" tag="POST" label="lightning::channels::list_open_channels_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_open_channels_by_filter",
+    "params": {
+      "coin": "tBTC-lightning"
+    },
+    "id": 55
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "channels": [
+              {
+                  "channel_id": "2b50e274-c173-4fa1-95f3-97f9f82ace92",
+                  "capacity_sats": 1000000,
+                  "local_balance_sats": 600000,
+                  "remote_balance_sats": 400000,
+                  "counterparty_node_id": "02eb0b178576857b6990ba57d56aa08f651a05a8098496004f42df5e7440b0a9c1",
+                  "state": "active",
+                  "opened_at": 1681000000
+              }
+          ],
+          "total": 1
+      },
+      "id": 55
+  }
+  ```
+</CollapsibleSection>

@@ -1,36 +1,36 @@
 export const title = "Komodo DeFi Framework Method: Get Enabled Coins";
 export const description = "The get_enabled_coins method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.";
 
-# get\_enabled\_coins
+# Get Enabled Coins
 
-**get\_enabled\_coins**
+## get\_enabled\_coins {{label : 'get_enabled_coins', tag : 'API-v1'}}
 
 The `get_enabled_coins` method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.
 
-<Note>
+<Note type="warning">
   This function has been deprecated by [get\_enabled\_coins v2.0](/komodo-defi-framework/api/v20/utils/get_enabled_coins/). The v2 method does not return addresses, as it was designed for HD wallets, which generate addresses on the fly.
   If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the v1 method.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response parameters
 
-| Structure      | Type             | Description                            |
+| Parameter      | Type             | Description                            |
 | -------------- | ---------------- | -------------------------------------- |
-| result         | array of objects | tickers and addresses of enabled coins |
-| result.address | string           | the user's address for this coin       |
-| result.ticker  | string           | the ticker name of this coin           |
+| result         | array of objects | Tickers and addresses of enabled coins |
+| result.address | string           | The user's address for this coin       |
+| result.ticker  | string           | The ticker name of this coin           |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true">
+<CodeGroup title="get_enabled_coins" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -44,36 +44,24 @@ The `get_enabled_coins` method returns data of coins that are currently enabled 
 
   ```json
   {
-    "result": [
-      {
-        "address": "1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
-        "ticker": "BTC"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "PIZZA"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "BEER"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "ETH"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "ETOMIC"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "DEC8"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "BAT"
-      }
-    ]
+      "result": [
+          {
+              "address": "1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
+              "ticker": "BTC"
+          },
+          {
+              "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+              "ticker": "MARTY"
+          }
+      ]
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
+
+  ```json
+  { "error": "No coins enabled" }
   ```
 </CollapsibleSection>

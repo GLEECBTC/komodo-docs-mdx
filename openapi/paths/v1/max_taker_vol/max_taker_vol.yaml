@@ -1,0 +1,40 @@
+/max_taker_vol:
+  post:
+    summary: The max_taker_vol method returns the maximum available volume for buy/sell
+      methods for selected coin.
+    description: The max_taker_vol method returns the maximum available volume for
+      buy/sell methods for selected coin.
+    operationId: max_taker_vol
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - max_taker_vol
+              coin:
+                type: string
+                description: The name of the coin to retrieve the max available taker
+                  volume
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

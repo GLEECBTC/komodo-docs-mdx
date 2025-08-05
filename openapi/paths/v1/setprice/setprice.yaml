@@ -1,0 +1,168 @@
+/setprice:
+  post:
+    summary: The setprice method places an order on the orderbook, and it relies on
+      this node acting as a maker, also called a Bob node.
+    description: The setprice method places an order on the orderbook, and it relies
+      on this node acting as a maker, also called a Bob node.
+    operationId: setprice
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - setprice
+              base:
+                type: string
+                description: The name of the coin the user desires to sell
+              rel:
+                type: string
+                description: The name of the coin the user desires to receive
+              price:
+                description: The amount of `rel` coins the user wants to receive for
+                  each unit of the `base` coin spent. Can be a numeric string, expressed
+                  using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  objects.
+                $ref: ../../components/schemas/RationalValue.yaml
+              volume:
+                type: string
+                description: 'The maximum amount of `base` coin available for sale
+                  in the order, ignored if max is `true`; the following values must
+                  be greater than or equal to the `min_trading_vol` of the corresponding
+                  coin: <ul><li>the argument `volume`</li><li>the product of the arguments
+                  `volume` and `price`</li></ul>'
+              min_volume:
+                type: string
+                description: 'The minimum amount of `base` coin available for sale
+                  in the order; it must be less or equal than `volume` param; the
+                  following values must be greater than or equal to the `min_trading_vol`
+                  of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the
+                  product of the arguments `min_volume` and `price`</li></ul>'
+              max:
+                type: boolean
+                description: Komodo DeFi Framework API will use the entire coin balance
+                  for the order, taking `0.001` coins into reserve to account for
+                  fees
+                default: false
+              cancel_previous:
+                type: boolean
+                description: Komodo DeFi Framework API will cancel all existing orders
+                  for the selected pair by default; set this value to `false` to prevent
+                  this behavior
+                default: true
+              base_confs:
+                type: number
+                description: Number of required blockchain confirmations for base
+                  coin atomic swap transaction; default to base coin configuration
+                  if not set
+              base_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for base coin atomic
+                  swap transaction; default to base coin configuration if not set
+              rel_confs:
+                type: number
+                description: Number of required blockchain confirmations for rel coin
+                  atomic swap transaction; default to rel coin configuration if not
+                  set
+              rel_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for rel coin atomic
+                  swap transaction; default to base coin configuration if not set
+              save_in_history:
+                type: boolean
+                description: Defaults to `true`. If set to `false` no order history
+                  will be saved (though order status will be temporarily stored while
+                  in progress). If `true`, each order's short record history is stored
+                  in a local SQLite database table, and when the order is cancelled
+                  or fully matched, its history will be saved as a json file
+                default: true
+            required:
+            - userpass
+            - method
+            - base
+            - rel
+            - price
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                description: The resulting order object
+              base:
+                type: string
+                description: The base coin of the order
+              rel:
+                type: string
+                description: The rel coin of the order
+              price:
+                type: string
+                description: The expected amount of `rel` coin to be received per
+                  1 unit of `base` coin; decimal representation
+              price_rat:
+                type: string
+                description: The expected amount of `rel` coin to be received per
+                  1 unit of `base` coin; rational representation
+              max_base_vol:
+                type: string
+                description: The maximum volume of base coin available to trade; decimal
+                  representation
+              max_base_vol_rat:
+                type: string
+                description: The maximum volume of base coin available to trade; rational
+                  representation
+              min_base_vol:
+                type: string
+                description: Komodo DeFi Framework API won't match with other orders
+                  that attempt to trade less than `min_base_vol`; decimal representation
+              min_base_vol_rat:
+                type: string
+                description: Komodo DeFi Framework API won't match with other orders
+                  that attempt to trade less than `min_base_vol`; rational representation
+              created_at:
+                type: number
+                description: Unix timestamp in milliseconds, indicating the order
+                  creation time
+              updated_at:
+                type: number
+                description: Unix timestamp in milliseconds, indicating the order
+                  update time
+              matches:
+                type: object
+                description: Contains the map of ongoing matches with other orders,
+                  empty as the order was recently created
+              started_swaps:
+                type: string
+                description: UUIDs of swaps that were initiated by the order
+              uuid:
+                type: string
+                description: UUID of the created order
+              conf_settings:
+                description: A standard [ConfSettings](/komodo-defi-framework/api/common_structures/orders/#conf-settings)
+                  object.
+                $ref: ../../components/schemas/ConfSettings.yaml
+              base_orderbook_ticker:
+                type: string
+                description: The ticker of the base currency if `orderbook_ticker`
+                  is configured for the base currency in `coins` file. If not defined,
+                  will return a null value.
+              rel_orderbook_ticker:
+                type: string
+                description: The ticker of the rel currency if `orderbook_ticker`
+                  is configured for the rel currency in `coins` file. If not defined,
+                  will return a null value.
+          example: {}

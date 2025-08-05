@@ -1,0 +1,35 @@
+components:
+  schemas:
+    GetNftTransfersFilters:
+      type: object
+      properties:
+        receive:
+          type: boolean
+          description: If `true`, only transfers where user received NFTs are included
+            in the response.
+          default: '`false`'
+        send:
+          type: boolean
+          description: If `true`, only transfers where user sent NFTs are included
+            in the response.
+          default: '`false`'
+        from_date:
+          type: integer
+          description: A timestamp in [unix epoch format](https://www.epochconverter.com/).
+            If `true`, filter includes transfers from this date onwards (inclusive).
+          default: '`-`'
+        to_date:
+          type: integer
+          description: A timestamp in [unix epoch format](https://www.epochconverter.com/).
+            If `true`, filter includes transfers up to this date (inclusive).
+          default: '`-`'
+        exclude_spam:
+          type: boolean
+          description: If `true`, only transfers which have param `possible_spam:false`
+            are included in the response.
+          default: '`false`'
+        exclude_phishing:
+          type: boolean
+          description: If `true`, only transfers which have param `possible_phishing:false`
+            are included in the response.
+          default: '`false`'

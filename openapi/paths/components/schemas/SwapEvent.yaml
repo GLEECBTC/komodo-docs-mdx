@@ -1,0 +1,17 @@
+components:
+  schemas:
+    SwapEvent:
+      type: object
+      properties:
+        type:
+          description: See [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/)
+            and [Taker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/)
+            for more info.
+          $ref: '#/components/schemas/MakerEvents'
+        data:
+          type: string
+          description: The data field may contain contextual information (e.g. txids)
+            releated to a swap event. In some cases, it will be `null`.
+      required:
+      - data
+      - type

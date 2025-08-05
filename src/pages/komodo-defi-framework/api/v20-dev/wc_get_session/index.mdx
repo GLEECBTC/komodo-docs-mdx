@@ -2,19 +2,21 @@ export const title = "Komodo DeFi Framework Method: Walletconnect: Get session";
 export const description =
   "The wc_get_session method returns details for a specific WalletConnect session.";
 
-# wc\_get\_session
+# Walletconnect: Get session
+
+## wc\_get\_session {{label : 'wc_get_session', tag : 'API-v2'}}
 
 The `wc_get_session` method returns details for a specific WalletConnect session.
 For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method instead.
 
-## Arguments
+### Request Parameters
 
-| Structure            | Type   | Description                                                                                                                                                                                     |
-| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| with\_pairing\_topic | bool   | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
-| topic                | string | An active session topic (or pairing topic) hex string.                                                                                                                                          |
+| Parameter            | Type    | Required | Default | Description                                                                                                                                                                 |
+| :------------------- | :------ | :------: | :-----: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| topic                | string  |     ✓    |    -    | An active session topic (or pairing topic) hex string.                                                                                                                      |
+| with\_pairing\_topic | boolean |     ✗    | `false` | If `true`, allows using the `pairing_topic` hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
 
-## Response
+### Response Parameters
 
 | Structure | Type   | Description                                                                              |
 | --------- | ------ | ---------------------------------------------------------------------------------------- |

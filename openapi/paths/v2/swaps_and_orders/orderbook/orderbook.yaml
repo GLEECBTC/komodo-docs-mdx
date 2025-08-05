@@ -1,0 +1,96 @@
+/orderbook:
+  post:
+    summary: The orderbook method requests from the network the currently available
+      orders for the specified trading pair.
+    description: The orderbook method requests from the network the currently available
+      orders for the specified trading pair.
+    operationId: orderbook
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - orderbook
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  base:
+                    type: string
+                    description: Base currency of a pair
+                  rel:
+                    type: string
+                    description: Related currency, also known as the "quote currency"
+                required:
+                - base
+                - rel
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              asks:
+                description: An array of standard [OrderDataV2](/komodo-defi-framework/api/common_structures/orders/#order-data-v2)
+                  objects containing outstanding asks
+                $ref: ../../components/schemas/OrderDataV2.yaml
+              base:
+                type: string
+                description: The name of the coin the user desires to receive
+              bids:
+                description: An array of standard [OrderDataV2](/komodo-defi-framework/api/common_structures/orders/#order-data-v2)
+                  objects containing outstanding bids
+                $ref: ../../components/schemas/OrderDataV2.yaml
+              netid:
+                type: integer
+                description: The id of the network on which the request is made
+              numasks:
+                type: integer
+                description: The number of outstanding asks
+              numbids:
+                type: integer
+                description: The number of outstanding bids
+              rel:
+                type: string
+                description: The name of the coin the user will trade
+              timestamp:
+                type: integer
+                description: A UNIX timestamp representing when the orderbook was
+                  requested
+              total_asks_base_vol:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+              total_asks_rel_vol:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+              total_bids_base_vol:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+              total_bids_rel_vol:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+          example: {}

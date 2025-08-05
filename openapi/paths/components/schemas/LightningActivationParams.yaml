@@ -1,0 +1,20 @@
+components:
+  schemas:
+    LightningActivationParams:
+      type: object
+      properties:
+        node_pubkey:
+          type: string
+          description: Lightning node pubkey
+          default: '`-`'
+        backup_password:
+          type: string
+          description: Backup password used to encrypt channel backups
+          default: '`-`'
+        listening_port:
+          type: integer
+          description: Listening port for the Lightning network
+          default: '`9735`'
+      required:
+      - backup_password
+      - node_pubkey

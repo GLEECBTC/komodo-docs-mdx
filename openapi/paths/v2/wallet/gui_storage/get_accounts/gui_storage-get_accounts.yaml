@@ -1,0 +1,47 @@
+/gui_storage::get_accounts:
+  post:
+    summary: Return all account records stored in the GUI-storage subsystem, including
+      which one is currently enabled.
+    description: Return all account records stored in the GUI-storage subsystem, including
+      which one is currently enabled.
+    operationId: gui_storage::get_accounts
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::get_accounts
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  '*None*':
+                    type: string
+                    description: '*This method has no parameters.*'
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

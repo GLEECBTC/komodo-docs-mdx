@@ -1,0 +1,71 @@
+export const title = "Komodo DeFi Framework Method: List GUI Storage Accounts";
+export const description = "Return all account records stored in the GUI-storage subsystem, including which one is currently enabled.";
+
+# List GUI Storage Accounts
+
+## gui\_storage::get\_accounts {{label : 'gui_storage::get_accounts', tag : 'API-v2'}}
+
+Fetches an array of all accounts persisted in GUI storage.  Each element includes a boolean flag that indicates whether the account is currently **enabled**.
+
+### Request Parameters
+
+| Parameter | Type  | Required | Description                      |
+| :-------- | :---- | :------: | :------------------------------- |
+| *None*    | *N/A* |          | *This method has no parameters.* |
+
+### Response Parameters
+
+The response is an **array** of objects with the following fields:
+
+| Parameter    | Type                                                                         | Description                                                                             |
+| ------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| account\_id  | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) | Unique identifier of the stored account.                                                |
+| balance\_usd | string (numeric)                                                             | USD balance snapshot stored with the account (optional).                                |
+| description  | string                                                                       | Optional user-supplied description.                                                     |
+| enabled      | boolean                                                                      | `true` if this account is the active one. Only one account should be enabled at a time. |
+| name         | string                                                                       | Display name for the account.                                                           |
+
+#### 📌 Example
+
+<CodeGroup title="get_accounts" tag="POST" label="gui_storage::get_accounts" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::get_accounts",
+    "params": {},
+    "id": 11,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (example)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": [
+      {
+        "account_id": { "type": "iguana" },
+        "name": "Default Account",
+        "description": "Legacy Iguana seed",
+        "balance_usd": "123.45",
+        "enabled": true
+      },
+      {
+        "account_id": { "type": "hd", "account_idx": 0 },
+        "name": "HD-0",
+        "description": "First HD wallet",
+        "balance_usd": "0",
+        "enabled": false
+      }
+    ],
+    "id": 11
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+This method does not define any custom error types beyond the generic JSON-RPC error set. If an internal storage error occurs it will surface as `InternalError`.

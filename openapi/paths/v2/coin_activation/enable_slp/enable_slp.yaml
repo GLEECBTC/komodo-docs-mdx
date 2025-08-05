@@ -1,0 +1,67 @@
+/enable_slp:
+  post:
+    summary: Method description for enable_slp
+    description: Method description for enable_slp
+    operationId: enable_slp
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - enable_slp
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: Ticker of the SLP token you want to enable (e.g.,
+                      `SPICE`).
+                    default: –
+                  activation_params:
+                    description: A standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params)
+                      object.
+                    $ref: ../../components/schemas/TokenActivationParams.yaml
+                required:
+                - ticker
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              balances:
+                type: object
+                description: An object containing balance information for activated
+                  addresses.
+              platform_coin:
+                type: string
+                description: The platform coin (always `BCH`).
+              token_id:
+                type: string
+                description: The SLP token ID (transaction hash) of the activated
+                  token.
+              required_confirmations:
+                type: number
+                description: The number of confirmations required for transactions.
+          example: {}

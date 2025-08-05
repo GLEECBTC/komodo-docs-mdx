@@ -1,0 +1,51 @@
+/set_requires_notarization:
+  post:
+    summary: The set_requires_notarization method indicates whether Komodo DeFi Framework
+      API must wait for a dPoW notarization of the given atomic swap transactions.
+    description: The set_requires_notarization method indicates whether Komodo DeFi
+      Framework API must wait for a dPoW notarization of the given atomic swap transactions.
+    operationId: set_requires_notarization
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - set_requires_notarization
+              coin:
+                type: string
+                description: The ticker of the selected coin
+              requires_notarization:
+                type: boolean
+                description: Whether the node should wait for dPoW notarization of
+                  atomic swap transactions
+            required:
+            - userpass
+            - method
+            - coin
+            - requires_notarization
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The coin selected in the request
+              requires_notarization:
+                type: boolean
+                description: Whether the node must wait for a dPoW notarization of
+                  the atomic swap transactions
+          example: {}

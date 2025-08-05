@@ -1,0 +1,14 @@
+components:
+  schemas:
+    AmountTooLow:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: the amount the user was willing to transfer
+        threshold:
+          type: string
+          description: the `amount` has not to be less than the `threshold`
+      required:
+      - amount
+      - threshold

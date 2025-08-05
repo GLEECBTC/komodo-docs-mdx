@@ -1,0 +1,423 @@
+export const title = "Komodo DeFi Framework Method: Stats Swap Status";
+export const description = "Return aggregated statistics on swap statuses (legacy API).";
+
+# Stats Swap Status
+
+## stats\_swap\_status {{label : 'stats_swap_status', tag : 'API-v1'}}
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                                                           |
+| --------- | ------ | :------: | ----------------------------------------------------------------------------------------------------- |
+| uuid      | string |     ✓    | A valid swap UUID. For non-seed nodes, this must be a swap the querying KDF instance was involved in. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                |
+| --------- | ------ | -------------------------- |
+| maker     | object | Maker side swap JSON data. |
+| taker     | object | Taker side swap JSON data. |
+
+<Note type="info">
+  This method does not require a `userpass` value in the request.
+</Note>
+
+#### 📌 Examples
+
+<CodeGroup title="stats_swap_status" tag="POST" label="stats_swap_status" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "stats_swap_status",
+    "params": {
+      "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+      "result": {
+          "maker": {
+              "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62",
+              "my_order_uuid": "e28d4c13-7b10-46eb-8877-d107bc3be752",
+              "events": [
+                  {
+                      "timestamp": 1748488201603,
+                      "event": {
+                          "type": "Started",
+                          "data": {
+                              "taker_coin": "KMD",
+                              "maker_coin": "LBC-segwit",
+                              "taker": "4f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6",
+                              "secret": "0000000000000000000000000000000000000000000000000000000000000000",
+                              "secret_hash": "2c211d322bd5f3dbb9bceb55cc9778eef5717702",
+                              "my_persistent_pub": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                              "lock_duration": 7800,
+                              "maker_amount": "2184.078893015",
+                              "taker_amount": "13.9730620955399176665",
+                              "maker_payment_confirmations": 1,
+                              "maker_payment_requires_nota": false,
+                              "taker_payment_confirmations": 3,
+                              "taker_payment_requires_nota": false,
+                              "maker_payment_lock": 1748503801,
+                              "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62",
+                              "started_at": 1748488201,
+                              "maker_coin_start_block": 1795905,
+                              "taker_coin_start_block": 4456700,
+                              "maker_payment_trade_fee": {
+                                  "coin": "LBC-segwit",
+                                  "amount": "0.0001",
+                                  "paid_from_trading_vol": false
+                              },
+                              "taker_payment_spend_trade_fee": {
+                                  "coin": "KMD",
+                                  "amount": "0.00001",
+                                  "paid_from_trading_vol": true
+                              },
+                              "maker_coin_htlc_pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                              "taker_coin_htlc_pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                              "p2p_privkey": null
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488217610,
+                      "event": {
+                          "type": "Negotiated",
+                          "data": {
+                              "taker_payment_locktime": 1748496001,
+                              "taker_pubkey": "000000000000000000000000000000000000000000000000000000000000000000",
+                              "maker_coin_swap_contract_addr": null,
+                              "taker_coin_swap_contract_addr": null,
+                              "maker_coin_htlc_pubkey": "024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6",
+                              "taker_coin_htlc_pubkey": "024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218619,
+                      "event": {
+                          "type": "MakerPaymentInstructionsReceived",
+                          "data": null
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218620,
+                      "event": {
+                          "type": "TakerFeeValidated",
+                          "data": {
+                              "tx_hex": "0400008085202f890102629de0fc945f33b187a6d7ad8c6d0663c962ae8766e19f03d23c28ecf68b3d020000006a47304402200241336a8da38c80f4367fb63b0d565ce430e9f13316feaefbdaa2f332f01c50022027cacd0e3860f5f43442a21174f52384f90ef9c6d6c0a2090ceb38d3fac9ce3c0121024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ffffffff03b4851200000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac912c060000000000016aace3a75a000000001976a9140608706777e9f9abd69fc0a89041706095e4739e88ac1bc83768000000000000000000000000000000",
+                              "tx_hash": "4a80eed5a7c9afbf74c697a9ffaaed6aa7f3cfb78327d87e31529bd088952929"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218638,
+                      "event": {
+                          "type": "MakerPaymentSent",
+                          "data": {
+                              "tx_hex": "0100000000010186084916e81b72cf3b4988872b4c79bbde918b4006baf359d1afcb71284969670100000000ffffffff0395e91fda3200000017a914b456d247d0581cd90b00a655b4cc64e913e9ccf7870000000000000000166a142c211d322bd5f3dbb9bceb55cc9778eef5717702b5f229ad020000001600141462c3dd3f936d595c9af55978003b27c250441f024730440220029f4cf62de22843f43f62bb0fda9f76118931cea8f747ceca7fcc4dab32e49e022055c6a3452f1409afb52c62649710eb59b719f9164457477be1920ddb5794e0e501210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d0447321ad03768",
+                              "tx_hash": "a155fb096f566f65b1953022f80cc7c1a575bdfeb2a95de6368cd2421c7f00bf"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488280669,
+                      "event": {
+                          "type": "TakerPaymentReceived",
+                          "data": {
+                              "tx_hex": "0400008085202f890129299588d09b52317ed82783b7cff3a76aedaaffa997c674bfafc9a7d5ee804a020000006a473044022074695112b8dd32b91ebfd3e95fb5c41b61357fd32e988a68942f953b06a31bca02202569303dfc0f2f3e0643679db71fd3a3f36c9bcf05928978b6cc205ded5c369b0121024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ffffffff03613349530000000017a914b5b525a45b0a8628a72613734b3490a24a83ac2a870000000000000000166a142c211d322bd5f3dbb9bceb55cc9778eef571770263ac5e07000000001976a9140608706777e9f9abd69fc0a89041706095e4739e88ac58c83768000000000000000000000000000000",
+                              "tx_hash": "9d6652c8c5b76d9d1a3d15a311e107719b8e7076b8335f12fa6729f8d827e459"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488280670,
+                      "event": {
+                          "type": "TakerPaymentWaitConfirmStarted"
+                      }
+                  },
+                  {
+                      "timestamp": 1748489586294,
+                      "event": {
+                          "type": "TakerPaymentValidatedAndConfirmed"
+                      }
+                  },
+                  {
+                      "timestamp": 1748489586301,
+                      "event": {
+                          "type": "TakerPaymentSpent",
+                          "data": {
+                              "tx_hex": "0400008085202f890159e427d8f82967fa125f33b876708e9b7107e111a3153d1a9d6db7c5c852669d00000000d7473044022079702a28772683ea39a78d534855bc5c02a179ef02edc8c34a2e0913a5415c5f022026943f4a3be5c30e17c22e9bea957c4c894ef10e9a6a3fd5e556fa686d7084d401204ac0c27b05ac5479eec87257a272be4ce984046509cf7c04f9dbf125c3f23752004c6b630481ee3768b17521024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ac6782012088a9142c211d322bd5f3dbb9bceb55cc9778eef571770288210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac68ffffffff01792f4953000000001976a9141462c3dd3f936d595c9af55978003b27c250441f88ac81ee3768000000000000000000000000000000",
+                              "tx_hash": "4bcd116d66da2ba8d94325e57a59dff6823a00952c1ae2d253d9690409dc4c23"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748489586302,
+                      "event": {
+                          "type": "TakerPaymentSpendConfirmStarted"
+                      }
+                  },
+                  {
+                      "timestamp": 1748489961483,
+                      "event": {
+                          "type": "TakerPaymentSpendConfirmed"
+                      }
+                  },
+                  {
+                      "timestamp": 1748489961484,
+                      "event": {
+                          "type": "Finished"
+                      }
+                  }
+              ],
+              "maker_amount": "2184.078893015",
+              "maker_coin": "LBC-segwit",
+              "maker_coin_usd_price": "0.00074818",
+              "taker_amount": "13.9730620955399176665",
+              "taker_coin": "KMD",
+              "taker_coin_usd_price": "0.1433",
+              "gui": "mympm",
+              "mm_version": "2.4.0-beta_ef963b3",
+              "success_events": [
+                  "Started",
+                  "Negotiated",
+                  "MakerPaymentInstructionsReceived",
+                  "TakerFeeValidated",
+                  "MakerPaymentSent",
+                  "TakerPaymentReceived",
+                  "TakerPaymentWaitConfirmStarted",
+                  "TakerPaymentValidatedAndConfirmed",
+                  "TakerPaymentSpent",
+                  "TakerPaymentSpendConfirmStarted",
+                  "TakerPaymentSpendConfirmed",
+                  "Finished"
+              ],
+              "error_events": [
+                  "StartFailed",
+                  "NegotiateFailed",
+                  "TakerFeeValidateFailed",
+                  "MakerPaymentTransactionFailed",
+                  "MakerPaymentDataSendFailed",
+                  "MakerPaymentWaitConfirmFailed",
+                  "TakerPaymentValidateFailed",
+                  "TakerPaymentWaitConfirmFailed",
+                  "TakerPaymentSpendFailed",
+                  "TakerPaymentSpendConfirmFailed",
+                  "MakerPaymentWaitRefundStarted",
+                  "MakerPaymentRefundStarted",
+                  "MakerPaymentRefunded",
+                  "MakerPaymentRefundFailed",
+                  "MakerPaymentRefundFinished"
+              ]
+          },
+          "taker": {
+              "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62",
+              "my_order_uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62",
+              "events": [
+                  {
+                      "timestamp": 1748488201117,
+                      "event": {
+                          "type": "Started",
+                          "data": {
+                              "taker_coin": "KMD",
+                              "maker_coin": "LBC-segwit",
+                              "maker": "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                              "my_persistent_pub": "024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6",
+                              "lock_duration": 7800,
+                              "maker_amount": "2184.078893015",
+                              "taker_amount": "13.9730620955399176665",
+                              "maker_payment_confirmations": 1,
+                              "maker_payment_requires_nota": false,
+                              "taker_payment_confirmations": 2,
+                              "taker_payment_requires_nota": false,
+                              "taker_payment_lock": 1748496001,
+                              "uuid": "395c29a8-d187-461a-bce5-be6dadfa0b62",
+                              "started_at": 1748488201,
+                              "maker_payment_wait": 1748491321,
+                              "maker_coin_start_block": 1795905,
+                              "taker_coin_start_block": 4456700,
+                              "fee_to_send_taker_fee": {
+                                  "coin": "KMD",
+                                  "amount": "0.00001",
+                                  "paid_from_trading_vol": false
+                              },
+                              "taker_payment_trade_fee": {
+                                  "coin": "KMD",
+                                  "amount": "0.00001",
+                                  "paid_from_trading_vol": false
+                              },
+                              "maker_payment_spend_trade_fee": {
+                                  "coin": "LBC-segwit",
+                                  "amount": "0.0001",
+                                  "paid_from_trading_vol": true
+                              },
+                              "maker_coin_htlc_pubkey": "024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6",
+                              "taker_coin_htlc_pubkey": "024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6",
+                              "p2p_privkey": null
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488217139,
+                      "event": {
+                          "type": "Negotiated",
+                          "data": {
+                              "maker_payment_locktime": 1748503801,
+                              "maker_pubkey": "000000000000000000000000000000000000000000000000000000000000000000",
+                              "secret_hash": "2c211d322bd5f3dbb9bceb55cc9778eef5717702",
+                              "maker_coin_swap_contract_addr": null,
+                              "taker_coin_swap_contract_addr": null,
+                              "maker_coin_htlc_pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                              "taker_coin_htlc_pubkey": "0315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488217402,
+                      "event": {
+                          "type": "TakerFeeSent",
+                          "data": {
+                              "tx_hex": "0400008085202f890102629de0fc945f33b187a6d7ad8c6d0663c962ae8766e19f03d23c28ecf68b3d020000006a47304402200241336a8da38c80f4367fb63b0d565ce430e9f13316feaefbdaa2f332f01c50022027cacd0e3860f5f43442a21174f52384f90ef9c6d6c0a2090ceb38d3fac9ce3c0121024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ffffffff03b4851200000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac912c060000000000016aace3a75a000000001976a9140608706777e9f9abd69fc0a89041706095e4739e88ac1bc83768000000000000000000000000000000",
+                              "tx_hash": "4a80eed5a7c9afbf74c697a9ffaaed6aa7f3cfb78327d87e31529bd088952929"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218406,
+                      "event": {
+                          "type": "TakerPaymentInstructionsReceived",
+                          "data": null
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218413,
+                      "event": {
+                          "type": "MakerPaymentReceived",
+                          "data": {
+                              "tx_hex": "0100000000010186084916e81b72cf3b4988872b4c79bbde918b4006baf359d1afcb71284969670100000000ffffffff0395e91fda3200000017a914b456d247d0581cd90b00a655b4cc64e913e9ccf7870000000000000000166a142c211d322bd5f3dbb9bceb55cc9778eef5717702b5f229ad020000001600141462c3dd3f936d595c9af55978003b27c250441f024730440220029f4cf62de22843f43f62bb0fda9f76118931cea8f747ceca7fcc4dab32e49e022055c6a3452f1409afb52c62649710eb59b719f9164457477be1920ddb5794e0e501210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d0447321ad03768",
+                              "tx_hash": "a155fb096f566f65b1953022f80cc7c1a575bdfeb2a95de6368cd2421c7f00bf"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488218438,
+                      "event": {
+                          "type": "MakerPaymentWaitConfirmStarted"
+                      }
+                  },
+                  {
+                      "timestamp": 1748488278723,
+                      "event": {
+                          "type": "MakerPaymentValidatedAndConfirmed"
+                      }
+                  },
+                  {
+                      "timestamp": 1748488279105,
+                      "event": {
+                          "type": "TakerPaymentSent",
+                          "data": {
+                              "tx_hex": "0400008085202f890129299588d09b52317ed82783b7cff3a76aedaaffa997c674bfafc9a7d5ee804a020000006a473044022074695112b8dd32b91ebfd3e95fb5c41b61357fd32e988a68942f953b06a31bca02202569303dfc0f2f3e0643679db71fd3a3f36c9bcf05928978b6cc205ded5c369b0121024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ffffffff03613349530000000017a914b5b525a45b0a8628a72613734b3490a24a83ac2a870000000000000000166a142c211d322bd5f3dbb9bceb55cc9778eef571770263ac5e07000000001976a9140608706777e9f9abd69fc0a89041706095e4739e88ac58c83768000000000000000000000000000000",
+                              "tx_hash": "9d6652c8c5b76d9d1a3d15a311e107719b8e7076b8335f12fa6729f8d827e459"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748488279108,
+                      "event": {
+                          "type": "WatcherMessageSent",
+                          "data": [
+                            ...
+                          ]
+                      }
+                  },
+                  {
+                      "timestamp": 1748489594733,
+                      "event": {
+                          "type": "TakerPaymentSpent",
+                          "data": {
+                              "transaction": {
+                                  "tx_hex": "0400008085202f890159e427d8f82967fa125f33b876708e9b7107e111a3153d1a9d6db7c5c852669d00000000d7473044022079702a28772683ea39a78d534855bc5c02a179ef02edc8c34a2e0913a5415c5f022026943f4a3be5c30e17c22e9bea957c4c894ef10e9a6a3fd5e556fa686d7084d401204ac0c27b05ac5479eec87257a272be4ce984046509cf7c04f9dbf125c3f23752004c6b630481ee3768b17521024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ac6782012088a9142c211d322bd5f3dbb9bceb55cc9778eef571770288210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac68ffffffff01792f4953000000001976a9141462c3dd3f936d595c9af55978003b27c250441f88ac81ee3768000000000000000000000000000000",
+                                  "tx_hash": "4bcd116d66da2ba8d94325e57a59dff6823a00952c1ae2d253d9690409dc4c23"
+                              },
+                              "secret": "4ac0c27b05ac5479eec87257a272be4ce984046509cf7c04f9dbf125c3f23752"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748489594863,
+                      "event": {
+                          "type": "MakerPaymentSpent",
+                          "data": {
+                              "tx_hex": "0100000001bf007f1c42d28c36e65da9b2febd75a5c1c70cf8223095b1656f566f09fb55a100000000d747304402202f6f8cf1fe4e32b75a511a7a0901f3c2ee2889a1ce3a7170d608c77eb03b4f69022011ccca729696c2a89d2baac02c7a8a736952a61873536ec6b8dc689cc30becfc01204ac0c27b05ac5479eec87257a272be4ce984046509cf7c04f9dbf125c3f23752004c6b6304f90c3868b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a9142c211d322bd5f3dbb9bceb55cc9778eef57177028821024f8157e840bf7802216978077e9b73dc53df6fdf3e798ea7263811ec98f1c7a6ac68ffffffff0185c21fda320000001600140608706777e9f9abd69fc0a89041706095e4739ef90c3868",
+                              "tx_hash": "a64f353b02dc74016d28016ba37d8774dad4f73427f50e835ce199a1ef6d4090"
+                          }
+                      }
+                  },
+                  {
+                      "timestamp": 1748489609952,
+                      "event": {
+                          "type": "MakerPaymentSpendConfirmed"
+                      }
+                  },
+                  {
+                      "timestamp": 1748489609955,
+                      "event": {
+                          "type": "Finished"
+                      }
+                  }
+              ],
+              "maker_amount": "2184.078893015",
+              "maker_coin": "LBC-segwit",
+              "maker_coin_usd_price": "0.00074818",
+              "taker_amount": "13.9730620955399176665",
+              "taker_coin": "KMD",
+              "taker_coin_usd_price": "0.1436",
+              "gui": "Komodo Wallet 0.8.1-beta",
+              "mm_version": "2.3.0-beta_2.1.25_gs/v2.3.0-beta_8206c6ef6_Windows_NT_Release",
+              "success_events": [
+                  "Started",
+                  "Negotiated",
+                  "TakerFeeSent",
+                  "TakerPaymentInstructionsReceived",
+                  "MakerPaymentReceived",
+                  "MakerPaymentWaitConfirmStarted",
+                  "MakerPaymentValidatedAndConfirmed",
+                  "TakerPaymentSent",
+                  "WatcherMessageSent",
+                  "TakerPaymentSpent",
+                  "MakerPaymentSpent",
+                  "MakerPaymentSpentByWatcher",
+                  "MakerPaymentSpendConfirmed",
+                  "Finished"
+              ],
+              "error_events": [
+                  "StartFailed",
+                  "NegotiateFailed",
+                  "TakerFeeSendFailed",
+                  "MakerPaymentValidateFailed",
+                  "MakerPaymentWaitConfirmFailed",
+                  "TakerPaymentTransactionFailed",
+                  "TakerPaymentWaitConfirmFailed",
+                  "TakerPaymentDataSendFailed",
+                  "TakerPaymentWaitForSpendFailed",
+                  "MakerPaymentSpendFailed",
+                  "MakerPaymentSpendConfirmFailed",
+                  "TakerPaymentWaitRefundStarted",
+                  "TakerPaymentRefundStarted",
+                  "TakerPaymentRefunded",
+                  "TakerPaymentRefundedByWatcher",
+                  "TakerPaymentRefundFailed",
+                  "TakerPaymentRefundFinished"
+              ]
+          }
+      }
+  }
+  ```
+</CollapsibleSection>

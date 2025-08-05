@@ -1,0 +1,64 @@
+/lightning::payments::list_payments_by_filter:
+  post:
+    summary: Returns a list of Lightning Network payments filtered by the provided
+      filter object.
+    description: Returns a list of Lightning Network payments filtered by the provided
+      filter object.
+    operationId: lightning::payments::list_payments_by_filter
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::payments::list_payments_by_filter
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin for the payments.
+                  filter:
+                    type: object
+                    description: A standard LightningPaymentsFilter object.
+                  paging_options:
+                    type: object
+                    description: A standard Pagination object.
+                  limit:
+                    type: integer
+                    description: Maximum number of results to return.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: array
+                description: List of filtered payments.
+              id:
+                type: integer
+                description: Request identifier.
+          example: {}

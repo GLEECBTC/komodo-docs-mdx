@@ -1,0 +1,81 @@
+components:
+  schemas:
+    NftInfo:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount of this NFT the user owns (used by `ERC1155`).
+        block_number_minted:
+          type: integer
+          description: The block height when the NFT was minted. May be `null`.
+        block_number:
+          type: integer
+          description: The block height when the amount or owner changed.
+        chain:
+          type: string
+          description: Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or
+            `POLYGON`.
+        contract_type:
+          type: string
+          description: The type of NFT contract standard. One of `ERC721` or `ERC1155`.
+        last_token_uri_sync:
+          type: string
+          description: When the token\_uri was last updated.
+        last_metadata_sync:
+          type: string
+          description: When the metadata was last updated.
+        metadata:
+          type: object
+          description: A JSON object containing NFT metadata. May be `null`.
+        minter_address:
+          type: string
+          description: Minter address. May be `null`.
+        owner_of:
+          type: string
+          description: The wallet address of the owner of the NFT.
+        possible_spam:
+          type: boolean
+          description: If `true`, the contract address has [been identified](https://docs.moralis.io/web3-data-api/evm/nft-spam-detection)
+            as associated with spam or suspicious activities.
+        possible_phishing:
+          type: boolean
+          description: If `true`, the token has been identified as associated with
+            phishing, as at least one of domain fields is found in database with phishing
+            domains.
+        synced_at:
+          type: string
+          description: When the token was last synced with the node.
+        token_address:
+          type: string
+          description: The address of the NFT contract.
+        token_id:
+          type: string
+          description: The token ID of the NFT.
+        token_hash:
+          type: string
+          description: The token hash. May be `null`.
+        token_uri:
+          type: string
+          description: The URI to the metadata of the token. May be `null`.
+        token_domain:
+          type: string
+          description: Token domain. May be `null`.
+        uri_meta:
+          description: A standard [NftMetadata](/komodo-defi-framework/api/common_structures/nfts/#nft-metadata)
+            object.
+          $ref: '#/components/schemas/NftMetadata'
+      required:
+      - amount
+      - block_number
+      - chain
+      - contract_type
+      - last_metadata_sync
+      - last_token_uri_sync
+      - owner_of
+      - possible_phishing
+      - possible_spam
+      - synced_at
+      - token_address
+      - token_id
+      - uri_meta

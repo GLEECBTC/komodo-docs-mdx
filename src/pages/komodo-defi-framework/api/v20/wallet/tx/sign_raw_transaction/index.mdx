@@ -1,38 +1,42 @@
 export const title = "Komodo DeFi Framework Method: Sign Raw Transaction";
-export const description = "The methods in this document allow you to sign raw transactions.";
+export const description = "The sign_raw_transaction method allows users to sign UTXO or EVM raw transactions, returning a signed transaction hex ready for broadcast.";
 
 # Sign Raw Transaction
 
-This method allows users to:
+## sign\_raw\_transaction {{label : 'sign_raw_transaction', tag : 'API-v2'}}
+
+The `sign_raw_transaction` method allows users to:
 
 *   Create a signed UTXO raw transaction given unsigned hex, and optionally a set of prior transaction inputs.
-*   Create a signed EVM raw transaction, given the destination address, amount and gas limit.
+*   Create a signed EVM raw transaction, given the destination address, amount, and gas limit.
 
-The transaction can then be broadcasted to the network using the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
+The transaction can then be broadcast to the network using the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to complete the process.
 
 <Note>
   This method is used to sign a raw transaction that has already been created.
   For UTXO coins, the unsigned hex is required to sign the transaction.
-  If `prev_txns` is not provided, it will be sourced via electrums.
+  If `prev_txns` is not provided, it will be sourced via Electrum servers.
 </Note>
 
 ### Request Parameters
 
-| Structure | Type   | Description                                                                                     |
-| --------- | ------ | ----------------------------------------------------------------------------------------------- |
-| coin      | string | The coin to sign the raw transaction with                                                       |
-| type      | string | The operation type. Accepted values: UTXO ( for utxo coins), ETH (for emv coins)                |
-| tx        | object | A standard [RawTxInfo object](/komodo-defi-framework/api/common_structures/wallet/#raw-tx-info) |
+| Parameter | Type   | Required | Description                                                                                      |
+| --------- | ------ | :------: | ------------------------------------------------------------------------------------------------ |
+| coin      | string |     ✓    | The coin to sign the raw transaction with.                                                       |
+| type      | string |     ✓    | The operation type. Accepted values: `UTXO` (for UTXO coins), `ETH` (for EVM coins).             |
+| tx        | object |     ✓    | A standard [RawTxInfo object](/komodo-defi-framework/api/common_structures/wallet/#raw-tx-info). |
 
 ### Response Parameters
 
-| Structure | Type   | Description                                     |
-| --------- | ------ | ----------------------------------------------- |
-| tx\_hex   | string | The signed transaction hex, ready for broadcast |
+| Parameter | Type   | Description                                      |
+| --------- | ------ | ------------------------------------------------ |
+| tx\_hex   | string | The signed transaction hex, ready for broadcast. |
 
-#### Sign UTXO raw transaction hex
+#### 📌 Examples
 
-<CodeGroup title="" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
+##### Sign UTXO Raw Transaction Hex
+
+<CodeGroup title="Sign UTXO Raw Transaction" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -51,22 +55,22 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  ### Response (success)
 
   ```json
-    {
+  {
       "mmrpc": "2.0",
       "result": {
-        "tx_hex": "0400008085202f8901c8d6d8764e51bbadc0592b99f37b3b7d8c9719686d5a9bf63652a0802a1cd036020000006a47304402206b40df6d7b1d87622ea1eba0cdce09dfaf21556a408b2bd245920c2f3e9ff5e702201bd7bcc9587a9731cfd7c57057f173cbf635d2818263a96f211c413f6e83d187012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2feffffff0100dd96d8080000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac46366665000000000000000000000000000000"
+          "tx_hex": "0400008085202f8901c8d6d8764e51bbadc0592b99f37b3b7d8c9719686d5a9bf63652a0802a1cd036020000006a47304402206b40df6d7b1d87622ea1eba0cdce09dfaf21556a408b2bd245920c2f3e9ff5e702201bd7bcc9587a9731cfd7c57057f173cbf635d2818263a96f211c413f6e83d187012103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2feffffff0100dd96d8080000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac46366665000000000000000000000000000000"
       },
-      "id":0
-    }
+      "id": 0
+  }
   ```
 </CollapsibleSection>
 
-#### Sign UTXO raw transaction hex with inputs
+##### Sign UTXO Raw Transaction Hex with Inputs
 
-<CodeGroup title="" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
+<CodeGroup title="Sign UTXO Raw Transaction with Inputs" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -92,23 +96,23 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
   ```
 </CodeGroup>
 
-#### Response (success)
-
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ### Response (success)
+
   ```json
-    {
+  {
       "mmrpc": "2.0",
       "result": {
-        "tx_hex": "020000000001010d23d763f12d77a337cc16df2696ac3f48552dda373c9977fa1f5dd8d5025cb20100000000fdffffff01f40100000000000016001488accd2145b7232b958db5cdf09336ad619541e2024730440220156d185b3fb21725c040b7ddcf84bf862b46f079bb66067eef1941023b8451e602204d877ac51b74932dea34c20874fa8112b3636eb506ac429548f7c05fe54e3faf0121039ad38f67dbc22cf5a6bd48b26920d9fac71681836faf80a9a678ddbaa0fe92f800000000"
+          "tx_hex": "020000000001010d23d763f12d77a337cc16df2696ac3f48552dda373c9977fa1f5dd8d5025cb20100000000fdffffff01f40100000000000016001488accd2145b7232b958db5cdf09336ad619541e2024730440220156d185b3fb21725c040b7ddcf84bf862b46f079bb66067eef1941023b8451e602204d877ac51b74932dea34c20874fa8112b3636eb506ac429548f7c05fe54e3faf0121039ad38f67dbc22cf5a6bd48b26920d9fac71681836faf80a9a678ddbaa0fe92f800000000"
       },
-      "id":0
-    }
+      "id": 0
+  }
   ```
 </CollapsibleSection>
 
-#### Signed an ETH/EVM raw transaction
+##### Sign ETH/EVM Raw Transaction
 
-<CodeGroup title="" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
+<CodeGroup title="Sign ETH/EVM Raw Transaction" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -133,83 +137,81 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
   ```
 </CodeGroup>
 
-#### Response (success)
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ### Response (success)
 
-```json
+  ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "f86680847735940083021000947bc1bbdd6a0a722fc9bffc49c921b685ecb84b948210008025a06c0ecbccf92caf5ac620b118f09a84a18c73d7b209e75696bb10e3c24c2dba64a055af3638f92daec1eb3057fb6a9ccf418325bb1aa6121a3314c3885100a5e63a"
-    },
-    "id": 0
+      "mmrpc": "2.0",
+      "result": {
+          "tx_hex": "f86680847735940083021000947bc1bbdd6a0a722fc9bffc49c921b685ecb84b948210008025a06c0ecbccf92caf5ac620b118f09a84a18c73d7b209e75696bb10e3c24c2dba64a055af3638f92daec1eb3057fb6a9ccf418325bb1aa6121a3314c3885100a5e63a"
+      },
+      "id": 0
   }
-```
+  ```
+</CollapsibleSection>
 
 <Note>
-  Once you have signed the raw transaction, dont forget to broadcast it to
-  the network using the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method.
+  Once you have signed the raw transaction, do not forget to broadcast it to the network using the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method.
 </Note>
 
-### Errors
+### Error Types
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### Signing Error
+| Parameter      | Type   | Description                                                               |
+| -------------- | ------ | ------------------------------------------------------------------------- |
+| SigningError   | string | Error when signing a raw transaction that belongs to a different key pair |
+| InvalidRequest | string | Error parsing request: invalid digit found in string                      |
+| InvalidParam   | string | Invalid parameter: Invalid input length                                   |
+| NoSuchCoin     | string | Coin does not exist or has not been activated                             |
 
-  You might see this if you try to sign a raw transaction that belongs to a different key pair.
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Signing Error)
 
   ```json
   {
-    "mmrpc":"2.0",
-    "error":"Signing error: with_key_pair:114] P2PKH script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0xd346067e3c3c3964c395fee208594790e29ede5d\nOP_EQUALVERIFY\nOP_CHECKSIG\n' built from input key pair doesn't match expected prev script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0x32311a35188a9439c6c866e842564d6fefd3a028\nOP_EQUALVERIFY\nOP_CHECKSIG\n'","error_path":"utxo_common","error_trace":"utxo_common:3144]",
-    "error_type":"SigningError",
-    "error_data":"with_key_pair:114] P2PKH script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0xd346067e3c3c3964c395fee208594790e29ede5d\nOP_EQUALVERIFY\nOP_CHECKSIG\n' built from input key pair doesn't match expected prev script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0x32311a35188a9439c6c866e842564d6fefd3a028\nOP_EQUALVERIFY\nOP_CHECKSIG\n'",
-    "id":0
+      "mmrpc": "2.0",
+      "error": "Signing error: with_key_pair:114] P2PKH script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0xd346067e3c3c3964c395fee208594790e29ede5d\nOP_EQUALVERIFY\nOP_CHECKSIG\n' built from input key pair doesn't match expected prev script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0x32311a35188a9439c6c866e842564d6fefd3a028\nOP_EQUALVERIFY\nOP_CHECKSIG\n'","error_path":"utxo_common","error_trace":"utxo_common:3144]",
+      "error_type": "SigningError",
+      "error_data": "with_key_pair:114] P2PKH script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0xd346067e3c3c3964c395fee208594790e29ede5d\nOP_EQUALVERIFY\nOP_CHECKSIG\n' built from input key pair doesn't match expected prev script 'OP_DUP\nOP_HASH160\nOP_PUSHBYTES_20 0x32311a35188a9439c6c866e842564d6fefd3a028\nOP_EQUALVERIFY\nOP_CHECKSIG\n'"
   }
   ```
 
-  #### Invalid Request
+  ##### Error (Invalid Request)
 
   ```json
   {
-    "mmrpc":"2.0",
-    "error":"Error parsing request: invalid digit found in string",
-    "error_path":"dispatcher",
-    "error_trace":"dispatcher:108]",
-    "error_type":"InvalidRequest",
-    "error_data":"invalid digit found in string",
-    "id":0
+      "mmrpc": "2.0",
+      "error": "Error parsing request: invalid digit found in string",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:108]",
+      "error_type": "InvalidRequest",
+      "error_data": "invalid digit found in string"
   }
   ```
 
-  #### Invalid Parameter
+  ##### Error (Invalid Parameter)
 
   ```json
   {
-    "mmrpc":"2.0",
-    "error":"Invalid param: Invalid input length",
-    "error_path":"eth",
-    "error_trace":"eth:2544]",
-    "error_type":"InvalidParam",
-    "error_data":"Invalid input length",
-    "id":0
+      "mmrpc": "2.0",
+      "error": "Invalid param: Invalid input length",
+      "error_path": "eth",
+      "error_trace": "eth:2544]",
+      "error_type": "InvalidParam",
+      "error_data": "Invalid input length"
   }
   ```
 
-  #### No Such Coin
-
-  Coin does not exist or has not been activated.
+  ##### Error (No Such Coin)
 
   ```json
   {
-    "mmrpc":"2.0",
-    "error":"No such coin NOTSURE",
-    "error_path":"lp_coins",
-    "error_trace":"lp_coins:3965] lp_coins:3861]",
-    "error_type":"NoSuchCoin",
-    "error_data":{
-      "coin":"NOTSURE"
-    },
-    "id":0
+      "mmrpc": "2.0",
+      "error": "Coin does not exist or has not been activated",
+      "error_path": "coin_activation",
+      "error_trace": "coin_activation:1234]",
+      "error_type": "NoSuchCoin",
+      "error_data": "Coin does not exist or has not been activated"
   }
   ```
 </CollapsibleSection>

@@ -1,0 +1,168 @@
+export const title = "Komodo DeFi Framework Method: Withdraw Task Status";
+export const description = "Get the status of a withdrawal transaction generation in the Komodo DeFi Framework API.";
+
+# Withdraw Task Status
+
+## task::withdraw::status {{label : 'task::withdraw::status', tag : 'API-v2'}}
+
+To get the status of your withdrawal transaction generation, use the `task::withdraw::status` method. Once ready, it will provide the raw hex used to broadcast your transaction with [sendrawtransaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). The response returned is the same as what is returned from the [standard v2 withdraw method](/komodo-defi-framework/api/v20/wallet/tx/withdraw/)
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                                 |
+| -------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------- |
+| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the initialisation process. |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks.                 |
+
+### Response Parameters
+
+| Parameter                            | Type             | Description                                                                                                                                                                                             |
+| ------------------------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status                               | string           | A short indication of how the withdrawal is progressing.                                                                                                                                                |
+| details                              | object           | Depending on the state of withdrawal progress, this will contain different information as shown in the responses below.                                                                                 |
+| details.to                           | array of strings | Coins are withdrawn to these addresses; this may contain the `my_address` address, where change from UTXO coins is sent.                                                                                |
+| details.from                         | array of strings | Coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
+| details.my\_balance\_change          | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
+| details.received\_by\_me             | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
+| details.spent\_by\_me                | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
+| details.total\_amount                | string (numeric) | the total amount of coins transferred                                                                                                                                                                   |
+| details.fee\_details                 | object           | the fee details of the generated transaction; `fee_details.type` is "Utxo" for Z coins. `fee_details.coin` will be the same as `details.coin`, and `fee_details.amount` will be a numeric value.        |
+| details.tx\_hash                     | string           | the hash of the generated transaction                                                                                                                                                                   |
+| details.tx\_hex                      | string           | transaction bytes in hexadecimal format; use this value as input for the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                              |
+| details.coin                         | string           | the name of the coin the user wants to withdraw                                                                                                                                                         |
+| details.transaction\_type            | string           | Transaction type will be `StandardTransfer` for Z coin transactions.                                                                                                                                    |
+| details.kmd\_rewards                 | object           | If supported (e.g. when withdrawing `KMD`), an object containing information about accrued rewards.                                                                                                     |
+| details.kmd\_rewards.amount          | string (numeric) | The amount of accrued rewards                                                                                                                                                                           |
+| details.kmd\_rewards.claimed\_by\_me | bool             | Whether or not the rewards been claimed by me.                                                                                                                                                          |
+
+#### 📌 Examples
+
+<CodeGroup title="task::withdraw::status" tag="POST" label="task::withdraw::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::withdraw::status",
+    "params": {
+      "task_id": 3,
+      "forget_if_finished": false
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "GeneratingTransaction"
+    },
+    "id": 0
+  }
+  ```
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "tx_hex": "...",
+        "tx_hash": "...",
+        "from": ["..."],
+        "to": ["..."],
+        "total_amount": "...",
+        "spent_by_me": "...",
+        "received_by_me": "...",
+        "my_balance_change": "...",
+        "block_height": 0,
+        "timestamp": 0,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "...",
+          "amount": "..."
+        },
+        "coin": "...",
+        "internal_id": "...",
+        "transaction_type": "StandardTransfer"
+      }
+    },
+    "id": 0
+  }
+  ```
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "tx_hex": "...",
+        "tx_hash": "...",
+        "from": ["..."],
+        "to": ["..."],
+        "total_amount": "...",
+        "spent_by_me": "...",
+        "received_by_me": "...",
+        "my_balance_change": "...",
+        "block_height": 0,
+        "timestamp": 0,
+        "fee_details": {
+          "type": "Utxo",
+          "coin": "KMD",
+          "amount": "..."
+        },
+        "coin": "KMD",
+        "internal_id": "...",
+        "kmd_rewards": {
+          "amount": "...",
+          "claimed_by_me": true
+        },
+        "transaction_type": "StandardTransfer",
+        "memo": null
+      }
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                          |
+| ------------ | ------ | ---------------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired.         |
+| TaskFinished | string | The task is already finished and cannot be canceled. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
+  }
+  ```
+
+  ##### Error Response (Task Finished)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
+  }
+  ```
+</CollapsibleSection>

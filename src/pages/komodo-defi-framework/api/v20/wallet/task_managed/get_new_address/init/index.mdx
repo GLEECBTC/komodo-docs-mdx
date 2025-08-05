@@ -1,0 +1,59 @@
+export const title = "Komodo DeFi Framework Method: Initialize Get New Address Task";
+export const description = "Generate a new HD address in the Komodo DeFi Framework API.";
+
+# Initialize Get New Address Task
+
+## task::get\_new\_address::init  {{label : 'task::get_new_address::init', tag : 'API-v2'}}
+
+A hierarchical-deterministic (HD) wallet generates a new key pair from a master key pair, allowing for multiple addresses to be generated from the same seed so that change from transactions go to a previously unused address, enhancing privacy and security.
+The hierarchical structure resembles that of a tree, with the master key "determining" the key pairs that follow it in the hierarchy. If you are running KDF in HD mode, and don't already have too many unused addresses, you can use the `get_new_address` method to generate a new address. The generated address will be shown in the task::account\_balance RPCs and at the next coin activation.
+
+### Request Parameters
+
+| Parameter   | Type    | Required |    Default   | Description                                                                                                                                                                                                                                                                                         |
+| ----------- | ------- | :------: | :----------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin        | string  |     ✓    |      `-`     | The ticker of the coin you want to get a new address for                                                                                                                                                                                                                                            |
+| account\_id | integer |     ✗    |      `0`     | Generally this will be `0` unless you have multiple accounts registered on your Trezor                                                                                                                                                                                                              |
+| chain       | string  |     ✗    | `"External"` | `Internal`, or `External`. External is used for addresses that are intended to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used to return the leftover change from a transaction. |
+| gap\_limit  | integer |     ✗    |     `20`     | The maximum number of empty addresses in a row. Defaults to the value provided on activation or 20 if no value was provided                                                                                                                                                                         |
+
+### Response Parameters
+
+| Parameter    | Type   | Description                                                                                                |
+| ------------ | ------ | ---------------------------------------------------------------------------------------------------------- |
+| new\_address | object | A standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) object. |
+
+Some reasons you might not be able to get a new address are:
+
+*   `EmptyAddressesLimitReached` - Last gap\_limit addresses are still unused.
+*   `AddressLimitReached` - Addresses limit reached. Currently, the limit is [2^31](https://www.wolframalpha.com/input?i=2%5E%2832%29)
+
+#### 📌 Examples
+
+<CodeGroup title="task::get_new_address::init" tag="POST" label="task::get_new_address::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::get_new_address::init",
+    "params": {
+      "coin": "DOC",
+      "account_id": 0,
+      "chain": "External",
+      "gap_limit": 20
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 3
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

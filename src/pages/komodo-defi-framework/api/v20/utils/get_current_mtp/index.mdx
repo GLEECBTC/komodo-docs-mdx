@@ -1,18 +1,20 @@
 export const title = "Komodo DeFi Framework Method: Get Current MTP";
 export const description = "The get_current_mtp method returns the Median Time Past (MTP) from electrum servers for UTXO coins.";
 
-# get\_current\_mtp
+# Get Current MTP
+
+## get\_current\_mtp {{label : 'get_current_mtp', tag : 'API-v2'}}
 
 The `get_current_mtp` method returns the Median Time Past (MTP) from electrum servers for UTXO coins. This information is useful for debugging, specifically in cases where an electrum server has been misconfigured.
 
-## Arguments
+### Request Parameters
 
-| Parameter | Type    | Description                                                                             |
-| --------- | ------- | --------------------------------------------------------------------------------------- |
-| coin      | string  | A compatible (UTXO) coin's ticker                                                       |
-| id        | integer | Optional. Identifies a request to allow matching it with a response. Defaults to `null` |
+| Parameter | Type    | Required | Default | Description                                                                             |
+| --------- | ------- | :------: | :-----: | --------------------------------------------------------------------------------------- |
+| coin      | string  |     ✓    |   `-`   | A compatible (UTXO) coin's ticker                                                       |
+| id        | integer |     ✗    |  `null` | Optional. Identifies a request to allow matching it with a response. Defaults to `null` |
 
-#### Response
+### Response Parameters
 
 | Parameter | Type    | Description                                                                                                   |
 | --------- | ------- | ------------------------------------------------------------------------------------------------------------- |
@@ -21,9 +23,7 @@ The `get_current_mtp` method returns the Median Time Past (MTP) from electrum se
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="get_current_mtp" mm2MethodDecorate="true">
+<CodeGroup title="Get Current MTP" tag="POST" label="get_current_mtp" mm2MethodDecorate="true">
   ```json
   {
     "method": "get_current_mtp",
@@ -37,16 +37,16 @@ The `get_current_mtp` method returns the Median Time Past (MTP) from electrum se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get Current MTP Response" collapsedText="Show Get Current MTP Response">
   #### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "mtp": 1658746383
-    },
-    "id": 42
+      "mmrpc": "2.0",
+      "result": {
+          "mtp": 1658746383
+      },
+      "id": 42
   }
   ```
 </CollapsibleSection>

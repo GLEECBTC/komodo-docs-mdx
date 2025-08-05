@@ -1,0 +1,118 @@
+export const title = "Komodo DeFi Framework Method: Account Balance (HD Wallet)";
+export const description =
+  "The account_balance method returns a paginated list of HD-wallet addresses and their balances for a given coin/account.";
+
+# Account Balance (HD Wallet)
+
+## account\_balance {{label : 'account_balance', tag : 'API-v2'}}
+
+The `account_balance` method fetches a paginated snapshot of addresses generated from a specific HD-wallet account
+(for a coin that was previously activated **with HD-wallet derivation method**) and the balance of each address.
+It is the low-level (non-task-managed) variant of the `task::account_balance::*` family.
+
+### Request Parameters
+
+| Parameter       | Type   | Required | Default | Description                                                                                                                       |
+| --------------- | ------ | :------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
+| coin            | string |     ✓    |    –    | Coin ticker (e.g., `BTC`, `ETH`, `KMD`).                                                                                          |
+| account\_index  | number |     ✓    |    –    | BIP-44 account number to inspect (usually `0`).                                                                                   |
+| chain           | string |     ✓    |    –    | BIP-44 chain: `External` (receiving) or `Internal` (change).                                                                      |
+| limit           | number |     ✗    |   `10`  | Maximum number of addresses to return per page.                                                                                   |
+| paging\_options | object |     ✗    |    –    | Either `{ "from_id": <address_id> }` **or** `{ "page_number": <n> }`. If omitted, the first page (`page_number = 1`) is returned. |
+
+### Response Parameters
+
+| Parameter        | Type   | Description                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------- |
+| account\_index   | number | Account number that was queried.                                      |
+| derivation\_path | string | Root derivation path of the account (e.g., `m/44'/0'/0'`).            |
+| addresses        | list   | A list of objects containing each derived address and its balance.    |
+| page\_balance    | object | Combined balance of all addresses in the current page.                |
+| limit            | number | Page size that was applied.                                           |
+| skipped          | number | Number of addresses skipped before the first item in `addresses`.     |
+| total            | number | Total number of known addresses for the account/chain.                |
+| total\_pages     | number | Total number of pages based on `total` and `limit`.                   |
+| paging\_options  | object | Echoes the effective paging options that were used to in the request. |
+
+### Address Balance Object
+
+Each element of the `addresses` list has the following structure:
+
+| Parameter | Type   | Description                             |
+| --------- | ------ | --------------------------------------- |
+| id        | number | Sequential index of the derived address |
+| address   | string | Bech32 / base58 / hex address string    |
+| balance   | string | Spendable balance for the address       |
+
+#### 📌 Example
+
+##### Command
+
+<CodeGroup title="Account Balance" tag="POST" label="account_balance" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "account_balance",
+    "params": {
+      "coin": "BTC",
+      "account_index": 0,
+      "chain": "External",
+      "limit": 5,
+      "paging_options": {
+        "pageNumber": 1
+      }
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<DevComment>
+  The pagination params here are an abberation.
+  [https://github.com/KomodoPlatform/komodo-defi-framework/issues/2511](https://github.com/KomodoPlatform/komodo-defi-framework/issues/2511)
+</DevComment>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (truncated)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "account_index": 0,
+      "derivation_path": "m/44'/0'/0'",
+      "addresses": [
+        {
+          "id": 0,
+          "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+          "balance": "0.0015"
+        },
+        {
+          "id": 1,
+          "address": "bc1q9pz8kx0qwrsjk54xwh3kvle0faj3qcpexdvnwe",
+          "balance": "0.0000"
+        }
+      ],
+      "page_balance": "0.0015",
+      "limit": 5,
+      "skipped": 0,
+      "total": 42,
+      "total_pages": 9,
+      "paging_options": { "page_number": 1 }
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter                          | Type   | Description                                                            |
+| ---------------------------------- | ------ | ---------------------------------------------------------------------- |
+| NoSuchCoin                         | string | Coin is not activated.                                                 |
+| CoinIsActivatedNotWithHDWallet     | string | Coin was enabled without HD-wallet derivation method.                  |
+| UnknownAccount                     | string | `account_index` does not exist.                                        |
+| InvalidBip44Chain                  | string | Unsupported `chain` value.                                             |
+| AddressLimitReached \| GapLimit... | string | Address-generation limits reached (see error message for exact cause). |
+| Transport \| Internal \| Timeout   | string | Other runtime errors.                                                  |

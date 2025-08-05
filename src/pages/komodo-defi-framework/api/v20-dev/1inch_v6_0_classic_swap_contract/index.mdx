@@ -1,0 +1,66 @@
+export const title = "Komodo DeFi Framework Method: 1inch v6.0 Classic Swap Contract";
+export const description = "Return the router contract address used for 1inch Classic Swap v6.0 on a given EVM chain.";
+
+# 1inch v6.0 Classic Swap Contract
+
+## 1inch\_v6\_0\_classic\_swap\_contract {{label : '1inch_v6_0_classic_swap_contract', tag : 'API-v2'}}
+
+The `1inch_v6_0_classic_swap_contract` method returns the router (spender) contract address that must be approved before executing a Classic Swap through 1inch API v6.0.
+
+<Note>
+  To use 1 inch integration methods you must set `1inch_api` in your [MM2.json](/komodo-defi-framework/setup/configure-mm2-json/) configuration and provide a valid API key via the `ONE_INCH_API_TEST_AUTH` environment variable.
+</Note>
+
+Refer to the [1inch Classic Swap docs](https://portal.1inch.dev/documentation/apis/swap/classic-swap/quick-start) for further information.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                    |
+| --------- | ------ | :------: | ---------------------------------------------- |
+| chain\_id | number |     ✓    | EVM Chain ID (e.g., `1` for Ethereum mainnet). |
+
+### Response Parameters
+
+| Parameter         | Type   | Description                                                       |
+| ----------------- | ------ | ----------------------------------------------------------------- |
+| contract\_address | string | Hex address of the 1inch router contract for the specified chain. |
+
+#### 📌 Example
+
+##### Command
+
+<CodeGroup title="" tag="POST" label="1inch_v6_0_classic_swap_contract" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "1inch_v6_0_classic_swap_contract",
+    "params": {
+      "chain_id": 1
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "contract_address": "0x1111111254fb6c44bac0bed2854e76f90643097d"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| ErrorType        | Description                              |
+| ---------------- | ---------------------------------------- |
+| InvalidChainId   | Unsupported or unknown `chain_id` value. |
+| ExternalApiError | Error returned by 1inch external API.    |
+| InternalError    | Unhandled internal error.                |

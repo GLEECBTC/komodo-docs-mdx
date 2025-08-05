@@ -1,0 +1,10 @@
+components:
+  schemas:
+    TokenActivationParams:
+      type: object
+      properties:
+        required_confirmations:
+          type: integer
+          description: Confirmations to wait for steps in swap. Defaults to value
+            in coins file if not set.
+          default: '`-`'

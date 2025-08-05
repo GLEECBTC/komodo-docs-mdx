@@ -1,0 +1,44 @@
+/coins_needed_for_kick_start:
+  post:
+    summary: Learn how to kick-start interrupted swaps on the Komodo DeFi Framework
+      API by activating the necessary coins using the coins_needed_for_kick_start
+      method.
+    description: Learn how to kick-start interrupted swaps on the Komodo DeFi Framework
+      API by activating the necessary coins using the coins_needed_for_kick_start
+      method.
+    operationId: coins_needed_for_kick_start
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - coins_needed_for_kick_start
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Tickers of coins that should be activated to kick-start
+                  swaps and orders
+          example: {}

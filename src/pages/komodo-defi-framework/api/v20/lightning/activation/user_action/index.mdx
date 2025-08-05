@@ -1,0 +1,58 @@
+export const title = "Komodo DeFi Framework Method: Lightning Initialization Task User Action";
+export const description = "Provide user input (e.g., Trezor confirmation) during Lightning initialization.";
+
+# Lightning Initialization Task User Action
+
+## task::enable\_lightning::user\_action {{label : 'task::enable_lightning::user_action', tag : 'API-v2'}}
+
+<Note type="info">Skeleton documentation.</Note>
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                         |
+| ------------------------- | --------------- | :------: | ----------------------------------- |
+| task\_id                  | integer         |     ✓    | Lightning init task identifier.     |
+| user\_action              | object          |     ✓    | Object containing parameters below. |
+| user\_action.action\_type | string          |     ✓    | Action type (e.g., `TrezorPin`).    |
+| user\_action.pin          | string (number) |     ✗    | Required PIN if applicable.         |
+| userpass                  | string          |     ✓    | RPC password.                       |
+
+### Response Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| status    | string | Updated task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="enable_lightning::user_action" tag="POST" label="task::enable_lightning::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_lightning::user_action",
+    "params": {
+      "task_id": 1,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "456789"
+      }
+    },
+    "id": 7,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress"
+    },
+    "id": 7
+  }
+  ```
+</CollapsibleSection>

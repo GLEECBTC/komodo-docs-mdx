@@ -1,15 +1,17 @@
-export const title = "Komodo DeFi SDK RPC Protocol v2.0";
+export const title = "Komodo DeFi Framework Method: SDK RPC Protocol v2.0";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
 
-# Komodo DeFi SDK RPC Protocol v2.0
+# SDK RPC Protocol v2.0
+
+## sdk-rpc-protocol-v2-0 {{label : 'sdk_rpc_protocol_v2_0', tag : 'overview'}}
 
 Starting with version [beta-2.1.3434](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/beta-2.1.3434), the Komodo DeFi SDK supports the standardized protocol format called `mmrpc 2.0`.
 
-It includes a uniform request, successful and error response formats. At the moment, only a few RPC methods support the `mmrpc 2.0` protocol.
+It includes a uniform request, successful and error response formats. v1/legacy methods are to be considered deprecated. For HD wallets, v2 methods must be used.
 
 ## Request
 
-| Structure | Type              | Description                                                                                                                                                       |
+| Parameter | Type              | Description                                                                                                                                                       |
 | --------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | mmrpc     | string            | the string specifying the version of the Komodo DeFi SDK RPC protocol. Must be exactly "2.0"                                                                      |
 | userpass  | string (optional) | your password for protected RPC methods. Skip this field if the specified `method` is public                                                                      |
@@ -19,7 +21,7 @@ It includes a uniform request, successful and error response formats. At the mom
 
 ### Response (Success)
 
-| Structure | Type              | Description                                                                                 |
+| Parameter | Type              | Description                                                                                 |
 | --------- | ----------------- | ------------------------------------------------------------------------------------------- |
 | mmrpc     | string            | the string specifying the version of the Komodo DeFi SDK RPC protocol                       |
 | result    | object            | the value of this field is determined by the method invoked on Komodo DeFi SDK              |
@@ -27,7 +29,7 @@ It includes a uniform request, successful and error response formats. At the mom
 
 ### Response (Error)
 
-| Structure    | Type              | Description                                                                                 |
+| Parameter    | Type              | Description                                                                                 |
 | ------------ | ----------------- | ------------------------------------------------------------------------------------------- |
 | mmrpc        | string            | the string specifying the version of the Komodo DeFi API RPC protocol                       |
 | error        | string            | the common error description                                                                |

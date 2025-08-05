@@ -1,26 +1,29 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
+export const title = "Komodo DeFi Framework Method: Clear NFT Database";
 export const description =
-  "This document describes the clear_nft_db method Komodo DeFi Framework provides to clear NFT data from your local database";
+  "This document describes the clear_nft_db method Komodo DeFi Framework provides to clear NFT data from your local database.";
 
-# Clear NFT Database {{label : 'clear_nft_db', tag : 'API-v2'}}
+# Clear NFT Database
 
-This method will clear the NFT database data stored in the local database for selected (or all) networks.
+## clear\_nft\_db {{label : 'clear_nft_db', tag : 'API-v2'}}
+
+This method clears the NFT database data stored in the local database for selected (or all) networks.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                        |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| clear\_all | boolean | Defaults to `false`. If `true` all NFT data for all networks will be purged.                                       |
-| chains     | array   | Optional. List of networks to remove NFT data for. Options are: `POLYGON`, `FANTOM`, `ETH`, `BSC`, or `AVALANCHE`. |
+| Parameter  | Type    | Required | Default | Description                                                                                                                                             |
+| ---------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| chains     | array   |     ✗    |   `-`   | List of networks to remove NFT data for. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values. |
+| clear\_all | boolean |     ✗    | `false` | If `true`, all NFT data for all networks will be purged.                                                                                                |
 
 <Note>
-  You can confirm the NFT database has been cleared by querying the `KOMODEFI.db` database file.
-  For more information, refer to the [Query NFT Database Tables](/komodo-defi-framework/api/v20/non_fungible_tokens/query_nft_database_tables/) documentation.
+  You can confirm the NFT database has been cleared by querying the `KOMODEFI.db` database file. For more information, refer to the [Query NFT Database Tables](/komodo-defi-framework/api/v20/non_fungible_tokens/query_nft_database_tables/) documentation.
 </Note>
 
-#### 📌 Example to clear Binance Smart chain and Polygon NFT data
+#### 📌 Examples
 
-<CodeGroup title="Clear NFT Database" tag="POST" label="clear_nft_db" mm2MethodDecorate="true">
+#### Clear Specific Chains
+
+<CodeGroup title="Clear NFT Database (chains)" tag="POST" label="clear_nft_db" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -36,19 +39,19 @@ This method will clear the NFT database data stored in the local database for se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Clear NFT Database (chains) Response" collapsedText="Show Clear NFT Database (chains) Response">
   ```json
-      {
-          "mmrpc": "2.0",
-          "result": null,
-          "id": null
-      }
+  {
+      "mmrpc": "2.0",
+      "result": null,
+      "id": null
+  }
   ```
 </CollapsibleSection>
 
-#### 📌 Example to clear all NFT data
+#### Clear All NFT Data
 
-<CodeGroup title="Clear NFT Database" tag="POST" label="clear_nft_db" mm2MethodDecorate="true">
+<CodeGroup title="Clear NFT Database (all)" tag="POST" label="clear_nft_db" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -61,44 +64,48 @@ This method will clear the NFT database data stored in the local database for se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Clear NFT Database (all) Response" collapsedText="Show Clear NFT Database (all) Response">
   ```json
-      {
-          "mmrpc": "2.0",
-          "result": null,
-          "id": null
-      }
+  {
+      "mmrpc": "2.0",
+      "result": null,
+      "id": null
+  }
   ```
 </CollapsibleSection>
 
-### Error responses
+<CollapsibleSection expandedText="Hide Clear NFT Database Error Responses" collapsedText="Show Clear NFT Database Error Responses">
+  #### ⚠️ Error Responses
 
-#### UnsupportedChainType
+  ##### UnsupportedChainType
 
-Returned when the `chains` parameter contains an unsupported network.
+  Returned when the `chains` parameter contains an unsupported network.
 
-```json
-{
-    "mmrpc": "2.0",
-    "error": "Error parsing request: UnsupportedChainType",
-    "error_path": "dispatcher",
-    "error_trace": "dispatcher:110]",
-    "error_type": "InvalidRequest",
-    "error_data": "UnsupportedChainType",
-    "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: UnsupportedChainType",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:110]",
+      "error_type": "InvalidRequest",
+      "error_data": "UnsupportedChainType",
+      "id": null
+  }
+  ```
 
-#### InvalidRequest
+  ##### InvalidRequest
 
-Returned when neither the `chains` or `clear_all` parameters are present.
+  Returned when neither the `chains` nor `clear_all` parameters are present.
 
-```json
-{
-    "mmrpc":"2.0",
-    "error":"Invalid request: Nothing to clear was specified","error_path":"nft","error_trace":"nft:1512]",
-    "error_type":"InvalidRequest",
-    "error_data":"Nothing to clear was specified",
-    "id":null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Invalid request: Nothing to clear was specified",
+      "error_path": "nft",
+      "error_trace": "nft:1512]",
+      "error_type": "InvalidRequest",
+      "error_data": "Nothing to clear was specified",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

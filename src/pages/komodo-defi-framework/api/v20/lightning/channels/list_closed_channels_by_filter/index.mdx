@@ -1,0 +1,64 @@
+export const title = "Komodo DeFi Framework Method: List Closed Lightning Channels by Filter";
+export const description = "List closed Lightning Network channels by filter using the Komodo DeFi Framework API.";
+
+# List Closed Lightning Channels by Filter
+
+## lightning::channels::list\_closed\_channels\_by\_filter {{label : 'lightning::channels::list_closed_channels_by_filter', tag : 'API-v2'}}
+
+Returns a list of closed channels filtered by the provided filter object.
+
+### Request Parameters
+
+| Parameter       | Type    | Required | Default | Description                                                                                                                                  |
+| --------------- | ------- | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin            | string  |     ✓    |    -    | The ticker of the coin you would like to view closed channels for.                                                                           |
+| filter          | object  |     ✗    |    -    | A standard [LightningClosedChannelsFilter](/komodo-defi-framework/api/common_structures/lightning/#lightning-closed-channels-filter) object. |
+| paging\_options | object  |     ✗    |    -    | A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination) object.                                                    |
+| limit           | integer |     ✗    |   `10`  | Maximum number of results to return.                                                                                                         |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                 |
+| --------- | ------ | ------------------------------------------- |
+| result    | object | The filtered closed channels result object. |
+| id        | int    | Request identifier.                         |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::channels::list_closed_channels_by_filter" tag="POST" label="lightning::channels::list_closed_channels_by_filter" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::list_closed_channels_by_filter",
+    "params": {
+      "coin": "tBTC-lightning"
+    },
+    "id": 55
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "channels": [
+              {
+                  "channel_id": "3c60e274-c173-4fa1-95f3-97f9f82ace92",
+                  "capacity_sats": 500000,
+                  "closed_at": 1681500000,
+                  "close_type": "cooperative",
+                  "counterparty_node_id": "03a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+                  "state": "closed"
+              }
+          ],
+          "total": 1
+      },
+      "id": 55
+  }
+  ```
+</CollapsibleSection>

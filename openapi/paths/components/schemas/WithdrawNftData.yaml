@@ -1,0 +1,26 @@
+components:
+  schemas:
+    WithdrawNftData:
+      type: object
+      properties:
+        token_address:
+          type: string
+          description: The contract address of the NFT
+          default: '`-`'
+        token_id:
+          type: string
+          description: The ID of the NFT
+          default: '`-`'
+        to:
+          type: string
+          description: The recipient's address
+          default: '`-`'
+        amount:
+          type: string
+          description: The amount to withdraw (for ERC1155 NFTs). For ERC721 NFTs,
+            this is always `1` and can be omitted.
+          default: '`-`'
+      required:
+      - to
+      - token_address
+      - token_id

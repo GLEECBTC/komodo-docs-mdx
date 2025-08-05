@@ -1,25 +1,26 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
-export const description =
-  "This document describes the get_nft_transfers method Komodo DeFi Framework provides to get information about your NFT transactions";
+export const title = "Komodo DeFi Framework Method: Get NFT Transfers";
+export const description = "The get_nft_transfers method returns a list of NFT transfers involving the user, with filtering and pagination options.";
 
-# Get a list of NFT transfers {{label : 'get_nft_transfers', tag : 'API-v2'}}
+# Get NFT Transfers
+
+## get\_nft\_transfers {{label : 'get_nft_transfers', tag : 'API-v2'}}
 
 Returns a list of the NFT transfers involving the user, shown in descending order of the `block_timestamp` value of the NFT's last transfer.
 
 <Note>
-  To view NFT transactions, you must [activate the coin](/komodo-defi-framework/api/legacy/coin_activation/) which holds the NFTs first.
+  To view NFT transactions, you must [activate the coin](/komodo-defi-framework/api/legacy/coin_activation/) that holds the NFTs first.
 </Note>
 
 ### Request Parameters
 
-| Parameter           | Type    | Description                                                                                                                                                             |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| chains              | array   | List of chains to scan for NFTs.                                                                                                                                        |
-| max                 | boolean | Optional, defaults to `false`. If `true`, response will return all NFT transfers without pagination, and will ignore the `limit` and `page_number` values.              |
-| limit               | integer | Optional, defaults to `10`. The number of NFT transfers displayed per page in response.                                                                                 |
-| page\_number        | integer | Optional, defaults to `1`. The page offset for items in response.                                                                                                       |
-| protect\_from\_spam | boolean | Optional, defaults to `false`. If `true`, any potential spam link found in collection name, token name, symbol will be replaced with `URL redacted for user protection` |
-| filters             | object  | Optional. A standard [NftTransferFilter](/komodo-defi-framework/api/common_structures/nfts/#nft-transfer-filter) object.                                                |
+| Parameter           | Type    | Required | Default | Description                                                                                                                                     |
+| ------------------- | ------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| chains              | array   |     ✓    |   `-`   | List of chains to scan for NFTs. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values. |
+| max                 | boolean |     ✗    | `false` | If `true`, response will return all NFT transfers without pagination, and will ignore the `limit` and `page_number` values.                     |
+| limit               | integer |     ✗    |   `10`  | The number of NFT transfers displayed per page in response.                                                                                     |
+| page\_number        | integer |     ✗    |   `1`   | The page offset for items in response.                                                                                                          |
+| protect\_from\_spam | boolean |     ✗    | `false` | If `true`, any potential spam link found in collection name, token name, or symbol will be replaced with `URL redacted for user protection`.    |
+| filters             | object  |     ✗    |   `-`   | A standard [NftTransferFilter](/komodo-defi-framework/api/common_structures/nfts/#nft-transfer-filter) object.                                  |
 
 ### Response Parameters
 
@@ -29,9 +30,9 @@ Returns a list of the NFT transfers involving the user, shown in descending orde
 | total             | integer         | The total number of NFT transfers in your wallet matching the request filters.                             |
 | skipped           | integer         | The number of NFT transfers in your wallet excluded by the request filters.                                |
 
-#### 📌 Example with date and `send` filters
+#### 📌 Example
 
-<CodeGroup title="Get a list of NFT transfers" tag="POST" label="get_nft_transfers" mm2MethodDecorate="true">
+<CodeGroup title="Get NFT Transfers" tag="POST" label="get_nft_transfers" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -52,52 +53,33 @@ Returns a list of the NFT transfers involving the user, shown in descending orde
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get NFT Transfers Response" collapsedText="Show Get NFT Transfers Response">
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "transfer_history": [
-        {
-          "block_hash": "0xfd012e9dc2c7fa652ae3c0923599a9e6196520ac46e55f0f467d3a1ce84b8580",
-          "transaction_hash": "0x4063c4ae3e56a06b6c8768ad76e0cb1523e671cf06e4325517106497778ede9e",
-          "transaction_index": 87,
-          "log_index": 468,
-          "value": "0",
-          "transaction_type": "Single",
-          "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
-          "from_address": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "to_address": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "amount": "2",
-          "verified": 1,
-          "operator": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "possible_spam": false,
-          "chain": "POLYGON",
-          "token_id": "5",
-          "block_number": 44506464,
-          "block_timestamp": 1688107346,
-          "contract_type": "ERC1155",
-          "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
-          "token_domain": "app.thesmurfssociety.com",
-          "collection_name": null,
-          "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-          "image_domain": "metadata.thesmurfssociety.com",
-          "token_name": "Forest Mushrooms",
-          "status": "Receive",
-          "possible_phishing": false,
-          "fee_details": {
-            "coin": "MATIC",
-            "gas": 40249,
-            "gas_price": "0.000000153160317706",
-            "total_fee": "0.006164549627348794"
-          },
-          "confirmations": 5775855
-        }
-      ],
-      "skipped": 0,
-      "total": 1
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "result": { ... },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Get NFT Transfers Error Responses" collapsedText="Show Get NFT Transfers Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### TokenNotFoundInWallet
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Token: token_address 0xfd913a305d70a60aac4faac70c739563738e1f82, token_id 5 was not found in wallet",
+      "error_path": "nft",
+      "error_trace": "nft:123]",
+      "error_type": "TokenNotFoundInWallet",
+      "error_data": {
+          "token_address": "0xfd913a305d70a60aac4faac70c739563738e1f82",
+          "token_id": "5"
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>

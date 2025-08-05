@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: Komodo DeFi Framework Stream API
+  version: 2.0.0
+  description: 'Focused OpenAPI specification for stream endpoints in the Komodo DeFi
+    Framework.
+
+
+    For the complete API specification, see the main openapi.yaml file.'
+servers:
+- url: /
+  description: Local Komodo DeFi Framework instance
+tags:
+- name: Stream
+  description: Methods for stream
+paths:
+  /v2/stream_heartbeat_enable:
+    $ref: ./paths/v2/stream/heartbeat/enable.yaml
+  /v2/stream_swap_status_enable:
+    $ref: ./paths/v2/stream/swap_status/enable.yaml
+  /v2/stream_fee\_estimator_enable:
+    $ref: ./paths/v2/stream/fee\_estimator/enable.yaml
+  /v2/stream_network_enable:
+    $ref: ./paths/v2/stream/network/enable.yaml
+  /v2/stream_orderbook_enable:
+    $ref: ./paths/v2/stream/orderbook/enable.yaml
+  /v2/stream_tx_history_enable:
+    $ref: ./paths/v2/stream/tx_history/enable.yaml
+  /v2/stream_disable:
+    $ref: ./paths/v2/stream/disable.yaml
+  /v2/stream_balance_enable:
+    $ref: ./paths/v2/stream/balance/enable.yaml
+  /v2/stream_order_status_enable:
+    $ref: ./paths/v2/stream/order_status/enable.yaml
+components:
+  securitySchemes:
+    userpass:
+      type: apiKey
+      in: header
+      name: userpass
+      description: "The API key for authentication. Use the 'userpass' value from\
+        \ your \nKomodo DeFi Framework instance configuration.\n"
+  schemas:
+    Common:
+      $ref: ./components/schemas/Common.yaml
+    Activation:
+      $ref: ./components/schemas/Activation.yaml
+security:
+- userpass: []

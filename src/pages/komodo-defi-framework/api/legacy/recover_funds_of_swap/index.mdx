@@ -1,9 +1,9 @@
-export const title = "Komodo DeFi Framework Method: Recover Funds of Swap UUID";
+export const title = "Komodo DeFi Framework Method: Recover Funds Of Swap";
 export const description = "Learn how to recover funds from a swap-payment address in case of an error using the recover_funds_of_swap method in the Komodo DeFi Framework API.";
 
-# recover\_funds\_of\_swap
+# Recover Funds Of Swap
 
-**recover\_funds\_of\_swap uuid**
+## recover\_funds\_of\_swap {{label: 'recover_funds_of_swap', tag: 'API-v1'}}
 
 In certain cases, a swap can finish with an error wherein the user's funds are stuck on the swap-payment address. (This address is the P2SH address when executing on a utxo-based blockchain, or an etomic-swap smart contract when executing on an ETH/ERC20 blockchain.)
 
@@ -11,26 +11,26 @@ This error can occur when one side of the trade does not follow the protocol (fo
 
 In this scenario, the `recover_funds_of_swap` method instructs the Komodo DeFi Framework API software to attempt to reclaim the user funds from the swap-payment address, if possible.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                           |
-| --------- | ------ | ------------------------------------- |
-| uuid      | string | uuid of the swap to recover the funds |
+| Parameter | Type   | Required | Description                           |
+| --------- | ------ | :------: | ------------------------------------- |
+| uuid      | string |     ✓    | UUID of the swap to recover the funds |
 
-## Response
+### Response parameters
 
-| Structure | Type   | Description                                                                                       |
+| Parameter | Type   | Description                                                                                       |
 | --------- | ------ | ------------------------------------------------------------------------------------------------- |
-| action    | string | the action executed to unlock the funds. Can be either `SpentOtherPayment` or `RefundedMyPayment` |
-| coin      | string | the balance of this coin will be unstuck by the recovering transaction                            |
-| tx\_hash  | string | the hash of the recovering transaction                                                            |
-| tx\_hex   | string | raw bytes of the recovering transaction in hexadecimal representation                             |
+| action    | string | The action executed to unlock the funds. Can be either `SpentOtherPayment` or `RefundedMyPayment` |
+| coin      | string | The balance of this coin will be unstuck by the recovering transaction                            |
+| tx\_hash  | string | The hash of the recovering transaction                                                            |
+| tx\_hex   | string | Raw bytes of the recovering transaction in hexadecimal representation                             |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="recover_funds_of_swap" mm2MethodDecorate="true">
+<CodeGroup title="recover_funds_of_swap" tag="POST" label="recover_funds_of_swap" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -43,45 +43,28 @@ In this scenario, the `recover_funds_of_swap` method instructs the Komodo DeFi F
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success - SpentOtherPayment)
+  #### Response (success)
 
   ```json
   {
-    "result": {
-      "action": "SpentOtherPayment",
-      "coin": "HELLO",
-      "tx_hash": "696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
-      "tx_hex": "0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
-    }
+      "result": {
+          "action": "SpentOtherPayment",
+          "coin": "DOC",
+          "tx_hash": "696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
+          "tx_hex": "0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
+      }
   }
   ```
+</CollapsibleSection>
 
-  #### Response (success - RefundedMyPayment)
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
 
   ```json
-  {
-    "result": {
-      "action": "RefundedMyPayment",
-      "coin": "HELLO",
-      "tx_hash": "696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
-      "tx_hex": "0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
-    }
-  }
+  { "error": "Maker payment is spent, swap is not recoverable" }
   ```
 
-  #### Response (error - maker payment was already spent)
-
   ```json
-  {
-    "error": "lp_swap:702] lp_swap:412] taker_swap:890] Maker payment is spent, swap is not recoverable"
-  }
-  ```
-
-  #### Response (error - swap is not finished yet)
-
-  ```json
-  {
-    "error": "lp_swap:702] lp_swap:412] taker_swap:886] Swap must be finished before recover funds attempt"
-  }
+  { "error": "Swap must be finished before recover funds attempt" }
   ```
 </CollapsibleSection>

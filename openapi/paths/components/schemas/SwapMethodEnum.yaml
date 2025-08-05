@@ -1,0 +1,22 @@
+components:
+  schemas:
+    SwapMethodEnum:
+      type: string
+      description: 'Used in [trade\_preimage](/komodo-defi-framework/api/legacy/trade_preimage/)
+        method to specify the swap operation type:
+
+
+        **Values:**
+
+        - `buy`: Create a buy order (taker wants to receive the base coin)
+
+        - `sell`: Create a sell order (taker wants to sell the base coin)
+
+        - `setprice`: Create a maker order (provide liquidity at a specific price)
+
+        '
+      enum:
+      - buy
+      - sell
+      - setprice
+      title: 'Component: SwapMethodEnum'

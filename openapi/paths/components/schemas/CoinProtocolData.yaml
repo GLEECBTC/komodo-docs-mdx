@@ -1,0 +1,20 @@
+components:
+  schemas:
+    CoinProtocolData:
+      type: object
+      properties:
+        platform:
+          type: string
+          description: Indicates the platform parent coin for EMV-like protocols,
+            or the coin used for lightning nodes.
+        network:
+          type: string
+          description: Either `mainnet` or \`testnet
+        confirmation_targets:
+          description: A standard [ConfirmationTargets](/komodo-defi-framework/api/common_structures/lightning/#confirmation-targets)
+            object.
+          $ref: '#/components/schemas/ConfirmationTargets'
+      required:
+      - confirmation_targets
+      - network
+      - platform

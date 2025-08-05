@@ -1,0 +1,47 @@
+/task::enable_sia::cancel:
+  post:
+    summary: Cancels an ongoing SIA coin activation task.
+    description: Cancels an ongoing SIA coin activation task.
+    operationId: task::enable_sia::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_sia::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The ID of the activation task to cancel.
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

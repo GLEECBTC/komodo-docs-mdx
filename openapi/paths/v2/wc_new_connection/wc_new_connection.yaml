@@ -1,0 +1,49 @@
+/wc_new_connection:
+  post:
+    summary: Method description for wc_new_connection
+    description: Method description for wc_new_connection
+    operationId: wc_new_connection
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - wc_new_connection
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  required_namespaces:
+                    description: Contains two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns)
+                      objects under the keys `eip155` and `cosmos`, which contain
+                      details of approved chains, methods and events while connected.
+                    $ref: ../../components/schemas/WcConnNs.yaml
+                required:
+                - required_namespaces
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

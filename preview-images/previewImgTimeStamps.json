@@ -833,7 +833,7 @@
     "optImgPath": "public/preview-images/pre-komodo-defi-framework-api-legacy-orders_history_by_filter-514479563.jpg",
     "optImgHash": 514479563
   },
-  "/komodo-defi-framework/api/legacy/rational_number_note": {
+  "/komodo-defi-framework/api/common_structures/rational_number_note": {
     "origImgPath": "./preview-images-original/pre-komodo-defi-framework-api-legacy-rational_number_note.jpg",
     "dateModified": "2024-03-08T15:53:57.000Z",
     "optImgPath": "public/preview-images/pre-komodo-defi-framework-api-legacy-rational_number_note-2451532720.jpg",

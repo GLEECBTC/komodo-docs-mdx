@@ -1,14 +1,11 @@
 export const title = "Komodo DeFi Framework Method: Get Trade Fee";
-export const description =
-  "The get_trade_fee method returns the approximate amount of the miner fee that is paid per swap transaction.";
+export const description = "The get_trade_fee method returns the approximate amount of the miner fee that is paid per swap transaction.";
 
-# get\_trade\_fee {{label : 'get_trade_fee', tag : 'deprecated'}}
+# Get Trade Fee
 
-**get\_trade\_fee coin (deprecated)**
+## get\_trade\_fee {{label : 'get_trade_fee', tag : 'API-v1'}}
 
 The `get_trade_fee` method returns the approximate amount of the miner fee that is paid per swap transaction.
-
-This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin. This aspect is currently under development.
 
 <Note>
   This function is deprecated. Please consider using [trade\_preimage v2.0](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/) instead.
@@ -23,26 +20,26 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
   As a result, the value returned by the `get_trade_fee` for a QRC20 token includes gas fee `3 * 100000 * 40 = 12000000` that can be used in the worst case.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                      |
-| --------- | ------ | ------------------------------------------------ |
-| coin      | string | the name of the coin for the requested trade fee |
+| Parameter | Type   | Required | Description                                      |
+| --------- | ------ | :------: | ------------------------------------------------ |
+| coin      | string |     ✓    | The name of the coin for the requested trade fee |
 
-#### Response
+### Response
 
-| Structure        | Type             | Description                                                                                                                                                                    |
+| Parameter        | Type             | Description                                                                                                                                                                    |
 | ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| coin             | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)                         |
-| amount           | string (numeric) | the approximate fee amount to be paid per swap transaction in decimal representation                                                                                           |
-| amount\_rat      | rational         | the approximate fee amount to be paid per swap transaction, represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object     |
-| amount\_fraction | fraction         | the approximate fee amount to be paid per swap transaction, represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object |
+| coin             | string           | The fee is paid from the user's balance of this coin. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)                         |
+| amount           | string (numeric) | The approximate fee amount to be paid per swap transaction in decimal representation                                                                                           |
+| amount\_rat      | rational         | The approximate fee amount to be paid per swap transaction, represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object     |
+| amount\_fraction | fraction         | The approximate fee amount to be paid per swap transaction, represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command (BTC)
+#### Request (BTC)
 
-<CodeGroup title="" tag="POST" label="get_trade_fee" mm2MethodDecorate="true">
+<CodeGroup title="get_trade_fee" tag="POST" label="get_trade_fee" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -57,84 +54,26 @@ This amount should be multiplied by 2 and deducted from the volume on `buy/sell`
 
   ```json
   {
-    "result": {
-      "amount": "0.00042049",
-      "amount_fraction": {
-        "denom": "100000000",
-        "numer": "42049"
-      },
-      "amount_rat": [
-        [1, [42049]],
-        [1, [100000000]]
-      ],
-      "coin": "BTC"
-    }
+      "result": {
+          "amount": "0.00042049",
+          "amount_fraction": {
+              "denom": "100000000",
+              "numer": "42049"
+          },
+          "amount_rat": [
+              [1, [42049]],
+              [1, [100000000]]
+          ],
+          "coin": "BTC"
+      }
   }
   ```
 </CollapsibleSection>
 
-#### Command (ETH)
-
-<CodeGroup title="" tag="POST" label="get_trade_fee" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "get_trade_fee",
-    "coin": "ETH"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
 
   ```json
-  {
-    "result": {
-      "amount": "0.00594",
-      "amount_fraction": {
-        "denom": "50000",
-        "numer": "297"
-      },
-      "amount_rat": [
-        [1, [297]],
-        [1, [50000]]
-      ],
-      "coin": "ETH"
-    }
-  }
-  ```
-</CollapsibleSection>
-
-#### Command (ERC20)
-
-<CodeGroup title="" tag="POST" label="get_trade_fee" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "get_trade_fee",
-    "coin": "BAT"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "result": {
-      "amount": "0.00594",
-      "amount_fraction": {
-        "denom": "50000",
-        "numer": "297"
-      },
-      "amount_rat": [
-        [1, [297]],
-        [1, [50000]]
-      ],
-      "coin": "ETH"
-    }
-  }
+  { "error": "Invalid coin" }
   ```
 </CollapsibleSection>

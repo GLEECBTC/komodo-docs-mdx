@@ -1,29 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Get My Peer ID";
 export const description = "The get_my_peer_id method returns your unique identifying Peer ID on the network.";
 
-# get\_my\_peer\_id
+# Get My Peer ID
 
-**get\_my\_peer\_id**
+## get\_my\_peer\_id {{label : 'get_my_peer_id', tag : 'API-v1'}}
 
-The `get_my_peer_id` method returns your unique identifying Peer ID on the network
+The `get_my_peer_id` method returns your unique identifying Peer ID on the network.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response parameters
 
-| Structure | Type   | Description                            |
+| Parameter | Type   | Description                            |
 | --------- | ------ | -------------------------------------- |
 | PeerID    | string | The PeerID of your node on the network |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="get_my_peer_id" mm2MethodDecorate="true">
+<CodeGroup title="get_my_peer_id" tag="POST" label="get_my_peer_id" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,11 +33,19 @@ The `get_my_peer_id` method returns your unique identifying Peer ID on the netwo
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response
 
   ```json
   {
-    "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
+      "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
+
+  ```json
+  { "error": "Peer ID not found" }
   ```
 </CollapsibleSection>

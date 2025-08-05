@@ -1,0 +1,51 @@
+/get_swap_transaction_fee_policy:
+  post:
+    summary: Method description for get_swap_transaction_fee_policy
+    description: Method description for get_swap_transaction_fee_policy
+    operationId: get_swap_transaction_fee_policy
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_swap_transaction_fee_policy
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the supported ETH/EVM coin or asset for
+                      which you want to view the fee policy.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The current fee policy for the specified coin.
+          example: {}

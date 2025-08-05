@@ -1,0 +1,98 @@
+/account_balance:
+  post:
+    summary: Method description for account_balance
+    description: Method description for account_balance
+    operationId: account_balance
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - account_balance
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Coin ticker (e.g., `BTC`, `ETH`, `KMD`).
+                    default: –
+                  account_index:
+                    type: number
+                    description: BIP-44 account number to inspect (usually `0`).
+                    default: –
+                  chain:
+                    type: string
+                    description: 'BIP-44 chain: `External` (receiving) or `Internal`
+                      (change).'
+                    default: –
+                  limit:
+                    type: number
+                    description: Maximum number of addresses to return per page.
+                    default: 10.0
+                  paging_options:
+                    type: object
+                    description: 'Either `{ "from_id": <address_id> }` **or** `{ "page_number":
+                      <n> }`. If omitted, the first page (`page_number = 1`) is returned.'
+                    default: –
+                required:
+                - coin
+                - account_index
+                - chain
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              account_index:
+                type: number
+                description: Account number that was queried.
+              derivation_path:
+                type: string
+                description: Root derivation path of the account (e.g., `m/44'/0'/0'`).
+              addresses:
+                type: string
+                description: A list of objects containing each derived address and
+                  its balance.
+              page_balance:
+                type: object
+                description: Combined balance of all addresses in the current page.
+              limit:
+                type: number
+                description: Page size that was applied.
+              skipped:
+                type: number
+                description: Number of addresses skipped before the first item in
+                  `addresses`.
+              total:
+                type: number
+                description: Total number of known addresses for the account/chain.
+              total_pages:
+                type: number
+                description: Total number of pages based on `total` and `limit`.
+              paging_options:
+                type: object
+                description: Echoes the effective paging options that were used to
+                  in the request.
+          example: {}

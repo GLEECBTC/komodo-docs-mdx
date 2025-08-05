@@ -1,0 +1,96 @@
+export const title = "Komodo DeFi Framework Method: Account Balance Task Status";
+export const description = "Query the status/response of an account balance request in the Komodo DeFi Framework API.";
+
+# Account Balance Task Status
+
+## task::account\_balance::status {{label : 'task::account_balance::status', tag : 'API-v2'}}
+
+Use the `task::account_balance::status` method to view the status / response of an account balance request.
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                 |
+| -------------------- | ------- | :------: | :-----: | ----------------------------------------------------------- |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks. |
+| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the task.   |
+
+### Response Parameters
+
+| Parameter       | Type    | Description                                                                                                                                                                                                          |
+| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| current\_block  | integer | Block height of the coin being activated                                                                                                                                                                             |
+| ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                  |
+| wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the activation request. |
+
+#### 📌 Examples
+
+<CodeGroup title="Account Balance Task Status" tag="POST" label="task::account_balance::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::account_balance::status",
+    "params": {
+      "task_id": 3,
+      "forget_if_finished": false
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Account Balance Task Status Response" collapsedText="Show Account Balance Task Status Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "account_index": 0,
+        "derivation_path": "m/44'/20'/0'",
+        "total_balance": {
+          "KMD": {
+            "spendable": "99.999",
+            "unspendable": "0"
+          }
+        },
+        "addresses": [
+          {
+            "address": "DJdsr4Mhqm1afkbxwBJfwH6236xNh5kJZU",
+            "derivation_path": "m/44'/20'/0'/0/0",
+            "chain": "External",
+            "balance": {
+              "KMD": {
+                "spendable": "49.999",
+                "unspendable": "0"
+              }
+            }
+          },
+          {
+            "address": "DJdsr4Mhqm1afkbxwBJfwH6236xNh5kJZU",
+            "derivation_path": "m/44'/20'/0'/0/1",
+            "chain": "External",
+            "balance": {
+              "KMD": {
+                "spendable": "50",
+                "unspendable": "0"
+              }
+            }
+          },
+          {
+            "address": "DJdsr4Mhqm1afkbxwBJfwH6236xNh5kJZU",
+            "derivation_path": "m/44'/20'/0'/0/2",
+            "chain": "External",
+            "balance": {
+              "KMD": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

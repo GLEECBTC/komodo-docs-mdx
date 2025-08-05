@@ -1,0 +1,69 @@
+export const title = "Komodo DeFi Framework Method: Autoprice";
+export const description = "Automatically manage and update maker order prices relative to orderbook depth and market conditions (legacy API).";
+
+# Autoprice
+
+## autoprice {{label : 'autoprice', tag : 'API-v1'}}
+
+<Note type="info">
+  This is a legacy Komodo DeFi Framework API v1 method. New integrations should prefer API-v2 equivalents when available.
+  This documentation was generated automatically - use with caution.
+</Note>
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                                         |
+| --------- | ------ | :------: | ----------------------------------------------------------------------------------- |
+| base      | string |     ✓    | Base coin symbol (e.g., `KMD`).                                                     |
+| rel       | string |     ✓    | Quote coin symbol (e.g., `BTC`).                                                    |
+| cancel    | bool   |     ✗    | Stop an existing autoprice task instead of starting a new one. Defaults to `false`. |
+| userpass  | string |     ✓    | RPC password (`RPC_UserP@SSW0RD`).                                                  |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                     |
+| --------- | ------ | ----------------------------------------------- |
+| result    | string | "ok" on success or an error message on failure. |
+
+#### 📌 Examples
+
+<CodeGroup title="autoprice" tag="POST" label="autoprice" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "autoprice",
+    "base": "KMD",
+    "rel": "BTC",
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "result": "ok"
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter     | Type   | Description                                      |
+| ------------- | ------ | ------------------------------------------------ |
+| InternalError | string | The request failed due to an internal API error. |
+| Transport     | string | Network error occurred while processing request. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error (InternalError)
+
+  ```json
+  {
+    "mmrpc": "1.0",
+    "error": "Internal error",
+    "error_type": "InternalError",
+    "id": 1
+  }
+  ```
+</CollapsibleSection>

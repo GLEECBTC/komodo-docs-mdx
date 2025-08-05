@@ -1,0 +1,53 @@
+export const title = "Komodo DeFi Framework Method: SIA User Action";
+export const description = "Provides a user action for the SIA coin activation task.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# SIA User Action
+
+## task::enable\_sia::user\_action {{label : 'task::enable_sia::user_action', tag : 'API-v2'}}
+
+This method is used when the SIA activation process requires user interaction.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                    |
+| :-------- | :------ | :------: | :----------------------------- |
+| task\_id  | integer |     ✓    | The ID of the activation task. |
+
+### Response Parameters
+
+The response indicates if the user action was successfully processed.
+
+#### 📌 Examples
+
+#### Request (Provide User Action)
+
+<CodeGroup title="SIA User Action" tag="POST" label="task::enable_sia::user_action">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_utxo::user_action",
+    "params": {
+      "task_id": 1,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "862743"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (Success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

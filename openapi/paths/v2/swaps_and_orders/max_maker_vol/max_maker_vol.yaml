@@ -1,0 +1,63 @@
+/max_maker_vol:
+  post:
+    summary: Method description for max_maker_vol
+    description: Method description for max_maker_vol
+    operationId: max_maker_vol
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - max_maker_vol
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you want to query.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The ticker of the coin you queried.
+              volume:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object representing the tradable maker volume.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+              balance:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object representing the tradable taker balance.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+              locked_by_swaps:
+                description: A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value)
+                  object representing the volume of a coin's balance which is locked
+                  by swaps in progress.
+                $ref: ../../components/schemas/NumericFormatsValue.yaml
+          example: {}

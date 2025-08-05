@@ -1,0 +1,50 @@
+export const title = "Komodo DeFi Framework Method: ancel Get New Address Task";
+export const description = "Cancel a HD address creation task in the Komodo DeFi Framework API.";
+
+# Cancel Get New Address Task
+
+## task::get\_new\_address::cancel   {{label : 'task::get_new_address::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                                                           |
+| --------- | ------- | :------: | --------------------------------------------------------------------- |
+| task\_id  | integer |     ✓    | The identifying number returned when initiating the enabling process. |
+
+### Response Parameters
+
+| Parameter    | Type   | Description                                                    |
+| ------------ | ------ | -------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was succesful.                     |
+| error        | string | An error message to explain what went wrong.                   |
+| error\_path  | string | An indicator of the class or function which reurned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown. |
+| error\_type  | string | An enumerated value for the returned error.                    |
+| error\_data  | string | The input task ID which resulted in the error.                 |
+
+#### 📌 Examples
+
+<CodeGroup title="task::get_new_address::cancel" tag="POST" label="task::get_new_address::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::get_new_address::cancel",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

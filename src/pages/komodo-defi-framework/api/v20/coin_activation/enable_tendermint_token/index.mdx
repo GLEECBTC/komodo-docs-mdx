@@ -2,16 +2,20 @@ export const title = "Komodo DeFi Framework Method: Enable Tendermint Token";
 export const description =
   "The enable_tendermint_token method allows you to activate additional Tendermint assets.";
 
-# enable\_tendermint\_token
+# Enable Tendermint Token
+
+## enable\_tendermint\_token {{label : 'enable_tendermint_token', tag : 'API-v2'}}
 
 The `enable_tendermint_token` method allows you to activate additional Tendermint assets. Before using this method, you first need to use the [enable\_tendermint\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/) method.
 
-| parameter                                  | Type    | Description                                                                                        |
-| ------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------- |
-| ticker                                     | string  | Ticker of the Tendermint asset.                                                                    |
-| activation\_params.required\_confirmations | integer | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
+### Request Parameters
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_token" mm2MethodDecorate="true">
+| Parameter          | Type   | Required | Default | Description                                                                                                                  |
+| ------------------ | ------ | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    |    -    | Ticker of the Tendermint asset you want to enable.                                                                           |
+| activation\_params | object |     ✗    |    -    | A standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) object. |
+
+<CodeGroup title="Enable Tendermint Token" tag="POST" label="enable_tendermint_token" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -27,62 +31,68 @@ The `enable_tendermint_token` method allows you to activate additional Tendermin
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Enable Tendermint Token Response" collapsedText="Show Enable Tendermint Token Response">
+  #### Response (success)
 
-```json
-{
-  "mmrpc": "2.0",
-  "result": {
-    "balances": {
-      "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k": {
-        "spendable": "0.028306",
-        "unspendable": "0"
-      }
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "balances": {
+        "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k": {
+          "spendable": "0.028306",
+          "unspendable": "0"
+        }
+      },
+      "platform_coin": "IRIS"
     },
-    "platform_coin": "IRIS"
-  },
-  "id": null
-}
-```
+    "id": null
+  }
+  ```
+</CollapsibleSection>
 
-## Error - Platform coin is not yet activated
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### ⚠️ Error Responses
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Platform coin IRIS is not activated",
-  "error_path": "token.lp_coins",
-  "error_trace": "token:126] lp_coins:2847]",
-  "error_type": "PlatformCoinIsNotActivated",
-  "error_data": "IRIS",
-  "id": null
-}
-```
+  ## Error - Platform coin is not yet activated
 
-## Error - Token already activated
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform coin IRIS is not activated",
+    "error_path": "token.lp_coins",
+    "error_trace": "token:126] lp_coins:2847]",
+    "error_type": "PlatformCoinIsNotActivated",
+    "error_data": "IRIS",
+    "id": null
+  }
+  ```
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token ATOM-IBC_IRIS is already activated",
-  "error_path": "token",
-  "error_trace": "token:119]",
-  "error_type": "TokenIsAlreadyActivated",
-  "error_data": "ATOM-IBC_IRIS",
-  "id": null
-}
-```
+  ## Error - Token already activated
 
-## Error - Token config not found in coins file
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token ATOM-IBC_IRIS is already activated",
+    "error_path": "token",
+    "error_trace": "token:119]",
+    "error_type": "TokenIsAlreadyActivated",
+    "error_data": "ATOM-IBC_IRIS",
+    "id": null
+  }
+  ```
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token UP-AND-ATOM config is not found",
-  "error_path": "token.prelude",
-  "error_trace": "token:122] prelude:79]",
-  "error_type": "TokenConfigIsNotFound",
-  "error_data": "UP-AND-ATOM",
-  "id": null
-}
-```
+  ## Error - Token config not found in coins file
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token UP-AND-ATOM config is not found",
+    "error_path": "token.prelude",
+    "error_trace": "token:122] prelude:79]",
+    "error_type": "TokenConfigIsNotFound",
+    "error_data": "UP-AND-ATOM",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

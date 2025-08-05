@@ -1,224 +1,24 @@
-export const title = "Komodo DeFi Framework Method: Get New Address";
-export const description = "The methods in this document allow generation of HD addresses on Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method: Get New Address Task";
+export const description = "Overview of get new address task-managed methods in the Komodo DeFi Framework API.";
 
-import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+# Get New Address Task
 
-# Task: Get New Address
+## task::get\_new\_address {{label : 'task::get_new_address', tag : 'overview'}}
 
-## task::get\_new\_address::init  {{label : 'task::get_new_address::init', tag : 'API-v2'}}
+Overview of all get new address task-managed methods. See below for details and cross-links to related address generation documentation.
 
-A hierarchical-deterministic (HD) wallet generates a new key pair from a master key pair, allowing for multiple addresses to be generated from the same seed so that change from transactions go to a previously unused address, enhancing privacy and security.
-The hierarchical structure resembles that of a tree, with the master key “determining” the key pairs that follow it in the hierarchy. If you are running KDF in HD mode, and don't already have too many unused addresses, you can use the `get_new_address` method to generate a new address. The generated address will be shown in the task::account\_balance RPCs and at the next coin activation.
+### Init Get New Address
 
-<Note>
-  For hardware wallets (e.g. Trezor), you need to use the task based address creation methods: `task::get_new_address::init`, `task::get_new_address::status`, task::get\_new\_address::user\_action`and`task::get\_new\_address::cancel\`.
-</Note>
+See [task::get\_new\_address::init](/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/init/) for initializing new address generation.
 
-#### Arguments
+### Status Get New Address
 
-| Parameter   | Type    | Description                                                                                                                                                                                                                                                                                                                 |
-| ----------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin        | string  | The ticker of the coin you want to get a new address for                                                                                                                                                                                                                                                                    |
-| account\_id | integer | Generally this will be `0` unless you have multiple accounts registered on your Trezor                                                                                                                                                                                                                                      |
-| chain       | string  | `Internal`, or `External`. Defaults to `External`. External is used for addresses that are intended to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used to return the leftover change from a transaction. |
-| gap\_limit  | integer | Optional. The maximum number of empty addresses in a row. Defaults to the value provided on activation or 20 if no value was provided                                                                                                                                                                                       |
+See [task::get\_new\_address::status](/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/status/) for checking the status of address generation.
 
-#### Response
+### User Action Get New Address
 
-| Parameter    | Type   | Description                                                                                                |
-| ------------ | ------ | ---------------------------------------------------------------------------------------------------------- |
-| new\_address | object | A standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) object. |
+See [task::get\_new\_address::user\_action](/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/user_action/) for user actions on a hardware wallet during address generation.
 
-Some reasons you might not be able to get a new address are:
+### Cancel Get New Address
 
-*   `EmptyAddressesLimitReached` - Last gap\_limit addresses are still unused.
-*   `AddressLimitReached` - Addresses limit reached. Currently, the limit is [2^31](https://www.wolframalpha.com/input?i=2%5E%2832%29)
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="task::get_new_address::init" tag="POST" label="task::get_new_address::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::get_new_address::init",
-    "params": {
-      "coin": "DOC",
-      "account_id": 0,
-      "chain": "External",
-      "gap_limit": 20
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 3
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## task::get\_new\_address::status   {{label : 'task::get_new_address::status', tag : 'API-v2'}}
-
-Use the `task::get_new_address::status` method to check the status of a HD address creation task.
-
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the task.                                 |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
-
-#### Response
-
-| Parameter | Type             | Description                                                                                                                 |
-| --------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                          |
-| details   | string or object | Once complete, a standard [NewAddressesInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) object. |
-
-<CodeGroup title="task::get_new_address::status" tag="POST" label="task::get_new_address::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::get_new_address::status",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": {
-          "new_address": {
-              "address": "RDKyU11wFTa8kYETaDbr4YuJZG8C4e6JUm",
-              "derivation_path": "m/44'/141'/0'/0/3",
-              "chain": "External",
-              "balance": {
-                  "spendable": "0",
-                  "unspendable": "0"
-              }
-          }
-      },
-      "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## task::get\_new\_address::user\_action {{label : 'task::get_new_address::user_action', tag : 'API-v2'}}
-
-If the `task::get_new_address::status` returns `UserActionRequired`, we need to use the `task::get_new_address::user_action` method to enter our PIN
-
-#### Arguments
-
-| Parameter                 | Type            | Description                                                                                                                                                                                      |
-| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| task\_id                  | integer         | The identifying number returned when initiating the task.                                                                                                                                        |
-| user\_action              | object          | Object containing the params below                                                                                                                                                               |
-| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
-| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
-
-<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
-
-#### Response
-
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="task::get_new_address::user_action" tag="POST" label="task::get_new_address::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::get_new_address::user_action",
-    "params": {
-      "task_id": 0,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## task::get\_new\_address::cancel {{label : 'task::get_new_address::cancel', tag : 'API-v2'}}
-
-If you want to cancel the enabling process before it has completed, you can use this method.
-
-#### Arguments
-
-| Structure | Type    | Description                                                           |
-| --------- | ------- | --------------------------------------------------------------------- |
-| task\_id  | integer | The identifying number returned when initiating the enabling process. |
-
-#### Response
-
-| Structure    | Type   | Description                                                    |
-| ------------ | ------ | -------------------------------------------------------------- |
-| result       | string | Indicates task cancellation was succesful.                     |
-| error        | string | An error message to explain what went wrong.                   |
-| error\_path  | string | An indicator of the class or function which reurned the error. |
-| error\_trace | string | An indicator of where in the source code the error was thrown. |
-| error\_type  | string | An enumerated value for the returned error.                    |
-| error\_data  | string | The input task ID which resulted in the error.                 |
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="task::get_new_address::cancel" tag="POST" label="task::get_new_address::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::get_new_address::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+See [task::get\_new\_address::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/cancel/) for cancelling address generation.

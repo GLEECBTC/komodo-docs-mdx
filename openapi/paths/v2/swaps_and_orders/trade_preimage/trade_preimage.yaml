@@ -1,0 +1,119 @@
+/trade_preimage:
+  post:
+    summary: The trade_preimage method returns the approximate fee amounts that are
+      paid per the whole swap.
+    description: The trade_preimage method returns the approximate fee amounts that
+      are paid per the whole swap.
+    operationId: trade_preimage
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - trade_preimage
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  base:
+                    type: string
+                    description: The base currency of the request.
+                    default: '-'
+                  rel:
+                    type: string
+                    description: The rel currency of the request.
+                    default: '-'
+                  swap_method:
+                    description: 'The name of the method whose preimage is requested.
+                      Possible values: `buy`, `sell`, `setprice`. See [SwapMethodEnum](/komodo-defi-framework/api/common_structures/enums/#swap-method-enum).'
+                    $ref: ../../components/schemas/SwapMethodEnum.yaml
+                  price:
+                    type: string
+                    description: The price in `rel` the user is willing to pay per
+                      one unit of the `base` coin.
+                    default: '-'
+                  max:
+                    type: boolean
+                    description: Whether to return the maximum available volume for
+                      `setprice` method; must not be set or `false` if `swap_method`
+                      is `buy` or `sell`.
+                    default: false
+                  volume:
+                    type: string
+                    description: The amount the user is willing to trade; ignored
+                      if `max = true` **and** `swap_method = setprice`, otherwise,
+                      it must be set.
+                    default: '-'
+                required:
+                - base
+                - rel
+                - swap_method
+                - price
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              base_coin_fee:
+                description: A standard [ExtendedFeeInfo](/komodo-defi-framework/api/common_structures/wallet/#extended-fee-info)
+                  object. The approximate miner fee is paid per the whole swap concerning
+                  the `base` coin.
+                $ref: ../../components/schemas/ExtendedFeeInfo.yaml
+              rel_coin_fee:
+                description: A standard [ExtendedFeeInfo](/komodo-defi-framework/api/common_structures/wallet/#extended-fee-info)
+                  object. The approximate miner fee is paid per the whole swap concerning
+                  the `rel` coin.
+                $ref: ../../components/schemas/ExtendedFeeInfo.yaml
+              volume:
+                type: string
+                description: Optional. The max available volume that can be traded
+                  (in decimal representation); empty if the `max` argument is missing
+                  or false.
+              volume_rat:
+                description: Optional. The max available volume that can be traded
+                  represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.; empty if the `max` argument is missing or false.
+                $ref: ../../components/schemas/RationalValue.yaml
+              volume_fraction:
+                description: Optional. The max available volume that can be traded
+                  represented as a standard [fractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  object.; empty if the `max` argument is missing or false.
+                $ref: ../../components/schemas/fractionalValue.yaml
+              taker_fee:
+                description: A standard [ExtendedFeeInfo](/komodo-defi-framework/api/common_structures/wallet/#extended-fee-info)
+                  object. The dex fee to be paid by Taker; empty if `swap_method`
+                  is `setprice`.
+                $ref: ../../components/schemas/ExtendedFeeInfo.yaml
+              fee_to_send_taker_fee:
+                description: A standard [ExtendedFeeInfo](/komodo-defi-framework/api/common_structures/wallet/#extended-fee-info)
+                  object. The approximate miner fee is paid to send the dex fee; empty
+                  if `swap_method` is `setprice`.
+                $ref: ../../components/schemas/ExtendedFeeInfo.yaml
+              total_fees:
+                description: A standard [TotalFeeInfo](/komodo-defi-framework/api/common_structures/wallet/#total-fee-info)
+                  object. Each element is a sum of fees required to be paid from user's
+                  balance of corresponding `ExtendedFeeInfo.coin`; the elements are
+                  unique by coin.
+                $ref: ../../components/schemas/TotalFeeInfo.yaml
+          example: {}

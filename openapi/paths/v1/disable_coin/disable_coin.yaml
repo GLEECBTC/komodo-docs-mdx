@@ -1,0 +1,57 @@
+/disable_coin:
+  post:
+    summary: The disable_coin method deactivates the previously enabled coin and also
+      cancels all active orders that use the selected coin.
+    description: The disable_coin method deactivates the previously enabled coin and
+      also cancels all active orders that use the selected coin.
+    operationId: disable_coin
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - disable_coin
+              coin:
+                type: string
+                description: The ticker of the coin to disable
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The ticker of the deactivated coin
+              cancelled_orders:
+                type: string
+                description: UUIDs of cancelled orders
+              swaps:
+                type: string
+                description: UUIDs of active swaps that use the selected coin; present
+                  only in error cases
+              orders.matching:
+                type: string
+                description: UUIDs of matching orders that use the selected coin;
+                  present only in error cases
+              orders.cancelled:
+                type: string
+                description: UUIDs of orders that were successfully cancelled despite
+                  the error
+          example: {}

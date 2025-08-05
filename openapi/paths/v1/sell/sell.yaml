@@ -1,0 +1,167 @@
+/sell:
+  post:
+    summary: The sell method issues a sell request and attempts to match an order
+      from the orderbook based on the provided arguments.
+    description: The sell method issues a sell request and attempts to match an order
+      from the orderbook based on the provided arguments.
+    operationId: sell
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - sell
+              base:
+                type: string
+                description: The name of the coin the user desires to sell
+              rel:
+                type: string
+                description: The name of the coin the user desires to receive
+              price:
+                type: string
+                description: The amount of `rel` coins the user wants to receive for
+                  each unit of the `base` coin spent.
+              volume:
+                type: string
+                description: 'The maximum amount of `base` coin available for sale
+                  in the order, ignored if max is `true`; the following values must
+                  be greater than or equal to the `min_trading_vol` of the corresponding
+                  coin: <ul><li>the argument `volume`</li><li>the product of the arguments
+                  `volume` and `price`</li></ul>'
+              base_confs:
+                type: number
+                description: Number of required blockchain confirmations for base
+                  coin atomic swap transaction; default to base coin configuration
+                  if not set
+              base_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for base coin atomic
+                  swap transaction; default to base coin configuration if not set
+              match_by:
+                description: Optional. A standard [MatchBy](/komodo-defi-framework/api/common_structures/orders/#match-by)
+                  object, to filter to include only matches by pubkey or uuid. *Important:*
+                  This condition is not applied after a `GoodTillCancelled` order
+                  is converted to a `maker` request.
+                $ref: ../../components/schemas/MatchBy.yaml
+              min_volume:
+                description: 'The amount of `base` coin that will be used as `min_volume`
+                  of `GoodTillCancelled` order after conversion to maker; the following
+                  values must be greater than or equal to the `min_trading_vol` of
+                  the corresponding coin: <ul><li>the argument `min_volume`</li><li>the
+                  product of the arguments `min_volume` and `price`</li></ul>. Can
+                  be a numeric string, expressed using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  objects.'
+                $ref: ../../components/schemas/RationalValue.yaml
+              order_type:
+                description: Optional. A standard [OrderType](/komodo-defi-framework/api/common_structures/orders/#order-type)
+                  object.
+                $ref: ../../components/schemas/OrderType.yaml
+              rel_confs:
+                type: number
+                description: Number of required blockchain confirmations for rel coin
+                  atomic swap transaction; default to rel coin configuration if not
+                  set
+              rel_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for rel coin atomic
+                  swap transaction; default to rel coin configuration if not set
+              save_in_history:
+                type: boolean
+                description: Defaults to `true`. If set to `false` no order history
+                  will be saved (though order status will be temporarily stored while
+                  in progress). If `true`, each order's short record history is stored
+                  in a local SQLite database table, and when the order is cancelled
+                  or fully matched, its history will be saved as a json file
+                default: true
+            required:
+            - userpass
+            - method
+            - base
+            - rel
+            - price
+            - volume
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              action:
+                type: string
+                description: The action of the request (`Sell`)
+              base:
+                type: string
+                description: The base currency of the request
+              base_amount:
+                type: string
+                description: The resulting amount of base currency that is sold if
+                  the order matches, represented as a decimal value.
+              base_amount_rat:
+                description: The resulting amount of base currency that is sold if
+                  the order matches, represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object.
+                $ref: ../../components/schemas/RationalValue.yaml
+              base_orderbook_ticker:
+                type: string
+                description: The ticker of the base currency if `orderbook_ticker`
+                  is configured for the base currency in `coins` file. If not defined,
+                  will return a null value.
+              conf_settings:
+                description: A standard [ConfSettings](/komodo-defi-framework/api/common_structures/orders/#conf-settings)
+                  object.
+                $ref: ../../components/schemas/ConfSettings.yaml
+              dest_pub_key:
+                type: string
+                description: Reserved for future use. The `dest_pub_key` allows the
+                  user to choose the P2P node that is eligible to match with the request.
+                  This value defaults to "zero pubkey", meaning that `anyone` can
+                  match
+              match_by:
+                description: A standard [MatchBy](/komodo-defi-framework/api/common_structures/orders/#match-by)
+                  object, to filter to include only matches by pubkey or uuid. *Important:*
+                  This condition is not applied after a `GoodTillCancelled` order
+                  is converted to a `maker` request.
+                $ref: ../../components/schemas/MatchBy.yaml
+              method:
+                type: string
+                description: This field is used for internal P2P interactions; the
+                  value is always equal to "request"
+              rel:
+                type: string
+                description: The rel currency of the request
+              rel_amount:
+                type: string
+                description: The minimum amount of `rel` coin that must be received
+                  in order to sell the `base_amount` of `base` (according to `price`,
+                  in decimal representation)
+              rel_amount_rat:
+                description: The minimum amount of `rel` coin that must be received
+                  in order to sell the `base_amount` of `base` (according to `price`,
+                  represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  object).
+                $ref: ../../components/schemas/RationalValue.yaml
+              rel_orderbook_ticker:
+                type: string
+                description: The ticker of the rel currency if `orderbook_ticker`
+                  is configured for the rel currency in `coins` file. If not defined,
+                  will return a null value.
+              sender_pubkey:
+                type: string
+                description: The public key of our node
+              uuid:
+                type: string
+                description: The request uuid
+          example: {}

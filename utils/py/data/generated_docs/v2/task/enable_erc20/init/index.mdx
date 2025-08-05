@@ -1,0 +1,143 @@
+export const title = "Komodo DeFi Framework Method: Init Enable Erc20 Task";
+export const description = "Initialize the ERC20 activation task";
+
+# Init Enable Erc20 Task
+
+## task::enable_erc20::init {{label : 'task::enable_erc20::init', tag : 'API-v2'}}
+
+Initialize the ERC20 activation task
+
+### Request Parameters
+
+| Parameter         | Type   | Required | Default          | Description                                                                                                                                         |
+| ----------------- | ------ | :------: | :--------------: | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| activation_params | object |    ✓     |        -         | [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) for ERC20 protocol                                   |
+| ticker            | string |    ✓     |        -         | The coin ticker (e.g., 1INCH-ERC20 for ERC20 protocol)                                                                                              |
+| userpass          | string |    ✓     |        -         | Password for authentication                                                                                                                         |
+| priv_key_policy   | string |    ✗     | `ContextPrivKey` | Value can be [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum) for coin activation |
+
+### Response Parameters
+
+| Parameter | Type    | Description                            |
+| --------- | ------- | -------------------------------------- |
+| task_id   | integer | The identifier of the initialized task |
+
+#### 📌 Examples
+
+<CodeGroup title="Task::Enable Erc20::Init Example" tag="POST" label="task::enable_erc20::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_erc20::init",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "activation_params": {
+        "mode": {
+          "rpc": "Ethereum",
+          "rpc_data": {
+            "rpc_nodes": [
+              {
+                "url": "https://eth3.cipig.net:18555",
+                "ws_url": "wss://eth3.cipig.net:38555"
+              },
+              {
+                "url": "https://node.komodo.earth:8080/ethereum"
+              },
+              {
+                "url": "https://0xrpc.io/eth",
+                "ws_url": "wss://0xrpc.io/eth"
+              }
+            ]
+          }
+        }
+      },
+      "ticker": "1INCH-ERC20"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "id": 0,
+    "result": {
+      "task_id": 12345
+    }
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter       | Type   | Description                                     |
+| --------------- | ------ | ----------------------------------------------- |
+| InvalidUserpass | string | The userpass provided is invalid                |
+| InternalError   | string | An internal error occurred                      |
+| InvalidRequest  | string | The request parameters are invalid              |
+| NoSuchTask      | string | The specified task was not found or has expired |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### InvalidUserpass
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The userpass provided is invalid",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InvalidUserpass",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### InternalError
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "An internal error occurred",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InternalError",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### InvalidRequest
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The request parameters are invalid",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InvalidRequest",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### NoSuchTask
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The specified task was not found or has expired",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "NoSuchTask",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+

@@ -1,0 +1,25 @@
+components:
+  schemas:
+    MetricTypeEnum:
+      type: string
+      description: 'Used in [metrics](/komodo-defi-framework/api/legacy/metrics/)
+        response to indicate the type of metric measurement:
+
+
+        **Values:**
+
+        - `counter`: A monotonically increasing metric that tracks cumulative events
+        or quantities
+
+        - `gauge`: A metric that represents a single numerical value that can go up
+        or down
+
+        - `histogram`: A metric that samples observations and counts them in configurable
+        buckets
+
+        '
+      enum:
+      - counter
+      - gauge
+      - histogram
+      title: 'Component: MetricTypeEnum'

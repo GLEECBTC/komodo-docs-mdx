@@ -1,0 +1,22 @@
+components:
+  schemas:
+    1inchProtocolInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Liquidity source name.
+        part:
+          type: string
+          description: Protocol part.
+        from_token_address:
+          type: string
+          description: From-token contract address.
+        to_token_address:
+          type: string
+          description: To-token contract address.
+      required:
+      - from_token_address
+      - name
+      - part
+      - to_token_address

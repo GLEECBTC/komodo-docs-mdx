@@ -1,0 +1,38 @@
+/metrics:
+  post:
+    summary: The metrics method returns a snapshot of the current Komodo DeFi Framework
+      API metrics used in Prometheus and Grafana.
+    description: The metrics method returns a snapshot of the current Komodo DeFi
+      Framework API metrics used in Prometheus and Grafana.
+    operationId: metrics
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - metrics
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

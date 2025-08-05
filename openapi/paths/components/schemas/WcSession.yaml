@@ -1,0 +1,25 @@
+components:
+  schemas:
+    WcSession:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: The session topic hex string, used to identify the session
+            for communications with the external wallet/dapp.
+        metadata:
+          type: object
+          description: Arbitrary data returned from the external wallet/dapp on connection.
+        pairing_topic:
+          type: string
+          description: The pairing topic hex string, used for the initial external
+            wallet/dapp connection.
+        namespaces:
+          description: Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns)
+            objects for Cosmos/EIP155 which were input when initialising the connection
+            via [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection).
+          $ref: '#/components/schemas/WcConnNs'
+        expiry:
+          type: integer
+          description: A timestamp in [unix epoch format](https://www.epochconverter.com/)
+            indicating when the connection will expire if not otherwise closed.

@@ -1,0 +1,37 @@
+components:
+  schemas:
+    WithdrawFee:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The fee type. Either `Utxo`, `Tendermint`, `Qrc20` or `Eth`.
+        amount:
+          type: string
+          description: '`Utxo` or `Tendermint` type only. The fee amount.'
+        coin:
+          type: string
+          description: The coin which will be used to pay the transaction fee.
+        gas:
+          type: integer
+          description: '`Eth` type only. The amount of gas to be used for the transaction.'
+        gas_price:
+          type: string
+          description: '`Eth` or `Qrc20` type only. Price per unit of gas to be used
+            for the transaction.'
+        gas_limit:
+          type: string
+          description: '`Tendermint` or `Qrc20` type only. Maximum gas to be used
+            for the transaction.'
+        miner_fee:
+          type: string
+          description: '`Tendermint` type only. Fee to mine the transaction.'
+        total_fee:
+          type: string
+          description: '`Eth` type only. Gas price multiplied by gas amount.'
+        total_gas_fee:
+          type: string
+          description: '`Qrc20` type only. Gas price multiplied by gas amount.'
+      required:
+      - coin
+      - type

@@ -1,0 +1,211 @@
+export const title = "Komodo DeFi Framework Method: 1inch v6.0 Classic Swap Create";
+export const description =
+  "The 1inch_v6_0_classic_swap_create method returns transaction data for classic swap from 1inch API version 6.0.";
+
+# 1inch v6.0 Classic Swap Create
+
+## 1inch\_v6\_0\_classic\_swap\_create {{label : '1inch_v6_0_classic_swap_create', tag : 'API-v2'}}
+
+The `1inch_v6_0_classic_swap_create` method returns transaction data for classic swap from 1inch API version 6.0.
+
+<Note>
+  To use methods which interface with the 1inch API, you need to set the `1inch_api` url in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/).
+  You'll also need to set your 1inch API key as an environment variable called `ONE_INCH_API_TEST_AUTH`, e.g. `ONE_INCH_API_TEST_AUTH="Bearer YourAPIkey"`.
+
+  As this feature is still experimental, you will need to [build KDF from source](https://github.com/KomodoPlatform/komodo-defi-framework?tab=readme-ov-file#building-from-source) on the dev branch with a build flag, e.g. `cargo build --features test-ext-api`.
+</Note>
+
+Refer to the [1inch Classic Swap documentation](https://portal.1inch.dev/documentation/apis/swap/classic-swap/quick-start) for more information.
+
+### Request Parameters
+
+| Parameter             | Type                       | Required | Description                                                                                                                                |
+| --------------------- | -------------------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| amount                | numeric string or rational |     ✓    | Swap amount (in coins units)                                                                                                               |
+| base                  | string                     |     ✓    | Base coin name                                                                                                                             |
+| rel                   | string                     |     ✓    | Rel coin name (must be from the same EVM chain as the base coin)                                                                           |
+| slippage              | float                      |     ✓    | Allowed slippage, min: 0; max: 50                                                                                                          |
+| allow\_partial\_fill  | bool                       |     ✗    | If true, the algorithm can cancel part of the route, if the rate has become less attractive. Unswapped tokens will return to 'my address'. |
+| compatibility         | bool                       |     ✗    | Exclude the Unoswap method                                                                                                                 |
+| complexity\_level     | numeric                    |     ✗    | Maximum number of token-connectors to be used in a transaction, min: 0; max: 3                                                             |
+| connector\_tokens     | string                     |     ✗    | Token-connectors can be specified via this parameter. If not set, default token-connectors will be used                                    |
+| disable\_estimate     | bool                       |     ✗    | If true, disable most of the checks                                                                                                        |
+| excluded\_protocols   | string                     |     ✗    | Excluded supported liquidity sources. Should be the same for a quote and swap, max: 5                                                      |
+| fee                   | float                      |     ✗    | Partner fee, percentage of src token amount will be sent to referrer address, min: 0; max: 3. Should be the same for quote and swap rpc.   |
+| gas\_limit            | numeric                    |     ✗    | Maximum amount of gas for a swap. Should be the same for a quote and swap. max: 11500000                                                   |
+| gas\_price            | numeric string             |     ✗    | Network price per gas, in Gwei. 1inch takes in account gas expenses to determine exchange route. Should be the same for a quote and swap   |
+| include\_gas          | boolean                    |     ✗    | Include estimated gas in return value                                                                                                      |
+| include\_protocols    | boolean                    |     ✗    | Return used swap protocols in response                                                                                                     |
+| include\_tokens\_info | boolean                    |     ✗    | Return fromToken and toToken info in response                                                                                              |
+| main\_route\_parts    | numeric                    |     ✗    | Limit maximum number of main route parts. Should be the same for a quote and swap. max: 50                                                 |
+| parts                 | numeric                    |     ✗    | Limit maximum number of parts each main route parts can be split into. Should be the same for a quote and swap. max: 100                   |
+| permit                | string                     |     ✗    | Used according [https://eips.ethereum.org/EIPS/eip-2612](https://eips.ethereum.org/EIPS/eip-2612)                                          |
+| protocols             | string                     |     ✗    | Specify liquidity sources e.g.: \&protocols=WETH,CURVE,BALANCER,...,ZRX (by default - all used)                                            |
+| receiver              | bool                       |     ✗    | This address will receive funds after the swap. By default same address as 'my address'                                                    |
+| referrer              | bool                       |     ✗    | Address to receive the partner fee. Must be set explicitly if fee is also set                                                              |
+| use\_permit2          | bool                       |     ✗    | Enable this flag for auto approval by Permit2 contract if you did an approval to Uniswap Permit2 smart contract for this token.            |
+
+### Response Parameters
+
+| Parameter   | Type   | Description                                                                                                                                                                        |
+| ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| dst\_amount | number | Destination token amount, in coins units.                                                                                                                                          |
+| src\_token  | object | Source (base) token information. A standard [1inchTokenInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-token-info) object.                                        |
+| dst\_token  | object | Destination (rel) token info. A standard [1inchTokenInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-token-info) object.                                           |
+| protocols   | list   | Optional. A list of standard [1inchProtocolInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-protocol-info) objects, used as liquidity sources used to route trade. |
+| tx          | object | A standard [1inchTxFields](/komodo-defi-framework/api/common_structures/orders/#1inch-tx-fields) object.                                                                           |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="" tag="POST" label="1inch_v6_0_classic_swap_create" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "1inch_v6_0_classic_swap_create",
+    "params": {
+      "base": "ETH",
+      "rel": "USDC-ERC20",
+      "amount": 0.1,
+      "slippage": 1,
+      "include_tokens_info": true,
+      "include_protocols": true,
+      "include_gas": true,
+      "fee": 0,
+      "complexity_level": 3,
+      "gas_limit": 11500000,
+      "main_route_parts": 50,
+      "parts": 100,
+      "protocols": ""
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "dst_amount": {
+        "amount": "0.000000000035136197",
+        "amount_fraction": {
+            "numer": "35136197",
+            "denom": "1000000000000000000"
+        },
+        "amount_rat": [
+            [
+            1,
+            [
+                35136197
+            ]
+            ],
+            [
+            1,
+            [
+                2808348672,
+                232830643
+            ]
+            ]
+        ]
+        },
+        "src_token": {
+        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "symbol": "ETH",
+        "name": "Ether",
+        "decimals": 18,
+        "eip2612": false,
+        "isFoT": false,
+        "logoURI": "https://tokens.1inch.io/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png",
+        "tags": [
+            "crosschain",
+            "GROUP:ETH",
+            "native",
+            "PEG:ETH"
+        ]
+        },
+        "dst_token": {
+        "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "symbol": "USDT",
+        "name": "Tether USD",
+        "decimals": 6,
+        "eip2612": false,
+        "isFoT": false,
+        "logoURI": "https://tokens-data.1inch.io/images/1/0xdac17f958d2ee523a2206206994597c13d831ec7.webp",
+        "tags": [
+            "crosschain",
+            "GROUP:USDT",
+            "PEG:USD",
+            "tokens"
+        ]
+        },
+        "protocols": [
+        [
+            [
+            {
+                "name": "PMM15",
+                "part": 100,
+                "fromTokenAddress": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "toTokenAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7"
+            }
+            ]
+        ]
+        ],
+        "tx": {
+        "from": "0x590559f6fb7720f24ff3e2fccf6015b466e9c92c",
+        "to": "0x111111125421ca6dc452d289314280a0f8842a65",
+        "data": "07ed2379000000000000000000000000f313b370d28760b98a2e935e56be92feb2c4ec04000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7000000000000000000000000f313b370d28760b98a2e935e56be92feb2c4ec04000000000000000000000000590559f6fb7720f24ff3e2fccf6015b466e9c92c000000000000000000000000000000000000000000000000002386f26fc10000000000000000000000000000000000000000000000000000000000000212c64300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000033c64b2acd3506aded3c1dafdb6fcac91b7a3b6b42a3fe374c25fdd3df2e1f837ca466cb20f8da0c6fa46d937b90bf8a3fc3c68614b3a94c667999d026a40e1de9d0000000000000000000000000000000000000002de00006e00005400004e802026678dcd0000000000000000000000000000000000000000590559f6fb7720f24ff3e2fccf6015b466e9c92c000000000000000000000000000000000000000000000000000000e8d4a5100000206b4be0b94041c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2d0e30db05120111111125421ca6dc452d289314280a0f8842a65c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2012456a75868e8eb936a05227576bce26784ccdc8d75e0db817d687734fcf4c1c3d1d15ee296000000000000000000000000807cf9a772d5a3f9cefbc1192e939d62f0d9bd380000000000000000000000000000000000000000000000000000000000000000000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000000000000000000000000000000000000002182199000000000000000000000000000000000000000000000000002386099b1bf000000000000000000000000000000001915c00674734b400000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000002800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000419709bee012bcde5380cd388d52134750a9dd29efd835b9ad7a8792b0da1149e00d9aa573ae0f4b7b6365536e846bc792f8ec1452de4fb7b53a39abfc0e2c901c1b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014111111125421ca6dc452d289314280a0f8842a6500000000000000000000000000000000c095c0a2",
+        "value": "0.01",
+        "gas_price": "22.078218982",
+        "gas": 228890
+        },
+        "gas": null
+    },
+    "id": null
+    }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Error: Configuration missing
+
+  The `1inch_api` url not set in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/).
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No API config param",
+      "error_path": "rpcs.client",
+      "error_trace": "rpcs:137] client:105]",
+      "error_type": "InvalidParam",
+      "error_data": "No API config param",
+      "id": null
+  }
+  ```
+
+  #### Error: Authentication failure
+
+  `ONE_INCH_API_TEST_AUTH` environment variable not set, or incorrect.
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "1inch API error: General API error: Unauthorized description: ",
+      "error_path": "rpcs.client",
+      "error_trace": "rpcs:140] client:152]",
+      "error_type": "OneInchError",
+      "error_data": {
+          "GeneralApiError": {
+              "error_msg": "Unauthorized",
+              "description": "",
+              "status_code": 401
+          }
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,0 +1,74 @@
+/task::init_trezor::user_action:
+  post:
+    summary: Send user action (PIN or passphrase) to the Trezor device during initialisation
+      in the Komodo DeFi Framework API.
+    description: Send user action (PIN or passphrase) to the Trezor device during
+      initialisation in the Komodo DeFi Framework API.
+    operationId: task::init_trezor::user_action
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::init_trezor::user_action
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      initialisation process.
+                  user_action:
+                    type: object
+                    description: Object containing the params below
+                  user_action.action_type:
+                    type: string
+                    description: 'Either `TrezorPin` or `TrezorPassphrase`, depending
+                      on which is requested by responses from related methods returning
+                      `"status": "UserActionRequired"`'
+                  user_action.pin:
+                    type: string
+                    description: When the Trezor device is displaying a grid of numbers
+                      for PIN entry, this param will contain your Trezor pin, as mapped
+                      through your keyboard numpad. See the image below for more information.
+                  user_action.passphrase:
+                    type: string
+                    description: The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets)
+                      functions like an extra word added to your recovery seed, and
+                      it used to access hidden wallets. To access the default wallet,
+                      input an empty string here.
+                required:
+                - task_id
+                - user_action
+                - user_action.action_type
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The outcome of the request.
+          example: {}

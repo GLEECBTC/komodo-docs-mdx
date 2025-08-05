@@ -1,0 +1,41 @@
+/get_gossip_peer_topics:
+  post:
+    summary: The get_gossip_peer_topics method returns a map of peerIDs to an array
+      of the topics to which they are subscribed.
+    description: The get_gossip_peer_topics method returns a map of peerIDs to an
+      array of the topics to which they are subscribed.
+    operationId: get_gossip_peer_topics
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_gossip_peer_topics
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              PeerID-Topic map:
+                type: array
+                description: Topics subscribed to by PeerIDs
+          example: {}

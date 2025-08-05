@@ -1,0 +1,23 @@
+{
+  "scan_metadata": {
+    "kdf_branch": "sia-rc-cleanup",
+    "mdx_branch": "add/postman/utils",
+    "kdf_commit": "aee8e9ed338fd288881d1b6ae537d7faa24964fc",
+    "mdx_commit": "9c2d86b7610bf959d4a722979f2e8cf63fd40457",
+    "generated_at": "2025-06-30T21:22:04.520676",
+    "scanner_type": "ERROR_RESPONSE_SCAN",
+    "scanner_version": "KDFTools v1.0.0",
+    "generated_during": "error_report_scan",
+    "method_source": "Postman JSON examples (dev branch)",
+    "is_primary_data_source": false,
+    "total_error_responses_found": {
+      "all": 0,
+      "v1": 0,
+      "v2": 0
+    }
+  },
+  "methods": {
+    "v1": {},
+    "v2": {}
+  }
+}

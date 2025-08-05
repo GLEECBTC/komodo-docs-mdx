@@ -1,0 +1,19 @@
+components:
+  schemas:
+    BanTypeEnum:
+      type: string
+      description: 'Used in [list\_banned\_pubkeys](/komodo-defi-framework/api/legacy/list_banned_pubkeys/)
+        response to indicate the type of ban:
+
+
+        **Values:**
+
+        - `Manual`: Pubkey was manually banned by the user
+
+        - `FailedSwap`: Pubkey was automatically banned due to a failed swap protocol
+
+        '
+      enum:
+      - Manual
+      - FailedSwap
+      title: 'Component: BanTypeEnum'

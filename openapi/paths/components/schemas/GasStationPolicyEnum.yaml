@@ -1,0 +1,20 @@
+components:
+  schemas:
+    GasStationPolicyEnum:
+      type: string
+      description: 'Used in ETH/EVM coin activation and configuration to define the
+        method of gas price calculation from the gas station response.
+
+
+        **Values:**
+
+        - `MeanAverageFast`: Use the mean between average and fast fields from the
+        gas station response.
+
+        - `Average`: Use the average value from the gas station response.
+
+        '
+      enum:
+      - MeanAverageFast
+      - Average
+      title: 'Component: GasStationPolicyEnum'

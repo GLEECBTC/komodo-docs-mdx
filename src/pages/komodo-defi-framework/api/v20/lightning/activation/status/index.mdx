@@ -1,0 +1,70 @@
+export const title = "Komodo DeFi Framework Method: Check Lightning Activation Status";
+export const description = "Check the status of a lightning node initialization task on the Komodo DeFi Framework.";
+
+# Check Lightning Activation Status
+
+## task::enable\_lightning::status {{label : 'task::enable_lightning::status', tag : 'API-v2'}}
+
+The `task::enable_lightning::status` method checks the status of lightning node initialization.
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                                                   |
+| -------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------------------------- |
+| task\_id             | integer |     ✓    |    -    | The task id returned from `task::enable_lightning::init`.                                     |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, the status of the `task_id` will still be available after the task has completed. |
+
+#### 📌 Example
+
+<CodeGroup title="task::enable_lightning::status" tag="POST" label="task::enable_lightning::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_lightning::status",
+    "params": {
+      "task_id": 1,
+      "forget_if_finished": false
+    },
+    "id": 2
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ### Response Parameters
+
+  | Parameter      | Type   | Description                                                                                         |
+  | -------------- | ------ | --------------------------------------------------------------------------------------------------- |
+  | platform\_coin | string | The coin ticker for which the lightning node is being initialized.                                  |
+  | address        | string | This node's address for the activated coin.                                                         |
+  | balance        | object | A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. |
+
+  <Note>
+    The unspendable balance for lightning is different from a layer-1 unspendable balance. The channel reserve is part of the unspendable balance in lightning—the user will get this part of the balance on chain when closing the channel, but it cannot be spent on layer 2 (lightning) because it is part of the security mechanism to prevent channel breaches and ensure that both parties fulfill their obligations within the channel.
+  </Note>
+
+  #### 📌 Response (ready, success)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "status": "Ok",
+          "details": {
+              "platform_coin": "BTC-segwit",
+              "address": "0321937a095229510bd2b02a930d7b7eb273147e348ef1086b22e8790e3c609804",
+              "balance": {
+                  "spendable": "0",
+                  "unspendable": "0"
+              }
+          }
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<Note>
+  In the above response, `spendable` will always be `0` since the balance is unspendable until connections with lightning channel counterparties are established. Using the [my\_balance](/komodo-defi-framework/api/legacy/my_balance/) method after the coin is activated will get the spendable balance depending on how many channel counterparties are online. For exact channel balances and which channels are usable, use [lightning::channels::list\_open\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/#list-open-channels-by-filter).
+</Note>

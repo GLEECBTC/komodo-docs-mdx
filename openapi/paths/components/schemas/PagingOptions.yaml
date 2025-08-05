@@ -1,0 +1,19 @@
+components:
+  schemas:
+    PagingOptions:
+      type: object
+      properties:
+        from_uuid:
+          type: string
+          description: Skips records until this UUID, excluding the record with this
+            UUID. Convenient for infinite scrolling implementations.
+          default: '`null`'
+        limit:
+          type: number
+          description: Limits the number of returned swaps.
+          default: '`-`'
+        page_number:
+          type: number
+          description: Returns limit swaps from the selected page. This parameter
+            is ignored if from\_uuid is set.
+          default: '`-`'

@@ -1,0 +1,13 @@
+components:
+  schemas:
+    PrivKeyPolicy:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Options are `ContextPrivKey`, `WalletConnect`, `Metamask`,
+            or `Trezor`. Defaults to `ContextPrivKey`.
+        data:
+          type: string
+          description: '`WalletConnect` type only. The `session_topic` hex string,
+            returned from the response to [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection).'

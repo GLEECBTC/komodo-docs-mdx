@@ -1,29 +1,33 @@
 export const title = "Komodo DeFi Framework Method: Version";
 export const description = "The version method returns the Komodo DeFi Framework API version.";
 
-# version
+# Version
 
-**version()**
+## version {{label: 'version', tag: 'API-v1'}}
 
 The `version` method returns the Komodo DeFi Framework API version.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-## Response
+<Note type="info">
+  This method does not require a `userpass` value in the request.
+</Note>
 
-| Structure | Type   | Description                           |
+### Response parameters
+
+| Parameter | Type   | Description                           |
 | --------- | ------ | ------------------------------------- |
-| result    | string | the Komodo DeFi Framework API version |
+| result    | string | The Komodo DeFi Framework API version |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="version" mm2MethodDecorate="true">
+<CodeGroup title="version" tag="POST" label="version" mm2MethodDecorate="true">
   ```json
   {
     "method": "version",
@@ -37,7 +41,8 @@ The `version` method returns the Komodo DeFi Framework API version.
 
   ```json
   {
-    "result": "2.0.996_mm2_3bb412578_Linux"
+    "result": "2.5.0-beta_eeaee9759",
+    "datetime": "2025-07-03T03:33:38.449829306+00:00"
   }
   ```
 </CollapsibleSection>

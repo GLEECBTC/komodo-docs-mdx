@@ -1,0 +1,55 @@
+/recover_funds_of_swap:
+  post:
+    summary: Learn how to recover funds from a swap-payment address in case of an
+      error using the recover_funds_of_swap method in the Komodo DeFi Framework API.
+    description: Learn how to recover funds from a swap-payment address in case of
+      an error using the recover_funds_of_swap method in the Komodo DeFi Framework
+      API.
+    operationId: recover_funds_of_swap
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - recover_funds_of_swap
+              uuid:
+                type: string
+                description: UUID of the swap to recover the funds
+            required:
+            - userpass
+            - method
+            - uuid
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              action:
+                type: string
+                description: The action executed to unlock the funds. Can be either
+                  `SpentOtherPayment` or `RefundedMyPayment`
+              coin:
+                type: string
+                description: The balance of this coin will be unstuck by the recovering
+                  transaction
+              tx_hash:
+                type: string
+                description: The hash of the recovering transaction
+              tx_hex:
+                type: string
+                description: Raw bytes of the recovering transaction in hexadecimal
+                  representation
+          example: {}

@@ -1,0 +1,70 @@
+/task::account_balance::cancel:
+  post:
+    summary: Cancel an account balance request in the Komodo DeFi Framework API.
+    description: Cancel an account balance request in the Komodo DeFi Framework API.
+    operationId: task::account_balance::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::account_balance::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      task.
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Description of the error
+              error_data:
+                type: string
+                description: Additonal context for the error type
+              error_path:
+                type: string
+                description: Used for debugging. A reference to the function in code
+                  base which returned the error
+              error_trace:
+                type: string
+                description: Used for debugging. A trace of lines of code which led
+                  to the returned error
+              error_type:
+                type: string
+                description: An enumerated error identifier to indicate the category
+                  of error
+              result:
+                type: string
+                description: Returns with value `success` when successful, otherwise
+                  returns the error values below
+          example: {}

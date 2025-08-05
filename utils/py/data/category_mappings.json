@@ -1,0 +1,37 @@
+{
+    "v2": {
+        "coin_activation": "coin_activation",
+        "task_managed": "coin_activation/task_managed",
+        "swaps_and_orders": "trading",
+        "orderbook": "trading",
+        "best_orders": "trading",
+        "active_swaps": "trading",
+        "lightning": "lightning",
+        "lightning/channels": "lightning/channels",
+        "lightning/nodes": "lightning/nodes",
+        "lightning/payments": "lightning/payments",
+        "lightning/activation": "lightning/activation",
+        "streaming": "streaming",
+        "stream": "streaming",
+        "wallet": "wallet",
+        "wallet/staking": "wallet/staking",
+        "wallet/task_managed": "wallet/task_managed",
+        "wallet/tx": "wallet/transactions",
+        "wallet/fee_management": "wallet/fees",
+        "utils": "utilities",
+        "utils/message_signing": "utilities/messaging",
+        "utils/task_init_trezor": "utilities/hardware",
+        "utils/telegram_alerts": "utilities/notifications",
+        "non_fungible_tokens": "nft",
+        "1inch": "integrations/1inch",
+        "_default": "misc"
+    },
+    "v1": {
+        "coin_activation": "coin_activation",
+        "trading": "trading",
+        "orders": "trading",
+        "swaps": "trading",
+        "wallet": "wallet",
+        "_default": "general"
+    }
+} 

@@ -1,0 +1,56 @@
+export const title = "Komodo DeFi Framework Method: Create New Account Task: User Action";
+export const description = "Send user action (PIN) to the Trezor device during HD account creation in the Komodo DeFi Framework API.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Create New Account Task: User Action
+
+## task::create\_new\_account::user\_action   {{label : 'task::create_new_account::user_action', tag : 'API-v2'}}
+
+If the `task::create_new_account::status` returns `UserActionRequired`, use the `task::create_new_account::user_action` method to enter your Trezor PIN.
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         |     ✓    | The identifying number returned when initiating the account creation process.                                                                                                                    |
+| user\_action              | object          |     ✓    | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          |     ✓    | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) |     ✓    | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+### Response Parameters
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::create_new_account::user_action" tag="POST" label="task::create_new_account::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::user_action",
+    "params": {
+      "task_id": 3,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "862743"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

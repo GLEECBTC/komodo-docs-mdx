@@ -1,0 +1,63 @@
+/task::scan_for_new_addresses::init:
+  post:
+    summary: Initiate a scan for new HD addresses in the Komodo DeFi Framework API.
+    description: Initiate a scan for new HD addresses in the Komodo DeFi Framework
+      API.
+    operationId: task::scan_for_new_addresses::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::scan_for_new_addresses::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you want to scan addresses
+                      for
+                    default: '-'
+                  account_id:
+                    type: integer
+                    description: HD wallets only. Generally this will be `0` unless
+                      you have multiple accounts registered on your HD wallet
+                    default: 0
+                  gap_limit:
+                    type: integer
+                    description: The maximum number of empty addresses in a row. Defaults
+                      to the value provided on activation or 20 if no value was provided
+                    default: 20
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

@@ -1,0 +1,119 @@
+export const title = "Komodo DeFi Framework Method: Cancel Enable Erc20 Task";
+export const description = "Cancel the ERC20 activation task";
+
+# Cancel Enable Erc20 Task
+
+## task::enable_erc20::cancel {{label : 'task::enable_erc20::cancel', tag : 'API-v2'}}
+
+Cancel the ERC20 activation task
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                         |
+| --------- | ------- | :------: | ----------------------------------- |
+| task_id   | integer |    ✓     | The identifier of the task to query |
+| userpass  | string  |    ✓     | Password for authentication         |
+
+### Response Parameters
+
+| Parameter | Type   | Description                          |
+| --------- | ------ | ------------------------------------ |
+| result    | string | Result of the cancellation operation |
+
+#### 📌 Examples
+
+<CodeGroup title="Task::Enable Erc20::Cancel Example" tag="POST" label="task::enable_erc20::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_erc20::cancel",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "task_id": 12345
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "id": 0,
+    "result": "success"
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter       | Type   | Description                                     |
+| --------------- | ------ | ----------------------------------------------- |
+| InvalidUserpass | string | The userpass provided is invalid                |
+| InternalError   | string | An internal error occurred                      |
+| InvalidRequest  | string | The request parameters are invalid              |
+| NoSuchTask      | string | The specified task was not found or has expired |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### InvalidUserpass
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The userpass provided is invalid",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InvalidUserpass",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### InternalError
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "An internal error occurred",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InternalError",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### InvalidRequest
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The request parameters are invalid",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "InvalidRequest",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+##### NoSuchTask
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "The specified task was not found or has expired",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:123]",
+    "error_type": "NoSuchTask",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+

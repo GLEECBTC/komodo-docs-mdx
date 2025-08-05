@@ -1,0 +1,100 @@
+export const title = "Komodo DeFi Framework Method: Connect to Lightning Node";
+export const description = "Connect to a Lightning node using the Komodo DeFi Framework API.";
+
+# Connect to Lightning Node
+
+## lightning::nodes::connect\_to\_node {{label : 'lightning::nodes::connect_to_node', tag : 'API-v2'}}
+
+The `lightning::nodes::connect_to_node` method allows you to connect to a Lightning node.
+
+### Request Parameters
+
+| Parameter     | Type   | Required | Description                                                                         |
+| ------------- | ------ | :------: | ----------------------------------------------------------------------------------- |
+| coin          | string |     ✓    | The coin ticker you would like to connect to a node on.                             |
+| node\_address | string |     ✓    | Lightning node addresses always have a format of `node_pubkey`@`ip_address`:`port`. |
+
+### Response Parameters
+
+| Parameter | Type        | Description                                                        |
+| --------- | ----------- | ------------------------------------------------------------------ |
+| result    | string      | Connection result message (e.g., success, already connected, etc.) |
+| id        | int or null | Request identifier, or null.                                       |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::nodes::connect_to_node" tag="POST" label="lightning::nodes::connect_to_node" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::nodes::connect_to_node",
+    "params": {
+      "coin": "tBTC-lightning",
+      "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735"
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<Note type="info">
+  The node address in the above request is for the WalletOfSatoshi lightning node, which is one of the most connected lightning nodes. Other node addresses can be retrieved from any lightning explorer, such as:
+
+  *   [https://1ml.com/](https://1ml.com/)
+  *   [https://mempool.space/lightning/](https://mempool.space/lightning/)
+</Note>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": "Connected successfully to node : 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226@170.75.163.209:9735",
+      "id": null
+  }
+  ```
+
+  #### Response (already connected)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": "Already connected to node : 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226@170.75.163.209:9735",
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### InvalidRequest Error (invalid node\_address)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: Could not parse node address from str rgjhk3",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:109]",
+      "error_type": "InvalidRequest",
+      "error_data": "Could not parse node address from str rgjhk3",
+      "id": 762
+  }
+  ```
+
+  ##### ConnectionError Error (timed out waiting to connect to node\_address)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error connecting to node: Timeout error: Failed to connect to node: 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226",
+      "error_path": "connect_to_node",
+      "error_trace": "connect_to_node:78]",
+      "error_type": "ConnectionError",
+      "error_data": "Timeout error: Failed to connect to node: 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

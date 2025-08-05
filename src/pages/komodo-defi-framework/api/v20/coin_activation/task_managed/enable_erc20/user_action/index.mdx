@@ -1,0 +1,58 @@
+export const title = "Komodo DeFi Framework Method: ERC20 Activation Task User Action";
+export const description = "Provide required user input (e.g., Trezor button confirmation) during the ERC-20 token activation task.";
+
+# ERC20 Activation Task User Action
+
+## task::enable\_erc20::user\_action {{label : 'task::enable_erc20::user_action', tag : 'API-v2'}}
+
+<Note type="info">Skeleton documentation—waiting for finalized parameter list.</Note>
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                                                                  |
+| ------------------------- | --------------- | :------: | ---------------------------------------------------------------------------- |
+| task\_id                  | integer         |     ✓    | Task identifier.                                                             |
+| user\_action              | object          |     ✓    | Object containing the parameters below.                                      |
+| user\_action.action\_type | string          |     ✓    | Action type identifier (e.g., `TrezorPin`).                                  |
+| user\_action.pin          | string (number) |     ✗    | Required if `action_type` is `TrezorPin`. Trezor PIN mapped via numpad grid. |
+| userpass                  | string          |     ✓    | RPC password.                                                                |
+
+### Response Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| status    | string | Updated task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="enable_erc20::user_action" tag="POST" label="task::enable_erc20::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_erc20::user_action",
+    "params": {
+      "task_id": 1,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "1234"
+      }
+    },
+    "id": 3,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress"
+    },
+    "id": 3
+  }
+  ```
+</CollapsibleSection>

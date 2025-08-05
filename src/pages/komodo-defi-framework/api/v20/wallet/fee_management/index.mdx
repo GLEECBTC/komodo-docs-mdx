@@ -1,20 +1,20 @@
-export const title = "Komodo DeFi Framework Method: EVM Fee Management";
+export const title = "Komodo DeFi Framework Overview: EVM Fee Management";
 export const description =
-  "This document describes all the available methods for the EVM Network Fee Management on the Komodo DeFi Framework.";
+  "This document describes the methods for EVM Network Fee Management on the Komodo DeFi Framework.";
 
-# EVM Network Fee Management
+# EVM Fee Management
 
 [Ethereum Improvement Proposal 1559 (EIP-1559)](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1559.md) was introduced to enhance Ethereum's transaction fee structure, aiming to stabilize transaction costs and improve network efficiency. Implemented as part of the London Hard Fork in August 2021, EIP-1559 revamped the traditional auction-style gas fee model, replacing it with a base fee mechanism that adjusts dynamically based on network demand. This base fee is burned (removed from circulation), reducing ETH supply and introducing a deflationary effect, while an optional "tip" incentivizes miners.
 
 For decentralized finance (DeFi) software, EIP-1559 has provided more predictable transaction fees, improving user experience and enabling more efficient budgeting for gas costs across DeFi protocols. This update is instrumental in reducing fee volatility, encouraging broader adoption, and laying groundwork for Ethereum's scalability roadmap.
 
-The Komodo Defi Framework allows users to benefit from this improvement with cheaper fees on EMV networks like Ethereum and Polygon.
+The Komodo DeFi Framework allows users to benefit from this improvement with cheaper fees on EVM networks like Ethereum and Polygon.
 
 <Note>
-  For more information about EIP1559, refer to [https://www.blocknative.com/blog/eip-1559-fees](https://www.blocknative.com/blog/eip-1559-fees)
+  For more information about EIP-1559, refer to [https://www.blocknative.com/blog/eip-1559-fees](https://www.blocknative.com/blog/eip-1559-fees)
 </Note>
 
-## Fee Management Methods
+## Fee Management Methods {{label : 'fee_management_methods', tag : 'overview'}}
 
 *   Get estimated fee per gas for an EVM coin/token [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas/).
 
@@ -22,13 +22,13 @@ The Komodo Defi Framework allows users to benefit from this improvement with che
 
 *   Set swap transaction fee policy for an EVM coin/token [set\_swap\_transaction\_fee\_policy](/komodo-defi-framework/api/v20/wallet/fee_management/set_swap_transaction_fee_policy/).
 
-## Fee Management Configuration
+### Fee Management Configuration
 
 There is also a new `gas_fee_estimator` parameter in the coins file, which can be set to `provider` or `simple`.
 
-By default, `Simple` gas fee estimation suggests a fee based on fee history. If set `gas_fee_estimator` is set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
+By default, `Simple` gas fee estimation suggests a fee based on fee history. If `gas_fee_estimator` is set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third-party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
 
-### In the coins file
+#### In the coins file
 
 Below is an example of the information required in EVM token configurations in your [`coins` file](/komodo-defi-framework/tutorials/listing-a-new-coin/#erc-20-token-example).
 
@@ -62,11 +62,11 @@ Below is an example of the information required in EVM token configurations in y
 }
 ```
 
-For EIP1559 features, a coin/token's config needs to include the `chain_id` (sourced from [chainlist.org](https://chainlist.org)) and `max_eth_tx_type` (set to `2` if compatible) fields.
+For EIP-1559 features, a coin/token's config needs to include the `chain_id` (sourced from [chainlist.org](https://chainlist.org)) and `max_eth_tx_type` (set to `2` if compatible) fields.
 
 The [`gas_limit` object](/komodo-defi-framework/tutorials/listing-a-new-coin/) values in your `coins` file will set the default limits in both `Legacy` and `Eip1559` fee configs.
 
-### In the MM2.json file
+#### In the MM2.json file
 
 If `gas_fee_estimator` is set to `Provider`, you'll also need to add the `gas_api` parameter to your [MM2.json configuration file](/komodo-defi-framework/setup/configure-mm2-json/):
 
@@ -78,9 +78,9 @@ If `gas_fee_estimator` is set to `Provider`, you'll also need to add the `gas_ap
     ...
     "gas_api": {
       "provider": "blocknative",
-      "url": https://your-provider-url.com
+      "url": "https://your-provider-url.com"
     }
 }
 ```
 
-The currently available third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
+The currently available third-party providers are [Infura](https://www.infura.io/) and [Blocknative](https://www.blocknative.com/).

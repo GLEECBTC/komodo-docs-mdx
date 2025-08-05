@@ -4,16 +4,18 @@ export const description =
 
 # claim\_rewards
 
+## experimental::staking::claim\_rewards {{label : 'experimental::staking::claim_rewards', tag : 'API-v2'}}
+
 The `experimental::staking::claim_rewards` claims all delegated staking rewards from a validator. Currently Tendermint has been integrated, but this functionality may be expanded to more coins in future.
 
 Note: After running `experimental::staking::claim_rewards`, you will need to broadcast the returned hex via [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
 
-## Arguments
+### Request Parameters
 
-| Structure         | Type   | Description                                                                                                 |
-| ----------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
-| coin              | string | the coin being staked                                                                                       |
-| claiming\_details | object | A standard [ClaimingDetails](/komodo-defi-framework/api/common_structures/wallet/#claiming-details) object. |
+| Parameter         | Type   | Required | Description                                                                                                 |
+| :---------------- | :----- | :------: | :---------------------------------------------------------------------------------------------------------- |
+| coin              | string |     ✓    | The coin being staked                                                                                       |
+| claiming\_details | object |     ✓    | A standard [ClaimingDetails](/komodo-defi-framework/api/common_structures/wallet/#claiming-details) object. |
 
 <Note>
   To claim rewards for QTUM, use [experimental::staking::undelegate](/komodo-defi-framework/api/v20/wallet/staking/undelegate/#undelegate)

@@ -1,0 +1,53 @@
+/start_version_stat_collection:
+  post:
+    summary: The start_version_stat_collection method initiates storing version statistics
+      for nodes previously registered via the add_node_to_version_stat method.
+    description: The start_version_stat_collection method initiates storing version
+      statistics for nodes previously registered via the add_node_to_version_stat
+      method.
+    operationId: start_version_stat_collection
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - start_version_stat_collection
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  interval:
+                    type: integer
+                    description: polling rate (in seconds) to check node versions
+                required:
+                - interval
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The outcome of the request.
+          example: {}

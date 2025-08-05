@@ -1,0 +1,68 @@
+/lightning::channels::list_closed_channels_by_filter:
+  post:
+    summary: List closed Lightning Network channels by filter using the Komodo DeFi
+      Framework API.
+    description: List closed Lightning Network channels by filter using the Komodo
+      DeFi Framework API.
+    operationId: lightning::channels::list_closed_channels_by_filter
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::channels::list_closed_channels_by_filter
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you would like to view closed
+                      channels for.
+                  filter:
+                    description: A standard [LightningClosedChannelsFilter](/komodo-defi-framework/api/common_structures/lightning/#lightning-closed-channels-filter)
+                      object.
+                    $ref: ../../components/schemas/LightningClosedChannelsFilter.yaml
+                  paging_options:
+                    description: A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination)
+                      object.
+                    $ref: ../../components/schemas/Pagination.yaml
+                  limit:
+                    type: integer
+                    description: Maximum number of results to return.
+                    default: 10
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                description: The filtered closed channels result object.
+              id:
+                type: integer
+                description: Request identifier.
+          example: {}

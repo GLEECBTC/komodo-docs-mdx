@@ -1,0 +1,55 @@
+components:
+  schemas:
+    LightningOpenChannelsFilter:
+      type: object
+      properties:
+        channel_id:
+          type: string
+          description: Unique string identifying a channel by its ID.
+        counterparty_node_id:
+          type: string
+          description: A hexadecimal string identifying a counterparty node.
+        funding_tx:
+          type: string
+          description: A transaction ID which added funds.
+        from_funding_value_sats:
+          type: integer
+          description: The minimum value of channel funding in satoshis.
+        to_funding_value_sats:
+          type: integer
+          description: The maximum value of channel funding in satoshis.
+        is_outbound:
+          type: boolean
+          description: If `true`, limits the response to outbound channels only.
+        from_balance_msat:
+          type: integer
+          description: The minimum channel balance in millisatoshis.
+        to_balance_msat:
+          type: integer
+          description: The maximum channel balance in millisatoshis.
+        from_outbound_capacity_msat:
+          type: integer
+          description: The minimum outbound capacity of the channel balance in millisatoshis.
+        to_outbound_capacity_msat:
+          type: integer
+          description: The maximum outbound capacity of the channel balance in millisatoshis.
+        from_inbound_capacity_msat:
+          type: integer
+          description: The minimum inbound capacity of the channel balance in millisatoshis.
+        to_inbound_capacity_msat:
+          type: integer
+          description: The maximum inbound capacity of the channel balance in millisatoshis.
+        confirmed:
+          type: boolean
+          description: If `true`, only channels with channel opening transactions
+            that passed the number of confirmations required for the channel to be
+            usable will be returned.
+        is_usable:
+          type: boolean
+          description: If `true`, only channels that are confirmed and the counterparty
+            is online, meaning that these channels can be used for payments will be
+            returned.
+        is_public:
+          type: boolean
+          description: If `true`, only channels that our node announces to the lightning
+            network, these channels are visible on lightning explorers will be returned.

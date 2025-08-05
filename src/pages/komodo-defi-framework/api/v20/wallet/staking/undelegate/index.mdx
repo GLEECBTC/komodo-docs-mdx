@@ -4,16 +4,18 @@ export const description =
 
 # Undelegate
 
+## experimental::staking::undelegate {{label : 'experimental::staking::undelegate', tag : 'API-v2'}}
+
 The `experimental::staking::undelegate` method stops your node's staking of a compatible coin. Currently QTUM and tQTUM (test tokens avalable at `https://testnet-faucet.qtum.info/`) have been integrated, but this functionality will be expanded to more coins in future.
 
 Note: After running `experimental::staking::undelegate`, you will need to broadcast the returned hex via [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
 
-## Arguments
+### Request Parameters
 
-| Structure        | Type   | Description                                                                                                    |
-| ---------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
-| coin             | string | the coin being staked                                                                                          |
-| staking\_details | object | A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+| Parameter        | Type   | Required | Default | Description                                                                                                    |
+| :--------------- | :----- | :------: | :-----: | :------------------------------------------------------------------------------------------------------------- |
+| coin             | string |     ✓    |    -    | The coin being staked.                                                                                         |
+| staking\_details | object |     ✗    |    -    | A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
 
 #### 📌 Examples
 

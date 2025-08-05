@@ -1,11 +1,11 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens - Query NFT database tables";
-export const description =
-  "This document describes how to query the local NFT database tables.";
+export const title = "Komodo DeFi Framework Method: Query NFT Database Tables";
+export const description = "The query_nft_database_tables method describes the structure and querying of local NFT database tables after using update_nft.";
 
-# Query NFT database tables
+# Query NFT Database Tables
 
-After using the [update\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/update_nft/#update-nft) method to initialise your local NFT database,
-the following tables are available in `DB/KOMODEFI.db`:
+## query\_nft\_database\_tables {{label : 'query_nft_database_tables', tag : 'overview'}}
+
+After using the [update\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/update_nft/#update-nft) method to initialise your local NFT database, the following tables are available in `DB/KOMODEFI.db`:
 
 *   AVAX\_nft\_list
 *   AVAX\_nft\_transfer\_history
@@ -19,8 +19,7 @@ the following tables are available in `DB/KOMODEFI.db`:
 *   MATIC\_nft\_transfer\_history
 *   scanned\_nft\_blocks
 
-This SQLite database is located under the DB user data folder with each wallet having its own subfolder represented by a hexadecimal string.
-This string is shown in the runtime logs of the `kdf` binary as `Public key hash` when it starts up.
+This SQLite database is located under the DB user data folder with each wallet having its own subfolder represented by a hexadecimal string. This string is shown in the runtime logs of the `kdf` binary as `Public key hash` when it starts up.
 
 ```bash
 30 08:39:23, mm2:269] AtomicDEX API 2.1.0-beta_a81f2a101 DT 2024-07-26T23:24:52+03:00
@@ -45,17 +44,16 @@ There are a variety of methods to query sqlite databases. Examples below show ho
 
 The tables and columns available to query in KOMODEFI.db are as follows:
 
-## NFT List tables
+### NFT List tables
 
-The COIN\_nft\_list tables contain the NFTs that you own
-It has the following columns, though not all columns are populated for all NFTs:
+The COIN\_nft\_list tables contain the NFTs that you own. It has the following columns, though not all columns are populated for all NFTs:
 
-| ID | Name                   | Type         | Description                                                                    |
+| ID | Parameter              | Type         | Description                                                                    |
 | -- | ---------------------- | ------------ | ------------------------------------------------------------------------------ |
 | 0  | token\_address         | VARCHAR(256) | The address of the token contract.                                             |
 | 1  | token\_id              | VARCHAR(256) | The id of the token.                                                           |
 | 2  | chain                  | TEXT         | The coin network which the NFT is on.                                          |
-| 3  | amount                 | VARCHAR(256) | The amount of NFTs transfered in this transaction.                             |
+| 3  | amount                 | VARCHAR(256) | The amount of NFTs transferred in this transaction.                            |
 | 4  | block\_number          | INTEGER      | The block height of this transaction.                                          |
 | 5  | contract\_type         | TEXT         | The contract type. Either `ERC721` or `ERC1155`.                               |
 | 6  | possible\_spam         | INTEGER      | `1` indicates the NFT has been identified as spam. `0` indicates it has not.   |
@@ -65,8 +63,8 @@ It has the following columns, though not all columns are populated for all NFTs:
 | 10 | token\_uri             | TEXT         | A link to the token's metadata.                                                |
 | 11 | token\_domain          | TEXT         | The domain the token metadata is hosted on.                                    |
 | 12 | metadata               | TEXT         | The token's metadata in JSON format.                                           |
-| 13 | last\_token\_uri\_sync | TEXT         | Date and time when the token uri was last syncronised.                         |
-| 14 | last\_metadata\_sync   | TEXT         | Date and time when the token metadata was last syncronised.                    |
+| 13 | last\_token\_uri\_sync | TEXT         | Date and time when the token uri was last synchronised.                        |
+| 14 | last\_metadata\_sync   | TEXT         | Date and time when the token metadata was last synchronised.                   |
 | 15 | raw\_image\_url        | TEXT         | The raw URL for the token image.                                               |
 | 16 | image\_url             | TEXT         | A link for the token's image (or other media).                                 |
 | 17 | image\_domain          | TEXT         | The domain the token image (or other media) is hosted on.                      |
@@ -80,7 +78,7 @@ It has the following columns, though not all columns are populated for all NFTs:
 | 25 | image\_details         | TEXT         | Additional details about the NFT's image.                                      |
 | 26 | details\_json          | TEXT         | Additional information about the transaction in JSON format.                   |
 
-### Example COIN\_nft\_list table query
+#### Example COIN\_nft\_list table query
 
 > SELECT chain, token\_name, token\_address, token\_id, possible\_spam, possible\_phishing FROM MATIC\_nft\_list LIMIT 5;
 
@@ -94,11 +92,11 @@ It has the following columns, though not all columns are populated for all NFTs:
 
 The NFTs listed above are all spam, and will be ignored by the [get\_nft\_list](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_list/) method.
 
-## NFT Transfer table
+### NFT Transfer table
 
 The COIN\_nft\_transfer\_history tables contain the history of transfers of your NFTs, and have the following columns:
 
-| ID | Name               | Type         | Description                                                                    |
+| ID | Parameter          | Type         | Description                                                                    |
 | -- | ------------------ | ------------ | ------------------------------------------------------------------------------ |
 | 0  | transaction\_hash  | VARCHAR(256) | Hex string, representing the transaction.                                      |
 | 1  | log\_index         | INTEGER      | Simply a table index.                                                          |
@@ -108,8 +106,8 @@ The COIN\_nft\_transfer\_history tables contain the history of transfers of your
 | 5  | contract\_type     | TEXT         | The contract type. Either `ERC721` or `ERC1155`.                               |
 | 6  | token\_address     | VARCHAR(256) | The address of the token contract.                                             |
 | 7  | token\_id          | VARCHAR(256) | The id of the token.                                                           |
-| 8  | status             | TEXT         | The transaction type: `Recieve` or `Send`                                      |
-| 9  | amount             | VARCHAR(256) | The amount of NFTs transfered in this transaction.                             |
+| 8  | status             | TEXT         | The transaction type: `Receive` or `Send`                                      |
+| 9  | amount             | VARCHAR(256) | The amount of NFTs transferred in this transaction.                            |
 | 10 | possible\_spam     | INTEGER      | `1` indicates the NFT has been identified as spam. `0` indicates it has not.   |
 | 11 | possible\_phishing | INTEGER      | `1` indicates the NFT has been identified as a scam. `0` indicates it has not. |
 | 12 | token\_uri         | TEXT         | A link to the token's metadata.                                                |
@@ -120,25 +118,24 @@ The COIN\_nft\_transfer\_history tables contain the history of transfers of your
 | 17 | token\_name        | TEXT         | The name of the token.                                                         |
 | 18 | details\_json      | TEXT         | Additional information about the transaction in JSON format.                   |
 
-### Example COIN\_nft\_transfer\_history table query
+#### Example COIN\_nft\_transfer\_history table query
 
-> SELECT transaction\_hash, token\_name, token\_address, token\_id,  FROM MATIC\_nft\_transfer\_history WHERE block\_timestamp > 1701519320;
+> SELECT transaction\_hash, token\_name, token\_address, token\_id FROM MATIC\_nft\_transfer\_history WHERE block\_timestamp > 1701519320;
 
 | transaction\_hash                                                  | token\_name          | token\_address                             | token\_id |
 | ------------------------------------------------------------------ | -------------------- | ------------------------------------------ | --------- |
 | 0x7b57303bcc2c68808b460490e984adcd18567a80660a18b7a151b62015247cda | $2000 USDT Airdrop🎁 | 0xe7ee9dcf5f4b7f9254b348ba596c9fb9121f77e7 | 1         |
 
-## NFT Last Scanned Block table
+### NFT Last Scanned Block table
 
-The scanned\_nft\_blocks table contains the last block that was scanned for each chain.
-It has the following columns:
+The scanned\_nft\_blocks table contains the last block that was scanned for each chain. It has the following columns:
 
-| ID | Name                 | Type    | Description                                                            |
+| ID | Parameter            | Type    | Description                                                            |
 | -- | -------------------- | ------- | ---------------------------------------------------------------------- |
 | 2  | chain                | TEXT    | The coin network which the NFT is on.                                  |
 | 1  | last\_scanned\_block | INTEGER | The block height when the last scan for NFTs was performed on a chain. |
 
-### Example scanned\_nft\_blocks table query
+#### Example scanned\_nft\_blocks table query
 
 > SELECT \* FROM scanned\_nft\_blocks;
 

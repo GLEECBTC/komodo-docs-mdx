@@ -1,0 +1,86 @@
+/task::enable_erc20::init:
+  post:
+    summary: Start a task-managed activation flow for an ERC-20 token.
+    description: Start a task-managed activation flow for an ERC-20 token.
+    operationId: task::enable_erc20::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_erc20::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: ERC-20 token symbol to activate (e.g., `USDC`).
+                  required_confirmations:
+                    type: integer
+                    description: Number of confirmations required for swap transactions
+                      involving the token. If omitted, defaults to the parent platform-coin
+                      value (typically `3`).
+                  scan_policy:
+                    type: string
+                    description: Address-scanning behaviour for HD wallets. One of
+                      `do_not_scan`, `scan_if_new_wallet` (default), or `scan`.
+                    default: scan_if_new_wallet
+                    enum:
+                    - do_not_scan
+                    - scan_if_new_wallet` (default)
+                    - or `scan
+                  min_addresses_number:
+                    type: integer
+                    description: Minimum number of addresses to derive per HD account
+                      when `scan_policy` triggers scanning.
+                  path_to_address:
+                    type: object
+                    description: HD path selector (account / address index) to use
+                      as the default swap address.
+                  priv_key_policy:
+                    description: Object specifying the policy to access private key
+                      during activation. Must include a `type` field with a value
+                      from [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum).
+                      When `type` is `WalletConnect`, also provide a `data` field
+                      containing the session topic.
+                    $ref: ../../components/schemas/PrivKeyActivationPolicyEnum.yaml
+                  userpass:
+                    type: string
+                    description: RPC password (`RPC_UserP@SSW0RD`).
+                required:
+                - ticker
+                - userpass
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: Unique identifier of the activation task.
+              status:
+                type: string
+                description: Current task status (e.g., `InProgress`).
+          example: {}

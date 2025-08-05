@@ -1,0 +1,26 @@
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=lib --cov-report=term-missing"
+testpaths = [
+    "tests"
+]
+
+[tool.coverage.run]
+branch = true
+source = ["lib"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.isort]
+profile = "black"
+
+[tool.cprofile2]
+# This section seems to be causing issues.
+# If cProfile2 is not a valid tool or package, it should be removed or corrected.
+# For standard cProfile, configuration is not typically done in pyproject.toml
+# unless using a specific wrapper or plugin.
+# Assuming this is an error and removing it.
+line_limit = 100
+# cprofile2 might not be a valid tool for pyproject.toml, let's remove it for now.
+# We will rely on standard profiling tools if needed. 

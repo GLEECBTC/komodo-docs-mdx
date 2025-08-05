@@ -1,0 +1,98 @@
+export const title = "Komodo DeFi Framework Method: Enable QTUM Task: Init";
+export const description = "Task managed activation of QTUM and QRC20 tokens.";
+
+# Enable QTUM Task: Init
+
+## task::enable\_qtum::init {{label : 'task::enable_qtum::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of QTUM and QRC20 tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+### Request Parameters
+
+| Parameter                  | Type             | Required | Default | Description                                                                                                                                                                                                              |
+| -------------------------- | ---------------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ticker                     | string           |     ✓    |    -    | Ticker of the QTUM-based coin you want to enable.                                                                                                                                                                        |
+| mode                       | object           |     ✓    |    -    | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.                                                                                                            |
+| qtum\_node\_urls           | array of strings |     ✗    |    -    | A list of QTUM node URLs, used for validation of QRC20 token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://qtumnodes.com/](https://qtumnodes.com/).          |
+| qrc20\_tokens\_requests    | array of objects |     ✗    |    -    | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                     |
+| address\_format            | object           |     ✗    |    -    | Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.                                                           |
+| allow\_qrc20\_unsafe\_conf | boolean          |     ✗    | `false` | If true, allows qtum\_node\_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid QRC20 transactions generation and tokens burning.                                                      |
+| get\_balances              | boolean          |     ✗    |  `true` | If false, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                  |
+| required\_confirmations    | integer          |     ✗    |   `3`   | Confirmations to wait for steps in swap.                                                                                                                                                                                 |
+| requires\_notarization     | boolean          |     ✗    |  `true` | Has no effect on QTUM.                                                                                                                                                                                                   |
+| tx\_history                | boolean          |     ✗    |  `true` | If true the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to true to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method. |
+| utxo\_merge\_params        | object           |     ✗    |    -    | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.   |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Activation in Trezor mode
+
+<CodeGroup title="QTUM/QRC20 Activation (Trezor mode)" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_qtum::init",
+    "params": {
+      "ticker": "QTUM",
+      "activation_params": {
+        "qtum_node_urls": [
+          "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+        ],
+        "mode": {
+          "rpc": "Infura",
+          "rpc_data": {
+            "servers": [
+              {
+                "url": "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+                "protocol": "HTTPS"
+              }
+            ]
+          }
+        },
+        "qrc20_tokens_requests": [
+          {
+            "ticker": "USDT"
+          },
+          {
+            "ticker": "DAI",
+            "required_confirmations": 3
+          }
+        ],
+        "tx_history": true,
+        "required_confirmations": 5,
+        "requires_notarization": false,
+        "address_format": {
+          "format": "hex",
+          "network": "qtum"
+        },
+        "utxo_merge_params": {
+          "merge_at": 50,
+          "check_every": 10,
+          "max_merge_at_once": 25
+        }
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

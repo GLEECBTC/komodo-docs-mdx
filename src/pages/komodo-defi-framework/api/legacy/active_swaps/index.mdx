@@ -1,33 +1,35 @@
 export const title = "Komodo DeFi Framework Method: Active Swaps";
 export const description =
-  "The active_swaps method returns all the swaps that are currently running on the Komodo DeFi Framework API node.";
+  "The active_swaps method returns all swaps currently running on the Komodo DeFi Framework API node.";
 
-# active\_swaps
+# Active Swaps
 
-The `active_swaps` method returns all the swaps that are currently running on the Komodo DeFi Framework API node.
+## active\_swaps {{label : 'active_swaps', tag : 'deprecated'}}
 
-<Note>
+<Note type="warning">
   This method has been deprecated in favor of [active\_swaps v2](/komodo-defi-framework/api/v20/swaps_and_orders/active_swaps/). The legacy version does not include v2 (Trading Protocol Upgrade) swap statuses in responses (it only returns uuids for these).
 </Note>
 
-## Arguments
+The `active_swaps` method returns all swaps currently running on the Komodo DeFi Framework API node.
 
-| Structure       | Type | Description                                                                  |
-| --------------- | ---- | ---------------------------------------------------------------------------- |
-| include\_status | bool | Optional, defaults to `false`. Whether to include swap statuses in response; |
+### Request Parameters
 
-## Response
+| Parameter       | Type | Required | Default | Description                                   |
+| --------------- | ---- | :------: | :-----: | --------------------------------------------- |
+| include\_status | bool |     ✗    | `false` | Whether to include swap statuses in response. |
 
-| Structure | Type             | Description                                                                                                                                                                                            |
+### Response parameters
+
+| Parameter | Type             | Description                                                                                                                                                                                            |
 | --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| uuids     | array of strings | A list of currently active swap UUIDs.                                                                                                                                                                 |
 | statuses  | object (map)     | Only visible if `include_status` request parameter is `true`. A map of standard [SwapStatus](/komodo-defi-framework/api/common_structures/swaps/#swap-status) objects, delineated by the related UUID. |
+| uuids     | array of strings | A list of currently active swap UUIDs.                                                                                                                                                                 |
 
 #### 📌 Examples
 
-#### Command (without include\_status)
+#### Request (without include\_status)
 
-<CodeGroup title="" tag="POST" label="active_swaps" mm2MethodDecorate="true">
+<CodeGroup title="active_swaps" tag="POST" label="active_swaps" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -41,22 +43,22 @@ The `active_swaps` method returns all the swaps that are currently running on th
 
   ```json
   {
-    "result": {
-      "uuids": [
-        "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
-        "7592a07a-2805-4050-8ab8-984480e812f0",
-        "82cbad96-ea9f-40fb-9225-07496323e35d",
-        "177f7fa5-c9f3-4673-a2fa-28451a123e61"
-      ],
-      "statuses": null
-    }
+      "result": {
+          "uuids": [
+              "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+              "7592a07a-2805-4050-8ab8-984480e812f0",
+              "82cbad96-ea9f-40fb-9225-07496323e35d",
+              "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+          ],
+          "statuses": null
+      }
   }
   ```
 </CollapsibleSection>
 
-#### Command (include\_status = true)
+#### Request (include\_status = true)
 
-<CodeGroup title="" tag="POST" label="active_swaps" mm2MethodDecorate="true">
+<CodeGroup title="active_swaps" tag="POST" label="active_swaps" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",

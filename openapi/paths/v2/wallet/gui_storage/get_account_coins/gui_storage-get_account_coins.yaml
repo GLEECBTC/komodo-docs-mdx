@@ -1,0 +1,55 @@
+/gui_storage::get_account_coins:
+  post:
+    summary: Return the set of coin tickers associated with a specific GUI-storage
+      account.
+    description: Return the set of coin tickers associated with a specific GUI-storage
+      account.
+    operationId: gui_storage::get_account_coins
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::get_account_coins
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Account whose ticker list should be returned.
+                required:
+                - account_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              account_id:
+                type: string
+                description: Account identifier echo.
+              coins:
+                type: string
+                description: Sorted set of tickers currently attached to the account.
+          example: {}

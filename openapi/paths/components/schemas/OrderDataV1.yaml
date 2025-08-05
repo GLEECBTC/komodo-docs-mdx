@@ -1,0 +1,130 @@
+components:
+  schemas:
+    OrderDataV1:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: The ticker of the coin
+        address:
+          type: string
+          description: The address offering the trade
+        price:
+          type: string
+          description: The price the user is willing to buy or sell per one unit of
+            the coin from request
+        price_rat:
+          description: The price represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        price_fraction:
+          description: The price represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        maxvolume:
+          type: string
+          description: The maximum amount of `base` the offer provider is willing
+            to sell
+        max_volume_rat:
+          description: The max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        max_volume_fraction:
+          description: The max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        min_volume:
+          type: string
+          description: The minimum amount of `base` coin the offer provider is willing
+            to sell
+        min_volume_rat:
+          description: The min volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        min_volume_fraction:
+          description: The min volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        pubkey:
+          type: string
+          description: The pubkey of the offer provider
+        age:
+          type: number
+          description: The age of the offer (in seconds)
+        zcredits:
+          type: number
+          description: The zeroconf deposit amount (deprecated)
+        netid:
+          type: number
+          description: The id of the network on which the request is made
+        uuid:
+          type: string
+          description: The uuid of order
+        is_mine:
+          type: boolean
+          description: Whether the order is placed by me
+        base_max_volume:
+          type: string
+          description: The maximum amount of `base` coin the offer provider is willing
+            to buy or sell
+        base_max_volume_rat:
+          description: The `base_max_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        base_max_volume_fraction:
+          description: The `base_max_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        base_min_volume:
+          type: string
+          description: The minimum amount of `base` coin the offer provider is willing
+            to buy or sell
+        base_min_volume_rat:
+          description: The `base_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        base_min_volume_fraction:
+          description: The `base_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        base_confs:
+          type: number
+          description: The confirmations settings of `base` coin set by the offer
+            provider
+        base_nota:
+          type: boolean
+          description: The notarisation settings of `base` coin set by the offer provider
+        rel_max_volume:
+          type: string
+          description: The maximum amount of `rel` coin the offer provider is willing
+            to buy or sell
+        rel_max_volume_rat:
+          description: The `rel_max_volume` max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        rel_max_volume_fraction:
+          description: The `rel_max_volume` max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        rel_min_volume:
+          type: string
+          description: The minimum amount of `rel` coin the offer provider is willing
+            to buy or sell
+        rel_min_volume_rat:
+          description: The `rel_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        rel_min_volume_fraction:
+          description: The `rel_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+        rel_confs:
+          type: number
+          description: The confirmations settings of `rel` coin set by the offer provider
+        rel_nota:
+          type: boolean
+          description: The notarisation settings of `rel` coin set by the offer provider
+        original_tickers:
+          type: string
+          description: Tickers included in response when `orderbook_ticker` is configured
+            for the queried coin in `coins` file

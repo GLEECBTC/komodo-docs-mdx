@@ -1,0 +1,96 @@
+/z_coin_tx_history:
+  post:
+    summary: Method description for z_coin_tx_history
+    description: Method description for z_coin_tx_history
+    operationId: z_coin_tx_history
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - z_coin_tx_history
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the coin to get history for.
+                  limit:
+                    type: integer
+                    description: Limits the number of returned transactions. Ignored
+                      if `max = true`.
+                    default: 10
+                  paging_options.FromId:
+                    type: string
+                    description: Komodo DeFi Framework API will skip records until
+                      it reaches this ID, skipping the from\_id as well; track the
+                      internal\_id of the last displayed transaction to find the value
+                      of this field for the next page
+                  paging_options.PageNumber:
+                    type: integer
+                    description: Komodo DeFi Framework API will return limit swaps
+                      from the selected page. Ignored if `FromId` is set.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              current_block:
+                type: number
+                description: The number of the latest block of coin blockchain.
+              from_id:
+                type: string
+                description: The from\_id specified in the request; this value is
+                  null if from\_id was not set.
+              limit:
+                type: number
+                description: The limit that was set in the request; note that the
+                  actual number of transactions can differ from the specified limit
+                  (e.g., on the last page).
+              page_number:
+                type: number
+                description: The page\_number that was set in the request.
+              skipped:
+                type: number
+                description: The number of skipped records (i.e., the position of
+                  `from_id` in the list + 1); this value is 0 if `from_id` was not
+                  set.
+              sync_status:
+                description: A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status)
+                  object. Provides information to track the progress of transaction
+                  history preloading in the background.
+                $ref: ../../components/schemas/SyncStatus.yaml
+              total:
+                type: number
+                description: The total number of transactions available.
+              total_pages:
+                type: number
+                description: Total pages available with the selected limit.
+              transactions:
+                type: array
+                description: Transactions data.
+          example: {}

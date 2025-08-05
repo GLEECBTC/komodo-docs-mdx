@@ -1,0 +1,228 @@
+export const title = "Komodo DeFi Framework Method: [Human-Readable Title]";
+export const description = "[Concise description of the method's purpose and functionality.]";
+
+# [Human-Readable, Title-Cased Method Name]
+
+## [exact::api::method::name] {{label : '[exact::api::method::name]', tag : 'API-v2'}}
+
+[Brief introduction to the method explaining its purpose, use case, and any relevant context. Reference related methods, overviews, or common structures as needed.]
+
+[Optional: Add a note about prerequisites, dependencies, or related methods if applicable.]
+
+### Request Parameters
+
+| Parameter | Type             | Required | Default | Description                                                                                           |
+| --------- | ---------------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------- |
+| [param1]  | string           |    ✓     |    -    | [Description of required parameter]                                                                   |
+| [param2]  | string           |    ✓     |    -    | [Description of required parameter]                                                                   |
+| [param3]  | string (numeric) |    ✗     |    -    | [Description of optional parameter with no default]                                                  |
+| [param4]  | bool             |    ✗     | `false` | [Description of optional parameter with default value]                                               |
+| [param5]  | object           |    ✗     |    -    | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object |
+
+<!-- Alternative format when all parameters are required (no Default column): -->
+<!--
+| Parameter | Type   | Required | Description                                   |
+| --------- | ------ | :------: | --------------------------------------------- |
+| [param1]  | string |    ✓     | [Description of required parameter]           |
+| [param2]  | string |    ✓     | [Description of required parameter]           |
+-->
+
+### Response Parameters
+
+| Parameter                | Type                     | Description                                                                                                                                                         |
+| ------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [param1]                 | array of strings         | [Description of response parameter]                                                                                                                                 |
+| [param2]                 | array of strings         | [Description of response parameter]                                                                                                                                 |
+| [param3]                 | string (numeric)         | [Description of response parameter]                                                                                                                                 |
+| [param4]                 | string (numeric)         | [Description of response parameter]                                                                                                                                 |
+| [param5]                 | string (numeric)         | [Description of response parameter]                                                                                                                                 |
+| [param6]                 | string (numeric)         | [Description of response parameter]                                                                                                                                 |
+| [param7]                 | object                   | [Description of response parameter]                                                                                                                                 |
+| [param8]                 | string                   | [Description of response parameter]                                                                                                                                 |
+| [param9]                 | string                   | [Description of response parameter]                                                                                                                                 |
+| [param10]                | string                   | [Description of response parameter]                                                                                                                                 |
+| [optional_param]         | object (optional)        | An object containing [description]; always exists if [condition]                                                                                                   |
+| [optional_param.subprop] | string (numeric, optional) | [Description of nested optional parameter]                                                                                                                        |
+| [optional_param.subprop2] | bool (optional)          | [Description of nested optional parameter]                                                                                                                        |
+
+#### 📌 Examples
+
+#### Request ([Scenario Description])
+
+<CodeGroup title="[Method Name]" tag="POST" label="[exact::api::method::name]" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "[exact::api::method::name]",
+    "[param1]": "[value1]",
+    "[param2]": "[value2]",
+    "[param3]": "[value3]",
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response ([Scenario] success)
+
+  ```json
+  {
+      "[param1]": ["[value1]"],
+      "[param2]": ["[value2]"],
+      "[param3]": "[value3]",
+      "[param4]": "[value4]",
+      "[param5]": "[value5]",
+      "[param6]": "[value6]",
+      "[param7]": {
+          "type": "[Type]",
+          "amount": "[amount]"
+      },
+      "[param8]": "[hash_value]",
+      "[param9]": "[hex_value]",
+      "[param10]": "[coin_name]",
+      "[optional_param]": {
+          "[subprop]": "[value]",
+          "[subprop2]": true
+      }
+  }
+  ```
+</CollapsibleSection>
+
+#### Request ([Alternative Scenario])
+
+<CodeGroup title="[Method Name] with [Feature]" tag="POST" label="[exact::api::method::name]" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "[exact::api::method::name]",
+    "[param1]": "[value1]",
+    "[param2]": "[value2]",
+    "[special_param]": {
+      "type": "[Type]",
+      "[nested_param]": "[value]"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "[param1]": ["[value1]"],
+    "[param2]": ["[value2]"],
+    "[param3]": "[value3]",
+    "[param7]": {
+      "type": "[Type]",
+      "[nested_param]": "[value]",
+      "[additional_param]": "[value]"
+    },
+    "[param8]": "[hash_value]",
+    "[param9]": "[hex_value]",
+    "[param10]": "[coin_name]"
+  }
+  ```
+</CollapsibleSection>
+
+#### Request (Max/Alternative Feature)
+
+<CodeGroup title="[Method Name] Max" tag="POST" label="[exact::api::method::name]" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "[exact::api::method::name]",
+    "[param1]": "[value1]",
+    "[param2]": "[value2]",
+    "[special_flag]": true,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "[param1]": ["[value1]"],
+    "[param2]": ["[value2]"],
+    "[param3]": "[value3]",
+    "[param4]": "[value4]",
+    "[param5]": "[value5]",
+    "[param6]": "[value6]",
+    "[param7]": {
+      "type": "[Type]",
+      "amount": "[amount]"
+    },
+    "[param8]": "[hash_value]",
+    "[param9]": "[hex_value]",
+    "[param10]": "[coin_name]"
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter        | Type   | Description                                                              |
+| ---------------- | ------ | ------------------------------------------------------------------------ |
+| NoSuchCoin       | string | The specified coin was not found or is not activated yet                 |
+| InvalidHashError | string | The specified `hash` is not valid                                        |
+| Transport        | string | The request was failed due to a network error                            |
+| HashNotExist     | string | The specified `hash` does not exist                                      |
+| InternalError    | string | The request was failed due to a Komodo DeFi Framework API internal error |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Error Response (No Such Coin)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin [COIN]",
+      "error_path": "[path]",
+      "error_trace": "[trace]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "[COIN]"
+      },
+      "id": 0
+  }
+  ```
+
+  #### Error Response (Invalid Hash)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Invalid hash: [reason]",
+      "error_path": "[path]",
+      "error_trace": "[trace]",
+      "error_type": "InvalidHashError",
+      "error_data": "[error_details]",
+      "id": 1
+  }
+  ```
+
+  #### Error Response (Transport)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "[transport_error_message]",
+      "error_path": "[path]",
+      "error_trace": "[trace]",
+      "error_type": "Transport",
+      "error_data": "[error_details]",
+      "id": 2
+  }
+  ```
+</CollapsibleSection>
+
+<!-- Template Usage Notes:
+1. Replace all [bracketed] placeholders with actual values
+2. Remove unused parameter rows and example sections
+3. Update error types to match the actual method's error responses
+4. Ensure parameter descriptions are clear and complete
+5. Include links to common structures and enums where applicable
+6. Add multiple examples for different use cases/coin types if needed
+7. Verify all JSON examples are valid and realistic
+8. Update the tag to match the API version (API-v1, API-v2, deprecated, etc.)
+--> 

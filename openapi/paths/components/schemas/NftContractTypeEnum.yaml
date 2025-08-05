@@ -1,0 +1,18 @@
+components:
+  schemas:
+    NftContractTypeEnum:
+      type: string
+      description: '| Value   | Description                |
+
+
+        **Values:**
+
+        - `ERC721`: ERC-721 NFT contract type
+
+        - `ERC1155`: ERC-1155 NFT contract type
+
+        '
+      enum:
+      - ERC721
+      - ERC1155
+      title: 'Component: NftContractTypeEnum'

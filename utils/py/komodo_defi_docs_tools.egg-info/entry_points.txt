@@ -1,0 +1,2 @@
+[console_scripts]
+kdf-tools = kdf_tools:main

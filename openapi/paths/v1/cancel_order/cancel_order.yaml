@@ -1,0 +1,39 @@
+/cancel_order:
+  post:
+    summary: The cancel_order cancels the active order created by the Komodo DeFi
+      Framework API node.
+    description: The cancel_order cancels the active order created by the Komodo DeFi
+      Framework API node.
+    operationId: cancel_order
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - cancel_order
+              uuid:
+                type: string
+                description: The uuid of the order the user desires to cancel
+            required:
+            - userpass
+            - method
+            - uuid
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

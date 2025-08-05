@@ -1,23 +1,31 @@
 export const title = "Komodo DeFi Framework Method: Stop Simple Market Maker Bot";
 export const description = "The stop_simple_market_maker_bot method tells the bot to finish placing orders at the end of the current loop 30 seconds minimum and 30 seconds by default.";
 
-# stop\_simple\_market\_maker\_bot
+# Stop Simple Market Maker Bot
 
-The `stop_simple_market_maker_bot` method tells the bot to finish placing orders at the end of the current loop (30 seconds minimum & 30 seconds by default). This method takes as input a url to a price service, and configuration parameters of the pairs to trade at a defined spread percentage value.
+## stop\_simple\_market\_maker\_bot {{label : 'stop_simple_market_maker_bot', tag : 'API-v2'}}
+
+The `stop_simple_market_maker_bot` method tells the bot to finish placing orders at the end of the current loop (30 seconds minimum & 30 seconds by default). This method does not take any parameters.
 
 At the end of the final loop, orders placed by the bot will be cancelled. Users should wait until the loop ends before exiting the Komodo DeFi Framework API, otherwise orders will not cancel, and will reappear on the orderbook next time Komodo DeFi Framework API starts.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none )   |      |             |
+| Parameter | Type  | Required | Description                      |
+| :-------- | :---- | :------: | :------------------------------- |
+| *None*    | *N/A* |          | *This method has no parameters.* |
+
+### Response Parameters
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="stop_simple_market_maker_bot" mm2MethodDecorate="true">
+<CodeGroup title="Stop Simple Market Maker Bot" tag="POST" label="stop_simple_market_maker_bot" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -30,7 +38,7 @@ At the end of the final loop, orders placed by the bot will be cancelled. Users 
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success) {{class : 'text-green-500'}}
+  #### Response (success)
 
   ```json
   {
@@ -41,8 +49,18 @@ At the end of the final loop, orders placed by the bot will be cancelled. Users 
     "id": 0
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error - bot already stopped) {{class : 'text-red-500'}}
+### Error Types
+
+| Parameter      | Type   | Description                 |
+| -------------- | ------ | --------------------------- |
+| AlreadyStopped | string | The bot is already stopped. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### AlreadyStopped
 
   ```json
   {

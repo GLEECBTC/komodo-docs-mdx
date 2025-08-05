@@ -1,9 +1,9 @@
 export const title = "Komodo DeFi Framework Method: KMD Rewards Info";
 export const description = "The kmd_rewards_info method returns information about the active user rewards that can be claimed by an address's unspent outputs.";
 
-# kmd\_rewards\_info
+# KMD Rewards Info
 
-**kmd\_rewards\_info**
+## kmd\_rewards\_info {{label : 'kmd_rewards_info', tag : 'API-v1'}}
 
 The `kmd_rewards_info` method returns information about the active user rewards that can be claimed by an address's unspent outputs.
 
@@ -11,43 +11,31 @@ The `kmd_rewards_info` method returns information about the active user rewards 
   This method only works when the KMD coin is activated.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response
 
-| Structure         | Type                       | Description                                                                                                                                         |
-| ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result            | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it |
-| tx\_hash          | string                     | the hash of the transaction                                                                                                                         |
-| height            | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                    |
-| output\_index     | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                             |
-| amount            | string (numeric)           | the transaction output’s value                                                                                                                      |
-| locktime          | number (integer)           | the transaction output's locktime                                                                                                                   |
-| accrued\_rewards  | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                   |
-| accrue\_start\_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                   |
-| accrue\_stop\_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)          |
+| Parameter         | Type                       | Description                                                                                                                                                                       |
+| ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result            | array of objects           | The rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it                               |
+| tx\_hash          | string                     | The hash of the transaction                                                                                                                                                       |
+| height            | number (integer, optional) | The height of the block in which the transaction was included (empty if the tx is not mined yet)                                                                                  |
+| output\_index     | number (integer)           | The zero-based index of the output in the transaction's list of outputs                                                                                                           |
+| amount            | string (numeric)           | The transaction output's value                                                                                                                                                    |
+| locktime          | number (integer)           | The transaction output's locktime                                                                                                                                                 |
+| accrued\_rewards  | object                     | An [AccruedRewards](/komodo-defi-framework/api/common_structures/wallet/#accrued-rewards) object representing the amount of accrued rewards or the reason for their non-existence |
+| accrue\_start\_at | number (integer, optional) | The rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                                                 |
+| accrue\_stop\_at  | number (integer, optional) | The rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)                                        |
 
-Where the `accrued_rewards` has either
+#### 📌 Example
 
-| Structure | Type             | Description                   |
-| --------- | ---------------- | ----------------------------- |
-| Accrued   | string (numeric) | the amount of accrued rewards |
+#### Request
 
-or
-
-| Structure        | Type   | Description                            |
-| ---------------- | ------ | -------------------------------------- |
-| NotAccruedReason | string | the reason why rewards are not accrued |
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="" tag="POST" label="kmd_rewards_info" mm2MethodDecorate="true">
+<CodeGroup title="kmd_rewards_info" tag="POST" label="kmd_rewards_info" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -61,30 +49,38 @@ or
 
   ```json
   {
-    "result": [
-      {
-        "accrue_stop_at": 1596144028,
-        "accrued_rewards": {
-          "Accrued": "0.00450984"
-        },
-        "amount": "47.99897112",
-        "height": 1986467,
-        "input_index": 1,
-        "locktime": 1596099388,
-        "tx_hash": "016bfb8fcf8704a30b5daf6b4bcce9d7e848141b53df44a5eae3db4279227401"
-      },
-      {
-        "accrue_stop_at": 1596142801,
-        "accrued_rewards": {
-          "NotAccruedReason": "UtxoAmountLessThanTen"
-        },
-        "amount": "0.5",
-        "height": 1986481,
-        "input_index": 0,
-        "locktime": 1596098161,
-        "tx_hash": "762d02d9d52faf365b55375da5e61ce34bb0ea391fbcb23e74b2adf8165f1bbb"
-      }
-    ]
+      "result": [
+          {
+              "accrue_stop_at": 1596144028,
+              "accrued_rewards": {
+                  "Accrued": "0.00450984"
+              },
+              "amount": "47.99897112",
+              "height": 1986467,
+              "input_index": 1,
+              "locktime": 1596099388,
+              "tx_hash": "016bfb8fcf8704a30b5daf6b4bcce9d7e848141b53df44a5eae3db4279227401"
+          },
+          {
+              "accrue_stop_at": 1596142801,
+              "accrued_rewards": {
+                  "NotAccruedReason": "UtxoAmountLessThanTen"
+              },
+              "amount": "0.5",
+              "height": 1986481,
+              "input_index": 0,
+              "locktime": 1596098161,
+              "tx_hash": "762d02d9d52faf365b55375da5e61ce34bb0ea391fbcb23e74b2adf8165f1bbb"
+          }
+      ]
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "KMD not activated" }
   ```
 </CollapsibleSection>

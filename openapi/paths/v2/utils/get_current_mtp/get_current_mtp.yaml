@@ -1,0 +1,62 @@
+/get_current_mtp:
+  post:
+    summary: The get_current_mtp method returns the Median Time Past (MTP) from electrum
+      servers for UTXO coins.
+    description: The get_current_mtp method returns the Median Time Past (MTP) from
+      electrum servers for UTXO coins.
+    operationId: get_current_mtp
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_current_mtp
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: A compatible (UTXO) coin's ticker
+                    default: '-'
+                  id:
+                    type: integer
+                    description: Optional. Identifies a request to allow matching
+                      it with a response. Defaults to `null`
+                    default: 'null'
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              mtp:
+                type: integer
+                description: Unix timestamp
+              id:
+                type: integer
+                description: Identifies a response to allow matching it with a request.
+                  Defaults to `null` if `id` not provided in request
+          example: {}

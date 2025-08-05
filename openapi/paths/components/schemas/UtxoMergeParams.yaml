@@ -1,0 +1,24 @@
+components:
+  schemas:
+    UtxoMergeParams:
+      type: object
+      properties:
+        merge_at:
+          type: integer
+          description: Mamimum UTXO count before merge loop is initiated.
+          default: '`-`'
+        check_every:
+          type: integer
+          description: How frequently (in blocks) the wallet UTXO count is evaluated.
+          default: '`-`'
+        max_merge_at_once:
+          type: integer
+          description: The maximum nouber of UTXOs to inlude as inputs for a merge
+            transaction. Note that more input UTXOs means a larger transaction and
+            greater fees, and that each blockchain has a limit to the maximum size
+            of a transaction.
+          default: '`-`'
+      required:
+      - check_every
+      - max_merge_at_once
+      - merge_at

@@ -1,0 +1,86 @@
+/lightning::channels::open_channel:
+  post:
+    summary: Open a new Lightning Network channel using the Komodo DeFi Framework
+      API.
+    description: Open a new Lightning Network channel using the Komodo DeFi Framework
+      API.
+    operationId: lightning::channels::open_channel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::channels::open_channel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you would like to open a channel
+                      for.
+                  node_address:
+                    type: string
+                    description: Lightning node addresses always have a format of
+                      `node_pubkey`@`ip_address`:`port`.
+                  amount:
+                    description: A standard [LightningChannelAmount](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-amount)
+                      object.
+                    $ref: ../../components/schemas/LightningChannelAmount.yaml
+                  push_msat:
+                    type: integer
+                    description: The amount in millisatoshi to push to the counterparty
+                      while opening, to create inbound liquidity for the channel.
+                      Using the `push_msat` parameter avoids having to send funds
+                      in a separate request later. Please note that the funds given
+                      using push\_msat is given unconditionally, meaning that there
+                      is no proof of payment in a preimage as with paying an invoice.
+                    default: 0
+                  channel_options:
+                    description: A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options)
+                      object.
+                    $ref: ../../components/schemas/LightningChannelOptions.yaml
+                  channel_configs:
+                    description: A standard [LightningChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-config)
+                      object.
+                    $ref: ../../components/schemas/LightningChannelConfig.yaml
+                required:
+                - coin
+                - node_address
+                - amount
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              uuid:
+                type: string
+                description: The unique identifier for the opened channel.
+              node_address:
+                type: string
+                description: The node address of the remote node.
+              id:
+                type: integer
+                description: Request identifier.
+          example: {}

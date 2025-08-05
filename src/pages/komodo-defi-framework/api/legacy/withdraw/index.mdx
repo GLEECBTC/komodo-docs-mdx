@@ -1,45 +1,45 @@
-export const title = "Komodo DeFi Framework Method: Withdraw";
+export const title = "Komodo DeFi Framework Method: Withdraw Funds";
 export const description = "The withdraw method generates, signs, and returns a transaction that transfers the amount of coin to the address indicated in the to argument.";
 
-# withdraw
+# Withdraw Funds
 
-**withdraw coin to (amount max)**
+## withdraw {{label: 'withdraw', tag: 'API-v1'}}
 
 The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.
 
 This method generates a raw transaction which should then be broadcast using [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
 
-## Arguments
+### Request Parameters
 
-| Structure | Type             | Description                                                                                           |
-| --------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                                                     |
-| to        | string           | coins are withdrawn to this address                                                                   |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
-| max       | bool             | withdraw the maximum available amount                                                                 |
-| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| Parameter | Type             | Required | Default | Description                                                                                           |
+| --------- | ---------------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------- |
+| coin      | string           |     ✓    |    -    | The name of the coin the user desires to withdraw                                                     |
+| to        | string           |     ✓    |    -    | Coins are withdrawn to this address                                                                   |
+| amount    | string (numeric) |     ✗    |    -    | The amount the user desires to withdraw, ignored when `max=true`                                      |
+| max       | bool             |     ✗    | `false` | Withdraw the maximum available amount                                                                 |
+| fee       | object           |     ✗    |    -    | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
 
-## Response
+### Response
 
-| Structure                    | Type                       | Description                                                                                                                                                                                             |
+| Parameter                    | Type                       | Description                                                                                                                                                                                             |
 | ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
-| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
-| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
-| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
-| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
-| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                   |
-| fee\_details                 | object                     | the fee dsetails of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                     |
-| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                   |
-| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                                                  |
-| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                         |
-| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
-| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                           |
-| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                  |
+| from                         | array of strings           | Coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
+| to                           | array of strings           | Coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
+| my\_balance\_change          | string (numeric)           | The expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
+| received\_by\_me             | string (numeric)           | The amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
+| spent\_by\_me                | string (numeric)           | The amount of coins spent by `my_address`; this value differs from the request amount, as the transaction fee is added here                                                                             |
+| total\_amount                | string (numeric)           | The total amount of coins transferred                                                                                                                                                                   |
+| fee\_details                 | object                     | The fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                      |
+| tx\_hash                     | string                     | The hash of the generated transaction                                                                                                                                                                   |
+| tx\_hex                      | string                     | Transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method                                                                                                  |
+| coin                         | string                     | The name of the coin the user wants to withdraw                                                                                                                                                         |
+| kmd\_rewards                 | object (optional)          | An object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
+| kmd\_rewards.amount          | string (numeric, optional) | The amount of accrued rewards                                                                                                                                                                           |
+| kmd\_rewards.claimed\_by\_me | bool (optional)            | Whether the rewards have been claimed by me                                                                                                                                                             |
 
 #### 📌 Examples
 
-#### Withdraw UTXO based coins
+#### Request (withdraw UTXO based coins)
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -58,25 +58,33 @@ This method generates a raw transaction which should then be broadcast using [se
 
   ```json
   {
-    "block_height": 0,
-    "coin": "KMD",
-    "fee_details": {
-      "type": "Utxo",
-      "amount": "0.00001"
-    },
-    "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-    "my_balance_change": "-10.00001",
-    "received_by_me": "0.34417325",
-    "spent_by_me": "10.34418325",
-    "to": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
-    "total_amount": "10.34418325",
-    "tx_hash": "3a1c382c50a7d12e4675d12ed7e723ce9f0167693dd75fd772bae8524810e605",
-    "tx_hex": "0400008085202f890207a8e96978acfb8f0d002c3e4390142810dc6568b48f8cd6d8c71866ad8743c5010000006a47304402201960a7089f2d93480fff68ce0b7ca7bb7a32a52915753ac7ae780abd6162cb1d02202c9b11d442e5f72a532f44ceb10122898d486b1474a10eb981c60c5538b9c82d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006a473044022055199d80bd7e2d1b932e54f097c6a15fc4b148d21299dc50067c1da18045f0ed02201d26d85333df65e6daab40a07a0e8a671af9d9b9d92fdf7d7ef97bd868ca545a012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acad2a0d02000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000",
-    "kmd_rewards": {
-      "amount": "0.0791809",
-      "claimed_by_my": true
-    }
+      "block_height": 0,
+      "coin": "KMD",
+      "fee_details": {
+          "type": "Utxo",
+          "amount": "0.00001"
+      },
+      "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+      "my_balance_change": "-10.00001",
+      "received_by_me": "0.34417325",
+      "spent_by_me": "10.34418325",
+      "to": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
+      "total_amount": "10.34418325",
+      "tx_hash": "3a1c382c50a7d12e4675d12ed7e723ce9f0167693dd75fd772bae8524810e605",
+      "tx_hex": "0400008085202f890207a8e96978acfb8f0d002c3e4390142810dc6568b48f8cd6d8c71866ad8743c5010000006a47304402201960a7089f2d93480fff68ce0b7ca7bb7a32a52915753ac7ae780abd6162cb1d02202c9b11d442e5f72a532f44ceb10122898d486b1474a10eb981c60c5538b9c82d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006a473044022055199d80bd7e2d1b932e54f097c6a15fc4b148d21299dc50067c1da18045f0ed02201d26d85333df65e6daab40a07a0e8a671af9d9b9d92fdf7d7ef97bd868ca545a012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acad2a0d02000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000",
+      "kmd_rewards": {
+          "amount": "0.0791809",
+          "claimed_by_me": true
+      }
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error - attempt to use EthGas for UTXO coin)
+
+  ```json
+  { "error": "utxo:1295] Unsupported input fee type" }
   ```
 </CollapsibleSection>
 

@@ -1,0 +1,73 @@
+/best_orders:
+  post:
+    summary: The best_orders method returns the best priced trades available on the
+      orderbook.
+    description: The best_orders method returns the best priced trades available on
+      the orderbook.
+    operationId: best_orders
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - best_orders
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  action:
+                    description: A standard [ActionEnum](/komodo-defi-framework/api/common_structures/enums/#action-enum)
+                      enum. Whether to `buy` or `sell` the selected coin.
+                    $ref: ../../components/schemas/ActionEnum.yaml
+                  coin:
+                    type: string
+                    description: The ticker of the coin to get best orders.
+                    default: '-'
+                  exclude_mine:
+                    type: boolean
+                    description: If `true`, the users orders will be excluded from
+                      the response.
+                    default: false
+                  request_by:
+                    description: A standard [RequestBy](/komodo-defi-framework/api/common_structures/orders/#request-by)
+                      object.
+                    $ref: ../../components/schemas/RequestBy.yaml
+                required:
+                - action
+                - coin
+                - request_by
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              orders:
+                description: The `ticker -> array of standard [OrderData](/komodo-defi-framework/api/common_structures/orders/#order-data)
+                  objects` map.
+                $ref: ../../components/schemas/OrderData.yaml
+              original_tickers:
+                type: string
+                description: Tickers included in response when `orderbook_ticker`
+                  is configured for the queried coin in `coins` file.
+          example: {}

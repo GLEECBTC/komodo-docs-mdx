@@ -1,0 +1,82 @@
+/task::init_trezor::status:
+  post:
+    summary: Query the status of Trezor device initialisation in the Komodo DeFi Framework
+      API.
+    description: Query the status of Trezor device initialisation in the Komodo DeFi
+      Framework API.
+    operationId: task::init_trezor::status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::init_trezor::status
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      initialisation process.
+                    default: '-'
+                  forget_if_finished:
+                    type: boolean
+                    description: If `false`, will return final response for completed
+                      tasks.
+                    default: true
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: A short indication of how the requested process is progressing.
+              details:
+                type: object
+                description: Depending on the state of process progress, this will
+                  contain different information as detailed in the items below.
+              details.type:
+                type: string
+                description: Type of hardware wallet device (e.g. `Trezor`)
+              details.model:
+                type: string
+                description: The model of the hardware wallet device (e.g. `One` or
+                  `T`)
+              details.device_name:
+                type: string
+                description: The name of the device as defined by user in Trezor Suite
+                  or another wallet application.
+              details.device_id:
+                type: string
+                description: A unique identifier of the device, set during manufacturing.
+              details.device_pubkey:
+                type: string
+                description: The hardware wallet device's pubkey. If included in the
+                  `task::init_trezor::init` request, it will be the same as input.
+                  If not, it should be stored for future use.
+          example: {}

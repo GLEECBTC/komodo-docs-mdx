@@ -1,0 +1,66 @@
+/update_nft:
+  post:
+    summary: Method description for update_nft
+    description: Method description for update_nft
+    operationId: update_nft
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - update_nft
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  chains:
+                    description: List of networks to scan for NFTs. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum)
+                      for allowed values.
+                    $ref: ../../components/schemas/NftNetworkEnum.yaml
+                  komodo_proxy:
+                    type: boolean
+                    description: Indicates whether authentication is required for
+                      accessing the proxy URLs.
+                    default: '-'
+                  url:
+                    type: string
+                    description: URL link to the [Moralis API proxy base URL](https://moralis-proxy.komodo.earth)
+                      or equivalent. If komodo\_proxy is set to true, you must provide
+                      a new Komodo Proxy URL.
+                    default: '-'
+                  url_antispam:
+                    type: string
+                    description: URL link to the [Antispam API proxy base URL](https://nft.antispam.dragonhound.info)
+                      or equivalent.
+                    default: '-'
+                required:
+                - chains
+                - url
+                - url_antispam
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

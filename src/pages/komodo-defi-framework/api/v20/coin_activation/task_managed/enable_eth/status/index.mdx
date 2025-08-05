@@ -1,0 +1,127 @@
+export const title = "Komodo DeFi Framework Method: Enable ETH Task: Status";
+export const description = "Query the status of ETH/EVM activation task.";
+
+# Enable ETH Task: Status
+
+## task::enable\_eth::status {{label : 'task::enable_eth::status', tag : 'API-v2'}}
+
+After running the `task::enable_eth::init` method, you can query the status of activation to check its progress. The response will return the following:
+
+*   Result of the task (success or error)
+*   Progress status (what state the task is in)
+*   Required user action (what user should do before the task can continue)
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                                 |
+| -------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------- |
+| task\_id             | integer |     ✓    |    -    | The identifying number returned when initiating the initialisation process. |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If false, will return final response for completed tasks.                   |
+
+#### Command
+
+<CodeGroup title="ETH/EVM Activation Status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_eth::status",
+    "params": {
+      "task_id": 0,
+      "forget_if_finished": false
+    }
+  }
+  ```
+</CodeGroup>
+
+| Parameter | Type                                                                                                        | Description                                                                                                           |
+| --------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| status    | [TaskActivationStatusEnum](/komodo-defi-framework/api/common_structures/enums/#task-activation-status-enum) | A short indication of how the enabling is progressing.                                                                |
+| details   | object                                                                                                      | Depending on the state of enabling progress, this will contain different information as shown in the responses below. |
+
+Once complete, `status` will be `Ok`, and the `details` object will have the following structure:
+
+#### Response (ready, successful, HD mode)
+
+| Parameter       | Type    | Description                                                                                                                                                                                                          |
+| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| current\_block  | integer | Block height of the coin being activated                                                                                                                                                                             |
+| ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                  |
+| wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the activation request. |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "status": "Ok",
+          "details": {
+              "ticker": "ETH",
+              "current_block": 12345678,
+              "wallet_balance": {
+                  "wallet_type": "HD",
+                  "accounts": [
+                      {
+                          "account_index": 0,
+                          "derivation_path": "m/44'/60'/0'",
+                          "total_balance": {
+                              "ETH": {
+                                  "spendable": "0",
+                                  "unspendable": "0"
+                              }
+                          },
+                          "addresses": [
+                              {
+                                  "address": "0x1234567890abcdef1234567890abcdef12345678",
+                                  "derivation_path": "m/44'/60'/0'/0/0",
+                                  "chain": "External",
+                                  "balance": {
+                                      "ETH": {
+                                          "spendable": "0",
+                                          "unspendable": "0"
+                                      }
+                                  }
+                              }
+                          ]
+                      }
+                  ]
+              }
+          }
+      },
+      "id": null
+  }  
+  ```
+</CollapsibleSection>
+
+#### Response (in progress)
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "RequestingWalletBalance"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (ready, error)
+
+| Parameter      | Type   | Description                                                                                                         |
+| -------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
+| status         | string | A short indication of how the requested process is progressing.                                                     |
+| details.result | object | Depending on the state of process progress, this will contain different information as detailed in the items below. |
+| .error         | string | The ticker of the coin being activated                                                                              |
+| .error\_path   | string | Used for debugging. A reference to the function in code base which returned the error                               |
+| .error\_trace  | string | Used for debugging. A trace of lines of code which led to the returned error                                        |
+| .error\_type   | string | An enumerated error identifier to indicate the category of error                                                    |
+| .error\_data   | string | Additonal context for the error type                                                                                |
+
+Possible Error Cases:
+
+*   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
+*   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.

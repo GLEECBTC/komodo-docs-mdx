@@ -1,37 +1,37 @@
 export const title = "Komodo DeFi Framework Method: Unban Pubkeys";
 export const description = "The unban_pubkeys method will remove all currently banned pubkeys from your ban list, or specific pubkeys from a user defined list.";
 
-# unban\_pubkeys
+# Unban Pubkeys
 
-**unban\_pubkeys type data**
+## unban\_pubkeys {{label: 'unban_pubkeys', tag: 'API-v1'}}
 
-The `unban_pubkeys` method will remove all currently banned pubkeys from your ban list, or specific pubkeys from a user defined list.
+The `unban_pubkeys` method will remove all currently banned pubkeys from your ban list, or specific pubkeys from a user-defined list.
 
 <Note>
-  Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is `022cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420` you should submit `2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`.
+  Use the secp256k1 pubkey without prefix for this method input. For example, if the pubkey is `022cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`, you should submit `2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure      | Type   | Description                                                                |
-| -------------- | ------ | -------------------------------------------------------------------------- |
-| pubkey         | string | the pubkey to ban                                                          |
-| unban\_by.type | string | `All` to unban all pubkeys, or `Few` to provide a list of pubkeys to unban |
-| unban\_by.data | list   | A list of pubkeys to unbanned. Only required when `type` is `Few`.         |
+| Parameter      | Type   | Required | Default | Description                                                                                                                                                     |
+| -------------- | ------ | :------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| pubkey         | string |     ✓    |    -    | The pubkey to ban                                                                                                                                               |
+| unban\_by.data | list   |     ✗    |    -    | A list of pubkeys to unban. Only required when `type` is `Few`.                                                                                                 |
+| unban\_by.type | string |     ✓    |    -    | A standard [UnbanTypeEnum](/komodo-defi-framework/api/common_structures/enums/#unban-type-enum) enum. Whether to unban all pubkeys or specific ones from a list |
 
-## Response
+### Response parameters
 
-| Structure         | Type | Description                                                                                                                                             |
-| ----------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| still\_banned     | list | List of pubkeys which remain banned. For each `pubkey`, the reason it was banned `pubkey.reason` and the type of of ban `pubkey.type` is also returned. |
-| unbanned          | list | List of pubkeys which were unbanned. For each `pubkey`, the reason it was banned `pubkey.reason` and the type of of ban `pubkey.type` is also returned. |
-| were\_not\_banned | list | If using `unban_by.type: Few` this will return a list of pubkeys which were not banned, but had been requested to be unbanned.                          |
+| Parameter         | Type | Description                                                                                                                                              |
+| ----------------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| still\_banned     | list | List of pubkeys which remain banned. For each `pubkey`, the reason it was banned (`pubkey.reason`) and the type of ban (`pubkey.type`) is also returned. |
+| unbanned          | list | List of pubkeys which were unbanned. For each `pubkey`, the reason it was banned (`pubkey.reason`) and the type of ban (`pubkey.type`) is also returned. |
+| were\_not\_banned | list | If using `unban_by.type: Few`, this will return a list of pubkeys which were not banned, but had been requested to be unbanned.                          |
 
 #### 📌 Examples
 
-#### Command
+#### Request (unban all)
 
-<CodeGroup title="" tag="POST" label="unban_pubkeys" mm2MethodDecorate="true">
+<CodeGroup title="unban_pubkeys" tag="POST" label="unban_pubkeys" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -62,9 +62,9 @@ The `unban_pubkeys` method will remove all currently banned pubkeys from your ba
   ```
 </CollapsibleSection>
 
-#### Command
+#### Request (unban few)
 
-<CodeGroup title="" tag="POST" label="unban_pubkeys" mm2MethodDecorate="true">
+<CodeGroup title="unban_pubkeys" tag="POST" label="unban_pubkeys" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -85,23 +85,23 @@ The `unban_pubkeys` method will remove all currently banned pubkeys from your ba
 
   ```json
   {
-    "result": {
-      "still_banned": {
-        "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520421": {
-          "type": "Manual",
-          "reason": "testing"
-        }
-      },
-      "unbanned": {
-        "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420": {
-          "type": "Manual",
-          "reason": "testing"
-        }
-      },
-      "were_not_banned": [
-        "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
-      ]
-    }
+      "result": {
+          "still_banned": {
+              "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520421": {
+                  "type": "Manual",
+                  "reason": "testing"
+              }
+          },
+          "unbanned": {
+              "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420": {
+                  "type": "Manual",
+                  "reason": "testing"
+              }
+          },
+          "were_not_banned": [
+              "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520422"
+          ]
+      }
   }
   ```
 </CollapsibleSection>

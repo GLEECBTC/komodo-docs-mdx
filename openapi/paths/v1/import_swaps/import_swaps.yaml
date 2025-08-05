@@ -1,0 +1,47 @@
+/import_swaps:
+  post:
+    summary: The import_swaps method imports to the local database the swaps data
+      that was exported from another Komodo DeFi Framework API instance.
+    description: The import_swaps method imports to the local database the swaps data
+      that was exported from another Komodo DeFi Framework API instance.
+    operationId: import_swaps
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - import_swaps
+              swaps:
+                description: A map of standard [SwapStatus](/komodo-defi-framework/api/common_structures/swaps/#swap-status)
+                  objects.
+                $ref: ../../components/schemas/SwapStatus.yaml
+            required:
+            - userpass
+            - method
+            - swaps
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result.imported:
+                type: string
+                description: UUIDs of swaps that were successfully imported
+              result.skipped:
+                type: string
+                description: UUIDs of swaps that failed to import; includes error
+                  message
+          example: {}

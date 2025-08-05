@@ -1,0 +1,69 @@
+components:
+  schemas:
+    ActivationParams:
+      type: object
+      properties:
+        required_confirmations:
+          type: integer
+          description: Confirmations to wait for steps in swap. Defaults to value
+            in the coins file if not set.
+          default: '`-`'
+        requires_notarization:
+          type: boolean
+          description: For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/)
+            protected coins, a `true` value will wait for transactions to be notarised
+            when doing swaps. Overrides value if set in `coins` file.
+          default: '`false`'
+        mode:
+          description: QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode)
+            object.
+          $ref: '#/components/schemas/ActivationMode'
+        zcash_params_path:
+          type: string
+          description: ZHTLC coins only. Path to folder containing [Zcash parameters](https://z.cash/learn/).
+            Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603)
+          default: '`-`'
+        scan_blocks_per_iteration:
+          type: integer
+          description: ZHTLC coins only. Sets the number of scanned blocks per iteration
+            during `BuildingWalletDb` state.
+          default: '`1000`'
+        scan_interval_ms:
+          type: integer
+          description: ZHTLC coins only. Sets the interval in milliseconds between
+            iterations of `BuildingWalletDb` state.
+          default: '`0`'
+        tx_history:
+          type: boolean
+          description: Enable transaction history scanning. When active, the Komodo
+            DeFi Framework API will collect transaction history data for local storage,
+            and allow use of the [my\_tx\_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/)
+            method.
+          default: '`-`'
+        min_addresses_number:
+          type: integer
+          description: HD wallets only. Number of addresses to generate. If not specified,
+            addresses will be generated up to `path_to_address::address_index`.
+          default: '`-`'
+        scan_policy:
+          type: string
+          description: HD wallets only. Whether or not to scan for new addresses.
+            Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan`
+            will result in multple requests to the Komodo DeFi API and may take some
+            time to complete.
+          default: '`scan_if_new_wallet`'
+        gap_limit:
+          type: integer
+          description: HD wallets only. The max number of empty addresses in a row.
+            Transactions sent to an address outside the `gap_limit`, will not be identified
+            when scanning.
+          default: '`20`'
+        path_to_address:
+          description: HD wallets only. A standard [AddressDerivationPath](/komodo-defi-framework/api/common_structures/wallet/#address-derivation-path)
+            object.
+          $ref: '#/components/schemas/AddressDerivationPath'
+        get_balances:
+          type: boolean
+          description: If `false`, coin and token balances will not be returned in
+            the response, and the response will be returned more quickly.
+          default: '`true`'

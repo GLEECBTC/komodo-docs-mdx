@@ -1,0 +1,72 @@
+/task::enable_tendermint_token::init:
+  post:
+    summary: Start a task-managed activation flow for a Tendermint token.
+    description: Start a task-managed activation flow for a Tendermint token.
+    operationId: task::enable_tendermint_token::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_tendermint_token::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: Token ticker (e.g., `IRIS`).
+                  activation_params:
+                    description: A [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params)
+                      object (see below).
+                    $ref: ../../components/schemas/TokenActivationParams.yaml
+                  userpass:
+                    type: string
+                    description: RPC password.
+                  Parameter:
+                    type: string
+                    description: Description
+                    default: Default
+                  required_confirmations:
+                    type: integer
+                    description: Confirmations to wait for swap-related transactions.
+                      If omitted, falls back to the parent platform-coin setting.
+                    default: 3
+                required:
+                - ticker
+                - userpass
+                - ticker
+                - userpass
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: Activation task identifier.
+              status:
+                type: string
+                description: Initial status.
+          example: {}

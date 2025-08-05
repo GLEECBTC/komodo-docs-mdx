@@ -1,0 +1,27 @@
+components:
+  schemas:
+    NftInfoBasic:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount of this NFT the user owns (used by `ERC1155`).
+        chain:
+          type: string
+          description: Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or
+            `POLYGON`.
+        contract_type:
+          type: string
+          description: The type of NFT contract standard. One of `ERC721` or `ERC1155`.
+        token_address:
+          type: string
+          description: The address of the NFT contract.
+        token_id:
+          type: string
+          description: The token ID of the NFT.
+      required:
+      - amount
+      - chain
+      - contract_type
+      - token_address
+      - token_id

@@ -1,0 +1,70 @@
+export const title = "Komodo DeFi Framework Method: SIA Activation Status";
+export const description = "Checks the status of the SIA coin activation task.";
+
+# SIA Activation Status
+
+## task::enable\_sia::status {{label : 'task::enable_sia::status', tag : 'API-v2'}}
+
+This method checks the status of an ongoing SIA activation task.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                    |
+| :-------- | :------ | :------: | :----------------------------- |
+| task\_id  | integer |     ✓    | The ID of the activation task. |
+
+### Response Parameters
+
+The response will vary depending on the status of the task. It can indicate if the task is still in progress, has completed successfully, or has failed.
+
+*   **In Progress:** The response will show the current state of the activation process.
+*   **Success:** The response will indicate that the coin has been activated successfully.
+*   **Error:** The response will provide details about the error that occurred.
+
+#### 📌 Examples
+
+#### Request (Check Status)
+
+<CodeGroup title="SIA Activation Status" tag="POST" label="task::enable_sia::status">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_sia::status",
+    "params": {
+      "task_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (In Progress)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "Activating SIA..."
+    },
+    "id": 0
+  }
+  ```
+
+  #### Response (Success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "result": {
+        "ticker": "SIA",
+        "address": "sia-address"
+      }
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>

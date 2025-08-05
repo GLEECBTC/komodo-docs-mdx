@@ -1,0 +1,10 @@
+components:
+  schemas:
+    TakerPaymentWaitConfirmFailed:
+      type: object
+      properties:
+        error:
+          type: string
+          description: error description with stack trace
+      required:
+      - error

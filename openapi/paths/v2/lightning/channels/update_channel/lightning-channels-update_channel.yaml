@@ -1,0 +1,64 @@
+/lightning::channels::update_channel:
+  post:
+    summary: Update a Lightning Network channel using the Komodo DeFi Framework API.
+    description: Update a Lightning Network channel using the Komodo DeFi Framework
+      API.
+    operationId: lightning::channels::update_channel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::channels::update_channel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you would like to update channel
+                      configuration options for.
+                  uuid:
+                    type: string
+                    description: Unique channel identifier.
+                  channel_options:
+                    description: A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options)
+                      object.
+                    $ref: ../../components/schemas/LightningChannelOptions.yaml
+                required:
+                - coin
+                - uuid
+                - channel_options
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              channel_options:
+                type: object
+                description: The updated channel options.
+              id:
+                type: integer
+                description: Request identifier.
+          example: {}

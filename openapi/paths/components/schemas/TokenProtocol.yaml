@@ -1,0 +1,14 @@
+components:
+  schemas:
+    TokenProtocol:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Token type - e.g `ERC20` for tokens on the Ethereum network
+        protocol_data:
+          type: object
+          description: Protocol-specific data object
+      required:
+      - protocol_data
+      - type

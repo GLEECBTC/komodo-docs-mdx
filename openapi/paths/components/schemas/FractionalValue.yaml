@@ -1,0 +1,14 @@
+components:
+  schemas:
+    FractionalValue:
+      type: object
+      properties:
+        numer:
+          type: string
+          description: The numerator of the fractional value.
+        denom:
+          type: string
+          description: The denominator of the fractional value.
+      required:
+      - denom
+      - numer

@@ -1,0 +1,207 @@
+export const title = "Komodo DeFi Framework Method: Enable Z Coin Task: Init";
+export const description = "Task managed activation of ZHTLC coins like ARRR & ZOMBIE.";
+
+# Enable Z Coin Task: Init
+
+## task::enable\_z\_coin::init {{label : 'task::enable_z_coin::init', tag : 'API-v2'}}
+
+ZHTLC coins, like Pirate (ARRR) and the test coin ZOMBIE take a little longer to enable, and use a new two step method to enable. Activation can take a little while the first time, as we need to download some block cache data, and build a wallet database.
+Subsequent enabling will be faster, but still take a bit longer than other coins. The second step for activation is optional, but allows us to check the status of the activation process.
+
+Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+To withdraw ZHTLC coins, you need to use the [task::withdraw](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw) methods:
+
+*   Generate a transaction with [task::withdraw::init](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-init)
+*   Query its status with [task::withdraw::status](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-status)
+*   Cancel generating the transaction with [task::withdraw::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-cancel)
+*   Broadcast the transaction with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/#send-raw-transaction)
+
+ZHTLC coins are not compatible with the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) and [legacy my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/) methods.
+To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/) method.
+
+<Note>
+  To enable Z coins you also need to [install some Zcash
+  Params](https://forum.komodoplatform.com/t/installing-zcash-params/603)
+</Note>
+
+### Request Parameter Table
+
+| Parameter          | Type   | Required | Description                                                                                                          |
+| ------------------ | ------ | :------: | -------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    | Ticker of coin to activate                                                                                           |
+| activation\_params | object |     ✓    | A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object. |
+
+### Response Parameter Table
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Enable Z coin without any optional parameters
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "url": "zombie.dragonhound.info:10133"
+              },
+              {
+                "url": "zombie.dragonhound.info:20133",
+                "protocol": "SSL",
+                "ws_url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ]
+          }
+        },
+        "zcash_params_path": "/home/username/path_to/.zcash-params",
+        "scan_blocks_per_iteration": 100,
+        "scan_interval_ms": 200
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Sync from block 2528700, with custom `.zcash-params` path and scan params
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "url": "zombie.dragonhound.info:10133"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ],
+            "sync_params": {
+              "height": 2528700
+            }
+          }
+        },
+        "zcash_params_path": "/home/username/path_to/.zcash-params",
+        "scan_blocks_per_iteration": 100,
+        "scan_interval_ms": 200
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Sync from sapling activation height (earliest)
+
+The Z coin lightwallet client only supports blocks that are post-sapling. The sapling activation height for Z coins can be found in the [coins file](https://github.com/KomodoPlatform/coins/blob/master/coins)
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "url": "zombie.dragonhound.info:10133"
+              },
+              {
+                "url": "zombie.dragonhound.info:20133",
+                "protocol": "SSL",
+                "ws_url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ],
+            "sync_params": "earliest"
+          }
+        },
+        "zcash_params_path": "/home/username/path_to/.zcash-params",
+        "scan_blocks_per_iteration": 100,
+        "scan_interval_ms": 200
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Using websockets to sync from Proof of Keys Day, 2023.
+
+<Note>[About proof of Keys Day](https://hackernoon.com/not-your-keys-not-your-bitcoin-jan3bitcoin-z6k3ktb)</Note>
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "protocol": "SSL",
+                "url": "zombie.dragonhound.info:20133",
+                "ws_url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ],
+            "sync_params": {
+              "date": 1672704000
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

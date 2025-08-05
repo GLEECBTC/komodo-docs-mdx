@@ -1,0 +1,19 @@
+components:
+  schemas:
+    WcConnNs:
+      type: object
+      properties:
+        chains:
+          type: string
+          description: A list of chain IDs. For EIP155, refer to [https://chainid.network/](https://chainid.network/).
+            For Cosmos, refer to [https://cosmos.directory/](https://cosmos.directory/)
+        methods:
+          type: string
+          description: A list of approved methods, usable while connected. For EIP155,
+            refer to [https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc).
+            For Cosmos, refer to [https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc)
+        events:
+          type: string
+          description: A list of events to track during the connection. For EIP155,
+            refer to [https://docs.reown.com/advanced/providers/ethereum#events](https://docs.reown.com/advanced/providers/ethereum#events).
+            For Cosmos, refer to [https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html](https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html)

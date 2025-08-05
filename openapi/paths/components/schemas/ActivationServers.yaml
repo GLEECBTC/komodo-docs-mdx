@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ActivationServers:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL and port for an electrum server.
+          default: '`-`'
+        ws_url:
+          type: string
+          description: For WSS only. The URL and port for an electrum server's WSS
+            port.
+          default: '`-`'
+        protocol:
+          type: string
+          description: 'Transport protocol used to connect to the server. Options:
+            `TCP` or `SSL`'
+          default: '`TCP`'
+        disable_cert_verification:
+          type: boolean
+          description: If `true`, this disables server SSL/TLS certificate verification
+            (e.g. for self-signed certificates). <b>Use at your own risk!</b>
+          default: '`false`'
+      required:
+      - url

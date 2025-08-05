@@ -1,29 +1,31 @@
 export const title = "Komodo DeFi Framework Method: Recreate Swap Data";
 export const description = "The recreate_swap_data method helps recover lost swap data due to storage errors or hardware failure.";
 
-# recreate\_swap\_data
+# Recreate Swap Data
 
-The `recreate_swap_data` can assist in the event of local stored swap data being lost due to storage errors related to low disk space or hardware failure, and if required, aid with the refunding of failed swaps.
+## recreate\_swap\_data {{label : 'recreate_swap_data', tag : 'API-v2'}}
+
+The `recreate_swap_data` method can assist in the event of locally stored swap data being lost due to storage errors related to low disk space or hardware failure, and if required, aid with the refunding of failed swaps.
 
 To source the opposite side of the trade, please [contact the Komodo Support team on Discord](https://komodoplatform.com/discord). You will need to provide details about the trade you are trying to recover, such as the coins and amounts being traded, the approximate time of the trade, any known transaction IDs involved in the trade, and if available the UUID of the trade.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                                                                                                             |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| swap      | object | Swap data from other side of trade. For example to recreate a Maker's swap data, the input would be the corresponding Taker's swap data |
+| Parameter | Type   | Required | Description                                                                                                                               |
+| --------- | ------ | :------: | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| swap      | object |     ✓    | Swap data from other side of trade. For example, to recreate a Maker's swap data, the input would be the corresponding Taker's swap data. |
 
-#### Response
+### Response Parameters
 
-| Structure | Type   | Description                                                                                                                       |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| result    | object | Opposite side's swap data. For example if a Taker's swap data is input, the reponse would be the corresponding Maker's swap data. |
+| Parameter | Type   | Description                                                                                                                         |
+| --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| result    | object | Opposite side's swap data. For example, if a Taker's swap data is input, the response would be the corresponding Maker's swap data. |
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="recreate_swap_data" mm2MethodDecorate="true">
+<CodeGroup title="Recreate Swap Data" tag="POST" label="recreate_swap_data" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -300,4 +302,16 @@ To source the opposite side of the trade, please [contact the Komodo Support tea
     "id": null
   }
   ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  <Note type="info">
+    No specific error responses are documented for this method. Errors may be returned for invalid parameters or network issues. This section will be updated soon.
+  </Note>
+
+  <DevComment>
+    TODO: Get error responses
+  </DevComment>
 </CollapsibleSection>

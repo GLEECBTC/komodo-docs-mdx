@@ -1,0 +1,98 @@
+export const title = "Komodo DeFi Framework Method: Enable SLP";
+export const description =
+  "The enable_slp method activates additional SLP (Simple Ledger Protocol) tokens on a BCH platform coin.";
+
+# Enable SLP
+
+## enable\_slp {{label : 'enable_slp', tag : 'deprecated'}}
+
+The `enable_slp` method activates additional [SLP](https://simpleledger.cash/) tokens for a previously-enabled BCH (Bitcoin Cash) platform coin.
+
+⚠️ Before calling this method you must first enable BCH itself (e.g. with [`enable_bch_with_tokens`](/komodo-defi-framework/api/v20/coin_activation/enable_bch_with_tokens/)).
+
+<Note>
+  This method has been deprecated and will no longer work with the current master coins file.
+</Note>
+
+### Request Parameters
+
+| Parameter          | Type   | Required | Default | Description                                                                                                                  |
+| ------------------ | ------ | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    |    –    | Ticker of the SLP token you want to enable (e.g., `SPICE`).                                                                  |
+| activation\_params | object |     ✗    |    –    | A standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) object. |
+
+### Response Parameters
+
+| Parameter               | Type   | Description                                                       |
+| ----------------------- | ------ | ----------------------------------------------------------------- |
+| balances                | object | An object containing balance information for activated addresses. |
+| platform\_coin          | string | The platform coin (always `BCH`).                                 |
+| token\_id               | string | The SLP token ID (transaction hash) of the activated token.       |
+| required\_confirmations | number | The number of confirmations required for transactions.            |
+
+#### 📌 Examples
+
+##### Command
+
+<CodeGroup title="Enable SLP" tag="POST" label="enable_slp" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable_slp",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "SPICE",
+      "activation_params": {
+        "required_confirmations": 3
+      }
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Enable SLP Response" collapsedText="Show Enable SLP Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "balances": {
+        "simpleledger:qz...": {
+          "spendable": "0",
+          "unspendable": "0"
+        }
+      },
+      "platform_coin": "BCH",
+      "token_id": "a4fb5c2da1aa064e25018e4d7e867e95ce44a4e24c0bfa8243ab37e3f3427c8e",
+      "required_confirmations": 3
+    },
+    "id": 0
+  }
+  ```
+
+  ##### ⚠️ Error Responses
+
+  ###### Platform Coin Not Activated
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform coin BCH is not activated",
+    "error_type": "PlatformCoinIsNotActivated",
+    "id": 0
+  }
+  ```
+
+  ###### Token Already Activated
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token SPICE is already activated",
+    "error_type": "TokenIsAlreadyActivated",
+    "id": 0
+  }
+  ```
+</CollapsibleSection>

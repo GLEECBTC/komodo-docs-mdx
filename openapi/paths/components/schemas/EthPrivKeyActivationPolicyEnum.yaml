@@ -1,0 +1,29 @@
+components:
+  schemas:
+    EthPrivKeyActivationPolicyEnum:
+      type: string
+      description: 'Used in ETH/EVM coin activation requests to specify the private
+        key policy.
+
+
+        **Values:**
+
+        - `ContextPrivKey`: Use the context (software) private key for activation.
+        This is the default policy for most activations.
+
+        - `Trezor`: Use a Trezor hardware wallet for private key management during
+        activation.
+
+        - `Metamask`: (WASM only) Use the Metamask extension for private key management
+        in web-based contexts.
+
+        - `WalletConnect`: Use WalletConnect for private key management. Includes
+        the session topic for the connection.
+
+        '
+      enum:
+      - ContextPrivKey
+      - Trezor
+      - Metamask
+      - WalletConnect
+      title: 'Component: EthPrivKeyActivationPolicyEnum'

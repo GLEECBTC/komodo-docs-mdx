@@ -1,0 +1,92 @@
+export const title = "Komodo DeFi Framework Method: Cancel Tendermint Token Activation Task";
+export const description = "Cancel a pending or in-progress Tendermint token activation task.";
+
+# Cancel Tendermint Token Activation Task
+
+## task::enable\_tendermint\_token::cancel {{label : 'task::enable_tendermint_token::cancel', tag : 'API-v2'}}
+
+Use this method to abort a Tendermint-token activation that is still **pending** or **in progress**. Once cancelled, the task will transition to a final `Cancelled` state and will be removed from memory.
+
+### Request Parameter Table
+
+| Parameter | Type    | Required | Description                                                                                                                                                    |
+| --------- | ------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| task\_id  | integer |     ✓    | The identifier returned by [`task::enable_tendermint_token::init`](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/init/). |
+
+#### Command
+
+<CodeGroup title="Tendermint Token Activation (cancel)" tag="POST" label="task::enable_tendermint_token::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_tendermint_token::cancel",
+    "params": {
+      "task_id": 5
+    },
+    "id": 4
+  }
+  ```
+</CodeGroup>
+
+### Response Parameter Table
+
+| Parameter | Type   | Description                                                          |
+| --------- | ------ | -------------------------------------------------------------------- |
+| status    | string | Task status after the cancellation attempt (`Cancelled` on success). |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Cancelled"
+    },
+    "id": 4
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                                         |
+| ------------ | ------ | ------------------------------------------------------------------- |
+| error        | string | Human-readable reason the cancellation failed.                      |
+| error\_path  | string | Internal code path that produced the error (debugging aid).         |
+| error\_trace | string | Trace fragment indicating where the error originated.               |
+| error\_type  | string | Enumerated identifier (e.g., `TaskFinished`, `NoSuchTask`).         |
+| error\_data  | mixed  | Contextual data associated with the error (commonly the `task_id`). |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "enable_tendermint_token.manager",
+    "error_trace": "enable_tendermint_token:144] manager:101]",
+    "error_type": "TaskFinished",
+    "error_data": 5,
+    "id": null
+  }
+  ```
+
+  #### Response (no such task)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '99'",
+    "error_path": "enable_tendermint_token",
+    "error_trace": "enable_tendermint_token:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 99,
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<DevComment>Verify the `error_path` and `error_trace` strings once the Rust implementation stabilises.</DevComment>

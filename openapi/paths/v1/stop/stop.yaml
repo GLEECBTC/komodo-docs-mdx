@@ -1,0 +1,39 @@
+/stop:
+  post:
+    summary: The stop method stops the Komodo DeFi Framework API software.
+    description: The stop method stops the Komodo DeFi Framework API software.
+    operationId: stop
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - stop
+              '-':
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              '-':
+                type: string
+                description: This method does not return any parameters.
+          example: {}

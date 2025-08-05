@@ -1,0 +1,18 @@
+components:
+  schemas:
+    AccountId:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Defines account kind. Possible values: `iguana`, `hd`, `hw`.'
+        account_idx:
+          type: integer
+          description: Only when `type` = `hd`. Index of the HD account (starting
+            at 0).
+        device_pubkey:
+          type: string
+          description: Only when `type` = `hw`. Hex-encoded pubkey of the hardware
+            wallet device.
+      required:
+      - type

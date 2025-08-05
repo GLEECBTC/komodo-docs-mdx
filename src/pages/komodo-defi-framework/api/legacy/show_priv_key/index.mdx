@@ -1,23 +1,25 @@
 export const title = "Komodo DeFi Framework Method: show_priv_key";
 export const description = "The deprecated show_priv_key method returns the private key of a specified coin.";
 
-# show\_priv\_key
+# Show Priv Key
+
+## show\_priv\_key {{label : 'show_priv_key', tag : 'API-v1'}}
 
 The `show_priv_key` method returns the private key of the specified `coin` in a format compatible with `coin` wallets.
 The output can be used for the `importprivkey` method (UTXO coins) or as a private key for MyEtherWallet (ETH/ERC20).
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                     |
-| --------- | ------ | ----------------------------------------------- |
-| coin      | string | the name of the coin of the private key to show |
+| Parameter | Type   | Required | Description                                     |
+| --------- | ------ | :------: | ----------------------------------------------- |
+| coin      | string |     ✓    | The name of the coin of the private key to show |
 
-## Response
+### Response parameters
 
-| Structure | Type   | Description                 |
+| Parameter | Type   | Description                 |
 | --------- | ------ | --------------------------- |
-| coin      | string | the name of the coin        |
-| priv\_key | string | the private key of the coin |
+| coin      | string | The name of the coin        |
+| priv\_key | string | The private key of the coin |
 
 <Note>
   This method is deprecated in favor of the v2.0 [`get_private_keys`](/komodo-defi-framework/api/v20/wallet/get_private_keys/) method. The new method offers several advantages:
@@ -30,14 +32,14 @@ The output can be used for the `importprivkey` method (UTXO coins) or as a priva
 
 #### 📌 Examples
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="show_priv_key" mm2MethodDecorate="true">
+<CodeGroup title="show_priv_key" tag="POST" label="show_priv_key" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
     "method": "show_priv_key",
-    "coin": "HELLOWORLD"
+    "coin": "KMD"
   }
   ```
 </CodeGroup>
@@ -47,8 +49,8 @@ The output can be used for the `importprivkey` method (UTXO coins) or as a priva
 
   ```json
   {
-    "coin": "HELLOWORLD",
-    "priv_key": "UvCjJf4dKSs2vFGVtCnUTAhR5FTZGdg43DDRa9s7s5DV1sSDX14g"
+      "coin": "KMD",
+      "priv_key": "UvCjJf4dKSs2vFGVtCnUTAhR5FTZGdg43DDRa9s7s5DV1sSDX14g"
   }
   ```
 
@@ -56,8 +58,8 @@ The output can be used for the `importprivkey` method (UTXO coins) or as a priva
 
   ```json
   {
-    "coin": "ETH",
-    "priv_key": "0xb8c774f071de08c7fd8f62b97f1a5726f6ce9f1bcf141b70b86689254ed6714e"
+      "coin": "ETH",
+      "priv_key": "0xb8c774f071de08c7fd8f62b97f1a5726f6ce9f1bcf141b70b86689254ed6714e"
   }
   ```
 </CollapsibleSection>

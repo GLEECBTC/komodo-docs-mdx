@@ -1,0 +1,39 @@
+/orderbook_depth:
+  post:
+    summary: The orderbook_depth method returns the number of asks and bids for the
+      specified trading pairs.
+    description: The orderbook_depth method returns the number of asks and bids for
+      the specified trading pairs.
+    operationId: orderbook_depth
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - orderbook_depth
+              pairs:
+                type: array
+                description: An array of trading pairs
+            required:
+            - userpass
+            - method
+            - pairs
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

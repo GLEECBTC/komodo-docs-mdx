@@ -1,0 +1,147 @@
+/enable_eth_with_tokens:
+  post:
+    summary: The enable_eth_with_tokens method allows you to enable a platform coin
+      like ETH along with multiple ERC20 like tokens of the platform coin chain in
+      a single command.
+    description: The enable_eth_with_tokens method allows you to enable a platform
+      coin like ETH along with multiple ERC20 like tokens of the platform coin chain
+      in a single command.
+    operationId: enable_eth_with_tokens
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - enable_eth_with_tokens
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  erc20_tokens_requests:
+                    description: A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request)
+                      objects.
+                    $ref: ../../components/schemas/TokensRequest.yaml
+                  nodes:
+                    description: A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node)
+                      objects.
+                    $ref: ../../components/schemas/CoinNode.yaml
+                  swap_contract_address:
+                    type: string
+                    description: Address of etomic swap smart contract.
+                  ticker:
+                    type: string
+                    description: Ticker of the platform protocol coin.
+                  fallback_swap_contract:
+                    type: string
+                    description: Address of backup etomic swap smart contract.
+                  gas_station_decimals:
+                    type: integer
+                    description: For ETH/ERC20 and other gas model chains. Defines
+                      the decimals used to denominate the gas station response to
+                      gwei units.
+                    default: 8
+                  gas_station_policy.policy:
+                    description: For ETH/ERC20 and other gas model chains. Defines
+                      the method of gas price calculation from the station response.
+                      Value can be [gas-station-policy-enum](/komodo-defi-framework/api/common_structures/enums/#gas-station-policy-enum).
+                    $ref: ../../components/schemas/gas-station-policy-enum.yaml
+                  get_balances:
+                    type: boolean
+                    description: If false, coin and token balances will not be returned
+                      in the response, and the response will be returned more quickly.
+                    default: true
+                  mm2:
+                    type: integer
+                    description: Required if not set in coins file. Informs the Komodo
+                      DeFi Framework API whether or not the coin is expected to function.
+                      Accepted values are 0 or 1.
+                  nft_req:
+                    description: Encapsulates the request parameters for NFT activation,
+                      including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider)
+                      object.
+                    $ref: ../../components/schemas/NftProvider.yaml
+                  priv_key_policy:
+                    description: Object specifying the policy to access a private
+                      key during activation. Must include a `type` field with a value
+                      from [EthPrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#eth-priv-key-activation-policy-enum).
+                      If `type` is `WalletConnect`, a `data` field with the session
+                      topic is also required.
+                    $ref: ../../components/schemas/EthPrivKeyActivationPolicyEnum.yaml
+                  required_confirmations:
+                    type: integer
+                    description: When the platform coin is involved, the number of
+                      confirmations for the Komodo DeFi Framework API to wait during
+                      the transaction steps of an atomic swap.
+                    default: 3
+                  requires_notarization:
+                    type: boolean
+                    description: If true, coins protected by [Komodo Platform's dPoW
+                      security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86)
+                      will wait for a notarization before progressing to the next
+                      atomic swap transactions step.
+                    default: false
+                  rpc_mode:
+                    description: Value can be [EthRpcModeEnum](/komodo-defi-framework/api/common_structures/enums/#eth-rpc-mode-enum).
+                    $ref: ../../components/schemas/EthRpcModeEnum.yaml
+                  swap_v2_contracts:
+                    description: Must be provided if "use\_trading\_proto\_v2" is
+                      true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/).
+                      A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts)
+                      object.
+                    $ref: ../../components/schemas/SwapV2Contracts.yaml
+                  tx_history:
+                    type: boolean
+                    description: If true the Komodo DeFi Framework API will preload
+                      transaction history as a background process. Must be set to
+                      true to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history)
+                      method.
+                    default: false
+                required:
+                - erc20_tokens_requests
+                - nodes
+                - swap_contract_address
+                - ticker
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              current_block:
+                type: integer
+                description: Block height of the coin being activated.
+              erc20_addresses_infos:
+                description: 'A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info)
+                  object. Note: the structure may vary based on the value of the `get_balances`
+                  parameter.'
+                $ref: ../../components/schemas/AddressInfo.yaml
+              eth_addresses_infos:
+                description: 'A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info)
+                  object. Note: the structure may vary based on the value of the `get_balances`
+                  parameter.'
+                $ref: ../../components/schemas/AddressInfo.yaml
+              nfts_infos:
+                description: A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info)
+                  objects.
+                $ref: ../../components/schemas/NftInfoBasic.yaml
+          example: {}

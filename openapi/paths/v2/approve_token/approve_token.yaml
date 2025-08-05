@@ -1,0 +1,58 @@
+/approve_token:
+  post:
+    summary: Method description for approve_token
+    description: Method description for approve_token
+    operationId: approve_token
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - approve_token
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Token ticker
+                  spender:
+                    type: string
+                    description: Address of smart contract to approve for spending
+                  amount:
+                    type: number
+                    description: Approved amount to spend (in coins units)
+                required:
+                - coin
+                - spender
+                - amount
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Approval transaction id
+          example: {}

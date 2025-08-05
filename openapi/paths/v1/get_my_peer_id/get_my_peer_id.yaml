@@ -1,0 +1,41 @@
+/get_my_peer_id:
+  post:
+    summary: The get_my_peer_id method returns your unique identifying Peer ID on
+      the network.
+    description: The get_my_peer_id method returns your unique identifying Peer ID
+      on the network.
+    operationId: get_my_peer_id
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_my_peer_id
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              PeerID:
+                type: string
+                description: The PeerID of your node on the network
+          example: {}

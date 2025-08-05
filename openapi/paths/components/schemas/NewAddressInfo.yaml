@@ -1,0 +1,29 @@
+components:
+  schemas:
+    NewAddressInfo:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The account address for a specific derivation path under the
+            `account_index`.
+        derivation_path:
+          type: string
+          description: The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+            of the address. If there are no more addresses with balances within the
+            gap limit, the address index will increment.
+        balance:
+          description: A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info)
+            object.
+          $ref: '#/components/schemas/BalanceInfo'
+        chain:
+          type: string
+          description: '`Internal`, or `External`. External is used for addresses
+            that are meant to be visible outside of the wallet (e.g. for receiving
+            payments). Internal is used for addresses which are not meant to be visible
+            outside of the wallet and is used for return transaction change.'
+      required:
+      - address
+      - balance
+      - chain
+      - derivation_path

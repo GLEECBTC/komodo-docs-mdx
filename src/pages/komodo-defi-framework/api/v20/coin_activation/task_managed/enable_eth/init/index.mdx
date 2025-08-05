@@ -1,0 +1,171 @@
+export const title = "Komodo DeFi Framework Method: Enable ETH Task: Init";
+export const description = "Task managed activation of ETH and EVM tokens.";
+
+# Enable ETH Task: Init
+
+## task::enable\_eth::init {{label : 'task::enable_eth::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of ETH and EVM tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+### Request Parameters
+
+| Parameter                    | Type                                                                                                                               | Required |             Default            | Description                                                                                                                                                        |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | :------: | :----------------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| nodes                        | array of [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects                                    |     ✓    |                -               | One or more RPC nodes used to communicate with the Ethereum network. Each object must include a `url` (string) and may include `komodo_proxy` (boolean).           |
+| swap\_contract\_address      | string                                                                                                                             |     ✓    |                -               | Address of the Komodo atomic-swap smart-contract deployed on the target chain.                                                                                     |
+| ticker                       | string                                                                                                                             |     ✓    |                -               | Ticker of the ETH-based platform coin you want to enable.                                                                                                          |
+| contract\_supports\_watchers | boolean                                                                                                                            |     ✗    |             `false`            | Set to `true` if the deployed swap contract supports watcher extensions.                                                                                           |
+| erc20\_tokens\_requests      | array of [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects                          |     ✗    |                -               | Token activation requests to execute along with the platform coin.                                                                                                 |
+| fallback\_swap\_contract     | string                                                                                                                             |     ✗    |                -               | Optional fallback contract address used when the primary `swap_contract_address` fails.                                                                            |
+| gap\_limit                   | integer                                                                                                                            |     ✗    |              `20`              | HD-wallet gap-limit to use when scanning for used addresses.                                                                                                       |
+| get\_balances                | boolean                                                                                                                            |     ✗    |             `true`             | When `false`, balances are not queried after activation, making the call return faster.                                                                            |
+| path\_to\_address            | [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object                                            |     ✗    |                -               | A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object (`account/change/index`) used to derive a non-standard address. |
+| priv\_key\_policy            | object ([EthPrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#eth-priv-key-activation-policy-enum)) |     ✗    | `{ "type": "ContextPrivKey" }` | Determines where the private key comes from.                                                                                                                       |
+| required\_confirmations      | integer                                                                                                                            |     ✗    |               `3`              | Number of block confirmations to wait for critical swap steps.                                                                                                     |
+| rpc\_mode                    | string ([EthRpcModeEnum](/komodo-defi-framework/api/common_structures/enums/#eth-rpc-mode-enum))                                   |     ✗    |           `"Default"`          | Set to `"Metamask"` when activating through MetaMask (web only).                                                                                                   |
+| swap\_v2\_contracts          | [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object                               |     ✗    |                -               | Advanced: addresses of maker-, taker- and NFT-swap V2 contracts, if they differ from the defaults.                                                                 |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Activation in Trezor mode
+
+<CodeGroup title="ETH/EVM Activation (Trezor mode)" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_eth::init",
+    "params": {
+      "ticker": "ETH",
+      "swap_contract_address": "0x24abe4c71fc658c91313b6552cd40cd808b3ea80",
+      "nodes": [
+        {
+          "url": "https://0xrpc.io/eth"
+        },
+        {
+          "url": "https://ethereum-rpc.publicnode.com"
+        }
+      ],
+      "priv_key_policy": {
+        "type": "Trezor"
+      },
+      "erc20_tokens_requests": [
+        {
+          "ticker": "USDT"
+        },
+        {
+          "ticker": "DAI",
+          "required_confirmations": 3
+        }
+      ],
+      "required_confirmations": 5
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Activation via WalletConnect
+
+<CodeGroup title="ETH/EVM Activation (WalletConnect)" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_eth::init",
+    "params": {
+      "ticker": "ETH",
+      "swap_contract_address": "0x24abe4c71fc658c91313b6552cd40cd808b3ea80",
+      "nodes": [
+        {
+          "url": "https://0xrpc.io/eth"
+        },
+        {
+          "url": "https://ethereum-rpc.publicnode.com"
+        }
+      ],
+      "priv_key_policy": {
+        "type": "WalletConnect",
+        "params": {
+          "session_topic": "YOUR_WALLETCONNECT_SESSION_TOPIC"
+        }
+      },
+      "erc20_tokens_requests": [],
+      "required_confirmations": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<Note type="info">Replace <code>YOUR\_WALLETCONNECT\_SESSION\_TOPIC</code> with the <em>topic</em> returned by the <code>wc\_new\_connection</code> RPC. See the WalletConnect integration notes in <a href="https://github.com/KomodoPlatform/komodo-defi-framework/pull/2223">PR #2223</a> for full details.</Note>
+
+#### Activation with ContextPrivKey (default)
+
+<CodeGroup title="ETH/EVM Activation (ContextPrivKey)" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_eth::init",
+    "params": {
+      "ticker": "ETH",
+      "swap_contract_address": "0x24abe4c71fc658c91313b6552cd40cd808b3ea80",
+      "nodes": [
+        {
+          "url": "https://0xrpc.io/eth"
+        },
+        {
+          "url": "https://ethereum-rpc.publicnode.com"
+        }
+      ],
+      "priv_key_policy": {
+        "type": "ContextPrivKey"
+      },
+      "erc20_tokens_requests": [],
+      "required_confirmations": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Activation with Metamask
+
+<CodeGroup title="ETH/EVM Activation (Metamask)" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_eth::init",
+    "params": {
+      "ticker": "ETH",
+      "swap_contract_address": "0x24abe4c71fc658c91313b6552cd40cd808b3ea80",
+      "rpc_mode": "Metamask",
+      "nodes": [],
+      "priv_key_policy": {
+        "type": "Metamask"
+      },
+      "erc20_tokens_requests": [],
+      "required_confirmations": 3
+    }
+  }
+  ```
+</CodeGroup>

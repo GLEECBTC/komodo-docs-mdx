@@ -1,0 +1,26 @@
+components:
+  schemas:
+    EstimatorTypeEnum:
+      type: string
+      description: 'Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas/#get-eth-estimated-fee-per-gas)
+        to specify gas estimation strategies:
+
+
+        **Values:**
+
+        - `Conservative`: Use conservative gas estimation for slower but more reliable
+        confirmation
+
+        - `Standard`: Use standard gas estimation for normal transaction speed
+
+        - `Fast`: Use fast gas estimation for quicker transaction confirmation
+
+        - `Fastest`: Use fastest gas estimation for immediate transaction processing
+
+        '
+      enum:
+      - Conservative
+      - Standard
+      - Fast
+      - Fastest
+      title: 'Component: EstimatorTypeEnum'

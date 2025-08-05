@@ -1,17 +1,20 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
-export const description =
-  "This document describes the get_nft_metadata method Komodo DeFi Framework provides to get metadata for your NFTs";
+export const title = "Komodo DeFi Framework Method: Get NFT Metadata";
+export const description = "The get_nft_metadata method returns metadata for a specific NFT, including collection, contract type, and ownership details.";
 
-# Get NFT Metadata {{label : 'get_nft_metadata', tag : 'API-v2'}}
+# Get NFT Metadata
+
+## get\_nft\_metadata {{label : 'get_nft_metadata', tag : 'API-v2'}}
+
+Returns metadata for a specific NFT.
 
 ### Request Parameters
 
-| Parameter           | Type    | Description                                                                                                                                                             |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| chain               | string  | The token chain.                                                                                                                                                        |
-| token\_address      | string  | The token address.                                                                                                                                                      |
-| token\_id           | string  | Token ID.                                                                                                                                                               |
-| protect\_from\_spam | boolean | Optional, defaults to `false`. If `true`, any potential spam link found in collection name, token name, symbol will be replaced with `URL redacted for user protection` |
+| Parameter           | Type    | Required | Default | Description                                                                                                                                  |
+| ------------------- | ------- | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| chain               | string  |     ✓    |   `-`   | The token chain. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values.              |
+| token\_address      | string  |     ✓    |   `-`   | The token address.                                                                                                                           |
+| token\_id           | string  |     ✓    |   `-`   | Token ID.                                                                                                                                    |
+| protect\_from\_spam | boolean |     ✗    | `false` | If `true`, any potential spam link found in collection name, token name, or symbol will be replaced with `URL redacted for user protection`. |
 
 ### Response Parameters
 
@@ -55,62 +58,33 @@ export const description =
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get NFT Metadata Response" collapsedText="Show Get NFT Metadata Response">
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "token_address": "0x2953399124f0cbb46d2cbacd8a89cf0599974963",
-        "amount": "1",
-        "owner_of": "0xab95d01bc8214e4d993043e8ca1b68db2c946498",
-        "token_hash": "af811b641bccbdc10c444ba4f3a2ffb5",
-        "name": "OpenSea Collections",
-        "symbol": "OPENSTORE",
-        "token_uri": "https://api.opensea.io/api/v2/metadata/matic/0x2953399124F0cBB46d2CbACD8A89cF0599974963/0xf43db4f488f644b73a9442de4978fb7572b73d85000000000000110000002710",
-        "token_domain": "api.opensea.io",
-        "metadata": "{\"image\":\"https://i.seadn.io/gae/nY8wjVVQqDZBl-Bk3h9kwSqR1bXt16x_tESRAQmctEb0SCFCPtvtSsBtp98TFiUzP-LpMGt_kiqHDDOfkgbxOuWxkdH4aBNkmzrjZM0?w=500&amp;auto=format\",\"name\":\"Doge Napoleon\",\"description\":null,\"external_link\":null,\"animation_url\":\"https://openseauserdata.com/files/df71203f48e54d027bb2c47b2840cacb.mp4\",\"traits\":[]}",
-        "last_token_uri_sync": "2023-09-01T04:04:30.867Z",
-        "last_metadata_sync": "2023-09-01T04:35:01.128Z",
-        "minter_address": "ERC1155 tokens don't have a single minter",
-        "possible_spam": true,
-        "chain": "POLYGON",
-        "token_id": "110473361632261669912565539602449606788298723469812631769659886404530570536720",
-        "block_number_minted": 19645247,
-        "block_number": 45776404,
-        "contract_type": "ERC1155",
-        "possible_phishing": false,
-        "uri_meta": {
-            "image": "https://i.seadn.io/gae/nY8wjVVQqDZBl-Bk3h9kwSqR1bXt16x_tESRAQmctEb0SCFCPtvtSsBtp98TFiUzP-LpMGt_kiqHDDOfkgbxOuWxkdH4aBNkmzrjZM0?w=500&amp;auto=format",
-            "image_url": "https://i.seadn.io/gae/nY8wjVVQqDZBl-Bk3h9kwSqR1bXt16x_tESRAQmctEb0SCFCPtvtSsBtp98TFiUzP-LpMGt_kiqHDDOfkgbxOuWxkdH4aBNkmzrjZM0?w=500&amp;auto=format",
-            "image_domain": "i.seadn.io",
-            "name": "Doge Napoleon",
-            "description": null,
-            "attributes": null,
-            "animation_url": "https://openseauserdata.com/files/df71203f48e54d027bb2c47b2840cacb.mp4",
-            "animation_domain": "openseauserdata.com",
-            "external_url": null,
-            "external_domain": null,
-            "image_details": null
-        }
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "result": { ... },
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-## Error responses
+<CollapsibleSection expandedText="Hide Get NFT Metadata Error Responses" collapsedText="Show Get NFT Metadata Error Responses">
+  #### ⚠️ Error Responses
 
-```json
-{
-    "mmrpc": "2.0",
-    "error": "Token: token_address 0xfd913a305d70a60aac4faac70c739563738e1f81, token_id 214300044414 was not found in wallet",
-    "error_path": "nft",
-    "error_trace": "nft:123]",
-    "error_type": "TokenNotFoundInWallet",
-    "error_data": {
-        "token_address": "0xfd913a305d70a60aac4faac70c739563738e1f81",
-        "token_id": "214300044414"
-    },
-    "id": null
-}
-```
+  ##### TokenNotFoundInWallet
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Token: token_address 0xfd913a305d70a60aac4faac70c739563738e1f81, token_id 214300044414 was not found in wallet",
+      "error_path": "nft",
+      "error_trace": "nft:123]",
+      "error_type": "TokenNotFoundInWallet",
+      "error_data": {
+          "token_address": "0xfd913a305d70a60aac4faac70c739563738e1f81",
+          "token_id": "214300044414"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

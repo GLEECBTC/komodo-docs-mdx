@@ -1,0 +1,40 @@
+/cancel_all_orders:
+  post:
+    summary: The cancel_all_orders cancels the active orders created by the Komodo
+      DeFi Framework API node by specified condition.
+    description: The cancel_all_orders cancels the active orders created by the Komodo
+      DeFi Framework API node by specified condition.
+    operationId: cancel_all_orders
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - cancel_all_orders
+              cancel_by:
+                description: A standard [CancelBy](/komodo-defi-framework/api/common_structures/orders/#cancel-by)
+                  object. Orders matching this filter are cancelled.
+                $ref: ../../components/schemas/CancelBy.yaml
+            required:
+            - userpass
+            - method
+            - cancel_by
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

@@ -1,0 +1,58 @@
+export const title = "Komodo DeFi Framework Method: Tendermint Token Activation Task User Action";
+export const description = "Provide required user input during a Tendermint token activation task.";
+
+# Tendermint Token Activation Task User Action
+
+## task::enable\_tendermint\_token::user\_action {{label : 'task::enable_tendermint_token::user_action', tag : 'API-v2'}}
+
+<Note type="info">Skeleton documentation—check action set with Rust enum.</Note>
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                                  |
+| ------------------------- | --------------- | :------: | -------------------------------------------- |
+| task\_id                  | integer         |     ✓    | Task identifier returned from `init`.        |
+| user\_action              | object          |     ✓    | Object with the parameters below.            |
+| user\_action.action\_type | string          |     ✓    | Action type (e.g., `TrezorPin`).             |
+| user\_action.pin          | string (number) |     ✗    | Required PIN if action\_type is `TrezorPin`. |
+| userpass                  | string          |     ✓    | RPC password.                                |
+
+### Response Parameters
+
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| status    | string | Updated task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="enable_tendermint_token::user_action" tag="POST" label="task::enable_tendermint_token::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_tendermint_token::user_action",
+    "params": {
+      "task_id": 5,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "987654"
+      }
+    },
+    "id": 3,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress"
+    },
+    "id": 3
+  }
+  ```
+</CollapsibleSection>

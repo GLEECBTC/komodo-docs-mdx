@@ -1,33 +1,33 @@
 export const title = "Komodo DeFi Framework Method: Min Trading Vol";
 export const description = "The min_trading_vol method returns the minimum required volume for buy/sell/setprice methods for the selected coin.";
 
-# min\_trading\_vol
+# Min Trading Vol
 
-**min\_trading\_vol coin**
+## min\_trading\_vol {{label : 'min_trading_vol', tag : 'API-v1'}}
 
 The `min_trading_vol` method returns the minimum required volume for buy/sell/setprice methods for the selected `coin`.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                                 |
-| --------- | ------ | ----------------------------------------------------------- |
-| coin      | string | the name of the coin to retrieve the minimum trading volume |
+| Parameter | Type   | Required | Description                                                 |
+| --------- | ------ | :------: | ----------------------------------------------------------- |
+| coin      | string |     ✓    | The name of the coin to retrieve the minimum trading volume |
 
-#### Response
+### Response
 
-| Structure                   | Type             | Description                                                                                                                                             |
+| Parameter                   | Type             | Description                                                                                                                                             |
 | --------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                      | object           | result object                                                                                                                                           |
-| coin                        | string           | the coin ticker from the request                                                                                                                        |
-| min\_trading\_vol           | string (decimal) | the minimum trading volume threshold in decimal representation                                                                                          |
-| min\_trading\_vol\_rat      | rational         | the minimum trading volume threshold represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object     |
-| min\_trading\_vol\_fraction | fraction         | the minimum trading volume threshold represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object |
+| result                      | object           | Result object                                                                                                                                           |
+| coin                        | string           | The coin ticker from the request                                                                                                                        |
+| min\_trading\_vol           | string (decimal) | The minimum trading volume threshold in decimal representation                                                                                          |
+| min\_trading\_vol\_rat      | rational         | The minimum trading volume threshold represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object     |
+| min\_trading\_vol\_fraction | fraction         | The minimum trading volume threshold represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="min_trading_vol" mm2MethodDecorate="true">
+<CodeGroup title="min_trading_vol" tag="POST" label="min_trading_vol" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -42,18 +42,26 @@ The `min_trading_vol` method returns the minimum required volume for buy/sell/se
 
   ```json
   {
-    "result": {
-      "coin": "DOC",
-      "min_trading_vol": "0.0001",
-      "min_trading_vol_fraction": {
-        "numer": "1",
-        "denom": "10000"
-      },
-      "min_trading_vol_rat": [
-        [1, [1]],
-        [1, [10000]]
-      ]
-    }
+      "result": {
+          "coin": "DOC",
+          "min_trading_vol": "0.0001",
+          "min_trading_vol_fraction": {
+              "numer": "1",
+              "denom": "10000"
+          },
+          "min_trading_vol_rat": [
+              [1, [1]],
+              [1, [10000]]
+          ]
+      }
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "Invalid coin" }
   ```
 </CollapsibleSection>

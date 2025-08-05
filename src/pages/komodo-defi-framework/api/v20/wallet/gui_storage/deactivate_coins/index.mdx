@@ -1,0 +1,65 @@
+export const title = "Komodo DeFi Framework Method: Deactivate Coins in GUI Storage Account";
+export const description = "Remove one or more coin tickers from the specified GUI-storage account.";
+
+# Deactivate Coins in GUI Storage Account
+
+## gui\_storage::deactivate\_coins {{label : 'gui_storage::deactivate_coins', tag : 'API-v2'}}
+
+Removes the provided coin **tickers** from the account's stored ticker list. Does **not** disable coins at the MarketMaker level—only GUI metadata is changed.
+
+### Request Parameters
+
+| Parameter   | Type                                                                         | Required | Description                                |
+| ----------- | ---------------------------------------------------------------------------- | :------: | ------------------------------------------ |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Account whose ticker list will be updated. |
+| tickers     | array of strings                                                             |     ✓    | One or more coin tickers to remove.        |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                                                         |
+| --------- | ------ | ----------------------------------------------------------------------------------- |
+| result    | string | Returns `success` when the tickers have been removed (missing tickers are ignored). |
+
+#### 📌 Example
+
+<CodeGroup title="deactivate_coins" tag="POST" label="gui_storage::deactivate_coins" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::deactivate_coins",
+    "params": {
+      "account_id": {
+        "type": "hd",
+        "account_idx": 0
+      },
+      "tickers": [
+        "BTC"
+      ]
+    },
+    "id": 13,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 13
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                         |
+| ------------------- | ------ | --------------------------------------------------- |
+| TickerTooLong       | string | A ticker string exceeds the maximum allowed length. |
+| NoSuchAccount       | string | The specified `account_id` does not exist.          |
+| ErrorLoadingAccount | string | Storage read error.                                 |
+| ErrorSavingAccount  | string | Storage write error.                                |
+| InternalError       | string | Unhandled internal error.                           |

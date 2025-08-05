@@ -1,0 +1,28 @@
+components:
+  schemas:
+    ConfSettings:
+      type: object
+      properties:
+        base_confs:
+          type: number
+          description: Number of required confirmations on the base coin's blockchain
+            for a transaction to complete an atomic swap event.
+        base_nota:
+          type: boolean
+          description: Whether [dPoW notarization](https://komodoplatform.com/en/blog/dpow-demystified/)
+            is required on the base coin's blockchain for a transaction to complete
+            an atomic swap event.
+        rel_confs:
+          type: number
+          description: Number of required confirmations on the rel coin's blockchain
+            for a transaction to complete an atomic swap event.
+        rel_nota:
+          type: boolean
+          description: Whether [dPoW notarization](https://komodoplatform.com/en/blog/dpow-demystified/)
+            is required on the rel coin's blockchain for a transaction to complete
+            an atomic swap event.
+      required:
+      - base_confs
+      - base_nota
+      - rel_confs
+      - rel_nota

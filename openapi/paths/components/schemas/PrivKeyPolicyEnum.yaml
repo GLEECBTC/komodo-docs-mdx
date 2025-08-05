@@ -1,0 +1,36 @@
+components:
+  schemas:
+    PrivKeyPolicyEnum:
+      type: string
+      description: 'Defines the private key management policy for a coin or token.
+        Used in activation and wallet-related requests to specify how private keys
+        are handled.
+
+
+        **Values:**
+
+        - `Iguana`: The legacy private key policy. One-to-one mapping of private keys
+        to addresses. Only a single key and corresponding address is activated per
+        coin, without hierarchical deterministic derivation.
+
+        - `HDWallet`: The HD Wallet private key policy. Uses a BIP44 derivation path
+        up to the coin level and manages keys using an HD Wallet scheme.
+
+        - `Trezor`: The Trezor hardware wallet private key policy. Key management
+        is handled by the Trezor device.
+
+        - `Metamask`: (WASM only) The Metamask private key policy. Used when interfacing
+        with the Metamask extension in web-based contexts.
+
+        - `WalletConnect`: The WalletConnect private key policy. Represents key management
+        for connections established via WalletConnect, including both compressed and
+        uncompressed public keys and the session topic.
+
+        '
+      enum:
+      - Iguana
+      - HDWallet
+      - Trezor
+      - Metamask
+      - WalletConnect
+      title: 'Component: PrivKeyPolicyEnum'

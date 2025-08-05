@@ -1,0 +1,13 @@
+components:
+  schemas:
+    EventStreamConfig:
+      type: object
+      properties:
+        access_control_allow_origin:
+          type: string
+          description: Defines CORS whitelist. Use "\*" to allow from any origin.
+          default: '`-`'
+        worker_path:
+          type: string
+          description: WASM only. Path to a custom `worker.js` file.
+          default: '`-`'

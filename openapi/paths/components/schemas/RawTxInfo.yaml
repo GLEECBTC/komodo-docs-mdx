@@ -1,0 +1,28 @@
+components:
+  schemas:
+    RawTxInfo:
+      type: object
+      properties:
+        tx_hex:
+          type: string
+          description: UTXO only. The raw unsigned hex of a proposed transaction.
+        prev_txns:
+          description: UTXO only. A list of standard [InputTxns objects](/komodo-defi-framework/api/common_structures/wallet/#input-txns).
+          $ref: '#/components/schemas/InputTxnsobjects'
+        to:
+          type: string
+          description: ETH/EVM only. A destination address to send the funds to.
+        value:
+          type: string
+          description: ETH/EVM only. The amount of funds to be sent as a string with
+            a `0x` prefix, in [wei](https://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na)
+            units.
+        gas_limit:
+          type: string
+          description: ETH/EVM only. The maximum gas to be used for sending the transaction,
+            in [gwei](https://eth-converter.com/) units.
+        pay_for_gas:
+          description: ETH/EVM only. Used for EIP-1559 fee policy config. A standard
+            [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas)
+            object.
+          $ref: '#/components/schemas/PayForGas'

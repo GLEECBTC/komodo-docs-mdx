@@ -1,0 +1,2054 @@
+{
+    "StandardHDPathError": {
+      "InvalidDerivationPathLength": "The provided derivation path has an incorrect number of elements. It does not conform to the expected BIP-44 structure (`m/purpose'/coin_type'/account'/change/address_index`).",
+      "ChildIsNotHardened": "A required segment of the derivation path was expected to be a hardened key, but it was not. Hardened keys provide an extra layer of security.",
+      "ChildIsHardened": "A segment of the derivation path was expected to be a non-hardened key, but a hardened key was found. This is a violation of the expected path structure.",
+      "UnexpectedChildValue": "A specific value in the derivation path (e.g., the `purpose` or `chain` index) was not one of the expected or allowed values for that segment.",
+      "Bip32Error": "An error occurred within the underlying BIP-32 library, which provides the core functionality for hierarchical deterministic key derivation.",
+      "InvalidCoinType": "The `coin_type` specified in the derivation path does not match the expected coin type for the operation being performed.",
+      "InvalidPathToCoin": "The derivation path provided does not correctly lead to the specified coin, indicating a structural mismatch in the path."
+    },
+    "XpubError": {
+      "UnknownPrefix": "The provided key does not have the standard `xpub` prefix, indicating it might be a different type of key or improperly formatted.",
+      "Base58Error": "An error occurred during the Base58 encoding or decoding process, which is the standard for representing xpub keys. This can be due to an invalid character, incorrect length, or a failed checksum verification."
+    },
+    "Bip32DerPathError": {
+      "InvalidDerivationPathLength": "The provided derivation path has an incorrect number of elements. It does not conform to the expected BIP-44 structure (`m/purpose'/coin_type'/account'/change/address_index`).",
+      "ChildIsNotHardened": "A required segment of the derivation path was expected to be a hardened key, but it was not. Hardened keys provide an extra layer of security.",
+      "ChildIsHardened": "A segment of the derivation path was expected to be a non-hardened key, but a hardened key was found. This is a violation of the expected path structure.",
+      "UnexpectedChildValue": "A specific value in the derivation path (e.g., the `purpose` or `chain` index) was not one of the expected or allowed values for that segment.",
+      "Bip32Error": "An error occurred within the underlying BIP-32 library, which provides the core functionality for hierarchical deterministic key derivation."
+    },
+    "DecryptionError": {
+      "AESCipherError": "An error occurred within the AES cipher during the decryption process. This could be due to issues like incorrect padding or a problem with the underlying cryptographic library.",
+      "DecodeError": "The system was unable to decode the Base64-encoded data, which is a required step before decryption can begin. This often indicates corrupted or improperly formatted data.",
+      "HMACError": "The HMAC (Hash-based Message Authentication Code) verification failed. This means the data's integrity has been compromised, and it has likely been tampered with.",
+      "Internal": "An unexpected internal error occurred, which was not covered by the other, more specific error types."
+    },
+    "PrivKeyError": {
+      "WifPassphraseInvalidChecksum": "The provided WIF (Wallet Import Format) passphrase has an invalid checksum, which indicates that the key is likely corrupted or has been transcribed incorrectly.",
+      "ErrorParsingPassphrase": "An error occurred while parsing the passphrase. This can be due to an invalid format or unexpected characters.",
+      "InvalidPrivKey": "The private key itself is invalid and does not conform to the required cryptographic standards.",
+      "ExpectedCompressedKeys": "The system requires a compressed private key, but an uncompressed key was provided."
+    },
+    "CryptoInitError": {
+      "NotInitialized": "The cryptographic context has not been initialized. This error occurs when an operation requiring an active crypto context is attempted before the context has been set up, for example, by calling an initialization function.",
+      "InitializedAlready": "The cryptographic context has already been initialized. This error prevents re-initialization, ensuring that the existing context is not inadvertently overwritten.",
+      "EmptyPassphrase": "The provided passphrase was empty. A non-empty passphrase is required for cryptographic operations.",
+      "InvalidPassphrase": "The provided passphrase is not valid, often due to an underlying issue with the private key format or integrity.",
+      "Internal": "Unhandled internal error."
+    },
+    "CryptoCtxError": {
+      "NotInitialized": "The cryptographic context (`CryptoCtx`) has not been initialized. This error occurs when an operation requiring an active crypto context is attempted before the context has been set up.",
+      "Internal": "Unhandled internal error."
+    },
+    "MetamaskCtxInitError": {
+      "InitializingAlready": "A MetaMask context initialization is already in progress. This error prevents concurrent initialization attempts.",
+      "MetamaskError": "An error originating from the MetaMask environment occurred. This could be due to a variety of issues, such as the user rejecting a request, a problem with the Ethereum provider, or an unexpected account being selected."
+    },
+    "MnemonicError": {
+      "BIP39Error": "An error related to the BIP39 mnemonic standard occurred. This can include issues with mnemonic generation, validation, or parsing.",
+      "KeyDerivationError": "An error occurred during the key derivation process from the mnemonic. This could be due to issues with the Argon2 algorithm or other aspects of the key derivation function.",
+      "DecodeError": "An error occurred while decoding the mnemonic from its stored format, typically from UTF-8. This may indicate data corruption.",
+      "EncryptionError": "An error occurred during the encryption of the mnemonic. This could be due to issues with the AES-256-CBC encryption algorithm or HMAC generation.",
+      "DecryptionError": "An error occurred during the decryption of the mnemonic. This could be due to an incorrect password, data tampering (failed HMAC verification), or issues with the AES-256-CBC decryption algorithm.",
+      "Internal": "Unhandled internal error."
+    },
+    "SLIP21Error": {
+      "KeyDerivationError": "An error occurred during the SLIP-21 key derivation process. This typically involves issues with deriving encryption and authentication keys from the master secret and derivation paths.",
+      "EncryptionFailed": "Failed to encrypt data using SLIP-21 derived keys. This could be due to issues with the AES-256-CBC encryption algorithm or HMAC generation.",
+      "DecryptionFailed": "Failed to decrypt data that was encrypted with SLIP-21 derived keys. This could be due to an incorrect master secret, data tampering (failed HMAC verification), or issues with the AES-256-CBC decryption algorithm."
+    },
+    "SharedDbIdError": {
+      "EmptyPassphrase": "The provided passphrase was empty. A non-empty passphrase is required to generate the shared database ID."
+    },
+    "KeyDerivationError": {
+      "PasswordHashingFailed": "An error occurred during the password hashing phase, typically involving the Argon2 algorithm. This can be caused by invalid parameters, incorrect salt, or other issues within the hashing function.",
+      "HmacInitialization": "Failed to initialize the HMAC (Hash-based Message Authentication Code) function. This is often due to an invalid key length or other issues with the underlying hash function (SHA-512).",
+      "InvalidKeyLength": "The provided key material has an invalid length. This can occur during SLIP-21 key derivation if the master node is not 64 bytes, or if the final derived key is not 32 bytes.",
+      "NotSupported": "The specified key derivation method is not supported for the current operation. For example, using SLIP-21 for mnemonic-based keys is not supported."
+    },
+    "HwError": {
+      "NoTrezorDeviceAvailable": "No Trezor hardware wallet device was found. This can happen if the device is not connected, not powered on, or if the necessary drivers are not installed.",
+      "CannotChooseDevice": "Multiple hardware wallet devices were detected. The system cannot determine which one to use. Please ensure only one device is connected.",
+      "ConnectionTimedOut": "The connection to the hardware wallet device timed out. This may be due to a slow device, a busy USB port, or other connectivity issues.",
+      "FoundUnexpectedDevice": "A connected device does not match the supplied `device_pubkey`.",
+      "DeviceDisconnected": "The hardware wallet device was disconnected during an operation.",
+      "TransportNotSupported": "The specified hardware wallet transport method (e.g., WebUSB, HID) is not supported in the current environment.",
+      "InvalidXpub": "The extended public key (xpub) received from the hardware wallet device is invalid. This may indicate a problem with the device's firmware or the derivation path.",
+      "UnderlyingError": "An underlying error from the hardware wallet's transport layer (e.g., Trezor's transport library) occurred.",
+      "ProtocolError": "A hardware wallet protocol error occurred. This indicates a problem with the communication between the software and the device.",
+      "UnexpectedUserInteractionRequest": "The hardware wallet device requested an unexpected user interaction. This should not happen during normal operation.",
+      "Internal": "Unhandled internal error.",
+      "InvalidPin": "The provided PIN for the hardware wallet device is incorrect.",
+      "UnexpectedMessage": "An unexpected message was received from the hardware wallet device.",
+      "ButtonExpected": "The hardware wallet device expected a button press, but none was detected.",
+      "DataError": "A data-related error occurred on the hardware wallet device.",
+      "PinExpected": "The hardware wallet device expected a PIN to be entered, but none was provided.",
+      "InvalidSignature": "The signature generated by the hardware wallet device is invalid.",
+      "ProcessError": "A general processing error occurred on the hardware wallet device.",
+      "NotEnoughFunds": "The hardware wallet device reported insufficient funds for the requested operation.",
+      "NotInitialized": "The hardware wallet device or its session has not been initialized.",
+      "WipeCodeMismatch": "The provided wipe code for the hardware wallet device is incorrect.",
+      "InvalidSession": "The session with the hardware wallet device is invalid or has expired.",
+      "FirmwareError": "A firmware error occurred on the hardware wallet device.",
+      "FailureMessageNotFound": "An expected failure message from the hardware wallet device was not found.",
+      "UserCancelled": "The user rejected the signature/request in MetaMask.",
+      "PongMessageMismatch": "A 'pong' message received from the hardware wallet device after a ping did not match the expected value, indicating a communication issue."
+    },
+    "HwRpcError": {
+      "NoTrezorDeviceAvailable": "No Trezor hardware wallet device was found. This can happen if the device is not connected, not powered on, or if the necessary drivers are not installed.",
+      "FoundMultipleDevices": "Multiple hardware wallet devices were detected. The system cannot determine which one to use. Please ensure only one device is connected.",
+      "FoundUnexpectedDevice": "A connected device does not match the supplied `device_pubkey`.",
+      "InvalidPin": "The provided PIN for the hardware wallet device is incorrect.",
+      "UnexpectedMessage": "An unexpected message was received from the hardware wallet device.",
+      "ButtonExpected": "The hardware wallet device expected a button press, but none was detected.",
+      "DataError": "A data-related error occurred on the hardware wallet device.",
+      "PinExpected": "The hardware wallet device expected a PIN to be entered, but none was provided.",
+      "InvalidSignature": "The signature generated by the hardware wallet device is invalid.",
+      "ProcessError": "A general processing error occurred on the hardware wallet device.",
+      "NotEnoughFunds": "The hardware wallet device reported insufficient funds for the requested operation.",
+      "NotInitialized": "The hardware wallet device or its session has not been initialized.",
+      "WipeCodeMismatch": "The provided wipe code for the hardware wallet device is incorrect.",
+      "InvalidSession": "The session with the hardware wallet device is invalid or has expired.",
+      "FirmwareError": "A firmware error occurred on the hardware wallet device.",
+      "FailureMessageNotFound": "An expected failure message from the hardware wallet device was not found.",
+      "UserCancelled": "The user cancelled the action on the hardware wallet device.",
+      "PongMessageMismatch": "A 'pong' message received from the hardware wallet device after a ping did not match the expected value, indicating a communication issue."
+    },
+    "EncryptionError": {
+      "UnableToGenerateRandomBytes": "Failed to generate cryptographically secure random bytes. This is often required for creating initialization vectors (IVs) or other cryptographic material.",
+      "AESCipherError": "An error occurred within the AES cipher during the encryption process. This could be due to issues like incorrect padding or a problem with the underlying cryptographic library.",
+      "Internal": "Unhandled internal error."
+    },
+    "UsbError": {
+      "DeviceDisconnected": "The USB device was disconnected during an operation.",
+      "ErrorInitializingSession": "An error occurred while initializing the USB session via `rusb`. This is a low-level USB communication error.",
+      "ErrorGettingDevices": "An error occurred while attempting to get a list of connected USB devices from the system via `rusb`.",
+      "ErrorOpeningDevice": "An error occurred while attempting to open a connection to a specific USB device via `rusb`.",
+      "ErrorWritingChunk": "An error occurred while writing a data chunk to the USB device. This may be due to a disconnected device, a timeout, or other `rusb` errors.",
+      "ErrorReadingChunk": "An error occurred while reading a data chunk from the USB device. This may be due to a disconnected device, a timeout, or other `rusb` errors.",
+      "Timeout": "The USB operation did not complete within the expected time-out window.",
+      "Internal": "Unhandled internal error."
+    },
+    "HidError": {
+      "DeviceNotInitializedYet": "Please note it's not the same as disconnected!",
+      "DeviceIsOpenAlready": "The HID device is already open. This error prevents opening a device that is already in use.",
+      "InitializedAlready": "The HID API has already been initialized. This error prevents re-initialization of the HID API.",
+      "ErrorInitializing": "An error occurred while initializing the HID API. This is a low-level error from the `hidapi` library.",
+      "ErrorGettingDevices": "An error occurred while getting the list of connected HID devices from the system via `hidapi`.",
+      "ErrorOpeningDevice": "An error occurred while attempting to open a connection to a specific HID device via `hidapi`.",
+      "ErrorWritingChunk": "An error occurred while writing a data chunk to the HID device. This is a low-level error from the `hidapi` library.",
+      "WritingInterrupted": "The process of writing a data chunk to the HID device was interrupted. Not all bytes were sent.",
+      "ErrorReadingChunk": "An error occurred while reading a data chunk from the HID device. This is a low-level error from the `hidapi` library.",
+      "ReceivedChunkTooLong": "The data chunk received from the HID device was longer than expected.",
+      "NotEnoughInfoToConnect": "There is not enough information (e.g., serial number) to connect to the specified HID device.",
+      "Internal": "Unhandled internal error."
+    },
+    "WebUsbError": {
+      "NotSupported": "WebUSB is not available in the current browser or environment.",
+      "ErrorRequestingDevice": "An error occurred while requesting permission to access a WebUSB device.",
+      "ErrorGettingDevices": "An error occurred while getting the list of connected WebUSB devices.",
+      "ErrorSettingConfiguration": "An error occurred while setting the configuration for a WebUSB device.",
+      "ErrorClaimingInterface": "An error occurred while claiming an interface on a WebUSB device.",
+      "ErrorOpeningDevice": "An error occurred while opening a connection to a WebUSB device.",
+      "ErrorResettingDevice": "An error occurred while resetting a WebUSB device.",
+      "ErrorWritingChunk": "An error occurred while writing a data chunk to a WebUSB device.",
+      "ErrorReadingChunk": "An error occurred while reading a data chunk from a WebUSB device.",
+      "TypeMismatch": "A JavaScript type mismatch occurred during a WebUSB operation, indicating an internal inconsistency.",
+      "Internal": "Unhandled internal error."
+    },
+    "RpcTaskError": {
+      "Timeout": "The operation timed out.",
+      "NoSuchTask": "The specified task was not found or expired.",
+      "UnexpectedTaskStatus": "The RPC task is in an unexpected status. This indicates a logic error where the task is not in the expected state for the attempted operation.",
+      "UnexpectedUserAction": "An unexpected user action was provided for the RPC task. The task was awaiting a different type of user interaction.",
+      "Cancelled": "The RPC task was cancelled, either by the user or by the system.",
+      "Internal": "Unhandled internal error."
+    },
+    "TaskStatusError": {
+      "Idle": "The task is currently idle and has not been started.",
+      "InProgress": "The task is currently in progress.",
+      "AwaitingUserAction": "The task is currently awaiting user action to proceed.",
+      "Cancelled": "The task has been cancelled.",
+      "Finished": "The task has finished successfully."
+    },
+    "RpcTaskStatusError": {
+      "NoSuchTask": "The specified task was not found or expired.",
+      "Internal": "Unhandled internal error."
+    },
+    "RpcTaskUserActionError": {
+      "NoSuchTask": "The specified task was not found or expired.",
+      "Internal": "Unhandled internal error."
+    },
+    "CancelRpcTaskError": {
+      "NoSuchTask": "The specified task was not found or expired.",
+      "TaskFinished": "The task is already finished and cannot be canceled.",
+      "Internal": "Unhandled internal error."
+    },
+    "AccountRpcError": {
+      "NameTooLong": "Provided `name` exceeds maximum length.",
+      "DescriptionTooLong": "Provided `description` exceeds maximum length.",
+      "TickerTooLong": "A ticker string exceeds the maximum allowed length.",
+      "NoSuchAccount": "The specified `account_id` was not found.",
+      "NoEnabledAccount": "There is no account currently enabled.",
+      "AccountExistsAlready": "Attempted to create an account that already exists (policy = `new`).",
+      "ErrorLoadingAccount": "Storage read error.",
+      "ErrorSavingAccount": "Storage write error.",
+      "Internal": "Unhandled internal error."
+    },
+    "AccountStorageError": {
+      "NoSuchAccount": "The specified `account_id` was not found.",
+      "NoEnabledAccount": "There is no account currently enabled.",
+      "AccountExistsAlready": "Attempted to create an account that already exists (policy = `new`).",
+      "ErrorSaving": "An error occurred while saving data to the HD wallet storage.",
+      "ErrorLoading": "An error occurred while loading data from the HD wallet storage.",
+      "ErrorDeserializing": "An error occurred while deserializing data from the HD wallet storage.",
+      "ErrorSerializing": "An error occurred while serializing data to be stored in the HD wallet storage.",
+      "Internal": "Unhandled internal error."
+    },
+    "AccountUpdatingError": {
+      "AddressLimitReached": "The address limit has been reached while updating the account.",
+      "InvalidBip44Chain": "The coin doesn't support the given BIP44 chain for account updating.",
+      "WalletStorageError": "A storage error occurred while updating the account."
+    },
+    "AddressDerivingError": {
+      "InvalidBip44Chain": "The coin doesn't support the given BIP44 chain.",
+      "Bip32Error": "A BIP32-related error occurred while deriving an address.",
+      "Internal": "An internal error occurred during address derivation."
+    },
+    "ParseAddressError": {
+      "CannotResolveIPv4": "The provided address could not be resolved to an IPv4 address. This may happen if the address resolves only to an IPv6 address, which is not supported.",
+      "UnresolvedAddress": "The provided address could not be resolved to any IP address. This may be due to a DNS resolution failure or an invalid address format."
+    },
+    "EncodeBodyError": {
+      "Encode": "An error occurred while encoding a gRPC message using `prost`. This typically happens when the message structure is invalid or a required field is missing."
+    },
+    "DecodeBodyError": {
+      "PayloadTooShort": "The gRPC payload is shorter than the required minimum length, making it impossible to decode.",
+      "DecodeError": "An error occurred while decoding a gRPC message using `prost`. This often indicates a mismatch between the expected and actual message format, or data corruption."
+    },
+    "SlurpError": {
+      "ErrorDeserializing": "An error occurred while deserializing the response from a URI. This typically indicates a mismatch between the expected and actual response format.",
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "Timeout": "The request to the specified URI timed out.",
+      "Transport": "A transport-level error occurred while making the request to the specified URI. This can include network errors, DNS failures, or other connectivity issues.",
+      "Internal": "Unhandled internal error."
+    },
+    "GetInfoFromUriError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "Transport": "A transport-level error occurred while making the request to the specified URI. This can include network errors, DNS failures, or other connectivity issues.",
+      "InvalidResponse": "The response from the URI was invalid or could not be parsed. This may be due to a malformed JSON or an unexpected response structure.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitWsError": {
+      "InvalidUrl": "The provided WebSocket URL is invalid. It may be malformed or use an unsupported scheme (only `ws` and `wss` are allowed).",
+      "ConnectionFailed": "The WebSocket connection could not be established. This may be due to network issues, a non-responsive server, or an underlying error in the WebSocket transport.",
+      "Unknown": "An unknown or unspecified error occurred during WebSocket initialization."
+    },
+    "WebSocketError": {
+      "OutgoingError": "An error occurred while trying to send an outgoing message through the WebSocket. This could be due to a disconnected socket or an issue with the underlying transport.",
+      "InvalidIncoming": "An incoming message from the WebSocket was invalid or unexpected. This could be due to a malformed message or a message received in an incorrect state."
+    },
+    "OutgoingError": {
+      "IsNotConnected": "An attempt was made to send a message through a WebSocket that is not connected.",
+      "SerializingError": "An error occurred while serializing an outgoing message.",
+      "UnderlyingError": "An underlying error from the WebSocket transport occurred while sending a message."
+    },
+    "CoinConfWithProtocolError": {
+      "ConfigIsNotFound": "The coin's configuration was not found.",
+      "CoinProtocolParseError": "Parsing the protocol of the platform coin you are trying to activate failed.",
+      "UnexpectedProtocol": "The coin's protocol is not the expected one.",
+      "CustomTokenError": "An error related to a custom token occurred."
+    },
+    "SiaCoinInitError": {
+      "CoinCreationError": "An error occurred during the creation of the Sia coin instance.",
+      "CoinIsAlreadyActivated": "The Sia coin is already activated.",
+      "HardwareWalletsAreNotSupportedYet": "Hardware wallets are not yet supported for Sia coin.",
+      "TaskTimedOut": "The activation task for the Sia coin timed out.",
+      "CouldNotGetBalance": "Could not retrieve the balance for the Sia coin.",
+      "CouldNotGetBlockCount": "Could not retrieve the block count for the Sia coin.",
+      "Internal": "Unhandled internal error."
+    },
+    "BchWithTokensActivationError": {
+      "PlatformCoinCreationError": "There was an error when trying to activate the platform coin.",
+      "InvalidSlpPrefix": "The SLP prefix for the BCH token is invalid.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error."
+    },
+    "EnableTokenError": {
+      "TokenIsAlreadyActivated": "The token is already activated.",
+      "TokenConfigIsNotFound": "Config of the token you are trying to activate is not found.",
+      "TokenProtocolParseError": "Parsing the protocol of the token you are trying to activate failed.",
+      "UnexpectedTokenProtocol": "Unexpected protocol is found in the config of the token you are trying to activate.",
+      "PlatformCoinIsNotActivated": "The platform coin for this token is not activated.",
+      "UnsupportedPlatformCoin": "The platform coin for this token is not supported.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "CouldNotFetchBalance": "Could not retrieve the balance for the token.",
+      "InvalidConfig": "The token's configuration is invalid.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error.",
+      "InvalidPayload": "The payload for enabling the token is invalid.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "CustomTokenError": "An error related to a custom token occurred."
+    },
+    "InitTokensAsMmCoinsError": {
+      "TokenConfigIsNotFound": "Config of the token you are trying to activate is not found.",
+      "CouldNotFetchBalance": "Could not retrieve the balance for the token.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "Internal": "Unhandled internal error.",
+      "TokenProtocolParseError": "Parsing the protocol of the token you are trying to activate failed.",
+      "UnexpectedTokenProtocol": "Unexpected protocol is found in the config of the token you are trying to activate.",
+      "Transport": "The request was failed due to a network error.",
+      "InvalidPayload": "The payload for initializing the token is invalid.",
+      "CustomTokenError": "An error related to a custom token occurred."
+    },
+    "EnablePlatformCoinWithTokensError": {
+      "PlatformIsAlreadyActivated": "The platform coin you are trying to activate is already activated.",
+      "PlatformConfigIsNotFound": "Config of the platform coin you are trying to activate is not found.",
+      "CoinProtocolParseError": "Parsing the protocol of the platform coin you are trying to activate failed.",
+      "UnexpectedPlatformProtocol": "Unexpected platform protocol found for the platform coin you are trying to activate.",
+      "TokenConfigIsNotFound": "Config of the token you are trying to activate is not found.",
+      "TokenProtocolParseError": "Parsing the protocol of the token you are trying to activate failed.",
+      "UnexpectedTokenProtocol": "Unexpected protocol is found in the config of the token you are trying to activate.",
+      "PlatformCoinCreationError": "There was an error when trying to activate the platform coin.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "Transport": "The request was failed due to a network error.",
+      "AtLeastOneNodeRequired": "At least one node is required for this operation.",
+      "InvalidPayload": "The payload for enabling the platform coin with tokens is invalid.",
+      "FailedSpawningBalanceEvents": "Failed to spawn balance update events.",
+      "Internal": "Unhandled internal error.",
+      "NoSuchTask": "The specified task was not found or expired.",
+      "TaskTimedOut": "The activation task timed out.",
+      "UnexpectedDeviceActivationPolicy": "The device activation policy is not the expected one.",
+      "CustomTokenError": "An error related to a custom token occurred.",
+      "WalletConnectError": "An error related to WalletConnect occurred."
+    },
+    "LightningInitError": {
+      "CoinIsAlreadyActivated": "The Lightning network for this coin is already activated.",
+      "InvalidConfiguration": "The Lightning network configuration is invalid.",
+      "InvalidPlatformConfiguration": "The platform coin configuration for the Lightning network is invalid.",
+      "EnableLightningError": "An error occurred while enabling the Lightning network.",
+      "LightningValidationErr": "A validation error occurred within the Lightning network.",
+      "MyBalanceError": "An error occurred while retrieving the balance from the Lightning network.",
+      "MyAddressError": "An error occurred while retrieving an address from the Lightning network.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitTokenError": {
+      "NoSuchTask": "The specified task was not found or expired.",
+      "TaskTimedOut": "The token initialization task timed out.",
+      "TokenIsAlreadyActivated": "The token is already activated.",
+      "TokenConfigIsNotFound": "Config of the token you are trying to activate is not found.",
+      "TokenProtocolParseError": "Parsing the protocol of the token you are trying to activate failed.",
+      "UnexpectedTokenProtocol": "Unexpected protocol is found in the config of the token you are trying to activate.",
+      "TokenCreationError": "An error occurred during the creation of the token instance.",
+      "CouldNotFetchBalance": "Could not retrieve the balance for the token.",
+      "PlatformCoinIsNotActivated": "The platform coin for this token is not activated.",
+      "UnsupportedPlatformCoin": "The platform coin for this token is not supported.",
+      "CustomTokenError": "An error related to a custom token occurred.",
+      "HwError": "A hardware wallet error occurred.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error."
+    },
+    "ZcoinInitError": {
+      "CoinCreationError": "An error occurred during the creation of the ZCoin instance.",
+      "CoinIsAlreadyActivated": "The ZCoin is already activated.",
+      "HardwareWalletsAreNotSupportedYet": "Hardware wallets are not yet supported for ZCoin.",
+      "TaskTimedOut": "The activation task for the ZCoin timed out.",
+      "CouldNotGetBalance": "Could not retrieve the balance for the ZCoin.",
+      "CouldNotGetBlockCount": "Could not retrieve the block count for the ZCoin.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitErc20Error": {
+      "HwError": "A hardware wallet error occurred.",
+      "TaskTimedOut": "The ERC20 token initialization task timed out.",
+      "TokenIsAlreadyActivated": "The ERC20 token is already activated.",
+      "TokenCreationError": "An error occurred during the creation of the ERC20 token instance.",
+      "CouldNotFetchBalance": "Could not retrieve the balance for the ERC20 token.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error.",
+      "CustomTokenError": "An error related to a custom token occurred."
+    },
+    "InitUtxoStandardError": {
+      "HwError": "A hardware wallet error occurred.",
+      "TaskTimedOut": "The UTXO coin initialization task timed out.",
+      "CoinIsAlreadyActivated": "The UTXO coin is already activated.",
+      "CoinCreationError": "An error occurred during the creation of the UTXO coin instance.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitStandaloneCoinError": {
+      "NoSuchTask": "The specified task was not found or expired.",
+      "TaskTimedOut": "The standalone coin initialization task timed out.",
+      "CoinIsAlreadyActivated": "The standalone coin is already activated.",
+      "CoinConfigIsNotFound": "The configuration for the standalone coin was not found.",
+      "CoinProtocolParseError": "Parsing the protocol of the platform coin you are trying to activate failed.",
+      "UnexpectedCoinProtocol": "The protocol of the standalone coin is not the expected one.",
+      "CoinCreationError": "An error occurred during the creation of the standalone coin instance.",
+      "HwError": "A hardware wallet error occurred.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitL2Error": {
+      "L2IsAlreadyActivated": "The Layer 2 solution is already activated.",
+      "L2ConfigIsNotFound": "The configuration for the Layer 2 solution was not found.",
+      "L2ProtocolParseError": "An error occurred while parsing the Layer 2 protocol.",
+      "UnexpectedL2Protocol": "The Layer 2 protocol is not the expected one.",
+      "PlatformCoinIsNotActivated": "The platform coin for this Layer 2 solution is not activated.",
+      "UnsupportedPlatformCoin": "The platform coin for this Layer 2 solution is not supported.",
+      "InvalidPlatformConfiguration": "The platform coin configuration for the Layer 2 solution is invalid.",
+      "L2ConfigParseError": "An error occurred while parsing the Layer 2 configuration.",
+      "TaskTimedOut": "The Layer 2 initialization task timed out.",
+      "Transport": "The request was failed due to a network error.",
+      "Internal": "Unhandled internal error."
+    },
+    "StreamingManagerError": {
+      "StreamerNotFound": "There is no streamer with the given ID.",
+      "SendError": "Couldn't send the data to the streamer.",
+      "NoDataIn": "The streamer doesn't accept an input.",
+      "SpawnError": "Couldn't spawn the streamer.",
+      "UnknownClient": "The client is not known/registered.",
+      "ClientExists": "A client with the same ID already exists.",
+      "ClientAlreadyListening": "The client is already listening to the streamer."
+    },
+    "Error": {
+      "Unknown": "An unknown script error occurred.",
+      "EvalFalse": "The script evaluation resulted in a false value.",
+      "ReturnOpcode": "The script returned an opcode, which is not allowed.",
+      "ScriptSize": "The script size exceeds the allowed limit.",
+      "PushSize": "The push size in the script exceeds the allowed limit.",
+      "OpCount": "The number of opcodes in the script exceeds the allowed limit.",
+      "StackSize": "The stack size during script execution exceeds the allowed limit.",
+      "NumberOverflow": "A number overflow occurred during a script operation.",
+      "NumberNotMinimallyEncoded": "A number in the script was not minimally encoded.",
+      "SigCount": "The number of signatures in the script exceeds the allowed limit.",
+      "PubkeyCount": "The number of public keys in the script exceeds the allowed limit.",
+      "Verify": "A verify operation in the script failed.",
+      "EqualVerify": "An equal-verify operation in the script failed.",
+      "CheckSigVerify": "A check-signature-verify operation in the script failed.",
+      "NumEqualVerify": "A num-equal-verify operation in the script failed.",
+      "BadOpcode": "An invalid or disabled opcode was found in the script.",
+      "DisabledOpcode": "A disabled opcode was found in the script.",
+      "InvalidStackOperation": "An invalid stack operation was attempted.",
+      "InvalidAltstackOperation": "An invalid alt-stack operation was attempted.",
+      "UnbalancedConditional": "An unbalanced conditional was found in the script.",
+      "InvalidSplitRange": "An invalid split range was used in a script operation.",
+      "InvalidBitwiseOperation": "An invalid bitwise operation was attempted.",
+      "DivisionByZero": "A division by zero was attempted in a script operation.",
+      "ImpossibleEncoding": "An impossible encoding was encountered in the script.",
+      "NegativeLocktime": "A negative locktime was specified.",
+      "UnsatisfiedLocktime": "The locktime requirement was not satisfied.",
+      "SignatureHashtype": "The signature hash type is invalid.",
+      "SignatureDer": "The DER-encoded signature is invalid.",
+      "SignatureIllegalForkId": "An illegal fork ID was used in the signature.",
+      "SignatureMustUseForkId": "A fork ID was required but not used in the signature.",
+      "Minimaldata": "A data push was not minimally encoded.",
+      "SignaturePushOnly": "A signature push-only error occurred.",
+      "SignatureHighS": "The S-value in the signature is too high.",
+      "SignatureNullDummy": "A null-dummy error occurred in the signature.",
+      "PubkeyType": "The public key type is invalid.",
+      "Cleanstack": "The stack was not clean after script execution.",
+      "DiscourageUpgradableNops": "An upgradable NOP opcode was used, which is discouraged.",
+      "DiscourageUpgradableWitnessProgram": "An upgradable witness program was used, which is discouraged.",
+      "WitnessProgramWrongLength": "The witness program has the wrong length.",
+      "WitnessProgramWitnessEmpty": "The witness program's witness is empty.",
+      "WitnessProgramMismatch": "There is a mismatch in the witness program.",
+      "WitnessMalleated": "The witness was malleated.",
+      "WitnessMalleatedP2SH": "The witness for a P2SH input was malleated.",
+      "WitnessUnexpected": "An unexpected witness was found.",
+      "WitnessPubKeyType": "The witness public key type is invalid."
+    },
+    "CompactIntegerError": {
+      "ParseError": "An error occurred while parsing a compact integer."
+    },
+    "RawHeaderError": {
+      "WrongLengthHeader": "The raw block header has an incorrect length."
+    },
+    "SPVError": {
+      "InitialValidationError": "An error occurred during the initial validation of an SPV proof.",
+      "ReadOverrun": "A read overrun occurred while processing an SPV proof.",
+      "BadCompactInt": "A bad compact integer was found in an SPV proof.",
+      "MalformattedOutput": "A malformatted output was found in an SPV proof.",
+      "UnableToGetHeader": "Could not retrieve a block header for SPV validation.",
+      "WrongLengthHeader": "The block header has an incorrect length.",
+      "UnexpectedDifficultyChange": "An unexpected difficulty change was detected.",
+      "InsufficientWork": "The proof-of-work is insufficient.",
+      "DifficultyCalculationError": "An error occurred while calculating the difficulty.",
+      "WrongDigest": "The block digest is incorrect.",
+      "WrongMerkleRoot": "The Merkle root is incorrect.",
+      "WrongPrevHash": "The previous block hash is incorrect.",
+      "InvalidVin": "An invalid input was found in the transaction.",
+      "InvalidVout": "An invalid output was found in the transaction.",
+      "BadMerkleProof": "The Merkle proof is invalid.",
+      "UnableToGetMerkle": "Could not retrieve a Merkle proof.",
+      "InvalidHeight": "The block height is invalid.",
+      "Timeout": "The SPV validation process timed out.",
+      "HeaderStorageError": "An error occurred while accessing the block header storage.",
+      "WrongRetargetHeight": "The retarget height is incorrect.",
+      "Internal": "Unhandled internal error.",
+      "ParentHashMismatch": "The parent block hash does not match."
+    },
+    "BlockHeaderStorageError": {
+      "AddToStorageError": "An error occurred while adding a block header to storage.",
+      "GetFromStorageError": "An error occurred while retrieving a block header from storage.",
+      "CantRetrieveTableError": "Could not retrieve the block header table from storage.",
+      "UnableToDeleteHeaders": "Could not delete block headers from storage.",
+      "QueryError": "A query to the block header storage failed.",
+      "InitializationError": "An error occurred during the initialization of the block header storage.",
+      "DecodeError": "An error occurred while decoding a block header.",
+      "Internal": "Unhandled internal error."
+    },
+    "NextBlockBitsError": {
+      "StorageError": "An error occurred while accessing the block header storage.",
+      "NoSuchBlockHeader": "The requested block header was not found.",
+      "NoBlockHeaderWithNoMaxBits": "No block header with no max bits was found."
+    },
+    "WalletConnectError": {
+      "PairingError": "An error occurred during the WalletConnect pairing process.",
+      "PublishError": "An error occurred while publishing a message via WalletConnect.",
+      "ClientError": "An error occurred within the WalletConnect client.",
+      "SubscriptionError": "An error occurred while subscribing to a WalletConnect topic.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "SerdeError": "A serialization or deserialization error occurred.",
+      "UnSuccessfulResponse": "The response from the WalletConnect server was unsuccessful.",
+      "SessionError": "An error occurred within the WalletConnect session.",
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "NotImplemented": "The requested feature is not implemented for WalletConnect.",
+      "HexError": "A hexadecimal encoding or decoding error occurred.",
+      "PayloadError": "An error occurred with the WalletConnect payload.",
+      "NoAccountFound": "No account was found for the WalletConnect session.",
+      "NoAccountFoundForIndex": "No account was found for the specified index in the WalletConnect session.",
+      "EmptyAccount": "The account is empty.",
+      "NotInitialized": "The WalletConnect session has not been initialized.",
+      "StorageError": "A storage error occurred related to WalletConnect.",
+      "ChainIdMismatch": "The chain ID does not match the expected value.",
+      "NoWalletFeedback": "No feedback was received from the wallet.",
+      "InvalidChainId": "The provided chain ID is invalid.",
+      "ChainIdNotSupported": "The provided chain ID is not supported.",
+      "TimeoutError": "The WalletConnect operation timed out."
+    },
+    "SessionError": {
+      "SymKeyGeneration": "An error occurred during the generation of a symmetric key for the session."
+    },
+    "WcIndexedDbError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "NotSupported": "The operation is not supported by the WalletConnect IndexedDB implementation.",
+      "DeletionError": "An error occurred while deleting data from the WalletConnect IndexedDB.",
+      "AddToStorageErr": "An error occurred while adding data to the WalletConnect IndexedDB.",
+      "GetFromStorageError": "An error occurred while retrieving data from the WalletConnect IndexedDB.",
+      "DecodingError": "An error occurred while decoding data from the WalletConnect IndexedDB."
+    },
+    "GitControllerError": {
+      "DeserializationError": "An error occurred while deserializing data from the Git controller.",
+      "HttpError": "An HTTP error occurred while communicating with the Git controller."
+    },
+    "TrezorError": {
+      "TransportNotSupported": "The specified transport is not supported for Trezor devices.",
+      "ErrorRequestingAccessPermission": "This error may appear in a browser when the user didn't allow the app to get the list of devices.",
+      "DeviceDisconnected": "The Trezor device was disconnected.",
+      "UnderlyingError": "The error depends on transport implementation.",
+      "ProtocolError": "A protocol error occurred while communicating with the Trezor device.",
+      "UnexpectedMessageType": "An unexpected message type was received from the Trezor device.",
+      "Failure": "An operation on the Trezor device failed.",
+      "UnexpectedInteractionRequest": "An unexpected interaction was requested by the Trezor device.",
+      "Internal": "Unhandled internal error.",
+      "PongMessageMismatch": "A 'pong' message received from the Trezor device did not match the expected value.",
+      "InternalNoProcessor": "No processor was set for the Trezor response."
+    },
+    "FileLockError": {
+      "ErrorReadingTimestamp": "An error occurred while reading the timestamp from a lock file.",
+      "ErrorWritingTimestamp": "An error occurred while writing the timestamp to a lock file.",
+      "ErrorCreatingLockFile": "An error occurred while creating a lock file."
+    },
+    "FsJsonError": {
+      "IoReading": "An I/O error occurred while reading a JSON file.",
+      "IoWriting": "An I/O error occurred while writing a JSON file.",
+      "Serializing": "An error occurred while serializing data to JSON.",
+      "Deserializing": "An error occurred while deserializing data from JSON."
+    },
+    "ApiClientError": {
+      "InvalidParam": "Invalid parameter: Invalid input length",
+      "OutOfBounds": "The provided value is out of bounds.",
+      "TransportError": "A transport error occurred while communicating with the API.",
+      "ParseBodyError": "An error occurred while parsing the API response body.",
+      "GeneralApiError": "A general API error occurred.",
+      "AllowanceNotEnough": "The token allowance is not sufficient for this operation."
+    },
+    "BigUintError": {
+      "NoDigits": "The provided string contains no digits.",
+      "InvalidNumberOfDigits": "The number of digits is invalid.",
+      "NumberIsTooLarge": "The number is too large to be represented."
+    },
+    "OnUpgradeError": {
+      "ErrorCreatingTable": "An error occurred while creating a database table during an upgrade.",
+      "ErrorOpeningTable": "An error occurred while opening a database table during an upgrade.",
+      "ErrorCreatingIndex": "An error occurred while creating a database index during an upgrade.",
+      "UnsupportedVersion": "The database version is not supported for an upgrade.",
+      "ErrorDeletingIndex": "An error occurred while deleting a database index during an upgrade."
+    },
+    "DbTransactionError": {
+      "NoSuchTable": "The specified database table does not exist.",
+      "ErrorCreatingTransaction": "An error occurred while creating a database transaction.",
+      "ErrorOpeningTable": "An error occurred while opening a database table.",
+      "ErrorSerializingIndex": "An error occurred while serializing a database index.",
+      "ErrorSerializingItem": "An error occurred while serializing a database item.",
+      "ErrorDeserializingItem": "An error occurred while deserializing a database item.",
+      "ErrorUploadingItem": "An error occurred while uploading an item to the database.",
+      "ErrorGettingItems": "An error occurred while retrieving items from the database.",
+      "ErrorCountingItems": "An error occurred while counting items in the database.",
+      "ErrorDeletingItems": "An error occurred while deleting items from the database.",
+      "MultipleItemsByUniqueIndex": "Multiple items were found for a unique index.",
+      "NoSuchIndex": "The specified database index does not exist.",
+      "InvalidIndex": "The database index is invalid.",
+      "UnexpectedState": "The database is in an unexpected state.",
+      "TransactionAborted": "The database transaction was aborted."
+    },
+    "InitDbError": {
+      "EmptyTableList": "The list of tables to create is empty.",
+      "DbIsOpenAlready": "The database is already open.",
+      "NotSupported": "The database operation is not supported.",
+      "InvalidVersion": "The database version is invalid.",
+      "OpeningError": "An error occurred while opening the database.",
+      "TypeMismatch": "A type mismatch occurred in the database.",
+      "UnexpectedState": "The database is in an unexpected state.",
+      "UpgradingError": "An error occurred while upgrading the database."
+    },
+    "CursorError": {
+      "ErrorSerializingIndexFieldValue": "An error occurred while serializing an index field value.",
+      "ErrorDeserializingIndexValue": "An error occurred while deserializing an index value.",
+      "ErrorDeserializingItem": "An error occurred while deserializing an item from the cursor.",
+      "ErrorOpeningCursor": "An error occurred while opening a cursor.",
+      "AdvanceError": "An error occurred while advancing a cursor.",
+      "InvalidKeyRange": "The key range for the cursor is invalid.",
+      "TypeMismatch": "A type mismatch occurred in the cursor.",
+      "IncorrectNumberOfKeysPerIndex": "The number of keys per index is incorrect.",
+      "UnexpectedState": "The cursor is in an unexpected state.",
+      "IncorrectUsage": "The cursor was used incorrectly."
+    },
+    "RelayAddressError": {
+      "FromStrError": "An error occurred while parsing a relay address from a string.",
+      "DistributedAddrOnMemoryNetwork": "A distributed address was used on a memory network.",
+      "MemoryAddrOnDistributedNetwork": "A memory address was used on a distributed network."
+    },
+    "AdexBehaviourError": {
+      "ParsingRelayAddress": "An error occurred while parsing a relay address for Adex.",
+      "SubscriptionError": "An error occurred while subscribing to an Adex topic.",
+      "PublishError": "An error occurred while publishing to an Adex topic.",
+      "InitializationError": "An error occurred during the initialization of the Adex behaviour."
+    },
+    "LedgerError": {
+      "DeviceDisconnected": "The Ledger device was disconnected.",
+      "UnderlyingError": "The error depends on transport implementation.",
+      "ErrorDeserializingApdu": "An error occurred while deserializing an APDU response from the Ledger device.",
+      "ProtocolError": "A protocol error occurred while communicating with the Ledger device.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "MmMetricsError": {
+      "Internal": "Unhandled internal error.",
+      "MetricsSystemUnavailable": "The metrics system is unavailable.",
+      "PrometheusAuthorizationRequired": "Authorization is required for the Prometheus endpoint.",
+      "PrometheusInvalidCredentials": "The provided credentials for the Prometheus endpoint are invalid.",
+      "PrometheusServerError": "A server error occurred at the Prometheus endpoint.",
+      "UnexpectedUri": "An unexpected URI was provided for the metrics endpoint."
+    },
+    "MetamaskError": {
+      "EthProviderNotFound": "No MetaMask provider detected in the browser / environment.",
+      "ExpectedOneEthAccount": "Expected exactly one Ethereum account to be selected in MetaMask.",
+      "UnexpectedAccountSelected": "A different ETH account is currently selected in MetaMask.",
+      "ErrorSerializingArguments": "An error occurred while serializing arguments for a MetaMask RPC call.",
+      "ErrorDeserializingMethodResult": "An error occurred while deserializing the result of a MetaMask RPC call.",
+      "UserCancelled": "The user rejected the signature/request in MetaMask.",
+      "Rpc": "A MetaMask RPC error occurred.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "MetamaskRpcError": {
+      "EthProviderNotFound": "No MetaMask provider detected in the browser / environment.",
+      "UserCancelled": "The user rejected the signature/request in MetaMask.",
+      "UnexpectedAccountSelected": "A different ETH account is currently selected in MetaMask.",
+      "MetamaskCtxNotInitialized": "The MetaMask context was not yet created (call *init* first)."
+    },
+    "AsyncConnError": {
+      "ConnectionClosed": "The connection to the SQLite has been closed and cannot be queried anymore.",
+      "Close": "and the underlying [`SqlError`] that made it impossible to close the database.",
+      "Rusqlite": "A `Rusqlite` error occurred.",
+      "Internal": "An application-specific error occurred."
+    },
+    "OrderbookP2PHandlerError": {
+      "InvalidTopic": "The orderbook P2P topic is invalid.",
+      "DecodeError": "An error occurred while decoding an orderbook P2P message.",
+      "PubkeyNotAllowed": "The public key is not allowed to publish to the orderbook.",
+      "P2PRequestError": "A P2P request error occurred in the orderbook handler.",
+      "OrderNotFound": "The requested order was not found in the orderbook.",
+      "Internal": "Unhandled internal error."
+    },
+    "OrdermatchInitError": {
+      "ErrorDeserializingConfig": "An error occurred while deserializing the order matching configuration.",
+      "Internal": "Unhandled internal error."
+    },
+    "CancelAllOrdersError": {
+      "LegacyError": "A legacy error occurred while cancelling all orders."
+    },
+    "TakerOrderBuildError": {
+      "BaseEqualRel": "The base and relative currencies cannot be the same.",
+      "BaseAmountTooLow": "Base amount too low with threshold",
+      "RelAmountTooLow": "Rel amount too low with threshold",
+      "MinVolumeTooLow": "Min volume too low with threshold",
+      "MaxBaseVolBelowMinBaseVol": "Max vol below min base vol",
+      "SenderPubkeyIsZero": "The sender's public key is zero.",
+      "ConfsSettingsNotSet": "The confirmation settings are not set."
+    },
+    "MakerOrderBuildError": {
+      "BaseEqualRel": "The base and relative currencies cannot be the same.",
+      "MaxBaseVolTooLow": "Max base vol too low with threshold",
+      "MinBaseVolTooLow": "Min base vol too low with threshold",
+      "PriceTooLow": "Price too low with threshold",
+      "RelVolTooLow": "Rel vol too low with threshold",
+      "ConfSettingsNotSet": "The confirmation settings are not set.",
+      "MaxBaseVolBelowMinBaseVol": "Max vol below min base vol"
+    },
+    "CancelOrderError": {
+      "CannotRetrieveOrderMatchContext": "Could not retrieve the order matching context.",
+      "OrderBeingMatched": "The order is currently being matched and cannot be cancelled.",
+      "UUIDNotFound": "The specified order UUID was not found."
+    },
+    "HealthcheckRpcError": {
+      "MessageGenerationFailed": "Failed to generate the healthcheck message.",
+      "MessageEncodingFailed": "Failed to encode the healthcheck message.",
+      "Internal": "Unhandled internal error."
+    },
+    "DispatcherError": {
+      "Banned": "The user is banned.",
+      "NoSuchMethod": "The requested RPC method does not exist.",
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "LocalHostOnly": "The requested method is only available on localhost.",
+      "UserpassIsNotSet": "The `userpass` is not set.",
+      "UserpassIsInvalid": "The provided `userpass` is invalid.",
+      "InvalidMmRpcVersion": "The `mmrpc` version is invalid."
+    },
+    "P2PInitError": {
+      "InvalidWssCert": "The WSS certificate is invalid.",
+      "ErrorDeserializingConfig": "An error occurred while deserializing the P2P configuration.",
+      "FieldNotFoundInConfig": "A required field was not found in the P2P configuration.",
+      "ErrorReadingCertFile": "An error occurred while reading the certificate file.",
+      "ErrorGettingMyIpAddr": "An error occurred while getting the local IP address.",
+      "InvalidNetId": "The network ID is invalid.",
+      "InvalidRelayAddress": "The relay address is invalid.",
+      "WasmNodeCannotBeSeed": "A WASM node cannot be a seed node.",
+      "Precheck": "A pre-check for P2P initialization failed.",
+      "Internal": "Unhandled internal error."
+    },
+    "MmInitError": {
+      "Cancelled": "The initialization was cancelled.",
+      "Timeout": "The initialization timed out.",
+      "ErrorDeserializingConfig": "An error occurred while deserializing the configuration.",
+      "FieldNotFoundInConfig": "A required field was not found in the configuration.",
+      "FieldWrongValueInConfig": "A field in the configuration has the wrong value.",
+      "P2PError": "Returned if there is a connection problem.",
+      "ErrorCreatingDbDir": "An error occurred while creating the database directory.",
+      "DbDirectoryIsNotWritable": "The database directory is not writable.",
+      "DbFileIsNotWritable": "The database file is not writable.",
+      "ErrorSqliteInitializing": "An error occurred while initializing the SQLite database.",
+      "ErrorDbMigrating": "An error occurred while migrating the database.",
+      "SwapsKickStartError": "An error occurred while kick-starting the swaps.",
+      "OrdersKickStartError": "An error occurred while kick-starting the orders.",
+      "WalletInitError": "An error occurred during wallet initialization.",
+      "EventStreamerInitFailed": "The event streamer initialization failed.",
+      "HwError": "A hardware wallet error occurred.",
+      "Internal": "Unhandled internal error."
+    },
+    "P2PRequestError": {
+      "EncodeError": "An error occurred while encoding a P2P request.",
+      "DecodeError": "An error occurred while decoding a P2P response.",
+      "SendError": "An error occurred while sending a P2P request.",
+      "ResponseError": "An error was received in the P2P response.",
+      "ExpectedSingleResponseError": "Expected a single response, but received multiple.",
+      "ValidationFailed": "The P2P response failed validation."
+    },
+    "P2PProcessError": {
+      "DecodeError": "The message could not be decoded.",
+      "InvalidSignature": "Message signature is invalid.",
+      "UnexpectedSender": "Unexpected message sender.",
+      "ValidationFailed": "Message did not pass additional validation"
+    },
+    "NetIdError": {
+      "LargerThanMax": "The network ID is larger than the maximum allowed value.",
+      "Deprecated": "The network ID is deprecated."
+    },
+    "NodeVersionError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "DatabaseError": "Database constraint error occurred.",
+      "InvalidAddress": "The specified address is invalid",
+      "PeerIdParseError": "The provided peer ID format is invalid.",
+      "UnsupportedMode": "The requested mode is not supported.",
+      "AlreadyRunning": "The version stat collection is already running.",
+      "CurrentlyStopping": "The version stat collection is currently stopping.",
+      "NotRunning": "Version stat collection is not currently running"
+    },
+    "GetLockedAmountRpcError": {
+      "NoSuchCoin": "The coin is not activated."
+    },
+    "WalletInitError": {
+      "ErrorDeserializingConfig": "An error occurred while deserializing the wallet configuration.",
+      "FieldNotFoundInConfig": "A required field was not found in the wallet configuration.",
+      "WalletsStorageError": "A storage-related error occurred while accessing wallet data.",
+      "PassphraseMismatch": "The provided passphrase does not match.",
+      "MnemonicError": "A mnemonic-related error occurred.",
+      "CryptoInitError": "A cryptographic initialization error occurred.",
+      "PasswordPolicyViolation": "The provided password violates the password policy.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "ReadPassphraseError": {
+      "WalletsStorageError": "A storage-related error occurred while accessing wallet data.",
+      "DecryptionError": "A decryption error occurred while reading the passphrase.",
+      "Internal": "Unhandled internal error."
+    },
+    "MnemonicRpcError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "WalletsStorageError": "A storage-related error occurred while accessing wallet data.",
+      "Internal": "Unhandled internal error.",
+      "InvalidPassword": "The provided `password` is incorrect.",
+      "PasswordPolicyViolation": "The provided password violates the password policy."
+    },
+    "MessageError": {
+      "TelegramError": "A Telegram-related error occurred."
+    },
+    "InitMessageServiceError": {
+      "ErrorDeserializingConfig": "An error occurred while deserializing the message service configuration."
+    },
+    "RateLimitError": {
+      "NbAttemptsLeft": "The number of remaining attempts has been exceeded."
+    },
+    "TrezorConnectionError": {
+      "TrezorNotInitialized": "A Trezor device has not been initialized on this node.",
+      "FoundUnexpectedDevice": "A connected device does not match the supplied `device_pubkey`.",
+      "Internal": "Unhandled internal error."
+    },
+    "GetPublicKeyError": {
+      "Internal": "Unhandled internal error."
+    },
+    "TokenInfoError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "UnsupportedTokenProtocol": "The token protocol is not supported.",
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "RetrieveInfoError": "An error occurred while retrieving token information."
+    },
+    "Erc20CallError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "CoinNotSupported": "Currently only EVM coins/tokens support fee estimation",
+      "InvalidParam": "Invalid parameter: Invalid input length",
+      "TransactionError": "Error occurred during transaction creation or signing",
+      "Web3RpcError": "A Web3 RPC error occurred."
+    },
+    "ApiIntegrationRpcError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "CoinTypeError": "The coin type is not the expected one.",
+      "NftNotSupported": "NFTs are not supported for this coin.",
+      "ChainNotSupported": "The chain is not supported.",
+      "DifferentChains": "The chains for this operation are different.",
+      "MyAddressError": "An error occurred while getting the local address.",
+      "InvalidParam": "Invalid parameter: Invalid input length",
+      "OutOfBounds": "The value is out of bounds.",
+      "OneInchAllowanceNotEnough": "The 1inch allowance is not sufficient.",
+      "OneInchError": "A 1inch API error occurred.",
+      "ApiDataError": "An error occurred with the data from the API."
+    },
+    "WalletConnectRpcError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "InitializationError": "An error occurred during WalletConnect initialization.",
+      "SessionRequestError": "An error occurred with a WalletConnect session request."
+    },
+    "LegacyRequestProcessError": {
+      "NotAllowed": "The legacy request is not allowed.",
+      "NoMatch": "No match was found for the legacy request.",
+      "Failed": "The legacy request failed."
+    },
+    "BalanceStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors",
+      "CoinNotFound": "The specified coin was not found or is not activated yet",
+      "CoinNotSupported": "Currently only EVM coins/tokens support fee estimation",
+      "Internal": "Unhandled internal error."
+    },
+    "FeeStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors",
+      "CoinNotFound": "The specified coin was not found or is not activated yet",
+      "CoinNotSupported": "Currently only EVM coins/tokens support fee estimation",
+      "Internal": "Unhandled internal error."
+    },
+    "OrderbookStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors"
+    },
+    "HeartbeatRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors"
+    },
+    "SwapStatusStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors"
+    },
+    "NetworkStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors"
+    },
+    "TxHistoryStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors",
+      "CoinNotFound": "The specified coin was not found or is not activated yet",
+      "CoinNotSupported": "Currently only EVM coins/tokens support fee estimation",
+      "Internal": "Unhandled internal error."
+    },
+    "OrderStatusStreamingRequestError": {
+      "EnableError": "The config object is not used in non-EVM coins or other configuration errors"
+    },
+    "DisableStreamingRequestError": {
+      "DisableError": "An error occurred while disabling the stream."
+    },
+    "SwapRecreateError": {
+      "ReprEventsEmpty": "DB representation has empty events",
+      "FailedToParseData": "Failed to parse some data from DB representation (e.g. transactions, pubkeys, etc.)",
+      "SwapAborted": "Swap has been aborted",
+      "SwapCompleted": "Swap has been completed",
+      "SwapFinishedWithRefund": "Swap has been finished with refund"
+    },
+    "SwapStateMachineError": {
+      "StorageError": "A storage error occurred in the swap state machine.",
+      "SerdeError": "A serialization or deserialization error occurred in the swap state machine.",
+      "SwapLockAlreadyAcquired": "The swap lock has already been acquired.",
+      "SwapLock": "An error occurred with the swap lock.",
+      "NoSwapWithUuid": "No swap was found with the specified UUID."
+    },
+    "SwapLockError": {
+      "ErrorReadingTimestamp": "An error occurred while reading the timestamp from the swap lock.",
+      "ErrorWritingTimestamp": "An error occurred while writing the timestamp to the swap lock.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "SavedSwapError": {
+      "ErrorSaving": "An error occurred while saving the swap.",
+      "ErrorLoading": "An error occurred while loading the swap.",
+      "ErrorDeserializing": "An error occurred while deserializing the swap.",
+      "ErrorSerializing": "An error occurred while serializing the swap.",
+      "CursorError": "A cursor error occurred while accessing saved swaps.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "SwapV2DbError": {
+      "DbTransaction": "A database transaction error occurred in SwapV2.",
+      "InitDb": "An error occurred during the initialization of the SwapV2 database.",
+      "Serde": "A serialization or deserialization error occurred in SwapV2.",
+      "UnsupportedSwapType": "The swap type is not supported in SwapV2."
+    },
+    "CheckBalanceError": {
+      "NotSufficientBalance": "The balance is not sufficient for this operation.",
+      "NotSufficientBaseCoinBalance": "The base coin balance is not sufficient for this operation.",
+      "VolumeTooLow": "The volume is too low for this operation.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "MySwapsError": {
+      "ErrorSerializingItem": "An error occurred while serializing a swap item.",
+      "ErrorDeserializingItem": "An error occurred while deserializing a swap item.",
+      "InvalidTimestampRange": "The provided timestamp range is invalid.",
+      "ErrorSavingSwap": "An error occurred while saving the swap.",
+      "FromUuidNotFound": "The 'from_uuid' was not found.",
+      "UuidParse": "An error occurred while parsing a UUID.",
+      "UnknownSqlError": "An unknown SQL error occurred.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "RecreateSwapError": {
+      "SwapIsNotStarted": "The swap has not been started yet.",
+      "SwapIsNotNegotiated": "The swap has not been negotiated yet.",
+      "UnexpectedEvent": "An unexpected event occurred in the swap recreation.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoSecretHash": "The secret hash is missing.",
+      "Internal": "Unhandled internal error."
+    },
+    "TradePreimageRpcError": {
+      "NotSufficientBalance": "The balance is not sufficient for this operation.",
+      "NotSufficientBaseCoinBalance": "The base coin balance is not sufficient for this operation.",
+      "VolumeTooLow": "The volume is too low for this operation.",
+      "NoSuchCoin": "The coin is not activated.",
+      "CoinIsWalletOnly": "Returned if the coin is wallet only and cannot be traded.",
+      "BaseEqualRel": "The base and relative currencies cannot be the same.",
+      "InvalidParam": "Invalid parameter: Invalid input length",
+      "PriceTooLow": "The price is too low.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "MaxMakerVolRpcError": {
+      "NotSufficientBalance": "The balance is not sufficient for this operation.",
+      "NotSufficientBaseCoinBalance": "The base coin balance is not sufficient for this operation.",
+      "VolumeTooLow": "The volume is too low for this operation.",
+      "NoSuchCoin": "The coin is not activated.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "WalletsStorageError": {
+      "FsWriteError": "A filesystem write error occurred in the wallets storage.",
+      "FsReadError": "A filesystem read error occurred in the wallets storage.",
+      "InvalidWalletName": "The wallet name is invalid.",
+      "Internal": "Unhandled internal error."
+    },
+    "WalletsDBError": {
+      "DeserializationError": "An error occurred while deserializing data from the wallets database.",
+      "SerializationError": "An error occurred while serializing data to the wallets database.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitMetamaskError": {
+      "MetamaskInitializingAlready": "A MetaMask initialisation task is already in progress.",
+      "MetamaskError": "A MetaMask-related error occurred.",
+      "Timeout": "The MetaMask initialization timed out.",
+      "Internal": "Unhandled internal error."
+    },
+    "InitHwError": {
+      "HwContextInitializingAlready": "The hardware wallet context is already initializing.",
+      "HwError": "A hardware wallet error occurred.",
+      "UnexpectedUserAction": "An unexpected user action was provided for the hardware wallet initialization.",
+      "Timeout": "The hardware wallet initialization timed out.",
+      "Internal": "Unhandled internal error."
+    },
+    "MyOrdersError": {
+      "NoSuchOrder": "The specified order was not found.",
+      "ErrorSaving": "An error occurred while saving the order.",
+      "ErrorLoading": "An error occurred while loading the order.",
+      "ErrorDeserializing": "An error occurred while deserializing the order.",
+      "ErrorSerializing": "An error occurred while serializing the order.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "OrderProcessingError": {
+      "ProviderUnknown": "The order provider is unknown.",
+      "PriceIsZero": "The price cannot be zero.",
+      "LastUpdatedTimestampInvalid": "The 'last_updated' timestamp is invalid.",
+      "PriceElapsedValidityExpired": "The validity of the elapsed price has expired.",
+      "PriceElapsedValidityUntreatable": "The validity of the elapsed price is untreatable.",
+      "PriceBelowMinBasePrice": "The price is below the minimum base price.",
+      "PriceBelowMinRelPrice": "The price is below the minimum relative price.",
+      "PriceBelowPairPrice": "The price is below the pair price.",
+      "AssetNotEnabled": "The asset is not enabled.",
+      "InternalCoinFindError": "An internal error occurred while finding the coin.",
+      "BalanceInternalError": "An internal error occurred while retrieving the balance.",
+      "BalanceIsZero": "The balance is zero.",
+      "OrderCreationError": "An error occurred during order creation.",
+      "OrderUpdateError": "An error occurred during order update.",
+      "MyRecentSwapsError": "An error occurred while retrieving recent swaps.",
+      "MinVolUsdAboveBalanceUsd": "The minimum volume in USD is above the balance in USD.",
+      "LegacyError": "A legacy error occurred during order processing."
+    },
+    "StopSimpleMakerBotError": {
+      "AlreadyStopped": "The bot is already stopped.",
+      "AlreadyStopping": "The bot is already stopping.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "StartSimpleMakerBotError": {
+      "AlreadyStarted": "The bot has already been started.",
+      "InvalidBotConfiguration": "The bot configuration is invalid.",
+      "Transport": "The request was failed due to a network error",
+      "CannotStartFromStopping": "Cannot start the bot while it is stopping.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "SwapUpdateNotificationError": {
+      "MyRecentSwapsError": "An error occurred while retrieving recent swaps for the notification.",
+      "SwapInfoNotAvailable": "The swap information for the notification is not available."
+    },
+    "OrderbookRpcError": {
+      "BaseRelSame": "The base and relative currencies cannot be the same.",
+      "BaseRelSameOrderbookTickersAndProtocols": "The base and relative currencies have the same tickers and protocols.",
+      "CoinConfigNotFound": "The coin configuration was not found.",
+      "CoinIsWalletOnly": "Returned if the coin is wallet only and cannot be traded.",
+      "P2PSubscribeError": "An error occurred while subscribing to the orderbook via P2P.",
+      "Internal": "Unhandled internal error."
+    },
+    "BestOrdersRpcError": {
+      "CoinIsWalletOnly": "Returned if the coin is wallet only and cannot be traded.",
+      "P2PError": "Returned if there is a connection problem.",
+      "CtxError": "A context-related error occurred."
+    },
+    "TelegramError": {
+      "RequestError": "A request to the Telegram API failed."
+    },
+    "SiaConfError": {
+      "Foo": "Placeholder for a Sia configuration error.",
+      "Bar": "Placeholder for a Sia configuration error."
+    },
+    "SiaCoinBuildError": {
+      "ConfError": "A configuration error occurred while building the Sia coin.",
+      "UnsupportedPrivKeyPolicy": "The private key policy is not supported for Sia coin.",
+      "ClientError": "A client error occurred while building the Sia coin.",
+      "EllipticCurveError": "An elliptic curve error occurred while building the Sia coin."
+    },
+    "PriceServiceRequestError": {
+      "HttpProcessError": "An HTTP processing error occurred in the price service.",
+      "ParsingAnswerError": "An error occurred while parsing the answer from the price service.",
+      "Internal": "Unhandled internal error."
+    },
+    "Qrc20GenTxError": {
+      "ErrorGeneratingUtxoTx": "An error occurred while generating the UTXO transaction for the QRC20 token.",
+      "ErrorSigningTx": "An error occurred while signing the transaction for the QRC20 token.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "InvalidAddress": "The specified address is invalid."
+    },
+    "Qrc20AbiError": {
+      "InvalidParams": "The ABI parameters for the QRC20 call are invalid.",
+      "ABIError": "An ABI-related error occurred during the QRC20 call."
+    },
+    "RawTransactionError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "InvalidHashError": "The specified `hash` is not valid",
+      "Transport": "The request was failed due to a network error",
+      "HashNotExist": "The specified `hash` does not exist",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "DecodeError": "An error occurred while decoding the raw transaction.",
+      "InvalidParam": "Invalid parameter: Invalid input length",
+      "NonExistentPrevOutputError": "A previous output referred to in the transaction does not exist.",
+      "SigningError": "Error when signing a raw transaction that belongs to a different key pair",
+      "NotImplemented": "This raw transaction feature is not implemented for this coin.",
+      "TransactionError": "Error occurred during transaction creation or signing"
+    },
+    "GetMyAddressError": {
+      "CoinsConfCheckError": "The coin is not present in the local coins configuration file.",
+      "CoinIsNotSupported": "The specified coin does not support `get_my_address` (non-EVM coin).",
+      "Internal": "Unhandled internal error.",
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "GetEthAddressError": "Failed to derive Ethereum address from HD keys."
+    },
+    "TxHistoryError": {
+      "ErrorSerializing": "An error occurred while serializing the transaction history.",
+      "ErrorDeserializing": "An error occurred while deserializing the transaction history.",
+      "ErrorSaving": "An error occurred while saving the transaction history.",
+      "ErrorLoading": "An error occurred while loading the transaction history.",
+      "ErrorClearing": "An error occurred while clearing the transaction history.",
+      "FromIdNotFound": "The 'from_id' was not found in the transaction history.",
+      "NotSupported": "Transaction history is not supported for this coin.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "RefundError": {
+      "DecodeErr": "An error occurred while decoding the refund transaction.",
+      "DbError": "A database error occurred during the refund process.",
+      "Timeout": "The refund process timed out.",
+      "Internal": "Unhandled internal error."
+    },
+    "WatcherRewardError": {
+      "RPCError": "An RPC error occurred while processing the watcher reward.",
+      "InvalidCoinType": "The coin type is invalid for the watcher reward.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "TxGenError": {
+      "Rpc": "RPC error",
+      "NumConversion": "Error during conversion of BigDecimal amount to coin's specific monetary units (satoshis, wei, etc.).",
+      "Signing": "Problem with tx preimage signing.",
+      "Legacy": "Legacy error produced by usage of try_s/try_fus and other similar macros.",
+      "LocktimeOverflow": "Input payment timelock overflows the type used by specific coin.",
+      "TxFeeTooHigh": "Transaction fee is too high",
+      "PrevTxIsNotValid": "Previous tx is not valid",
+      "PrevOutputTooLow": "Previous tx output value too low",
+      "Other": "Other errors, can be used to return an error that can happen only in specific coin protocol implementation"
+    },
+    "ValidateSwapV2TxError": {
+      "InvalidDestinationOrAmount": "Payment sent to wrong address or has invalid amount.",
+      "NumConversion": "Error during conversion of BigDecimal amount to coin's specific monetary units (satoshis, wei, etc.).",
+      "Rpc": "RPC error.",
+      "TxBytesMismatch": "Serialized tx bytes don't match ones received from coin's RPC.",
+      "TxLacksOfOutputs": "Provided transaction doesn't have output with specific index",
+      "Overflow": "Indicates that overflow occurred, either while calculating a total payment or converting the timelock.",
+      "Internal": "Internal error",
+      "UnexpectedPaymentState": "Payment transaction is in unexpected state. E.g., `Uninitialized` instead of `PaymentSent` for ETH payment.",
+      "TxDoesNotExist": "Payment transaction doesn't exist on-chain.",
+      "WrongPaymentTx": "Transaction has wrong properties, for example, it has been sent to a wrong address.",
+      "ProtocolNotSupported": "The protocol is not supported for this swap.",
+      "InvalidData": "The data for the swap is invalid."
+    },
+    "ValidateTakerFundingSpendPreimageError": {
+      "FundingTxNoOutputs": "Funding tx has no outputs",
+      "UnexpectedPreimageFee": "Actual preimage fee is either too high or too small",
+      "InvalidMakerSignature": "Error during signature deserialization.",
+      "InvalidPreimage": "Error during preimage comparison to an expected one.",
+      "SignatureVerificationFailure": "Error during taker's signature check.",
+      "TxGenError": "Error during generation of an expected preimage.",
+      "LocktimeOverflow": "Input payment timelock overflows the type used by specific coin.",
+      "Rpc": "Coin's RPC error"
+    },
+    "ValidateTakerPaymentSpendPreimageError": {
+      "InvalidTakerSignature": "Error during signature deserialization.",
+      "InvalidPreimage": "Error during preimage comparison to an expected one.",
+      "SignatureVerificationFailure": "Error during taker's signature check.",
+      "TxGenError": "Error during generation of an expected preimage.",
+      "LocktimeOverflow": "Input payment timelock overflows the type used by specific coin."
+    },
+    "FindPaymentSpendError": {
+      "Timeout": "Timeout error variant, indicating that the wait for taker payment spend has timed out.",
+      "InvalidInputTx": "Invalid input transaction error variant, containing additional information about the error.",
+      "Internal": "Unhandled internal error.",
+      "ABIError": "An ABI-related error occurred.",
+      "InvalidData": "The data for finding the payment spend is invalid.",
+      "Transport": "The request was failed due to a network error"
+    },
+    "SwapTxFeePolicyError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "NotSupported": "The swap transaction fee policy is not supported for this coin."
+    },
+    "TradePreimageError": {
+      "NotSufficientBalance": "The balance is not sufficient for this trade.",
+      "AmountIsTooSmall": "The trade amount is too small.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "NftProtocolNotSupported": "The NFT protocol is not supported for this trade."
+    },
+    "BalanceError": {
+      "Transport": "The request was failed due to a network error",
+      "InvalidResponse": "The response from the balance check was invalid.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "WalletStorageError": "A wallet storage error occurred during the balance check.",
+      "Internal": "Unhandled internal error."
+    },
+    "StakingInfoError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "InvalidPayload": "The payload for the staking information request is invalid.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "DelegationError": {
+      "NotSufficientBalance": "The balance is not sufficient for this delegation.",
+      "AmountTooLow": "The delegation amount is too low.",
+      "CoinDoesntSupportDelegation": "This coin does not support delegation.",
+      "NoSuchCoin": "The coin is not activated.",
+      "CanNotUndelegate": "Cannot undelegate from this address.",
+      "TooMuchToUndelegate": "The amount to undelegate is too large.",
+      "UnprofitableReward": "The reward for this delegation is unprofitable.",
+      "NothingToClaim": "There are no rewards to claim.",
+      "CannotInteractWithSmartContract": "Cannot interact with the smart contract for this delegation.",
+      "AddressError": "An address-related error occurred during the delegation.",
+      "AlreadyDelegating": "Already delegating to this address.",
+      "DelegationOpsNotSupported": "Delegation operations are not supported for this coin.",
+      "Transport": "The request was failed due to a network error",
+      "InvalidPayload": "The payload for the delegation request is invalid.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "WithdrawError": {
+      "CoinDoesntSupportInitWithdraw": "This coin does not support initial withdrawal.",
+      "NotSufficientBalance": "The balance is not sufficient for this withdrawal.",
+      "NotSufficientPlatformBalanceForFee": "The platform coin balance is not sufficient for the withdrawal fee.",
+      "ZeroBalanceToWithdrawMax": "Cannot withdraw the maximum amount with a zero balance.",
+      "AmountTooLow": "The withdrawal amount is too low.",
+      "InvalidAddress": "The specified address is invalid",
+      "InvalidFeePolicy": "The fee policy for this withdrawal is invalid.",
+      "InvalidMemo": "The memo for this withdrawal is invalid.",
+      "NoSuchCoin": "The coin is not activated.",
+      "Timeout": "The withdrawal operation timed out.",
+      "FromAddressNotFound": "The 'from' address was not found.",
+      "UnexpectedFromAddress": "The 'from' address is not the expected one.",
+      "UnknownAccount": "The specified `account_id` does not exist.",
+      "UnexpectedUserAction": "An unexpected user action was provided for the withdrawal.",
+      "HwError": "A hardware wallet error occurred.",
+      "BroadcastExpected": "A broadcast was expected for this withdrawal.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "UnsupportedError": "An unsupported error occurred during the withdrawal.",
+      "CoinDoesntSupportNftWithdraw": "This coin does not support NFT withdrawal.",
+      "ContractTypeDoesntSupportNftWithdrawing": "The contract type does not support NFT withdrawal.",
+      "ActionNotAllowed": "The requested action is not allowed.",
+      "GetNftInfoError": "An error occurred while getting NFT information.",
+      "NotEnoughNftsAmount": "The amount of NFTs is not sufficient.",
+      "DbError": "A database error occurred.",
+      "MyAddressNotNftOwner": "The local address is not the owner of the NFT.",
+      "NftProtocolNotSupported": "The NFT protocol is not supported.",
+      "NoChainIdSet": "The chain ID is not set.",
+      "SigningError": "Error when signing a raw transaction that belongs to a different key pair",
+      "TxTypeNotSupported": "The transaction type is not supported.",
+      "IBCError": "An IBC-related error occurred."
+    },
+    "SignatureError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "CoinIsNotFound": "Specified coin is not found",
+      "PrefixNotFound": "`sign_message_prefix` is not set in coin config file"
+    },
+    "VerificationError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "SignatureDecodingError": "Given signature could not be decoded",
+      "AddressDecodingError": "Given address could not be decoded",
+      "CoinIsNotFound": "Specified coin is not found",
+      "PrefixNotFound": "`sign_message_prefix` is not set in coin config file"
+    },
+    "OrderCreationPreCheckError": {
+      "IsWalletOnly": "The coin is wallet-only and cannot be used for this order.",
+      "PreCheckFailed": "The pre-check for order creation failed.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "CustomTokenError": {
+      "DuplicateTickerInConfig": "A custom token with the same ticker already exists in the configuration.",
+      "DuplicateContractInConfig": "A custom token with the same contract address already exists in the configuration.",
+      "TokenWithSameContractAlreadyActivated": "A token with the same contract address is already activated."
+    },
+    "RegisterCoinError": {
+      "CoinIsInitializedAlready": "The coin is already initialized.",
+      "Internal": "Unhandled internal error."
+    },
+    "CoinFindError": {
+      "NoSuchCoin": "The coin is not activated."
+    },
+    "ValidatePaymentError": {
+      "InternalError": "Should be used to indicate internal MM2 state problems (e.g., DB errors, etc.).",
+      "TxDeserializationError": "Problem with deserializing the transaction, or one of the transaction parts is invalid.",
+      "InvalidParameter": "One of the input parameters is invalid.",
+      "InvalidRpcResponse": "Coin's RPC returned unexpected/invalid response during payment validation.",
+      "TxDoesNotExist": "Payment transaction doesn't exist on-chain.",
+      "SPVError": "SPV client error.",
+      "UnexpectedPaymentState": "Payment transaction is in unexpected state. E.g., `Uninitialized` instead of `Sent` for ETH payment.",
+      "Transport": "Transport (RPC) error.",
+      "WrongPaymentTx": "Transaction has wrong properties, for example, it has been sent to a wrong address.",
+      "WatcherRewardError": "Indicates error during watcher reward calculation.",
+      "TimelockOverflow": "Input payment timelock overflows the type used by specific coin.",
+      "ProtocolNotSupported": "The protocol is not supported for payment validation.",
+      "InvalidData": "The data for payment validation is invalid."
+    },
+    "MyAddressError": {
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "AddressFromPubkeyError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "EnableCoinBalanceError": {
+      "NewAddressDerivingError": "An error occurred while deriving a new address.",
+      "NewAccountCreationError": "An error occurred while creating a new account.",
+      "BalanceError": "An error occurred while checking the balance."
+    },
+    "Web3RpcError": {
+      "Transport": "The request was failed due to a network error",
+      "InvalidResponse": "The response from the Web3 RPC was invalid.",
+      "Timeout": "The Web3 RPC request timed out.",
+      "Internal": "Unhandled internal error.",
+      "InvalidGasApiConfig": "The gas API configuration is invalid.",
+      "NftProtocolNotSupported": "The NFT protocol is not supported.",
+      "NumConversError": "A number conversion error occurred."
+    },
+    "GetEthAddressError": {
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "EthActivationV2Error": "An ETH activation v2 error occurred.",
+      "Internal": "Unhandled internal error."
+    },
+    "GetValidEthWithdrawAddError": {
+      "CoinDoesntSupportNftWithdraw": "The specified coin does not support NFT withdrawal.",
+      "InvalidAddress": "The provided address is invalid."
+    },
+    "EthAssocTypesError": {
+      "InvalidHexString": "The provided string is not a valid hexadecimal string.",
+      "TxParseError": "An error occurred while parsing the Ethereum transaction.",
+      "ParseSignatureError": "An error occurred while parsing the Ethereum signature."
+    },
+    "EthNftAssocTypesError": {
+      "Utf8Error": "A UTF-8 encoding or decoding error occurred.",
+      "ParseContractTypeError": "An error occurred while parsing the NFT contract type.",
+      "ParseTokenContractError": "An error occurred while parsing the NFT token contract."
+    },
+    "GetTxError": {
+      "Rpc": "An RPC error occurred while getting the transaction.",
+      "TxDeserialization": "An error occurred while deserializing the transaction."
+    },
+    "GetTxHeightError": {
+      "HeightNotFound": "The block height for the transaction was not found.",
+      "StorageError": "A storage error occurred while getting the transaction height.",
+      "ConversionError": "A conversion error occurred while getting the transaction height."
+    },
+    "GetBlockHeaderError": {
+      "StorageError": "A storage error occurred while getting the block header.",
+      "RpcError": "An RPC error occurred while getting the block header.",
+      "SerializationError": "A serialization error occurred while getting the block header.",
+      "InvalidResponse": "The response for the block header was invalid.",
+      "SPVError": "An SPV error occurred while getting the block header.",
+      "Internal": "Unhandled internal error."
+    },
+    "GetConfirmedTxError": {
+      "HeightNotFound": "The block height for the transaction was not found.",
+      "UnableToGetHeader": "Could not retrieve the block header for the transaction.",
+      "RpcError": "An RPC error occurred while getting the confirmed transaction.",
+      "SerializationError": "A serialization error occurred while getting the confirmed transaction.",
+      "SPVError": "An SPV error occurred while getting the confirmed transaction."
+    },
+    "AddrFromStrError": {
+      "Unsupported": "The address format is not supported.",
+      "CannotDetermineFormat": "Could not determine the address format."
+    },
+    "GenerateTxError": {
+      "EmptyUtxoSet": "The UTXO set is empty.",
+      "EmptyOutputs": "The transaction has no outputs.",
+      "OutputValueLessThanDust": "The output value is less than the dust threshold.",
+      "DeductFeeFromOutputFailed": "Failed to deduct the fee from the output.",
+      "NotEnoughUtxos": "Not enough UTXOs to create the transaction.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "GetNftInfoError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "Transport": "The request was failed due to a network error",
+      "InvalidResponse": "The response for the NFT information was invalid.",
+      "Internal": "Unhandled internal error.",
+      "GetEthAddressError": "Failed to derive Ethereum address from HD keys.",
+      "TokenNotFoundInWallet": "The token was not found in the wallet.",
+      "DbError": "A database error occurred.",
+      "ParseRfc3339Err": "An error occurred while parsing an RFC 3339 timestamp.",
+      "ContractTypeIsNull": "The contract type is null.",
+      "ProtectFromSpamError": "An error occurred while protecting from spam.",
+      "TransferConfirmationsError": "An error occurred while getting transfer confirmations.",
+      "NumConversError": "A number conversion error occurred."
+    },
+    "UpdateNftError": {
+      "DbError": "A database error occurred.",
+      "Internal": "Unhandled internal error.",
+      "GetNftInfoError": "An error occurred while getting NFT information.",
+      "GetMyAddressError": "An error occurred while getting the local address.",
+      "TokenNotFoundInWallet": "The token was not found in the wallet.",
+      "InsufficientAmountInCache": "The amount in the cache is insufficient.",
+      "InvalidBlockOrder": "The block order is invalid.",
+      "LastScannedBlockNotFound": "The last scanned block was not found.",
+      "AttemptToReceiveAlreadyOwnedErc721": "An attempt was made to receive an already owned ERC-721 token.",
+      "InvalidHexString": "The provided string is not a valid hexadecimal string.",
+      "UpdateSpamPhishingError": "An error occurred while updating spam/phishing information.",
+      "GetInfoFromUriError": "An error occurred while getting information from a URI.",
+      "SerdeError": "A serialization or deserialization error occurred.",
+      "ProtectFromSpamError": "An error occurred while protecting from spam.",
+      "NoSuchCoin": "The coin is not activated.",
+      "CoinDoesntSupportNft": "This coin does not support NFTs.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected."
+    },
+    "ProtectFromSpamError": {
+      "RegexError": "Error related to regular expression operations.",
+      "SerdeError": "Error related to serialization or deserialization with serde_json."
+    },
+    "UpdateSpamPhishingError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "Transport": "The request was failed due to a network error",
+      "InvalidResponse": "The response for the spam/phishing update was invalid.",
+      "Internal": "Unhandled internal error.",
+      "DbError": "A database error occurred.",
+      "GetMyAddressError": "An error occurred while getting the local address."
+    },
+    "ParseChainTypeError": {
+      "UnsupportedChainType": "The chain type is not supported."
+    },
+    "LockDBError": {
+      "WasmNftCacheError": "Errors specific to the WebAssembly (WASM) environment's NFT cache.",
+      "SqlError": "Errors related to SQL operations in non-WASM environments."
+    },
+    "TransferConfirmationsError": {
+      "NoSuchCoin": "Occurs when the specified coin does not exist.",
+      "CoinDoesntSupportNft": "Triggered when the specified coin does not support NFT operations.",
+      "GetCurrentBlockErr": "Represents errors encountered while retrieving the current block number."
+    },
+    "ClearNftDbError": {
+      "DbError": "Represents errors related to database operations.",
+      "Internal": "Indicates internal errors not directly associated with database operations.",
+      "InvalidRequest": "Used for various types of invalid requests, such as missing or contradictory parameters."
+    },
+    "ParseContractTypeError": {
+      "UnsupportedContractType": "Indicates that the contract type being parsed is not supported or recognized."
+    },
+    "WasmNftCacheError": {
+      "ErrorSerializing": "An error occurred while serializing data to the WASM NFT cache.",
+      "ErrorDeserializing": "An error occurred while deserializing data from the WASM NFT cache.",
+      "ErrorSaving": "An error occurred while saving data to the WASM NFT cache.",
+      "ErrorLoading": "An error occurred while loading data from the WASM NFT cache.",
+      "ErrorClearing": "An error occurred while clearing the WASM NFT cache.",
+      "NotSupported": "The operation is not supported by the WASM NFT cache.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "GetLastNftBlockError": "An error occurred while getting the last NFT block from the cache.",
+      "GetItemError": "An error occurred while getting an item from the cache.",
+      "CursorBuilderError": "An error occurred while building a cursor for the cache.",
+      "OpenCursorError": "An error occurred while opening a cursor for the cache."
+    },
+    "CreateAccountRpcError": {
+      "HwContextNotInitialized": "The hardware wallet context has not been initialized.",
+      "NoSuchCoin": "The coin is not activated.",
+      "UnexpectedUserAction": "An unexpected user action was provided.",
+      "Timeout": "The account creation operation timed out.",
+      "CoinIsActivatedNotWithHDWallet": "Coin was enabled without HD-wallet derivation.",
+      "InvalidBip44Chain": "Unsupported `chain` value.",
+      "AccountLimitReached": "The account limit has been reached.",
+      "RpcInvalidResponse": "The RPC response for account creation was invalid.",
+      "WalletStorageError": "A wallet storage error occurred.",
+      "HwError": "A hardware wallet error occurred.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "GetEnabledCoinsError": {
+      "Internal": "Unhandled internal error."
+    },
+    "HDAccountBalanceRpcError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "Timeout": "The balance check for the HD account timed out.",
+      "CoinIsActivatedNotWithHDWallet": "Coin was enabled without HD-wallet derivation.",
+      "UnknownAccount": "The specified `account_id` does not exist.",
+      "InvalidBip44Chain": "Unsupported `chain` value.",
+      "ErrorDerivingAddress": "An error occurred while deriving an address for the HD account.",
+      "WalletStorageError": "A wallet storage error occurred.",
+      "RpcInvalidResponse": "The RPC response for the balance check was invalid.",
+      "FailedScripthashSubscription": "Failed to subscribe to the scripthash.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "GetNewAddressRpcError": {
+      "HwContextNotInitialized": "The hardware wallet context has not been initialized.",
+      "NoSuchCoin": "The coin is not activated.",
+      "UnexpectedUserAction": "An unexpected user action was provided.",
+      "CoinIsActivatedNotWithHDWallet": "Coin was enabled without HD-wallet derivation.",
+      "UnknownAccount": "The specified `account_id` does not exist.",
+      "InvalidBip44Chain": "Unsupported `chain` value.",
+      "ErrorDerivingAddress": "An error occurred while deriving a new address.",
+      "AddressLimitReached": "Address derivation exceeded wallet's hard limit.",
+      "EmptyAddressesLimitReached": "Gap-limit reached (too many empty addresses); generate spend to some address.",
+      "RpcInvalidResponse": "The RPC response for getting a new address was invalid.",
+      "WalletStorageError": "A wallet storage error occurred.",
+      "FailedScripthashSubscription": "Failed to subscribe to the scripthash.",
+      "Timeout": "The operation to get a new address timed out.",
+      "HwError": "A hardware wallet error occurred.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "GetCurrentMtpError": {
+      "NoSuchCoin": "The coin is not activated.",
+      "NotSupportedCoin": "This coin does not support getting the Median Time-Past (MTP).",
+      "RpcError": "An RPC error occurred while getting the MTP."
+    },
+    "ClaimableBalancesError": {
+      "UnsupportedCoin": "This coin does not support claimable balances.",
+      "NoSuchCoin": "The coin is not activated."
+    },
+    "GetPaymentDetailsError": {
+      "UnsupportedCoin": "This coin does not support getting payment details.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoSuchPayment": "The specified payment was not found.",
+      "DbError": "A database error occurred."
+    },
+    "SendPaymentError": {
+      "UnsupportedCoin": "This coin does not support sending payments.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoRouteFound": "No route was found for the payment.",
+      "PaymentError": "A payment error occurred.",
+      "DbError": "A database error occurred."
+    },
+    "ListPaymentsError": {
+      "UnsupportedCoin": "This coin does not support listing payments.",
+      "NoSuchCoin": "The coin is not activated.",
+      "DbError": "A database error occurred."
+    },
+    "GetChannelDetailsError": {
+      "UnsupportedCoin": "This coin does not support getting channel details.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoSuchChannel": "The specified channel was not found.",
+      "DbError": "A database error occurred."
+    },
+    "CloseChannelError": {
+      "UnsupportedCoin": "This coin does not support closing channels.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoSuchChannel": "The specified channel was not found.",
+      "CloseChannelError": "An error occurred while closing the channel."
+    },
+    "ConnectToNodeError": {
+      "ParseError": "An error occurred while parsing the node address.",
+      "ConnectionError": "A connection error occurred.",
+      "IOError": "An I/O error occurred.",
+      "UnsupportedCoin": "This coin is not supported for this operation.",
+      "NoSuchCoin": "The coin is not activated."
+    },
+    "ListChannelsError": {
+      "UnsupportedCoin": "This coin does not support listing channels.",
+      "NoSuchCoin": "The coin is not activated.",
+      "DbError": "A database error occurred."
+    },
+    "TrustedNodeError": {
+      "UnsupportedCoin": "This coin does not support trusted nodes.",
+      "NoSuchCoin": "The coin is not activated.",
+      "IOError": "An I/O error occurred."
+    },
+    "UpdateChannelError": {
+      "UnsupportedCoin": "This coin does not support updating channels.",
+      "NoSuchCoin": "The coin is not activated.",
+      "NoSuchChannel": "The specified channel was not found.",
+      "FailureToUpdateChannel": "Failed to update the channel."
+    },
+    "OpenChannelError": {
+      "UnsupportedCoin": "This coin does not support opening channels.",
+      "BalanceError": "A balance error occurred.",
+      "InvalidPath": "The provided path is invalid.",
+      "FailureToOpenChannel": "Failed to open the channel.",
+      "RpcError": "An RPC error occurred.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "IOError": "An I/O error occurred.",
+      "DbError": "A database error occurred.",
+      "ConnectToNodeError": "An error occurred while connecting to the node.",
+      "NoSuchCoin": "The coin is not activated.",
+      "GenerateTxErr": "An error occurred while generating the transaction."
+    },
+    "GenerateInvoiceError": {
+      "UnsupportedCoin": "This coin does not support generating invoices.",
+      "NoSuchCoin": "The coin is not activated.",
+      "SignOrCreationError": "An error occurred during the signing or creation of the invoice.",
+      "DbError": "A database error occurred."
+    },
+    "UtxoMyAddressesHistoryError": {
+      "AddressDerivingError": "An error occurred while deriving an address.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected."
+    },
+    "UtxoTxDetailsError": {
+      "StorageError": "A storage error occurred while getting UTXO transaction details.",
+      "TxDeserializationError": "An error occurred while deserializing the UTXO transaction.",
+      "InvalidTransaction": "The UTXO transaction is invalid.",
+      "TxAddressDeserializationError": "An error occurred while deserializing an address from the UTXO transaction.",
+      "NumConversionErr": "A number conversion error occurred.",
+      "RpcError": "An RPC error occurred.",
+      "Internal": "Unhandled internal error."
+    },
+    "Qrc20AddressError": {
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "ScriptHashTypeNotSupported": "The script hash type is not supported for QRC20 addresses."
+    },
+    "UtxoRpcError": {
+      "Transport": "The request was failed due to a network error",
+      "ResponseParseError": "An error occurred while parsing the UTXO RPC response.",
+      "InvalidResponse": "The UTXO RPC response was invalid.",
+      "Internal": "Unhandled internal error."
+    },
+    "QtumStakingAbiError": {
+      "InvalidParams": "The ABI parameters for QTUM staking are invalid.",
+      "ABIError": "An ABI-related error occurred during QTUM staking.",
+      "PodSigningError": "An error occurred while signing the proof-of-delegation.",
+      "Internal": "Unhandled internal error."
+    },
+    "EnableSlpError": {
+      "GetBalanceError": "An error occurred while getting the SLP token balance.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "Internal": "Unhandled internal error."
+    },
+    "SpendP2SHError": {
+      "GenerateTxErr": "An error occurred while generating the transaction.",
+      "Rpc": "An RPC error occurred.",
+      "SignTxErr": "An error occurred while signing the transaction.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "String": "A string-related error occurred."
+    },
+    "SpendHtlcError": {
+      "TxLackOfOutputs": "The transaction lacks outputs.",
+      "DeserializationErr": "An error occurred while deserializing the HTLC.",
+      "PubkeyParseErr": "An error occurred while parsing a public key.",
+      "InvalidSlpDetails": "The SLP details are invalid.",
+      "NumConversionErr": "A number conversion error occurred.",
+      "RpcErr": "An RPC error occurred.",
+      "SpendP2SHErr": "A P2SH spending error occurred.",
+      "OpReturnParseError": "An error occurred while parsing the OP_RETURN data.",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected."
+    },
+    "ParseSlpScriptError": {
+      "NotOpReturn": "The script is not an OP_RETURN script.",
+      "UnexpectedLokadId": "An unexpected LOKAD ID was found in the SLP script.",
+      "UnexpectedTokenType": "An unexpected token type was found in the SLP script.",
+      "DeserializeFailed": "Failed to deserialize the SLP script."
+    },
+    "IsSlpUtxoError": {
+      "Rpc": "An RPC error occurred.",
+      "TxDeserialization": "An error occurred while deserializing the transaction."
+    },
+    "BchActivationError": {
+      "CoinInitError": "An error occurred during BCH coin initialization.",
+      "TokenConfIsNotFound": "The token configuration was not found.",
+      "TokenCoinProtocolParseError": "An error occurred while parsing the token coin protocol.",
+      "TokenCoinProtocolIsNotSlp": "The token coin protocol is not SLP.",
+      "TokenPlatformCoinIsInvalidInConf": "The token's platform coin is invalid in the configuration.",
+      "RpcError": "An RPC error occurred.",
+      "SlpPrefixParseError": "An error occurred while parsing the SLP prefix."
+    },
+    "TxCacheError": {
+      "ErrorLoading": "An error occurred while loading from the transaction cache.",
+      "ErrorSaving": "An error occurred while saving to the transaction cache.",
+      "ErrorDeserializing": "An error occurred while deserializing from the transaction cache.",
+      "ErrorSerializing": "An error occurred while serializing to the transaction cache."
+    },
+    "UtxoCoinBuildError": {
+      "ConfError": "A configuration error occurred while building the UTXO coin.",
+      "NativeRpcNotSupportedInWasm": "Native RPC is not supported in WASM.",
+      "ErrorReadingNativeModeConf": "An error occurred while reading the native mode configuration.",
+      "RpcPortIsNotSet": "The RPC port is not set.",
+      "ErrorDetectingFeeMethod": "An error occurred while detecting the fee method.",
+      "ErrorDetectingDecimals": "An error occurred while detecting the number of decimals.",
+      "InvalidBlockchainNetwork": "The blockchain network is invalid.",
+      "CantDetectUserHome": "Could not detect the user's home directory.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "HwContextNotInitialized": "The hardware wallet context has not been initialized.",
+      "HDWalletStorageError": "An HD wallet storage error occurred.",
+      "CoinDoesntSupportTrezor": "This coin does not support Trezor.",
+      "BlockHeaderStorageError": "A block header storage error occurred.",
+      "Internal": "Unhandled internal error.",
+      "SPVError": "An SPV error occurred.",
+      "ErrorCalculatingStartingHeight": "An error occurred while calculating the starting height.",
+      "FailedSpawningBalanceEvents": "Failed to spawn balance update events.",
+      "UnsupportedModeForBalanceEvents": "The mode is not supported for balance events.",
+      "InvalidPathToAddress": "The path to the address is invalid."
+    },
+    "UtxoConfError": {
+      "CurrencyNameIsNotSet": "The currency name is not set in the configuration.",
+      "DerivationPathIsNotSet": "The derivation path is not set in the configuration.",
+      "TrezorCoinIsNotSet": "The Trezor coin is not set in the configuration.",
+      "ErrorDeserializingDerivationPath": "An error occurred while deserializing the derivation path.",
+      "ErrorDeserializingSPVConf": "An error occurred while deserializing the SPV configuration.",
+      "InvalidConsensusBranchId": "The consensus branch ID is invalid.",
+      "InvalidVersionGroupId": "The version group ID is invalid.",
+      "InvalidAddressFormat": "The address format is invalid.",
+      "InvalidDecimals": "The number of decimals is invalid."
+    },
+    "ZP2SHSpendError": {
+      "ZTxBuilderError": "An error occurred in the Z-transaction builder.",
+      "GenTxError": "An error occurred while generating the transaction.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "Rpc": "An RPC error occurred.",
+      "TxRecoverable": "The transaction is recoverable.",
+      "Io": "An I/O error occurred."
+    },
+    "UrlIterError": {
+      "InvalidUri": "The provided URI is invalid.",
+      "TlsConfigFailure": "The TLS configuration failed.",
+      "ConnectionFailure": "The connection failed."
+    },
+    "ZCoinBuildError": {
+      "UtxoBuilderError": "A UTXO builder error occurred.",
+      "GetAddressError": "An error occurred while getting an address.",
+      "ZcashDBError": "A Zcash database error occurred.",
+      "Rpc": "An RPC error occurred.",
+      "SaplingCacheDbDoesNotExist": "The Sapling cache database does not exist.",
+      "Io": "An I/O error occurred.",
+      "RpcClientInitErr": "An RPC client initialization error occurred.",
+      "ZCashParamsNotFound": "The Zcash parameters were not found.",
+      "ZCashParamsError": "An error occurred with the Zcash parameters.",
+      "ZDerivationPathNotSet": "The Z-derivation path is not set.",
+      "SaplingParamsInvalidChecksum": "The Sapling parameters have an invalid checksum.",
+      "FailedSpawningBalanceEvents": "Failed to spawn balance update events."
+    },
+    "ZcoinStorageError": {
+      "SqliteError": "An SQLite error occurred.",
+      "ValidateBlocksError": "A block validation error occurred.",
+      "ChainInvalid": "The chain is invalid.",
+      "IoError": "An I/O error occurred.",
+      "DbError": "A database error occurred.",
+      "DecodingError": "An error occurred while decoding data.",
+      "TableNotEmpty": "The table is not empty.",
+      "InvalidNote": "The note is invalid.",
+      "InvalidNoteId": "The note ID is invalid.",
+      "IncorrectHrpExtFvk": "The HRP for the extended full viewing key is incorrect.",
+      "CorruptedData": "The data is corrupted.",
+      "InvalidMemo": "The memo is invalid.",
+      "BackendError": "A backend error occurred.",
+      "AddToStorageErr": "An error occurred while adding to storage.",
+      "RemoveFromStorageErr": "An error occurred while removing from storage.",
+      "GetFromStorageError": "An error occurred while getting from storage.",
+      "BlockHeightNotFound": "The block height was not found.",
+      "InitDbError": "An error occurred during database initialization.",
+      "ChainError": "A chain-related error occurred.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "NotSupported": "The operation is not supported.",
+      "ZcashParamsError": "An error occurred with the Zcash parameters."
+    },
+    "UtxoSignWithKeyPairError": {
+      "MismatchScript": "The script does not match.",
+      "InputIndexOutOfBound": "The input index is out of bounds.",
+      "UnspendableUTXO": "The UTXO is unspendable.",
+      "ErrorSigning": "An error occurred while signing."
+    },
+    "TxProviderError": {
+      "Transport": "The request was failed due to a network error",
+      "InvalidResponse": "The response from the transaction provider was invalid.",
+      "Internal": "Unhandled internal error."
+    },
+    "UtxoSignTxError": {
+      "CoinNotSupportedWithTrezor": "This coin is not supported with Trezor.",
+      "TrezorDoesntSupportP2WPKH": "Trezor does not support P2WPKH for this coin.",
+      "TrezorError": "A Trezor-related error occurred.",
+      "InvalidSignParam": "An invalid signing parameter was provided.",
+      "InvalidSignaturesNumber": "The number of signatures is invalid.",
+      "ErrorSigning": "An error occurred while signing the UTXO transaction.",
+      "MismatchScript": "The script does not match.",
+      "UnspendableUTXO": "The UTXO is unspendable.",
+      "Transport": "The request was failed due to a network error",
+      "Internal": "Unhandled internal error."
+    },
+    "SignFundingTransactionError": {
+      "Internal": "Unhandled internal error.",
+      "ConvertTxErr": "An error occurred while converting the transaction.",
+      "TxSignFailed": "The transaction signing failed."
+    },
+    "PaymentError": {
+      "CLTVExpiry": "The CLTV expiry is invalid.",
+      "Invoice": "An error occurred with the payment invoice.",
+      "Keysend": "A keysend error occurred.",
+      "DbError": "A database error occurred."
+    },
+    "ConnectionError": {
+      "HandshakeErr": "A handshake error occurred.",
+      "TimeOut": "The connection timed out."
+    },
+    "EnableLightningError": {
+      "InvalidRequest": "Error parsing request or invalid configuration parameters",
+      "InvalidConfiguration": "The Lightning configuration is invalid.",
+      "UnsupportedMode": "The requested mode is not supported.",
+      "IOError": "An I/O error occurred.",
+      "InvalidAddress": "The specified address is invalid",
+      "InvalidPath": "The provided path is invalid.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "SystemTimeError": "A system time error occurred.",
+      "RpcError": "An RPC error occurred.",
+      "DbError": "A database error occurred.",
+      "RpcTaskError": "An RPC task error occurred.",
+      "ConnectToNodeError": "An error occurred while connecting to the node.",
+      "Internal": "Unhandled internal error."
+    },
+    "SaveChannelClosingError": {
+      "DbError": "A database error occurred.",
+      "ChannelNotFound": "The channel was not found.",
+      "FundingTxNull": "The funding transaction is null.",
+      "FundingTxParseError": "An error occurred while parsing the funding transaction.",
+      "WaitForFundingTxSpendError": "An error occurred while waiting for the funding transaction to be spent.",
+      "ConversionError": "A conversion error occurred."
+    },
+    "NewAddressDerivingError": {
+      "AddressLimitReached": "The maximum number of addresses for this account has been reached.",
+      "InvalidBip44Chain": "The coin doesn't support the given BIP44 chain for new address derivation.",
+      "Bip32Error": "A BIP32-related error occurred while deriving a new address.",
+      "WalletStorageError": "A storage error occurred while deriving a new address.",
+      "Internal": "An internal error occurred during new address derivation."
+    },
+    "NewAddressDeriveConfirmError": {
+      "DeriveError": "An error occurred while deriving the new address.",
+      "ConfirmError": "An error occurred while confirming the new address."
+    },
+    "NewAccountCreationError": {
+      "HwContextNotInitialized": "The Hardware Wallet context has not been initialized for new account creation.",
+      "HDWalletUnavailable": "The HD wallet is unavailable for new account creation.",
+      "CoinDoesntSupportTrezor": "The coin does not support Trezor for new account creation.",
+      "RpcTaskError": "An RPC task error occurred during new account creation.",
+      "HardwareWalletError": "A hardware wallet error occurred during new account creation.",
+      "AccountLimitReached": "The maximum number of accounts has been reached.",
+      "ErrorSavingAccountToStorage": "An error occurred while saving the new account to storage.",
+      "Internal": "An internal error occurred during new account creation."
+    },
+    "HDWithdrawError": {
+      "UnexpectedFromAddress": "The 'from' address for the withdrawal is not the expected one.",
+      "UnknownAccount": "The specified account for the withdrawal is unknown.",
+      "AddressDerivingError": "An error occurred while deriving an address for the withdrawal.",
+      "InternalError": "An internal error occurred during the HD withdrawal."
+    },
+    "HDExtractPubkeyError": {
+      "HwContextNotInitialized": "The Hardware Wallet context has not been initialized for public key extraction.",
+      "CoinDoesntSupportTrezor": "The coin does not support Trezor for public key extraction.",
+      "RpcTaskError": "An RPC task error occurred during public key extraction.",
+      "HardwareWalletError": "A hardware wallet error occurred during public key extraction.",
+      "InvalidXpub": "The extracted extended public key (xpub) is invalid.",
+      "Internal": "An internal error occurred during public key extraction."
+    },
+    "TrezorCoinError": {
+      "Internal": "An internal error related to Trezor coin configuration occurred."
+    },
+    "SettingEnabledAddressError": {
+      "Internal": "An internal error occurred while setting the enabled address."
+    },
+    "HDConfirmAddressError": {
+      "HwContextNotInitialized": "The hardware wallet context has not been initialized.",
+      "RpcTaskError": "An RPC task error occurred.",
+      "HardwareWalletError": "A hardware wallet error occurred.",
+      "InvalidAddress": "The specified address is invalid",
+      "NoAddressReceived": "No address was received from the hardware wallet.",
+      "Internal": "Unhandled internal error."
+    },
+    "HDWalletStorageError": {
+      "HDWalletUnavailable": "The HD wallet is unavailable.",
+      "HDAccountNotFound": "The HD account was not found.",
+      "ErrorSaving": "An error occurred while saving to the HD wallet storage.",
+      "ErrorLoading": "An error occurred while loading from the HD wallet storage.",
+      "ErrorDeserializing": "An error occurred while deserializing from the HD wallet storage.",
+      "ErrorSerializing": "An error occurred while serializing to the HD wallet storage.",
+      "Internal": "Unhandled internal error."
+    },
+    "CreateTxHistoryStorageError": {
+      "Internal": "Unhandled internal error."
+    },
+    "EthActivationV2Error": {
+      "InvalidPayload": "The payload for ETH activation is invalid.",
+      "InvalidSwapContractAddr": "The swap contract address is invalid.",
+      "InvalidFallbackSwapContract": "The fallback swap contract is invalid.",
+      "InvalidPathToAddress": "The path to the address is invalid.",
+      "ChainIdNotSet": "The chain ID is not set.",
+      "UnsupportedChain": "The chain is not supported.",
+      "ActivationFailed": "The ETH activation failed.",
+      "CouldNotFetchBalance": "Could not retrieve the balance.",
+      "UnreachableNodes": "The nodes are unreachable.",
+      "AtLeastOneNodeRequired": "At least one node is required.",
+      "ErrorDeserializingDerivationPath": "An error occurred while deserializing the derivation path.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "FailedSpawningBalanceEvents": "Failed to spawn balance update events.",
+      "HDWalletStorageError": "An HD wallet storage error occurred.",
+      "MetamaskError": "A MetaMask-related error occurred.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "Transport": "The request was failed due to a network error",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "CoinDoesntSupportTrezor": "This coin does not support Trezor.",
+      "HwContextNotInitialized": "The hardware wallet context has not been initialized.",
+      "TaskTimedOut": "The task timed out.",
+      "HwError": "A hardware wallet error occurred.",
+      "InvalidHardwareWalletCall": "An invalid hardware wallet call was made.",
+      "CustomTokenError": "An error related to a custom token occurred.",
+      "WalletConnectError": "An error related to WalletConnect occurred."
+    },
+    "EthTokenActivationError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "ClientConnectionFailed": "The client connection failed.",
+      "CouldNotFetchBalance": "Could not retrieve the balance.",
+      "InvalidPayload": "The payload for ETH token activation is invalid.",
+      "Transport": "The request was failed due to a network error",
+      "UnexpectedDerivationMethod": "The derivation method used is unexpected.",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation.",
+      "CustomTokenError": "An error related to a custom token occurred."
+    },
+    "GenerateSignedMessageError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for this operation."
+    },
+    "EthWalletConnectError": {
+      "UnsupportedChainId": "The chain ID is not supported by WalletConnect.",
+      "InvalidSignature": "The signature from WalletConnect is invalid.",
+      "AccountMisMatch": "The account from WalletConnect does not match.",
+      "TxDecodingFailed": "Failed to decode the transaction from WalletConnect.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "InvalidTxData": "The transaction data from WalletConnect is invalid.",
+      "SessionError": "A session error occurred with WalletConnect.",
+      "WalletConnectError": "An error related to WalletConnect occurred."
+    },
+    "GetFeeEstimationRequestError": {
+      "CoinNotFound": "The specified coin was not found or is not activated yet",
+      "Internal": "Unhandled internal error.",
+      "CoinNotSupported": "Currently only EVM coins/tokens support fee estimation"
+    },
+    "TendermintTokenInitError": {
+      "Internal": "Unhandled internal error.",
+      "MyAddressError": "An error occurred while getting the local address.",
+      "CouldNotFetchBalance": "Could not retrieve the balance."
+    },
+    "TendermintCoinRpcError": {
+      "Prost": "A Prost-related error occurred.",
+      "InvalidResponse": "The response from the Tendermint RPC was invalid.",
+      "PerformError": "An error occurred while performing the Tendermint RPC request.",
+      "RpcClientError": "A Tendermint RPC client error occurred.",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error",
+      "UnexpectedAccountType": "The account type is not the expected one.",
+      "NotFound": "No awaiting `ask_for_data` with the specified `data_id`."
+    },
+    "IBCError": {
+      "IBCChannelCouldNotBeFound": "The IBC channel could not be found.",
+      "IBCChannelNotHealthy": "The IBC channel is not healthy.",
+      "IBCChannelMissingOnNode": "The IBC channel is missing on the node.",
+      "Transport": "The request was failed due to a network error",
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "PerformError": {
+      "TendermintRpc": "A Tendermint RPC error occurred.",
+      "Slurp": "A slurp-related error occurred.",
+      "Internal": "Unhandled internal error.",
+      "StatusCode": "An unexpected status code was received."
+    },
+    "SerializationError": {
+      "InternalError": "The request was failed due to an Komodo DeFi Framework API internal error"
+    },
+    "PasswordPolicyError": {
+      "ContainsTheWordPassword": "The password contains the word 'password'.",
+      "PasswordLength": "The password does not meet the length requirements.",
+      "PasswordMissDigit": "The password does not contain any digits.",
+      "PasswordMissLowercase": "The password does not contain any lowercase letters.",
+      "PasswordMissUppercase": "The password does not contain any uppercase letters.",
+      "PasswordMissSpecialCharacter": "The password does not contain any special characters.",
+      "PasswordConsecutiveCharactersExceeded": "The password contains too many consecutive identical characters."
+    },
+    "AskForDataError": {
+      "DeserializationError": "An error occurred while deserializing the 'ask_for_data' request.",
+      "Internal": "Unhandled internal error.",
+      "Timeout": "The 'ask_for_data' request timed out."
+    },
+    "SendAskedDataError": {
+      "NotFound": "No awaiting `ask_for_data` with the specified `data_id`.",
+      "Internal": "Unhandled internal error."
+    },
+    "AddressDataError": {
+      "CreateAddressDirFailure": "Failed to create the address directory.",
+      "SqliteConnectionFailure": "Failed to connect to the SQLite database for address data."
+    },
+    "UpdateBlocksCacheErr": {
+        "GrpcError": "A gRPC error occurred while updating the blocks cache.",
+        "UtxoRpcError": "A UTXO RPC error occurred while updating the blocks cache.",
+        "InternalError": "An internal error occurred while updating the blocks cache.",
+        "JsonRpcError": "A JSON-RPC error occurred while updating the blocks cache.",
+        "GetLiveLightClientError": "An error occurred while getting the live light client.",
+        "ZcashDBError": "A Zcash database error occurred while updating the blocks cache.",
+        "DecodeError": "A decoding error occurred while updating the blocks cache."
+    },
+    "ZcoinClientInitError": {
+        "ZcoinStorageError": "A Zcoin storage error occurred during client initialization.",
+        "EmptyLightwalletdUris": "The list of lightwalletd URIs is empty.",
+        "UrlIterFailure": "Failed to initialize clients while iterating over lightwalletd URLs.",
+        "UpdateBlocksCacheErr": "An error occurred while updating the blocks cache during client initialization.",
+        "UtxoCoinBuildError": "A UTXO coin build error occurred during client initialization."
+    },
+    "GenTxError": {
+        "DecryptedOutputNotFound": "A decrypted output was not found during transaction generation.",
+        "GetWitnessErr": "An error occurred while getting the unspent witness.",
+        "FailedToGetMerklePath": "Failed to get the Merkle path for the transaction.",
+        "InsufficientBalance": "The balance is insufficient to generate the transaction.",
+        "NumConversion": "A number conversion error occurred during transaction generation.",
+        "Rpc": "An RPC error occurred during transaction generation.",
+        "PrevTxNotConfirmed": "The previous transaction is not confirmed.",
+        "TxBuilderError": "An error occurred in the transaction builder.",
+        "TxReadError": "An error occurred while reading the transaction data.",
+        "BlockchainScanStopped": "The blockchain scan was stopped during transaction generation.",
+        "LightClientErr": "A light client error occurred during transaction generation.",
+        "FailedToCreateNote": "Failed to create a note for the transaction.",
+        "SpendableNotesError": "An error occurred with spendable notes.",
+        "Internal": "An internal error occurred during transaction generation.",
+        "SaveLockedNotesError": "An error occurred while saving locked notes."
+    },
+    "SendOutputsErr": {
+        "GenTxError": "An error occurred during transaction generation for sending outputs.",
+        "NumConversion": "A number conversion error occurred while sending outputs.",
+        "Rpc": "An RPC error occurred while sending outputs.",
+        "TxNotMined": "The transaction was not mined.",
+        "PrivKeyPolicyNotAllowed": "The private key policy is not allowed for sending outputs.",
+        "InternalError": "An internal error occurred while sending outputs."
+    },
+    "GetUnspentWitnessErr": {
+        "EmptyDbResult": "The database result for the unspent witness was empty.",
+        "TreeOrWitnessAppendFailed": "Failed to append to the tree or witness.",
+        "OutputCmuNotFoundInCache": "The output CMU was not found in the cache.",
+        "ZcashDBError": "A Zcash database error occurred while getting the unspent witness."
+    },
+    "ZTxHistoryError": {
+        "Sql": "An SQL error occurred while accessing Z-transaction history.",
+        "IndexedDbError": "An IndexedDB error occurred while accessing Z-transaction history.",
+        "FromIdDoesNotExist": "The 'from_id' does not exist in the Z-transaction history."
+    },
+    "SpendableNotesError": {
+        "DBClientError": "A database client error occurred with spendable notes."
+    },
+    "ZCoinBalanceError": {
+        "BalanceError": "A balance error occurred with ZCoin."
+    },
+    "ValidateBlocksError": {
+        "ChainInvalid": "The block chain is invalid.",
+        "GetFromStorageError": "An error occurred while getting blocks from storage.",
+        "IoError": "An I/O error occurred during block validation.",
+        "DbError": "A database error occurred during block validation.",
+        "DecodingError": "A decoding error occurred during block validation.",
+        "TableNotEmpty": "The block table is not empty.",
+        "InvalidNote": "An invalid note was found during block validation.",
+        "InvalidNoteId": "An invalid note ID was found during block validation.",
+        "IncorrectHrpExtFvk": "The HRP for the extended full viewing key is incorrect.",
+        "CorruptedData": "The block data is corrupted.",
+        "InvalidMemo": "An invalid memo was found during block validation.",
+        "BackendError": "A backend error occurred during block validation.",
+        "ZcoinStorageError": "A Zcoin storage error occurred during block validation."
+    }
+  }

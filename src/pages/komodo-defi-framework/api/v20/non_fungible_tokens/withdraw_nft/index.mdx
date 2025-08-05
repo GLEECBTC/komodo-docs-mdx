@@ -1,43 +1,46 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
-export const description =
-  "This document describes the withdraw_nft method Komodo DeFi Framework provides to send NFTs to an address";
+export const title = "Komodo DeFi Framework Method: Withdraw NFT";
+export const description = "The withdraw_nft method creates a signed transaction to withdraw an NFT, supporting both ERC721 and ERC1155 types.";
 
-# Withdraw NFTs {{label : 'withdraw_nft', tag : 'API-v2'}}
+# Withdraw NFT
+
+## withdraw\_nft {{label : 'withdraw_nft', tag : 'API-v2'}}
 
 <Note>
-  To withdraw NFTs, you must [activate the coin](/komodo-defi-framework/api/legacy/coin_activation/) which holds the NFTs first.
-  The `withdraw_nft` method will return signed raw transaction hex which must be broadcast using the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to complete the withdrawal.
+  To withdraw NFTs, you must [activate the coin](/komodo-defi-framework/api/legacy/coin_activation/) that holds the NFTs first.
+  The `withdraw_nft` method will return signed raw transaction hex, which must be broadcast using the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to complete the withdrawal.
 </Note>
 
 ### Request Parameters
 
-| Parameter      | Type   | Description                                                                                                |
-| -------------- | ------ | ---------------------------------------------------------------------------------------------------------- |
-| type           | string | The contract type of the NFT to withdraw. Either `withdraw_erc721` or `withdraw_erc1155`                   |
-| withdraw\_data | object | A standard [WithdrawNftData](/komodo-defi-framework/api/common_structures/nfts/#withdraw-nft-data) object. |
+| Parameter      | Type   | Required | Default | Description                                                                                                |
+| -------------- | ------ | :------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
+| type           | string |     ✓    |   `-`   | The contract type of the NFT to withdraw. Either `withdraw_erc721` or `withdraw_erc1155`.                  |
+| withdraw\_data | object |     ✓    |   `-`   | A standard [WithdrawNftData](/komodo-defi-framework/api/common_structures/nfts/#withdraw-nft-data) object. |
 
 ### Response Parameters
 
 | Parameter         | Type    | Description                                                                                                                                                          |
 | ----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | amount            | string  | Amount of tokens to withdraw.                                                                                                                                        |
-| tx\_hex           | string  | Raw hex of signed transaction. Use this with the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) RPC to broadcast the transaction. |
-| tx\_hash          | string  | Transaction ID of the withdrawl.                                                                                                                                     |
-| from              | array   | List of source addresses.                                                                                                                                            |
-| to                | array   | List of destination addresses.                                                                                                                                       |
+| block\_height     | integer | Block height of the transaction. If the value is `0`, the transaction is unconfirmed.                                                                                |
+| coin              | string  | Coin name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`.                                                                                                 |
 | contract\_type    | string  | Contract type. `ERC721` or `ERC1155`.                                                                                                                                |
+| fee\_details      | object  | A standard [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) object.                                                                  |
+| from              | array   | List of source addresses.                                                                                                                                            |
+| internal\_id      | integer | Used for internal transaction identification; for some coins, it may be equal to transaction hash.                                                                   |
+| timestamp         | integer | Timestamp of the block containing the withdrawal transaction in [unix epoch format](https://www.epochconverter.com/).                                                |
+| to                | array   | List of destination addresses.                                                                                                                                       |
 | token\_address    | string  | Token address.                                                                                                                                                       |
 | token\_id         | string  | Token ID.                                                                                                                                                            |
-| fee\_details      | object  | A standard [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) object.                                                                  |
-| coin              | string  | Coin name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`.                                                                                                 |
-| block\_height     | integer | Block height of the transaction. If the value is `0`, the transaction is unconfirmed.                                                                                |
-| timestamp         | integer | Timestamp of the block containing the withdrawl transaction in [unix epoch format](https://www.epochconverter.com/).                                                 |
-| internal\_id      | integer | Used for internal transaction identification, for some coins it may be equal to transaction hash.                                                                    |
 | transaction\_type | string  | This will always be `NftTransfer`.                                                                                                                                   |
+| tx\_hash          | string  | Transaction ID of the withdrawal.                                                                                                                                    |
+| tx\_hex           | string  | Raw hex of signed transaction. Use this with the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) RPC to broadcast the transaction. |
 
-#### 📌 ERC721 Withdraw Example
+#### 📌 Examples
 
-<CodeGroup title="Withdraw NFTs" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
+#### ERC721 Withdraw Example
+
+<CodeGroup title="Withdraw NFT (ERC721)" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -56,7 +59,7 @@ export const description =
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Withdraw NFT (ERC721) Response" collapsedText="Show Withdraw NFT (ERC721) Response">
   ```json
   {
       "mmrpc": "2.0",
@@ -91,11 +94,11 @@ export const description =
   ```
 </CollapsibleSection>
 
-#### 📌 ERC1155 Withdraw Example
+#### ERC1155 Withdraw Example
 
-If you are sending 2 or more NFTs, you must use the `withdraw_erc1155` withdraw type.
+If you are sending two or more NFTs, you must use the `withdraw_erc1155` withdraw type.
 
-<CodeGroup title="Withdraw NFTs" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
+<CodeGroup title="Withdraw NFT (ERC1155)" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -114,7 +117,7 @@ If you are sending 2 or more NFTs, you must use the `withdraw_erc1155` withdraw 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Withdraw NFT (ERC1155) Response" collapsedText="Show Withdraw NFT (ERC1155) Response">
   ```json
   {
       "mmrpc": "2.0",
@@ -149,11 +152,11 @@ If you are sending 2 or more NFTs, you must use the `withdraw_erc1155` withdraw 
   ```
 </CollapsibleSection>
 
-#### 📌 ERC1155 Withdraw Max Example
+#### ERC1155 Withdraw Max Example
 
 If you would like to withdraw all NFTs from a token\_address, you must use the `withdraw_erc1155` withdraw type and set `max` to `true`.
 
-<CodeGroup title="Withdraw NFTs" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
+<CodeGroup title="Withdraw NFT (ERC1155 Max)" tag="POST" label="withdraw_nft" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -173,7 +176,7 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Withdraw NFT (ERC1155 Max) Response" collapsedText="Show Withdraw NFT (ERC1155 Max) Response">
   ```json
   {
       "mmrpc": "2.0",
@@ -208,24 +211,24 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  ### 📌 Withdraw NFTs Error Responses
+<CollapsibleSection expandedText="Hide Withdraw NFT Error Responses" collapsedText="Show Withdraw NFT Error Responses">
+  #### ⚠️ Error Responses
 
-  #### InvalidRequest (missing field)
+  ##### InvalidRequest (missing field)
 
   ```json
-    {
-        "mmrpc": "2.0",
-        "error": "Error parsing request: missing field `type`",
-        "error_path": "dispatcher",
-        "error_trace": "dispatcher:109]",
-        "error_type": "InvalidRequest",
-        "error_data": "missing field `type`",
-        "id": null
-    }
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: missing field `type`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:109]",
+      "error_type": "InvalidRequest",
+      "error_data": "missing field `type`",
+      "id": null
+  }
   ```
 
-  #### InvalidRequest (wrong withdraw type)
+  ##### InvalidRequest (wrong withdraw type)
 
   ```json
   {
@@ -239,7 +242,7 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
   }
   ```
 
-  #### TokenNotFoundInWallet (trying to send NFT you dont own)
+  ##### TokenNotFoundInWallet (trying to send NFT you do not own)
 
   ```json
   {
@@ -259,21 +262,21 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
   }
   ```
 
-  #### TransportError (unable to estimate gas)
+  ##### TransportError (unable to estimate gas)
 
   ```json
   {
       "mmrpc": "2.0",
-      "error": "Transport error: request MethodCall(MethodCall { jsonrpc: Some(V2), method: \"eth_estimateGas\", params: Array([Object({\"from\": String(\"0xab95d01bc8214e4d993043e8ca1b68db2c946498\"), \"to\": String(\"0x2953399124f0cbb46d2cbacd8a89cf0599974963\"), \"gasPrice\": String(\"0x9ddeaaffe\"), \"value\": String(\"0x0\"), \"data\": String(\"0x42842e0e000000000000000000000000ab95d01bc8214e4d993043e8ca1b68db2c946498000000000000000000000000ab95d01bc8214e4d993043e8ca1b68db2c946498f43db4f488f644b73a9442de4978fb7572b73d85000000000000110000002710\")})]), id: Num(64) }) failed: InvalidResponse(\"Server: 'https://polygon-rpc.com/', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); InvalidResponse(\"Server: 'https://polygon.blockpi.network/v1/rpc/public', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); Transport(\"Server: 'https://node.komodo.earth:8080/polygon', response !200: 502 Bad Gateway, &lt;html&gt;..&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;..&lt;body&gt;..&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;..&lt;hr&gt;&lt;center&gt;nginx/1.18.0 (Ubuntu)&lt;/center&gt;..&lt;/body&gt;..&lt;/html&gt;..\"); InvalidResponse(\"Server: 'https://polygon.llamarpc.com/', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); ",
+      "error": "Transport error: ...",
       "error_path": "eth",
       "error_trace": "eth:1004] eth:5792]",
       "error_type": "Transport",
-      "error_data": "request MethodCall(MethodCall { jsonrpc: Some(V2), method: \"eth_estimateGas\", params: Array([Object({\"from\": String(\"0xab95d01bc8214e4d993043e8ca1b68db2c946498\"), \"to\": String(\"0x2953399124f0cbb46d2cbacd8a89cf0599974963\"), \"gasPrice\": String(\"0x9ddeaaffe\"), \"value\": String(\"0x0\"), \"data\": String(\"0x42842e0e000000000000000000000000ab95d01bc8214e4d993043e8ca1b68db2c946498000000000000000000000000ab95d01bc8214e4d993043e8ca1b68db2c946498f43db4f488f644b73a9442de4978fb7572b73d85000000000000110000002710\")})]), id: Num(64) }) failed: InvalidResponse(\"Server: 'https://polygon-rpc.com/', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); InvalidResponse(\"Server: 'https://polygon.blockpi.network/v1/rpc/public', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); Transport(\"Server: 'https://node.komodo.earth:8080/polygon', response !200: 502 Bad Gateway, &lt;html&gt;..&lt;head&gt;&lt;title&gt;502 Bad Gateway&lt;/title&gt;&lt;/head&gt;..&lt;body&gt;..&lt;center&gt;&lt;h1&gt;502 Bad Gateway&lt;/h1&gt;&lt;/center&gt;..&lt;hr&gt;&lt;center&gt;nginx/1.18.0 (Ubuntu)&lt;/center&gt;..&lt;/body&gt;..&lt;/html&gt;..\"); InvalidResponse(\"Server: 'https://polygon.llamarpc.com/', error: RPC error: Error { code: ServerError(-32000), message: \\\"execution reverted\\\", data: None }\"); ",
+      "error_data": "...",
       "id": null
   }
   ```
 
-  #### NotEnoughNftsAmount (trying to send more NFTs than you have)
+  ##### NotEnoughNftsAmount (trying to send more NFTs than you have)
 
   ```json
   {

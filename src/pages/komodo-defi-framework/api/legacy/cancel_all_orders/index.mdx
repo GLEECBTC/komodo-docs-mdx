@@ -1,30 +1,30 @@
-export const title = "Komodo DeFi Framework Method: Cancel all Orders";
+export const title = "Komodo DeFi Framework Method: Cancel All Orders";
 export const description = "The cancel_all_orders cancels the active orders created by the Komodo DeFi Framework API node by specified condition.";
 
-# cancel\_all\_orders
+# Cancel All Orders
 
-**cancel\_all\_orders cancel\_by**
+## cancel\_all\_orders {{label : 'cancel_all_orders', tag : 'API-v1'}}
 
-The `cancel_all_orders` cancels the active orders created by the Komodo DeFi Framework API node by specified condition.
+The `cancel_all_orders` method cancels the active orders created by the Komodo DeFi Framework API node by specified condition.
 
-## Arguments
+### Request Parameters
 
-| Structure  | Type   | Description                                                                                                                              |
-| ---------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| cancel\_by | object | A standard [CancelBy](/komodo-defi-framework/api/common_structures/orders/#cancel-by) object. Orders matching this filter are cancelled. |
+| Parameter  | Type   | Required | Description                                                                                                                              |
+| ---------- | ------ | :------: | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| cancel\_by | object |     ✓    | A standard [CancelBy](/komodo-defi-framework/api/common_structures/orders/#cancel-by) object. Orders matching this filter are cancelled. |
 
-## Response
+### Response
 
-| Structure           | Type                     | Description                                                                                                    |
+| Parameter           | Type                     | Description                                                                                                    |
 | ------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| cancelled           | array of strings (uuids) | uuids of cancelled orders                                                                                      |
-| currently\_matching | array of strings (uuids) | uuids of the orders being matched with other orders; these are not cancelled even if they fit cancel condition |
+| cancelled           | array of strings (uuids) | UUIDs of cancelled orders                                                                                      |
+| currently\_matching | array of strings (uuids) | UUIDs of the orders being matched with other orders; these are not cancelled even if they fit cancel condition |
 
 #### 📌 Examples
 
-#### Command (All orders)
+#### Request (All orders)
 
-<CodeGroup title="" tag="POST" label="cancel_all_orders" mm2MethodDecorate="true">
+<CodeGroup title="cancel_all_orders" tag="POST" label="cancel_all_orders" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -76,21 +76,18 @@ The `cancel_all_orders` cancels the active orders created by the Komodo DeFi Fra
 
   ```json
   {
-    "result": {
-      "cancelled": ["2aae69d1-0167-493e-ad15-c6a8b43546d6"],
-      "currently_matching": []
-    }
+      "result": {
+          "cancelled": ["2aae69d1-0167-493e-ad15-c6a8b43546d6"],
+          "currently_matching": []
+      }
   }
   ```
+</CollapsibleSection>
 
-  #### Response (1 order cancelled and 1 is currently matching)
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
 
   ```json
-  {
-    "result": {
-      "cancelled": ["2aae69d1-0167-493e-ad15-c6a8b43546d6"],
-      "currently_matching": ["e9a6f422-e378-437f-bb74-ba4307a90e68"]
-    }
-  }
+  { "error": "No orders found to cancel" }
   ```
 </CollapsibleSection>

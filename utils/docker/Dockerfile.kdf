@@ -1,0 +1,114 @@
+# Stage 1: Build Environment
+# This stage installs all system-level dependencies and the Rust toolchain.
+# It is cached and only rebuilt when system dependencies change.
+# syntax=docker/dockerfile:1.4
+FROM docker.io/debian:buster-slim AS build-env
+
+LABEL MAINTAINER="Dragonhound <smk@komodoplatform.com>"
+
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+    build-essential ca-certificates cmake curl gcc-multilib git gnupg \
+    gettext-base libffi-dev libudev-dev python-dev python3 python3-pip \
+    sudo unzip wget zip software-properties-common lsb-release \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install protoc
+RUN PROTOC_VERSION="21.12" && \
+    PROTOC_ZIP="protoc-${PROTOC_VERSION}-linux-x86_64.zip" && \
+    wget "https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/${PROTOC_ZIP}" && \
+    unzip -o "${PROTOC_ZIP}" -d /usr/local && \
+    chmod +x /usr/local/bin/protoc && \
+    rm -f "${PROTOC_ZIP}"
+
+RUN pip3 install --upgrade pip && pip3 install paramiko
+
+# Install LLVM/Clang 16
+RUN curl --output llvm.sh https://apt.llvm.org/llvm.sh && \
+    chmod +x llvm.sh && \
+    ./llvm.sh 16 && \
+    rm ./llvm.sh && \
+    ln -s /usr/bin/clang-16 /usr/bin/clang
+
+ENV AR=/usr/bin/llvm-ar-16
+ENV CC=/usr/bin/clang-16
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:$PATH"
+
+# ------------------------------------------------------------------
+# Fetch Zcash Groth16 parameters required by ZHTLC coins (ARRR, ZEC, etc.)
+# Doing this in the build-env stage ensures the layer is cached and we
+# don't re-download the ~900 MB params on every rebuild.
+# ------------------------------------------------------------------
+
+ENV ZCASH_PARAMS_PATH=/tmp/.zcash-params
+RUN mkdir -p "$ZCASH_PARAMS_PATH" && \
+    wget -qO /tmp/fetch-params.sh https://raw.githubusercontent.com/KomodoPlatform/komodo/master/zcutil/fetch-params-alt.sh && \
+    chmod +x /tmp/fetch-params.sh && \
+    /tmp/fetch-params.sh --dir "$ZCASH_PARAMS_PATH" && \
+    rm /tmp/fetch-params.sh
+
+# ---
+# Stage 2: KDF Builder
+# This stage builds the KDF binary. It uses the build-env and caches dependencies.
+FROM build-env AS builder
+
+WORKDIR /app
+
+# Copy the komodo-defi-framework source code from the build context.
+COPY ./komodo-defi-framework .
+
+# Build the binary.
+#
+# Using BuildKit cache mounts keeps the Cargo registry, git checkouts and the
+# target directory across builds, so changing a single crate no longer forces
+# a full re-compile of the entire dependency graph.
+#
+# To benefit from this you need Docker BuildKit (enabled by default in Docker
+# Compose v2 or by setting `DOCKER_BUILDKIT=1`).
+# --features "enable-sia,run-sia-functional-tests"
+RUN --mount=type=cache,id=cargo-registry,target=/root/.cargo/registry \
+    --mount=type=cache,id=cargo-git,target=/root/.cargo/git \
+    cargo build --release 
+
+# ---
+# Stage 3: Final runtime image
+# This creates a minimal image containing only the compiled binary.
+FROM docker.io/debian:buster-slim AS final
+
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# Create a non-root user and group
+RUN groupadd --gid $GROUP_ID kdfuser && \
+    useradd --uid $USER_ID --gid $GROUP_ID --create-home --shell /bin/bash kdfuser
+
+# Copy the compiled binary from the builder stage
+COPY --from=builder /app/target/release/kdf /usr/local/bin/kdf
+
+# Copy and set up the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Install small debug utilities (curl, wget) in the runtime image (as root)
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends procps htop curl wget ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the already-downloaded Zcash parameters from the build stage
+RUN mkdir -p /home/kdfuser/.zcash-params
+COPY --from=build-env /tmp/.zcash-params /home/kdfuser/.zcash-params
+RUN chown -R kdfuser:kdfuser /home/kdfuser/.zcash-params
+
+# Create and set permissions for the .kdf directory
+RUN mkdir -p /home/kdfuser/.kdf && \
+chown -R kdfuser:kdfuser /home/kdfuser/.kdf
+
+USER kdfuser
+WORKDIR /home/kdfuser
+
+# Set the entrypoint to run the KDF application.
+# It can now also accept other commands, like 'bash'.
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

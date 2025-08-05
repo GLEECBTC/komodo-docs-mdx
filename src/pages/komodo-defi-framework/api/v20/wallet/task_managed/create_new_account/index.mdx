@@ -1,158 +1,61 @@
-export const title = "Komodo DeFi Framework Method: HD Account Management Tasks";
-export const description = "The methods in this document allow tracking of balances across multiple addresses under a specified account index.";
+export const title = "Komodo DeFi Framework Method: Create New Account Task";
+export const description = "Overview of create new account task-managed methods in the Komodo DeFi Framework API.";
 
-# Task: Create New Account
+# Create New Account Task
 
-If you have enabled a coin with [task managed activation](/komodo-defi-framework/api/v20/coin_activation/task_managed/) and are using `HD Mode`, your funds may be spread across a range of addresses under a specified account index. The methods below will initialise a wallet account, and scan for existing addresses with a balance.
+## task::create\_new\_account {{label : 'task::create_new_account', tag : 'overview'}}
 
-## task::create\_new\_account::init {{label : 'task::create_new_account::init', tag : 'API-v2'}}
+Overview of all create new account task-managed methods. See below for details and cross-links to related account creation documentation.
 
-Use the `task::create_new_account::init` method to initialise a HD account.
+### Init Create New Account
 
-#### Arguments
+See [task::create\_new\_account::init](/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/init/) for initializing a new account.
 
-| Parameter   | Type   | Description                                                                                                                             |
-| ----------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| coin        | string | Ticker of coin you would like to initialise a HD account for.                                                                           |
-| account\_id | string | Optional. If not defined, will increment to the next unused account id in the wallet.                                                   |
-| scan        | string | Optional. If `true`, will scan the account for funded addresses. Defaults to `true`.                                                    |
-| gap\_limit  | string | Optional. The maximum number of empty addresses in a row. Defaults to the value provided on activation, or 20 if no value was provided. |
+### Status Create New Account
 
-#### Response
+See [task::create\_new\_account::status](/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/status/) for checking the status of account creation.
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+### User Action Create New Account
 
-#### 📌 Examples
+See [task::create\_new\_account::user\_action](/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/user_action/) for providing user action during account creation.
 
-#### Command
+<DevComment>
+  TODO: Add summary for each create\_new\_account method, and cross-link to related HD wallet docs.
+</DevComment>
 
-<CodeGroup title="task::create_new_account::init" tag="POST" label="task::create_new_account::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::create_new_account::init",
-    "params": {
-      "coin": "KMD",
-      "account_id": 77,
-      "scan": true,
-      "gap_limit": 20
-    }
-  }
-  ```
-</CodeGroup>
+### Error Types
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (ready, successful)
+| Parameter    | Type   | Description                                          |
+| ------------ | ------ | ---------------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired.         |
+| TaskFinished | string | The task is already finished and cannot be canceled. |
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 6
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## task::create\_new\_account::status {{label : 'task::create_new_account::status', tag : 'API-v2'}}
-
-Use the `task::create_new_account::status` method to query the status of a HD account creation task.
-
-#### Arguments
-
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the task.                                 |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
-
-#### Response
-
-| Parameter | Type             | Description                                                                                                                                                                                       |
-| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                                                                                                |
-| details   | string or object | If in progress, either `Preparing` or `RequestingAccountBalance`. Once complete, a standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object. |
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="task::create_new_account::status" tag="POST" label="task::create_new_account::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::create_new_account::status",
-    "params": {
-      "task_id": 1
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (ready, successful)
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
 
   ```json
   {
       "mmrpc": "2.0",
-      "result": {
-          "status": "Ok",
-          "details": {
-              "account_index": 77,
-              "derivation_path": "m/44'/141'/77'",
-              "total_balance": {
-                  "spendable": "7.777",
-                  "unspendable": "0"
-              },
-              "addresses": [
-                  {
-                      "address": "RMsnNdVfZbxWwDxJafc6scbaN1xYVoR7Gx",
-                      "derivation_path": "m/44'/141'/77'/0/4",
-                      "chain": "External",
-                      "balance": {
-                          "spendable": "0",
-                          "unspendable": "0"
-                      }
-                  },
-                  {
-                      "address": "R9roM4acnrrp1BL73MXd9EWdF5biRcSJ5X",
-                      "derivation_path": "m/44'/141'/77'/0/5",
-                      "chain": "External",
-                      "balance": {
-                          "spendable": "0",
-                          "unspendable": "0"
-                      }
-                  },
-                  {
-                      "address": "RLNu8gszQ8ENUrY3VSyBS2714CNVwn1f7P",
-                      "derivation_path": "m/44'/141'/77'/0/7",
-                      "chain": "External",
-                      "balance": {
-                          "spendable": "7.777",
-                          "unspendable": "0"
-                      }
-                  }
-              ]
-          }
-      },
-      "id": null
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
   }
   ```
 
-  #### Response (in progress)
+  ##### Error Response (Task Finished)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "status": "InProgress",
-        "details": "Preparing"
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
   }
   ```
 </CollapsibleSection>

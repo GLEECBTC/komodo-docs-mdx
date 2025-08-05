@@ -1,0 +1,114 @@
+/electrum:
+  post:
+    summary: Activate a coin using the Electrum method in the Komodo DeFi Framework
+      API.
+    description: Activate a coin using the Electrum method in the Komodo DeFi Framework
+      API.
+    operationId: electrum
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - electrum
+              coin:
+                type: string
+                description: Ticker of coin to activate
+              servers:
+                description: A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers)
+                  objects.
+                $ref: ../../components/schemas/ActivationServers.yaml
+              mm2:
+                type: integer
+                description: Required if not set in `coins` file. Informs the Komodo
+                  DeFi Framework API whether or not the coin is expected to function.
+                  Accepted values are `0` or `1`
+              min_connected:
+                type: integer
+                description: Minimum number of electrum servers to maintain an active
+                  connection to.
+                default: 1
+              max_connected:
+                type: integer
+                description: Maximum number of electrum servers to maintain an active
+                  connection to. If not set, defaults to all servers in activation
+                  request.
+              required_confirmations:
+                type: integer
+                description: Number of confirmations for the Komodo DeFi Framework
+                  API to wait during the transaction steps of an atomic swap.
+                default: 3
+              requires_notarization:
+                type: boolean
+                description: If `true`, coins protected by [Komodo Platform's dPoW
+                  security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86)
+                  will wait for a notarization before progressing to the next atomic
+                  swap transactions step.
+                default: false
+              swap_contract_address:
+                type: string
+                description: QRC20 only. Address of etomic swap smart contract
+              fallback_swap_contract:
+                type: string
+                description: QRC20 only. Address of backup etomic swap smart contract
+              utxo_merge_params:
+                description: A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params)
+                  object. Used to reduce a wallet's UTXO count in cases where it is
+                  causing significantly slower RPC responses.
+                $ref: ../../components/schemas/UtxoMergeParams.yaml
+            required:
+            - userpass
+            - method
+            - coin
+            - servers
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: The address of the user's `coin` wallet, based on the
+                  user's passphrase
+              balance:
+                type: string
+                description: The amount of `coin` the user holds in their wallet;
+                  does not include `unspendable_balance`
+              unspendable_balance:
+                type: string
+                description: The `coin` balance that is unspendable at the moment
+                  (e.g. if the address has immature UTXOs)
+              coin:
+                type: string
+                description: The ticker of the enabled coin
+              required_confirmations:
+                type: number
+                description: The number of transaction confirmations for which the
+                  Komodo DeFi Framework API must wait during the atomic swap process
+              mature_confirmations:
+                type: number
+                description: The number of coinbase transaction confirmations required
+                  to become mature; UTXO coins only
+              requires_notarization:
+                type: boolean
+                description: Whether the node must wait for a notarization of the
+                  selected coin that is performing the atomic swap transactions; applicable
+                  only for coins using Komodo dPoW
+              result:
+                type: string
+                description: The result of the request; this value either indicates
+                  `success`, or an error, or another type of failure
+          example: {}

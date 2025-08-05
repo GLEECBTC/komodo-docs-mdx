@@ -1,0 +1,31 @@
+components:
+  schemas:
+    FeeInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of transaction fee. Possible values: `UtxoFixed`, `UtxoPerKbyte`,
+            `UtxoPriority`, `EthGas`, `Qrc20Gas`, `CosmosGas`'
+        amount:
+          type: string
+          description: Fee amount in coin units, used only when type is `UtxoFixed`
+            (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per
+            Kbyte)
+        priority:
+          type: string
+          description: 'Used only when type is `UtxoPriority`. Possible values: ''Low'',
+            ''Normal'', ''High''.'
+        gas_price:
+          type: number
+          description: Used only when fee type is `CosmosGas`; sets the gas price.
+        gas:
+          type: integer
+          description: Used only when fee type is `EthGas`; sets the gas limit for
+            transaction
+        gas_limit:
+          type: integer
+          description: Used only when fee type is `Qrc20Gas` or `CosmosGas`; sets
+            the gas limit for transaction
+      required:
+      - type

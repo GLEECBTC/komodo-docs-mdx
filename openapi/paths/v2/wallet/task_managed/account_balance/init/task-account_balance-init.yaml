@@ -1,0 +1,58 @@
+/task::account_balance::init:
+  post:
+    summary: Initialise an account balance request for HD wallets in the Komodo DeFi
+      Framework API.
+    description: Initialise an account balance request for HD wallets in the Komodo
+      DeFi Framework API.
+    operationId: task::account_balance::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::account_balance::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_index:
+                    type: integer
+                    description: For GUIs, this will be zero. In CLI you can use other
+                      values if you [know what you are doing](https://learnmeabitcoin.com/technical/hd-wallets)
+                  coin:
+                    type: string
+                    description: Ticker of activated coin you want to see addresses
+                      and balance for
+                required:
+                - account_index
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

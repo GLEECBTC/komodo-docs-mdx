@@ -1,0 +1,51 @@
+/autoprice:
+  post:
+    summary: Automatically manage and update maker order prices relative to orderbook
+      depth and market conditions (legacy API).
+    description: Automatically manage and update maker order prices relative to orderbook
+      depth and market conditions (legacy API).
+    operationId: autoprice
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: RPC password (`RPC_UserP@SSW0RD`).
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - autoprice
+              base:
+                type: string
+                description: Base coin symbol (e.g., `KMD`).
+              rel:
+                type: string
+                description: Quote coin symbol (e.g., `BTC`).
+              cancel:
+                type: boolean
+                description: Stop an existing autoprice task instead of starting a
+                  new one. Defaults to `false`.
+                default: false
+            required:
+            - userpass
+            - method
+            - base
+            - rel
+            - userpass
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: '"ok" on success or an error message on failure.'
+          example: {}

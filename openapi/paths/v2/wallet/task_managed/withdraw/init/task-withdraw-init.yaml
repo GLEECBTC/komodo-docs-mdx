@@ -1,0 +1,116 @@
+/task::withdraw::init:
+  post:
+    summary: Generate, sign, and return a withdrawal transaction in the Komodo DeFi
+      Framework API.
+    description: Generate, sign, and return a withdrawal transaction in the Komodo
+      DeFi Framework API.
+    operationId: task::withdraw::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::withdraw::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The name of the coin the user desires to withdraw
+                    default: '-'
+                  to:
+                    type: string
+                    description: Coins are withdrawn to this address
+                    default: '-'
+                  amount:
+                    type: string
+                    description: The amount the user desires to withdraw, ignored
+                      when `max=true`
+                    default: '-'
+                  memo:
+                    type: string
+                    description: Used for ZHTLC and Tendermint coins only. Attaches
+                      a memo to the transaction.
+                    default: '-'
+                  from:
+                    type: string
+                    description: Used only for transactions using a hardware wallet.
+                      For more information, see the [Trezor Integration guide](/komodo-defi-framework/api/v20/utils/task_init_trezor/)
+                    default: '-'
+                  from.derivation_path:
+                    type: string
+                    description: HD wallets only. Follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`
+                    default: '-'
+                  from.account_id:
+                    type: integer
+                    description: HD wallets only. Generally this will be `0` unless
+                      you have multiple accounts registered on your HD wallet
+                    default: '-'
+                  from.chain:
+                    type: string
+                    description: HD wallets only. `Internal`, or `External`. External
+                      is used for addresses that are intended to be visible outside
+                      of the wallet (e.g. for receiving payments). `Internal` is used
+                      for addresses which are not meant to be visible outside of the
+                      wallet and is used to return the leftover change from a transaction.
+                    default: '-'
+                  from.address_id:
+                    type: integer
+                    description: HD wallets only. Check the output from coin activation
+                      to find the ID of an address with balance.
+                    default: '-'
+                  max:
+                    type: boolean
+                    description: Withdraw the maximum available amount.
+                    default: false
+                  fee:
+                    type: object
+                    description: Used only to set a custom fee, otherwise fee value
+                      will be derived from a deamon's `estimatefee` (or similar) RPC
+                      method
+                    default: '-'
+                  fee.type:
+                    type: string
+                    description: 'Type of transaction fee; possible values: `UtxoFixed`
+                      or `UtxoPerKbyte`'
+                    default: '-'
+                  fee.amount:
+                    type: string
+                    description: Fee amount in coin units, used only when type is
+                      `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte`
+                      (amount per Kbyte)
+                    default: '-'
+                required:
+                - coin
+                - to
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

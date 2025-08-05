@@ -1,0 +1,54 @@
+/task::enable_erc20::cancel:
+  post:
+    summary: Cancel a pending or in-progress ERC-20 token activation task.
+    description: Cancel a pending or in-progress ERC-20 token activation task.
+    operationId: task::enable_erc20::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_erc20::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: Activation task identifier.
+                  userpass:
+                    type: string
+                    description: RPC password.
+                required:
+                - task_id
+                - userpass
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Task status after cancellation (`Cancelled` on success).
+          example: {}

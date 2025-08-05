@@ -1,0 +1,21 @@
+components:
+  schemas:
+    AddressPath:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          description: The index of the account in the wallet, starting from `0`.
+        chain:
+          type: integer
+          description: The `chain` is either `External` or `Internal`, and expressed
+            as an integer with `External` being 0 and `Internal` being 1.
+        address_id:
+          type: integer
+          description: The index of the address in the account, starting from `0`.
+        derivation_path:
+          type: string
+          description: The derivation path of the address, following the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID`
+            (or `m/84'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` for segwit coins).
+      required:
+      - account_id

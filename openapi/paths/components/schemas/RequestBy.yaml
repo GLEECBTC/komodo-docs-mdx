@@ -1,0 +1,16 @@
+components:
+  schemas:
+    RequestBy:
+      type: object
+      properties:
+        type:
+          type: integer
+          description: Defines whether requesting by `volume` or by `number`.
+        value:
+          type: string
+          description: If `type` is `volume`, the amount of `coin` (defined in the
+            parent object) the user is willing to buy or sell. If `type` is `number`,
+            the number of best price trades to return.
+      required:
+      - type
+      - value

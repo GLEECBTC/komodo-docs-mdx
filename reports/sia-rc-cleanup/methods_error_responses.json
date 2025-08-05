@@ -1,0 +1,1188 @@
+{
+  "scan_metadata": {
+    "kdf_branch": "sia-rc-cleanup",
+    "mdx_branch": "add/postman/utils",
+    "kdf_commit": "312484576eda8429cd1d9cafb81ab7c3114dc975",
+    "mdx_commit": "de678f19e830eadd8d336bda0380fab81f5a92b5",
+    "generated_at": "2025-06-29T10:51:10.001005",
+    "scanner_type": "ERROR_RESPONSE_SCAN",
+    "scanner_version": "KDFTools v1.0.0",
+    "generated_during": "error_report_scan",
+    "method_source": "Postman JSON examples (dev branch)",
+    "is_primary_data_source": false,
+    "total_error_responses_found": {
+      "all": 54,
+      "v1": 19,
+      "v2": 35
+    }
+  },
+  "methods": {
+    "v1": {
+      "unban_pubkeys_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "unban_pubkeys",
+          "unban_by": {
+            "type": "All"
+          }
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: pubkey_banning:96] missing field `data`"
+        }
+      },
+      "help_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "help"
+        },
+        "error_response": {
+          "error": "Expecting value: line 2 column 9 (char 9)"
+        }
+      },
+      "autoprice_1": {
+        "request": {
+          "method": "autoprice",
+          "base": "KMD",
+          "rel": "BTC",
+          "userpass": "RPC_UserP@SSW0RD"
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: unknown field `base`, expected one of `mmrpc`, `userpass`, `method`, `params`, `id`",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:83]",
+          "error_type": "InvalidRequest",
+          "error_data": "unknown field `base`, expected one of `mmrpc`, `userpass`, `method`, `params`, `id`",
+          "id": null
+        }
+      },
+      "fundvalue_1": {
+        "request": {
+          "method": "fundvalue",
+          "userpass": "RPC_UserP@SSW0RD"
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such method",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:269]",
+          "error_type": "NoSuchMethod",
+          "id": null
+        }
+      },
+      "setprice_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "setprice",
+          "base": "DOC",
+          "rel": "MARTY",
+          "price": "0.9",
+          "volume": "1"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5026] maker_swap:2270] utxo_common:4209] utxo_common:737] Not enough KMD for swap: available 0.99993526, required at least 1.33334333, locked by swaps None"
+        }
+      },
+      "order_status_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "order_status",
+          "uuid": "c3b3105c-e914-4ed7-9f1c-604783b054a1"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5335] my_orders_storage:308] Order with uuid c3b3105c-e914-4ed7-9f1c-604783b054a1 is not found"
+        }
+      },
+      "update_maker_order_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "new_price": "0.9",
+          "volume_delta": "1"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "update_maker_order_2": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "new_price": "0.9",
+          "max": true
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "update_maker_order_3": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "volume_delta": [
+            [
+              1,
+              [
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                1
+              ]
+            ]
+          ],
+          "new_price": [
+            [
+              1,
+              [
+                1
+              ]
+            ],
+            [
+              1,
+              [
+                1
+              ]
+            ]
+          ]
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "update_maker_order_4": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "volume_delta": {
+            "numer": "3",
+            "denom": "2"
+          },
+          "new_price": {
+            "numer": "2",
+            "denom": "1"
+          }
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "update_maker_order_5": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "volume_delta": {
+            "numer": "3",
+            "denom": "2"
+          },
+          "new_price": {
+            "numer": "2",
+            "denom": "1"
+          },
+          "min_volume": "1"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "update_maker_order_6": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "update_maker_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41",
+          "volume_delta": {
+            "numer": "3",
+            "denom": "2"
+          },
+          "new_price": {
+            "numer": "2",
+            "denom": "1"
+          },
+          "base_confs": 2,
+          "base_nota": true,
+          "rel_confs": 5,
+          "rel_nota": false
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_ordermatch:5278] lp_ordermatch:5152] There is no order with UUID 6a242691-6c05-474a-85c1-5b3f42278f41"
+        }
+      },
+      "electrum_1": {
+        "request": {
+          "coin": "LTC",
+          "method": "electrum",
+          "servers": [
+            {
+              "url": "electrum1.cipig.net:10063",
+              "protocol": "TCP"
+            },
+            {
+              "url": "electrum2.cipig.net:20063",
+              "protocol": "SSL",
+              "disable_cert_verification": true
+            },
+            {
+              "url": "electrum3.cipig.net:20063",
+              "protocol": "SSL",
+              "ws_url": "electrum3.cipig.net:30063"
+            }
+          ],
+          "min_connected": 1,
+          "max_connected": 2,
+          "userpass": "RPC_UserP@SSW0RD"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: legacy:140] lp_coins:4881] Coin LTC already initialized"
+        }
+      },
+      "convert_utxo_address_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "convert_utxo_address",
+          "coin": "BTC",
+          "address": "1DmFp16U73RrVZtYUbo2Ectt8mAnYScpqM",
+          "to_coin": "RVN"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_coins:5541] Coin RVN is not activated"
+        }
+      },
+      "cancel_order_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "cancel_order",
+          "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41"
+        },
+        "error_response": {
+          "error": "Order with uuid 6a242691-6c05-474a-85c1-5b3f42278f41 is not found"
+        }
+      },
+      "inventory_1": {
+        "request": {
+          "method": "inventory",
+          "userpass": "RPC_UserP@SSW0RD"
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such method",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:269]",
+          "error_type": "NoSuchMethod",
+          "id": null
+        }
+      },
+      "enable_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "enable",
+          "coin": "LTC"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: legacy:168] lp_coins:4881] Coin LTC already initialized"
+        }
+      },
+      "recover_funds_of_swap_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "recover_funds_of_swap",
+          "params": {
+            "uuid": "6343b2b1-c896-47d4-b0f2-a11798f654ed"
+          }
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_swap:1484] swap data is not found"
+        }
+      },
+      "stats_swap_status_1": {
+        "request": {
+          "method": "stats_swap_status",
+          "userpass": "RPC_UserP@SSW0RD"
+        },
+        "error_response": {
+          "error": "rpc:195] RPC call failed: lp_swap:1120] invalid type: null, expected a UUID string"
+        }
+      }
+    },
+    "v2": {
+      "sign_message_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "sign_message",
+          "mmrpc": "2.0",
+          "id": 0,
+          "params": {
+            "coin": "DOC",
+            "message": "Between subtle shading and the absence of light lies the nuance illusion"
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Internal error: No such coin: KMD",
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:5163] lp_coins:5075]",
+          "error_type": "InternalError",
+          "error_data": "No such coin: KMD",
+          "id": 2
+        }
+      },
+      "sign_message_2": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "sign_message",
+          "params": {
+            "coin": "KMD",
+            "message": "Very little worth knowing is taught by fear.",
+            "address": {
+              "derivation_path": "m/84'/2'/0'/0/1"
+            }
+          },
+          "id": 2
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Internal error: No such coin: KMD",
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:5163] lp_coins:5075]",
+          "error_type": "InternalError",
+          "error_data": "No such coin: KMD",
+          "id": 2
+        }
+      },
+      "get_enabled_coins_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "get_enabled_coins",
+          "params": {},
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: invalid type: map, expected unit struct GetEnabledCoinsRequest",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:124]",
+          "error_type": "InvalidRequest",
+          "error_data": "invalid type: map, expected unit struct GetEnabledCoinsRequest",
+          "id": 0
+        }
+      },
+      "get_mnemonic_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "get_mnemonic",
+          "params": {
+            "format": "encrypted"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Invalid password error: Error decrypting mnemonic: HMAC error: MAC tag mismatch",
+          "error_path": "lp_wallet.mnemonic.decrypt",
+          "error_trace": "lp_wallet:578] lp_wallet:162] mnemonic:110] decrypt:56]",
+          "error_type": "InvalidPassword",
+          "error_data": "Error decrypting mnemonic: HMAC error: MAC tag mismatch",
+          "id": 0
+        }
+      },
+      "best_orders_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "best_orders",
+          "mmrpc": "2.0",
+          "params": {
+            "coin": "DGB",
+            "action": "buy",
+            "request_by": {
+              "type": "number",
+              "value": 100
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No response from any peer",
+          "error_path": "best_orders",
+          "error_trace": "best_orders:394]",
+          "error_type": "P2PError",
+          "error_data": "No response from any peer",
+          "id": null
+        }
+      },
+      "best_orders_2": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "best_orders",
+          "mmrpc": "2.0",
+          "params": {
+            "coin": "DGB",
+            "action": "buy",
+            "exclude_mine": true,
+            "request_by": {
+              "type": "number",
+              "value": 100
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No response from any peer",
+          "error_path": "best_orders",
+          "error_trace": "best_orders:394]",
+          "error_type": "P2PError",
+          "error_data": "No response from any peer",
+          "id": null
+        }
+      },
+      "best_orders_3": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "best_orders",
+          "mmrpc": "2.0",
+          "params": {
+            "coin": "BTC",
+            "action": "buy",
+            "request_by": {
+              "type": "volume",
+              "value": 0.01
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No response from any peer",
+          "error_path": "best_orders",
+          "error_trace": "best_orders:394]",
+          "error_type": "P2PError",
+          "error_data": "No response from any peer",
+          "id": null
+        }
+      },
+      "orderbook_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "orderbook",
+          "params": {
+            "base": "DGB",
+            "rel": "DASH"
+          },
+          "id": 42
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "lp_ordermatch:6025] No response received from any peer for GetOrderbook request",
+          "error_path": "orderbook_rpc",
+          "error_trace": "orderbook_rpc:256]",
+          "error_type": "P2PSubscribeError",
+          "error_data": "lp_ordermatch:6025] No response received from any peer for GetOrderbook request",
+          "id": 42
+        }
+      },
+      "my_swap_status_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "my_swap_status",
+          "id": 0,
+          "params": {
+            "uuid": "7b60a494-f159-419c-8f41-02e10f897513"
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "e9de3166-c227-48f9-952a-dd9219bbe15b",
+          "error_path": "swap_v2_rpcs",
+          "error_trace": "swap_v2_rpcs:380]",
+          "error_type": "NoSwapWithUuid",
+          "error_data": "e9de3166-c227-48f9-952a-dd9219bbe15b",
+          "id": 0
+        }
+      },
+      "send_asked_data_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "send_asked_data",
+          "id": 0,
+          "params": {
+            "data_id": 42,
+            "data": {
+              "name": "Komodo"
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No data was asked for id=42",
+          "error_path": "data_asker",
+          "error_trace": "data_asker:138]",
+          "error_type": "NotFound",
+          "error_data": 42,
+          "id": 0
+        }
+      },
+      "account_balance_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "account_balance",
+          "params": {
+            "coin": "BTC",
+            "account_index": 0,
+            "chain": "External",
+            "limit": 5,
+            "paging_options": {
+              "page_number": 1
+            }
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: unknown variant `page_number`, expected `FromId` or `PageNumber`",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:124]",
+          "error_type": "InvalidRequest",
+          "error_data": "unknown variant `page_number`, expected `FromId` or `PageNumber`",
+          "id": 0
+        }
+      },
+      "my_tx_history_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "my_tx_history",
+          "params": {
+            "coin": "DOC",
+            "limit": 10,
+            "paging_options": {
+              "PageNumber": 1
+            },
+            "target": {
+              "type": "account_id",
+              "account_id": 0
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Storage is not initialized for WalletId { ticker: \"DOC\", hd_wallet_rmd160: None }",
+          "error_path": "my_tx_history_v2",
+          "error_trace": "my_tx_history_v2:393]",
+          "error_type": "StorageIsNotInitialized",
+          "error_data": "Storage is not initialized for WalletId { ticker: \"DOC\", hd_wallet_rmd160: None }",
+          "id": null
+        }
+      },
+      "my_tx_history_2": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "my_tx_history",
+          "params": {
+            "coin": "DOC",
+            "limit": 1,
+            "paging_options": {
+              "PageNumber": 1
+            },
+            "target": {
+              "type": "address_id",
+              "account_id": 0,
+              "chain": "External",
+              "address_id": 1
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Storage is not initialized for WalletId { ticker: \"DOC\", hd_wallet_rmd160: None }",
+          "error_path": "my_tx_history_v2",
+          "error_trace": "my_tx_history_v2:393]",
+          "error_type": "StorageIsNotInitialized",
+          "error_data": "Storage is not initialized for WalletId { ticker: \"DOC\", hd_wallet_rmd160: None }",
+          "id": null
+        }
+      },
+      "my_tx_history_3": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "my_tx_history",
+          "mmrpc": "2.0",
+          "params": {
+            "coin": "BCH",
+            "limit": 2,
+            "paging_options": {
+              "PageNumber": 2
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Storage is not initialized for WalletId { ticker: \"BCH\", hd_wallet_rmd160: None }",
+          "error_path": "my_tx_history_v2",
+          "error_trace": "my_tx_history_v2:393]",
+          "error_type": "StorageIsNotInitialized",
+          "error_data": "Storage is not initialized for WalletId { ticker: \"BCH\", hd_wallet_rmd160: None }",
+          "id": null
+        }
+      },
+      "my_tx_history_4": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "my_tx_history",
+          "mmrpc": "2.0",
+          "params": {
+            "coin": "BCH",
+            "limit": 2,
+            "paging_options": {
+              "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Storage is not initialized for WalletId { ticker: \"BCH\", hd_wallet_rmd160: None }",
+          "error_path": "my_tx_history_v2",
+          "error_trace": "my_tx_history_v2:393]",
+          "error_type": "StorageIsNotInitialized",
+          "error_data": "Storage is not initialized for WalletId { ticker: \"BCH\", hd_wallet_rmd160: None }",
+          "id": null
+        }
+      },
+      "task-withdraw-cancel_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "task::withdraw::cancel",
+          "mmrpc": "2.0",
+          "params": {
+            "task_id": 6
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Task is finished already",
+          "error_path": "init_withdraw.manager",
+          "error_trace": "init_withdraw:100] manager:138]",
+          "error_type": "TaskFinished",
+          "error_data": 14,
+          "id": null
+        }
+      },
+      "sign_raw_transaction_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "sign_raw_transaction",
+          "params": {
+            "coin": "KMD",
+            "type": "UTXO",
+            "tx": {
+              "tx_hex": "0400008085202f8901c8d6d8764e51bbadc0592b99f37b3b7d8c9719686d5a9bf63652a0802a1cd0360200000000feffffff0100dd96d8080000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac46366665000000000000000000000000000000"
+            }
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such coin KMD",
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:5185] lp_coins:5075]",
+          "error_type": "NoSuchCoin",
+          "error_data": {
+            "coin": "KMD"
+          },
+          "id": 0
+        }
+      },
+      "sign_raw_transaction_2": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "id": 0,
+          "method": "sign_raw_transaction",
+          "params": {
+            "coin": "KMD",
+            "type": "UTXO",
+            "tx": {
+              "tx_hex": "0400008085202f8901c8d6d8764e51bbadc0592b99f37b3b7d8c9719686d5a9bf63652a0802a1cd0360200000000feffffff0100dd96d8080000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac46366665000000000000000000000000000000",
+              "prev_txns": [
+                {
+                  "tx_hash": "36d01c2a80a05236f69b5a6d6819978c7d3b7bf3992b59c0adbb514e76d8d6c8",
+                  "index": 2,
+                  "script_pub_key": "76a914d346067e3c3c3964c395fee208594790e29ede5d88ac",
+                  "amount": 1e-05
+                }
+              ]
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such coin KMD",
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:5185] lp_coins:5075]",
+          "error_type": "NoSuchCoin",
+          "error_data": {
+            "coin": "KMD"
+          },
+          "id": 0
+        }
+      },
+      "change_mnemonic_password_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "method": "change_mnemonic_password",
+          "userpass": "RPC_UserP@SSW0RD",
+          "params": {
+            "current_password": "old_password123",
+            "new_password": "new_password456"
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Invalid password error: Error decrypting mnemonic: HMAC error: MAC tag mismatch",
+          "error_path": "lp_wallet.mnemonic.decrypt",
+          "error_trace": "lp_wallet:642] lp_wallet:162] mnemonic:110] decrypt:56]",
+          "error_type": "InvalidPassword",
+          "error_data": "Error decrypting mnemonic: HMAC error: MAC tag mismatch",
+          "id": null
+        }
+      },
+      "trade_preimage_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "trade_preimage",
+          "params": {
+            "base": "BTC",
+            "rel": "DOC",
+            "price": "1",
+            "volume": "0.1",
+            "swap_method": "setprice"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Not enough BTC for swap: available 0, required at least 0.1, locked by swaps None",
+          "error_path": "maker_swap.utxo_common",
+          "error_trace": "maker_swap:2325] utxo_common:4182] utxo_common:716]",
+          "error_type": "NotSufficientBalance",
+          "error_data": {
+            "coin": "BTC",
+            "available": "0",
+            "required": "0.1"
+          },
+          "id": 0
+        }
+      },
+      "trade_preimage_2": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "trade_preimage",
+          "params": {
+            "base": "BTC",
+            "rel": "DOC",
+            "price": "1",
+            "volume": "0.1",
+            "swap_method": "buy"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Not enough BTC for swap: available 0, required at least 0.00284895, locked by swaps None",
+          "error_path": "taker_swap.utxo_common",
+          "error_trace": "taker_swap:2624] utxo_common:4182] utxo_common:716]",
+          "error_type": "NotSufficientBalance",
+          "error_data": {
+            "coin": "BTC",
+            "available": "0",
+            "required": "0.00284895"
+          },
+          "id": 0
+        }
+      },
+      "trade_preimage_3": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "trade_preimage",
+          "params": {
+            "base": "BTC",
+            "rel": "DOC",
+            "price": "1",
+            "volume": "2.21363478",
+            "swap_method": "sell"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Not enough LTC for swap: available 0, required at least 2.21363478, locked by swaps None",
+          "error_path": "maker_swap.utxo_common",
+          "error_trace": "maker_swap:2325] utxo_common:4182] utxo_common:716]",
+          "error_type": "NotSufficientBalance",
+          "error_data": {
+            "coin": "LTC",
+            "available": "0",
+            "required": "2.21363478"
+          },
+          "id": 0
+        }
+      },
+      "task-withdraw-init_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "task::withdraw::init",
+          "params": {
+            "coin": "SC",
+            "to": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db",
+            "amount": "1"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: data did not match any variant of untagged enum HDAddressSelector",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:124]",
+          "error_type": "InvalidRequest",
+          "error_data": "data did not match any variant of untagged enum HDAddressSelector",
+          "id": null
+        }
+      },
+      "task-enable_qtum-init_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "task::enable_qtum::init",
+          "params": {
+            "ticker": "QTUM",
+            "activation_params": {
+              "qtum_node_urls": [
+                "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
+              ],
+              "mode": {
+                "rpc": "Infura",
+                "rpc_data": {
+                  "servers": [
+                    {
+                      "url": "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+                      "protocol": "HTTPS"
+                    }
+                  ]
+                }
+              },
+              "qrc20_tokens_requests": [
+                {
+                  "ticker": "USDT"
+                },
+                {
+                  "ticker": "DAI",
+                  "required_confirmations": 3
+                }
+              ],
+              "tx_history": true,
+              "required_confirmations": 5,
+              "requires_notarization": false,
+              "address_format": {
+                "format": "hex",
+                "network": "qtum"
+              },
+              "utxo_merge_params": {
+                "merge_at": 50,
+                "check_every": 10,
+                "max_merge_at_once": 25
+              }
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: unknown variant `Infura`, expected `Native` or `Electrum`",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:124]",
+          "error_type": "InvalidRequest",
+          "error_data": "unknown variant `Infura`, expected `Native` or `Electrum`",
+          "id": null
+        }
+      },
+      "delete_wallet_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "delete_wallet",
+          "mmrpc": "2.0",
+          "params": {
+            "wallet_name": "wallet-to-delete",
+            "password": "pass1"
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Invalid request error: Wallet 'wallet-to-delete' not found.",
+          "error_path": "lp_wallet",
+          "error_trace": "lp_wallet:695]",
+          "error_type": "InvalidRequest",
+          "error_data": "Wallet 'wallet-to-delete' not found.",
+          "id": null
+        }
+      },
+      "add_node_to_version_stat_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "method": "add_node_to_version_stat",
+          "userpass": "RPC_UserP@SSW0RD",
+          "params": {
+            "name": "seed1",
+            "address": "168.119.236.241",
+            "peer_id": "12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P"
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Database error: UNIQUE constraint failed: nodes.peer_id",
+          "error_path": "lp_stats",
+          "error_trace": "lp_stats:145]",
+          "error_type": "DatabaseError",
+          "error_data": "UNIQUE constraint failed: nodes.peer_id",
+          "id": null
+        }
+      },
+      "withdraw_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "withdraw",
+          "params": {
+            "coin": "KMD",
+            "to": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+            "amount": "10"
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Request should contain a 'from' address/account",
+          "error_path": "utxo_common",
+          "error_trace": "utxo_common:3349]",
+          "error_type": "FromAddressNotFound",
+          "id": 0
+        }
+      },
+      "withdraw_2": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "withdraw",
+          "params": {
+            "coin": "QRC20",
+            "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
+            "amount": 10,
+            "fee": {
+              "type": "Qrc20Gas",
+              "gas_limit": 250000,
+              "gas_price": 40
+            }
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Not enough MCL to withdraw: available 0, required at least 1.025",
+          "error_path": "utxo_withdraw.utxo_common",
+          "error_trace": "utxo_withdraw:205] utxo_common:716]",
+          "error_type": "NotSufficientBalance",
+          "error_data": {
+            "coin": "MCL",
+            "available": "0",
+            "required": "1.025"
+          },
+          "id": 0
+        }
+      },
+      "withdraw_3": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "withdraw",
+          "params": {
+            "coin": "MATIC",
+            "to": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
+            "amount": 0.1,
+            "broadcast": true
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Unexpected 'from' address: 'RGpbwQHyXaCCkwGkkLrSuWyVYj4HRFa2fS' address is not activated",
+          "error_path": "utxo_common.withdraw_ops",
+          "error_trace": "utxo_common:3352] withdraw_ops:49]",
+          "error_type": "UnexpectedFromAddress",
+          "error_data": "'RGpbwQHyXaCCkwGkkLrSuWyVYj4HRFa2fS' address is not activated",
+          "id": 0
+        }
+      },
+      "withdraw_4": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "withdraw",
+          "params": {
+            "coin": "IRIS",
+            "to": "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k",
+            "amount": 13,
+            "memo": "It was a bright cold day in April, and the clocks were striking thirteen.",
+            "fee": {
+              "type": "CosmosGas",
+              "gas_price": 0.05,
+              "gas_limit": 150000
+            }
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Request should contain a 'from' address/account",
+          "error_path": "utxo_common",
+          "error_trace": "utxo_common:3349]",
+          "error_type": "FromAddressNotFound",
+          "id": 0
+        }
+      },
+      "withdraw_5": {
+        "request": {
+          "mmrpc": "2.0",
+          "userpass": "RPC_UserP@SSW0RD",
+          "method": "withdraw",
+          "params": {
+            "coin": "ATOM",
+            "to": "osmo16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4",
+            "amount": 0.1,
+            "memo": "In the blackest of your moments, wait with no fear.",
+            "ibc_source_channel": 141,
+            "fee": {
+              "type": "CosmosGas",
+              "gas_price": 0.05,
+              "gas_limit": 150000
+            }
+          },
+          "id": 0
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Request should contain a 'from' address/account",
+          "error_path": "utxo_common",
+          "error_trace": "utxo_common:3349]",
+          "error_type": "FromAddressNotFound",
+          "id": 0
+        }
+      },
+      "task-create_new_account-init_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "task::create_new_account::init",
+          "params": {
+            "coin": "KMD",
+            "account_id": 77,
+            "scan": true,
+            "gap_limit": 20
+          },
+          "id": 1
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such coin KMD",
+          "error_path": "init_create_account.lp_coins",
+          "error_trace": "init_create_account:338] lp_coins:5075]",
+          "error_type": "NoSuchCoin",
+          "error_data": {
+            "coin": "KMD"
+          },
+          "id": 1
+        }
+      },
+      "get_raw_transaction_1": {
+        "request": {
+          "mmrpc": "2.0",
+          "method": "get_raw_transaction",
+          "userpass": "RPC_UserP@SSW0RD",
+          "params": {
+            "coin": "DOC",
+            "tx_hash": "989360b0225b4e05fa13643e2e306c8eb5c52fa611615dfd30195089010b1c7b"
+          },
+          "id": 1
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "Transport error: client:911] JsonRpcError { client_info: \"coin: DOC\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: 54, method: \"blockchain.transaction.get\", params: [String(\"989360b0225b4e05fa13643e2e306c8eb5c52fa611615dfd30195089010b1c7b\"), Bool(false)] }, error: Response(electrum1.cipig.net:10020, Object {\"code\": Number(2), \"message\": String(\"daemon error: DaemonError({'code': -5, 'message': 'No information available about transaction'})\")}) }",
+          "error_path": "utxo_common",
+          "error_trace": "utxo_common:3288]",
+          "error_type": "Transport",
+          "error_data": "client:911] JsonRpcError { client_info: \"coin: DOC\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: 54, method: \"blockchain.transaction.get\", params: [String(\"989360b0225b4e05fa13643e2e306c8eb5c52fa611615dfd30195089010b1c7b\"), Bool(false)] }, error: Response(electrum1.cipig.net:10020, Object {\"code\": Number(2), \"message\": String(\"daemon error: DaemonError({'code': -5, 'message': 'No information available about transaction'})\")}) }",
+          "id": 1
+        }
+      },
+      "get_token_info_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "get_token_info",
+          "params": {
+            "protocol": {
+              "type": "ERC20",
+              "protocol_data": {
+                "platform": "AVAX",
+                "contract_address": "0x4f3c5C53279536fFcfe8bCafb78E612E933D53c6"
+              }
+            }
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such coin AVAX",
+          "error_path": "tokens.lp_coins",
+          "error_trace": "tokens:77] lp_coins:5075]",
+          "error_type": "NoSuchCoin",
+          "error_data": {
+            "coin": "AVAX"
+          },
+          "id": null
+        }
+      },
+      "task-get_new_address-cancel_1": {
+        "request": {
+          "userpass": "RPC_UserP@SSW0RD",
+          "mmrpc": "2.0",
+          "method": "task::get_new_address::cancel",
+          "params": {
+            "task_id": 3
+          }
+        },
+        "error_response": {
+          "mmrpc": "2.0",
+          "error": "No such task '15'",
+          "error_path": "get_new_address.manager",
+          "error_trace": "get_new_address:431] manager:157]",
+          "error_type": "NoSuchTask",
+          "error_data": 15,
+          "id": null
+        }
+      }
+    }
+  }
+}

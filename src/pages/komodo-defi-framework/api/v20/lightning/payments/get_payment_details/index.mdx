@@ -1,0 +1,101 @@
+export const title = "Komodo DeFi Framework Method: Get Lightning Payment Details";
+export const description = "Get details of a Lightning Network payment using the Komodo DeFi Framework API.";
+
+# Get Lightning Payment Details
+
+## lightning::payments::get\_payment\_details {{label : 'lightning::payments::get_payment_details', tag : 'API-v2'}}
+
+Returns details for a specific Lightning Network payment.
+
+### Request Parameters
+
+| Parameter     | Type   | Required | Description                             |
+| ------------- | ------ | :------: | --------------------------------------- |
+| coin          | string |     ✓    | The ticker of the coin for the payment. |
+| payment\_hash | string |     ✓    | The hash of the payment to query.       |
+
+### Response Parameters
+
+| Parameter        | Type   | Description                 |
+| ---------------- | ------ | --------------------------- |
+| payment\_details | object | The payment details object. |
+| id               | int    | Request identifier.         |
+
+#### 📌 Example
+
+<CodeGroup title="Get Payment Details" tag="POST" label="lightning::payments::get_payment_details" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "lightning::payments::get_payment_details",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "tBTC-lightning",
+      "payment_hash": "414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e"
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "payment_details": {
+        "payment_hash": "414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e",
+        "status": "succeeded",
+        "amount_msat": 250000,
+        "fee_msat": 10,
+        "created_at": 1682000000,
+        "description": "Invoice for order #1234",
+        "destination": "03a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+        "preimage": "abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef",
+        "route": [
+          {
+            "hop_pubkey": "03a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+            "fee_msat": 5,
+            "channel_id": "1234567890"
+          }
+        ]
+      }
+    },
+    "id": 103
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### ⚠️ Error Responses
+
+  ##### NoSuchPayment (payment hash not found)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Payment with hash: 414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e is not found",
+   "error_path": "get_payment_details",
+   "error_trace": "get_payment_details:75]",
+   "error_type": "NoSuchPayment",
+   "error_data": "414f9b3524fc4e48c99f2723952732d8bc2eba1b35ce3bf2a70f5144b40f599e",
+   "id": 762
+  }
+  ```
+
+  ##### InvalidRequest (payment\_hash not a hash string)
+
+  ```json
+  {
+   "mmrpc": "2.0",
+   "error": "Error parsing request: invalid value: string '', expected a hash string",
+   "error_path": "dispatcher",
+   "error_trace": "dispatcher:109]",
+   "error_type": "InvalidRequest",
+   "error_data": "invalid value: string '', expected a hash string",
+   "id": 762
+  }
+  ```
+</CollapsibleSection>

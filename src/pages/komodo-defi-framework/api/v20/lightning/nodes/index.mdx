@@ -1,220 +1,28 @@
-export const title = "Komodo DeFi Framework Method: Lightning Network Nodes";
-export const description = "The methods in this document allow management of connections to Lightning Network Nodes on Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method Overview: Lightning Network Nodes";
+export const description = "This document provides an overview of all Lightning Network node management methods available in the Komodo DeFi Framework.";
 
-# Lightning Network Nodes
+# Lightning Network Nodes Overview
+
+## lightning::nodes {{label : 'lightning::nodes', tag : 'overview'}}
+
+Overview of all Lightning Network node management methods. See below for details and cross-links to related Lightning node documentation.
+
+### Add Trusted Node
+
+See [lightning::nodes::add\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/add_trusted_node/) for adding a trusted Lightning node.
+
+### Connect to Node
+
+See [lightning::nodes::connect\_to\_node](/komodo-defi-framework/api/v20/lightning/nodes/connect_to_node/) for connecting to a Lightning node.
+
+### List Trusted Nodes
+
+See [lightning::nodes::list\_trusted\_nodes](/komodo-defi-framework/api/v20/lightning/nodes/list_trusted_nodes/) for listing trusted Lightning nodes.
+
+### Remove Trusted Node
+
+See [lightning::nodes::remove\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/remove_trusted_node/) for removing a trusted Lightning node.
 
 <Note>
   Lightning methods are currently only available using the native Komodo DeFi Framework. WASM support should be available in late 2023.
 </Note>
-
-## Connect to Node {{label : 'lightning::nodes::connect_to_node', tag : 'API-v2'}}
-
-The `lightning::nodes::connect_to_node` method allows you to connect to a lightning node.
-
-### Request Parameters
-
-| Parameter     | Type   | Description                                                                         |
-| ------------- | ------ | ----------------------------------------------------------------------------------- |
-| coin          | string | The coin ticker you would like to connect to a node on.                             |
-| node\_address | string | Lightning nodes addresses always have a format of `node_pubkey`@`ip_address`:`port` |
-
-#### 📌 Example
-
-<CodeGroup title="Connect to Node" tag="POST" label="lightning::nodes::connect_to_node" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "lightning::nodes::connect_to_node",
-    "params": {
-      "coin": "tBTC-lightning",
-      "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735"
-    },
-    "id": 1
-  }
-  ```
-</CodeGroup>
-
-<Note>
-  The node address in the above request is for the WalletOfSatoshi lightning node, which is one of the most connected lightning nodes.
-  Other node addresses can be retrieved from any lightning explorer, such as:
-
-  *   [https://1ml.com/](https://1ml.com/)
-  *   [https://mempool.space/lightning/](https://mempool.space/lightning/)
-</Note>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": "Connected successfully to node : 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226@170.75.163.209:9735",
-      "id": null
-  }
-  ```
-
-  #### Response (already connected)
-
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": "Already connected to node : 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226@170.75.163.209:9735",
-      "id": null
-  }
-  ```
-</CollapsibleSection>
-
-<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  #### InvalidRequest Error (Invalid node\_address)
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"error": "Error parsing request: Could not parse node address from str rgjhk3",
-  	"error_path": "dispatcher",
-  	"error_trace": "dispatcher:109]",
-  	"error_type": "InvalidRequest",
-  	"error_data": "Could not parse node address from str rgjhk3",
-  	"id": 762
-  }
-  ```
-
-  #### ConnectionError Error (Timed out waiting to connect to node\_address)
-
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Error connecting to node: Timeout error: Failed to connect to node: 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226",
-      "error_path": "connect_to_node",
-      "error_trace": "connect_to_node:78]",
-      "error_type": "ConnectionError",
-      "error_data": "Timeout error: Failed to connect to node: 035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226",
-      "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## List Trusted Nodes {{label : 'lightning::nodes::list_trusted_nodes', tag : 'API-v2'}}
-
-The `lightning::nodes::list_trusted_nodes` method allows you to list all nodes in your trusted list.
-
-### Request Parameters
-
-| Parameter | Type   | Description                                                   |
-| --------- | ------ | ------------------------------------------------------------- |
-| coin      | string | The coin ticker you would like to view your trusted nodes to. |
-
-#### 📌 Example
-
-<CodeGroup title="List Trusted Nodes" tag="POST" label="lightning::nodes::list_trusted_nodes" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "lightning::nodes::list_trusted_nodes",
-    "params": {
-      "coin": "tBTC-lightning"
-    },
-    "id": 1
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"trusted_nodes": ["038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"]
-  	},
-  	"id": 1
-  }
-  ```
-</CollapsibleSection>
-
-## Add Trusted Node {{label : 'lightning::nodes::add_trusted_node', tag : 'API-v2'}}
-
-The `lightning::nodes::add_trusted_node` method allows you to add a node to your trusted list.
-
-### Request Parameters
-
-| Parameter | Type   | Description                                               |
-| --------- | ------ | --------------------------------------------------------- |
-| coin      | string | The coin ticker you would like to add a trusted node for. |
-| node\_id  | string | ID of node you would like to add to your trusted list.    |
-
-#### 📌 Example
-
-<CodeGroup title="Add Trusted Node" tag="POST" label="lightning::nodes::add_trusted_node" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "lightning::nodes::add_trusted_node",
-    "params": {
-      "coin": "tBTC-lightning",
-      "node_id": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
-    },
-    "id": 1
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"added_node": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
-  	},
-  	"id": 1
-  }
-  ```
-</CollapsibleSection>
-
-## Remove Trusted Node {{label : 'lightning::nodes::remove_trusted_node', tag : 'API-v2'}}
-
-The `lightning::nodes::remove_trusted_node` method allows you to remove a node from your trusted list.
-
-### Request Parameters
-
-| Parameter | Type   | Description                                                   |
-| --------- | ------ | ------------------------------------------------------------- |
-| coin      | string | The coin ticker you would like to remove a trusted node from. |
-| node\_id  | string | ID of node you would like to remove from your trusted list.   |
-
-#### 📌 Example
-
-<CodeGroup title="Remove Trusted Node" tag="POST" label="lightning::nodes::remove_trusted_node" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "lightning::nodes::remove_trusted_node",
-    "params": {
-      "coin": "tBTC-lightning",
-      "node_id": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
-    },
-    "id": 1
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"removed_node": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"
-  	},
-  	"id": 1
-  }
-  ```
-</CollapsibleSection>

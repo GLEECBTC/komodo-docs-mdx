@@ -1,12 +1,13 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
-export const description =
-  "This document describes all the methods Komodo DeFi Framework provides to get information and transact with NFTs";
+export const title = "Komodo DeFi Framework Method Overview: Non-Fungible Tokens";
+export const description = "This document provides an overview of all methods Komodo DeFi Framework offers to interact with NFTs.";
 
-# Non Fungible Tokens (NFTs)
+# Non-Fungible Tokens
+
+## NFT Methods {{label : 'nft_methods', tag : 'overview'}}
 
 The Komodo DeFi Framework API supports [ERC1155](https://www.nftstandards.wtf/Standards/ERC1155+Multi+token) and [ERC721](https://www.nftstandards.wtf/Standards/ERC721+Non+Fungible+Standard) NFTs via the [Moralis API](https://docs.moralis.io/) on the Avalanche (AVAX), BNB Smart Chain (BNB), Ethereum (ETH), Fantom (FTM), Polygon (MATIC) networks.
 
-To interact with NFTs, you will first need to activate the coin for the network the NFT is on, and initialise NFT support for the network.
+To interact with NFTs, you will first need to activate the coin for the network the NFT is on, and initialize NFT support for the network.
 This can be done with either the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method (if including the `nft_req` param) or the [enable\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/enable_nft/) method (if the network is already activated without NFT support).
 
 <Note>
@@ -14,7 +15,7 @@ This can be done with either the [enable\_eth\_with\_tokens](/komodo-defi-framew
   method to populate/refresh the local database.
 </Note>
 
-## NFT Information Methods
+### Information Methods
 
 *   Get a list of your tokens with [get\_nft\_list](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_list/)
 *   Get a list of token transfers with [get\_nft\_transfers](/komodo-defi-framework/api/v20/non_fungible_tokens/get_nft_transfers/)
@@ -22,14 +23,14 @@ This can be done with either the [enable\_eth\_with\_tokens](/komodo-defi-framew
 *   Update NFT [update\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/update_nft/)
 *   Refresh NFT metadata with [refresh\_nft\_metadata](/komodo-defi-framework/api/v20/non_fungible_tokens/refresh_nft_metadata/)
 
-## NFT Transaction Methods
+### Transaction Methods
 
 *   Withdraw ERC721 tokens with [withdraw\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/withdraw_nft/#erc-721-withdraw-example)
 *   Withdraw ERC1155 tokens with [withdraw\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/withdraw_nft/#erc-1155-withdraw-example)
 
-## NFT Utility Methods
+### Utility Methods
 
-*   Clear local NFT data with [clear\_nft\db](/komodo-defi-framework/api/v20/non_fungible_tokens/clear_nft_db/)
+*   Clear local NFT data with [clear\_nft\_db](/komodo-defi-framework/api/v20/non_fungible_tokens/clear_nft_db/)
 
 <Note>
   View the source code at: [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs)

@@ -1,0 +1,16 @@
+components:
+  schemas:
+    EnableAccountPolicyEnum:
+      description: '| Value      | Description                                                                                                                                                                                   |
+
+
+        **Values:**
+
+        - `existing`: Enable an account that already exists in GUI storage. Requires
+        an `account_id` parameter of type [EnabledAccountId](/komodo-defi-framework/api/common_structures/wallet/#enabled-account-id).
+
+        - `new`: Create a new account record (see [NewAccount](/komodo-defi-framework/api/common_structures/wallet/#new-account))
+        and immediately set it as the enabled account.
+
+        '
+      $ref: '#/components/schemas/EnabledAccountId'

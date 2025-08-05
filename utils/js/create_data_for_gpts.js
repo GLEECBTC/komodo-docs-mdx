@@ -5,8 +5,12 @@ import path from 'path'
 import { remark } from 'remark'
 import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
+import { fileURLToPath } from 'url';
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const gptDir = path.resolve(__dirname, '../../data-for-gpts');
+const pagesDir = path.resolve(__dirname, '../../src/pages');
 async function walkDir(dir, callback, ...callbackArgs) {
     let files = fs.readdirSync(dir);
 
@@ -33,8 +37,8 @@ const pathsNames = [["", "all"], ["komodo-defi-framework", "komodo-defi-framewor
 for (let index = 0; index < pathsNames.length; index++) {
     const element = pathsNames[index];
     let contentHolder = { content: "" };
-    await walkDir(`./src/pages/${element[0]}`, readFileProcessItAndAddContentToFile, contentHolder)
-    fs.writeFileSync(`./data-for-gpts/${element[1]}-content.txt`, contentHolder.content)
+    await walkDir(path.join(pagesDir, element[0]), readFileProcessItAndAddContentToFile, contentHolder)
+    fs.writeFileSync(path.join(gptDir, `${element[1]}-content.txt`), contentHolder.content)
 }
 
 async function convertMdxToMd(fileContent, filePath) {

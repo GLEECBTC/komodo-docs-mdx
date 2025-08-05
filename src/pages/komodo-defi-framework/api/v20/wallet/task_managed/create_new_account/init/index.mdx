@@ -1,0 +1,54 @@
+export const title = "Komodo DeFi Framework Method: Initialize Create New Account Task";
+export const description = "Initialize a task to create a new HD account using the Komodo DeFi Framework API.";
+
+# Initialize Create New Account Task
+
+## task::create\_new\_account::init {{label : 'task::create_new_account::init', tag : 'API-v2'}}
+
+Initializes a task to create a new HD account. Use the returned `task_id` to check the status of the account creation process.
+
+### Request Parameters
+
+| Parameter   | Type    | Required | Default | Description                                                                                                                     |
+| ----------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------- |
+| coin        | string  |     ✓    |    -    | Ticker of coin you would like to initialize a HD account for.                                                                   |
+| account\_id | integer |     ✗    |    -    | If not defined, will increment to the next unused account id in the wallet.                                                     |
+| scan        | boolean |     ✗    |  `true` | If `true`, will scan the account for funded addresses.                                                                          |
+| gap\_limit  | integer |     ✗    |   `20`  | The maximum number of empty addresses in a row. Defaults to the value provided on activation, or `20` if no value was provided. |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::create_new_account::init" tag="POST" label="task::create_new_account::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::init",
+    "params": {
+      "coin": "KMD",
+      "account_id": 77,
+      "scan": true,
+      "gap_limit": 20
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "task_id": 6
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

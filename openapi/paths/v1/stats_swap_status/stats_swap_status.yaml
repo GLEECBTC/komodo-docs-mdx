@@ -1,0 +1,42 @@
+/stats_swap_status:
+  post:
+    summary: Return aggregated statistics on swap statuses (legacy API).
+    description: Return aggregated statistics on swap statuses (legacy API).
+    operationId: stats_swap_status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: RPC password (`RPC_UserP@SSW0RD`).
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - stats_swap_status
+            required:
+            - userpass
+            - method
+            - userpass
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_swaps:
+                type: integer
+                description: Total number of swaps recorded.
+              success_rate:
+                type: string
+                description: Percentage of successful swaps.
+              fail_rate:
+                type: string
+                description: Percentage of failed swaps.
+          example: {}

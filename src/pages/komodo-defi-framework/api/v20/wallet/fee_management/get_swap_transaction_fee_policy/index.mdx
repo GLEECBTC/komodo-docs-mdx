@@ -2,17 +2,27 @@ export const title = "Komodo DeFi Framework Method: Get Swap Transaction Fee Pol
 export const description =
   "The get_swap_transaction_fee_policy method allows you to get the current gas fees policy used when estimating swap transaction fees for supported for ETH/EVM coins/tokens..";
 
-# get\_swap\_transaction\_fee\_policy
+# Get Swap Transaction Fee Policy
 
-The `get_swap_transaction_fee_policy` method allows you to get the current gas fees policy used when estimating swap transaction fees for supported for ETH/EVM coins/tokens.
+## get\_swap\_transaction\_fee\_policy {{label : 'get_swap_transaction_fee_policy', tag : 'API-v2'}}
 
-| parameter | Type   | Description                                                                              |
-| --------- | ------ | ---------------------------------------------------------------------------------------- |
-| coin      | string | Ticker of the supported ETH/EVM coin/asset for which we want to view the fee policy for. |
+The `get_swap_transaction_fee_policy` method allows you to get the current gas fee policy used when estimating swap transaction fees for supported ETH/EVM coins or tokens.
 
-## Request
+### Request Parameters
 
-<CodeGroup title="" tag="POST" label="get_swap_transaction_fee_policy" mm2MethodDecorate="true">
+| Parameter | Type   | Required | Description                                                                              |
+| --------- | ------ | :------: | ---------------------------------------------------------------------------------------- |
+| coin      | string |     ✓    | Ticker of the supported ETH/EVM coin or asset for which you want to view the fee policy. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                    |
+| --------- | ------ | ---------------------------------------------- |
+| result    | string | The current fee policy for the specified coin. |
+
+#### 📌 Examples
+
+<CodeGroup title="Get Swap Transaction Fee Policy" tag="POST" label="get_swap_transaction_fee_policy" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -25,13 +35,14 @@ The `get_swap_transaction_fee_policy` method allows you to get the current gas f
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Get Swap Transaction Fee Policy Response" collapsedText="Show Get Swap Transaction Fee Policy Response">
+  ### Response
 
-```json
-{
-    "mmrpc": "2.0",
-    "result": "High",
-    "id": null
-}
-
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": "High",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

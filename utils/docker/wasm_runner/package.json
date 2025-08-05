@@ -1,0 +1,18 @@
+{
+  "name": "kdf-wasm-runner",
+  "version": "1.0.0",
+  "description": "A runner for the KDF WASM module using Puppeteer.",
+  "main": "server.cjs",
+  "type": "module",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000"
+  },
+  "dependencies": {
+    "puppeteer": "^22.12.1",
+    "vite": "^5.3.1",
+    "ws": "^8.18.0"
+  }
+} 

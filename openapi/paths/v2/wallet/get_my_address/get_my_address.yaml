@@ -1,0 +1,59 @@
+/get_my_address:
+  post:
+    summary: Method description for get_my_address
+    description: Method description for get_my_address
+    operationId: get_my_address
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_my_address
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Coin ticker whose address should be returned (e.g.
+                      `ETH`, `MATIC`).
+                  path_to_address:
+                    type: object
+                    description: Optional HD-wallet path segment identifying the account
+                      and address index to derive. If omitted, the default external
+                      address (`m/44'/coin_type'/0'/0/0`) is used.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: Coin ticker, echoes the request value.
+              wallet_address:
+                type: string
+                description: Wallet address for the specified coin.
+          example: {}

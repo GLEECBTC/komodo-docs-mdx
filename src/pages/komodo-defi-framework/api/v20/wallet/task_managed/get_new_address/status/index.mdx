@@ -1,0 +1,94 @@
+export const title = "Komodo DeFi Framework Method: Get New Address Task Status";
+export const description = "Check the status of a HD address creation task in the Komodo DeFi Framework API.";
+
+# Get New Address Task Status
+
+## task::get\_new\_address::status   {{label : 'task::get_new_address::status', tag : 'API-v2'}}
+
+Use the `task::get_new_address::status` method to check the status of a HD address creation task.
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                 |
+| -------------------- | ------- | :------: | :-----: | ----------------------------------------------------------- |
+| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the task.   |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks. |
+
+### Response Parameters
+
+| Parameter | Type             | Description                                                                                                                 |
+| --------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                          |
+| details   | string or object | Once complete, a standard [NewAddressesInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) object. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::get_new_address::status" tag="POST" label="task::get_new_address::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::get_new_address::status",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "new_address": {
+              "address": "RDKyU11wFTa8kYETaDbr4YuJZG8C4e6JUm",
+              "derivation_path": "m/44'/141'/0'/0/3",
+              "chain": "External",
+              "balance": {
+                  "spendable": "0",
+                  "unspendable": "0"
+              }
+          }
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                          |
+| ------------ | ------ | ---------------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired.         |
+| TaskFinished | string | The task is already finished and cannot be canceled. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
+  }
+  ```
+
+  ##### Error Response (Task Finished)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
+  }
+  ```
+</CollapsibleSection>

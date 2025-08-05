@@ -1,0 +1,35 @@
+/rational_number_type:
+  post:
+    summary: The Komodo DeFi Framework API now offers the num-rational crate feature.
+      This is used to represent order volumes and prices.
+    description: The Komodo DeFi Framework API now offers the num-rational crate feature.
+      This is used to represent order volumes and prices.
+    operationId: rational_number_type
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - rational_number_type
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

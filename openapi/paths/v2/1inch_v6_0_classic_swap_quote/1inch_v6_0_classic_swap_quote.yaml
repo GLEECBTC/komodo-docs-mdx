@@ -1,0 +1,122 @@
+/1inch_v6_0_classic_swap_quote:
+  post:
+    summary: Method description for 1inch_v6_0_classic_swap_quote
+    description: Method description for 1inch_v6_0_classic_swap_quote
+    operationId: 1inch_v6_0_classic_swap_quote
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - 1inch_v6_0_classic_swap_quote
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  amount:
+                    type: string
+                    description: Swap amount (in coins units)
+                  base:
+                    type: string
+                    description: Base coin name
+                  rel:
+                    type: string
+                    description: Rel coin name (must be from the same EVM chain as
+                      the base coin)
+                  complexity_level:
+                    type: number
+                    description: 'Maximum number of token-connectors to be used in
+                      a transaction, min: 0; max: 3'
+                  connector_tokens:
+                    type: boolean
+                    description: Token-connectors can be specified via this parameter.
+                      If not set, default token-connectors will be used
+                    default: false
+                  fee:
+                    type: number
+                    description: 'Partner fee, percentage of src token amount will
+                      be sent to referrer address, min: 0; max: 3. Should be the same
+                      for quote and swap.'
+                  gas_limit:
+                    type: number
+                    description: 'Maximum amount of gas for a swap. Should be the
+                      same for a quote and swap. max: 11500000'
+                  gas_price:
+                    type: string
+                    description: Network price per gas, in Gwei. 1inch takes in account
+                      gas expenses to determine exchange route. Should be the same
+                      for a quote and swap
+                  include_gas:
+                    type: boolean
+                    description: Include estimated gas in return value
+                    default: false
+                  include_protocols:
+                    type: boolean
+                    description: Return used swap protocols in response
+                    default: false
+                  include_tokens_info:
+                    type: boolean
+                    description: Return fromToken and toToken info in response
+                    default: false
+                  main_route_parts:
+                    type: number
+                    description: 'Limit maximum number of main route parts. Should
+                      be the same for a quote and swap. max: 50'
+                  parts:
+                    type: number
+                    description: 'Limit maximum number of parts each main route parts
+                      can be split into. Should be the same for a quote and swap.
+                      max: 100'
+                  protocols:
+                    type: string
+                    description: 'Specify liquidity sources e.g.: \&protocols=WETH,CURVE,BALANCER,...,ZRX
+                      (by default - all used)'
+                required:
+                - amount
+                - base
+                - rel
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              dst_amount:
+                type: number
+                description: Destination token amount, in coins units.
+              src_token:
+                description: Source (base) token information. A standard [1inchTokenInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-token-info)
+                  object.
+                $ref: ../../components/schemas/1inchTokenInfo.yaml
+              dst_token:
+                description: Destination (rel) token info. A standard [1inchTokenInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-token-info)
+                  object.
+                $ref: ../../components/schemas/1inchTokenInfo.yaml
+              protocols:
+                description: Optional. A list of standard [1inchProtocolInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-protocol-info)
+                  objects, used as liquidity sources used to route trade.
+                $ref: ../../components/schemas/1inchProtocolInfo.yaml
+              gas:
+                type: string
+                description: Optional. Estimated gas.
+          example: {}

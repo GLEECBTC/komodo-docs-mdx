@@ -1,0 +1,54 @@
+/gui_storage::set_account_description:
+  post:
+    summary: Update the descriptive text of a GUI-storage account.
+    description: Update the descriptive text of a GUI-storage account.
+    operationId: gui_storage::set_account_description
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::set_account_description
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Account to update.
+                  description:
+                    type: string
+                    description: New description (≤ 600 characters).
+                required:
+                - account_id
+                - description
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns `success` when the description has been updated.
+          example: {}

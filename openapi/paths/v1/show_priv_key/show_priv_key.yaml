@@ -1,0 +1,45 @@
+/show_priv_key:
+  post:
+    summary: The show_priv_key method returns the private key of the specified coin
+      in a format compatible with coin wallets.
+    description: The show_priv_key method returns the private key of the specified
+      coin in a format compatible with coin wallets.
+    operationId: show_priv_key
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - show_priv_key
+              coin:
+                type: string
+                description: The name of the coin of the private key to show
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The name of the coin
+              priv_key:
+                type: string
+                description: The private key of the coin
+          example: {}

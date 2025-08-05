@@ -1,0 +1,16 @@
+components:
+  schemas:
+    BalanceInfo:
+      type: object
+      properties:
+        spendable:
+          type: string
+          description: The available amount of a coin or token which is ready to be
+            traded or withdrawn.
+        unspendable:
+          type: string
+          description: The amount of a coin or token which is awaiting confirmation
+            on the block chain for an incoming or outgoing transaction.
+      required:
+      - spendable
+      - unspendable

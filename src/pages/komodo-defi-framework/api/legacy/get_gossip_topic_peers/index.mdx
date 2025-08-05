@@ -1,29 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Get Gossip Topic Peers";
 export const description = "The get_gossip_topic_peers method returns a map of topics to an array of the PeerIDs which are subscribers.";
 
-# get\_gossip\_topic\_peers
+# Get Gossip Topic Peers
 
-**get\_gossip\_topic\_peers**
+## get\_gossip\_topic\_peers {{label : 'get_gossip_topic_peers', tag : 'API-v1'}}
 
 The `get_gossip_topic_peers` method returns a map of topics to an array of the PeerIDs which are subscribers.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response parameters
 
-| Structure        | Type  | Description                   |
+| Parameter        | Type  | Description                   |
 | ---------------- | ----- | ----------------------------- |
-| Topic-PeerID map | Array | PeerIDs subscribed to a topic |
+| Topic-PeerID map | array | PeerIDs subscribed to a topic |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="get_gossip_topic_peers" mm2MethodDecorate="true">
+<CodeGroup title="get_gossip_topic_peers" tag="POST" label="get_gossip_topic_peers" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,11 +33,19 @@ The `get_gossip_topic_peers` method returns a map of topics to an array of the P
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response
 
   ```json
   {
-    "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
+      "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
+
+  ```json
+  { "error": "No topic peers found" }
   ```
 </CollapsibleSection>

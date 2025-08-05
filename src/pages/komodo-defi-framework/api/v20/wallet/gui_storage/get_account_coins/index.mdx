@@ -1,0 +1,63 @@
+export const title = "Komodo DeFi Framework Method: Get Account Coins";
+export const description = "Return the set of coin tickers associated with a specific GUI-storage account.";
+
+# Get Coins for GUI Storage Account
+
+## gui\_storage::get\_account\_coins {{label : 'gui_storage::get_account_coins', tag : 'API-v2'}}
+
+Fetches the list of coin tickers stored against the given `account_id`.
+
+### Request Parameters
+
+| Parameter   | Type                                                                         | Required | Description                                   |
+| ----------- | ---------------------------------------------------------------------------- | :------: | --------------------------------------------- |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Account whose ticker list should be returned. |
+
+### Response Parameters
+
+| Parameter   | Type                                                                         | Description                                              |
+| ----------- | ---------------------------------------------------------------------------- | -------------------------------------------------------- |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) | Account identifier echo.                                 |
+| coins       | array of strings                                                             | Sorted set of tickers currently attached to the account. |
+
+#### 📌 Example
+
+<CodeGroup title="get_account_coins" tag="POST" label="gui_storage::get_account_coins" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::get_account_coins",
+    "params": {
+      "account_id": {
+        "type": "hd",
+        "account_idx": 0
+      }
+    },
+    "id": 14,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (example)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "account_id": { "type": "hd", "account_idx": 0 },
+      "coins": ["BTC", "KMD"]
+    },
+    "id": 14
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                |
+| ------------------- | ------ | ------------------------------------------ |
+| NoSuchAccount       | string | The specified `account_id` does not exist. |
+| ErrorLoadingAccount | string | Storage read error.                        |
+| InternalError       | string | Unhandled internal error.                  |

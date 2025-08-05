@@ -1,0 +1,20 @@
+components:
+  schemas:
+    NumericFormatsValue:
+      type: object
+      properties:
+        decimal:
+          type: string
+          description: A decimal number as a string.
+        rational:
+          description: A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+            object.
+          $ref: '#/components/schemas/RationalValue'
+        fraction:
+          description: A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+            object.
+          $ref: '#/components/schemas/FractionalValue'
+      required:
+      - decimal
+      - fraction
+      - rational

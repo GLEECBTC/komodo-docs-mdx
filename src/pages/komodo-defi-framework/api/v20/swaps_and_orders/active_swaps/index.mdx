@@ -1,20 +1,21 @@
-export const title = "Komodo DeFi Framework Method: Active Swaps (v2)";
-export const description =
-  "The active_swaps method returns all the swaps that are currently running on the Komodo DeFi Framework API node.";
+export const title = "Komodo DeFi Framework Method: Active Swaps";
+export const description = "The active_swaps method returns all the swaps that are currently running on the Komodo DeFi Framework API node.";
 
-# active\_swaps
+# Active Swaps
+
+## active\_swaps {{label : 'active_swaps', tag : 'API-v2'}}
 
 The `active_swaps` method returns all the swaps that are currently running on the Komodo DeFi Framework API node.
 
-## Arguments
+### Request Parameters
 
-| Structure       | Type | Description                                                                  |
-| --------------- | ---- | ---------------------------------------------------------------------------- |
-| include\_status | bool | Optional, defaults to `false`. Whether to include swap statuses in response; |
+| Parameter       | Type | Required | Default | Description                                   |
+| --------------- | ---- | :------: | :-----: | --------------------------------------------- |
+| include\_status | bool |     ✗    | `false` | Whether to include swap statuses in response. |
 
-## Response
+### Response Parameters
 
-| Structure | Type             | Description                                                                                                                                                                                            |
+| Parameter | Type             | Description                                                                                                                                                                                            |
 | --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | uuids     | array of strings | A list of currently active swap UUIDs.                                                                                                                                                                 |
 | statuses  | object (map)     | Only visible if `include_status` request parameter is `true`. A map of standard [SwapStatus](/komodo-defi-framework/api/common_structures/swaps/#swap-status) objects, delineated by the related UUID. |
@@ -23,7 +24,7 @@ The `active_swaps` method returns all the swaps that are currently running on th
 
 #### Command (without include\_status)
 
-<CodeGroup title="" tag="POST" label="active_swaps" mm2MethodDecorate="true">
+<CodeGroup title="Active Swaps (without include_status)" tag="POST" label="active_swaps" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -57,7 +58,7 @@ The `active_swaps` method returns all the swaps that are currently running on th
 
 #### Command (include\_status = true)
 
-<CodeGroup title="" tag="POST" label="active_swaps" mm2MethodDecorate="true">
+<CodeGroup title="Active Swaps" tag="POST" label="active_swaps" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -196,17 +197,41 @@ The `active_swaps` method returns all the swaps that are currently running on th
                             }
                         },
                         {
-                            "timestamp": 1730633839137,
+                            "timestamp": 1730633839140,
                             "event": {
-                                "type": "WatcherMessageSent",
-                                "data": [
-                                    [
-                                        ...
-                                    ],
-                                    [
-                                        ...
-                                    ]
-                                ]
+                                "type": "TakerPaymentWaitConfirmStarted"
+                            }
+                        },
+                        {
+                            "timestamp": 1730633842140,
+                            "event": {
+                                "type": "TakerPaymentValidatedAndConfirmed"
+                            }
+                        },
+                        {
+                            "timestamp": 1730633845140,
+                            "event": {
+                                "type": "MakerPaymentSpent",
+                                "data": {
+                                    "tx_hex": "0400008085202f89011cc278c0d1e427098cda83604c9bbc51f8fba91947778b561c753e9f94b9eb3f010000006a473044022024b2c5bc5b23e8e774f6a8001de8f94a4e6888456722fede2be6b061d6d93c9302203805a7d1c9361fee2066e26f6196476f73f34246f60308cfafa3783a94a3cab30121034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256ffffffff03001c4e0e0000000017a914fbb04e8d9b7b4098c887aed16124291646462525870000000000000000166a14b476e27c0c6680ac67765163b1b5736dd7649512a00ef508120000001976a914d64ad24e655ba7221ea51c7931aad5b98da77f3c88ac6c602767000000000000000000000000000000",
+                                    "tx_hash": "08e94af501630e46f4b2c5d64e6851c6bc9a3828506fef9f6668938d36c7b2da"
+                                }
+                            }
+                        },
+                        {
+                            "timestamp": 1730633848140,
+                            "event": {
+                                "type": "TakerPaymentSpent",
+                                "data": {
+                                    "tx_hex": "0400008085202f89011cc278c0d1e427098cda83604c9bbc51f8fba91947778b561c753e9f94b9eb3f010000006a473044022024b2c5bc5b23e8e774f6a8001de8f94a4e6888456722fede2be6b061d6d93c9302203805a7d1c9361fee2066e26f6196476f73f34246f60308cfafa3783a94a3cab30121034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256ffffffff03001c4e0e0000000017a914fbb04e8d9b7b4098c887aed16124291646462525870000000000000000166a14b476e27c0c6680ac67765163b1b5736dd7649512a00ef508120000001976a914d64ad24e655ba7221ea51c7931aad5b98da77f3c88ac6c602767000000000000000000000000000000",
+                                    "tx_hash": "08e94af501630e46f4b2c5d64e6851c6bc9a3828506fef9f6668938d36c7b2da"
+                                }
+                            }
+                        },
+                        {
+                            "timestamp": 1730633851140,
+                            "event": {
+                                "type": "SwapFinished"
                             }
                         }
                     ],

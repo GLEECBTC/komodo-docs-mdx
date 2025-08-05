@@ -1,0 +1,97 @@
+components:
+  schemas:
+    NftTransfer:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Amount of tokens transferred.
+        block_hash:
+          type: string
+          description: May be `null`. Hash of block in which transfer occurred.
+        block_number:
+          type: integer
+          description: Height of block in which transfer occurred.
+        block_timestamp:
+          type: integer
+          description: Block time in [unix epoch format](https://www.epochconverter.com/).
+        chain:
+          type: string
+          description: Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or
+            `POLYGON`.
+        token_uri:
+          type: string
+          description: May be `null`. The URI to the metadata of the token.
+        token_domain:
+          type: string
+          description: May be `null`. Extracted domain from the `token_uri`, if valid.
+        collection_name:
+          type: string
+          description: May be `null`. Name of collection which token belongs to.
+        image_url:
+          type: string
+          description: May be `null`. The URI to the token image.
+        image_domain:
+          type: string
+          description: May be `null`. Extracted domain from the `image_url`, if valid.
+        token_name:
+          type: string
+          description: May be `null`. Name of the token.
+        contract_type:
+          type: string
+          description: Contract type. `ERC721` or `ERC1155`.
+        token_address:
+          type: string
+          description: Address of token transferred.
+        token_id:
+          type: string
+          description: Token ID.
+        possible_spam:
+          type: boolean
+          description: If `true`, the contract address has [been identified](https://docs.moralis.io/web3-data-api/evm/nft-spam-detection)
+            as associated with spam or suspicious activities.
+        possible_phishing:
+          type: boolean
+          description: If `true`, the token has been identified as associated with
+            phishing, as at least one of domain fields is found in database with phishing
+            domains.
+        transaction_hash:
+          type: string
+          description: Transaction ID of the transfer.
+        transaction_index:
+          type: string
+          description: May be `null`. Transaction index of the transfer.
+        log_index:
+          type: string
+          description: Log index of the transfer.
+        value:
+          type: string
+          description: May be `null`. Tranfer value.
+        transaction_type:
+          type: string
+          description: May be `null`. Transaction type. Possible values are `Single`.
+        from_address:
+          type: string
+          description: Address of previous owner which sent the token(s).
+        to_address:
+          type: string
+          description: Address of new owner which received the token(s).
+        status:
+          type: string
+          description: Transfer status. Will be either `Send` or `Receive`. When the
+            `from_address` and `to_address` are the same (i.e. sending to yourself),
+            this value will be `Receive`.
+        verified:
+          type: integer
+          description: May be `null`. A deprecated field which will be removed in
+            future.
+        operator:
+          type: string
+          description: May be `null`.
+        fee_details:
+          description: Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info)
+            object.
+          $ref: '#/components/schemas/FeeInfo'
+        confirmations:
+          type: integer
+          description: The count of blocks produced since this transaction was confirmed.

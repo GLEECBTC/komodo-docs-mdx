@@ -1,20 +1,63 @@
 export const title = "Komodo DeFi Framework Method: Help";
 export const description = "The help method returns the full API documentation in the terminal.";
 
-# help
+# Help
 
-**help()**
+## help {{label : 'help', tag : 'API-v1'}}
 
 The `help` method returns the full API documentation in the terminal.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+<Note type="info">
+  This method does not require a `userpass` value in the request.
+</Note>
 
-| Structure                               | Type | Description |
-| --------------------------------------- | ---- | ----------- |
-| (returns the documentation in terminal) |      |             |
+### Response
+
+| Parameter | Type | Description                                            |
+| --------- | ---- | ------------------------------------------------------ |
+| (output)  | -    | The full API documentation is printed to the terminal. |
+
+#### 📌 Example
+
+#### Request
+
+<CodeGroup title="help" tag="POST" label="help" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "help",
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<Note type="warning">
+  The response from this method is only a small part of the available KDF methods.
+</Note>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```text
+
+        buy(base, rel, price, relvolume, timeout=10, duration=3600)
+        electrum(coin, urls)
+        enable(coin, urls, swap_contract_address)
+        myprice(base, rel)
+        my_balance(coin)
+        my_swap_status(params/uuid)
+        orderbook(base, rel, duration=3600)
+        sell(base, rel, price, basevolume, timeout=10, duration=3600)
+        send_raw_transaction(coin, tx_hex)
+        setprice(base, rel, price, broadcast=1)
+        stop()
+        version
+        withdraw(coin, amount, to)
+    
+  ```
+</CollapsibleSection>

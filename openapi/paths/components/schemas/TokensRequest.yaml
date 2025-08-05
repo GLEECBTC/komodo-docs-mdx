@@ -1,0 +1,16 @@
+components:
+  schemas:
+    TokensRequest:
+      type: object
+      properties:
+        ticker:
+          type: string
+          description: Ticker of the token to be enabled
+          default: '`-`'
+        required_confirmations:
+          type: integer
+          description: How many confirmations to wait during the transaction steps
+            of an atomic swap. Overwrites value in coins file
+          default: '`3`'
+      required:
+      - ticker

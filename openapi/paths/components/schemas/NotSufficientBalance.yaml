@@ -1,0 +1,21 @@
+components:
+  schemas:
+    NotSufficientBalance:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: the name of the coin which balance is not sufficient. This
+            coin name may differ from the requested coin. For example, ERC20 fees
+            are paid by ETH (gas)
+        available:
+          type: string
+          description: the balance available for transfer
+        required:
+          type: string
+          description: the amount required to transfer the specified amount. This
+            amount is necessary but may not be sufficient
+      required:
+      - available
+      - coin
+      - required

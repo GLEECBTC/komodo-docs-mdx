@@ -1,0 +1,53 @@
+/1inch_v6_0_classic_swap_contract:
+  post:
+    summary: Return the router contract address used for 1inch Classic Swap v6.0 on
+      a given EVM chain.
+    description: Return the router contract address used for 1inch Classic Swap v6.0
+      on a given EVM chain.
+    operationId: 1inch_v6_0_classic_swap_contract
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - 1inch_v6_0_classic_swap_contract
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  chain_id:
+                    type: number
+                    description: EVM Chain ID (e.g., `1` for Ethereum mainnet).
+                required:
+                - chain_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              contract_address:
+                type: string
+                description: Hex address of the 1inch router contract for the specified
+                  chain.
+          example: {}

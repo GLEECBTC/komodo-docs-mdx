@@ -1,8 +1,14 @@
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import * as fs from "fs";
-import * as path from "path";
 
-const sidebarNavData = JSON.parse(fs.readFileSync("./src/data/sidebar.json", 'utf8'))
-const navbarNavData = JSON.parse(fs.readFileSync("./src/data/navbar.json", 'utf8'))
+const pagesDir = path.resolve(__dirname, '../../src/pages');
+const dataDir = path.resolve(__dirname, '../../src/data');
+
+const sidebarNavData = JSON.parse(fs.readFileSync(path.join(dataDir, 'sidebar.json'), 'utf8'))
+const navbarNavData = JSON.parse(fs.readFileSync(path.join(dataDir, 'navbar.json'), 'utf8'))
 
 function walkDir(dirPath, callback) {
   fs.readdirSync(dirPath).forEach((file) => {
@@ -45,7 +51,7 @@ function findMissingIndexInDirs(dirPath) {
   }
 }
 
-findMissingIndexInDirs("./src/pages");
+findMissingIndexInDirs(pagesDir);
 
 // check if every dir contains a index.mdx file and if every page is present in sidebar.json
 
@@ -55,7 +61,7 @@ const getFileNames = (filepath) => {
     !(filepath.endsWith("/_app.tsx") || filepath.endsWith("/_document.tsx") || filepath.toLowerCase().includes(".ds_store"))
   ) {
     let filePathURL = filepath
-      .replace("src/pages", "")
+      .replace(pagesDir, "")
       .replace("index.mdx", "");
     fileNames.push(filePathURL);
   }
@@ -70,7 +76,7 @@ function isValidUrl(urlString) {
   }
 }
 
-walkDir("./src/pages", getFileNames);
+walkDir(pagesDir, getFileNames);
 
 const invalidFilenames = fileNames.filter(fileName => {
   return isValidUrl("https://www.example.com" + fileName) && /[A-Z]/.test(fileName)

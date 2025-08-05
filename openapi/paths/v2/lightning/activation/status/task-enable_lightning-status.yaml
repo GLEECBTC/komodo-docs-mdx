@@ -1,0 +1,54 @@
+/task::enable_lightning::status:
+  post:
+    summary: Check the status of a lightning node initialization task on the Komodo
+      DeFi Framework.
+    description: Check the status of a lightning node initialization task on the Komodo
+      DeFi Framework.
+    operationId: task::enable_lightning::status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_lightning::status
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The task id returned from `task::enable_lightning::init`.
+                  forget_if_finished:
+                    type: boolean
+                    description: If `false`, the status of the `task_id` will still
+                      be available after the task has completed.
+                    default: true
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

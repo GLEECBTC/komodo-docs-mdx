@@ -1,0 +1,59 @@
+export const title = "Komodo DeFi Framework Method: Delete GUI Storage Account";
+export const description = "Remove an existing account record from the Komodo DeFi Framework GUI-storage subsystem.";
+
+# Delete GUI Storage Account
+
+## gui\_storage::delete\_account {{label : 'gui_storage::delete_account', tag : 'API-v2'}}
+
+Deletes an account entry from GUI storage. This operation only affects the wallet's metadata database and **does not** touch MarketMaker's in-memory state.
+
+### Request Parameters
+
+| Parameter   | Type                                                                         | Required | Description                          |
+| ----------- | ---------------------------------------------------------------------------- | :------: | ------------------------------------ |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Identifier of the account to delete. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                          |
+| --------- | ------ | ---------------------------------------------------- |
+| result    | string | Returns `success` when the account has been removed. |
+
+#### 📌 Example
+
+<CodeGroup title="delete_account" tag="POST" label="gui_storage::delete_account" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::delete_account",
+    "params": {
+      "account_id": {
+        "type": "iguana"
+      }
+    },
+    "id": 3,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 3
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                               |
+| ------------------- | ------ | ----------------------------------------- |
+| NoSuchAccount       | string | The specified `account_id` was not found. |
+| ErrorLoadingAccount | string | Storage read error.                       |
+| ErrorSavingAccount  | string | Storage write error.                      |
+| InternalError       | string | Unhandled internal error.                 |

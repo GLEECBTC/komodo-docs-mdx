@@ -1,0 +1,60 @@
+/task::connect_metamask::status:
+  post:
+    summary: Query the status of a running MetaMask connection task.
+    description: Query the status of a running MetaMask connection task.
+    operationId: task::connect_metamask::status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::connect_metamask::status
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The `task_id` returned by the *init* call.
+                  forget_if_finished:
+                    type: boolean
+                    description: If `false`, the final (completed) response is returned
+                      on every call.
+                    default: true
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: A short indication of how the connection process is progressing
+                  (`Initializing`, `SigningLoginMetadata`, `Ok`, or `Error`).
+              details:
+                type: object
+                description: Extra data whose structure depends on the current `status`.
+                  See examples below. In the successful case it contains `eth_address`.
+          example: {}

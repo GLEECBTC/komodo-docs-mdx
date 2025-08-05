@@ -1,38 +1,42 @@
 export const title = "Komodo DeFi Framework Method: My TX History";
 export const description = "The my_tx_history method allows you to view the transaction history of coins.";
 
-# my\_tx\_history
+# My TX History
+
+## my\_tx\_history {{label : 'my_tx_history', tag : 'API-v2'}}
 
 To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin.
 For ZHTLC coins, you must use the [z\_coin\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/) method.
 For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method.
 
-## Arguments
+### Request Parameters
 
-| parameter       | Type    | Description                                                                                                       |
-| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| coin            | string  | Ticker of the coin to get history for.                                                                            |
-| limit           | integer | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`.                  |
-| paging\_options | object  | Optional. A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination) object.               |
-| target          | object  | Optional. A standard [HistoryTarget](/komodo-defi-framework/api/common_structures/wallet/#history-target) object. |
+| Parameter       | Type    | Required | Default | Description                                                                                             |
+| --------------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------- |
+| coin            | string  |     ✓    |    -    | Ticker of the coin to get history for.                                                                  |
+| limit           | integer |     ✗    |   `10`  | Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`.                  |
+| paging\_options | object  |     ✗    |    -    | A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination) object.               |
+| target          | object  |     ✗    |    -    | A standard [HistoryTarget](/komodo-defi-framework/api/common_structures/wallet/#history-target) object. |
 
-#### Response
+### Response Parameters
 
-| Structure      | Type             | Description                                                                                                                                                                                          |
+| Parameter      | Type             | Description                                                                                                                                                                                          |
 | -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| transactions   | array of objects | transactions data                                                                                                                                                                                    |
-| from\_id       | string           | the from\_id specified in the request; this value is null if from\_id was not set                                                                                                                    |
-| skipped        | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                                                                             |
-| limit          | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page)                                                       |
-| total          | number           | the total number of transactions available                                                                                                                                                           |
-| page\_number   | number           | the page\_number that was set in the request                                                                                                                                                         |
-| total\_pages   | number           | total pages available with the selected limit                                                                                                                                                        |
 | current\_block | number           | the number of the latest block of coin blockchain                                                                                                                                                    |
+| from\_id       | string           | the from\_id specified in the request; this value is null if from\_id was not set                                                                                                                    |
+| limit          | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page)                                                       |
+| page\_number   | number           | the page\_number that was set in the request                                                                                                                                                         |
+| skipped        | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                                                                             |
 | sync\_status   | object           | A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status) object. Provides the information that helps to track the progress of transaction history preloading at background |
+| total          | number           | the total number of transactions available                                                                                                                                                           |
+| total\_pages   | number           | total pages available with the selected limit                                                                                                                                                        |
+| transactions   | array of objects | transactions data                                                                                                                                                                                    |
 
-## HD Wallet Account Request
+#### 📌 Examples
 
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+##### HD Wallet Account Request
+
+<CodeGroup title="HD Wallet Account Request" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -46,15 +50,15 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
       },
       "target": {
         "type": "account_id",
-        "account_id": 77
+        "account_id": 0
       }
     }
   }
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ### Response
+<CollapsibleSection expandedText="Hide HD Wallet Account Response" collapsedText="Show HD Wallet Account Response">
+  ##### HD Wallet Account Response
 
   ```json
   {
@@ -111,9 +115,9 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CollapsibleSection>
 
-## HD Wallet Address Request
+##### HD Wallet Address Request
 
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+<CodeGroup title="HD Wallet Address Request" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -136,8 +140,8 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ### Response
+<CollapsibleSection expandedText="Hide HD Wallet Address Response" collapsedText="Show HD Wallet Address Response">
+  ##### HD Wallet Address Response
 
   ```json
   {
@@ -196,7 +200,9 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CollapsibleSection>
 
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+##### BCH Request with Pagination
+
+<CodeGroup title="BCH Request with Pagination" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -213,8 +219,8 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ### Response
+<CollapsibleSection expandedText="Hide BCH Response" collapsedText="Show BCH Response">
+  ##### BCH Request with Pagination Response
 
   ```json
   {
@@ -295,7 +301,7 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
 
 ## Request (BCH with FromId)
 
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+<CodeGroup title="TTT-SLP Request with FromId" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -312,8 +318,8 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ### Response
+<CollapsibleSection expandedText="Hide TTT-SLP Response" collapsedText="Show TTT-SLP Response">
+  ##### TTT-SLP Request with FromId Response
 
   ```json
   {
@@ -368,9 +374,9 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CollapsibleSection>
 
-## Request (IRIS with limit = 50)
+##### IRIS Request with High Limit
 
-<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+<CodeGroup title="IRIS Request with High Limit" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -384,8 +390,8 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ### Response
+<CollapsibleSection expandedText="Hide IRIS Response" collapsedText="Show IRIS Response">
+  ##### IRIS Request with High Limit Response
 
   ```json
   {
@@ -484,6 +490,48 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
       }
     },
     "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter        | Type   | Description                                                              |
+| ---------------- | ------ | ------------------------------------------------------------------------ |
+| NoSuchCoin       | string | The specified coin was not found or is not activated yet                 |
+| InvalidHashError | string | The specified `hash` is not valid                                        |
+| Transport        | string | The request was failed due to a network error                            |
+| HashNotExist     | string | The specified `hash` does not exist                                      |
+| InternalError    | string | The request was failed due to a Komodo DeFi Framework API internal error |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Coin)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin KMD",
+      "error_path": "lp_coins",
+      "error_trace": "lp_coins:2234] lp_coins:2156]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "KMD"
+      },
+      "id": 0
+  }
+  ```
+
+  ##### Error (Invalid Hash)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Invalid  hash: Invalid input length",
+      "error_path": "utxo_common",
+      "error_trace": "utxo_common:1809]",
+      "error_type": "InvalidHashError",
+      "error_data": "Invalid input length",
+      "id": 1
   }
   ```
 </CollapsibleSection>

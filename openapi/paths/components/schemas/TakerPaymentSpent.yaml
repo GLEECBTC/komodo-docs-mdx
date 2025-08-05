@@ -1,0 +1,22 @@
+components:
+  schemas:
+    TakerPaymentSpent:
+      type: object
+      properties:
+        secret:
+          type: string
+          description: the atomic swap secret extracted from spending transaction
+        transaction:
+          type: object
+          description: transaction object
+        transaction.tx_hash:
+          type: string
+          description: the hash of the transaction
+        transaction.tx_hex:
+          type: string
+          description: transaction bytes in hexadecimal format
+      required:
+      - secret
+      - transaction
+      - transaction.tx_hash
+      - transaction.tx_hex

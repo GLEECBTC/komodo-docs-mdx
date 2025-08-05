@@ -1,0 +1,50 @@
+/validateaddress:
+  post:
+    summary: The validateaddress method checks if an input string is a valid address
+      of the specified coin.
+    description: The validateaddress method checks if an input string is a valid address
+      of the specified coin.
+    operationId: validateaddress
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - validateaddress
+              coin:
+                type: string
+                description: The coin to validate address for
+              address:
+                type: string
+                description: The input string to validate
+            required:
+            - userpass
+            - method
+            - coin
+            - address
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              is_valid:
+                type: boolean
+                description: Whether input string is a valid coin address.
+              reason:
+                type: string
+                description: Only present if not valid. The reason why input string
+                  is not a valid address.
+          example: {}

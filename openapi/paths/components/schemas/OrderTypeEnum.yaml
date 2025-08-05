@@ -1,0 +1,19 @@
+components:
+  schemas:
+    OrderTypeEnum:
+      type: string
+      description: 'Used in [orders\_history\_by\_filter](/komodo-defi-framework/api/legacy/orders_history_by_filter/)
+        to filter by order role:
+
+
+        **Values:**
+
+        - `Maker`: Orders that provide liquidity to the orderbook
+
+        - `Taker`: Orders that consume liquidity from the orderbook
+
+        '
+      enum:
+      - Maker
+      - Taker
+      title: 'Component: OrderTypeEnum'

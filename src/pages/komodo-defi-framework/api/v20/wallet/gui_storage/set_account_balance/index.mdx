@@ -1,0 +1,63 @@
+export const title = "Komodo DeFi Framework Method: Set GUI Storage Account Balance";
+export const description = "Update the stored USD balance value for a specific GUI-storage account (does not affect on-chain funds).";
+
+# Set GUI Storage Account Balance
+
+## gui\_storage::set\_account\_balance {{label : 'gui_storage::set_account_balance', tag : 'API-v2'}}
+
+Sets or overrides the **USD balance snapshot** for the given account in the local GUI-storage database.\
+This value is informational only and does **not** change any on-chain balances or affect swap operations.
+
+### Request Parameters
+
+| Parameter    | Type                                                                         | Required | Description                                                                    |
+| ------------ | ---------------------------------------------------------------------------- | :------: | ------------------------------------------------------------------------------ |
+| account\_id  | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Account to update.                                                             |
+| balance\_usd | number (string)                                                              |     ✓    | New balance expressed in US dollars. Accepts decimal strings (e.g., `123.45`). |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                         |
+| --------- | ------ | --------------------------------------------------- |
+| result    | string | Returns `success` when the balance has been stored. |
+
+#### 📌 Example
+
+<CodeGroup title="set_account_balance" tag="POST" label="gui_storage::set_account_balance" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::set_account_balance",
+    "params": {
+      "account_id": {
+        "type": "hd",
+        "account_idx": 0
+      },
+      "balance_usd": "2500.75"
+    },
+    "id": 18,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 18
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                |
+| ------------------- | ------ | ------------------------------------------ |
+| NoSuchAccount       | string | The specified `account_id` does not exist. |
+| ErrorLoadingAccount | string | Storage read error.                        |
+| ErrorSavingAccount  | string | Storage write error.                       |
+| InternalError       | string | Unhandled internal error.                  |

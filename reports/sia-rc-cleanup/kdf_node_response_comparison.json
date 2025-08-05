@@ -1,0 +1,1792 @@
+{
+  "scan_metadata": {
+    "kdf_branch": "sia-rc-cleanup",
+    "mdx_branch": "add/postman/utils",
+    "kdf_commit": "aee8e9ed338fd288881d1b6ae537d7faa24964fc",
+    "mdx_commit": "9c2d86b7610bf959d4a722979f2e8cf63fd40457",
+    "generated_at": "2025-06-30T21:22:04.559782",
+    "scanner_type": "NODE_RESPONSE_COMPARISON",
+    "scanner_version": "KDFTools v1.0.0",
+    "generated_during": "node_response_comparison_scan",
+    "method_source": "Postman JSON examples (dev branch)",
+    "is_primary_data_source": false,
+    "total_methods_differing": {
+      "all": 159,
+      "v1": 55,
+      "v2": 104
+    }
+  },
+  "methods": {
+    "v1": {
+      "all_swaps_uuids_by_filter_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "all_swaps_uuids_by_filter_2": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "all_swaps_uuids_by_filter_3": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "autoprice_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "ban_pubkey_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": true
+      },
+      "buy_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "cancel_all_orders_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "cancel_all_orders_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "cancel_all_orders_3": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "cancel_order_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "coins_needed_for_kick_start_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "nonhd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "convert_utxo_address_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "convertaddress_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "disable_coin_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "electrum_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "fundvalue_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_directly_connected_peers_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "get_gossip_mesh_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "hd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_gossip_peer_topics_1": {
+        "nodes": {
+          "hd-native": "success",
+          "hd-wasm": "success",
+          "nonhd-native": "success",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_gossip_topic_peers_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": true
+      },
+      "get_my_peer_id_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_relay_mesh_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_trade_fee_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "help_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "import_swaps_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": true
+      },
+      "inventory_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "kmd_rewards_info_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "max_taker_vol_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "hd-native": "error",
+          "nonhd-native": "success",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "metrics_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "min_trading_vol_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "my_balance_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "success",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_orders_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "hd-wasm": "success",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "order_status_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "orderbook_depth_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "orders_history_by_filter_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "orders_history_by_filter_2": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "orders_history_by_filter_3": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "orders_history_by_filter_4": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "orders_history_by_filter_5": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "recover_funds_of_swap_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "sell_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "set_required_confirmations_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "set_requires_notarization_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-wasm": "error",
+          "hd-native": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "setprice_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_3": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_4": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_5": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_6": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "setprice_7": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "stats_swap_status_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_2": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_3": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_4": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_5": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_maker_order_6": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "validateaddress_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-wasm": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "version_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      }
+    },
+    "v2": {
+      "1inch_v6_0_classic_swap_contract_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "1inch_v6_0_classic_swap_create_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "1inch_v6_0_classic_swap_liquidity_sources_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "1inch_v6_0_classic_swap_quote_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "1inch_v6_0_classic_swap_tokens_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "account_balance_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "active_swaps_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "nonhd-wasm": "error",
+          "nonhd-native": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "active_swaps_2": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": true
+      },
+      "add_node_to_version_stat_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "approve_token_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "best_orders_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "best_orders_2": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "best_orders_3": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "change_mnemonic_password_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "clear_nft_db_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "clear_nft_db_2": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "delete_wallet_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_eth_with_tokens_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_eth_with_tokens_2": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_eth_with_tokens_3": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_eth_with_tokens_4": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_nft_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_tendermint_with_assets_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_tendermint_with_assets_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "enable_tendermint_with_assets_3": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_current_mtp_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_enabled_coins_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "nonhd-native": "error",
+          "hd-wasm": "success",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_eth_estimated_fee_per_gas_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_eth_estimated_fee_per_gas_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_locked_amount_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_mnemonic_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_mnemonic_2": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_my_address_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_new_address_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_nft_list_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": true
+      },
+      "get_nft_list_2": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_nft_metadata_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_nft_transfers_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_public_key_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "success",
+          "hd-wasm": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_public_key_hash_1": {
+        "nodes": {
+          "hd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_raw_transaction_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_shared_db_id_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success",
+          "hd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "get_swap_transaction_fee_policy_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_token_allowance_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_token_info_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "get_wallet_names_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "max_maker_vol_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_recent_swaps_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "my_tx_history_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_tx_history_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_tx_history_3": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_tx_history_4": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "my_tx_history_5": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "orderbook_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "peer_connection_healthcheck_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "recreate_swap_data_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "refresh_nft_metadata_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "remove_node_from_version_stat_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "nonhd-native": "success",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "send_asked_data_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "set_swap_transaction_fee_policy_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_message_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_message_2": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_message_3": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_raw_transaction_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_raw_transaction_2": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "sign_raw_transaction_3": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "start_simple_market_maker_bot_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "hd-wasm": "success"
+        },
+        "all_responses_same": true
+      },
+      "start_version_stat_collection_1": {
+        "nodes": {
+          "nonhd-native": "success",
+          "hd-native": "success",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "stop_simple_market_maker_bot_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "stop_version_stat_collection_1": {
+        "nodes": {
+          "hd-native": "success",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "task::account_balance::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "success",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::connect_metamask::init_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "nonhd-native": "error",
+          "hd-wasm": "success",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::create_new_account::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "success",
+          "hd-native": "error",
+          "nonhd-wasm": "success"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_erc20::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_eth::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_eth::init_2": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_eth::init_3": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_eth::init_4": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_lightning::init_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_qtum::init_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_tendermint::init_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_tendermint_token::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_utxo::init_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": true
+      },
+      "task::enable_z_coin::init_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_z_coin::init_2": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_z_coin::init_3": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::enable_z_coin::init_4": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::get_new_address::init_1": {
+        "nodes": {
+          "nonhd-wasm": "success",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::init_trezor::init_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "nonhd-native": "success",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "task::init_trezor::init_2": {
+        "nodes": {
+          "hd-wasm": "success",
+          "nonhd-wasm": "error",
+          "hd-native": "success",
+          "nonhd-native": "success"
+        },
+        "all_responses_same": false
+      },
+      "task::scan_for_new_addresses::init_1": {
+        "nodes": {
+          "hd-native": "success",
+          "nonhd-wasm": "success",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "trezor_connection_status_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_nft_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "update_version_stat_collection_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_delete_session_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_get_session_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_get_session_2": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_get_sessions_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_new_connection_1": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_ping_session_1": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "wc_ping_session_2": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_1": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_10": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_11": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_12": {
+        "nodes": {
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_13": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_2": {
+        "nodes": {
+          "hd-wasm": "error",
+          "nonhd-wasm": "error",
+          "nonhd-native": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_3": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_4": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_5": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_6": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_7": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_8": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_9": {
+        "nodes": {
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_nft_1": {
+        "nodes": {
+          "hd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_nft_2": {
+        "nodes": {
+          "hd-native": "error",
+          "hd-wasm": "error",
+          "nonhd-native": "error",
+          "nonhd-wasm": "error"
+        },
+        "all_responses_same": false
+      },
+      "withdraw_nft_3": {
+        "nodes": {
+          "nonhd-native": "error",
+          "nonhd-wasm": "error",
+          "hd-wasm": "error",
+          "hd-native": "error"
+        },
+        "all_responses_same": false
+      },
+      "z_coin_tx_history_1": {
+        "nodes": {
+          "nonhd-wasm": "error",
+          "hd-native": "error",
+          "nonhd-native": "error",
+          "hd-wasm": "error"
+        },
+        "all_responses_same": false
+      }
+    }
+  },
+  "differing_methods": {
+    "v1": [
+      "all_swaps_uuids_by_filter_1",
+      "all_swaps_uuids_by_filter_3",
+      "autoprice_1",
+      "buy_1",
+      "cancel_all_orders_1",
+      "cancel_all_orders_2",
+      "cancel_all_orders_3",
+      "cancel_order_1",
+      "coins_needed_for_kick_start_1",
+      "convert_utxo_address_1",
+      "convertaddress_1",
+      "disable_coin_1",
+      "electrum_1",
+      "enable_1",
+      "fundvalue_1",
+      "get_gossip_mesh_1",
+      "get_gossip_peer_topics_1",
+      "get_my_peer_id_1",
+      "get_relay_mesh_1",
+      "get_trade_fee_1",
+      "help_1",
+      "inventory_1",
+      "kmd_rewards_info_1",
+      "max_taker_vol_1",
+      "metrics_1",
+      "min_trading_vol_1",
+      "my_balance_1",
+      "my_orders_1",
+      "order_status_1",
+      "orderbook_depth_1",
+      "orders_history_by_filter_1",
+      "orders_history_by_filter_2",
+      "orders_history_by_filter_3",
+      "orders_history_by_filter_4",
+      "orders_history_by_filter_5",
+      "recover_funds_of_swap_1",
+      "sell_1",
+      "set_required_confirmations_1",
+      "set_requires_notarization_1",
+      "setprice_1",
+      "setprice_2",
+      "setprice_3",
+      "setprice_4",
+      "setprice_5",
+      "setprice_6",
+      "setprice_7",
+      "stats_swap_status_1",
+      "update_maker_order_1",
+      "update_maker_order_2",
+      "update_maker_order_3",
+      "update_maker_order_4",
+      "update_maker_order_5",
+      "update_maker_order_6",
+      "validateaddress_1",
+      "version_1"
+    ],
+    "v2": [
+      "1inch_v6_0_classic_swap_create_1",
+      "1inch_v6_0_classic_swap_liquidity_sources_1",
+      "1inch_v6_0_classic_swap_quote_1",
+      "1inch_v6_0_classic_swap_tokens_1",
+      "account_balance_1",
+      "active_swaps_1",
+      "add_node_to_version_stat_1",
+      "approve_token_1",
+      "best_orders_1",
+      "best_orders_2",
+      "best_orders_3",
+      "change_mnemonic_password_1",
+      "delete_wallet_1",
+      "enable_eth_with_tokens_1",
+      "enable_eth_with_tokens_2",
+      "enable_eth_with_tokens_3",
+      "enable_eth_with_tokens_4",
+      "enable_nft_1",
+      "enable_tendermint_with_assets_1",
+      "enable_tendermint_with_assets_2",
+      "enable_tendermint_with_assets_3",
+      "get_current_mtp_1",
+      "get_enabled_coins_1",
+      "get_eth_estimated_fee_per_gas_1",
+      "get_eth_estimated_fee_per_gas_2",
+      "get_locked_amount_1",
+      "get_mnemonic_1",
+      "get_mnemonic_2",
+      "get_my_address_1",
+      "get_new_address_1",
+      "get_nft_list_2",
+      "get_nft_metadata_1",
+      "get_nft_transfers_1",
+      "get_public_key_1",
+      "get_public_key_hash_1",
+      "get_raw_transaction_1",
+      "get_shared_db_id_1",
+      "get_swap_transaction_fee_policy_1",
+      "get_token_allowance_1",
+      "get_token_info_1",
+      "get_wallet_names_1",
+      "max_maker_vol_1",
+      "my_recent_swaps_1",
+      "my_tx_history_1",
+      "my_tx_history_2",
+      "my_tx_history_3",
+      "my_tx_history_4",
+      "my_tx_history_5",
+      "orderbook_1",
+      "recreate_swap_data_1",
+      "refresh_nft_metadata_1",
+      "remove_node_from_version_stat_1",
+      "send_asked_data_1",
+      "set_swap_transaction_fee_policy_1",
+      "sign_message_1",
+      "sign_message_2",
+      "sign_message_3",
+      "sign_raw_transaction_1",
+      "sign_raw_transaction_2",
+      "sign_raw_transaction_3",
+      "start_version_stat_collection_1",
+      "stop_simple_market_maker_bot_1",
+      "stop_version_stat_collection_1",
+      "task::account_balance::init_1",
+      "task::connect_metamask::init_1",
+      "task::create_new_account::init_1",
+      "task::enable_erc20::init_1",
+      "task::enable_lightning::init_1",
+      "task::enable_tendermint_token::init_1",
+      "task::enable_z_coin::init_1",
+      "task::enable_z_coin::init_2",
+      "task::enable_z_coin::init_3",
+      "task::enable_z_coin::init_4",
+      "task::get_new_address::init_1",
+      "task::init_trezor::init_1",
+      "task::init_trezor::init_2",
+      "task::scan_for_new_addresses::init_1",
+      "trezor_connection_status_1",
+      "update_nft_1",
+      "update_version_stat_collection_1",
+      "wc_delete_session_1",
+      "wc_get_session_1",
+      "wc_get_session_2",
+      "wc_get_sessions_1",
+      "wc_new_connection_1",
+      "wc_ping_session_1",
+      "wc_ping_session_2",
+      "withdraw_1",
+      "withdraw_10",
+      "withdraw_11",
+      "withdraw_12",
+      "withdraw_13",
+      "withdraw_2",
+      "withdraw_3",
+      "withdraw_4",
+      "withdraw_5",
+      "withdraw_6",
+      "withdraw_7",
+      "withdraw_8",
+      "withdraw_9",
+      "withdraw_nft_1",
+      "withdraw_nft_2",
+      "withdraw_nft_3",
+      "z_coin_tx_history_1"
+    ]
+  }
+}

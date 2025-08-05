@@ -3,25 +3,29 @@ export const description = "The method in this document allows you to sign messa
 
 # Sign Message
 
-The `sign_message` method allows one to prove ownership of a specific wallet address. A unique digital signature is provided for the message being signed. This signature, along with the original message and the wallet address, can then be verified, confirming that the message originated from the owner of the address and has not been altered.
+## sign\_message {{label : 'sign_message', tag : 'API-v2'}}
 
-## Arguments
+The `sign_message` method allows you to prove ownership of a specific wallet address. A unique digital signature is provided for the message being signed. This signature, along with the original message and the wallet address, can then be verified, confirming that the message originated from the owner of the address and has not been altered.
 
-| Structure | Type   | Description                                                                                                                                                                                                                                                      |
-| --------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin      | string | The coin to sign a message with                                                                                                                                                                                                                                  |
-| message   | string | The message you want to sign                                                                                                                                                                                                                                     |
-| address   | string | Optional, HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain` and `address_id` will default to `0`. |
+### Request Parameters
 
-## Response
+| Parameter | Type   | Required | Default | Description                                                                                                                                                                                                                                             |
+| --------- | ------ | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin      | string |     ✓    |   `-`   | The coin to sign a message with.                                                                                                                                                                                                                        |
+| message   | string |     ✓    |   `-`   | The message you want to sign.                                                                                                                                                                                                                           |
+| address   | string |     ✗    |   `0`   | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`. |
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| signature | string | The signature generated for the message |
+### Response Parameters
 
-## Command
+| Parameter | Type   | Description                              |
+| --------- | ------ | ---------------------------------------- |
+| signature | string | The signature generated for the message. |
 
-<CodeGroup title="" tag="POST" label="sign_message" mm2MethodDecorate="true">
+#### 📌 Examples
+
+##### Basic Usage
+
+<CodeGroup title="Sign Message" tag="POST" label="sign_message" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -36,23 +40,23 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Sign Message Response" collapsedText="Show Sign Message Response">
   ### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "signature": "H43eTmJxBKEPiHkrCe/8NsRidkKCIkXDxLyp30Ez/RwoApGdg89Hlvj9mTMSPGp8om5297zvdL8EVx3IdIe2swY="
-    },
-    "id": 0
+      "mmrpc": "2.0",
+      "result": {
+          "signature": "H43eTmJxBKEPiHkrCe/8NsRidkKCIkXDxLyp30Ez/RwoApGdg89Hlvj9mTMSPGp8om5297zvdL8EVx3IdIe2swY="
+      },
+      "id": 0
   }
   ```
 </CollapsibleSection>
 
-## Command (HD wallet with derivation path)
+##### HD Wallet with Derivation Path
 
-<CodeGroup title="" tag="POST" label="sign_message" mm2MethodDecorate="true">
+<CodeGroup title="Sign Message (HD Wallet)" tag="POST" label="sign_message" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -70,7 +74,7 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Sign Message (HD Wallet) Response" collapsedText="Show Sign Message (HD Wallet) Response">
   ### Response (HD, success)
 
   ```json
@@ -84,9 +88,9 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   ```
 </CollapsibleSection>
 
-## Command (HD wallet with account and address id)
+##### HD Wallet with Account and Address ID
 
-<CodeGroup title="" tag="POST" label="sign_message" mm2MethodDecorate="true">
+<CodeGroup title="Sign Message (HD Wallet, Account/Address ID)" tag="POST" label="sign_message" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -106,7 +110,7 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Sign Message (HD Wallet, Account/Address ID) Response" collapsedText="Show Sign Message (HD Wallet, Account/Address ID) Response">
   ### Response (HD, success)
 
   ```json
@@ -120,23 +124,27 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   ```
 </CollapsibleSection>
 
-<Note>
-  For HD wallets, if the `address` parameter is not provided, the root derivation path will be used, for example `m/84'/2'/0'/0/0`.
+<Note type="info">
+  For HD wallets, if the `address` parameter is not provided, the root derivation path will be used, for example, `m/84'/2'/0'/0/0`.
   The two examples above point to the same address. The derivation path follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` (or `m/84'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` for segwit coins).
-  The `account_id` and `address_id` are the indices of the account and address in the wallet, starting from 0.
-  The `chain` is either `External` or `Internal`, and expressed as an integer with `External` being 0 and `Internal` being 1.
+  The `account_id` and `address_id` are the indices of the account and address in the wallet, starting from `0`.
+  The `chain` is either `External` or `Internal`, and is expressed as an integer with `External` being `0` and `Internal` being `1`.
 </Note>
 
-## ⚠ Error types
+### Error Types
 
-**PrefixNotFound:** sign\_message\_prefix is not set in coin config file
-**CoinIsNotFound:** Specified coin is not found
-**SigningError:** Error attempting to sign message
-**InvalidRequest:** Message signing is not supported by the given coin type
-**InternalError:** An internal error occured during the signing process
+| Parameter      | Type   | Description                                             |
+| -------------- | ------ | ------------------------------------------------------- |
+| PrefixNotFound | string | `sign_message_prefix` is not set in coin config file    |
+| CoinIsNotFound | string | Specified coin is not found                             |
+| SigningError   | string | Error attempting to sign message                        |
+| InvalidRequest | string | Message signing is not supported by the given coin type |
+| InternalError  | string | An internal error occurred during the signing process   |
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  ### PrefixNotFound
+  #### ⚠️ Error Responses
+
+  ##### PrefixNotFound
 
   ```json
   {
@@ -149,7 +157,7 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
   }
   ```
 
-  ### InternalError
+  ##### InternalError
 
   ```json
   {

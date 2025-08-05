@@ -1,0 +1,37 @@
+{
+  "scan_metadata": {
+    "scanner_type": "OPENAPI_SPEC_GENERATOR",
+    "scanner_version": "KDF-OpenAPI-Generator v2.0.0",
+    "generated_at": "2025-06-30T21:22:07.053285",
+    "generated_during": "OpenAPI spec generation",
+    "method_source": "MDX method files",
+    "is_primary_data_source": false,
+    "version_method_counts": {
+      "all": 0,
+      "v1": 0,
+      "v2": 0
+    }
+  },
+  "repository_data": {
+    "v1": {
+      "branch": "add/postman/utils",
+      "version": "v1",
+      "source_type": "OPENAPI_DOCUMENTATION",
+      "methods": [],
+      "last_updated": "2025-06-30T21:22:07.053308",
+      "extraction_patterns_used": [
+        "MDX file parsing"
+      ]
+    },
+    "v2": {
+      "branch": "add/postman/utils",
+      "version": "v2",
+      "source_type": "OPENAPI_DOCUMENTATION",
+      "methods": [],
+      "last_updated": "2025-06-30T21:22:07.053310",
+      "extraction_patterns_used": [
+        "MDX file parsing"
+      ]
+    }
+  }
+}

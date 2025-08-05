@@ -1,0 +1,22 @@
+components:
+  schemas:
+    1inchProtocolImage:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Protocol id.
+        title:
+          type: string
+          description: Protocol title.
+        img:
+          type: string
+          description: Link to protocol image.
+        img_color:
+          type: string
+          description: Link to protocol image color.
+      required:
+      - id
+      - img
+      - img_color
+      - title

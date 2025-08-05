@@ -1,0 +1,40 @@
+/my_swap_status:
+  post:
+    summary: The my_swap_status method returns the data of an atomic swap executed
+      on an Komodo DeFi Framework API node.
+    description: The my_swap_status method returns the data of an atomic swap executed
+      on an Komodo DeFi Framework API node.
+    operationId: my_swap_status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - my_swap_status
+              uuid:
+                type: string
+                description: The uuid of swap, typically received from the buy/sell
+                  call
+            required:
+            - userpass
+            - method
+            - uuid
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

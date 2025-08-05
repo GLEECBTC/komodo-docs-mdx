@@ -1,0 +1,41 @@
+/get_gossip_mesh:
+  post:
+    summary: The get_gossip_mesh method returns an array of peerIDs added to a topics
+    description: The get_gossip_mesh method returns an array of peerIDs added to a
+      topics
+    operationId: get_gossip_mesh
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_gossip_mesh
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              Topic-PeerID map:
+                type: array
+                description: PeerIDs added to a topics' mesh (for each known gossipsub
+                  topic)
+          example: {}

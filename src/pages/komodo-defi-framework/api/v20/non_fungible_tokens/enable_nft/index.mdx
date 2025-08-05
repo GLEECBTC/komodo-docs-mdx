@@ -1,17 +1,22 @@
 export const title = "Komodo DeFi Framework Method: Enable NFT";
-export const description =
-  "The enable_nft method allows you to activate NFT-like tokens on the platform.";
+export const description = "The enable_nft method activates NFT-like tokens on the platform if the NFT network was already activated, but without the nft_req parameter.";
 
-# enable\_nft
+# Enable NFT
 
-The 'enable\_nft' method activates NFT-like tokens on the platform, if the NFT network was already activated with the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method, but without the `nft_req` parameter.
+## enable\_nft {{label : 'enable_nft', tag : 'API-v2'}}
 
-| parameter          | Type   | Description                                                                                      |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------------ |
-| ticker             | string | The ticker of the NFT network, with `NFT_` as a prefix.                                          |
-| activation\_params | object | A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object |
+The `enable_nft` method activates NFT-like tokens on the platform, if the NFT network was already activated with the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method, but without the `nft_req` parameter.
 
-<CodeGroup title="" tag="POST" label="enable_nft" mm2MethodDecorate="true">
+### Request Parameters
+
+| Parameter          | Type   | Required | Description                                                                                                                                                            |
+| ------------------ | ------ | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    | The ticker of the NFT network, with `NFT_` as a prefix. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values. |
+| activation\_params | object |     ✓    | A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.                                                                      |
+
+#### 📌 Example
+
+<CodeGroup title="Enable NFT" tag="POST" label="enable_nft" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,72 +38,76 @@ The 'enable\_nft' method activates NFT-like tokens on the platform, if the NFT n
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Enable NFT Response" collapsedText="Show Enable NFT Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "nfts": {
+              "0xc28a19e9a663d966cf99532bdb1229df1b0e344b,1": {
+                  "token_address": "0xc28a19e9a663d966cf99532bdb1229df1b0e344b",
+                  "token_id": "1",
+                  "chain": "POLYGON",
+                  "contract_type": "ERC1155",
+                  "amount": "1"
+              },
+              "0xd25f13e4ba534ef625c75b84934689194b7bd59e,14": {
+                  "token_address": "0xd25f13e4ba534ef625c75b84934689194b7bd59e",
+                  "token_id": "14",
+                  "chain": "POLYGON",
+                  "contract_type": "ERC721",
+                  "amount": "1"
+              }
+          },
+          "platform_coin": "MATIC"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
 
-```json
-{
-    "mmrpc": "2.0",
-    "result": {
-        "nfts": {
-            "0xc28a19e9a663d966cf99532bdb1229df1b0e344b,1": {
-                "token_address": "0xc28a19e9a663d966cf99532bdb1229df1b0e344b",
-                "token_id": "1",
-                "chain": "POLYGON",
-                "contract_type": "ERC1155",
-                "amount": "1"
-            },
-            "0xd25f13e4ba534ef625c75b84934689194b7bd59e,14": {
-                "token_address": "0xd25f13e4ba534ef625c75b84934689194b7bd59e",
-                "token_id": "14",
-                "chain": "POLYGON",
-                "contract_type": "ERC721",
-                "amount": "1"
-            }
-        },
-        "platform_coin": "MATIC"
-    },
-    "id": null
-}
-```
+<CollapsibleSection expandedText="Hide Enable NFT Error Responses" collapsedText="Show Enable NFT Error Responses">
+  #### ⚠️ Error Responses
 
-## Error - Platform coin is not yet activated
+  ##### PlatformCoinIsNotActivated
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Platform coin MATIC is not activated",
-  "error_path": "token.lp_coins",
-  "error_trace": "token:126] lp_coins:2797]",
-  "error_type": "PlatformCoinIsNotActivated",
-  "error_data": "MATIC",
-  "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Platform coin MATIC is not activated",
+      "error_path": "token.lp_coins",
+      "error_trace": "token:126] lp_coins:2797]",
+      "error_type": "PlatformCoinIsNotActivated",
+      "error_data": "MATIC",
+      "id": null
+  }
+  ```
 
-## Error - Token already activated
+  ##### TokenIsAlreadyActivated
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token NFT_MATIC is already activated",
-  "error_path": "token",
-  "error_trace": "token:119]",
-  "error_type": "TokenIsAlreadyActivated",
-  "error_data": "NFT_MATIC",
-  "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Token NFT_MATIC is already activated",
+      "error_path": "token",
+      "error_trace": "token:119]",
+      "error_type": "TokenIsAlreadyActivated",
+      "error_data": "NFT_MATIC",
+      "id": null
+  }
+  ```
 
-## Error - Token config not found in coins file
+  ##### TokenConfigIsNotFound
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token NFT_TESTTT config is not found",
-  "error_path": "token.prelude",
-  "error_trace": "token:122] prelude:79]",
-  "error_type": "TokenConfigIsNotFound",
-  "error_data": "NFT_TESTTT",
-  "id": null
-}
-```
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Token NFT_TESTTT config is not found",
+      "error_path": "token.prelude",
+      "error_trace": "token:122] prelude:79]",
+      "error_type": "TokenConfigIsNotFound",
+      "error_data": "NFT_TESTTT",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

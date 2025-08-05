@@ -1,0 +1,88 @@
+export const title = "Komodo DeFi Framework Method: Get New Address";
+export const description =
+  "The get_new_address method derives the next unused HD address for a specified coin/account and (optionally) asks the user to confirm it on a hardware wallet.";
+
+# Get New Address
+
+## get\_new\_address {{label : 'get_new_address', tag : 'API-v2'}}
+
+The `get_new_address` method derives the next unused address from a BIP-44 HD wallet **without** involving the long-running task manager
+(contrast with [`task::get_new_address::*`](/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/)).
+
+*   If the coin is associated with a hardware wallet (e.g., Trezor), the method may require the user to confirm the generated address on the device.
+*   If the gap-limit is reached (too many consecutive empty addresses), the method will return an error until some of the derived addresses receive a balance.
+
+### Request Parameters
+
+| Parameter   | Type   | Required |         Default        | Description                                                                      |
+| ----------- | ------ | :------: | :--------------------: | -------------------------------------------------------------------------------- |
+| coin        | string |     ✓    |            –           | Coin ticker (e.g., `BTC`, `LTC`, `ETH`).                                         |
+| account\_id | number |     ✓    |            –           | BIP-44 account number (usually `0`).                                             |
+| chain       | string |     ✗    |       `External`       | `External` (receive) or `Internal` (change). If omitted, defaults to `External`. |
+| gap\_limit  | number |     ✗    | implementation-default | Maximum allowed consecutive empty addresses (overrides wallet default).          |
+
+### Response Parameters
+
+| Parameter    | Type   | Description                                                                                                                                                                |
+| ------------ | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| new\_address | object | A standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) object containing `address`, `derivation_path`, `chain`, and `balance`. |
+
+### Awaiting / Hardware-Wallet States
+
+When used with a hardware wallet, the RPC may respond with an `error` containing `error_type` =`UnexpectedUserAction` if the request is made while the device awaits user confirmation. Use the task-managed variant for smoother UX, or send the required user action via `task::get_new_address::user_action`.
+
+#### 📌 Example
+
+##### Command
+
+<CodeGroup title="Get New Address" tag="POST" label="get_new_address" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "get_new_address",
+    "params": {
+      "coin": "BTC",
+      "account_id": 0,
+      "chain": "External"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "new_address": {
+        "address": "RTCo64FD272B7F49cZqxbhhWhCDK2wmDYY",
+        "derivation_path": "m/44'/141'/0'/0/7",
+        "chain": "External",
+        "balance": {
+          "KMD": {
+            "spendable": "0",
+            "unspendable": "0"
+          }
+        }
+      }
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter                        | Type   | Description                                                                   |
+| -------------------------------- | ------ | ----------------------------------------------------------------------------- |
+| NoSuchCoin                       | string | Coin is not activated.                                                        |
+| CoinIsActivatedNotWithHDWallet   | string | Coin was enabled without HD-wallet derivation.                                |
+| UnknownAccount                   | string | The specified `account_id` does not exist.                                    |
+| InvalidBip44Chain                | string | Unsupported `chain` value.                                                    |
+| AddressLimitReached              | string | Address derivation exceeded wallet's hard limit.                              |
+| EmptyAddressesLimitReached       | string | Gap-limit reached (too many empty addresses); generate spend to some address. |
+| Transport \| Internal \| Timeout | string | Other runtime errors.                                                         |

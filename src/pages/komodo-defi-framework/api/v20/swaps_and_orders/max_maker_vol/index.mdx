@@ -1,18 +1,20 @@
-export const title = "Komodo DeFi Framework Method: Max Maker Vol";
+export const title = "Komodo DeFi Framework Method: Max Maker Volume";
 export const description =
   "The max_maker_vol method returns the maximum volume of a coin which can be used to create a maker order.";
 
-# max\_maker\_vol
+# Max Maker Volume
+
+## max\_maker\_vol {{label : 'max_maker_vol', tag : 'API-v2'}}
 
 The `max_maker_vol` method returns the maximum volume of a coin which can be used to create a maker order (taking into account estimated fees). If the coin is not activated, a `NoSuchCoin` error will be returned.
 
-#### Arguments
+### Request Parameters
 
-| Parameter | Type   | Description                               |
-| --------- | ------ | ----------------------------------------- |
-| coin      | string | The ticker of the coin you want to query. |
+| Parameter | Type   | Required | Description                               |
+| --------- | ------ | :------: | ----------------------------------------- |
+| coin      | string |     ✓    | The ticker of the coin you want to query. |
 
-#### Response
+### Response Parameters
 
 | Parameter         | Type   | Description                                                                                                                                                                                    |
 | ----------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -25,7 +27,7 @@ The `max_maker_vol` method returns the maximum volume of a coin which can be use
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="max_maker_vol" mm2MethodDecorate="true">
+<CodeGroup title="Max Maker Vol" tag="POST" label="max_maker_vol" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -38,7 +40,7 @@ The `max_maker_vol` method returns the maximum volume of a coin which can be use
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Max Maker Vol Response" collapsedText="Show Max Maker Vol Response">
   #### Response (success)
 
   ```json
@@ -83,8 +85,19 @@ The `max_maker_vol` method returns the maximum volume of a coin which can be use
     "id": null
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error)
+### Error Types
+
+| Parameter  | Type   | Description                             |
+| ---------- | ------ | --------------------------------------- |
+| NoSuchCoin | string | The coin is not activated.              |
+| Transport  | string | A network request or connection failed. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### NoSuchCoin
 
   ```json
   {
@@ -100,25 +113,7 @@ The `max_maker_vol` method returns the maximum volume of a coin which can be use
   }
   ```
 
-  #### Response (balance too low)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "Not enough QTUM for swap: available 0, required at least 0.000728, locked by swaps None",
-    "error_path": "max_maker_vol_rpc.maker_swap.utxo_common",
-    "error_trace": "max_maker_vol_rpc:148] maker_swap:2203] utxo_common:3327] utxo_common:892]",
-    "error_type": "NotSufficientBalance",
-    "error_data": {
-      "coin": "QTUM",
-      "available": "0",
-      "required": "0.000728"
-    },
-    "id": null
-  }
-  ```
-
-  #### Response (Transport error)
+  ##### Transport
 
   ```json
   {

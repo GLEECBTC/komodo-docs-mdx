@@ -1,0 +1,504 @@
+# Komodo DeFi Framework Documentation Utilities (`utils/py`)
+
+This directory contains Python utilities and the **Komodo Documentation Library** for managing, mapping, converting, and maintaining the Komodo DeFi Framework API documentation, OpenAPI specs, and example data.
+
+## 🚀 Quick Start
+
+All functionality is available through the unified CLI tool:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the unified tool
+python kdf_tools.py --help
+
+# View available commands
+python kdf_tools.py openapi --help
+python kdf_tools.py scan --help
+python kdf_tools.py map --help
+python kdf_tools.py postman --help
+python kdf_tools.py compare --help
+python kdf_tools.py review-draft-quality --help
+python kdf_tools.py scan-existing-docs --help
+python kdf_tools.py generate-docs --help
+```
+
+## 🔍 Draft Quality Analysis
+
+**NEW:** Compare generated documentation drafts with live versions to identify improvement opportunities.
+
+### Quick Start
+
+```bash
+# Analyze all generated docs vs live versions
+make review-draft-quality
+
+# Get detailed analysis with verbose output
+make review-draft-quality-verbose
+
+# See what would be analyzed (dry run)
+make dry-run-quality-review
+
+# Or use the unified CLI directly
+python kdf_tools.py review-draft-quality --help
+python kdf_tools.py review-draft-quality --verbose
+```
+
+### Features
+
+- **Comprehensive comparison** of generated vs live documentation
+- **Quality metrics** and similarity scoring
+- **Style guide compliance** validation
+- **Template effectiveness** analysis
+- **Actionable recommendations** for improvement
+- **Detailed markdown reports** with executive summaries
+
+### Use Cases
+
+1. **Continuous Improvement**: Track documentation quality over time
+2. **Template Optimization**: Identify gaps in templates and generation logic
+3. **Style Compliance**: Ensure generated docs meet style guide standards
+4. **Process Enhancement**: Focus manual review effort on high-impact areas
+5. **Quality Assurance**: Validate documentation before publication
+
+### Example Output
+
+```markdown
+# Documentation Draft Quality Analysis Report
+
+**Overall Similarity:** 72.3%
+**Critical Issues:** 3 | **Major Issues:** 18 | **Minor Issues:** 24
+
+## Top Improvement Opportunities
+1. Review parameter table formatting - affects 8 documents
+2. Enhance example generation logic - affects 6 documents  
+3. Fix template metadata format - affects 5 documents
+```
+
+📖 **Full Documentation:** [README_DRAFT_QUALITY.md](README_DRAFT_QUALITY.md)
+
+## 📚 Library Architecture
+
+The `lib/` directory contains the **Komodo Documentation Library v2.0.0** - a comprehensive, modular library that provides:
+
+- **Unified file scanning and processing**
+- **Advanced method mapping and validation**
+- **OpenAPI specification management**
+- **Postman collection generation**
+- **Repository source code analysis**
+- **Example extraction and management**
+- **Automated reporting and analytics**
+
+## 🛠️ Available Commands
+
+### `kdf_tools.py` - **Unified CLI Tool**
+
+This is the primary interface for all KDF documentation operations. It provides the following subcommands:
+
+#### `openapi` - **MDX to OpenAPI Conversion**
+**Purpose:**  
+Converts MDX documentation files into OpenAPI YAML specifications.
+
+**Usage:**
+```bash
+python kdf_tools.py openapi --version v2 --output-dir ./output
+python kdf_tools.py openapi --version all --dry-run
+```
+
+**Options:**
+- `--version`: API version to process (v1, v2, all)
+- `--output-dir`: Output directory for OpenAPI files
+- `--dry-run`: Show what would be converted without making changes
+
+#### `scan` - **Repository Scanning**
+**Purpose:**  
+Scans the Komodo DeFi Framework repository to extract RPC method definitions directly from Rust source code.
+
+**Usage:**
+```bash
+python kdf_tools.py scan --branch dev --versions v1 v2
+python kdf_tools.py scan --branch main --force-refresh
+python kdf_tools.py scan --output custom_scan.json
+```
+
+**Options:**
+- `--branch`: Git branch to scan (default: dev)
+- `--versions`: API versions to scan (v1, v2)
+- `--output`: Custom output filename
+- `--force-refresh`: Force refresh even if cache is valid
+
+#### `map` - **Method Mapping & OpenAPI Management**
+**Purpose:**  
+Central mapping and maintenance tool for KDF documentation and OpenAPI specs.
+
+**Usage:**
+```bash
+python kdf_tools.py map                      # Generate unified mapping
+python kdf_tools.py map --remove method_name # Remove all method files
+python kdf_tools.py map --debug method_name  # Debug method matching
+python kdf_tools.py map --dry-run           # Preview changes
+```
+
+**Options:**
+- `--remove`: Remove all files related to the specified method
+- `--debug`: Debug method name matching for the specified method
+- `--dry-run`: Show what would be changed without making changes
+
+#### `postman` - **Postman Collection Generation**
+**Purpose:**  
+Generates Postman collections and environment files from organized JSON examples.
+
+**Usage:**
+```bash
+python kdf_tools.py postman --versions v2
+python kdf_tools.py postman --versions v1 v2
+python kdf_tools.py postman --versions all
+```
+
+**Options:**
+- `--versions`: API versions to process (v1, v2, all)
+
+#### `compare` - **Repository vs Documentation Comparison**
+**Purpose:**  
+Compares repository methods with documentation to identify discrepancies.
+
+**Usage:**
+```bash
+python kdf_tools.py compare --branch dev
+python kdf_tools.py compare --branch main --versions v2
+```
+
+**Options:**
+- `--branch`: Git branch to compare against (default: dev)
+- `--versions`: API versions to compare (v1, v2)
+
+#### `review-draft-quality` - **Draft Quality Analysis**
+**Purpose:**  
+Compare generated documentation drafts with final live versions to identify improvement opportunities.
+
+**Usage:**
+```bash
+python kdf_tools.py review-draft-quality                     # Analyze all documents
+python kdf_tools.py review-draft-quality --verbose          # Verbose analysis
+python kdf_tools.py review-draft-quality --dry-run          # Show what would be analyzed
+python kdf_tools.py review-draft-quality --generated path/to/generated.mdx --live path/to/live.mdx  # Specific files
+```
+
+**Options:**
+- `--generated`: Path to specific generated document
+- `--live`: Path to specific live document  
+- `--generated-dir`: Directory containing generated documents
+- `--live-dir`: Directory containing live documents
+- `--output`: Output file for quality report
+- `--format`: Output format (markdown, json)
+- `--similarity-threshold`: Similarity threshold for flagging differences
+- `--verbose`: Enable verbose logging
+- `--dry-run`: Show what would be analyzed without running
+
+#### `scan-existing-docs` - **Scan Existing Documentation**
+**Purpose:**  
+Scan existing KDF documentation to extract method patterns and build pattern awareness for documentation generation.
+
+**Usage:**
+```bash
+python kdf_tools.py scan-existing-docs                        # Scan with default settings
+python kdf_tools.py scan-existing-docs --async-scan           # Use async scanning for better performance
+python kdf_tools.py scan-existing-docs --generate-report      # Generate analysis report
+```
+
+**Options:**
+- `--docs-path`: Path to the directory containing existing documentation
+- `--async-scan`: Use asynchronous scanning for better performance
+- `--generate-report`: Generate an analysis report of the extracted patterns
+- `--show-categories`: Show method categories in the analysis report
+- `--output`: Output file for the extracted patterns
+
+#### `generate-docs` - **Generate Documentation**
+**Purpose:**  
+Generate comprehensive documentation for missing KDF API methods using multiple analysis sources.
+
+**Usage:**
+```bash
+python kdf_tools.py generate-docs                             # Generate all missing methods
+python kdf_tools.py generate-docs --interactive               # Interactive method selection
+python kdf_tools.py generate-docs --method task::enable_bch::init  # Generate specific method
+```
+
+**Options:**
+- `--branch`: Git branch to scan (default: dev)
+- `--repo-path`: Path to the repository containing KDF methods
+- `--method`: Generate documentation for a specific method
+- `--version`: API version for the specific method (default: v2)
+- `--methods-file`: Path to a JSON file containing methods to generate documentation for
+- `--interactive`: Allow interactive method selection
+- `--output-dir`: Output directory for generated documentation
+- `--generate-summary`: Generate a summary report of the documentation generation
+
+## 📁 Directory Structure
+
+```
+utils/py/
+├── lib/                           # Komodo Documentation Library v2.0.0
+│   ├── __init__.py               # Library exports and main API
+│   ├── mapping.py                # Method mapping core functionality
+│   ├── repository_scanner.py     # Repository scanning capabilities
+│   ├── unified_scanners.py       # Unified file scanning
+│   ├── postman_*.py             # Postman collection management
+│   ├── file_*.py                # File operations and management
+│   ├── shared_utils.py          # Common utilities
+│   ├── cli_base.py              # Base CLI functionality
+│   └── ...                      # Additional specialized modules
+├── demos/                        # 🎭 Demo scripts and examples
+│   ├── README.md                # Demo documentation
+│   ├── demo_nested_structure.py  # Nested structure demo & validator
+│   ├── migrate_to_nested_structure.py # Migration tool
+│   └── repository_integration_example.py # Integration examples
+├── data/                         # Generated data and cache files
+├── kdf_tools.py                 # 🎯 UNIFIED CLI TOOL
+├── requirements.txt             # Python dependencies
+├── unified_method_mapping.json  # Generated method mapping
+└── README.md                    # This file
+```
+
+## 🔧 Configuration & Setup
+
+### Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+**Requirements:**
+- Python 3.8+
+- PyYAML>=6.0
+- aiofiles
+- Standard library modules (requests, json, pathlib, etc.)
+
+### Environment Setup
+```bash
+# Create virtual environment (recommended)
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# or
+.venv\Scripts\activate     # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## 📊 Generated Files
+
+The tools generate several important files:
+
+- **`unified_method_mapping.json`** - Complete mapping of all methods across formats
+- **`postman/openapi/openapi.yaml`** - Main OpenAPI specification  
+- **`postman/collections/methods/kdf-v*-postman-collection.json`** - Postman collections
+- **`postman/environments/kdf-v*-environment.json`** - Postman environments
+- **`data/`** - Repository scan results and comparisons
+
+## 🎯 Common Workflows
+
+### Generate Method Mapping
+```bash
+python kdf_tools.py map
+```
+
+### Generate Postman Collections
+```bash
+python kdf_tools.py postman --versions v1 v2
+```
+
+### Compare Repository with Documentation
+```bash
+python kdf_tools.py compare --branch dev
+```
+
+### Convert MDX to OpenAPI
+```bash
+python kdf_tools.py openapi --version v2
+```
+
+### Scan Repository for Methods
+```bash
+python kdf_tools.py scan --branch main --versions v1 v2
+```
+
+### Remove Method Files
+```bash
+python kdf_tools.py map --remove method_name
+```
+
+### Debug Method Matching
+```bash
+python kdf_tools.py map --debug method_name
+```
+
+### Review Draft Quality
+```bash
+python kdf_tools.py review-draft-quality --verbose
+```
+
+### Scan Existing Documentation
+```bash
+python kdf_tools.py scan-existing-docs --async-scan --generate-report
+```
+
+### Generate Missing Documentation
+```bash
+python kdf_tools.py generate-docs --interactive
+```
+
+## 🎭 Demo Scripts & Examples
+
+The `demos/` directory contains demonstration scripts and migration tools:
+
+### **`demo_nested_structure.py`** - Structure Demo & Validator
+Test and validate the nested directory structure functionality:
+```bash
+python demos/demo_nested_structure.py --validate  # Quick validation
+python demos/demo_nested_structure.py --test-only # Test path mappings
+python demos/demo_nested_structure.py            # Full demo
+```
+
+### **`migrate_to_nested_structure.py`** - Migration Tool
+Migrate from flat to nested directory structures:
+```bash
+python demos/migrate_to_nested_structure.py --dry-run  # Preview migration
+python demos/migrate_to_nested_structure.py --migrate  # Execute migration
+```
+
+### **`repository_integration_example.py`** - Integration Examples
+Demonstrates component integration patterns:
+```bash
+python demos/repository_integration_example.py
+```
+
+See `demos/README.md` for detailed documentation.
+
+## 📈 Library Features
+
+The integrated **Komodo Documentation Library** provides:
+
+### Core Capabilities
+- **Unified Scanning**: Scan MDX, YAML, and JSON files simultaneously
+- **Method Mapping**: Advanced method name normalization and matching
+- **Validation**: Comprehensive file and data validation
+- **Caching**: Intelligent caching for improved performance
+- **Reporting**: Detailed analytics and comparison reports
+
+### Specialized Modules
+- **Repository Scanner**: Extract methods from live KDF repository
+- **Postman Management**: Generate and manage Postman collections
+- **OpenAPI Management**: Update and maintain OpenAPI specifications
+- **Example Management**: Extract and organize API examples
+- **File Operations**: Robust file handling with error recovery
+
+### Error Handling
+- Graceful fallbacks for missing dependencies
+- Comprehensive error reporting
+- Dry-run capabilities for safe operations
+- Detailed logging and debugging support
+
+## 🔍 Debugging & Troubleshooting
+
+### Enable Verbose Output
+```bash
+python kdf_tools.py <command> --verbose
+```
+
+### Suppress Verbose Output
+```bash
+python kdf_tools.py <command> --quiet
+```
+
+### Debug Method Matching
+```bash
+python kdf_tools.py map --debug method_name
+```
+
+### Dry Run Operations
+```bash
+python kdf_tools.py <command> --dry-run
+```
+
+### Check Library Status
+```bash
+python -c "from lib import get_library_info; print(get_library_info())"
+```
+
+## 🎨 Command Examples
+
+### Complete Documentation Maintenance
+```bash
+# 1. Scan repository for latest methods
+python kdf_tools.py scan --branch dev --force-refresh
+
+# 2. Compare with documentation
+python kdf_tools.py compare --branch dev
+
+# 3. Generate unified mapping
+python kdf_tools.py map
+
+# 4. Generate Postman collections
+python kdf_tools.py postman --versions all
+
+# 5. Convert MDX to OpenAPI
+python kdf_tools.py openapi --version all
+```
+
+### Development Workflow
+```bash
+# Preview changes before applying
+python kdf_tools.py map --dry-run
+python kdf_tools.py openapi --dry-run
+
+# Debug specific method
+python kdf_tools.py map --debug "lightning::payments::send_payment"
+
+# Remove deprecated method
+python kdf_tools.py map --remove "old_method_name"
+```
+
+## 📝 Migration from Individual Scripts
+
+**Previous individual scripts have been deprecated:**
+- `converter.py` → `python kdf_tools.py openapi`
+- `get_kdf_repo_methods.py` → `python kdf_tools.py scan`
+- `map_kdf_methods.py` → `python kdf_tools.py map`
+- `postman_collection_generator.py` → `python kdf_tools.py postman`  
+- `scan_kdf_repository.py` → `python kdf_tools.py scan` or `python kdf_tools.py compare`
+
+The individual scripts will show deprecation warnings if used, but the unified tool provides all the same functionality with a cleaner interface.
+
+## 🤝 Contributing
+
+When adding new functionality:
+
+1. Follow the library's modular architecture
+2. Add comprehensive error handling
+3. Include dry-run capabilities where applicable
+4. Update this README with new commands/features
+5. Add appropriate CLI help text
+
+## 📚 Help & Documentation
+
+For detailed help on any command:
+
+```bash
+# General help
+python kdf_tools.py --help
+
+# Command-specific help
+python kdf_tools.py openapi --help
+python kdf_tools.py scan --help
+python kdf_tools.py map --help
+python kdf_tools.py postman --help
+python kdf_tools.py compare --help
+python kdf_tools.py review-draft-quality --help
+python kdf_tools.py scan-existing-docs --help
+python kdf_tools.py generate-docs --help
+```
+
+---
+
+**The unified `kdf_tools.py` provides a streamlined interface to all KDF documentation utilities. For detailed information on each command, use the `--help` flag.** 

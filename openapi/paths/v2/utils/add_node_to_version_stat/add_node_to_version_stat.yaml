@@ -1,0 +1,58 @@
+/add_node_to_version_stat:
+  post:
+    summary: The add_node_to_version_stat method adds a Node
+    description: The add_node_to_version_stat method adds a Node
+    operationId: add_node_to_version_stat
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - add_node_to_version_stat
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name assigned to the node
+                  address:
+                    type: string
+                    description: The IP address of the node
+                  peer_id:
+                    type: string
+                    description: The node's unique Peer ID
+                required:
+                - name
+                - address
+                - peer_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The outcome of the request.
+          example: {}

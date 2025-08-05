@@ -1,29 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Cancel Order";
 export const description = "The cancel_order cancels the active order created by the Komodo DeFi Framework API node.";
 
-# cancel\_order
+# Cancel Order
 
-**cancel\_order uuid**
+## cancel\_order {{label : 'cancel_order', tag : 'API-v1'}}
 
-The `cancel_order` cancels the active order created by the Komodo DeFi Framework API node.
+The `cancel_order` method cancels the active order created by the Komodo DeFi Framework API node.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                      |
-| --------- | ------ | ------------------------------------------------ |
-| uuid      | string | the uuid of the order the user desires to cancel |
+| Parameter | Type   | Required | Description                                      |
+| --------- | ------ | :------: | ------------------------------------------------ |
+| uuid      | string |     ✓    | The uuid of the order the user desires to cancel |
 
-## Response
+### Response
 
-| Structure | Type   | Description                       |
+| Parameter | Type   | Description                       |
 | --------- | ------ | --------------------------------- |
-| result    | string | indicates the status of operation |
+| result    | string | Indicates the status of operation |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="cancel_order" mm2MethodDecorate="true">
+<CodeGroup title="cancel_order" tag="POST" label="cancel_order" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -39,7 +39,9 @@ The `cancel_order` cancels the active order created by the Komodo DeFi Framework
   ```json
   { "result": "success" }
   ```
+</CollapsibleSection>
 
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
   #### Response (error)
 
   ```json

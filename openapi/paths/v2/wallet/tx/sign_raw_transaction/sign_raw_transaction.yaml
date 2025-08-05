@@ -1,0 +1,61 @@
+/sign_raw_transaction:
+  post:
+    summary: The sign_raw_transaction method allows users to sign UTXO or EVM raw
+      transactions, returning a signed transaction hex ready for broadcast.
+    description: The sign_raw_transaction method allows users to sign UTXO or EVM
+      raw transactions, returning a signed transaction hex ready for broadcast.
+    operationId: sign_raw_transaction
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - sign_raw_transaction
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin to sign the raw transaction with.
+                  type:
+                    type: string
+                    description: 'The operation type. Accepted values: `UTXO` (for
+                      UTXO coins), `ETH` (for EVM coins).'
+                  tx:
+                    description: A standard [RawTxInfo object](/komodo-defi-framework/api/common_structures/wallet/#raw-tx-info).
+                    $ref: ../../components/schemas/RawTxInfoobject.yaml
+                required:
+                - coin
+                - type
+                - tx
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tx_hex:
+                type: string
+                description: The signed transaction hex, ready for broadcast.
+          example: {}

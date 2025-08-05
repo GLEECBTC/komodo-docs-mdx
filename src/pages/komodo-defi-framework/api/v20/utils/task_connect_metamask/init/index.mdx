@@ -1,0 +1,61 @@
+export const title = "Komodo DeFi Framework Method: Initialise MetaMask Connection Task";
+export const description = "Begin a task-managed process that initialises and authenticates MetaMask with the Komodo DeFi Framework node.";
+
+# Initialise MetaMask Connection Task
+
+## task::connect\_metamask::init {{label : 'task::connect_metamask::init', tag : 'API-v2'}}
+
+Use this method to begin a task-managed process that establishes a MetaMask context. The method returns a `task_id` that can be polled using `task::connect_metamask::status`.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                                            |
+| --------- | ------ | :------: | -------------------------------------------------------------------------------------- |
+| project   | string |     ✓    | A short, human-readable identifier for the DApp or integration requesting the context. |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                                             |
+| --------- | ------- | ----------------------------------------------------------------------- |
+| task\_id  | integer | An identifying number that is used to query task status or to cancel it |
+
+#### 📌 Examples
+
+<CodeGroup title="connect_metamask::init" tag="POST" label="task::connect_metamask::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::connect_metamask::init",
+    "params": {
+      "project": "my_kdf_app"
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 42
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter                   | Type   | Description                                                           |
+| --------------------------- | ------ | --------------------------------------------------------------------- |
+| MetamaskInitializingAlready | string | A MetaMask initialisation task is already in progress.                |
+| EthProviderNotFound         | string | No MetaMask provider detected in the browser / environment.           |
+| UnexpectedAccountSelected   | string | A different ETH account is currently selected in MetaMask.            |
+| UserCancelled               | string | The user rejected the signature/request in MetaMask.                  |
+| Timeout                     | string | MetaMask did not respond within the expected time-out window.         |
+| InternalError               | string | The request failed due to a Komodo DeFi Framework API internal error. |

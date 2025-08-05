@@ -1,0 +1,60 @@
+export const title = "Komodo DeFi Framework Method: Enable QTUM Task: User Action";
+export const description = "Handle user action (e.g., Trezor PIN entry) for QTUM/QRC20 activation task.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Enable QTUM Task: User Action
+
+## task::enable\_qtum::user\_action {{label : 'task::enable_qtum::user_action', tag : 'API-v2'}}
+
+If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use the `task::enable_qtum::user_action` method to enter our PIN
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         |     ✓    | The identifying number returned when initiating the initialisation process.                                                                                                                      |
+| user\_action              | object          |     ✓    | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          |     ✓    | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) |     ✓    | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+### Response Parameters
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_qtum::user_action",
+    "params": {
+      "task_id": 0,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "862743"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

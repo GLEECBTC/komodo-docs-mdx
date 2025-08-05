@@ -1,0 +1,14 @@
+components:
+  schemas:
+    MakerPaymentSpentByWatcher:
+      type: object
+      properties:
+        tx_hash:
+          type: string
+          description: the hash of the transaction
+        tx_hex:
+          type: string
+          description: transaction bytes in hexadecimal format
+      required:
+      - tx_hash
+      - tx_hex

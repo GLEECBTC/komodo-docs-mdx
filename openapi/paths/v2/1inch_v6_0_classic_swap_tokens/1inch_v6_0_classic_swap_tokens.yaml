@@ -1,0 +1,54 @@
+/1inch_v6_0_classic_swap_tokens:
+  post:
+    summary: Method description for 1inch_v6_0_classic_swap_tokens
+    description: Method description for 1inch_v6_0_classic_swap_tokens
+    operationId: 1inch_v6_0_classic_swap_tokens
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - 1inch_v6_0_classic_swap_tokens
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  chain_id:
+                    type: number
+                    description: Chain id
+                required:
+                - chain_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              dst_amount:
+                type: number
+                description: Destination token amount, in coins units.
+              tokens:
+                description: Optional. A list of standard [1inchTokenInfo](/komodo-defi-framework/api/common_structures/orders/#1inch-token-info)
+                  objects showing available tokens for trade.
+                $ref: ../../components/schemas/1inchTokenInfo.yaml
+          example: {}

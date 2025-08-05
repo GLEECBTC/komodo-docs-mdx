@@ -1,0 +1,66 @@
+/get_locked_amount:
+  post:
+    summary: The get_locked_amount method returns the amount of a coin currently locked
+      by a swap in progress, with details in decimal, fraction, and rational formats.
+    description: The get_locked_amount method returns the amount of a coin currently
+      locked by a swap in progress, with details in decimal, fraction, and rational
+      formats.
+    operationId: get_locked_amount
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_locked_amount
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you want to query.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              coin:
+                type: string
+                description: The ticker of the coin you queried.
+              locked_amount:
+                type: object
+                description: An object containing the locked amount in decimal, fraction,
+                  and rational formats.
+              locked_amount.decimal:
+                type: string
+                description: The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).
+              locked_amount.rational:
+                description: The locked amount in [rational format](/komodo-defi-framework/api/common_structures/rational_number_note/).
+                $ref: ../../components/schemas/rationalformat.yaml
+              locked_amount.fraction:
+                type: object
+                description: The locked amount in [fraction format](https://www.mathsisfun.com/definitions/fraction.html).
+          example: {}

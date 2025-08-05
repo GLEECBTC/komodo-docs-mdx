@@ -1,0 +1,36 @@
+components:
+  schemas:
+    TotalFeeInfo:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: the fee is paid from the user's balance of this coin. This
+            coin name may differ from the `base` or `rel` coins. For example, ERC20
+            fees are paid by ETH (gas)
+        amount:
+          type: string
+          description: fee amount (in decimal representation)
+        amount_rat:
+          type: string
+          description: fee amount (in rational representation)
+        amount_fraction:
+          type: string
+          description: fee amount (in fraction representation)
+        required_balance:
+          type: string
+          description: the required `coin` balance to pay the fee
+        required_balance_rat:
+          type: string
+          description: '`required_balance` in rational representation'
+        required_balance_fraction:
+          type: string
+          description: '`required_balance` in fraction representation'
+      required:
+      - amount
+      - amount_fraction
+      - amount_rat
+      - coin
+      - required_balance
+      - required_balance_fraction
+      - required_balance_rat

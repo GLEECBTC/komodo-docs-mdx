@@ -1,0 +1,63 @@
+/stream::balance::enable:
+  post:
+    summary: Using this method, you can enable balance events streaming for a specific
+      coin.
+    description: Using this method, you can enable balance events streaming for a
+      specific coin.
+    operationId: stream::balance::enable
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - stream::balance::enable
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the coin to activate streaming for. The
+                      coin must be activated first.
+                  client_id:
+                    type: integer
+                    description: In the case of a single client, this defaults to
+                      `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)
+                    default: 0
+                  config:
+                    description: EVM only. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config)
+                      object.
+                    $ref: ../../components/schemas/StreamingConfig.yaml
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              streamer_id:
+                type: string
+                description: An identifier for the data stream. This can be used later
+                  to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/).
+          example: {}

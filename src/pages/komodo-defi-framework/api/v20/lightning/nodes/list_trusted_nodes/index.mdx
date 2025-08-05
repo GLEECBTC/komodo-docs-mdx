@@ -1,0 +1,51 @@
+export const title = "Komodo DeFi Framework Method: List Trusted Lightning Nodes";
+export const description = "List all trusted Lightning nodes using the Komodo DeFi Framework API.";
+
+# List Trusted Lightning Nodes
+
+## lightning::nodes::list\_trusted\_nodes {{label : 'lightning::nodes::list_trusted_nodes', tag : 'API-v2'}}
+
+The `lightning::nodes::list_trusted_nodes` method allows you to list all nodes in your trusted list.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                   |
+| --------- | ------ | :------: | ------------------------------------------------------------- |
+| coin      | string |     ✓    | The coin ticker you would like to view your trusted nodes to. |
+
+### Response Parameters
+
+| Parameter      | Type        | Description                  |
+| -------------- | ----------- | ---------------------------- |
+| trusted\_nodes | string\[]   | Array of trusted node IDs.   |
+| id             | int or null | Request identifier, or null. |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::nodes::list_trusted_nodes" tag="POST" label="lightning::nodes::list_trusted_nodes" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::nodes::list_trusted_nodes",
+    "params": {
+      "coin": "tBTC-lightning"
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "trusted_nodes": ["038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9"]
+      },
+      "id": 1
+  }
+  ```
+</CollapsibleSection>

@@ -1,0 +1,18 @@
+components:
+  schemas:
+    PairDepth:
+      type: object
+      properties:
+        pair:
+          type: string
+          description: Trading pair name
+        asks:
+          type: array
+          description: Array of ask price levels
+        bids:
+          type: array
+          description: Array of bid price levels
+      required:
+      - asks
+      - bids
+      - pair

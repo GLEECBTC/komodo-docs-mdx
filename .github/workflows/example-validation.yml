@@ -1,0 +1,102 @@
+name: Example Validation
+
+on:
+  pull_request:
+    paths:
+      - 'postman/json/**/*.json'
+      - 'src/pages/**/*.mdx'
+  push:
+    branches: [ main, dev ]
+    paths:
+      - 'postman/json/**/*.json'
+      - 'src/pages/**/*.mdx'
+
+jobs:
+  validate-examples:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Check for duplicate examples
+      run: |
+        cd utils/py
+        python3 deduplicate_examples.py --dry-run --versions v1 v2
+        
+    - name: Check duplicate ratio
+      run: |
+        cd utils/py
+        # Run deduplication check and capture output
+        OUTPUT=$(python3 deduplicate_examples.py --dry-run --versions v1 v2 2>&1)
+        
+        # Extract files to remove and files kept
+        FILES_TO_REMOVE=$(echo "$OUTPUT" | grep "Files to remove:" | grep -o '[0-9]\+' | head -1)
+        FILES_KEPT=$(echo "$OUTPUT" | grep "Files kept:" | grep -o '[0-9]\+' | head -1)
+        
+        if [ -n "$FILES_TO_REMOVE" ] && [ -n "$FILES_KEPT" ]; then
+          TOTAL=$((FILES_TO_REMOVE + FILES_KEPT))
+          if [ $TOTAL -gt 0 ]; then
+            DUPLICATE_PERCENTAGE=$((FILES_TO_REMOVE * 100 / TOTAL))
+            echo "Duplicate percentage: $DUPLICATE_PERCENTAGE%"
+            
+            # Fail if more than 10% duplicates
+            if [ $DUPLICATE_PERCENTAGE -gt 10 ]; then
+              echo "❌ Too many duplicate examples found: $DUPLICATE_PERCENTAGE%"
+              echo "Please run 'cd utils/py && python3 deduplicate_examples.py --execute' to clean them up"
+              exit 1
+            else
+              echo "✅ Duplicate percentage is acceptable: $DUPLICATE_PERCENTAGE%"
+            fi
+          fi
+        fi
+        
+    - name: Validate example naming
+      run: |
+        # Check for generic example names
+        cd postman/json
+        GENERIC_NAMES=$(find . -name "*-example-[0-9]*-basic_request-*" | wc -l)
+        TASK_OPERATION_NAMES=$(find . -name "*-example-[0-9]*-task_operation-*" | wc -l)
+        
+        if [ $GENERIC_NAMES -gt 20 ]; then
+          echo "⚠️  Warning: Found $GENERIC_NAMES files with generic 'basic_request' naming"
+          echo "Consider using more descriptive names following MDX_EXAMPLE_STANDARDS.md"
+        fi
+        
+        if [ $TASK_OPERATION_NAMES -gt 20 ]; then
+          echo "⚠️  Warning: Found $TASK_OPERATION_NAMES files with generic 'task_operation' naming"
+          echo "Consider using more descriptive names following MDX_EXAMPLE_STANDARDS.md"
+        fi
+        
+    - name: Comment on PR
+      if: github.event_name == 'pull_request' && failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `## 🔍 Example Validation Failed
+            
+            Your pull request contains too many duplicate examples. Please run the deduplication script:
+            
+            \`\`\`bash
+            cd utils/py
+            python3 deduplicate_examples.py --execute
+            \`\`\`
+            
+            See [MDX_EXAMPLE_STANDARDS.md](docs/MDX_EXAMPLE_STANDARDS.md) for best practices on creating unique, meaningful examples.
+            
+            ### 📚 Guidelines:
+            - Each example should demonstrate a **distinct use case**
+            - Use **descriptive names** instead of "Example 1", "Example 2"
+            - **Consolidate** identical examples into single representative examples
+            - Only create multiple examples for **genuinely different scenarios**
+            `
+          }) 

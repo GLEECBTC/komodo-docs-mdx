@@ -1,0 +1,71 @@
+/task::init_trezor::cancel:
+  post:
+    summary: Cancel the Trezor initialisation task in the Komodo DeFi Framework API.
+    description: Cancel the Trezor initialisation task in the Komodo DeFi Framework
+      API.
+    operationId: task::init_trezor::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::init_trezor::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      initialisation process.
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns with value `success` when successful, otherwise
+                  returns the error values below
+              error:
+                type: string
+                description: Description of the error
+              error_path:
+                type: string
+                description: Used for debugging. A reference to the function in code
+                  base which returned the error
+              error_trace:
+                type: string
+                description: Used for debugging. A trace of lines of code which led
+                  to the returned error
+              error_type:
+                type: string
+                description: An enumerated error identifier to indicate the category
+                  of error
+              error_data:
+                type: string
+                description: Additonal context for the error type
+          example: {}

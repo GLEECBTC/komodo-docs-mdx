@@ -1,0 +1,27 @@
+components:
+  schemas:
+    LightningPayment:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The payment type. Accepted values are `invoice` or [`keysend`](https://cdecker-lightning.readthedocs.io/lightning-keysend.7.html).
+        invoice:
+          type: string
+          description: Only used if `type` is `invoice`. An identifying string which
+            represents the invoice.
+        destination:
+          type: string
+          description: Only used if `type` is `keysend`. A `node_pubkey` (which is
+            also the node address in lightning context). Not to be confused with an
+            onchain address.
+        amount_in_msat:
+          type: string
+          description: Only used if `type` is `keysend`. Amount to be paid, in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)
+            (A thousandth of a satoshi; the same as 0.00000000001 bitcoin).
+        expiry:
+          type: string
+          description: Only used if `type` is `keysend`. Seconds until the payment
+            expires.
+      required:
+      - type

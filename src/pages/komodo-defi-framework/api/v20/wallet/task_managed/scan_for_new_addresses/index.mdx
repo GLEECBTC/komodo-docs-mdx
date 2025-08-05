@@ -1,143 +1,20 @@
-export const title = "Komodo DeFi Framework Method: Scan For New Addresses";
-export const description = "The methods in this document demonstrate how to scan for HD addresses on Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method: Scan for New Addresses Task";
+export const description = "Overview of scan for new addresses task-managed methods in the Komodo DeFi Framework API.";
 
-# Task: Scan for New Addresses
+# Scan for New Addresses Task
 
-## task::scan\_for\_new\_addresses::init  {{label : 'task::scan_for_new_addresses::init', tag : 'API-v2'}}
+## task::scan\_for\_new\_addresses {{label : 'task::scan_for_new_addresses', tag : 'overview'}}
 
-#### Arguments
+Overview of all scan for new addresses task-managed methods. See below for details and cross-links to related address scanning documentation.
 
-| Parameter   | Type    | Description                                                                                                                           |
-| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| coin        | string  | The ticker of the coin you want to scan addresses for                                                                                 |
-| account\_id | integer | Optional, HD wallets only. Generally this will be `0` unless you have multiple accounts registered on your HD wallet                  |
-| gap\_limit  | integer | Optional. The maximum number of empty addresses in a row. Defaults to the value provided on activation or 20 if no value was provided |
+### Init Scan For New Addresses
 
-#### Response
+See [task::scan\_for\_new\_addresses::init](/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/init/) for initializing scan for new addresses.
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+### Status Scan For New Addresses
 
-#### 📌 Examples
+See [task::scan\_for\_new\_addresses::status](/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/status/) for checking the status of scan for new addresses.
 
-#### Command
+### Cancel Scan For New Addresses
 
-<CodeGroup title="task::scan_for_new_addresses::init" tag="POST" label="task::scan_for_new_addresses::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::scan_for_new_addresses::init",
-    "params": {
-      "coin": "DGB",
-      "account_index": 0,
-      "gap_limit": 20
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "task_id": 3
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-## task::scan\_for\_new\_addresses::status {{label : 'task::scan_for_new_addresses::status', tag : 'API-v2'}}
-
-Use the `task::scan_for_new_addresses::status` method to query the status of a HD address scanning task.
-
-#### Arguments
-
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the task.                                 |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
-
-#### Response
-
-| Parameter | Type             | Description                                                                                                                     |
-| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                              |
-| details   | string or object | Once complete, a standard [ScanAddressesInfo](/komodo-defi-framework/api/common_structures/wallet/#scan-addresses-info) object. |
-
-#### 📌 Examples
-
-#### Command
-
-<CodeGroup title="task::scan_for_new_addresses::status" tag="POST" label="task::scan_for_new_addresses::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::scan_for_new_addresses::status",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success, no new address found)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "status": "Ok",
-        "details": {
-            "account_index": 0,
-            "derivation_path": "m/44'/141'/0'",
-            "new_addresses": []
-        }
-    },
-    "id": null
-  }
-  ```
-
-  #### Response (success, new address found)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "status": "Ok",
-        "details": {
-            "account_index": 0,
-            "derivation_path": "m/44'/141'/0'",
-            "new_addresses": [
-                {
-                    "address": "RXaMK6RtvwPiy67oramBfFXCgMobBofMWv",
-                    "derivation_path": "m/44'/141'/0'/0/3",
-                    "chain": "External",
-                    "balance": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                    }
-                },
-                {
-                    "address": "RJkjq4DeQ5vTNJxa1gHoS4y31ZU9F3aisu",
-                    "derivation_path": "m/44'/141'/0'/0/4",
-                    "chain": "External",
-                    "balance": {
-                        "spendable": "0.444",
-                        "unspendable": "0"
-                    }
-                }
-            ]
-        }
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+See [task::scan\_for\_new\_addresses::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/cancel/) for cancelling scan for new addresses.

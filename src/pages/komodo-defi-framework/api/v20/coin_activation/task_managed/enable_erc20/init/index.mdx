@@ -1,0 +1,63 @@
+export const title = "Komodo DeFi Framework Method: Initialize ERC20 Token Activation Task";
+export const description = "Start a task-managed activation flow for an ERC-20 token.";
+
+# Initialize ERC20 Token Activation Task
+
+## task::enable\_erc20::init {{label : 'task::enable_erc20::init', tag : 'API-v2'}}
+
+<Note type="info">This page was generated automatically and provides a skeleton for the method documentation. Verify all parameter names, defaults, and response fields before publishing.</Note>
+
+### Request Parameters
+
+| Parameter               | Type        | Required |            Default           | Description                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | ----------- | :------: | :--------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker                  | string      |     ✓    |               -              | ERC-20 token symbol to activate (e.g., `USDC`).                                                                                                                                                                                                                                                                                   |
+| required\_confirmations | integer     |     ✗    |               -              | Number of confirmations required for swap transactions involving the token. If omitted, defaults to the parent platform-coin value (typically `3`).                                                                                                                                                                               |
+| scan\_policy            | string enum |     ✗    |     `scan_if_new_wallet`     | Address-scanning behaviour for HD wallets. One of `do_not_scan`, `scan_if_new_wallet` (default), or `scan`.                                                                                                                                                                                                                       |
+| min\_addresses\_number  | integer     |     ✗    |               -              | Minimum number of addresses to derive per HD account when `scan_policy` triggers scanning.                                                                                                                                                                                                                                        |
+| path\_to\_address       | object      |     ✗    |               -              | HD path selector (account / address index) to use as the default swap address.                                                                                                                                                                                                                                                    |
+| priv\_key\_policy       | object      |     ✗    | `{"type": "ContextPrivKey"}` | Object specifying the policy to access private key during activation. Must include a `type` field with a value from [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum). When `type` is `WalletConnect`, also provide a `data` field containing the session topic. |
+| userpass                | string      |     ✓    |               -              | RPC password (`RPC_UserP@SSW0RD`).                                                                                                                                                                                                                                                                                                |
+
+### Response Parameters
+
+| Parameter | Type    | Description                               |
+| --------- | ------- | ----------------------------------------- |
+| task\_id  | integer | Unique identifier of the activation task. |
+| status    | string  | Current task status (e.g., `InProgress`). |
+
+#### 📌 Examples
+
+<CodeGroup title="enable_erc20::init" tag="POST" label="task::enable_erc20::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::enable_erc20::init",
+    "params": {
+      "ticker": "USDC",
+      "required_confirmations": 5,
+      "scan_policy": "scan_if_new_wallet",
+      "priv_key_policy": {
+        "type": "ContextPrivKey"
+      }
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1,
+      "status": "InProgress"
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>

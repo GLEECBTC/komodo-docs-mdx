@@ -1,0 +1,70 @@
+/task::scan_for_new_addresses::cancel:
+  post:
+    summary: Cancel a scan for new HD addresses task in the Komodo DeFi Framework
+      API.
+    description: Cancel a scan for new HD addresses task in the Komodo DeFi Framework
+      API.
+    operationId: task::scan_for_new_addresses::cancel
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::scan_for_new_addresses::cancel
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      scan process.
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Indicates task cancellation was successful.
+              error:
+                type: string
+                description: An error message to explain what went wrong.
+              error_path:
+                type: string
+                description: An indicator of the class or function which returned
+                  the error.
+              error_trace:
+                type: string
+                description: An indicator of where in the source code the error was
+                  thrown.
+              error_type:
+                type: string
+                description: An enumerated value for the returned error.
+              error_data:
+                type: string
+                description: The input task ID which resulted in the error.
+          example: {}

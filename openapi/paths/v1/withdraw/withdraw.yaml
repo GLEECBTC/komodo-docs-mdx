@@ -1,0 +1,55 @@
+/withdraw:
+  post:
+    summary: The withdraw method generates, signs, and returns a transaction that
+      transfers the amount of coin to the address indicated in the to argument.
+    description: The withdraw method generates, signs, and returns a transaction that
+      transfers the amount of coin to the address indicated in the to argument.
+    operationId: withdraw
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - withdraw
+              coin:
+                type: string
+                description: The name of the coin the user desires to withdraw
+              to:
+                type: string
+                description: Coins are withdrawn to this address
+              amount:
+                type: string
+                description: The amount the user desires to withdraw, ignored when
+                  `max=true`
+              max:
+                type: boolean
+                description: Withdraw the maximum available amount
+                default: false
+              fee:
+                description: Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info)
+                  object.
+                $ref: ../../components/schemas/FeeInfo.yaml
+            required:
+            - userpass
+            - method
+            - coin
+            - to
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

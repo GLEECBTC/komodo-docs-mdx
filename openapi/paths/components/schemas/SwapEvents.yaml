@@ -1,0 +1,15 @@
+components:
+  schemas:
+    SwapEvents:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          description: Timestamp for the `SwapEvent` in UNIX format.
+        event:
+          description: A standard [SwapEvent](/komodo-defi-framework/api/common_structures/swaps/#swap-event)
+            object.
+          $ref: '#/components/schemas/SwapEvent'
+      required:
+      - event
+      - timestamp

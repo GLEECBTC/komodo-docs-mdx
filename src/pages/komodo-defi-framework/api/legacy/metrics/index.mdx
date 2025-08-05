@@ -1,39 +1,46 @@
 export const title = "Komodo DeFi Framework Method: Metrics";
-export const description =
-  "The metrics method returns a snapshot of the current Komodo DeFi Framework API metrics used in Prometheus and Grafana.";
+export const description = "The metrics method returns a snapshot of the current Komodo DeFi Framework API metrics used in Prometheus and Grafana.";
 
-# metrics
+# Metrics
+
+## metrics {{label : 'metrics', tag : 'API-v1'}}
 
 The `metrics` method returns a snapshot of the current Komodo DeFi Framework API metrics used in [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/).
-For more information check out the [Komodo DeFi Framework metrics guide](/komodo-defi-framework/tutorials/api-metrics/)
+For more information, check out the [Komodo DeFi Framework metrics guide](/komodo-defi-framework/tutorials/api-metrics/).
 
 ### Request Parameters
 
-The `metrics` method does not take any additional parameters, and does not require authentication with your `rpc_password`.
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-### Response Parameters
+<Note type="info">
+  This method does not require a `userpass` value in the request.
+</Note>
+
+### Response
 
 | Parameter | Type            | Description                                                                                                                              |
 | --------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| metrics   | list of objects | There are a variety of metrics returned, with each metrics object havine a `type`, `key`, `label`, and some values which vary by `type`. |
+| metrics   | list of objects | There are a variety of metrics returned, with each metrics object having a `type`, `key`, `label`, and some values which vary by `type`. |
 
-### Metrics object
+#### Metrics object
 
-| Parameter | Type   | Description                                                                                                |
-| --------- | ------ | ---------------------------------------------------------------------------------------------------------- |
-| type      | string | A metric type which indicates how it should be displayed in visualisation.                                 |
-| key       | string | A descriptive name assigned to the metric.                                                                 |
-| labels    | object | Labels can be used to group similar metrics together or provide additional context.                        |
-| value     | float  | Returned if `type` is `gauge`. A numeric value which indicates the magnitude of the metric being measured. |
-| count     | float  | Returned if `type` is `histogram`. How many values were measured.                                          |
-| min       | float  | Returned if `type` is `histogram`. The smallest value measured.                                            |
-| max       | float  | Returned if `type` is `histogram`. The highest value measured.                                             |
+| Parameter | Type   | Description                                                                                                                                                         |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type      | string | A standard [MetricTypeEnum](/komodo-defi-framework/api/common_structures/enums/#metric-type-enum) enum which indicates how it should be displayed in visualisation. |
+| key       | string | A descriptive name assigned to the metric.                                                                                                                          |
+| labels    | object | Labels can be used to group similar metrics together or provide additional context.                                                                                 |
+| value     | float  | Returned if `type` is `gauge`. A numeric value which indicates the magnitude of the metric being measured.                                                          |
+| count     | float  | Returned if `type` is `histogram`. How many values were measured.                                                                                                   |
+| min       | float  | Returned if `type` is `histogram`. The smallest value measured.                                                                                                     |
+| max       | float  | Returned if `type` is `histogram`. The highest value measured.                                                                                                      |
 
-#### 📌 Example(s)
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="metrics" mm2MethodDecorate="true">
+<CodeGroup title="metrics" tag="POST" label="metrics" mm2MethodDecorate="true">
   ```json
   {
     "method": "metrics",
@@ -47,228 +54,50 @@ The `metrics` method does not take any additional parameters, and does not requi
 
   ```json
   {
-    "metrics": [
-      {
-        "type": "counter",
-        "key": "tx.history.response.count",
-        "labels": {
-          "coin": "MARTY",
-          "method": "tx_detail_by_hash"
-        },
-        "value": 25
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.request.count",
-        "labels": {
-          "client": "electrum",
-          "coin": "DOC"
-        },
-        "value": 1224
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.response.count",
-        "labels": {
-          "method": "tx_detail_by_hash",
-          "coin": "DOC"
-        },
-        "value": 27
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.request.count",
-        "labels": {
-          "coin": "DOC",
-          "method": "tx_detail_by_hash"
-        },
-        "value": 27
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.traffic.in",
-        "labels": {
-          "client": "electrum",
-          "coin": "DOC"
-        },
-        "value": 823841
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.traffic.out",
-        "labels": {
-          "coin": "MARTY",
-          "client": "electrum"
-        },
-        "value": 139396
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.response.total_length",
-        "labels": {
-          "client": "electrum",
-          "coin": "MARTY",
-          "method": "blockchain.scripthash.get_history"
-        },
-        "value": 1041
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.response.count",
-        "labels": {
-          "client": "electrum",
-          "coin": "MARTY",
-          "method": "blockchain.scripthash.get_history"
-        },
-        "value": 11
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.response.count",
-        "labels": {
-          "method": "blockchain.scripthash.get_history",
-          "client": "electrum",
-          "coin": "DOC"
-        },
-        "value": 6
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.request.count",
-        "labels": {
-          "coin": "MARTY",
-          "method": "tx_detail_by_hash"
-        },
-        "value": 25
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.response.count",
-        "labels": {
-          "coin": "DOC",
-          "client": "electrum"
-        },
-        "value": 1351
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.request.count",
-        "labels": {
-          "client": "electrum",
-          "coin": "MARTY"
-        },
-        "value": 1237
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.traffic.in",
-        "labels": {
-          "client": "electrum",
-          "coin": "MARTY"
-        },
-        "value": 772964
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.response.total_length",
-        "labels": {
-          "coin": "DOC",
-          "client": "electrum",
-          "method": "blockchain.scripthash.get_history"
-        },
-        "value": 767
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.request.count",
-        "labels": {
-          "coin": "DOC",
-          "client": "electrum",
-          "method": "blockchain.scripthash.get_history"
-        },
-        "value": 6
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.traffic.out",
-        "labels": {
-          "coin": "DOC",
-          "client": "electrum"
-        },
-        "value": 136368
-      },
-      {
-        "type": "counter",
-        "key": "tx.history.request.count",
-        "labels": {
-          "coin": "MARTY",
-          "client": "electrum",
-          "method": "blockchain.scripthash.get_history"
-        },
-        "value": 11
-      },
-      {
-        "type": "counter",
-        "key": "rpc_client.response.count",
-        "labels": {
-          "client": "electrum",
-          "coin": "MARTY"
-        },
-        "value": 1361
-      },
-      {
-        "type": "gauge",
-        "key": "p2p.connected_peers.count",
-        "labels": {},
-        "value": 8.0
-      },
-      {
-        "type": "gauge",
-        "key": "p2p.received_messages.count",
-        "labels": {},
-        "value": 24.0
-      },
-      {
-        "type": "gauge",
-        "key": "p2p.connected_relays.len",
-        "labels": {},
-        "value": 8.0
-      },
-      {
-        "type": "gauge",
-        "key": "p2p.relay_mesh.len",
-        "labels": {},
-        "value": 2.0
-      },
-      {
-        "type": "gauge",
-        "key": "orderbook.memory_db",
-        "labels": {},
-        "value": 297800390224.0
-      },
-      {
-        "type": "gauge",
-        "key": "orderbook.len",
-        "labels": {},
-        "value": 15.0
-      },
-      {
-        "type": "gauge",
-        "key": "p2p.received_messages.period_in_secs",
-        "labels": {},
-        "value": 60.0
-      },
-      {
-        "type": "histogram",
-        "key": "peer.outgoing_request.timing",
-        "labels": {
-          "peer": "12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y"
-        },
-        "count": 2.0,
-        "max": 0.801318629,
-        "min": 0.699428848
-      }
-    ]
+      "metrics": [
+          {
+              "type": "gauge",
+              "key": "p2p.received_messages.period_in_secs",
+              "labels": {},
+              "value": 60.0
+          },
+          {
+              "type": "gauge",
+              "key": "p2p.received_messages.count",
+              "labels": {},
+              "value": 0.0
+          },
+          {
+              "type": "gauge",
+              "key": "orderbook.memory_db",
+              "labels": {},
+              "value": 7.813573208234543e18
+          },
+          {
+              "type": "gauge",
+              "key": "p2p.relay_mesh.len",
+              "labels": {},
+              "value": 2.0
+          },
+          {
+              "type": "gauge",
+              "key": "orderbook.len",
+              "labels": {},
+              "value": 0.0
+          },
+          {
+              "type": "gauge",
+              "key": "p2p.connected_peers.count",
+              "labels": {},
+              "value": 3.0
+          },
+          {
+              "type": "gauge",
+              "key": "p2p.connected_relays.len",
+              "labels": {},
+              "value": 3.0
+          }
+      ]
   }
   ```
 </CollapsibleSection>

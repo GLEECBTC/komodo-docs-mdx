@@ -1,25 +1,29 @@
-export const title = "Komodo DeFi Framework Method: Get Peers Info";
+export const title = "Komodo DeFi Framework Method: Get Directly Connected Peers";
 export const description = "The get_directly_connected_peers method returns an array of peers (with their multiaddresses) currently connected to the requesting node.";
 
-# get\_directly\_connected\_peers
+# Get Directly Connected Peers
 
-The `get_directly_connected_peers` method all connected peers with their multiaddresses. See [https://docs.libp2p.io/concepts/addressing/](https://docs.libp2p.io/concepts/addressing/) for more information.
+## get\_directly\_connected\_peers {{label : 'get_directly_connected_peers', tag : 'API-v1'}}
 
-## Arguments
+The `get_directly_connected_peers` method returns all connected peers with their multiaddresses. See [https://docs.libp2p.io/concepts/addressing/](https://docs.libp2p.io/concepts/addressing/) for more information.
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+### Request Parameters
 
-#### Response
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-| Structure             | Type  | Description                                    |
+### Response parameters
+
+| Parameter             | Type  | Description                                    |
 | --------------------- | ----- | ---------------------------------------------- |
-| PeerID-Multiaddresses | Array | All connected peers with their multiaddresses. |
+| PeerID-Multiaddresses | array | All connected peers with their multiaddresses. |
 
 #### 📌 Example
 
-<CodeGroup title="" tag="POST" label="get_directly_connected_peers" mm2MethodDecorate="true">
+#### Request
+
+<CodeGroup title="get_directly_connected_peers" tag="POST" label="get_directly_connected_peers" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -29,31 +33,18 @@ The `get_directly_connected_peers` method all connected peers with their multiad
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
   ```json
   {
-    "result": {
-      "12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU": [
-        "/ip4/89.248.168.39/tcp/42845"
-      ],
-      "12D3KooWJ3dEWK7ym1uwc5SmwbmfFSRmELrA9aPJYxFRrQCCNdwF": [
-        "/ip4/188.124.46.112/tcp/42845/p2p/12D3KooWJ3dEWK7ym1uwc5SmwbmfFSRmELrA9aPJYxFRrQCCNdwF"
-      ],
-      "12D3KooWL6yrrNACb7t7RPyTEPxKmq8jtrcbkcNd6H5G2hK7bXaL": [
-        "/ip4/168.119.236.233/tcp/42845/p2p/12D3KooWL6yrrNACb7t7RPyTEPxKmq8jtrcbkcNd6H5G2hK7bXaL"
-      ],
-      "12D3KooWPR2RoPi19vQtLugjCdvVmCcGLP2iXAzbDfP3tp81ZL4d": [
-        "/ip4/168.119.237.13/tcp/42845/p2p/12D3KooWPR2RoPi19vQtLugjCdvVmCcGLP2iXAzbDfP3tp81ZL4d"
-      ],
-      "12D3KooWKxavLCJVrQ5Gk1kd9m6cohctGQBmiKPS9XQFoXEoyGmS": [
-        "/ip4/168.119.236.249/tcp/42845/p2p/12D3KooWKxavLCJVrQ5Gk1kd9m6cohctGQBmiKPS9XQFoXEoyGmS"
-      ],
-      "12D3KooWDbBdifGp3viDR4dCECEFKepjhwhd2YwAqgNVdXpEeewu": [
-        "/ip4/80.82.76.214/tcp/42845"
-      ],
-      "12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y": [
-        "/ip4/89.248.173.231/tcp/42845"
-      ]
-    }
+      "result": {
+          "12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU": [
+              "/ip4/89.248.168.39/tcp/42845"
+          ],
+          "12D3KooWJ3dEWK7ym1uwc5SmwbmfFSRmELrA9aPJYxFRrQCCNdwF": [
+              "/ip4/188.124.46.112/tcp/42845/p2p/12D3KooWJ3dEWK7ym1uwc5SmwbmfFSRmELrA9aPJYxFRrQCCNdwF"
+          ]
+      }
   }
   ```
 </CollapsibleSection>

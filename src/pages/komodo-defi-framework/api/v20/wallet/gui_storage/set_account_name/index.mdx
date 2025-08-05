@@ -1,0 +1,62 @@
+export const title = "Komodo DeFi Framework Method: Set GUI Storage Account Name";
+export const description = "Update the display name of a GUI-storage account.";
+
+# Set GUI Storage Account Name
+
+## gui\_storage::set\_account\_name {{label : 'gui_storage::set_account_name', tag : 'API-v2'}}
+
+Sets a new `name` for the specified account.
+
+### Request Parameters
+
+| Parameter   | Type                                                                         | Required | Description                          |
+| ----------- | ---------------------------------------------------------------------------- | :------: | ------------------------------------ |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Account to rename.                   |
+| name        | string                                                                       |     ✓    | New display name (≤ 255 characters). |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                       |
+| --------- | ------ | ------------------------------------------------- |
+| result    | string | Returns `success` when the name has been updated. |
+
+#### 📌 Example
+
+<CodeGroup title="set_account_name" tag="POST" label="gui_storage::set_account_name" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::set_account_name",
+    "params": {
+      "account_id": {
+        "type": "iguana"
+      },
+      "name": "Legacy Account"
+    },
+    "id": 16,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 16
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                |
+| ------------------- | ------ | ------------------------------------------ |
+| NameTooLong         | string | Provided `name` exceeds maximum length.    |
+| NoSuchAccount       | string | The specified `account_id` does not exist. |
+| ErrorLoadingAccount | string | Storage read error.                        |
+| ErrorSavingAccount  | string | Storage write error.                       |
+| InternalError       | string | Unhandled internal error.                  |

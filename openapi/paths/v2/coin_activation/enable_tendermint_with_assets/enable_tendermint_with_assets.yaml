@@ -1,0 +1,122 @@
+/enable_tendermint_with_assets:
+  post:
+    summary: Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and
+      IBC assets in a single command.
+    description: Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS)
+      and IBC assets in a single command.
+    operationId: enable_tendermint_with_assets
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - enable_tendermint_with_assets
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  nodes:
+                    description: A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node).
+                    $ref: ../../components/schemas/CoinNodeobjects.yaml
+                  ticker:
+                    type: string
+                    description: 'Ticker of the platform protocol coin. Current options:
+                      `ATOM`, `IRIS`, `OSMOSIS` (with more supported coins on the
+                      way).'
+                  tokens_params:
+                    description: A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request)
+                      objects.
+                    $ref: ../../components/schemas/TokensRequest.yaml
+                  activation_params:
+                    description: Only used with Metamask, Keplr, or WalletConnect
+                      activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy)
+                      of the connection.
+                    $ref: ../../components/schemas/PrivKeyPolicy.yaml
+                  get_balances:
+                    type: boolean
+                    description: If `false`, coin and token balances will not be returned
+                      in the response, and the response will be returned more quickly.
+                    default: true
+                  mm2:
+                    type: integer
+                    description: Required if not set in coins file. Informs the Komodo
+                      DeFi Framework API whether or not the coin is expected to function.
+                      Accepted values are `0` or `1`.
+                  priv_key_policy:
+                    description: Value can be [PrivKeyActivationPolicyEnum](/komodo-defi-framework/api/common_structures/enums/#priv-key-activation-policy-enum).
+                    $ref: ../../components/schemas/PrivKeyActivationPolicyEnum.yaml
+                  required_confirmations:
+                    type: integer
+                    description: When the platform coin is involved, the number of
+                      confirmations for the Komodo DeFi Framework API to wait during
+                      the transaction steps of an atomic swap.
+                    default: 3
+                  requires_notarization:
+                    type: boolean
+                    description: If `true`, coins protected by [Komodo Platform's
+                      dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86)
+                      will wait for a notarization before progressing to the next
+                      atomic swap transactions step.
+                    default: false
+                  tx_history:
+                    type: boolean
+                    description: If `true` the Komodo DeFi Framework API will preload
+                      transaction history as a background process. Must be set to
+                      `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history)
+                      method.
+                    default: false
+                required:
+                - nodes
+                - ticker
+                - tokens_params
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: An address for the activated coin
+              balance:
+                description: Only returned when `get_balances` is `true`. A standard
+                  [BalanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info)
+                  object.
+                $ref: ../../components/schemas/BalanceInfos.yaml
+              current_block:
+                type: integer
+                description: Block height of the coin being activated
+              ticker:
+                type: string
+                description: Ticker of the platform protocol coin, as input in the
+                  request.
+              tokens_balances:
+                description: Only returned when `get_balances` is `true`. A list of
+                  standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info)
+                  objects, one for each token.
+                $ref: ../../components/schemas/AddressInfo.yaml
+              tokens_tickers:
+                type: array
+                description: Only returned when `get_balances` is `false`. A list
+                  of each token which was activated.
+          example: {}

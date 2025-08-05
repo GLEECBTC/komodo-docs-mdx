@@ -1,0 +1,61 @@
+export const title = "Komodo DeFi Framework Method: Update Lightning Channel";
+export const description = "Update a Lightning Network channel using the Komodo DeFi Framework API.";
+
+# Update Lightning Channel
+
+## lightning::channels::update\_channel {{label : 'lightning::channels::update_channel', tag : 'API-v2'}}
+
+Updates channel options for a Lightning Network channel.
+
+### Request Parameters
+
+| Parameter        | Type   | Required | Description                                                                                                                     |
+| ---------------- | ------ | :------: | ------------------------------------------------------------------------------------------------------------------------------- |
+| coin             | string |     ✓    | The ticker of the coin you would like to update channel configuration options for.                                              |
+| uuid             | string |     ✓    | Unique channel identifier.                                                                                                      |
+| channel\_options | object |     ✓    | A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options) object. |
+
+### Response Parameters
+
+| Parameter        | Type   | Description                  |
+| ---------------- | ------ | ---------------------------- |
+| channel\_options | object | The updated channel options. |
+| id               | int    | Request identifier.          |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::channels::update_channel" tag="POST" label="lightning::channels::update_channel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::update_channel",
+    "params": {
+      "coin": "tBTC-lightning",
+      "uuid": "434681f8-95e5-484f-af49-fa80d8ae857b",
+      "channel_options": {
+        "proportional_fee_in_millionths_sats": 1,
+        "base_fee_msat": 1100,
+        "cltv_expiry_delta": 72,
+        "max_dust_htlc_exposure_msat": 5000000,
+        "force_close_avoidance_max_fee_satoshis": 1000
+      }
+    },
+    "id": 2
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "channel_options": "TBA"
+      },
+      "id": 2
+  }
+  ```
+</CollapsibleSection>

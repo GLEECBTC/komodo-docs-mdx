@@ -1,0 +1,64 @@
+/sign_message:
+  post:
+    summary: The method in this document allows you to sign messages for all coins
+      supported by Komodo DeFi Framework.
+    description: The method in this document allows you to sign messages for all coins
+      supported by Komodo DeFi Framework.
+    operationId: sign_message
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - sign_message
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin to sign a message with.
+                    default: '-'
+                  message:
+                    type: string
+                    description: The message you want to sign.
+                    default: '-'
+                  address:
+                    description: HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path)
+                      object. The path to the address for signing the message. If
+                      not provided, the `account_id`, `chain`, and `address_id` will
+                      default to `0`.
+                    $ref: ../../components/schemas/AddressPath.yaml
+                required:
+                - coin
+                - message
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              signature:
+                type: string
+                description: The signature generated for the message.
+          example: {}

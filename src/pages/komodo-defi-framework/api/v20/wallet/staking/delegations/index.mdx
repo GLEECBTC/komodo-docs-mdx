@@ -4,14 +4,16 @@ export const description =
 
 # Delegations
 
+## experimental::staking::query::delegations {{label : 'experimental::staking::query::delegations', tag : 'API-v2'}}
+
 The `experimental::staking::query::delegations` method returns information about your node's staking. Currently QTUM and tQTUM (test tokens avalable at `https://testnet-faucet.qtum.info/`), along with Cosmos/Tendermint coins are supported.
 
-## Arguments
+### Request Parameters
 
-| Structure     | Type   | Description                                                                                                                     |
-| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| coin          | string | the coin being staked                                                                                                           |
-| info\_details | object | Cosmos Only. A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+| Parameter     | Type   | Required | Default | Description                                                                                                                     |
+| :------------ | :----- | :------: | :-----: | :------------------------------------------------------------------------------------------------------------------------------ |
+| coin          | string |     ✓    |    -    | The coin being staked.                                                                                                          |
+| info\_details | object |     ✗    |    -    | Cosmos Only. A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
 
 #### 📌 Examples
 

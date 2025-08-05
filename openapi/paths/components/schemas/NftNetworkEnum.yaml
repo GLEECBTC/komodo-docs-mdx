@@ -1,0 +1,27 @@
+components:
+  schemas:
+    NftNetworkEnum:
+      type: string
+      description: '| Value     | Description         |
+
+
+        **Values:**
+
+        - `POLYGON`: Polygon network
+
+        - `FANTOM`: Fantom network
+
+        - `ETH`: Ethereum network
+
+        - `BSC`: Binance Smart Chain
+
+        - `AVALANCHE`: Avalanche network
+
+        '
+      enum:
+      - POLYGON
+      - FANTOM
+      - ETH
+      - BSC
+      - AVALANCHE
+      title: 'Component: NftNetworkEnum'

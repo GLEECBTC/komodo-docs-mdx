@@ -1,0 +1,125 @@
+export const title = "Komodo DeFi Framework Method: Scan For New Addresses Task Status";
+export const description = "Query the status of a scan for new HD addresses in the Komodo DeFi Framework API.";
+
+# Scan For New Addresses Task Status
+
+## task::scan\_for\_new\_addresses::status {{label : 'task::scan_for_new_addresses::status', tag : 'API-v2'}}
+
+Use the `task::scan_for_new_addresses::status` method to query the status of a HD address scanning task.
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                 |
+| -------------------- | ------- | :------: | :-----: | ----------------------------------------------------------- |
+| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the task.   |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks. |
+
+### Response Parameters
+
+| Parameter | Type             | Description                                                                                                                     |
+| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                              |
+| details   | string or object | Once complete, a standard [ScanAddressesInfo](/komodo-defi-framework/api/common_structures/wallet/#scan-addresses-info) object. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::scan_for_new_addresses::status" tag="POST" label="task::scan_for_new_addresses::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::scan_for_new_addresses::status",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "account_index": 0,
+            "derivation_path": "m/44'/141'/0'",
+            "new_addresses": []
+        }
+    },
+    "id": null
+  }
+  ```
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "account_index": 0,
+            "derivation_path": "m/44'/141'/0'",
+            "new_addresses": [
+                {
+                    "address": "RXaMK6RtvwPiy67oramBfFXCgMobBofMWv",
+                    "derivation_path": "m/44'/141'/0'/0/3",
+                    "chain": "External",
+                    "balance": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                    }
+                },
+                {
+                    "address": "RJkjq4DeQ5vTNJxa1gHoS4y31ZU9F3aisu",
+                    "derivation_path": "m/44'/141'/0'/0/4",
+                    "chain": "External",
+                    "balance": {
+                        "spendable": "0.444",
+                        "unspendable": "0"
+                    }
+                }
+            ]
+        }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                          |
+| ------------ | ------ | ---------------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired.         |
+| TaskFinished | string | The task is already finished and cannot be canceled. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
+  }
+  ```
+
+  ##### Error Response (Task Finished)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
+  }
+  ```
+</CollapsibleSection>

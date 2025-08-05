@@ -1,0 +1,52 @@
+/peer_connection_healthcheck:
+  post:
+    summary: The peer_connection_healthcheck method checks if a peer is connected
+      to the KDF network.
+    description: The peer_connection_healthcheck method checks if a peer is connected
+      to the KDF network.
+    operationId: peer_connection_healthcheck
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - peer_connection_healthcheck
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  peer_address:
+                    type: string
+                    description: The peer address to check for connectivity
+                required:
+                - peer_address
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+                description: True if peer found connected to network
+          example: {}

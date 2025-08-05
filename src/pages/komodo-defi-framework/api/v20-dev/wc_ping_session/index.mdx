@@ -2,26 +2,57 @@ export const title = "Komodo DeFi Framework Method: Walletconnect: Ping session"
 export const description =
   "The wc_ping_session method pings a specific WalletConnect session.";
 
-# wc\_ping\_session
+# Walletconnect: Ping session
+
+## wc\_ping\_session {{label : 'wc_ping_session', tag : 'API-v2'}}
 
 The `wc_ping_session` pings the bridge server to check if specific WalletConnect session is responsive.
 For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method.
 
-## Arguments
+### Request Parameters
 
-| Structure            | Type | Description                                                                                                                                                                                     |
-| -------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| with\_pairing\_topic | bool | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
+| Parameter            | Type    | Required | Default | Description                                                                                                                                                                 |
+| :------------------- | :------ | :------: | :-----: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| topic                | string  |     ✓    |    -    | An active session topic (or pairing topic) hex string.                                                                                                                      |
+| with\_pairing\_topic | boolean |     ✗    | `false` | If `true`, allows using the `pairing_topic` hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
 
-## Response
+### Response Parameters
 
-| Structure | Type   | Description                                                                              |
-| --------- | ------ | ---------------------------------------------------------------------------------------- |
-| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+| Parameter | Type   | Description                           |
+| --------- | ------ | ------------------------------------- |
+| result    | string | Indicates if the ping was successful. |
 
 #### 📌 Examples
 
 #### Command via pairing topic
+
+<CodeGroup title="" tag="POST" label="wc_ping_session" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_ping_session",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "with_pairing_topic": true,
+      "topic": "31ad8ac1312e01ff7ff656ed5507eb9fd6f2f435668fd86331e00b33627bfc14"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "result": "Ping successful"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
 
 #### Command via session topic
 
@@ -38,13 +69,34 @@ For details on a full list of active WalletConnect sessions, use the [wc\_get\_s
   ```
 </CodeGroup>
 
-<Note>
-  Both of the above queries return the same result.
-</Note>
-
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
 
   ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "result": "Ping successful"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### SessionRequestError (timeout)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Request timeout error",
+      "error_path": "sessions.ping",
+      "error_trace": "sessions:78] ping:24]",
+      "error_type": "SessionRequestError",
+      "error_data": "Request timeout error",
+      "id": null
+  }
   ```
 </CollapsibleSection>

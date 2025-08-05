@@ -1,0 +1,165 @@
+{
+    "core": [
+        {
+            "key": "userpass",
+            "value": "RPC_UserP@SSW0RD",
+            "type": "secret"
+        },
+        {
+            "key": "address",
+            "value": "127.0.0.1",
+            "type": "default"
+        },
+        {
+            "key": "port",
+            "value": "7783",
+            "type": "default"
+        },
+        {
+            "key": "coin",
+            "value": "KMD",
+            "type": "default"
+        },
+        {
+            "key": "tx_id",
+            "value": "a1a8c813585481a53696f8664483756b1581f1442f4b01648011f3f3adb76652",
+            "type": "default"
+        },
+        {
+            "key": "block_height",
+            "value": "3000000",
+            "type": "default"
+        },
+        {
+            "key": "block_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000",
+            "type": "default"
+        }
+    ],
+    "trading": [
+        {
+            "key": "base",
+            "value": "KMD",
+            "type": "default"
+        },
+        {
+            "key": "rel",
+            "value": "BTC",
+            "type": "default"
+        },
+        {
+            "key": "order_id",
+            "value": "a1a8c813585481a53696f8664483756b1581f1442f4b01648011f3f3adb76652",
+            "type": "default"
+        },
+        {
+            "key": "amount",
+            "value": "0.1",
+            "type": "default"
+        },
+        {
+            "key": "price",
+            "value": "0.001",
+            "type": "default"
+        },
+        {
+            "key": "volume",
+            "value": "10",
+            "type": "default"
+        },
+        {
+            "key": "fee",
+            "value": "0.001",
+            "type": "default"
+        },
+        {
+            "key": "order_uuid",
+            "value": "a1a8c813-5854-81a5-3696-f8664483756b",
+            "type": "default"
+        }
+    ],
+    "task": [
+        {
+            "key": "enable_utxo_taskid",
+            "value": "1",
+            "type": "default"
+        },
+        {
+            "key": "init_withdraw_taskid",
+            "value": "2",
+            "type": "default"
+        },
+        {
+            "key": "scan_new_addresses_taskid",
+            "value": "3",
+            "type": "default"
+        }
+    ],
+    "oneinch": [
+        {
+            "key": "chain_id",
+            "value": "137",
+            "type": "default"
+        },
+        {
+            "key": "from_token_address",
+            "value": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            "type": "default"
+        },
+        {
+            "key": "to_token_address",
+            "value": "0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
+            "type": "default"
+        },
+        {
+            "key": "from_token_decimals",
+            "value": "18",
+            "type": "default"
+        },
+        {
+            "key": "to_token_decimals",
+            "value": "18",
+            "type": "default"
+        },
+        {
+            "key": "amount",
+            "value": "10000000000000000",
+            "type": "default"
+        },
+        {
+            "key": "slippage",
+            "value": "1",
+            "type": "default"
+        },
+        {
+            "key": "gas_price",
+            "value": "100",
+            "type": "default"
+        },
+        {
+            "key": "gas_limit",
+            "value": "300000",
+            "type": "default"
+        },
+        {
+            "key": "protocols",
+            "value": "POLYGON_ONE_INCH_A",
+            "type": "default"
+        },
+        {
+            "key": "parts",
+            "value": "10",
+            "type": "default"
+        },
+        {
+            "key": "main_route_parts",
+            "value": "10",
+            "type": "default"
+        },
+        {
+            "key": "complexity_level",
+            "value": "2",
+            "type": "default"
+        }
+    ]
+} 

@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ZeroBalanceToWithdrawMax:
+      type: object
+      properties:
+        (none):
+          type: string

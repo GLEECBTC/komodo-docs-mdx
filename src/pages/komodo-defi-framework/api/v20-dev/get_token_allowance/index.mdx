@@ -1,23 +1,25 @@
-export const title = "Komodo DeFi Framework Method: Get Token Allowance (v2)";
+export const title = "Komodo DeFi Framework Method: Get Token Allowance";
 export const description =
   "The get_token_allowance method returns token allowance for address";
 
-# get\_token\_allowance
+# Get Token Allowance
+
+## get\_token\_allowance {{label : 'get_token_allowance', tag : 'API-v2'}}
 
 The `get_token_allowance` method returns token allowance for address.
 
 Refer to the [1inch Classic Swap documentation](https://portal.1inch.dev/documentation/apis/swap/classic-swap/quick-start) for more information.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                                                   |
-| --------- | ------ | ----------------------------------------------------------------------------- |
-| coin      | string | Token ticker                                                                  |
-| spender   | string | Smart contract address to query spendable coins amount granted prior approval |
+| Parameter | Type   | Required | Description                                                                   |
+| --------- | ------ | :------: | ----------------------------------------------------------------------------- |
+| coin      | string |     ✓    | Token ticker                                                                  |
+| spender   | string |     ✓    | Smart contract address to query spendable coins amount granted prior approval |
 
-## Response
+### Response Parameters
 
-| Structure | Type  | Description                                                                    |
+| Parameter | Type  | Description                                                                    |
 | --------- | ----- | ------------------------------------------------------------------------------ |
 | result    | float | Amount of coins approved for spending via the smart contract (in coins units). |
 

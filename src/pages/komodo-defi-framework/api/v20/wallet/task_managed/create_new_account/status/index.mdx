@@ -1,0 +1,97 @@
+export const title = "Komodo DeFi Framework Method: Create New Account Task Status";
+export const description = "Query the status of a HD account creation task in the Komodo DeFi Framework API.";
+
+# Create New Account Task Status
+
+## task::create\_new\_account::status {{label : 'task::create_new_account::status', tag : 'API-v2'}}
+
+Use the `task::create_new_account::status` method to query the status of a HD account creation task.
+
+### Request Parameters
+
+| Parameter            | Type    | Required | Default | Description                                                 |
+| -------------------- | ------- | :------: | :-----: | ----------------------------------------------------------- |
+| task\_id             | integer |     ✓    |   `-`   | The identifying number returned when initiating the task.   |
+| forget\_if\_finished | boolean |     ✗    |  `true` | If `false`, will return final response for completed tasks. |
+
+### Response Parameters
+
+| Parameter | Type             | Description                                                                                                                                                                                       |
+| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                                                                                                |
+| details   | string or object | If in progress, either `Preparing` or `RequestingAccountBalance`. Once complete, a standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object. |
+
+#### 📌 Examples
+
+<CodeGroup title="Create New Account Status" tag="POST" label="task::create_new_account::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::status",
+    "params": {
+      "task_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Create New Account Status Response" collapsedText="Show Create New Account Status Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "status": "Ok",
+          "details": {
+              "account_index": 77,
+              "derivation_path": "m/44'/141'/77'",
+              "total_balance": {
+                  "spendable": "7.777",
+                  "unspendable": "0"
+              },
+              "addresses": [
+                  {
+                      "address": "RMsnNdVfZbxWwDxJafc6scbaN1xYVoR7Gx",
+                      "derivation_path": "m/44'/141'/77'/0/4",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                      }
+                  },
+                  {
+                      "address": "R9roM4acnrrp1BL73MXd9EWdF5biRcSJ5X",
+                      "derivation_path": "m/44'/141'/77'/0/5",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                      }
+                  },
+                  {
+                      "address": "RLNu8gszQ8ENUrY3VSyBS2714CNVwn1f7P",
+                      "derivation_path": "m/44'/141'/77'/0/7",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "7.777",
+                          "unspendable": "0"
+                      }
+                  }
+              ]
+          }
+      },
+      "id": null
+  }
+  ```
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "InProgress",
+        "details": "Preparing"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

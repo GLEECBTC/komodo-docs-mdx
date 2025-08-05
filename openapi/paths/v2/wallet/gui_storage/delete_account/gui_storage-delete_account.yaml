@@ -1,0 +1,52 @@
+/gui_storage::delete_account:
+  post:
+    summary: Remove an existing account record from the Komodo DeFi Framework GUI-storage
+      subsystem.
+    description: Remove an existing account record from the Komodo DeFi Framework
+      GUI-storage subsystem.
+    operationId: gui_storage::delete_account
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::delete_account
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Identifier of the account to delete.
+                required:
+                - account_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns `success` when the account has been removed.
+          example: {}

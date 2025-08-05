@@ -1,0 +1,108 @@
+/buy:
+  post:
+    summary: The buy method issues a buy request and attempts to match an order from
+      the orderbook based on the provided arguments.
+    description: The buy method issues a buy request and attempts to match an order
+      from the orderbook based on the provided arguments.
+    operationId: buy
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - buy
+              base:
+                type: string
+                description: The name of the coin the user desires to receive
+              rel:
+                type: string
+                description: The name of the coin the user desires to sell
+              price:
+                description: The price in `rel` the user is willing to pay per one
+                  unit of the `base` coin. Can be a numeric string, expressed using
+                  standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  objects.
+                $ref: ../../components/schemas/RationalValue.yaml
+              volume:
+                description: 'The amount of coins the user is willing to receive of
+                  the `base` coin; the following values must be greater than or equal
+                  to the `min_trading_vol` of the corresponding coin: <ul><li>the
+                  argument `volume`</li><li>the product of the arguments `volume`
+                  and `price`</li></ul>. Can be a numeric string, expressed using
+                  standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  objects.'
+                $ref: ../../components/schemas/RationalValue.yaml
+              min_volume:
+                description: 'The minimum amount of `base` coin to be purchased in
+                  any `GoodTillCancelled` orders after conversion to maker; the following
+                  values must be greater than or equal to the `min_trading_vol` of
+                  the corresponding coin: <ul><li>the argument `min_volume`</li><li>the
+                  product of the arguments `min_volume` and `price`</li></ul>. Can
+                  be a numeric string, expressed using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value)
+                  or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value)
+                  objects.'
+                $ref: ../../components/schemas/RationalValue.yaml
+              match_by:
+                description: Optional. A standard [MatchBy](/komodo-defi-framework/api/common_structures/orders/#match-by)
+                  object, to filter to include only matches by pubkey or uuid. *Important:*
+                  This condition is not applied after a `GoodTillCancelled` order
+                  is converted to a `maker` request.
+                $ref: ../../components/schemas/MatchBy.yaml
+              order_type:
+                description: Optional. A standard [OrderType](/komodo-defi-framework/api/common_structures/orders/#order-type)
+                  object.
+                $ref: ../../components/schemas/OrderType.yaml
+              base_confs:
+                type: number
+                description: Number of required blockchain confirmations for base
+                  coin atomic swap transaction; default to base coin configuration
+                  if not set
+              base_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for base coin atomic
+                  swap transaction; default to base coin configuration if not set
+              rel_confs:
+                type: number
+                description: Number of required blockchain confirmations for rel coin
+                  atomic swap transaction; default to rel coin configuration if not
+                  set
+              rel_nota:
+                type: boolean
+                description: Whether dPoW notarization is required for rel coin atomic
+                  swap transaction; default to rel coin configuration if not set
+              save_in_history:
+                type: boolean
+                description: Defaults to `true`. If set to `false` no order history
+                  will be saved (though order status will be temporarily stored while
+                  in progress). If `true`, each order's short record history is stored
+                  in a local SQLite database table, and when the order is cancelled
+                  or fully matched, its history will be saved as a json file
+                default: true
+            required:
+            - userpass
+            - method
+            - base
+            - rel
+            - price
+            - volume
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    SyncStatusExtended:
+      type: object
+      properties:
+        blocks_left:
+          type: number
+          description: present for ETH/ERC20 coins only; displays the number of blocks
+            left to be processed for `InProgress` state
+        transactions_left:
+          type: number
+          description: present for UTXO coins only; displays the number of transactions
+            left to be processed for `InProgress` state
+        code:
+          type: number
+          description: displays the error code for `Error` state
+        message:
+          type: number
+          description: displays the error message for `Error` state

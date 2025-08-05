@@ -1,33 +1,32 @@
 export const title = "Komodo DeFi Framework Method: Get Enabled Coins";
 export const description = "The get_enabled_coins method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.";
 
-# get\_enabled\_coins
+# Get Enabled Coins
+
+## get\_enabled\_coins {{label : 'get_enabled_coins', tag : 'API-v2'}}
 
 The `get_enabled_coins` method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.
 
-## Parameters
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type  | Required | Description                      |
+| :-------- | :---- | :------: | :------------------------------- |
+| *None*    | *N/A* |          | *This method has no parameters.* |
 
-#### Response
+### Response Parameters
 
-| Structure    | Type             | Description                                     |
+| Parameter    | Type             | Description                                     |
 | ------------ | ---------------- | ----------------------------------------------- |
 | coins        | array of objects | A list of key value pairs for activated tickers |
-| coins.ticker | string           | the ticker of an activated coin                 |
+| coins.ticker | string           | The ticker of an activated coin                 |
 
 <Note>
-  The \[get\_enabled\_coins v2.0] method does not return addresses, as it was designed for HD wallets, which generate addresses on the fly.
-  If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the [v1 method](/komodo-defi-framework/api/legacy/get_enabled_coins/#get-enabled-coins).
+  The \[get\_enabled\_coins v2.0] method does not return addresses, as it was designed for HD wallets, which generate addresses on the fly. If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the [v1 method](/komodo-defi-framework/api/legacy/get_enabled_coins/#get-enabled-coins).
 </Note>
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true">
+<CodeGroup title="Get Enabled Coins" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -39,47 +38,27 @@ The `get_enabled_coins` method returns data of coins that are currently enabled 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get Enabled Coins Response" collapsedText="Show Get Enabled Coins Response">
   #### Response
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "coins": [
-            {
-                "ticker": "ETH"
-            },
-            {
-                "ticker": "PGX-PLG20"
-            },
-            {
-                "ticker": "ATOM-IBC_IRIS"
-            },
-            {
-                "ticker": "NFT_ETH"
-            },
-            {
-                "ticker": "KMD"
-            },
-            {
-                "ticker": "IRIS"
-            },
-            {
-                "ticker": "AAVE-PLG20"
-            },
-            {
-                "ticker": "MINDS-ERC20"
-            },
-            {
-                "ticker": "NFT_MATIC"
-            },
-            {
-                "ticker": "MATIC"
-            }
-        ]
-    },
-    "id": 0
+      "mmrpc": "2.0",
+      "result": {
+          "coins": [
+              { "ticker": "ETH" },
+              { "ticker": "PGX-PLG20" },
+              { "ticker": "ATOM-IBC_IRIS" },
+              { "ticker": "NFT_ETH" },
+              { "ticker": "KMD" },
+              { "ticker": "IRIS" },
+              { "ticker": "AAVE-PLG20" },
+              { "ticker": "MINDS-ERC20" },
+              { "ticker": "NFT_MATIC" },
+              { "ticker": "MATIC" }
+          ]
+      },
+      "id": 0
   }
   ```
 </CollapsibleSection>

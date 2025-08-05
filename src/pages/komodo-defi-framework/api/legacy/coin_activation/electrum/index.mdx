@@ -1,0 +1,91 @@
+export const title = "Komodo DeFi Framework Method: electrum";
+export const description = "Activate a coin using the Electrum method in the Komodo DeFi Framework API.";
+
+# Electrum
+
+## electrum {{label : 'electrum', tag : 'API-v1'}}
+
+Activates a coin using the Electrum method. This is used for UTXO-based coins and QTUM/QRC20 tokens.
+
+### Request Parameters
+
+| Parameter                | Type            | Required | Default | Description                                                                                                                                                                                                                                |
+| ------------------------ | --------------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| coin                     | string          |     ✓    |    -    | Ticker of coin to activate                                                                                                                                                                                                                 |
+| servers                  | list of objects |     ✓    |    -    | A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects.                                                                                                               |
+| mm2                      | integer         |     ✗    |    -    | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                 |
+| min\_connected           | integer         |     ✗    |   `1`   | Minimum number of electrum servers to maintain an active connection to.                                                                                                                                                                    |
+| max\_connected           | integer         |     ✗    |    -    | Maximum number of electrum servers to maintain an active connection to. If not set, defaults to all servers in activation request.                                                                                                         |
+| required\_confirmations  | integer         |     ✗    |   `3`   | Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                          |
+| requires\_notarization   | boolean         |     ✗    | `false` | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |
+| swap\_contract\_address  | string          |     ✗    |    -    | QRC20 only. Address of etomic swap smart contract                                                                                                                                                                                          |
+| fallback\_swap\_contract | string          |     ✗    |    -    | QRC20 only. Address of backup etomic swap smart contract                                                                                                                                                                                   |
+| utxo\_merge\_params      | object          |     ✗    |    -    | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.                     |
+
+### Response Parameters
+
+| Parameter               | Type              | Description                                                                                                                                                     |
+| ----------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address                 | string            | The address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
+| balance                 | string (numeric)  | The amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
+| unspendable\_balance    | string (numeric)  | The `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
+| coin                    | string            | The ticker of the enabled coin                                                                                                                                  |
+| required\_confirmations | number            | The number of transaction confirmations for which the Komodo DeFi Framework API must wait during the atomic swap process                                        |
+| mature\_confirmations   | number (optional) | The number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
+| requires\_notarization  | bool              | Whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
+| result                  | string            | The result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
+
+#### 📌 Example
+
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
+  ```json
+  {
+    "coin": "LTC",
+    "method": "electrum",
+    "servers": [
+      {
+        "url": "electrum1.cipig.net:10063",
+        "protocol": "TCP"
+      },
+      {
+        "url": "electrum2.cipig.net:20063",
+        "protocol": "SSL",
+        "disable_cert_verification": true
+      },
+      {
+        "url": "electrum3.cipig.net:20063",
+        "protocol": "SSL",
+        "ws_url": "electrum3.cipig.net:30063"
+      }
+    ],
+    "min_connected": 1,
+    "max_connected": 2,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+      "coin": "LTC",
+      "address": "Lh2zFS66gP5qF1bRxoCXT6bMw8YShjoRry",
+      "balance": "7.62",
+      "unspendable_balance": "0",
+      "mature_confirmations": 100,
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success"
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "Coin not found" }
+  ```
+</CollapsibleSection>

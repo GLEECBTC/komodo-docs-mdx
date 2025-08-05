@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -7,6 +8,7 @@ const GH_TOKEN = process.env.GH_TOKEN; // Replace with your token
 const REPO = "KomodoPlatform/komodo-docs-mdx";               // Replace with "owner/repository"
 const PR_NUMBER = "391";         // Replace with the pull request number
 const BASE_URL = `https://api.github.com/repos/${REPO}/pulls/${PR_NUMBER}/files`;
+const dataDir = path.resolve(__dirname, './data');
 
 const fetchAllFiles = async () => {
     let page = 1;
@@ -77,8 +79,8 @@ function updateRedirectMaps(oldPath, newPath) {
     let redirectMapText = [];
 
     try {
-        redirectMapJson = JSON.parse(fs.readFileSync("./utils/New-Redirect-map.json", 'utf8'));
-        redirectMapText = fs.readFileSync("./utils/New-Redirect-map.txt", 'utf8').split('\n').filter(line => line.trim());
+        redirectMapJson = JSON.parse(fs.readFileSync(path.join(dataDir, "New-Redirect-map.json"), 'utf8'));
+        redirectMapText = fs.readFileSync(path.join(dataDir, "New-Redirect-map.txt"), 'utf8').split('\n').filter(line => line.trim());
     } catch (error) {
         console.warn("Could not read existing redirect maps, creating new ones");
     }
@@ -98,8 +100,8 @@ function updateRedirectMaps(oldPath, newPath) {
         redirectMapText.push(`/en/docs${oldHtmlPath}/ ${newFullPath};`);
 
         // Write updated maps
-        fs.writeFileSync("./utils/New-Redirect-map.json", JSON.stringify(redirectMapJson, null, 2));
-        fs.writeFileSync("./utils/New-Redirect-map.txt", redirectMapText.join('\n') + '\n');
+        fs.writeFileSync(path.join(dataDir, "New-Redirect-map.json"), JSON.stringify(redirectMapJson, null, 2));
+        fs.writeFileSync(path.join(dataDir, "New-Redirect-map.txt"), redirectMapText.join('\n') + '\n');
 
         console.log(`Added redirect: ${oldHtmlPath} → ${newDocsPath}`);
     }
@@ -112,14 +114,14 @@ function updateRedirectMaps(oldPath, newPath) {
         console.log("Renamed Files:", renamedFiles);
 
         // Read the current file data
-        const fileData = JSON.parse(fs.readFileSync("./utils/_fileData.json", 'utf8'));
-        const oldFileData = JSON.parse(fs.readFileSync("./utils/_fileData_old_documentation_mod.json", 'utf8'));
+        const fileData = JSON.parse(fs.readFileSync(path.join(dataDir, "_fileData.json"), 'utf8'));
+        const oldFileData = JSON.parse(fs.readFileSync(path.join(dataDir, "_fileData_old_documentation_mod.json"), 'utf8'));
 
         // Read existing renamed paths data if it exists
         let existingRenamedPathsData = {};
         try {
-            if (fs.existsSync("./utils/_renamedPathsData.json")) {
-                existingRenamedPathsData = JSON.parse(fs.readFileSync("./utils/_renamedPathsData.json", 'utf8'));
+            if (fs.existsSync(path.join(dataDir, "_renamedPathsData.json"))) {
+                existingRenamedPathsData = JSON.parse(fs.readFileSync(path.join(dataDir, "_renamedPathsData.json"), 'utf8'));
             }
         } catch (error) {
             console.warn("No existing renamed paths data found, starting fresh.");
@@ -182,7 +184,7 @@ function updateRedirectMaps(oldPath, newPath) {
         }
 
         // Save the renamed paths data to a new file
-        fs.writeFileSync("./utils/_renamedPathsData.json", JSON.stringify(renamedPathsData, null, 2));
+        fs.writeFileSync(path.join(dataDir, "_renamedPathsData.json"), JSON.stringify(renamedPathsData, null, 2));
         console.log("Renamed paths data saved successfully!");
 
     } catch (error) {

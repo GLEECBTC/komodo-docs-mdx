@@ -1,0 +1,72 @@
+/all_swaps_uuids_by_filter:
+  post:
+    summary: The all_swaps_uuids_by_filter method returns all uuids of swaps that
+      match the selected filters.
+    description: The all_swaps_uuids_by_filter method returns all uuids of swaps that
+      match the selected filters.
+    operationId: all_swaps_uuids_by_filter
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - all_swaps_uuids_by_filter
+              from_timestamp:
+                type: number
+                description: return only swaps that match the `swap.started_at >=
+                  request.from_timestamp` condition
+              my_coin:
+                type: string
+                description: return only swaps that match the `swap.my_coin = request.my_coin`
+                  condition
+              other_coin:
+                type: string
+                description: return only swaps that match the `swap.other_coin = request.other_coin`
+                  condition
+              to_timestamp:
+                type: number
+                description: return only swaps that match the `swap.started_at < request.to_timestamp`
+                  condition
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              found_records:
+                type: number
+                description: the number of found uuids
+              from_timestamp:
+                type: number
+                description: from\_timestamp that was set in request
+              my_coin:
+                type: string
+                description: my\_coin that was set in request
+              other_coin:
+                type: string
+                description: other\_coin that was set in request
+              records_found:
+                type: number
+                description: the number of found uuids
+              to_timestamp:
+                type: number
+                description: to\_timestamp that was set in request
+              uuids:
+                type: string
+                description: uuids of swaps that match the selected filters
+          example: {}

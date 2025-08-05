@@ -1,0 +1,35 @@
+components:
+  schemas:
+    LightningPaymentFilter:
+      type: object
+      properties:
+        payment_type:
+          description: A standard [LightningPaymentType](/komodo-defi-framework/api/common_structures/lightning/#lightning-payment-type)
+            object.
+          $ref: '#/components/schemas/LightningPaymentType'
+        description:
+          type: string
+          description: A note to indicate the purpose of the invoice.
+        status:
+          type: string
+          description: 'Accepted values: `pending`, `succeeded`, `failed`.'
+        from_amount_msat:
+          type: integer
+          description: Minimum amount sent in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)
+        to_amount_msat:
+          type: integer
+          description: Maximum amount sent in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)
+        from_fee_paid_msat:
+          type: integer
+          description: Minimum transaction fee paid in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)
+        to_fee_paid_msat:
+          type: integer
+          description: Maximum transaction fee paid in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)
+        from_timestamp:
+          type: string
+          description: Minimum timestamp in [unix epoch format](https://www.epochconverter.com/)
+            of payment results to return.
+        to_timestamp:
+          type: string
+          description: Maximum timestamp in [unix epoch format](https://www.epochconverter.com/)
+            of payment results to return.

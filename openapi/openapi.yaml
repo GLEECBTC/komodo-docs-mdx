@@ -1,0 +1,738 @@
+openapi: 3.0.3
+info:
+  title: Komodo DeFi Framework API
+  version: '2.0'
+  description: This specification provides a comprehensive overview of the Komodo DeFi Framework API, covering all available
+    methods and data structures.
+servers:
+- url: http://127.0.0.1:7783
+  description: Local MM2 instance
+paths:
+  /active_swaps:
+    $ref: paths/v2/swaps_and_orders/active_swaps/active_swaps.yaml
+  /all_swaps_uuids_by_filter:
+    $ref: paths/v1/all_swaps_uuids_by_filter/all_swaps_uuids_by_filter.yaml
+  /autoprice:
+    $ref: paths/v1/autoprice/autoprice.yaml
+  /ban_pubkey:
+    $ref: paths/v1/ban_pubkey/ban_pubkey.yaml
+  /best_orders:
+    $ref: paths/v2/swaps_and_orders/best_orders/best_orders.yaml
+  /buy:
+    $ref: paths/v1/buy/buy.yaml
+  /cancel_all_orders:
+    $ref: paths/v1/cancel_all_orders/cancel_all_orders.yaml
+  /cancel_order:
+    $ref: paths/v1/cancel_order/cancel_order.yaml
+  /electrum:
+    $ref: paths/v1/coin_activation/electrum/electrum.yaml
+  /enable:
+    $ref: paths/v1/coin_activation/enable/enable.yaml
+  /coins_needed_for_kick_start:
+    $ref: paths/v1/coins_needed_for_kick_start/coins_needed_for_kick_start.yaml
+  /convert_utxo_address:
+    $ref: paths/v1/convert_utxo_address/convert_utxo_address.yaml
+  /convertaddress:
+    $ref: paths/v1/convertaddress/convertaddress.yaml
+  /disable_coin:
+    $ref: paths/v1/disable_coin/disable_coin.yaml
+  /fundvalue:
+    $ref: paths/v1/fundvalue/fundvalue.yaml
+  /get_directly_connected_peers:
+    $ref: paths/v1/get_directly_connected_peers/get_directly_connected_peers.yaml
+  /get_enabled_coins:
+    $ref: paths/v2/utils/get_enabled_coins/get_enabled_coins.yaml
+  /get_gossip_mesh:
+    $ref: paths/v1/get_gossip_mesh/get_gossip_mesh.yaml
+  /get_gossip_peer_topics:
+    $ref: paths/v1/get_gossip_peer_topics/get_gossip_peer_topics.yaml
+  /get_gossip_topic_peers:
+    $ref: paths/v1/get_gossip_topic_peers/get_gossip_topic_peers.yaml
+  /get_my_peer_id:
+    $ref: paths/v1/get_my_peer_id/get_my_peer_id.yaml
+  /get_relay_mesh:
+    $ref: paths/v1/get_relay_mesh/get_relay_mesh.yaml
+  /get_trade_fee:
+    $ref: paths/v1/get_trade_fee/get_trade_fee.yaml
+  /help:
+    $ref: paths/v1/help/help.yaml
+  /import_swaps:
+    $ref: paths/v1/import_swaps/import_swaps.yaml
+  /inventory:
+    $ref: paths/v1/inventory/inventory.yaml
+  /kmd_rewards_info:
+    $ref: paths/v1/kmd_rewards_info/kmd_rewards_info.yaml
+  /list_banned_pubkeys:
+    $ref: paths/v1/list_banned_pubkeys/list_banned_pubkeys.yaml
+  /max_taker_vol:
+    $ref: paths/v1/max_taker_vol/max_taker_vol.yaml
+  /metrics:
+    $ref: paths/v1/metrics/metrics.yaml
+  /min_trading_vol:
+    $ref: paths/v1/min_trading_vol/min_trading_vol.yaml
+  /my_balance:
+    $ref: paths/v1/my_balance/my_balance.yaml
+  /my_orders:
+    $ref: paths/v1/my_orders/my_orders.yaml
+  /my_recent_swaps:
+    $ref: paths/v2/swaps_and_orders/my_recent_swaps/my_recent_swaps.yaml
+  /my_swap_status:
+    $ref: paths/v2/swaps_and_orders/my_swap_status/my_swap_status.yaml
+  /my_tx_history:
+    $ref: paths/v2/wallet/tx/my_tx_history/my_tx_history.yaml
+  /order_status:
+    $ref: paths/v1/order_status/order_status.yaml
+  /orderbook:
+    $ref: paths/v2/swaps_and_orders/orderbook/orderbook.yaml
+  /orderbook_depth:
+    $ref: paths/v1/orderbook_depth/orderbook_depth.yaml
+  /orders_history_by_filter:
+    $ref: paths/v1/orders_history_by_filter/orders_history_by_filter.yaml
+  /rational_number_type:
+    $ref: paths/v1/rational_number_note/rational_number_type.yaml
+  /recover_funds_of_swap:
+    $ref: paths/v1/recover_funds_of_swap/recover_funds_of_swap.yaml
+  /sell:
+    $ref: paths/v1/sell/sell.yaml
+  /send_raw_transaction:
+    $ref: paths/v1/send_raw_transaction/send_raw_transaction.yaml
+  /set_required_confirmations:
+    $ref: paths/v1/set_required_confirmations/set_required_confirmations.yaml
+  /set_requires_notarization:
+    $ref: paths/v1/set_requires_notarization/set_requires_notarization.yaml
+  /setprice:
+    $ref: paths/v1/setprice/setprice.yaml
+  /show_priv_key:
+    $ref: paths/v1/show_priv_key/show_priv_key.yaml
+  /stats_swap_status:
+    $ref: paths/v1/stats_swap_status/stats_swap_status.yaml
+  /stop:
+    $ref: paths/v1/stop/stop.yaml
+  /trade_preimage:
+    $ref: paths/v2/swaps_and_orders/trade_preimage/trade_preimage.yaml
+  /unban_pubkeys:
+    $ref: paths/v1/unban_pubkeys/unban_pubkeys.yaml
+  /update_maker_order:
+    $ref: paths/v1/update_maker_order/update_maker_order.yaml
+  /validateaddress:
+    $ref: paths/v1/validateaddress/validateaddress.yaml
+  /version:
+    $ref: paths/v1/version/version.yaml
+  /withdraw:
+    $ref: paths/v2/wallet/tx/withdraw/withdraw.yaml
+  /1inch_v6_0_classic_swap_contract:
+    $ref: paths/v2/1inch_v6_0_classic_swap_contract/1inch_v6_0_classic_swap_contract.yaml
+  /1inch_v6_0_classic_swap_create:
+    $ref: paths/v2/1inch_v6_0_classic_swap_create/1inch_v6_0_classic_swap_create.yaml
+  /1inch_v6_0_classic_swap_liquidity_sources:
+    $ref: paths/v2/1inch_v6_0_classic_swap_liquidity_sources/1inch_v6_0_classic_swap_liquidity_sources.yaml
+  /1inch_v6_0_classic_swap_quote:
+    $ref: paths/v2/1inch_v6_0_classic_swap_quote/1inch_v6_0_classic_swap_quote.yaml
+  /1inch_v6_0_classic_swap_tokens:
+    $ref: paths/v2/1inch_v6_0_classic_swap_tokens/1inch_v6_0_classic_swap_tokens.yaml
+  /approve_token:
+    $ref: paths/v2/approve_token/approve_token.yaml
+  /enable_bch_with_tokens:
+    $ref: paths/v2/coin_activation/enable_bch_with_tokens/enable_bch_with_tokens.yaml
+  /enable_erc20:
+    $ref: paths/v2/coin_activation/enable_erc20/enable_erc20.yaml
+  /enable_eth_with_tokens:
+    $ref: paths/v2/coin_activation/enable_eth_with_tokens/enable_eth_with_tokens.yaml
+  /enable_slp:
+    $ref: paths/v2/coin_activation/enable_slp/enable_slp.yaml
+  /enable_tendermint_token:
+    $ref: paths/v2/coin_activation/enable_tendermint_token/enable_tendermint_token.yaml
+  /enable_tendermint_with_assets:
+    $ref: paths/v2/coin_activation/enable_tendermint_with_assets/enable_tendermint_with_assets.yaml
+  /task::enable_bch::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_bch/cancel/task-enable_bch-cancel.yaml
+  /task::enable_bch::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_bch/init/task-enable_bch-init.yaml
+  /task::enable_bch::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_bch/status/task-enable_bch-status.yaml
+  /task::enable_bch::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_bch/user_action/task-enable_bch-user_action.yaml
+  /task::enable_erc20::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_erc20/cancel/task-enable_erc20-cancel.yaml
+  /task::enable_erc20::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_erc20/init/task-enable_erc20-init.yaml
+  /task::enable_erc20::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_erc20/status/task-enable_erc20-status.yaml
+  /task::enable_erc20::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_erc20/user_action/task-enable_erc20-user_action.yaml
+  /task::enable_eth::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_eth/cancel/task-enable_eth-cancel.yaml
+  /task::enable_eth::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_eth/init/task-enable_eth-init.yaml
+  /task::enable_eth::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_eth/status/task-enable_eth-status.yaml
+  /task::enable_eth::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_eth/user_action/task-enable_eth-user_action.yaml
+  /task::enable_qtum::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_qtum/cancel/task-enable_qtum-cancel.yaml
+  /task::enable_qtum::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_qtum/init/task-enable_qtum-init.yaml
+  /task::enable_qtum::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_qtum/status/task-enable_qtum-status.yaml
+  /task::enable_qtum::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_qtum/user_action/task-enable_qtum-user_action.yaml
+  /task::enable_sia::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_sia/cancel/task-enable_sia-cancel.yaml
+  /task::enable_sia::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_sia/init/task-enable_sia-init.yaml
+  /task::enable_sia::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_sia/status/task-enable_sia-status.yaml
+  /task::enable_sia::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_sia/user_action/task-enable_sia-user_action.yaml
+  /task::enable_tendermint::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint/cancel/task-enable_tendermint-cancel.yaml
+  /task::enable_tendermint::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint/init/task-enable_tendermint-init.yaml
+  /task::enable_tendermint::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint/status/task-enable_tendermint-status.yaml
+  /task::enable_tendermint::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint/user_action/task-enable_tendermint-user_action.yaml
+  /task::enable_tendermint_token::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint_token/cancel/task-enable_tendermint_token-cancel.yaml
+  /task::enable_tendermint_token::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint_token/init/task-enable_tendermint_token-init.yaml
+  /task::enable_tendermint_token::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint_token/status/task-enable_tendermint_token-status.yaml
+  /task::enable_tendermint_token::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_tendermint_token/user_action/task-enable_tendermint_token-user_action.yaml
+  /task::enable_utxo::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_utxo/cancel/task-enable_utxo-cancel.yaml
+  /task::enable_utxo::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_utxo/init/task-enable_utxo-init.yaml
+  /task::enable_utxo::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_utxo/status/task-enable_utxo-status.yaml
+  /task::enable_utxo::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_utxo/user_action/task-enable_utxo-user_action.yaml
+  /task::enable_z_coin::cancel:
+    $ref: paths/v2/coin_activation/task_managed/enable_z_coin/cancel/task-enable_z_coin-cancel.yaml
+  /task::enable_z_coin::init:
+    $ref: paths/v2/coin_activation/task_managed/enable_z_coin/init/task-enable_z_coin-init.yaml
+  /task::enable_z_coin::status:
+    $ref: paths/v2/coin_activation/task_managed/enable_z_coin/status/task-enable_z_coin-status.yaml
+  /task::enable_z_coin::user_action:
+    $ref: paths/v2/coin_activation/task_managed/enable_z_coin/user_action/task-enable_z_coin-user_action.yaml
+  /get_token_allowance:
+    $ref: paths/v2/get_token_allowance/get_token_allowance.yaml
+  /task::enable_lightning::cancel:
+    $ref: paths/v2/lightning/activation/cancel/task-enable_lightning-cancel.yaml
+  /task::enable_lightning::init:
+    $ref: paths/v2/lightning/activation/init/task-enable_lightning-init.yaml
+  /task::enable_lightning::status:
+    $ref: paths/v2/lightning/activation/status/task-enable_lightning-status.yaml
+  /task::enable_lightning::user_action:
+    $ref: paths/v2/lightning/activation/user_action/task-enable_lightning-user_action.yaml
+  /lightning::channels::close_channel:
+    $ref: paths/v2/lightning/channels/close_channel/lightning-channels-close_channel.yaml
+  /lightning::channels::get_channel_details:
+    $ref: paths/v2/lightning/channels/get_channel_details/lightning-channels-get_channel_details.yaml
+  /lightning::channels::get_claimable_balances:
+    $ref: paths/v2/lightning/channels/get_claimable_balances/lightning-channels-get_claimable_balances.yaml
+  /lightning::channels::list_closed_channels_by_filter:
+    $ref: paths/v2/lightning/channels/list_closed_channels_by_filter/lightning-channels-list_closed_channels_by_filter.yaml
+  /lightning::channels::list_open_channels_by_filter:
+    $ref: paths/v2/lightning/channels/list_open_channels_by_filter/lightning-channels-list_open_channels_by_filter.yaml
+  /lightning::channels::open_channel:
+    $ref: paths/v2/lightning/channels/open_channel/lightning-channels-open_channel.yaml
+  /lightning::channels::update_channel:
+    $ref: paths/v2/lightning/channels/update_channel/lightning-channels-update_channel.yaml
+  /lightning::nodes::add_trusted_node:
+    $ref: paths/v2/lightning/nodes/add_trusted_node/lightning-nodes-add_trusted_node.yaml
+  /lightning::nodes::connect_to_node:
+    $ref: paths/v2/lightning/nodes/connect_to_node/lightning-nodes-connect_to_node.yaml
+  /lightning::nodes::list_trusted_nodes:
+    $ref: paths/v2/lightning/nodes/list_trusted_nodes/lightning-nodes-list_trusted_nodes.yaml
+  /lightning::nodes::remove_trusted_node:
+    $ref: paths/v2/lightning/nodes/remove_trusted_node/lightning-nodes-remove_trusted_node.yaml
+  /lightning::payments::generate_invoice:
+    $ref: paths/v2/lightning/payments/generate_invoice/lightning-payments-generate_invoice.yaml
+  /lightning::payments::get_payment_details:
+    $ref: paths/v2/lightning/payments/get_payment_details/lightning-payments-get_payment_details.yaml
+  /lightning::payments::list_payments_by_filter:
+    $ref: paths/v2/lightning/payments/list_payments_by_filter/lightning-payments-list_payments_by_filter.yaml
+  /lightning::payments::send_payment:
+    $ref: paths/v2/lightning/payments/send_payment/lightning-payments-send_payment.yaml
+  /clear_nft_db:
+    $ref: paths/v2/non_fungible_tokens/clear_nft_db/clear_nft_db.yaml
+  /enable_nft:
+    $ref: paths/v2/non_fungible_tokens/enable_nft/enable_nft.yaml
+  /get_nft_list:
+    $ref: paths/v2/non_fungible_tokens/get_nft_list/get_nft_list.yaml
+  /get_nft_metadata:
+    $ref: paths/v2/non_fungible_tokens/get_nft_metadata/get_nft_metadata.yaml
+  /get_nft_transfers:
+    $ref: paths/v2/non_fungible_tokens/get_nft_transfers/get_nft_transfers.yaml
+  /refresh_nft_metadata:
+    $ref: paths/v2/non_fungible_tokens/refresh_nft_metadata/refresh_nft_metadata.yaml
+  /update_nft:
+    $ref: paths/v2/non_fungible_tokens/update_nft/update_nft.yaml
+  /withdraw_nft:
+    $ref: paths/v2/non_fungible_tokens/withdraw_nft/withdraw_nft.yaml
+  /stream::balance::enable:
+    $ref: paths/v2/streaming/balance_enable/stream-balance-enable.yaml
+  /stream::disable:
+    $ref: paths/v2/streaming/disable/stream-disable.yaml
+  /stream::fee_estimator::enable:
+    $ref: paths/v2/streaming/fee_estimator/stream-fee_estimator-enable.yaml
+  /stream::heartbeat::enable:
+    $ref: paths/v2/streaming/heartbeat_enable/stream-heartbeat-enable.yaml
+  /stream::network::enable:
+    $ref: paths/v2/streaming/network_enable/stream-network-enable.yaml
+  /stream::order_status::enable:
+    $ref: paths/v2/streaming/order_status_enable/stream-order_status-enable.yaml
+  /stream::orderbook::enable:
+    $ref: paths/v2/streaming/orderbook_enable/stream-orderbook-enable.yaml
+  /stream::swap_status::enable:
+    $ref: paths/v2/streaming/swap_status_enable/stream-swap_status-enable.yaml
+  /stream::tx_history::enable:
+    $ref: paths/v2/streaming/tx_history_enable/stream-tx_history-enable.yaml
+  /get_locked_amount:
+    $ref: paths/v2/swaps_and_orders/get_locked_amount/get_locked_amount.yaml
+  /max_maker_vol:
+    $ref: paths/v2/swaps_and_orders/max_maker_vol/max_maker_vol.yaml
+  /recreate_swap_data:
+    $ref: paths/v2/swaps_and_orders/recreate_swap_data/recreate_swap_data.yaml
+  /start_simple_market_maker_bot:
+    $ref: paths/v2/swaps_and_orders/start_simple_market_maker_bot/start_simple_market_maker_bot.yaml
+  /stop_simple_market_maker_bot:
+    $ref: paths/v2/swaps_and_orders/stop_simple_market_maker_bot/stop_simple_market_maker_bot.yaml
+  /add_node_to_version_stat:
+    $ref: paths/v2/utils/add_node_to_version_stat/add_node_to_version_stat.yaml
+  /change_mnemonic_password:
+    $ref: paths/v2/utils/change_mnemonic_password/change_mnemonic_password.yaml
+  /get_current_mtp:
+    $ref: paths/v2/utils/get_current_mtp/get_current_mtp.yaml
+  /get_mnemonic:
+    $ref: paths/v2/utils/get_mnemonic/get_mnemonic.yaml
+  /get_public_key:
+    $ref: paths/v2/utils/get_public_key/get_public_key.yaml
+  /get_public_key_hash:
+    $ref: paths/v2/utils/get_public_key_hash/get_public_key_hash.yaml
+  /get_shared_db_id:
+    $ref: paths/v2/utils/get_shared_db_id/get_shared_db_id.yaml
+  /get_token_info:
+    $ref: paths/v2/utils/get_token_info/get_token_info.yaml
+  /sign_message:
+    $ref: paths/v2/utils/message_signing/sign_message/sign_message.yaml
+  /verify_message:
+    $ref: paths/v2/utils/message_signing/verify_message/verify_message.yaml
+  /peer_connection_healthcheck:
+    $ref: paths/v2/utils/peer_connection_healthcheck/peer_connection_healthcheck.yaml
+  /remove_node_from_version_stat:
+    $ref: paths/v2/utils/remove_node_from_version_stat/remove_node_from_version_stat.yaml
+  /send_asked_data:
+    $ref: paths/v2/utils/send_asked_data/send_asked_data.yaml
+  /start_version_stat_collection:
+    $ref: paths/v2/utils/start_version_stat_collection/start_version_stat_collection.yaml
+  /stop_version_stat_collection:
+    $ref: paths/v2/utils/stop_version_stat_collection/stop_version_stat_collection.yaml
+  /task::connect_metamask::cancel:
+    $ref: paths/v2/utils/task_connect_metamask/cancel/task-connect_metamask-cancel.yaml
+  /task::connect_metamask::init:
+    $ref: paths/v2/utils/task_connect_metamask/init/task-connect_metamask-init.yaml
+  /task::connect_metamask::status:
+    $ref: paths/v2/utils/task_connect_metamask/status/task-connect_metamask-status.yaml
+  /task::init_trezor::cancel:
+    $ref: paths/v2/utils/task_init_trezor/cancel/task-init_trezor-cancel.yaml
+  /task::init_trezor::init:
+    $ref: paths/v2/utils/task_init_trezor/init/task-init_trezor-init.yaml
+  /task::init_trezor::status:
+    $ref: paths/v2/utils/task_init_trezor/status/task-init_trezor-status.yaml
+  /task::init_trezor::user_action:
+    $ref: paths/v2/utils/task_init_trezor/user_action/task-init_trezor-user_action.yaml
+  /trezor_connection_status:
+    $ref: paths/v2/utils/trezor_connection_status/trezor_connection_status.yaml
+  /update_version_stat_collection:
+    $ref: paths/v2/utils/update_version_stat_collection/update_version_stat_collection.yaml
+  /account_balance:
+    $ref: paths/v2/wallet/account_balance/account_balance.yaml
+  /delete_wallet:
+    $ref: paths/v2/wallet/delete_wallet/delete_wallet.yaml
+  /get_eth_estimated_fee_per_gas:
+    $ref: paths/v2/wallet/fee_management/get_eth_estimated_fee_per_gas/get_eth_estimated_fee_per_gas.yaml
+  /get_swap_transaction_fee_policy:
+    $ref: paths/v2/wallet/fee_management/get_swap_transaction_fee_policy/get_swap_transaction_fee_policy.yaml
+  /set_swap_transaction_fee_policy:
+    $ref: paths/v2/wallet/fee_management/set_swap_transaction_fee_policy/set_swap_transaction_fee_policy.yaml
+  /get_my_address:
+    $ref: paths/v2/wallet/get_my_address/get_my_address.yaml
+  /get_new_address:
+    $ref: paths/v2/wallet/get_new_address/get_new_address.yaml
+  /get_wallet_names:
+    $ref: paths/v2/wallet/get_wallet_names/get_wallet_names.yaml
+  /gui_storage::activate_coins:
+    $ref: paths/v2/wallet/gui_storage/activate_coins/gui_storage-activate_coins.yaml
+  /gui_storage::add_account:
+    $ref: paths/v2/wallet/gui_storage/add_account/gui_storage-add_account.yaml
+  /gui_storage::deactivate_coins:
+    $ref: paths/v2/wallet/gui_storage/deactivate_coins/gui_storage-deactivate_coins.yaml
+  /gui_storage::delete_account:
+    $ref: paths/v2/wallet/gui_storage/delete_account/gui_storage-delete_account.yaml
+  /gui_storage::enable_account:
+    $ref: paths/v2/wallet/gui_storage/enable_account/gui_storage-enable_account.yaml
+  /gui_storage::get_account_coins:
+    $ref: paths/v2/wallet/gui_storage/get_account_coins/gui_storage-get_account_coins.yaml
+  /gui_storage::get_accounts:
+    $ref: paths/v2/wallet/gui_storage/get_accounts/gui_storage-get_accounts.yaml
+  /gui_storage::get_enabled_account:
+    $ref: paths/v2/wallet/gui_storage/get_enabled_account/gui_storage-get_enabled_account.yaml
+  /gui_storage::set_account_balance:
+    $ref: paths/v2/wallet/gui_storage/set_account_balance/gui_storage-set_account_balance.yaml
+  /gui_storage::set_account_description:
+    $ref: paths/v2/wallet/gui_storage/set_account_description/gui_storage-set_account_description.yaml
+  /gui_storage::set_account_name:
+    $ref: paths/v2/wallet/gui_storage/set_account_name/gui_storage-set_account_name.yaml
+  /experimental::staking::claim_rewards:
+    $ref: paths/v2/wallet/staking/claim_rewards/experimental-staking-claim_rewards.yaml
+  /experimental::staking::delegate:
+    $ref: paths/v2/wallet/staking/delegate/experimental-staking-delegate.yaml
+  /experimental::staking::query::delegations:
+    $ref: paths/v2/wallet/staking/delegations/experimental-staking-query-delegations.yaml
+  /experimental::staking::query::ongoing_undelegations:
+    $ref: paths/v2/wallet/staking/ongoing_delegations/experimental-staking-query-ongoing_undelegations.yaml
+  /experimental::staking::undelegate:
+    $ref: paths/v2/wallet/staking/undelegate/experimental-staking-undelegate.yaml
+  /experimental::staking::query::validators:
+    $ref: paths/v2/wallet/staking/validators/experimental-staking-query-validators.yaml
+  /task::account_balance::cancel:
+    $ref: paths/v2/wallet/task_managed/account_balance/cancel/task-account_balance-cancel.yaml
+  /task::account_balance::init:
+    $ref: paths/v2/wallet/task_managed/account_balance/init/task-account_balance-init.yaml
+  /task::account_balance::status:
+    $ref: paths/v2/wallet/task_managed/account_balance/status/task-account_balance-status.yaml
+  /task::create_new_account::cancel:
+    $ref: paths/v2/wallet/task_managed/create_new_account/cancel/task-create_new_account-cancel.yaml
+  /task::create_new_account::init:
+    $ref: paths/v2/wallet/task_managed/create_new_account/init/task-create_new_account-init.yaml
+  /task::create_new_account::status:
+    $ref: paths/v2/wallet/task_managed/create_new_account/status/task-create_new_account-status.yaml
+  /task::create_new_account::user_action:
+    $ref: paths/v2/wallet/task_managed/create_new_account/user_action/task-create_new_account-user_action.yaml
+  /task::get_new_address::cancel:
+    $ref: paths/v2/wallet/task_managed/get_new_address/cancel/task-get_new_address-cancel.yaml
+  /task::get_new_address::init:
+    $ref: paths/v2/wallet/task_managed/get_new_address/init/task-get_new_address-init.yaml
+  /task::get_new_address::status:
+    $ref: paths/v2/wallet/task_managed/get_new_address/status/task-get_new_address-status.yaml
+  /task::get_new_address::user_action:
+    $ref: paths/v2/wallet/task_managed/get_new_address/user_action/task-get_new_address-user_action.yaml
+  /task::scan_for_new_addresses::cancel:
+    $ref: paths/v2/wallet/task_managed/scan_for_new_addresses/cancel/task-scan_for_new_addresses-cancel.yaml
+  /task::scan_for_new_addresses::init:
+    $ref: paths/v2/wallet/task_managed/scan_for_new_addresses/init/task-scan_for_new_addresses-init.yaml
+  /task::scan_for_new_addresses::status:
+    $ref: paths/v2/wallet/task_managed/scan_for_new_addresses/status/task-scan_for_new_addresses-status.yaml
+  /task::withdraw::cancel:
+    $ref: paths/v2/wallet/task_managed/withdraw/cancel/task-withdraw-cancel.yaml
+  /task::withdraw::init:
+    $ref: paths/v2/wallet/task_managed/withdraw/init/task-withdraw-init.yaml
+  /task::withdraw::status:
+    $ref: paths/v2/wallet/task_managed/withdraw/status/task-withdraw-status.yaml
+  /task::withdraw::user_action:
+    $ref: paths/v2/wallet/task_managed/withdraw/user_action/task-withdraw-user_action.yaml
+  /get_raw_transaction:
+    $ref: paths/v2/wallet/tx/get_raw_transaction/get_raw_transaction.yaml
+  /sign_raw_transaction:
+    $ref: paths/v2/wallet/tx/sign_raw_transaction/sign_raw_transaction.yaml
+  /z_coin_tx_history:
+    $ref: paths/v2/wallet/tx/zhtlc_tx_history/z_coin_tx_history.yaml
+  /wc_delete_session:
+    $ref: paths/v2/wc_delete_session/wc_delete_session.yaml
+  /wc_get_session:
+    $ref: paths/v2/wc_get_session/wc_get_session.yaml
+  /wc_get_sessions:
+    $ref: paths/v2/wc_get_sessions/wc_get_sessions.yaml
+  /wc_new_connection:
+    $ref: paths/v2/wc_new_connection/wc_new_connection.yaml
+  /wc_ping_session:
+    $ref: paths/v2/wc_ping_session/wc_ping_session.yaml
+components:
+  schemas:
+    1inchProtocolImage:
+      $ref: paths/components/schemas/1inchProtocolImage.yaml
+    1inchProtocolInfo:
+      $ref: paths/components/schemas/1inchProtocolInfo.yaml
+    1inchTokenInfo:
+      $ref: paths/components/schemas/1inchTokenInfo.yaml
+    1inchTxFields:
+      $ref: paths/components/schemas/1inchTxFields.yaml
+    AccountAddressInfo:
+      $ref: paths/components/schemas/AccountAddressInfo.yaml
+    AccountId:
+      $ref: paths/components/schemas/AccountId.yaml
+    ActionEnum:
+      $ref: paths/components/schemas/ActionEnum.yaml
+    ActivationMode:
+      $ref: paths/components/schemas/ActivationMode.yaml
+    ActivationParams:
+      $ref: paths/components/schemas/ActivationParams.yaml
+    ActivationRpcData:
+      $ref: paths/components/schemas/ActivationRpcData.yaml
+    ActivationServers:
+      $ref: paths/components/schemas/ActivationServers.yaml
+    AddressDerivationPath:
+      $ref: paths/components/schemas/AddressDerivationPath.yaml
+    AddressInfo:
+      $ref: paths/components/schemas/AddressInfo.yaml
+    AddressPath:
+      $ref: paths/components/schemas/AddressPath.yaml
+    AmountTooLow:
+      $ref: paths/components/schemas/AmountTooLow.yaml
+    BalanceInfo:
+      $ref: paths/components/schemas/BalanceInfo.yaml
+    BanTypeEnum:
+      $ref: paths/components/schemas/BanTypeEnum.yaml
+    CancelBy:
+      $ref: paths/components/schemas/CancelBy.yaml
+    CancelByTypeEnum:
+      $ref: paths/components/schemas/CancelByTypeEnum.yaml
+    ChannelConfigLimits:
+      $ref: paths/components/schemas/ChannelConfigLimits.yaml
+    ChannelStatusEnum:
+      $ref: paths/components/schemas/ChannelStatusEnum.yaml
+    ChannelTypeEnum:
+      $ref: paths/components/schemas/ChannelTypeEnum.yaml
+    ClaimingDetails:
+      $ref: paths/components/schemas/ClaimingDetails.yaml
+    CoinNode:
+      $ref: paths/components/schemas/CoinNode.yaml
+    CoinProtocol:
+      $ref: paths/components/schemas/CoinProtocol.yaml
+    CoinProtocolData:
+      $ref: paths/components/schemas/CoinProtocolData.yaml
+    ConfSettings:
+      $ref: paths/components/schemas/ConfSettings.yaml
+    ConfirmationTargets:
+      $ref: paths/components/schemas/ConfirmationTargets.yaml
+    CounterpartyChannelConfig:
+      $ref: paths/components/schemas/CounterpartyChannelConfig.yaml
+    DepthInfo:
+      $ref: paths/components/schemas/DepthInfo.yaml
+    DerivationMethod:
+      $ref: paths/components/schemas/DerivationMethod.yaml
+    EnableAccountPolicyEnum:
+      $ref: paths/components/schemas/EnableAccountPolicyEnum.yaml
+    EnabledAccountId:
+      $ref: paths/components/schemas/EnabledAccountId.yaml
+    ErrorResponse:
+      $ref: paths/components/schemas/ErrorResponse.yaml
+    EstimatorTypeEnum:
+      $ref: paths/components/schemas/EstimatorTypeEnum.yaml
+    EthActivationStatusEnum:
+      $ref: paths/components/schemas/EthActivationStatusEnum.yaml
+    EthPrivKeyActivationPolicyEnum:
+      $ref: paths/components/schemas/EthPrivKeyActivationPolicyEnum.yaml
+    EthRpcModeEnum:
+      $ref: paths/components/schemas/EthRpcModeEnum.yaml
+    EventStreamConfig:
+      $ref: paths/components/schemas/EventStreamConfig.yaml
+    ExtendedFeeInfo:
+      $ref: paths/components/schemas/ExtendedFeeInfo.yaml
+    FeeInfo:
+      $ref: paths/components/schemas/FeeInfo.yaml
+    FilterCriteria:
+      $ref: paths/components/schemas/FilterCriteria.yaml
+    FractionalValue:
+      $ref: paths/components/schemas/FractionalValue.yaml
+    GasStationPolicyEnum:
+      $ref: paths/components/schemas/GasStationPolicyEnum.yaml
+    GetNftTransfersFilters:
+      $ref: paths/components/schemas/GetNftTransfersFilters.yaml
+    HistoryTarget:
+      $ref: paths/components/schemas/HistoryTarget.yaml
+    InputTxns:
+      $ref: paths/components/schemas/InputTxns.yaml
+    InvalidAddress:
+      $ref: paths/components/schemas/InvalidAddress.yaml
+    InvalidFeePolicy:
+      $ref: paths/components/schemas/InvalidFeePolicy.yaml
+    LightningActivationParams:
+      $ref: paths/components/schemas/LightningActivationParams.yaml
+    LightningChannelAmount:
+      $ref: paths/components/schemas/LightningChannelAmount.yaml
+    LightningChannelConfig:
+      $ref: paths/components/schemas/LightningChannelConfig.yaml
+    LightningChannelOptions:
+      $ref: paths/components/schemas/LightningChannelOptions.yaml
+    LightningChannelValue:
+      $ref: paths/components/schemas/LightningChannelValue.yaml
+    LightningClosedChannelsFilter:
+      $ref: paths/components/schemas/LightningClosedChannelsFilter.yaml
+    LightningOpenChannelsFilter:
+      $ref: paths/components/schemas/LightningOpenChannelsFilter.yaml
+    LightningPayment:
+      $ref: paths/components/schemas/LightningPayment.yaml
+    LightningPaymentFilter:
+      $ref: paths/components/schemas/LightningPaymentFilter.yaml
+    LightningPaymentType:
+      $ref: paths/components/schemas/LightningPaymentType.yaml
+    MakerPaymentReceived:
+      $ref: paths/components/schemas/MakerPaymentReceived.yaml
+    MakerPaymentSpendConfirmFailed:
+      $ref: paths/components/schemas/MakerPaymentSpendConfirmFailed.yaml
+    MakerPaymentSpendConfirmed:
+      $ref: paths/components/schemas/MakerPaymentSpendConfirmed.yaml
+    MakerPaymentSpendFailed:
+      $ref: paths/components/schemas/MakerPaymentSpendFailed.yaml
+    MakerPaymentSpent:
+      $ref: paths/components/schemas/MakerPaymentSpent.yaml
+    MakerPaymentSpentByWatcher:
+      $ref: paths/components/schemas/MakerPaymentSpentByWatcher.yaml
+    MakerPaymentValidateFailed:
+      $ref: paths/components/schemas/MakerPaymentValidateFailed.yaml
+    MakerPaymentWaitConfirmFailed:
+      $ref: paths/components/schemas/MakerPaymentWaitConfirmFailed.yaml
+    MetricTypeEnum:
+      $ref: paths/components/schemas/MetricTypeEnum.yaml
+    MoralisNftDetails:
+      $ref: paths/components/schemas/MoralisNftDetails.yaml
+    NegotiateFailed:
+      $ref: paths/components/schemas/NegotiateFailed.yaml
+    Negotiated:
+      $ref: paths/components/schemas/Negotiated.yaml
+    NewAccount:
+      $ref: paths/components/schemas/NewAccount.yaml
+    NewAddressInfo:
+      $ref: paths/components/schemas/NewAddressInfo.yaml
+    NftContractTypeEnum:
+      $ref: paths/components/schemas/NftContractTypeEnum.yaml
+    NftFilter:
+      $ref: paths/components/schemas/NftFilter.yaml
+    NftInfo:
+      $ref: paths/components/schemas/NftInfo.yaml
+    NftInfoBasic:
+      $ref: paths/components/schemas/NftInfoBasic.yaml
+    NftMetadata:
+      $ref: paths/components/schemas/NftMetadata.yaml
+    NftNetworkEnum:
+      $ref: paths/components/schemas/NftNetworkEnum.yaml
+    NftProvider:
+      $ref: paths/components/schemas/NftProvider.yaml
+    NftTransfer:
+      $ref: paths/components/schemas/NftTransfer.yaml
+    NftTransferFilter:
+      $ref: paths/components/schemas/NftTransferFilter.yaml
+    NotSufficientBalance:
+      $ref: paths/components/schemas/NotSufficientBalance.yaml
+    NumericFormatsValue:
+      $ref: paths/components/schemas/NumericFormatsValue.yaml
+    OrderDataV1:
+      $ref: paths/components/schemas/OrderDataV1.yaml
+    OrderDataV2:
+      $ref: paths/components/schemas/OrderDataV2.yaml
+    OrderStatusData:
+      $ref: paths/components/schemas/OrderStatusData.yaml
+    OrderStatusEnum:
+      $ref: paths/components/schemas/OrderStatusEnum.yaml
+    OrderType:
+      $ref: paths/components/schemas/OrderType.yaml
+    OrderTypeEnum:
+      $ref: paths/components/schemas/OrderTypeEnum.yaml
+    Pagination:
+      $ref: paths/components/schemas/Pagination.yaml
+    PagingOptions:
+      $ref: paths/components/schemas/PagingOptions.yaml
+    PairDepth:
+      $ref: paths/components/schemas/PairDepth.yaml
+    PayForGas:
+      $ref: paths/components/schemas/PayForGas.yaml
+    PrivKeyActivationPolicyEnum:
+      $ref: paths/components/schemas/PrivKeyActivationPolicyEnum.yaml
+    PrivKeyPolicy:
+      $ref: paths/components/schemas/PrivKeyPolicy.yaml
+    PrivKeyPolicyEnum:
+      $ref: paths/components/schemas/PrivKeyPolicyEnum.yaml
+    RawTxInfo:
+      $ref: paths/components/schemas/RawTxInfo.yaml
+    RequestBy:
+      $ref: paths/components/schemas/RequestBy.yaml
+    ScanAddressesInfo:
+      $ref: paths/components/schemas/ScanAddressesInfo.yaml
+    StakingDetails:
+      $ref: paths/components/schemas/StakingDetails.yaml
+    StakingInfoDetails:
+      $ref: paths/components/schemas/StakingInfoDetails.yaml
+    StartFailed:
+      $ref: paths/components/schemas/StartFailed.yaml
+    Started:
+      $ref: paths/components/schemas/Started.yaml
+    StreamingConfig:
+      $ref: paths/components/schemas/StreamingConfig.yaml
+    SwapEvent:
+      $ref: paths/components/schemas/SwapEvent.yaml
+    SwapEvents:
+      $ref: paths/components/schemas/SwapEvents.yaml
+    SwapMethodEnum:
+      $ref: paths/components/schemas/SwapMethodEnum.yaml
+    SwapStatus:
+      $ref: paths/components/schemas/SwapStatus.yaml
+    SwapV2Contracts:
+      $ref: paths/components/schemas/SwapV2Contracts.yaml
+    SyncStatus:
+      $ref: paths/components/schemas/SyncStatus.yaml
+    SyncStatusExtended:
+      $ref: paths/components/schemas/SyncStatusExtended.yaml
+    TakerFeeSendFailed:
+      $ref: paths/components/schemas/TakerFeeSendFailed.yaml
+    TakerFeeSent:
+      $ref: paths/components/schemas/TakerFeeSent.yaml
+    TakerPaymentDataSendFailed:
+      $ref: paths/components/schemas/TakerPaymentDataSendFailed.yaml
+    TakerPaymentRefundFailed:
+      $ref: paths/components/schemas/TakerPaymentRefundFailed.yaml
+    TakerPaymentRefunded:
+      $ref: paths/components/schemas/TakerPaymentRefunded.yaml
+    TakerPaymentRefundedByWatcher:
+      $ref: paths/components/schemas/TakerPaymentRefundedByWatcher.yaml
+    TakerPaymentSent:
+      $ref: paths/components/schemas/TakerPaymentSent.yaml
+    TakerPaymentSpent:
+      $ref: paths/components/schemas/TakerPaymentSpent.yaml
+    TakerPaymentTransactionFailed:
+      $ref: paths/components/schemas/TakerPaymentTransactionFailed.yaml
+    TakerPaymentWaitConfirmFailed:
+      $ref: paths/components/schemas/TakerPaymentWaitConfirmFailed.yaml
+    TakerPaymentWaitForSpendFailed:
+      $ref: paths/components/schemas/TakerPaymentWaitForSpendFailed.yaml
+    TakerPaymentWaitRefundStarted:
+      $ref: paths/components/schemas/TakerPaymentWaitRefundStarted.yaml
+    TaskActivationStatusEnum:
+      $ref: paths/components/schemas/TaskActivationStatusEnum.yaml
+    TokenActivationParams:
+      $ref: paths/components/schemas/TokenActivationParams.yaml
+    TokenProtocol:
+      $ref: paths/components/schemas/TokenProtocol.yaml
+    TokenProtocolData:
+      $ref: paths/components/schemas/TokenProtocolData.yaml
+    TokensRequest:
+      $ref: paths/components/schemas/TokensRequest.yaml
+    TotalFeeInfo:
+      $ref: paths/components/schemas/TotalFeeInfo.yaml
+    UnbanTypeEnum:
+      $ref: paths/components/schemas/UnbanTypeEnum.yaml
+    UtxoMergeParams:
+      $ref: paths/components/schemas/UtxoMergeParams.yaml
+    UtxoRpcModeEnum:
+      $ref: paths/components/schemas/UtxoRpcModeEnum.yaml
+    WalletAccountInfo:
+      $ref: paths/components/schemas/WalletAccountInfo.yaml
+    WalletBalanceInfo:
+      $ref: paths/components/schemas/WalletBalanceInfo.yaml
+    WcConnNs:
+      $ref: paths/components/schemas/WcConnNs.yaml
+    WcSession:
+      $ref: paths/components/schemas/WcSession.yaml
+    WithdrawFee:
+      $ref: paths/components/schemas/WithdrawFee.yaml
+    WithdrawFromInfo:
+      $ref: paths/components/schemas/WithdrawFromInfo.yaml
+    WithdrawNftData:
+      $ref: paths/components/schemas/WithdrawNftData.yaml
+    ZcoinRpcModeEnum:
+      $ref: paths/components/schemas/ZcoinRpcModeEnum.yaml
+    ZeroBalanceToWithdrawMax:
+      $ref: paths/components/schemas/ZeroBalanceToWithdrawMax.yaml

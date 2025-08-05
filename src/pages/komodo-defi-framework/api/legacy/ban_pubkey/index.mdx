@@ -1,35 +1,35 @@
 export const title = "Komodo DeFi Framework Method: Ban Pubkey";
 export const description = "The ban_pubkey method bans the selected pubkey ignoring its order matching messages and preventing its orders from displaying in the orderbook.";
 
-# ban\_pubkey
+# Ban Pubkey
 
-**ban\_pubkey pubkey reason**
+## ban\_pubkey {{label : 'ban_pubkey', tag : 'API-v1'}}
 
-The `ban_pubkey` method bans the selected pubkey ignoring its order matching messages and preventing its orders from displaying in the orderbook.
+The `ban_pubkey` method bans the selected pubkey, ignoring its order matching messages and preventing its orders from displaying in the orderbook.
 
 <Note>
   Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is `022cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420` you should submit `2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420`.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure     | Type    | Description                                                                              |
-| ------------- | ------- | ---------------------------------------------------------------------------------------- |
-| pubkey        | string  | The pubkey to ban                                                                        |
-| reason        | string  | Optional. The reason for banning                                                         |
-| duration\_min | integer | Optional. Minutes to apply the ban. If not set, ban will persist until kdf is restarted. |
+| Parameter     | Type    | Required | Description                                                                              |
+| ------------- | ------- | :------: | ---------------------------------------------------------------------------------------- |
+| pubkey        | string  |     ✓    | The pubkey to ban                                                                        |
+| reason        | string  |     ✓    | The reason for banning                                                                   |
+| duration\_min | integer |     ✗    | Optional. Minutes to apply the ban. If not set, ban will persist until kdf is restarted. |
 
-## Response
+### Response
 
-| Structure | Type   | Description                    |
+| Parameter | Type   | Description                    |
 | --------- | ------ | ------------------------------ |
-| result    | string | whether the ban was successful |
+| result    | string | Whether the ban was successful |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="ban_pubkey" mm2MethodDecorate="true">
+<CodeGroup title="ban_pubkey" tag="POST" label="ban_pubkey" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -46,7 +46,7 @@ The `ban_pubkey` method bans the selected pubkey ignoring its order matching mes
 
   ```json
   {
-    "result": "success"
+      "result": "success"
   }
   ```
 
@@ -54,7 +54,7 @@ The `ban_pubkey` method bans the selected pubkey ignoring its order matching mes
 
   ```json
   {
-    "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
+      "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
   }
   ```
 

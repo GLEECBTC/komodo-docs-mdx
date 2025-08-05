@@ -1,0 +1,51 @@
+export const title = "Komodo DeFi Framework Method: Inventory";
+export const description = "Return an overview of current maker/taker order inventory (legacy API).";
+
+# Inventory
+
+## inventory {{label : 'inventory', tag : 'API-v1'}}
+
+<Note type="info">
+  This is a legacy Komodo DeFi Framework API v1 method. New integrations should prefer API-v2 equivalents when available.
+  This documentation was generated automatically - use with caution.
+</Note>
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                        |
+| --------- | ------ | :------: | ---------------------------------- |
+| userpass  | string |     ✓    | RPC password (`RPC_UserP@SSW0RD`). |
+
+### Response Parameters
+
+| Parameter | Type             | Description                         |
+| --------- | ---------------- | ----------------------------------- |
+| orders    | array of objects | List of active orders with details. |
+
+#### 📌 Examples
+
+<CodeGroup title="inventory" tag="POST" label="inventory" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "inventory",
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "orders": [
+      {
+        "base": "KMD",
+        "rel": "BTC",
+        "price": "0.00002",
+        "amount": "100"
+      }
+    ]
+  }
+  ```
+</CollapsibleSection>

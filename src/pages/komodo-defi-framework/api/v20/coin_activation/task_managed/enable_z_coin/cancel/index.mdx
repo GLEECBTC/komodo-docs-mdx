@@ -1,0 +1,95 @@
+export const title = "Komodo DeFi Framework Method: Enable Z Coin Task: Cancel";
+export const description = "Cancel the ZHTLC coin activation task before completion.";
+
+# Enable Z Coin Task: Cancel
+
+## task::enable\_z\_coin::cancel {{label : 'task::enable_z_coin::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+### Request Parameter Table
+
+| Parameter | Type    | Required | Description                                                           |
+| --------- | ------- | :------: | --------------------------------------------------------------------- |
+| task\_id  | integer |     ✓    | The identifying number returned when initiating the enabling process. |
+
+### Response Parameter Table
+
+| Parameter    | Type   | Description                                                     |
+| ------------ | ------ | --------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was successful.                     |
+| error        | string | An error message to explain what went wrong.                    |
+| error\_path  | string | An indicator of the class or function which returned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown.  |
+| error\_type  | string | An enumerated value for the returned error.                     |
+| error\_data  | string | The input task ID which resulted in the error.                  |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::cancel",
+    "mmrpc": "2.0",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                                     |
+| ------------ | ------ | --------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was successful.                     |
+| error        | string | An error message to explain what went wrong.                    |
+| error\_path  | string | An indicator of the class or function which returned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown.  |
+| error\_type  | string | An enumerated value for the returned error.                     |
+| error\_data  | string | The input task ID which resulted in the error.                  |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (success - already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_standalone_coin.manager",
+    "error_trace": "init_standalone_coin:144] manager:101]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+
+  #### Response (error - no such task)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": null
+  }
+  ```
+</CollapsibleSection>

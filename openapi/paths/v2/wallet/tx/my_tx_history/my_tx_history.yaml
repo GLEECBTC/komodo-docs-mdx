@@ -1,0 +1,95 @@
+/my_tx_history:
+  post:
+    summary: The my_tx_history method allows you to view the transaction history of
+      coins.
+    description: The my_tx_history method allows you to view the transaction history
+      of coins.
+    operationId: my_tx_history
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - my_tx_history
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the coin to get history for.
+                  limit:
+                    type: integer
+                    description: Limits the number of returned transactions. Defaults
+                      to `10`. Ignored if `max = true`.
+                    default: 10
+                  paging_options:
+                    description: A standard [Pagination](/komodo-defi-framework/api/common_structures/#pagination)
+                      object.
+                    $ref: ../../components/schemas/Pagination.yaml
+                  target:
+                    description: A standard [HistoryTarget](/komodo-defi-framework/api/common_structures/wallet/#history-target)
+                      object.
+                    $ref: ../../components/schemas/HistoryTarget.yaml
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              current_block:
+                type: number
+                description: the number of the latest block of coin blockchain
+              from_id:
+                type: string
+                description: the from\_id specified in the request; this value is
+                  null if from\_id was not set
+              limit:
+                type: number
+                description: the limit that was set in the request; note that the
+                  actual number of transactions can differ from the specified limit
+                  (e.g. on the last page)
+              page_number:
+                type: number
+                description: the page\_number that was set in the request
+              skipped:
+                type: number
+                description: the number of skipped records (i.e. the position of `from_id`
+                  in the list + 1); this value is 0 if `from_id` was not set
+              sync_status:
+                description: A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status)
+                  object. Provides the information that helps to track the progress
+                  of transaction history preloading at background
+                $ref: ../../components/schemas/SyncStatus.yaml
+              total:
+                type: number
+                description: the total number of transactions available
+              total_pages:
+                type: number
+                description: total pages available with the selected limit
+              transactions:
+                type: array
+                description: transactions data
+          example: {}

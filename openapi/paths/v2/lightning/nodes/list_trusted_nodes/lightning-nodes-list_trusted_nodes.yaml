@@ -1,0 +1,55 @@
+/lightning::nodes::list_trusted_nodes:
+  post:
+    summary: List all trusted Lightning nodes using the Komodo DeFi Framework API.
+    description: List all trusted Lightning nodes using the Komodo DeFi Framework
+      API.
+    operationId: lightning::nodes::list_trusted_nodes
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::nodes::list_trusted_nodes
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin ticker you would like to view your trusted
+                      nodes to.
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trusted_nodes:
+                type: string
+                description: Array of trusted node IDs.
+              id:
+                type: integer
+                description: Request identifier, or null.
+          example: {}

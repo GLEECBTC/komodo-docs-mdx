@@ -1,0 +1,102 @@
+/orders_history_by_filter:
+  post:
+    summary: The orders_history_by_filter method returns all orders, whether active
+      or inactive, that match the selected filters.
+    description: The orders_history_by_filter method returns all orders, whether active
+      or inactive, that match the selected filters.
+    operationId: orders_history_by_filter
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - orders_history_by_filter
+              base:
+                type: string
+                description: Return only orders that match the `order.base = base`
+                  condition
+              from_price:
+                type: string
+                description: Return only orders that match the `order.price >= from_price`
+                  condition
+              from_timestamp:
+                type: integer
+                description: Timestamp in UNIX format. Return only orders that match
+                  the `order.created_at >= from_timestamp` condition
+              from_volume:
+                type: string
+                description: Return only orders that match the `order.volume >= from_volume`
+                  condition
+              include_details:
+                type: boolean
+                description: Whether to include complete order details in response;
+                  defaults to false
+              initial_action:
+                type: string
+                description: Return only orders that match the `initial_action`; `initial_action`
+                  can be "Sell" or "Buy". Note that maker order `initial_action` is
+                  considered "Sell"
+              order_type:
+                description: A standard [OrderTypeEnum](/komodo-defi-framework/api/common_structures/enums/#order-type-enum)
+                  enum. Return only orders that match the `order_type`
+                $ref: ../../components/schemas/OrderTypeEnum.yaml
+              rel:
+                type: string
+                description: Return only orders that match the `order.rel = rel` condition
+              status:
+                description: A standard [OrderStatusEnum](/komodo-defi-framework/api/common_structures/enums/#order-status-enum)
+                  enum. Return only orders that match the `status`
+                $ref: ../../components/schemas/OrderStatusEnum.yaml
+              to_price:
+                type: string
+                description: Return only orders that match the `order.price <= to_price`
+                  condition
+              to_timestamp:
+                type: number
+                description: Timestamp in UNIX format. Return only orders that match
+                  the `order.created_at <= to_timestamp` condition
+              to_volume:
+                type: string
+                description: Return only orders that match the `order.volume <= to_volume`
+                  condition
+              was_taker:
+                type: boolean
+                description: Return only `GoodTillCancelled` orders that got converted
+                  from `taker` to `maker`
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              details:
+                type: array
+                description: Array of complete order details for every order that
+                  matches the selected filters; returns `[]` if `include_details`
+                  is false or not set
+              found_records:
+                type: number
+                description: The number of returned orders
+              orders:
+                description: Array of [OrderSummaryData](/komodo-defi-framework/api/common_structures/orders/#order-summary-data)
+                  that match the selected filters.
+                $ref: ../../components/schemas/OrderSummaryData.yaml
+              warnings:
+                type: array
+                description: Array containing warnings objects
+          example: {}

@@ -1,41 +1,47 @@
 export const title = "Komodo DeFi Framework Method: Orderbook Depth";
 export const description = "The orderbook_depth method returns the number of asks and bids for the specified trading pairs.";
 
-# orderbook\_depth
+# Orderbook Depth
 
-**orderbook\_depth pairs**
+## orderbook\_depth {{label: 'orderbook_depth', tag: 'API-v1'}}
 
 The `orderbook_depth` method returns the number of asks and bids for the specified trading pairs.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type  | Description               |
-| --------- | ----- | ------------------------- |
-| pairs     | array | an array of trading pairs |
+| Parameter | Type  | Required | Description               |
+| --------- | ----- | :------: | ------------------------- |
+| pairs     | array |     ✓    | An array of trading pairs |
 
-## Response
+### Response parameters
 
 <Note type="warning">
   The pairs in the response are not guaranteed to be in the order of pairs in the request.
 </Note>
 
-| Structure | Type                 | Description                    |
-| --------- | -------------------- | ------------------------------ |
-| result    | array of `PairDepth` | an array of pair depth objects |
+| Parameter | Type             | Description                                                                                      |
+| --------- | ---------------- | ------------------------------------------------------------------------------------------------ |
+| result    | array of objects | An array of [PairDepth](/komodo-defi-framework/api/common_structures/orders/#pair-depth) objects |
 
-Where `PairDepth` object structure is as follows
+#### PairDepth object
 
-| Structure  | Type               | Description        |
-| ---------- | ------------------ | ------------------ |
-| pair       | array of 2 strings | the orderbook pair |
-| depth.asks | number             | the number of asks |
-| depth.bids | number             | the number of bids |
+| Parameter | Type   | Description                                                                                             |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| depth     | object | [DepthInfo](/komodo-defi-framework/api/common_structures/orders/#depth-info) object with ask/bid counts |
+| pair      | array  | The trading pair, e.g., \["BTC", "KMD"]                                                                 |
 
-#### 📌 Examples
+#### DepthInfo object
 
-#### Command
+| Parameter | Type   | Description                              |
+| --------- | ------ | ---------------------------------------- |
+| asks      | number | The number of asks for this trading pair |
+| bids      | number | The number of bids for this trading pair |
 
-<CodeGroup title="" tag="POST" label="orderbook_depth" mm2MethodDecorate="true">
+#### 📌 Example
+
+#### Request
+
+<CodeGroup title="orderbook_depth" tag="POST" label="orderbook_depth" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -63,29 +69,29 @@ Where `PairDepth` object structure is as follows
 
   ```json
   {
-    "result": [
-      {
-        "pair": ["DOC", "MARTY"],
-        "depth": {
-          "asks": 2,
-          "bids": 6
-        }
-      },
-      {
-        "pair": ["DOGE", "KMD"],
-        "depth": {
-          "asks": 3,
-          "bids": 3
-        }
-      },
-      {
-        "pair": ["BTC", "KMD"],
-        "depth": {
-          "asks": 5,
-          "bids": 9
-        }
-      }
-    ]
+      "result": [
+          {
+              "pair": ["DOC", "MARTY"],
+              "depth": {
+                  "asks": 2,
+                  "bids": 6
+              }
+          },
+          {
+              "pair": ["DOGE", "KMD"],
+              "depth": {
+                  "asks": 3,
+                  "bids": 3
+              }
+          },
+          {
+              "pair": ["BTC", "KMD"],
+              "depth": {
+                  "asks": 5,
+                  "bids": 9
+              }
+          }
+      ]
   }
   ```
 </CollapsibleSection>

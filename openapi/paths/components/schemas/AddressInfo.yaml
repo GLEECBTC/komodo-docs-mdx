@@ -1,0 +1,24 @@
+components:
+  schemas:
+    AddressInfo:
+      type: object
+      properties:
+        balances:
+          description: A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info)
+            object. Not included in responses where `get_balances` is `false`
+          $ref: '#/components/schemas/BalanceInfo'
+        derivation_method:
+          description: A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method)
+            object
+          $ref: '#/components/schemas/DerivationMethod'
+        pubkey:
+          type: string
+          description: The public key associated with the seed used to launch Komodo
+            DeFi Framework
+        tickers:
+          type: array
+          description: A list of tokens which were successfully activated. Only included
+            in responses where `get_balances` is `false`
+      required:
+      - derivation_method
+      - pubkey

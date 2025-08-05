@@ -1,0 +1,15 @@
+components:
+  schemas:
+    StakingDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The coin type. Currently, only 'Cosmos' and `Qtum` are supported.
+        validator_address:
+          type: string
+          description: The address of the validator to delegate staking to.
+        amount:
+          type: string
+          description: The amount of coins to stake send to the validator for delegated
+            staking (Cosmos only - QTUM will stake your whole balance).

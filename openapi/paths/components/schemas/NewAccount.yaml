@@ -1,0 +1,21 @@
+components:
+  schemas:
+    NewAccount:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: Identifier of the new account.
+        name:
+          type: string
+          description: User-friendly name for the account (maximum 255 characters).
+        description:
+          type: string
+          description: Optional longer description (maximum 600 characters).
+        balance_usd:
+          type: string
+          description: Optional initial USD balance shown in GUIs. If omitted, defaults
+            to `0`.
+      required:
+      - account_id
+      - name

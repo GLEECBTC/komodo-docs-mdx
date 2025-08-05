@@ -1,0 +1,93 @@
+export const title = "Komodo DeFi Framework Method: Withdraw Task User Action";
+export const description = "Send user action (PIN) to the Trezor device during withdrawal in the Komodo DeFi Framework API.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Withdraw Task User Action
+
+## task::withdraw::user\_action {{label : 'task::withdraw::user_action', tag : 'API-v2'}}
+
+If the `task::withdraw::status` returns `UserActionRequired`, use the `task::withdraw::user_action` method to enter your Trezor PIN.
+
+### Request Parameters
+
+| Parameter                 | Type            | Required | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         |     ✓    | The identifying number returned when initiating the withdrawal process.                                                                                                                          |
+| user\_action              | object          |     ✓    | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          |     ✓    | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) |     ✓    | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+### Response Parameters
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+#### 📌 Examples
+
+<CodeGroup title="task::withdraw::user_action" tag="POST" label="task::withdraw::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::withdraw::user_action",
+    "params": {
+      "task_id": 3,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "862743"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                  |
+| ------------ | ------ | -------------------------------------------- |
+| NoSuchTask   | string | The specified task was not found or expired. |
+| TaskFinished | string | The task is already finished.                |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (No Such Task)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:57]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": 0
+  }
+  ```
+
+  ##### Error Response (Task Finished)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_withdraw",
+      "error_trace": "init_withdraw:94]",
+      "error_type": "TaskFinished",
+      "error_data": 4,
+      "id": null
+  }
+  ```
+</CollapsibleSection>

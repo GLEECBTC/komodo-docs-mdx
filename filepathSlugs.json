@@ -2614,7 +2614,7 @@
     "response-details-included",
     "response-warning-uuid-could-not-be-parsed"
   ],
-  "src/pages/komodo-defi-framework/api/legacy/rational_number_note/index.mdx": [
+  "src/pages/komodo-defi-framework/api/common_structures/rational_number_note/index.mdx": [
     "note-about-rational-number-type"
   ],
   "src/pages/komodo-defi-framework/api/legacy/recover_funds_of_swap/index.mdx": [

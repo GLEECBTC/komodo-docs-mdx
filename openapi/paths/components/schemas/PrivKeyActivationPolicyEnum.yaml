@@ -1,0 +1,22 @@
+components:
+  schemas:
+    PrivKeyActivationPolicyEnum:
+      type: string
+      description: 'This enum is used in general coin activation requests to specify
+        the private key policy for the coin being enabled. For ETH/EVM coins, see
+        EthPrivKeyActivationPolicyEnum below.
+
+
+        **Values:**
+
+        - `ContextPrivKey`: Use the context (software) private key for activation.
+        This is the default policy for most activations.
+
+        - `Trezor`: Use a Trezor hardware wallet for private key management during
+        activation.
+
+        '
+      enum:
+      - ContextPrivKey
+      - Trezor
+      title: 'Component: PrivKeyActivationPolicyEnum'

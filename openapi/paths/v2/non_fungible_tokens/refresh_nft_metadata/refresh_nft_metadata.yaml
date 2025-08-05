@@ -1,0 +1,75 @@
+/refresh_nft_metadata:
+  post:
+    summary: The refresh_nft_metadata method refreshes metadata for a specific NFT
+      and related transactions using provided proxy URLs.
+    description: The refresh_nft_metadata method refreshes metadata for a specific
+      NFT and related transactions using provided proxy URLs.
+    operationId: refresh_nft_metadata
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - refresh_nft_metadata
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  chain:
+                    description: Chain which holds the NFT you would like to update
+                      metadata for. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum)
+                      for allowed values.
+                    $ref: ../../components/schemas/NftNetworkEnum.yaml
+                  token_address:
+                    type: string
+                    description: Token address.
+                  token_id:
+                    type: string
+                    description: Token ID.
+                  komodo_proxy:
+                    type: boolean
+                    description: Indicates whether authentication is required for
+                      accessing the proxy URLs (true if authentication is necessary,
+                      otherwise false).
+                  url:
+                    type: string
+                    description: URL link to the Moralis API proxy base url ([https://moralis-proxy.komodo.earth](https://moralis-proxy.komodo.earth))
+                      or equivalent (if komodo\_proxy is set to true, will need to
+                      provide a new Komodo Proxy URL).
+                  url_antispam:
+                    type: string
+                    description: URL link to the [Antispam API proxy base url](https://nft.antispam.dragonhound.info)
+                      or equivalent. [docs](https://nft.antispam.dragonhound.info/docs).
+                required:
+                - chain
+                - token_address
+                - token_id
+                - url
+                - url_antispam
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

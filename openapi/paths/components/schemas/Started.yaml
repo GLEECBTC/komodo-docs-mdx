@@ -1,0 +1,109 @@
+components:
+  schemas:
+    Started:
+      type: object
+      properties:
+        taker_coin:
+          type: string
+          description: the ticker of the taker coin
+        maker_coin:
+          type: string
+          description: the ticker of the maker coin
+        taker:
+          type: string
+          description: the p2p ID of taker node
+        secret:
+          type: string
+          description: a random secret, the hash of which is used to lock atomic-swap
+            payments
+        secret_hash:
+          type: string
+          description: the hash of the swap secret
+        my_persistent_pub:
+          type: string
+          description: a persistent secp256k1 public key of maker node
+        lock_duration:
+          type: integer
+          description: the lock duration of swap payments in seconds. The sender can
+            refund the transaction when the lock duration is passed. The taker payment
+            is locked for the lock duration. The maker payment is locked for lock
+            duration \* 2
+        maker_amount:
+          type: string
+          description: the amount of coins to be swapped by maker
+        taker_amount:
+          type: string
+          description: the amount of coins to be swapped by taker
+        maker_payment_confirmations:
+          type: integer
+          description: the required number of blockchain confirmations for maker payment
+        maker_payment_requires_nota:
+          type: boolean
+          description: whether dPoW notarization is required for maker payment; can
+            be null; available since `beta-2.0.1738`
+        taker_payment_confirmations:
+          type: integer
+          description: the required number of blockchain confirmations for taker payment
+        taker_payment_requires_nota:
+          type: boolean
+          description: whether dPoW notarization is required for taker payment; can
+            be null; available since `beta-2.0.1738`
+        maker_payment_lock:
+          type: number
+          description: the maker payment is locked until this timestamp
+        uuid:
+          type: string
+          description: the swap uuid
+        started_at:
+          type: number
+          description: the timestamp at the start of the swap
+        maker_coin_start_block:
+          type: integer
+          description: the maker coin block number at the start of the swap
+        taker_coin_start_block:
+          type: integer
+          description: the taker coin block number at the start of the swap
+        Parameter:
+          type: string
+          description: Description
+        error:
+          type: string
+          description: error description with stack trace
+        taker_payment_locktime:
+          type: number
+          description: the taker payment is locked until this timestamp
+        taker_pubkey:
+          type: string
+          description: a persistent secp256k1 public key of taker node
+        tx_hash:
+          type: string
+          description: the hash of the transaction
+        tx_hex:
+          type: string
+          description: transaction bytes in hexadecimal format
+        wait_until:
+          type: number
+          description: the timestamp at which a refund will occur
+      required:
+      - error
+      - lock_duration
+      - maker_amount
+      - maker_coin
+      - maker_coin_start_block
+      - maker_payment_confirmations
+      - maker_payment_lock
+      - my_persistent_pub
+      - secret
+      - secret_hash
+      - started_at
+      - taker
+      - taker_amount
+      - taker_coin
+      - taker_coin_start_block
+      - taker_payment_confirmations
+      - taker_payment_locktime
+      - taker_pubkey
+      - tx_hash
+      - tx_hex
+      - uuid
+      - wait_until

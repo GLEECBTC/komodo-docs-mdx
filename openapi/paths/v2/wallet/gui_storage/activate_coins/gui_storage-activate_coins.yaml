@@ -1,0 +1,54 @@
+/gui_storage::activate_coins:
+  post:
+    summary: Add one or more coin tickers to the specified GUI-storage account.
+    description: Add one or more coin tickers to the specified GUI-storage account.
+    operationId: gui_storage::activate_coins
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::activate_coins
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Account that will gain the new tickers.
+                  tickers:
+                    type: string
+                    description: One or more coin tickers to associate with the account.
+                required:
+                - account_id
+                - tickers
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns `success` when the tickers have been stored.
+          example: {}

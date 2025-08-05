@@ -1,29 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Get Relay Mesh";
 export const description = "The get_relay_mesh method returns a list of peerIDs included in our local relay mesh.";
 
-# get\_relay\_mesh
+# Get Relay Mesh
 
-**get\_relay\_mesh**
+## get\_relay\_mesh {{label : 'get_relay_mesh', tag : 'API-v1'}}
 
 The `get_relay_mesh` method returns a list of peerIDs included in our local relay mesh.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response
 
-| Structure | Type | Description                          |
+| Parameter | Type | Description                          |
 | --------- | ---- | ------------------------------------ |
 | PeerIDs   | List | PeerIDs within your local relay mesh |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="get_relay_mesh" mm2MethodDecorate="true">
+<CodeGroup title="get_relay_mesh" tag="POST" label="get_relay_mesh" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -37,10 +37,18 @@ The `get_relay_mesh` method returns a list of peerIDs included in our local rela
 
   ```json
   {
-    "result": [
-      "12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU",
-      "12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y"
-    ]
+      "result": [
+          "12D3KooWM8BrDBXc1TVw2vswoqYcQVn7fFvpAvcCfaV2Uqg2L9jU",
+          "12D3KooWJDoV9vJdy6PnzwVETZ3fWGMhV41VhSbocR1h2geFqq9Y"
+      ]
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "No relay mesh found" }
   ```
 </CollapsibleSection>

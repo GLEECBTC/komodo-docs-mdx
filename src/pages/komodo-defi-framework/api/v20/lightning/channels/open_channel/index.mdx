@@ -1,0 +1,115 @@
+export const title = "Komodo DeFi Framework Method: Open Lightning Channel";
+export const description = "Open a new Lightning Network channel using the Komodo DeFi Framework API.";
+
+# Open Lightning Channel
+
+## lightning::channels::open\_channel {{label : 'lightning::channels::open_channel', tag : 'API-v2'}}
+
+The `lightning::channels::open_channel` method opens a new channel with a remote node.
+
+### Request Parameters
+
+| Parameter        | Type    | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                                |
+| ---------------- | ------- | :------: | :-----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin             | string  |     ✓    |    -    | The ticker of the coin you would like to open a channel for.                                                                                                                                                                                                                                                                                                               |
+| node\_address    | string  |     ✓    |    -    | Lightning node addresses always have a format of `node_pubkey`@`ip_address`:`port`.                                                                                                                                                                                                                                                                                        |
+| amount           | object  |     ✓    |    -    | A standard [LightningChannelAmount](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-amount) object.                                                                                                                                                                                                                                              |
+| push\_msat       | integer |     ✗    |   `0`   | The amount in millisatoshi to push to the counterparty while opening, to create inbound liquidity for the channel. Using the `push_msat` parameter avoids having to send funds in a separate request later. Please note that the funds given using push\_msat is given unconditionally, meaning that there is no proof of payment in a preimage as with paying an invoice. |
+| channel\_options | object  |     ✗    |    -    | A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options) object.                                                                                                                                                                                                                                            |
+| channel\_configs | object  |     ✗    |    -    | A standard [LightningChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-config) object.                                                                                                                                                                                                                                              |
+
+### Response Parameters
+
+| Parameter     | Type   | Description                                   |
+| ------------- | ------ | --------------------------------------------- |
+| uuid          | string | The unique identifier for the opened channel. |
+| node\_address | string | The node address of the remote node.          |
+| id            | int    | Request identifier.                           |
+
+#### 📌 Example using an exact amount
+
+<CodeGroup title="Open Channel (Exact Amount)" tag="POST" label="open_channel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::open_channel",
+    "params": {
+      "coin": "tBTC-lightning",
+      "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735",
+      "amount": {
+        "type": "Exact",
+        "value": 0.004
+      }
+    },
+    "id": 22
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "uuid": "434681f8-95e5-484f-af49-fa80d8ae857b",
+          "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@233.112.95.142:9735"
+      },
+      "id": 22
+  }
+  ```
+</CollapsibleSection>
+
+#### 📌 Example using max available with channel options and configs
+
+<CodeGroup title="Open Channel (Max Amount with Options)" tag="POST" label="open_channel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::open_channel",
+    "params": {
+      "coin": "tBTC-lightning",
+      "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735",
+      "amount": {
+        "type": "Max"
+      },
+      "push_msat": 0,
+      "channel_options": {
+        "proportional_fee_in_millionths_sats": 0,
+        "base_fee_msat": 1000,
+        "cltv_expiry_delta": 72,
+        "max_dust_htlc_exposure_msat": 5000000,
+        "force_close_avoidance_max_fee_satoshis": 1000
+      },
+      "channel_configs": {
+        "counterparty_locktime": 144,
+        "our_htlc_minimum_msat": 1,
+        "negotiate_scid_privacy": false,
+        "max_inbound_in_flight_htlc_percent": 10,
+        "commit_upfront_shutdown_pubkey": true,
+        "inbound_channels_confirmations": 3,
+        "their_channel_reserve_sats": 10000
+      }
+    },
+    "id": null
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "uuid": "2b50e274-c173-4fa1-95f3-97f9f82ace92",
+          "node_address": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9@203.132.94.196:9735"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

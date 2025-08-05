@@ -1,9 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+import * as fs from "fs";
 import axios from "axios";
 
-const versionsFromJson = JSON.parse(fs.readFileSync("./utils/_changeLogVersions.json", 'utf8'));
+const dataDir = path.resolve(__dirname, './data');
+
+const versionsFromJson = JSON.parse(fs.readFileSync(path.join(dataDir, '_changeLogVersions.json'), 'utf8'));
 
 const komodoLatestReleaseURL = "https://api.github.com/repos/komodoplatform/komodo/releases/latest"
 

@@ -1,0 +1,67 @@
+/task::enable_qtum::user_action:
+  post:
+    summary: Handle user action (e.g., Trezor PIN entry) for QTUM/QRC20 activation
+      task.
+    description: Handle user action (e.g., Trezor PIN entry) for QTUM/QRC20 activation
+      task.
+    operationId: task::enable_qtum::user_action
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_qtum::user_action
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      initialisation process.
+                  user_action:
+                    type: object
+                    description: Object containing the params below
+                  user_action.action_type:
+                    type: string
+                    description: Will be `TrezorPin` for this method
+                  user_action.pin:
+                    type: string
+                    description: When the Trezor device is displaying a grid of numbers
+                      for PIN entry, this param will contain your Trezor pin, as mapped
+                      through your keyboard numpad. See the image below for more information.
+                required:
+                - task_id
+                - user_action
+                - user_action.action_type
+                - user_action.pin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The outcome of the request.
+          example: {}

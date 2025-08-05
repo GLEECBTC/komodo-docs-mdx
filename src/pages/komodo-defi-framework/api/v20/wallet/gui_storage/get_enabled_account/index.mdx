@@ -1,0 +1,64 @@
+export const title = "Komodo DeFi Framework Method: Get Enabled GUI Storage Account";
+export const description = "Return the account currently marked as enabled (active) in GUI storage.";
+
+# Get Enabled GUI Storage Account
+
+## gui\_storage::get\_enabled\_account {{label : 'gui_storage::get_enabled_account', tag : 'API-v2'}}
+
+Returns the account marked as **enabled**. If no account is enabled the method returns an error.
+
+### Request Parameters
+
+| Parameter | Type  | Required | Description                      |
+| :-------- | :---- | :------: | :------------------------------- |
+| *None*    | *N/A* |          | *This method has no parameters.* |
+
+### Response Parameters
+
+| Parameter    | Type                                                                         | Description                           |
+| ------------ | ---------------------------------------------------------------------------- | ------------------------------------- |
+| account\_id  | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) | Identifier of the enabled account.    |
+| name         | string                                                                       | Account display name.                 |
+| description  | string                                                                       | Optional description.                 |
+| balance\_usd | string (numeric)                                                             | USD balance snapshot.                 |
+| coins        | array of strings                                                             | Set of tickers linked to the account. |
+
+#### 📌 Example
+
+<CodeGroup title="get_enabled_account" tag="POST" label="gui_storage::get_enabled_account" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::get_enabled_account",
+    "params": {},
+    "id": 15,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (example)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "account_id": { "type": "iguana" },
+      "name": "Default Account",
+      "description": "Legacy Iguana seed",
+      "balance_usd": "123.45",
+      "coins": ["KMD", "BTC"]
+    },
+    "id": 15
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                            |
+| ------------------- | ------ | -------------------------------------- |
+| NoEnabledAccount    | string | There is no account currently enabled. |
+| ErrorLoadingAccount | string | Storage read error.                    |
+| InternalError       | string | Unhandled internal error.              |

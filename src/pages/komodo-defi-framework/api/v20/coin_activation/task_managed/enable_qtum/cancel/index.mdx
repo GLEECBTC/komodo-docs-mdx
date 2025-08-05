@@ -1,0 +1,54 @@
+export const title = "task::enable_qtum::cancel";
+export const description = "Cancel the QTUM activation task.";
+
+# Enable QTUM Task: Cancel
+
+## task::enable\_qtum::cancel {{label : 'task::enable_qtum::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+### Request Parameters
+
+| Parameter | Type    | Required | Description                                                           |
+| --------- | ------- | :------: | --------------------------------------------------------------------- |
+| task\_id  | integer |     ✓    | The identifying number returned when initiating the enabling process. |
+
+### Response Parameters
+
+| Parameter    | Type   | Description                                                     |
+| ------------ | ------ | --------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was successful.                     |
+| error        | string | An error message to explain what went wrong.                    |
+| error\_path  | string | An indicator of the class or function which returned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown.  |
+| error\_type  | string | An enumerated value for the returned error.                     |
+| error\_data  | string | The input task ID which resulted in the error.                  |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_qtum::cancel",
+    "mmrpc": "2.0",
+    "params": {
+      "task_id": 3
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

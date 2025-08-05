@@ -1,0 +1,38 @@
+{
+  "scan_metadata": {
+    "kdf_branch": "sia-rc-cleanup",
+    "mdx_branch": "add/postman/utils",
+    "kdf_commit": "aee8e9ed338fd288881d1b6ae537d7faa24964fc",
+    "mdx_commit": "9c2d86b7610bf959d4a722979f2e8cf63fd40457",
+    "generated_at": "2025-06-30T21:22:08.695205"
+  },
+  "gap_analysis": {
+    "v1": {
+      "missing_in_docs": [],
+      "extra_in_docs": [],
+      "total_rust_methods": 55,
+      "total_doc_methods": 55,
+      "undocumented_methods": 0,
+      "extra_methods_in_docs": 0,
+      "coverage": "100.00%"
+    },
+    "v2": {
+      "missing_in_docs": [
+        "enable_sia"
+      ],
+      "extra_in_docs": [
+        "delete_wallet",
+        "wc_delete_session",
+        "wc_get_session",
+        "wc_get_sessions",
+        "wc_new_connection",
+        "wc_ping_session"
+      ],
+      "total_rust_methods": 169,
+      "total_doc_methods": 174,
+      "undocumented_methods": 1,
+      "extra_methods_in_docs": 6,
+      "coverage": "102.96%"
+    }
+  }
+}

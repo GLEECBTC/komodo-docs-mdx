@@ -1,17 +1,19 @@
-export const title = "Komodo DeFi Framework Method: Balance Events Streaming";
+export const title = "Komodo DeFi Framework Method: Enable Balance Streaming";
 export const description = "Using this method, you can enable balance events streaming for a specific coin.";
 
-# balance\_enable
+# Enable Balance Streaming
+
+## stream::balance::enable {{label : 'stream::balance::enable', tag : 'API-v2'}}
 
 Using this method, you can enable balance events streaming for a specific coin, to a specific client. For ETH-like coins and tokens, you can also specify the streaming interval in seconds (to avoid excessive polling leading to upstream API rate limts)
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                                                                               |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin       | string  | Ticker of the coin to activate streaming for. The coin must be activated first.                                                                                                           |
-| client\_id | integer | Optional. In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-| config     | object  | Optional, EVM only. A standard [StreamingFeeConfig](/komodo-defi-framework/api/common_structures/#streaming-fee-config) object.                                                           |
+| Parameter  | Type    | Required | Default | Description                                                                                                                                                                     |
+| ---------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin       | string  |     ✓    |    -    | Ticker of the coin to activate streaming for. The coin must be activated first.                                                                                                 |
+| client\_id | integer |     ✗    |   `0`   | In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
+| config     | object  |     ✗    |    -    | EVM only. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.                                                                  |
 
 <Note>
   The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
@@ -24,11 +26,9 @@ Using this method, you can enable balance events streaming for a specific coin, 
 | ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
 
-### 📌 Examples
+#### 📌 Examples
 
-#### Request
-
-<CodeGroup title="" tag="POST" label="balance_enable" mm2MethodDecorate="true">
+<CodeGroup title="Balance Enable" tag="POST" label="balance_enable" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -45,9 +45,7 @@ Using this method, you can enable balance events streaming for a specific coin, 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
+<CollapsibleSection expandedText="Hide Balance Enable Response" collapsedText="Show Balance Enable Response">
   ```json
   {
       "mmrpc": "2.0",
@@ -63,10 +61,17 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"BALANCE:MATIC","message":[{"ticker":"MATIC","address":"0xc11b6070c84a1e6fc62b2a2acf70831545d5edd4","balance":{"spendable":"2.00000001","unspendable":"0"}}]}`
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### CoinNotFound
+### Error Types
 
-  You need to activate the coin first.
+| Parameter              | Type   | Description                                                                  |
+| ---------------------- | ------ | ---------------------------------------------------------------------------- |
+| CoinNotFound           | string | The specified coin was not found or is not activated yet                     |
+| UnknownClient          | string | No client has an open connection using this client\_id                       |
+| ClientAlreadyListening | string | The requested events are already being sent to the client\_id                |
+| EnableError            | string | The config object is not used in non-EVM coins or other configuration errors |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Coin Not Found)
 
   ```json
   {
@@ -79,9 +84,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### UnknownClient
-
-  No client has an open connection using this `client_id`.
+  ##### Error (Unknown Client)
 
   ```json
   {
@@ -95,9 +98,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### ClientAlreadyListening
-
-  The requested events are already being sent to the `client_id`.
+  ##### Error (Client Already Listening)
 
   ```json
   {
@@ -111,9 +112,7 @@ Here is an example of the stream data you should be able to see in [http://local
   } 
   ```
 
-  #### EnableError Error
-
-  The `config` object is not used in non-EVM coins.
+  ##### Error (Enable Error)
 
   ```json
   {

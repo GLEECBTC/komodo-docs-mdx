@@ -1,0 +1,19 @@
+components:
+  schemas:
+    Negotiated:
+      type: object
+      properties:
+        maker_payment_locktime:
+          type: number
+          description: the maker payment is locked until this timestamp
+        maker_pubkey:
+          type: string
+          description: a persistent secp256k1 public key of maker node
+        secret_hash:
+          type: string
+          description: the swap payments are expected to be locked with this secret
+            hash
+      required:
+      - maker_payment_locktime
+      - maker_pubkey
+      - secret_hash

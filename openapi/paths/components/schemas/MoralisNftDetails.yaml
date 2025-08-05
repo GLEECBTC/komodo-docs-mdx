@@ -1,0 +1,69 @@
+components:
+  schemas:
+    MoralisNftDetails:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount of this NFT the user owns (used by `ERC1155`).
+        block_number_minted:
+          type: integer
+          description: The block height when the NFT was minted. May be `null`.
+        block_number:
+          type: integer
+          description: The block height when the amount or owner changed.
+        chain:
+          type: string
+          description: Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or
+            `POLYGON`.
+        name:
+          type: string
+          description: May be `null`. An NFT collection name.
+        contract_type:
+          type: string
+          description: The type of NFT contract standard. One of `ERC721` or `ERC1155`.
+        last_token_uri_sync:
+          type: string
+          description: When the token\_uri was last updated.
+        metadata:
+          type: string
+          description: May be `null` or a JSON stringified object containing NFT metadata.
+        normalized_metadata:
+          type: object
+          description: A JSON object containing NFT metadata.
+        possible_spam:
+          type: boolean
+          description: Indicates if the NFT collection is flagged as spam.
+        symbol:
+          type: string
+          description: May be `null`. The symbol of the NFT collection.
+        synced_at:
+          type: string
+          description: When the NFT was last synced with the node.
+        token_address:
+          type: string
+          description: The smart contract address of this NFT.
+        token_hash:
+          type: string
+          description: A hash uniquely identifying this NFT's metadata.
+        token_id:
+          type: string
+          description: The token ID of this NFT.
+        token_uri:
+          type: string
+          description: May be `null`. A URI to the NFT metadata (Usually an IPFS link).
+        possible_phishing:
+          type: boolean
+          description: Indicates if the NFT is flagged as phishing.
+      required:
+      - amount
+      - block_number
+      - chain
+      - contract_type
+      - last_token_uri_sync
+      - possible_phishing
+      - possible_spam
+      - synced_at
+      - token_address
+      - token_hash
+      - token_id

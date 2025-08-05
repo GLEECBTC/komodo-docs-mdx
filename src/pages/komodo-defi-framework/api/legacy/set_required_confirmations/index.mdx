@@ -1,35 +1,35 @@
 export const title = "Komodo DeFi Framework Method: Set Required Confirmations";
 export const description = "The set_required_confirmations method sets the number of confirmations for which Komodo DeFi Framework API must wait for the selected coin.";
 
-# set\_required\_confirmations
+# Set Required Confirmations
 
-**set\_required\_confirmations coin confirmations**
+## set\_required\_confirmations {{label: 'set_required_confirmations', tag: 'API-v1'}}
 
 The `set_required_confirmations` method sets the number of confirmations for which Komodo DeFi Framework API must wait for the selected coin.
 
-<Note>
-  This setting is ***not*** persistent. The value must be reset in the coins file on restart.
+<Note type="warning">
+  This setting is <b>not</b> persistent. The value must be reset in the coins file on restart.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure     | Type   | Description                            |
-| ------------- | ------ | -------------------------------------- |
-| coin          | string | the ticker of the selected coin        |
-| confirmations | number | the number of confirmations to require |
+| Parameter     | Type   | Required | Description                            |
+| ------------- | ------ | :------: | -------------------------------------- |
+| coin          | string |     ✓    | The ticker of the selected coin        |
+| confirmations | number |     ✓    | The number of confirmations to require |
 
-#### Response
+### Response parameters
 
-| Structure     | Type   | Description                                |
+| Parameter     | Type   | Description                                |
 | ------------- | ------ | ------------------------------------------ |
-| coin          | string | the coin selected in the request           |
-| confirmations | number | the number of confirmations in the request |
+| coin          | string | The coin selected in the request           |
+| confirmations | number | The number of confirmations in the request |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="set_required_confirmations" mm2MethodDecorate="true">
+<CodeGroup title="set_required_confirmations" tag="POST" label="set_required_confirmations" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -41,14 +41,14 @@ The `set_required_confirmations` method sets the number of confirmations for whi
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response
 
   ```json
   {
-    "result": {
-      "coin": "ETOMIC",
-      "confirmations": 3
-    }
+      "result": {
+          "coin": "AVAX",
+          "confirmations": 3
+      }
   }
   ```
 </CollapsibleSection>

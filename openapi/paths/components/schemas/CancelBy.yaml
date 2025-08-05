@@ -1,0 +1,25 @@
+components:
+  schemas:
+    CancelBy:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: '`All` to cancel all orders; `Pair` to cancel all orders for
+            specific coin pairs; `Coin` to cancel all orders for a specific coin'
+        data:
+          type: object
+          description: additional data the cancel condition; present with `Pair` and
+            `Coin` types
+        data.base:
+          type: string
+          description: base coin of the pair; `Pair` type only
+        data.rel:
+          type: string
+          description: rel coin of the pair; `Pair` type only
+        data.ticker:
+          type: string
+          description: order is cancelled if it uses `ticker` as base or rel; `Coin`
+            type only
+      required:
+      - Type

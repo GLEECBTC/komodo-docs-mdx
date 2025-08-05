@@ -1,0 +1,53 @@
+/wc_get_session:
+  post:
+    summary: Method description for wc_get_session
+    description: Method description for wc_get_session
+    operationId: wc_get_session
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - wc_get_session
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  topic:
+                    type: string
+                    description: An active session topic (or pairing topic) hex string.
+                  with_pairing_topic:
+                    type: boolean
+                    description: If `true`, allows using the `pairing_topic` hex string
+                      in the `topic` param to fetch session details. If `false`, expects
+                      `topic` param to be the session topic hex string.
+                    default: false
+                required:
+                - topic
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

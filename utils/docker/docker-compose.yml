@@ -1,0 +1,128 @@
+services:
+  # ---------------------------------------------------------------------
+  # Primary native (non-HD) KDF node – used by most existing tests
+  # ---------------------------------------------------------------------
+  kdf_native_nonhd:
+    image: kdf-dev-env:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.kdf
+      args:
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    ports:
+      - "8778:8778"
+      - "42845:42845" # TCP p2p
+      - "42855:42855" # WSS p2p
+    volumes:
+      - ./kdf-db-native-nonhd:/home/kdfuser/.kdf/DB
+      - ./kdf-config-kdf-native-nonhd/MM2.json:/home/kdfuser/.kdf/MM2.json
+      - ./kdf-config/coins:/home/kdfuser/.kdf/coins
+      - ./kdf-config/.env:/home/kdfuser/.kdf/.env
+
+  # ---------------------------------------------------------------------
+  # Secondary native (HD) KDF node – ideal for HD wallet tests
+  # It listens on a different RPC & p2p port and stores data in its own
+  # bind-mount to avoid conflicts with the primary node.
+  # ---------------------------------------------------------------------
+  kdf_native_hd:
+    image: kdf-dev-env:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.kdf
+      args:
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    ports:
+      - "8779:8779"
+      - "42846:42845"  # forward container 42845 → host 42846 (TCP)
+      - "42856:42855"  # forward container 42855 → host 42856 (WSS)
+    volumes:
+      - ./kdf-db-native-hd:/home/kdfuser/.kdf/DB
+      - ./kdf-config-kdf-native-hd/MM2.json:/home/kdfuser/.kdf/MM2.json
+      - ./kdf-config/coins:/home/kdfuser/.kdf/coins:ro
+      - ./kdf-config/.env:/home/kdfuser/.kdf/.env
+
+  # ---------------------------------------------------------------------
+  # Tertiary KDF node – WASM build with HD wallet support. Useful for
+  # browser/WASM-based HD activation and RPC testing.
+  # ---------------------------------------------------------------------
+  kdf_wasm_hd:
+    image: kdf-dev-env-wasm:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.kdf.wasm
+      args:
+        RPC_PORT: 8780
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    ports:
+      - "8780:8780"  # RPC HTTP
+      - "42847:42845"  # TCP p2p
+      - "42857:42855"  # WSS p2p
+    volumes:
+      - ./kdf-db-wasm-hd:/home/node/.kdf/DB
+      - ./kdf-config-kdf-wasm-hd/MM2.json:/home/node/.kdf/MM2.json
+      - ./kdf-config/coins:/home/node/.kdf/coins:ro
+      - ./kdf-config/.env:/home/node/.kdf/.env
+
+  # ---------------------------------------------------------------------
+  # Quaternary KDF node – WASM build (legacy/non-HD wallet). Useful for
+  # wasm-based non-HD activation and RPC testing.
+  # ---------------------------------------------------------------------
+  kdf_wasm_nonhd:
+    image: kdf-dev-env-wasm:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.kdf.wasm
+      args:
+        RPC_PORT: 8781
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    ports:
+      - "8781:8780"
+      - "42848:42845"  # TCP p2p
+      - "42858:42855"  # WSS p2p
+    volumes:
+      - ./kdf-db-wasm-nonhd:/home/node/.kdf/DB
+      - ./kdf-config-kdf-wasm-nonhd/MM2.json:/home/node/.kdf/MM2.json
+      - ./kdf-config/coins:/home/node/.kdf/coins:ro
+      - ./kdf-config/.env:/home/node/.kdf/.env
+
+  # ---------------------------------------------------------------------
+  # Ganache – lightweight EVM dev-chain used by WalletConnect / EVM tests.
+  # Exposes JSON-RPC on 8545 with deterministic accounts pre-funded.
+  # Resource footprint: ~200 MB RAM, negligible CPU when idle.
+  # ---------------------------------------------------------------------
+  ganache:
+    image: trufflesuite/ganache:v7.7.7
+    command: [
+      "--host", "0.0.0.0",
+      "--port", "8545",
+      "--chain.chainId", "1337",
+      "--wallet.totalAccounts", "10",
+      "--wallet.defaultBalance", "1000"
+    ]
+    ports:
+      - "8545:8545"
+
+  # ---------------------------------------------------------------------
+  # trezord – lightweight side-car that proxies USB ↔ HTTP (port 21325)
+  # This caused connection loss on host, so commented out for now.
+  # ---------------------------------------------------------------------
+  # trezord:
+      # build:
+        # context: https://github.com/trezor/trezord-go.git
+        # dockerfile: Dockerfile
+      # image: local/trezord-go:edge
+      # restart: unless-stopped
+      # privileged: true
+      # devices:
+        # - "/dev/bus/usb:/dev/bus/usb"
+      # network_mode: host
+
+volumes:
+  kdf-db-native-nonhd: {}
+  kdf-db-native-hd: {}
+  kdf-db-wasm-hd: {}
+  kdf-db-wasm-nonhd: {} 

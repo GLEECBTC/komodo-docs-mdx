@@ -1,0 +1,156 @@
+/start_simple_market_maker_bot:
+  post:
+    summary: Method description for start_simple_market_maker_bot
+    description: Method description for start_simple_market_maker_bot
+    operationId: start_simple_market_maker_bot
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - start_simple_market_maker_bot
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  bot_refresh_rate:
+                    type: number
+                    description: Bot loop interval in seconds
+                    default: 30.0
+                  cfg.name.base:
+                    type: string
+                    description: Ticker of the coin you wish to sell
+                    default: '-'
+                  cfg.name.base_confs:
+                    type: integer
+                    description: Number of required blockchain confirmations for base
+                      coin atomic swap transaction; defaults to base coin configuration
+                      if not set
+                    default: '-'
+                  cfg.name.base_nota:
+                    type: boolean
+                    description: Whether dPoW notarization is required for base coin
+                      atomic swap transaction; defaults to base coin configuration
+                      if not set
+                    default: '-'
+                  cfg.name.check_last_bidirectional_trade_thresh_hold:
+                    type: boolean
+                    description: Will readjust the calculated cex price if a precedent
+                      trade exists for the pair (or reversed pair), applied via a
+                      [VWAP logic](https://www.investopedia.com/terms/v/vwap.asp)
+                    default: false
+                  cfg.name.enable:
+                    type: boolean
+                    description: Bot will ignore this config entry if set to false
+                    default: '-'
+                  cfg.name.max:
+                    type: boolean
+                    description: Set to `true` if you would like to trade your whole
+                      balance
+                    default: '-'
+                  cfg.name.max_volume.percentage:
+                    type: string
+                    description: Percentage of balance to trade (cannot use at same
+                      time as `max_volume.usd`; if greater than 1.0 `max=true` is
+                      implied)
+                    default: '-'
+                  cfg.name.max_volume.usd:
+                    type: string
+                    description: Maximum USD trade volume value to trade (cannot use
+                      at same time as `max_volume.percentage`; if greater than full
+                      balance `max=true` is implied)
+                    default: '-'
+                  cfg.name.min_base_price:
+                    type: number
+                    description: Minimum USD price of base coin to accept in trade
+                    default: '-'
+                  cfg.name.min_pair_price:
+                    type: number
+                    description: Minimum USD price of pair (base/rel) to accept in
+                      trade
+                    default: '-'
+                  cfg.name.min_rel_price:
+                    type: number
+                    description: Minimum USD price of rel coin to accept in trade
+                    default: '-'
+                  cfg.name.min_volume.percentage:
+                    type: string
+                    description: Minimum percentage of balance to accept in trade
+                      (cannot use at same time as `min_volume.usd`)
+                    default: '-'
+                  cfg.name.min_volume.usd:
+                    type: number
+                    description: Minimum USD trade volume of trades accepted for order
+                      (cannot use at same time as `min_volume.percentage`)
+                    default: '-'
+                  cfg.name.name:
+                    type: string
+                    description: The name assigned to this configuration (e.g. the
+                      pair being configured)
+                    default: '-'
+                  cfg.name.price_elapsed_validity:
+                    type: number
+                    description: Will cancel current orders for this pair and not
+                      submit a new order if last price update time has been longer
+                      than this value in seconds
+                    default: 300.0
+                  cfg.name.rel:
+                    type: string
+                    description: Ticker of the coin you wish to buy
+                    default: '-'
+                  cfg.name.rel_confs:
+                    type: integer
+                    description: Number of required blockchain confirmations for rel
+                      coin atomic swap transaction; defaults to rel coin configuration
+                      if not set
+                    default: '-'
+                  cfg.name.rel_nota:
+                    type: boolean
+                    description: Whether dPoW notarization is required for rel coin
+                      atomic swap transaction; defaults to base coin configuration
+                      if not set
+                    default: '-'
+                  cfg.name.spread:
+                    type: string
+                    description: Target price in relation to prices API value
+                    default: '-'
+                  price_urls:
+                    type: string
+                    description: A list of URLs serving price data in JSON format.
+                      During each update loop, price data will be sourced from the
+                      first working URL in the list. If not defined, a [default list](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/lp_price.rs#L13)
+                      will be used.
+                    default: '-'
+                required:
+                - cfg.name.base
+                - cfg.name.enable
+                - cfg.name.name
+                - cfg.name.rel
+                - cfg.name.spread
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

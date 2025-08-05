@@ -1,0 +1,56 @@
+/get_token_allowance:
+  post:
+    summary: Method description for get_token_allowance
+    description: Method description for get_token_allowance
+    operationId: get_token_allowance
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_token_allowance
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Token ticker
+                  spender:
+                    type: string
+                    description: Smart contract address to query spendable coins amount
+                      granted prior approval
+                required:
+                - coin
+                - spender
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: number
+                description: Amount of coins approved for spending via the smart contract
+                  (in coins units).
+          example: {}

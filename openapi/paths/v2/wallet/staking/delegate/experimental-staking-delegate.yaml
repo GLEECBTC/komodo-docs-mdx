@@ -1,0 +1,52 @@
+/experimental::staking::delegate:
+  post:
+    summary: Method description for experimental::staking::delegate
+    description: Method description for experimental::staking::delegate
+    operationId: experimental::staking::delegate
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - experimental::staking::delegate
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin being staked
+                  staking_details:
+                    description: A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-details)
+                      object.
+                    $ref: ../../components/schemas/StakingDetails.yaml
+                required:
+                - coin
+                - staking_details
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

@@ -1,0 +1,107 @@
+/get_eth_estimated_fee_per_gas:
+  post:
+    summary: Method description for get_eth_estimated_fee_per_gas
+    description: Method description for get_eth_estimated_fee_per_gas
+    operationId: get_eth_estimated_fee_per_gas
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_eth_estimated_fee_per_gas
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the coin/asset for which you want to start
+                      the gas fee estimator.
+                  estimator_type:
+                    description: A standard [EstimatorTypeEnum](/komodo-defi-framework/api/common_structures/enums/#estimator-type-enum)
+                      enum. If set to `Provider`, users must set the `gas_api` setting
+                      in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/)
+                      to source recommended fee values from third-party providers
+                      [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
+                    $ref: ../../components/schemas/EstimatorTypeEnum.yaml
+                required:
+                - coin
+                - estimator_type
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              base_fee:
+                type: string
+                description: The base fee for the network
+              low\.max_priority_fee_per_gas:
+                type: string
+                description: Maximum priority fee per gas for low priority transactions
+              low\.max_fee_per_gas:
+                type: string
+                description: Maximum fee per gas for low priority transactions
+              low\.min_wait_time:
+                type: string
+                description: Minimum wait time for low priority transactions
+              low\.max_wait_time:
+                type: string
+                description: Maximum wait time for low priority transactions
+              medium.max_priority_fee_per_gas:
+                type: string
+                description: Maximum priority fee per gas for medium priority transactions
+              medium.max_fee_per_gas:
+                type: string
+                description: Maximum fee per gas for medium priority transactions
+              medium.min_wait_time:
+                type: string
+                description: Minimum wait time for medium priority transactions
+              medium.max_wait_time:
+                type: string
+                description: Maximum wait time for medium priority transactions
+              high.max_priority_fee_per_gas:
+                type: string
+                description: Maximum priority fee per gas for high priority transactions
+              high.max_fee_per_gas:
+                type: string
+                description: Maximum fee per gas for high priority transactions
+              high.min_wait_time:
+                type: string
+                description: Minimum wait time for high priority transactions
+              high.max_wait_time:
+                type: string
+                description: Maximum wait time for high priority transactions
+              source:
+                type: string
+                description: The source of the fee estimation
+              base_fee_trend:
+                type: string
+                description: The trend of the base fee
+              priority_fee_trend:
+                type: string
+                description: The trend of the priority fee
+              units:
+                type: string
+                description: The units for the fee values
+          example: {}

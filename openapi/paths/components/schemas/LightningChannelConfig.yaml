@@ -1,0 +1,25 @@
+components:
+  schemas:
+    LightningChannelConfig:
+      type: object
+      properties:
+        forwarding_fee_proportional_millionths:
+          type: integer
+          description: Amount (in milli-satoshi) charged for payments forwarded outbound
+            over the channel, in excess of proportional\_fee\_in\_millionths\_sats.
+        forwarding_fee_base_msat:
+          type: integer
+          description: Amount (in milli-satoshi) charged for payments forwarded outbound
+            over the channel, in excess of proportional\_fee\_in\_millionths\_sats.
+        cltv_expiry_delta:
+          type: integer
+          description: Blocks until [CheckLockTimeVerify (CLTV)](https://academy.bit2me.com/en/que-es-cltv-bitcoin/)
+            expiry.
+        max_dust_htlc_exposure_msat:
+          type: integer
+          description: Limit our total exposure to in-flight [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract)
+            which are burned to fees as they are too small to claim on-chain.
+        force_close_avoidance_max_fee_sats:
+          type: integer
+          description: The additional fee we're willing to pay to avoid waiting for
+            the counterparty's locktime to reclaim funds.

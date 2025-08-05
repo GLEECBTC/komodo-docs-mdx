@@ -1,0 +1,29 @@
+components:
+  schemas:
+    ExtendedFeeInfo:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: the fee is paid from the user's balance of this coin. This
+            coin name may differ from the `base` or `rel` coins. For example, ERC20
+            fees are paid by ETH (gas)
+        amount:
+          type: string
+          description: fee amount (in decimal representation)
+        amount_rat:
+          type: string
+          description: fee amount (in rational representation)
+        amount_fraction:
+          type: string
+          description: fee amount (in fraction representation)
+        paid_from_trading_vol:
+          type: boolean
+          description: whether the fee is paid from trading volume and not use actual
+            `coin` balance
+      required:
+      - amount
+      - amount_fraction
+      - amount_rat
+      - coin
+      - paid_from_trading_vol

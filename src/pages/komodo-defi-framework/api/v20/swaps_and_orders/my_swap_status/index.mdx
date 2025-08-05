@@ -1,0 +1,60 @@
+export const title = "Komodo DeFi Framework Method: Swap Status (By UUID)";
+export const description =
+  "Return the full event log and current status of a specific atomic swap executed by this node.";
+
+# Swap Status (By UUID)
+
+## my\_swap\_status {{label : 'my_swap_status', tag : 'API-v2'}}
+
+The `my_swap_status` method fetches **detailed information about a single atomic swap** executed on the node, identified by its UUID.
+It is the counterpart of [`my_recent_swaps`](/komodo-defi-framework/api/v20/swaps_and_orders/my_recent_swaps/) which returns multiple swaps in a list.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                                                                     |
+| --------- | ------ | :------: | ------------------------------------------------------------------------------- |
+| uuid      | string |     ✓    | The UUID obtained from the original `buy`, `sell`, or other swap-creating call. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                                                                                                                        |
+| --------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| swap      | object | A full [SwapStatus](/komodo-defi-framework/api/common_structures/swaps/#swap-status) structure describing the swap (type, events, metadata, etc.). |
+
+### 📌 Example
+
+<CodeGroup title="Swap Status" tag="POST" label="my_swap_status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "my_swap_status",
+    "id": 0,
+    "params": {
+      "uuid": "7b60a494-f159-419c-8f41-02e10f897513"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Swap Status Response" collapsedText="Show Swap Status Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "swap": {
+        "swap_type": "TakerV1",
+        "swap_data": { /* ... full swap data omitted for brevity ... */ }
+      }
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter     | Type   | Description                                            |
+| ------------- | ------ | ------------------------------------------------------ |
+| SwapNotFound  | string | There is no swap with the specified UUID on this node. |
+| InternalError | string | Unhandled internal error.                              |

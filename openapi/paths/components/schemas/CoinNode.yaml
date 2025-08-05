@@ -1,0 +1,15 @@
+components:
+  schemas:
+    CoinNode:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL of an RPC node
+          default: '`-`'
+        komodo_auth:
+          type: boolean
+          description: Must be set to `true` to access RPC nodes run behind [komodo-defi-proxy](https://github.com/KomodoPlatform/komodo-defi-proxy)
+          default: '`false`'
+      required:
+      - url

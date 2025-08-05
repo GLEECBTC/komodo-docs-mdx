@@ -1,0 +1,14 @@
+components:
+  schemas:
+    LightningPaymentType:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Accepted values are `Outbound Payment` or `Inbound Payment`.
+        destination:
+          type: string
+          description: Only used if `type` is `Outbound Payment`. A pubkey which will
+            receive the payment.
+      required:
+      - type

@@ -2,32 +2,34 @@ export const title = "Komodo DeFi Framework Method: ZHTLC Coin Transaction Histo
 export const description =
   "The methods in this document allow querying the transaction history ZHTLC coins like ARRR & ZOMBIE.";
 
-# ZHTLC Coin Transaction History {{label : 'z_coin_tx_history', tag : 'API-v2'}}
+# ZHTLC Coin Transaction History
 
-To get the transaction history for ZHTLC coins, you need to use this special method - the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) and [legacy my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/) methods are not compatible with ZHTLC coins. Currently trasaction memos will not be displayed in output, though they can be added to outgoing transactions with the [task::withdraw](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#withdraw-tasks) methods.
+## z\_coin\_tx\_history {{label : 'z_coin_tx_history', tag : 'API-v2'}}
 
-#### Arguments
+To get the transaction history for ZHTLC coins, you need to use this special method—the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) and [legacy my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/) methods are not compatible with ZHTLC coins. Currently, transaction memos will not be displayed in output, though they can be added to outgoing transactions with the [task::withdraw](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw) methods.
 
-| Structure                  | Type    | Description                                                                                                                                                                                                               |
-| -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                       | string  | Ticker of the coin to get history for.                                                                                                                                                                                    |
-| limit                      | integer | Optional. Limits the number of returned transactions. Defaults to `10`. Ignored if `max = true`.                                                                                                                          |
-| paging\_options.FromId     | string  | Optional. Komodo DeFi Framework API will skip records until it reaches this ID, skipping the from\_id as well; track the internal\_id of the last displayed transaction to find the value of this field for the next page |
-| paging\_options.PageNumber | integer | Optional. Komodo DeFi Framework API will return limit swaps from the selected page. Ignored if `FromId` .                                                                                                                 |
+### Request Parameters
 
-#### Response
+| Parameter                  | Type    | Required | Default | Description                                                                                                                                                                                                     |
+| -------------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                       | string  |     ✓    |    -    | Ticker of the coin to get history for.                                                                                                                                                                          |
+| limit                      | integer |     ✗    |   `10`  | Limits the number of returned transactions. Ignored if `max = true`.                                                                                                                                            |
+| paging\_options.FromId     | string  |     ✗    |    -    | Komodo DeFi Framework API will skip records until it reaches this ID, skipping the from\_id as well; track the internal\_id of the last displayed transaction to find the value of this field for the next page |
+| paging\_options.PageNumber | integer |     ✗    |    -    | Komodo DeFi Framework API will return limit swaps from the selected page. Ignored if `FromId` is set.                                                                                                           |
 
-| Structure      | Type             | Description                                                                                                                                                                                          |
-| -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| transactions   | array of objects | transactions data                                                                                                                                                                                    |
-| from\_id       | string           | the from\_id specified in the request; this value is null if from\_id was not set                                                                                                                    |
-| skipped        | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set                                                                             |
-| limit          | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page)                                                       |
-| total          | number           | the total number of transactions available                                                                                                                                                           |
-| page\_number   | number           | the page\_number that was set in the request                                                                                                                                                         |
-| total\_pages   | number           | total pages available with the selected limit                                                                                                                                                        |
-| current\_block | number           | the number of the latest block of coin blockchain                                                                                                                                                    |
-| sync\_status   | object           | A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status) object. Provides the information that helps to track the progress of transaction history preloading at background |
+### Response Parameters
+
+| Parameter      | Type             | Description                                                                                                                                                                                |
+| -------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| current\_block | number           | The number of the latest block of coin blockchain.                                                                                                                                         |
+| from\_id       | string           | The from\_id specified in the request; this value is null if from\_id was not set.                                                                                                         |
+| limit          | number           | The limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g., on the last page).                                           |
+| page\_number   | number           | The page\_number that was set in the request.                                                                                                                                              |
+| skipped        | number           | The number of skipped records (i.e., the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set.                                                                 |
+| sync\_status   | object           | A standard [SyncStatus](/komodo-defi-framework/api/common_structures/#sync-status) object. Provides information to track the progress of transaction history preloading in the background. |
+| total          | number           | The total number of transactions available.                                                                                                                                                |
+| total\_pages   | number           | Total pages available with the selected limit.                                                                                                                                             |
+| transactions   | array of objects | Transactions data.                                                                                                                                                                         |
 
 #### 📌 Examples
 
@@ -48,97 +50,39 @@ To get the transaction history for ZHTLC coins, you need to use this special met
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+### Error Types
+
+| Parameter       | Type   | Description                                        |
+| --------------- | ------ | -------------------------------------------------- |
+| NotSupportedFor | string | The method is not supported for the specified coin |
+| CoinIsNotActive | string | The specified coin is not active                   |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Not Supported For)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "coin": "ARRR",
-      "target": {
-        "type": "iguana"
-      },
-      "current_block": 2228711,
-      "transactions": [
-        {
-          "tx_hash": "b7e8307778d7d61ebb2ebc7a130661ef6fbeb66ee5d15d0f84a3bfce3ebad5a1",
-          "from": [
-            "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"
-          ],
-          "to": [
-            "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"
-          ],
-          "spent_by_me": "17.65495855",
-          "received_by_me": "17.65494855",
-          "my_balance_change": "-0.00001000",
-          "block_height": 2224011,
-          "confirmations": 4701,
-          "timestamp": 1673018341,
-          "transaction_fee": "0.00001",
-          "coin": "ARRR",
-          "internal_id": 26
-        },
-        {
-          "tx_hash": "967deb0a8cbce0c1f0ba20deee7a955e1a82bd1173bb3dd15cc95f03738ca65c",
-          "from": [
-            "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"
-          ],
-          "to": [
-            "zs10ah73fpudlecg678jmqjdyeym5fgccvjytqry533rq2w04dekenxe8ekt349s3lelmlss3j4u9q",
-            "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj"
-          ],
-          "spent_by_me": "20.65496855",
-          "received_by_me": "17.65495855",
-          "my_balance_change": "-3.00001000",
-          "block_height": 2196913,
-          "confirmations": 31799,
-          "timestamp": 1671100306,
-          "transaction_fee": "0.00001",
-          "coin": "ARRR",
-          "internal_id": 25
-        }
-      ],
-      "sync_status": {
-        "state": "Finished"
-      },
-      "limit": 2,
-      "skipped": 2,
-      "total": 28,
-      "total_pages": 14,
-      "paging_options": {
-        "PageNumber": 2
-      }
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "error": "LTC",
+      "error_path": "my_tx_history_v2",
+      "error_trace": "my_tx_history_v2:523]",
+      "error_type": "NotSupportedFor",
+      "error_data": "LTC",
+      "id": null
   }
   ```
 
-  #### Response (error - coin not supported)
+  ##### Error (Coin Is Not Active)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "error": "TKL",
-    "error_path": "my_tx_history_v2",
-    "error_trace": "my_tx_history_v2:523]",
-    "error_type": "NotSupportedFor",
-    "error_data": "TKL",
-    "id": null
-  }
-  ```
-
-  #### Response (error - coin not active)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "ZOMBIE",
-    "error_path": "my_tx_history_v2.lp_coins",
-    "error_trace": "my_tx_history_v2:521] lp_coins:2849]",
-    "error_type": "CoinIsNotActive",
-    "error_data": "ZOMBIE",
-    "id": null
+      "mmrpc": "2.0",
+      "error": "ZOMBIE",
+      "error_path": "my_tx_history_v2.lp_coins",
+      "error_trace": "my_tx_history_v2:521] lp_coins:2849]",
+      "error_type": "CoinIsNotActive",
+      "error_data": "ZOMBIE",
+      "id": null
   }
   ```
 </CollapsibleSection>

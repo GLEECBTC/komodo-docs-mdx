@@ -52,7 +52,7 @@ jobs:
         run: |
           set -e
           set -o pipefail
-          ${GITHUB_WORKSPACE}/utils/gen_api_methods_table.py
+          ${GITHUB_WORKSPACE}/utils/py/kdf_tools.py scan-mdx
 
       - name: Install dependencies
         working-directory: utils/js

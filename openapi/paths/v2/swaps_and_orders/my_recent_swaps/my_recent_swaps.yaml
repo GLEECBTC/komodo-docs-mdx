@@ -1,0 +1,100 @@
+/my_recent_swaps:
+  post:
+    summary: The my_recent_swaps method returns the data of the most recent atomic
+      swaps executed by the Komodo DeFi Framework API node.
+    description: The my_recent_swaps method returns the data of the most recent atomic
+      swaps executed by the Komodo DeFi Framework API node.
+    operationId: my_recent_swaps
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - my_recent_swaps
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  from_timestamp:
+                    type: integer
+                    description: Start timestamp in UNIX format
+                  from_uuid:
+                    type: string
+                    description: The UUID from which to start fetching results
+                  limit:
+                    type: integer
+                    description: The maximum number of results to return
+                    default: 10
+                  my_coin:
+                    type: string
+                    description: Coin being used by you for the swap/trade.
+                  other_coin:
+                    type: string
+                    description: Coin you are trading against
+                  page_number:
+                    type: integer
+                    description: Offset for paginated results
+                    default: 1
+                  to_timestamp:
+                    type: integer
+                    description: End timestamp in UNIX format
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              found_records:
+                type: integer
+                description: The number of returned swaps.
+              from_uuid:
+                type: string
+                description: The from\_uuid that was set in the request; this value
+                  is null if nothing was set.
+              limit:
+                type: integer
+                description: The limit that was set in the request; note that the
+                  actual number of swaps can differ from the specified limit (e.g.
+                  on the last page).
+              page_number:
+                type: integer
+                description: The page\_number that was set in the request; if both
+                  `page_number` and `from_uuid` are not set in request it will default
+                  to `1`; if `from_uuid` is present in request this value will be
+                  always null.
+              skipped:
+                type: integer
+                description: The number of skipped records (i.e. the position of `from_uuid`
+                  in the list + 1 or `(page_number - 1) * limit`; the value is 0 if
+                  `from_uuid` or `page_number` were not set or `page_number` is 1).
+              swaps:
+                description: A list of standard [SwapStatus](/komodo-defi-framework/api/common_structures/swaps/#swap-status)
+                  objects.
+                $ref: ../../components/schemas/SwapStatus.yaml
+              total:
+                type: integer
+                description: Total number of swaps available with the selected filters.
+              total_pages:
+                type: integer
+                description: Total pages available with the selected filters and limit.
+          example: {}

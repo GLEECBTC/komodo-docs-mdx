@@ -1,0 +1,68 @@
+export const title = "Komodo DeFi Framework Method: Get My Address";
+export const description =
+  "Return the wallet address for a specified coin without re-activating the coin. Currently supported only for EVM-compatible coins (ETH & ERC-20 tokens).";
+
+# Get My Address
+
+## get\_my\_address {{label : 'get_my_address', tag : 'API-v2'}}
+
+The `get_my_address` method returns the **currently enabled** wallet address for a given coin **without** performing a full coin activation.\
+It is mostly useful in thin-client scenarios where the application needs to display (or re-use) the main address of an already-configured EVM coin.
+
+<Note>
+  • The method is **limited to coins that use the `ETH` protocol type** (Ethereum, EVM side-chains, and ERC-20 tokens).\
+  • The coin must be present in your `coins` configuration file. No activation is triggered by this RPC.
+</Note>
+
+### Request Parameters
+
+| Parameter         | Type   | Required | Description                                                                                                                                                        |
+| ----------------- | ------ | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| coin              | string |     ✓    | Coin ticker whose address should be returned (e.g. `ETH`, `MATIC`).                                                                                                |
+| path\_to\_address | object |     ✗    | Optional HD-wallet path segment identifying the account and address index to derive. If omitted, the default external address (`m/44'/coin_type'/0'/0/0`) is used. |
+
+### Response Parameters
+
+| Parameter       | Type   | Description                            |
+| --------------- | ------ | -------------------------------------- |
+| coin            | string | Coin ticker, echoes the request value. |
+| wallet\_address | string | Wallet address for the specified coin. |
+
+### 📌 Examples
+
+<CodeGroup title="Get My Address" tag="POST" label="get_my_address" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "get_my_address",
+    "id": 0,
+    "params": {
+      "coin": "ETH"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Get My Address Response" collapsedText="Show Get My Address Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "coin": "ETH",
+      "wallet_address": "0x16C7c673cE2E581e04f0F847-73334E2d3c56f65"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                                          |
+| ------------------- | ------ | -------------------------------------------------------------------- |
+| CoinsConfCheckError | string | The coin is not present in the local coins configuration file.       |
+| CoinIsNotSupported  | string | The specified coin does not support `get_my_address` (non-EVM coin). |
+| InvalidRequest      | string | Malformed JSON or missing required fields.                           |
+| Internal            | string | Unhandled internal error.                                            |
+| GetEthAddressError  | string | Failed to derive Ethereum address from HD keys.                      |

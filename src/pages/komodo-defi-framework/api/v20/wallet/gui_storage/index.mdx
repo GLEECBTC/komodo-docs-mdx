@@ -1,0 +1,25 @@
+export const title = "Komodo DeFi Framework Method Overview: GUI Storage";
+export const description = "Overview of wallet GUI-storage helper methods used to manage accounts and coin lists in Komodo DeFi Framework.";
+
+# GUI Storage Overview
+
+## gui\_storage {{label : 'gui_storage', tag : 'overview'}}
+
+These methods provide a lightweight key-value storage that wallet GUIs can use to keep track of user accounts and their associated coins without affecting MarketMaker's internal state.
+
+### Account Management
+
+*   [gui\_storage::add\_account](/komodo-defi-framework/api/v20/wallet/gui_storage/add_account/)
+*   [gui\_storage::enable\_account](/komodo-defi-framework/api/v20/wallet/gui_storage/enable_account/)
+*   [gui\_storage::delete\_account](/komodo-defi-framework/api/v20/wallet/gui_storage/delete_account/)
+*   [gui\_storage::set\_account\_name](/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_name/)
+*   [gui\_storage::set\_account\_description](/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_description/)
+*   [gui\_storage::set\_account\_balance](/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_balance/)
+*   [gui\_storage::get\_accounts](/komodo-defi-framework/api/v20/wallet/gui_storage/get_accounts/)
+*   [gui\_storage::get\_enabled\_account](/komodo-defi-framework/api/v20/wallet/gui_storage/get_enabled_account/)
+
+### Coin Lists
+
+*   [gui\_storage::activate\_coins](/komodo-defi-framework/api/v20/wallet/gui_storage/activate_coins/)
+*   [gui\_storage::deactivate\_coins](/komodo-defi-framework/api/v20/wallet/gui_storage/deactivate_coins/)
+*   [gui\_storage::get\_account\_coins](/komodo-defi-framework/api/v20/wallet/gui_storage/get_account_coins/)

@@ -1,0 +1,30 @@
+components:
+  schemas:
+    1inchTxFields:
+      type: object
+      properties:
+        from:
+          type: string
+          description: From address
+        to:
+          type: string
+          description: To address
+        data:
+          type: string
+          description: Transaction data
+        value:
+          type: string
+          description: Transaction value
+        gas_price:
+          type: number
+          description: Gas price
+        gas:
+          type: string
+          description: Gas
+      required:
+      - data
+      - from
+      - gas
+      - gas_price
+      - to
+      - value

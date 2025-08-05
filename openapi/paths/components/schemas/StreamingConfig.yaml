@@ -1,0 +1,33 @@
+components:
+  schemas:
+    StreamingConfig:
+      type: object
+      properties:
+        stream_interval_seconds:
+          type: number
+          description: Interval in seconds between streaming event update requests.
+            Defaults to `10` for [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/)
+            and `5` for [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)/[stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/)
+          default: '`10`/`5`'
+        always_send:
+          type: boolean
+          description: '[stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)
+            only. If `true`, network data will always be sent every `stream_interval_seconds`,
+            even when there is no change. If `false`, network data will be sent regardless.'
+          default: '`false`'
+        Parameter:
+          type: string
+          description: Description
+          default: Default
+        estimate_every:
+          type: number
+          description: Interval in seconds between fee estimate updates.
+          default: '`15`'
+        estimate_type:
+          type: string
+          description: If set to `Provider`, users must set the `gas_api` setting
+            in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/)
+            to source recommended fee values from third party providers [Infura](https://www.infura.io/)
+            or [Blocknative](https://www.blocknative.com/) Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/streaming/fee_estimator/)
+            only.
+          default: '`Simple`'

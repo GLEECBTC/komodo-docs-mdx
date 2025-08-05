@@ -1,0 +1,15 @@
+components:
+  schemas:
+    CoinProtocol:
+      type: object
+      properties:
+        type:
+          type: integer
+          description: One of the Coin Types supported by the Komodo DeFi Framework
+        protocol_data:
+          description: A standard [CoinProtocolData](/komodo-defi-framework/api/common_structures/activation/#coin-protocol-data)
+            object.
+          $ref: '#/components/schemas/CoinProtocolData'
+      required:
+      - protocol_data
+      - type

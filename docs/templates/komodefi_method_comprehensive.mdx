@@ -1,0 +1,98 @@
+export const title = "Komodo DeFi Framework Method: [Human-Readable Title]";
+export const description = "[Concise description of the method's purpose and functionality.]";
+
+# [Human-Readable, Title-Cased Method Name]
+
+## [exact::api::method::name] {{label : '[exact::api::method::name]', tag : 'API-v2'}}
+
+[Brief introduction to the method explaining its purpose, use case, and any relevant context.]
+
+### Request Parameters
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | :------: | ----------- |
+| userpass  | string | ✓ | Password for authentication |
+
+### Response Parameters
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| result | string | The outcome of the request |
+
+#### 📌 Examples
+
+<CodeGroup title="[Method Name]" tag="POST" label="[exact::api::method::name]" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "[exact::api::method::name]",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {},
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "success": true
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| InvalidUserpass | string | The userpass provided is invalid |
+| InternalError | string | An internal error occurred |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### InvalidUserpass
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Userpass is invalid",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:123]",
+    "error_type": "InvalidUserpass",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+
+  ##### InternalError
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Internal error occurred",
+    "error_path": "method_handler",
+    "error_trace": "method_handler:456]",
+    "error_type": "InternalError",
+    "error_data": null,
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+<!-- Template Usage Notes:
+1. Replace all [bracketed] placeholders with actual values
+2. Remove unused parameter rows and example sections
+3. Update error types to match the actual method's error responses
+4. Ensure parameter descriptions are clear and complete
+5. Include links to common structures and enums where applicable
+6. Add multiple examples for different use cases/coin types if needed
+7. Verify all JSON examples are valid and realistic
+8. Update the tag to match the API version (API-v1, API-v2, deprecated, etc.)
+--> 

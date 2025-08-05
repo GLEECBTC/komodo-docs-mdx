@@ -1,0 +1,10 @@
+components:
+  schemas:
+    TakerPaymentWaitRefundStarted:
+      type: object
+      properties:
+        wait_until:
+          type: number
+          description: the timestamp at which a refund will occur
+      required:
+      - wait_until

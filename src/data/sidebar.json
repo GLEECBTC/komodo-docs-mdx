@@ -388,6 +388,10 @@
           {
             "title": "enable_bch_with_tokens",
             "href": "/komodo-defi-framework/api/v20/coin_activation/enable_bch_with_tokens/"
+          },
+          {
+            "title": "enable_slp",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/enable_slp/"
           }
         ]
       },
@@ -403,24 +407,180 @@
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/"
           },
           {
+            "title": "task::enable_bch::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/cancel/"
+          },
+          {
+            "title": "task::enable_bch::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/init/"
+          },
+          {
+            "title": "task::enable_bch::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/status/"
+          },
+          {
+            "title": "task::enable_bch::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/user_action/"
+          },
+          {
             "title": "Task: Enable ETH",
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/"
+          },
+          {
+            "title": "task::enable_eth::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/cancel/"
+          },
+          {
+            "title": "task::enable_eth::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/init/"
+          },
+          {
+            "title": "task::enable_eth::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/status/"
+          },
+          {
+            "title": "task::enable_eth::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/user_action/"
+          },
+          {
+            "title": "Task: Enable Tendermint",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/"
+          },
+          {
+            "title": "task::enable_tendermint::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/cancel/"
+          },
+          {
+            "title": "task::enable_tendermint::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/init/"
+          },
+          {
+            "title": "task::enable_tendermint::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/status/"
+          },
+          {
+            "title": "task::enable_tendermint::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/user_action/"
+          },
+          {
+            "title": "Task: Enable UTXO",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/"
+          },
+          {
+            "title": "task::enable_utxo::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/cancel/"
+          },
+          {
+            "title": "task::enable_utxo::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/init/"
+          },
+          {
+            "title": "task::enable_utxo::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/status/"
+          },
+          {
+            "title": "task::enable_utxo::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/user_action/"
+          },
+          {
+            "title": "Task: Enable ZHTLC",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/"
+          },
+          {
+            "title": "task::enable_z_coin::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/cancel/"
+          },
+          {
+            "title": "task::enable_z_coin::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/init/"
+          },
+          {
+            "title": "task::enable_z_coin::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/status/"
+          },
+          {
+            "title": "task::enable_z_coin::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/user_action/"
           },
           {
             "title": "Task: Enable QTUM",
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/"
           },
           {
-            "title": "Task: Enable Tendermint",
-            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/"
-          },          
-          {
-            "title": "Task: Enable UTXO",
-            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/"
+            "title": "task::enable_qtum::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/cancel/"
           },
           {
-            "title": "Task: Enable ZHTLC",
-            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/"
+            "title": "task::enable_qtum::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/init/"
+          },
+          {
+            "title": "task::enable_qtum::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/status/"
+          },
+          {
+            "title": "task::enable_qtum::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/user_action/"
+          },
+          {
+            "title": "Task: Enable SIA",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/"
+          },
+          {
+            "title": "task::enable_sia::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/init/"
+          },
+          {
+            "title": "task::enable_sia::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/status/"
+          },
+          {
+            "title": "task::enable_sia::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/user_action/"
+          },
+          {
+            "title": "task::enable_sia::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/cancel/"
+          },
+          {
+            "title": "Task: Enable ERC20",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_erc20/"
+          },
+          {
+            "title": "task::enable_erc20::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_erc20/cancel/"
+          },
+          {
+            "title": "task::enable_erc20::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_erc20/init/"
+          },
+          {
+            "title": "task::enable_erc20::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_erc20/status/"
+          },
+          {
+            "title": "task::enable_erc20::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_erc20/user_action/"
+          },
+          {
+            "title": "Task: Enable Tendermint Token",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/"
+          },
+          {
+            "title": "task::enable_tendermint_token::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/cancel/"
+          },
+          {
+            "title": "task::enable_tendermint_token::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/init/"
+          },
+          {
+            "title": "task::enable_tendermint_token::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/status/"
+          },
+          {
+            "title": "task::enable_tendermint_token::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/user_action/"
           }
         ]
       },
@@ -470,11 +630,11 @@
             "href": "/komodo-defi-framework/api/v20/utils/message_signing/"
           },
           {
-            "title": "Sign Message",
+            "title": "sign_message",
             "href": "/komodo-defi-framework/api/v20/utils/message_signing/sign_message/"
           },
           {
-            "title": "Verify Message",
+            "title": "verify_message",
             "href": "/komodo-defi-framework/api/v20/utils/message_signing/verify_message/"
           }
         ]
@@ -487,39 +647,39 @@
             "href": "/komodo-defi-framework/api/v20/streaming/"
           },
           {
-            "title": "Enable Balance",
+            "title": "Task: Balance Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/balance_enable/"
           },
           {
-            "title": "Enable Fee Estimator",
+            "title": "Task: Fee Estimator Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/fee_estimator/"
           },
           {
-            "title": "Enable Heartbeat",
+            "title": "Task: Heartbeat Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/heartbeat_enable/"
           },
           {
-            "title": "Enable Network",
+            "title": "Task: Network Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/network_enable/"
           },
           {
-            "title": "Enable Orderbook",
+            "title": "Task: Orderbook Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/orderbook_enable/"
           },
           {
-            "title": "Enable Order Status",
+            "title": "Task: Order Status Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/order_status_enable/"
           },
           {
-            "title": "Enable Swap Status",
+            "title": "Task: Swap Status Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/swap_status_enable/"
           },
           {
-            "title": "Enable Transaction History",
+            "title": "Task: Tx History Enable",
             "href": "/komodo-defi-framework/api/v20/streaming/tx_history_enable/"
           },
           {
-            "title": "Disable",
+            "title": "Task: Disable",
             "href": "/komodo-defi-framework/api/v20/streaming/disable/"
           }
         ]
@@ -550,6 +710,10 @@
           {
             "title": "my_recent_swaps",
             "href": "/komodo-defi-framework/api/v20/swaps_and_orders/my_recent_swaps/"
+          },
+          {
+            "title": "my_swap_status",
+            "href": "/komodo-defi-framework/api/v20/swaps_and_orders/my_swap_status/"
           },
           {
             "title": "orderbook",
@@ -643,7 +807,7 @@
             "href": "/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/"
           },
           {
-            "title": "z_coin_tx_history",
+            "title": "zhtlc_tx_history",
             "href": "/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/"
           },
           {
@@ -688,7 +852,55 @@
             "href": "/komodo-defi-framework/api/v20/wallet/get_wallet_names/"
           },
           {
-            "title": "Task Managed Methods Overview",
+            "title": "account_balance",
+            "href": "/komodo-defi-framework/api/v20/wallet/account_balance/"
+          },
+          {
+            "title": "get_new_address",
+            "href": "/komodo-defi-framework/api/v20/wallet/get_new_address/"
+          },
+          {
+            "title": "get_my_address",
+            "href": "/komodo-defi-framework/api/v20/wallet/get_my_address/"
+          },
+          {
+            "title": "GUI Storage",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/"
+          },
+          {
+            "title": "gui_storage::add_account",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/add_account/"
+          },
+          {
+            "title": "gui_storage::enable_account",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/enable_account/"
+          },
+          {
+            "title": "gui_storage::delete_account",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/delete_account/"
+          },
+          {
+            "title": "gui_storage::get_accounts",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/get_accounts/"
+          },
+          {
+            "title": "gui_storage::get_account_coins",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/get_account_coins/"
+          },
+          {
+            "title": "gui_storage::activate_coins",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/activate_coins/"
+          },
+          {
+            "title": "gui_storage::deactivate_coins",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/deactivate_coins/"
+          },
+          {
+            "title": "delete_wallet",
+            "href": "/komodo-defi-framework/api/v20/wallet/delete_wallet/"
+          },
+          {
+            "title": "Task Managed Methods",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/"
           },
           {
@@ -696,20 +908,112 @@
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/"
           },
           {
+            "title": "task::account_balance::cancel",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/cancel/"
+          },
+          {
+            "title": "task::account_balance::init",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/init/"
+          },
+          {
+            "title": "task::account_balance::status",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/status/"
+          },
+          {
             "title": "Task: Create New Account",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/"
+          },
+          {
+            "title": "task::create_new_account::cancel",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/cancel/"
+          },
+          {
+            "title": "task::create_new_account::init",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/init/"
+          },
+          {
+            "title": "task::create_new_account::status",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/status/"
+          },
+          {
+            "title": "task::create_new_account::user_action",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/create_new_account/user_action/"
           },
           {
             "title": "Task: Get New Address",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/"
           },
           {
-            "title": "Task: Scan For New Adresses",
+            "title": "task::get_new_address::cancel",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/cancel/"
+          },
+          {
+            "title": "task::get_new_address::init",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/init/"
+          },
+          {
+            "title": "task::get_new_address::status",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/status/"
+          },
+          {
+            "title": "task::get_new_address::user_action",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/get_new_address/user_action/"
+          },
+          {
+            "title": "Task: Scan For New Addresses",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/"
+          },
+          {
+            "title": "task::scan_for_new_addresses::cancel",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/cancel/"
+          },
+          {
+            "title": "task::scan_for_new_addresses::init",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/init/"
+          },
+          {
+            "title": "task::scan_for_new_addresses::status",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/status/"
           },
           {
             "title": "Task: Withdraw",
             "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/"
+          },
+          {
+            "title": "task::withdraw::cancel",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/cancel/"
+          },
+          {
+            "title": "task::withdraw::init",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/init/"
+          },
+          {
+            "title": "task::withdraw::status",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/status/"
+          },
+          {
+            "title": "task::withdraw::user_action",
+            "href": "/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/user_action/"
+          },
+          {
+            "title": "gui_storage::deactivate_coins",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/deactivate_coins/"
+          },
+          {
+            "title": "gui_storage::get_enabled_account",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/get_enabled_account/"
+          },
+          {
+            "title": "gui_storage::set_account_name",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_name/"
+          },
+          {
+            "title": "gui_storage::set_account_description",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_description/"
+          },
+          {
+            "title": "gui_storage::set_account_balance",
+            "href": "/komodo-defi-framework/api/v20/wallet/gui_storage/set_account_balance/"
           },
           {
             "title": "get_private_keys",
@@ -737,8 +1041,56 @@
             "href": "/komodo-defi-framework/api/v20/utils/peer_connection_healthcheck/"
           },
           {
+            "title": "get_shared_db_id",
+            "href": "/komodo-defi-framework/api/v20/utils/get_shared_db_id/"
+          },
+          {
+            "title": "send_asked_data",
+            "href": "/komodo-defi-framework/api/v20/utils/send_asked_data/"
+          },
+          {
+            "title": "trezor_connection_status",
+            "href": "/komodo-defi-framework/api/v20/utils/trezor_connection_status/"
+          },
+          {
             "title": "Trezor Initialisation",
             "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/"
+          },
+          {
+            "title": "Task: Init Trezor",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/"
+          },
+          {
+            "title": "task::init_trezor::cancel",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/cancel/"
+          },
+          {
+            "title": "task::init_trezor::init",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/init/"
+          },
+          {
+            "title": "task::init_trezor::status",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/status/"
+          },
+          {
+            "title": "task::init_trezor::user_action",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/"
+          },
+          {
+            "title": "Task: Connect MetaMask",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/"
+          },
+          {
+            "title": "task::connect_metamask::init",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/init/"
+          },
+          {
+            "title": "task::connect_metamask::status",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/status/"
+          },
+          {
+            "title": "task::connect_metamask::cancel",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/cancel/"
           }
         ]
       }
@@ -763,20 +1115,24 @@
             "href": "/komodo-defi-framework/api/v20-dev/get_token_allowance/"
           },
           {
-            "title": "one_inch_v6_0_classic_swap_create",
-            "href": "/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_create/"
+            "title": "1inch_v6_0_classic_swap_contract",
+            "href": "/komodo-defi-framework/api/v20-dev/1inch_v6_0_classic_swap_contract/"
           },
           {
-            "title": "one_inch_v6_0_classic_swap_liquidity_sources",
-            "href": "/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_liquidity_sources/"
+            "title": "1inch_v6_0_classic_swap_create",
+            "href": "/komodo-defi-framework/api/v20-dev/1inch_v6_0_classic_swap_create/"
           },
           {
-            "title": "one_inch_v6_0_classic_swap_quote",
-            "href": "/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_quote/"
+            "title": "1inch_v6_0_classic_swap_liquidity_sources",
+            "href": "/komodo-defi-framework/api/v20-dev/1inch_v6_0_classic_swap_liquidity_sources/"
           },
           {
-            "title": "one_inch_v6_0_classic_swap_tokens",
-            "href": "/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_tokens/"
+            "title": "1inch_v6_0_classic_swap_quote",
+            "href": "/komodo-defi-framework/api/v20-dev/1inch_v6_0_classic_swap_quote/"
+          },
+          {
+            "title": "1inch_v6_0_classic_swap_tokens",
+            "href": "/komodo-defi-framework/api/v20-dev/1inch_v6_0_classic_swap_tokens/"
           }
         ]
       },
@@ -788,20 +1144,96 @@
             "href": "/komodo-defi-framework/api/v20/lightning/"
           },
           {
-            "title": "Lightning Initialization",
+            "title": "Lightning Initialization Overview",
             "href": "/komodo-defi-framework/api/v20/lightning/activation/"
           },
           {
-            "title": "Lightning Nodes",
+            "title": "Initialize Lightning",
+            "href": "/komodo-defi-framework/api/v20/lightning/activation/init/"
+          },
+          {
+            "title": "Initialization Status",
+            "href": "/komodo-defi-framework/api/v20/lightning/activation/status/"
+          },
+          {
+            "title": "Initialization User Action",
+            "href": "/komodo-defi-framework/api/v20/lightning/activation/user_action/"
+          },
+          {
+            "title": "Cancel Initialization",
+            "href": "/komodo-defi-framework/api/v20/lightning/activation/cancel/"
+          },
+          {
+            "title": "Lightning Nodes Overview",
             "href": "/komodo-defi-framework/api/v20/lightning/nodes/"
           },
           {
-            "title": "Lightning Channels",
+            "title": "Connect to Node",
+            "href": "/komodo-defi-framework/api/v20/lightning/nodes/connect_to_node/"
+          },
+          {
+            "title": "List Trusted Nodes",
+            "href": "/komodo-defi-framework/api/v20/lightning/nodes/list_trusted_nodes/"
+          },
+          {
+            "title": "Add Trusted Node",
+            "href": "/komodo-defi-framework/api/v20/lightning/nodes/add_trusted_node/"
+          },
+          {
+            "title": "Remove Trusted Node",
+            "href": "/komodo-defi-framework/api/v20/lightning/nodes/remove_trusted_node/"
+          },
+          {
+            "title": "lightning::channels::overview",
             "href": "/komodo-defi-framework/api/v20/lightning/channels/"
           },
           {
-            "title": "Lightning Payments",
+            "title": "lightning::channels::close_channel",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/close_channel/"
+          },
+          {
+            "title": "lightning::channels::get_channel_details",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/get_channel_details/"
+          },
+          {
+            "title": "lightning::channels::get_claimable_balances",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/get_claimable_balances/"
+          },
+          {
+            "title": "lightning::channels::list_closed_channels_by_filter",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/list_closed_channels_by_filter/"
+          },
+          {
+            "title": "lightning::channels::open_channel",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/open_channel/"
+          },
+          {
+            "title": "lightning::channels::list_open_channels_by_filter",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/list_open_channels_by_filter/"
+          },
+          {
+            "title": "lightning::channels::update_channel",
+            "href": "/komodo-defi-framework/api/v20/lightning/channels/update_channel/"
+          },
+          {
+            "title": "Lightning Payments Overview",
             "href": "/komodo-defi-framework/api/v20/lightning/payments/"
+          },
+          {
+            "title": "Generate Invoice",
+            "href": "/komodo-defi-framework/api/v20/lightning/payments/generate_invoice/"
+          },
+          {
+            "title": "Send Payment",
+            "href": "/komodo-defi-framework/api/v20/lightning/payments/send_payment/"
+          },
+          {
+            "title": "Get Payment Details",
+            "href": "/komodo-defi-framework/api/v20/lightning/payments/get_payment_details/"
+          },
+          {
+            "title": "List Payments by Filter",
+            "href": "/komodo-defi-framework/api/v20/lightning/payments/list_payments_by_filter/"
           }
         ]
       },
@@ -887,15 +1319,11 @@
             "href": "/komodo-defi-framework/api/legacy/"
           },
           {
-            "title": "Note about rational number type",
-            "href": "/komodo-defi-framework/api/legacy/rational_number_note/"
-          },
-          {
             "title": "batch_requests",
             "href": "/komodo-defi-framework/api/legacy/batch_requests/"
           },
           {
-            "title": "Komodo DeFi Framework Metrics",
+            "title": "metrics",
             "href": "/komodo-defi-framework/api/legacy/metrics/"
           }
         ]
@@ -906,6 +1334,14 @@
           {
             "title": "Activation Methods",
             "href": "/komodo-defi-framework/api/legacy/coin_activation/"
+          },
+          {
+            "title": "enable",
+            "href": "/komodo-defi-framework/api/legacy/coin_activation/enable/"
+          },
+          {
+            "title": "electrum",
+            "href": "/komodo-defi-framework/api/legacy/coin_activation/electrum/"
           },
           {
             "title": "coins_needed_for_kick_start",
@@ -966,6 +1402,10 @@
             "href": "/komodo-defi-framework/api/legacy/best_orders/"
           },
           {
+            "title": "autoprice",
+            "href": "/komodo-defi-framework/api/legacy/autoprice/"
+          },
+          {
             "title": "buy",
             "href": "/komodo-defi-framework/api/legacy/buy/"
           },
@@ -1012,6 +1452,22 @@
           {
             "title": "update_maker_order",
             "href": "/komodo-defi-framework/api/legacy/update_maker_order/"
+          },
+          {
+            "title": "inventory",
+            "href": "/komodo-defi-framework/api/legacy/inventory/"
+          },
+          {
+            "title": "my_swap_status",
+            "href": "/komodo-defi-framework/api/legacy/my_swap_status/"
+          },
+          {
+            "title": "stats_swap_status",
+            "href": "/komodo-defi-framework/api/legacy/stats_swap_status/"
+          },
+          {
+            "title": "trade_preimage",
+            "href": "/komodo-defi-framework/api/legacy/trade_preimage/"
           }
         ]
       },
@@ -1051,7 +1507,11 @@
             "href": "/komodo-defi-framework/api/legacy/my_swap_status/"
           },
           {
-            "title": "trade_preimag",
+            "title": "stats_swap_status",
+            "href": "/komodo-defi-framework/api/legacy/stats_swap_status/"
+          },
+          {
+            "title": "trade_preimage",
             "href": "/komodo-defi-framework/api/legacy/trade_preimage/"
           }
         ]
@@ -1123,6 +1583,10 @@
           {
             "title": "withdraw",
             "href": "/komodo-defi-framework/api/legacy/withdraw/"
+          },
+          {
+            "title": "fundvalue",
+            "href": "/komodo-defi-framework/api/legacy/fundvalue/"
           }
         ]
       }
@@ -1138,6 +1602,11 @@
       {
         "title": "Activation Structures",
         "titleLink": "/komodo-defi-framework/api/common_structures/activation/",
+        "links": []
+      },
+      {
+        "title": "Error Types",
+        "titleLink": "/komodo-defi-framework/api/common_structures/error_types/",
         "links": []
       },
       {
@@ -1175,6 +1644,16 @@
       {
         "title": "Wallet Operations Structures",
         "titleLink": "/komodo-defi-framework/api/common_structures/wallet/",
+        "links": []
+      },
+      {
+        "title": "Enums",
+        "titleLink": "/komodo-defi-framework/api/common_structures/enums/",
+        "links": []
+      },
+      {
+        "title": "Note about rational number type",
+        "titleLink": "/komodo-defi-framework/api/common_structures/rational_number_note/",
         "links": []
       }
     ]

@@ -1,31 +1,33 @@
 export const title = "Komodo DeFi Framework Method: Get Locked Amount";
-export const description = "The get_locked_amount method returns the amount of a coin which is currently locked by a swap which is in progress.";
+export const description = "The get_locked_amount method returns the amount of a coin currently locked by a swap in progress, with details in decimal, fraction, and rational formats.";
 
-# get\_locked\_amount
+# Komodo DeFi Framework Method: Get Locked Amount
 
-The `get_locked_amount` method returns the amount of a coin which is currently locked by a swap which is in progress. If the coin is not activated, a `NoSuchCoin` error will be returned.
+## get\_locked\_amount {{label : 'get_locked_amount', tag : 'API-v2'}}
 
-## Arguments
+The `get_locked_amount` method returns the amount of a coin which is currently locked by a swap in progress. If the coin is not activated, a `NoSuchCoin` error will be returned.
 
-| Parameter | Type   | Description                               |
-| --------- | ------ | ----------------------------------------- |
-| coin      | string | The ticker of the coin you want to query. |
+### Request Parameter Table
 
-#### Response
+| Parameter | Type   | Required | Description                               |
+| --------- | ------ | :------: | ----------------------------------------- |
+| coin      | string |     ✓    | The ticker of the coin you want to query. |
 
-| Parameter               | Type            | Description                                                                                      |
-| ----------------------- | --------------- | ------------------------------------------------------------------------------------------------ |
-| coin                    | string          | The ticker of the coin you queried.                                                              |
-| locked\_amount          | object          | An object cointaining the locked amount in decimal, fraction and rational formats.               |
-| locked\_amount.decimal  | numeric string  | The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).      |
-| locked\_amount.rational | rational object | The locked amount in [rational format](/komodo-defi-framework/api/legacy/rational_number_note/). |
-| locked\_amount.fraction | fraction object | The locked amount in [fraction format](https://www.mathsisfun.com/definitions/fraction.html).    |
+### Response Parameter Table
+
+| Parameter               | Type            | Description                                                                                                 |
+| ----------------------- | --------------- | ----------------------------------------------------------------------------------------------------------- |
+| coin                    | string          | The ticker of the coin you queried.                                                                         |
+| locked\_amount          | object          | An object containing the locked amount in decimal, fraction, and rational formats.                          |
+| locked\_amount.decimal  | numeric string  | The locked amount in [decimal format](https://www.mathsisfun.com/definitions/decimal.html).                 |
+| locked\_amount.rational | rational object | The locked amount in [rational format](/komodo-defi-framework/api/common_structures/rational_number_note/). |
+| locked\_amount.fraction | fraction object | The locked amount in [fraction format](https://www.mathsisfun.com/definitions/fraction.html).               |
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="get_locked_amount" mm2MethodDecorate="true">
+<CodeGroup title="Get Locked Amount" tag="POST" label="get_locked_amount" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -39,7 +41,7 @@ The `get_locked_amount` method returns the amount of a coin which is currently l
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get Locked Amount Response" collapsedText="Show Get Locked Amount Response">
   #### Response (success)
 
   ```json
@@ -62,8 +64,18 @@ The `get_locked_amount` method returns the amount of a coin which is currently l
     "id": 42
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error)
+### Error Types
+
+| Error Type | Description                          |
+| ---------- | ------------------------------------ |
+| NoSuchCoin | The requested coin is not activated. |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### NoSuchCoin
 
   ```json
   {

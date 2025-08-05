@@ -1,0 +1,62 @@
+/task::enable_sia::init:
+  post:
+    summary: Initializes the activation of the SIA coin.
+    description: Initializes the activation of the SIA coin.
+    operationId: task::enable_sia::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_sia::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  client_conf:
+                    type: object
+                    description: An object containing the SIA client configuration.
+                  client_conf.server_url:
+                    type: string
+                    description: The URL of the SIA public node. e.g., `https://api.siascan.com/wallet/api`
+                  client_conf.password:
+                    type: string
+                    description: The password for the SIA wallet daemon.
+                  tx_history:
+                    type: boolean
+                    description: Whether to enable transaction history for the coin.
+                    default: false
+                required:
+                - client_conf
+                - client_conf.server_url
+                - client_conf.password
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: The ID of the activation task.
+          example: {}

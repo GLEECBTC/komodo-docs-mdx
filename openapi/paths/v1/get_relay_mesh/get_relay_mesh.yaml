@@ -1,0 +1,38 @@
+/get_relay_mesh:
+  post:
+    summary: The get_relay_mesh method returns a list of peerIDs included in our local
+      relay mesh.
+    description: The get_relay_mesh method returns a list of peerIDs included in our
+      local relay mesh.
+    operationId: get_relay_mesh
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_relay_mesh
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

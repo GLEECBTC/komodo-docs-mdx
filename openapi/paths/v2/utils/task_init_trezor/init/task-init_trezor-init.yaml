@@ -1,0 +1,51 @@
+/task::init_trezor::init:
+  post:
+    summary: Initialise your Trezor device for use in the Komodo DeFi Framework API.
+    description: Initialise your Trezor device for use in the Komodo DeFi Framework
+      API.
+    operationId: task::init_trezor::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::init_trezor::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  device_pubkey:
+                    type: string
+                    description: If known, you can specify the device pubkey. If not
+                      known, this will be part of the [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/)
+                      response which you can save for future use
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

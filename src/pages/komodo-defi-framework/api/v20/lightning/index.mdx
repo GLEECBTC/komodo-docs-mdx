@@ -1,101 +1,102 @@
-export const title = "Komodo DeFi Framework Method: Lightning Network Methods";
-export const description =
-  "This document describes all the available methods for the Lightning Network on Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method Overview: Lightning Network Methods";
+export const description = "This document provides an overview of all available methods for the Lightning Network on the Komodo DeFi Framework.";
 
 import lightningflowchart from "@/public/images/docs/api-images/lightning-methods.png";
 
 # Lightning Network Methods
+
+## Overview {{label : 'common_structures', tag : 'overview'}}
 
 <Note>
   Lightning methods are currently only available using the native Komodo DeFi Framework.
   WASM support should be available in late 2023.
 </Note>
 
-## Lightning Network Initialization Tasks
+## Initialization Tasks
 
-*   Initialise your lightning node with [task::enable\_lightning::init](/komodo-defi-framework/api/v20/lightning/activation/#initialize-lightning)
-*   Check the initialization status of the lightning node with [task::enable\_lightning::status](/komodo-defi-framework/api/v20/lightning/activation/#initialization-status)
-*   Cancel initialization process of the lightning node with [task::enable\_lightning::cancel](/komodo-defi-framework/api/v20/lightning/activation/#cancel-initialization)
+*   Initialize your lightning node with [task::enable\_lightning::init](/komodo-defi-framework/api/v20/lightning/activation/init/)
+*   Check the initialization status of the lightning node with [task::enable\_lightning::status](/komodo-defi-framework/api/v20/lightning/activation/status/)
+*   Cancel initialization process of the lightning node with [task::enable\_lightning::cancel](/komodo-defi-framework/api/v20/lightning/activation/cancel/)
 
 <Note>
   Any methods with a `task::` prefix will be linked to a numeric `task_id` value
   which is used to query the status or outcome of the task.
 </Note>
 
-## Lightning Network Nodes Methods
+## Node Methods
 
-*   Connect to a lightning node with [lightning::nodes::connect\_to\_node](/komodo-defi-framework/api/v20/lightning/nodes/#connect-to-node)
-*   Add a trusted node with [lightning::nodes::add\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/#add-trusted-node)
-*   Remove a trusted node with [lightning::nodes::remove\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/#remove-trusted-node)
-*   List your trusted lightning nodes with [lightning::nodes::list\_trusted\_nodes](/komodo-defi-framework/api/v20/lightning/nodes/#list-trusted-nodes)
+*   Connect to a lightning node with [lightning::nodes::connect\_to\_node](/komodo-defi-framework/api/v20/lightning/nodes/connect_to_node/)
+*   Add a trusted node with [lightning::nodes::add\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/add_trusted_node/)
+*   Remove a trusted node with [lightning::nodes::remove\_trusted\_node](/komodo-defi-framework/api/v20/lightning/nodes/remove_trusted_node/)
+*   List your trusted lightning nodes with [lightning::nodes::list\_trusted\_nodes](/komodo-defi-framework/api/v20/lightning/nodes/list_trusted_nodes/)
 
-## Lightning Network Channels Methods
+## Channel Methods
 
-*   Open a lightning channel [lightning::channels::open\_channel](/komodo-defi-framework/api/v20/lightning/channels/#open-channel)
-*   Close a lightning channel [lightning::channels::close\_channel](/komodo-defi-framework/api/v20/lightning/channels/#close-channel)
-*   Update a lightning channel [lightning::channels::update\_channel](/komodo-defi-framework/api/v20/lightning/channels/#update-channel)
-*   Get details about a lightning channel [lightning::channels::get\_channel\_details](/komodo-defi-framework/api/v20/lightning/channels/#get-channel-details)
-*   Get claimable balances from lightning channels [lightning::channels::get\_claimable\_balances](/komodo-defi-framework/api/v20/lightning/channels/#get-claimable-balances)
-*   List open lightning channels matching a filter [lightning::channels::list\_open\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/#list-open-channels-by-filter)
-*   List closed lightning channels matching a filter [lightning::channels::list\_closed\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/#list-closed-channels-by-filter)
+*   Open a lightning channel [lightning::channels::open\_channel](/komodo-defi-framework/api/v20/lightning/channels/open_channel/)
+*   Close a lightning channel [lightning::channels::close\_channel](/komodo-defi-framework/api/v20/lightning/channels/close_channel/)
+*   Update a lightning channel [lightning::channels::update\_channel](/komodo-defi-framework/api/v20/lightning/channels/update_channel/)
+*   Get details about a lightning channel [lightning::channels::get\_channel\_details](/komodo-defi-framework/api/v20/lightning/channels/get_channel_details/)
+*   Get claimable balances from lightning channels [lightning::channels::get\_claimable\_balances](/komodo-defi-framework/api/v20/lightning/channels/get_claimable_balances/)
+*   List open lightning channels matching a filter [lightning::channels::list\_open\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/list_open_channels_by_filter/)
+*   List closed lightning channels matching a filter [lightning::channels::list\_closed\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/list_closed_channels_by_filter/)
 
-## Lightning Network Payments Methods
+## Payment Methods
 
-*   Generate lightning invoices with [lightning::payments::generate\_invoice](/komodo-defi-framework/api/v20/lightning/payments/#generate-invoice)
-*   Send lightning payments with [lightning::payments::send\_payment](/komodo-defi-framework/api/v20/lightning/payments/#send-payment)
-*   Get details about a lightning payment with [lightning::payments::get\_payment\_details](/komodo-defi-framework/api/v20/lightning/payments/#get-payment-details)
-*   Get a filtered list of lightning payments with [lightning::payments::list\_payments\_by\_filter](/komodo-defi-framework/api/v20/lightning/payments/#list-payments-by-filter)
+*   Generate lightning invoices with [lightning::payments::generate\_invoice](/komodo-defi-framework/api/v20/lightning/payments/generate_invoice/)
+*   Send lightning payments with [lightning::payments::send\_payment](/komodo-defi-framework/api/v20/lightning/payments/send_payment/)
+*   Get details about a lightning payment with [lightning::payments::get\_payment\_details](/komodo-defi-framework/api/v20/lightning/payments/get_payment_details/)
+*   Get a filtered list of lightning payments with [lightning::payments::list\_payments\_by\_filter](/komodo-defi-framework/api/v20/lightning/payments/list_payments_by_filter/)
 
-## Lightning Network Flowchart
+## Flowchart
 
 Once you:
 
-*   Enable lightning with [task::enable\_lightning::init](/komodo-defi-framework/api/v20/lightning/activation/#initialize-lightning)
-*   Connect to a lightning node with [lightning::nodes::connect\_to\_node](/komodo-defi-framework/api/v20/lightning/nodes/#connect-to-node)
-*   Open a lightning channel [lightning::channels::open\_channel](/komodo-defi-framework/api/v20/lightning/channels/#open-channel)
+*   Enable lightning with [task::enable\_lightning::init](/komodo-defi-framework/api/v20/lightning/activation/init/)
+*   Connect to a lightning node with [lightning::nodes::connect\_to\_node](/komodo-defi-framework/api/v20/lightning/nodes/connect_to_node/)
+*   Open a lightning channel [lightning::channels::open\_channel](/komodo-defi-framework/api/v20/lightning/channels/open_channel/)
 
 You can get an invoice for a coffee from [https://starblocks.acinq.co](https://starblocks.acinq.co)!
 
 Then you can:
 
-*   Pay the invoice with [lightning::payments::send\_payment](/komodo-defi-framework/api/v20/lightning/payments/#send-payment)
-*   View details about the payment with [lightning::payments::get\_payment\_details](/komodo-defi-framework/api/v20/lightning/payments/#get-payment-details)
-*   List your payments with [lightning::payments::list\_payments\_by\_filter](/komodo-defi-framework/api/v20/lightning/payments/#list-payments-by-filter)
+*   Pay the invoice with [lightning::payments::send\_payment](/komodo-defi-framework/api/v20/lightning/payments/send_payment/)
+*   View details about the payment with [lightning::payments::get\_payment\_details](/komodo-defi-framework/api/v20/lightning/payments/get_payment_details/)
+*   List your payments with [lightning::payments::list\_payments\_by\_filter](/komodo-defi-framework/api/v20/lightning/payments/list_payments_by_filter/)
 
 Follow the flowchart below to visualize the process:
 
-<OptimizedImage src={lightningflowchart} classNaming="w-full" alt="Lighning Network Flowchart" />
+<OptimizedImage src={lightningflowchart} classNaming="w-full" alt="Lightning Network Flowchart" />
 
-## Lightning Network Coins File Configuration
+## Coin Configuration
 
 <Note>
   Some configurations are set per coin, and some are set per channel. The
   [counterparty\_channel\_config\_limits](/komodo-defi-framework/api/common_structures/lightning/#counterparty-channel-config)
-  param must be set in the `coins` configuration file, and aplies to all
+  param must be set in the `coins` configuration file, and applies to all
   channels opened by counterparty nodes. The
   [our\_channels\_config](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-config) and
   [channel\_options](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options) parameters
   are set per channel. These can be defined in the `coins` configuration file to
   act as the default for all opened channels, and optionally overwritten or
   updated using the
-  [open\_channel](/komodo-defi-framework/api/v20/lightning/channels/#open-channel) or
-  [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/#update-channel)
+  [open\_channel](/komodo-defi-framework/api/v20/lightning/channels/open_channel/) or
+  [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/update_channel/)
   methods.
 </Note>
 
-### Lightning Coin Config Parameters
+### Coin Config Parameters
 
-| Parameter                             | Type    | Description                                                                                                                                                                                                                                                                                                                                    |
-| ------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                                  | object  | The ticker of the coin you will use lightning network with, suffixed with `-lightning`                                                                                                                                                                                                                                                         |
-| mm2                                   | integer | Defaults to `0`. A value of `1`, indicates the coin is atomic swap compatible.                                                                                                                                                                                                                                                                 |
-| decimals                              | integer | The decimal precision of the coin you will use the lightning network with.                                                                                                                                                                                                                                                                     |
-| protocol                              | object  | A standard [CoinProtocol](/komodo-defi-framework/api/common_structures/activation/#coin-protocol) object.                                                                                                                                                                                                                                      |
-| accept\_inbound\_channels             | boolean | Optional, defaults to `true`. If this is set to false, we do not accept inbound requests to open a new channel.                                                                                                                                                                                                                                |
-| accept\_forwards\_to\_priv\_channels  | boolean | Optional, defaults to `false`. When set to `false`, any HTLCs which were to be forwarded over private channels will be rejected. This prevents us from taking on HTLC-forwarding risk when we intend to run as a node which is not online reliably (e.g. GUI wallet apps). Generally, private channels are used for non-routing purposes only. |
-| counterparty\_channel\_config\_limits | object  | Optional. A standard [CounterpartyChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#counterparty-channel-config) object.                                                                                                                                                                                                  |
-| channel\_options                      | object  | Optional. A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options) object.                                                                                                                                                                                                      |
-| our\_channels\_config                 | object  | Optional. A standard [LightningChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-config) object.                                                                                                                                                                                                        |
+| Parameter                             | Type    | Required | Default | Description                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                                  | object  |     ✓    |   `-`   | The ticker of the coin you will use lightning network with, suffixed with `-lightning`                                                                                                                                                                                                                          |
+| mm2                                   | integer |     ✗    |   `0`   | A value of `1`, indicates the coin is atomic swap compatible.                                                                                                                                                                                                                                                   |
+| decimals                              | integer |     ✓    |   `-`   | The decimal precision of the coin you will use the lightning network with.                                                                                                                                                                                                                                      |
+| protocol                              | object  |     ✓    |   `-`   | A standard [CoinProtocol](/komodo-defi-framework/api/common_structures/activation/#coin-protocol) object.                                                                                                                                                                                                       |
+| accept\_inbound\_channels             | boolean |     ✗    |  `true` | If this is set to `false`, we do not accept inbound requests to open a new channel.                                                                                                                                                                                                                             |
+| accept\_forwards\_to\_priv\_channels  | boolean |     ✗    | `false` | When set to `false`, any HTLCs which were to be forwarded over private channels will be rejected. This prevents us from taking on HTLC-forwarding risk when we intend to run as a node which is not online reliably (e.g. GUI wallet apps). Generally, private channels are used for non-routing purposes only. |
+| counterparty\_channel\_config\_limits | object  |     ✗    |   `-`   | A standard [CounterpartyChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#counterparty-channel-config) object.                                                                                                                                                                             |
+| channel\_options                      | object  |     ✗    |   `-`   | A standard [LightningChannelOptions](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-options) object.                                                                                                                                                                                 |
+| our\_channels\_config                 | object  |     ✗    |   `-`   | A standard [LightningChannelConfig](/komodo-defi-framework/api/common_structures/lightning/#lightning-channel-config) object.                                                                                                                                                                                   |
 
 <Note>
   For GUIs and wallet apps, it is recommended to set

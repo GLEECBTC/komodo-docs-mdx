@@ -1,0 +1,51 @@
+/enable_tendermint_token:
+  post:
+    summary: Method description for enable_tendermint_token
+    description: Method description for enable_tendermint_token
+    operationId: enable_tendermint_token
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - enable_tendermint_token
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    type: string
+                    description: Ticker of the Tendermint asset you want to enable.
+                  activation_params:
+                    description: A standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params)
+                      object.
+                    $ref: ../../components/schemas/TokenActivationParams.yaml
+                required:
+                - ticker
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

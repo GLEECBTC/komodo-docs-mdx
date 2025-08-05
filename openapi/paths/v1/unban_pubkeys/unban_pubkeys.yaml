@@ -1,0 +1,62 @@
+/unban_pubkeys:
+  post:
+    summary: The unban_pubkeys method will remove all currently banned pubkeys from
+      your ban list, or specific pubkeys from a user defined list.
+    description: The unban_pubkeys method will remove all currently banned pubkeys
+      from your ban list, or specific pubkeys from a user defined list.
+    operationId: unban_pubkeys
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - unban_pubkeys
+              pubkey:
+                type: string
+                description: The pubkey to ban
+              unban_by.data:
+                type: string
+                description: A list of pubkeys to unban. Only required when `type`
+                  is `Few`.
+              unban_by.type:
+                description: A standard [UnbanTypeEnum](/komodo-defi-framework/api/common_structures/enums/#unban-type-enum)
+                  enum. Whether to unban all pubkeys or specific ones from a list
+                $ref: ../../components/schemas/UnbanTypeEnum.yaml
+            required:
+            - userpass
+            - method
+            - pubkey
+            - unban_by.type
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              still_banned:
+                type: string
+                description: List of pubkeys which remain banned. For each `pubkey`,
+                  the reason it was banned (`pubkey.reason`) and the type of ban (`pubkey.type`)
+                  is also returned.
+              unbanned:
+                type: string
+                description: List of pubkeys which were unbanned. For each `pubkey`,
+                  the reason it was banned (`pubkey.reason`) and the type of ban (`pubkey.type`)
+                  is also returned.
+              were_not_banned:
+                type: string
+                description: 'If using `unban_by.type: Few`, this will return a list
+                  of pubkeys which were not banned, but had been requested to be unbanned.'
+          example: {}

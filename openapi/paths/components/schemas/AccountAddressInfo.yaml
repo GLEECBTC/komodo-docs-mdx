@@ -1,0 +1,25 @@
+components:
+  schemas:
+    AccountAddressInfo:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The account address for a specific derivation path under the
+            `account_index`.
+        derivation_path:
+          type: string
+          description: The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+            of the address.
+        chain:
+          type: string
+          description: '`External` or `Internal`, as defined in the activation request.'
+        balance:
+          description: A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info)
+            object.
+          $ref: '#/components/schemas/BalanceInfo'
+      required:
+      - address
+      - balance
+      - chain
+      - derivation_path

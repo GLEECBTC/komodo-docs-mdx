@@ -1,0 +1,65 @@
+export const title = "Komodo DeFi Framework Method: Add GUI Storage Account";
+export const description = "Create a new account record in the GUI-storage database.";
+
+# Add GUI Storage Account
+
+## gui\_storage::add\_account {{label : 'gui_storage::add_account', tag : 'API-v2'}}
+
+Adds an account entry to the GUI-storage subsystem.  This call **does not** affect MarketMaker runtime; it only persists wallet-GUI metadata (name/description, USD balance, etc.).  Use `gui_storage::enable_account` to make the newly added account the active one.
+
+### Request Parameters
+
+| Parameter    | Type             | Required | Default | Description                                                                         |
+| ------------ | ---------------- | :------: | :-----: | ----------------------------------------------------------------------------------- |
+| account\_id  | string           |     ✓    |    –    | A unique identifier of the account (e.g., wallet UUID or key fingerprint).          |
+| name         | string           |     ✓    |    –    | Display name (max `64` characters).                                                 |
+| description  | string           |     ✗    |    ""   | Optional longer description (max `256` characters).                                 |
+| balance\_usd | string (numeric) |     ✗    |   `0`   | Initial USD balance for UI display; can be updated later via `set_account_balance`. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                   |
+| --------- | ------ | --------------------------------------------- |
+| result    | string | Returns `success` when the account is stored. |
+
+#### 📌 Examples
+
+<CodeGroup title="add_account" tag="POST" label="gui_storage::add_account" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::add_account",
+    "params": {
+      "account_id": "wallet-1",
+      "name": "My Primary Wallet",
+      "description": "Main account for trading",
+      "balance_usd": "0"
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter            | Type   | Description                                                |
+| -------------------- | ------ | ---------------------------------------------------------- |
+| NameTooLong          | string | `name` exceeds the maximum length (`64`).                  |
+| DescriptionTooLong   | string | `description` exceeds the maximum length (`256`).          |
+| AccountExistsAlready | string | An account with the same `account_id` already exists.      |
+| ErrorLoadingAccount  | string | Problem reading existing data from storage.                |
+| ErrorSavingAccount   | string | Problem persisting changes to storage.                     |
+| InternalError        | string | Unhandled internal error in the Komodo DeFi Framework API. |

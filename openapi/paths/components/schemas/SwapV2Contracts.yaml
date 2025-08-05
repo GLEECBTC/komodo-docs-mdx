@@ -1,0 +1,24 @@
+components:
+  schemas:
+    SwapV2Contracts:
+      type: object
+      properties:
+        maker_swap_v2_contract:
+          type: string
+          description: Address for the maker's new V2 swap smart contract. Must be
+            provided if "use\_trading\_proto\_v2"is true in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/)
+            configuration
+        taker_swap_v2_contract:
+          type: string
+          description: Address for the taker's new V2 swap smart contract. Must be
+            provided if "use\_trading\_proto\_v2"is true in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/)
+            configuration
+        nft_maker_swap_v2_contract:
+          type: string
+          description: Address for the maker's new V2 NFT swap smart contract. Must
+            be provided if "use\_trading\_proto\_v2"is true in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/)
+            configuration
+      required:
+      - maker_swap_v2_contract
+      - nft_maker_swap_v2_contract
+      - taker_swap_v2_contract

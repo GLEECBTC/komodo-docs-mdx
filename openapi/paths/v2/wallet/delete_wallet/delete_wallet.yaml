@@ -1,0 +1,51 @@
+/delete_wallet:
+  post:
+    summary: Securely deletes a wallet from the Komodo DeFi Framework.
+    description: Securely deletes a wallet from the Komodo DeFi Framework.
+    operationId: delete_wallet
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - delete_wallet
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  wallet_name:
+                    type: string
+                    description: The name of the wallet to delete.
+                  password:
+                    type: string
+                    description: The password of the wallet.
+                required:
+                - wallet_name
+                - password
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

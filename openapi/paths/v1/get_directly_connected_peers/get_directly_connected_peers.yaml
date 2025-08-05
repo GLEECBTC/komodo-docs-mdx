@@ -1,0 +1,41 @@
+/get_directly_connected_peers:
+  post:
+    summary: The get_directly_connected_peers method returns an array of peers (with
+      their multiaddresses) currently connected to the requesting node.
+    description: The get_directly_connected_peers method returns an array of peers
+      (with their multiaddresses) currently connected to the requesting node.
+    operationId: get_directly_connected_peers
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_directly_connected_peers
+              (none):
+                type: string
+                description: This method does not take any parameters.
+            required:
+            - userpass
+            - method
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              PeerID-Multiaddresses:
+                type: array
+                description: All connected peers with their multiaddresses.
+          example: {}

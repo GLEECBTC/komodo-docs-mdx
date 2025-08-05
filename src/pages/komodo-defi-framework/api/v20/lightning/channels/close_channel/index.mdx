@@ -1,0 +1,56 @@
+export const title = "Komodo DeFi Framework Method: Close Lightning Channel";
+export const description = "Close a Lightning Network channel using the Komodo DeFi Framework API.";
+
+# Close Lightning Channel
+
+## lightning::channels::close\_channel {{label : 'lightning::channels::close_channel', tag : 'API-v2'}}
+
+Closes a Lightning Network channel with a remote node.
+
+### Request Parameters
+
+| Parameter      | Type    | Required | Default | Description                                      |
+| -------------- | ------- | :------: | :-----: | ------------------------------------------------ |
+| coin           | string  |     ✓    |    -    | The ticker of the coin for the channel to close. |
+| channel\_id    | string  |     ✓    |    -    | The channel ID to close.                         |
+| force          | boolean |     ✗    | `false` | If `true`, the channel will be force-closed.     |
+| target\_height | integer |     ✗    |    -    | The target block height for closing the channel. |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                         |
+| --------- | ------ | --------------------------------------------------- |
+| status    | string | Status message (e.g., Channel closed successfully). |
+| id        | int    | Request identifier.                                 |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::channels::close_channel" tag="POST" label="lightning::channels::close_channel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::close_channel",
+    "params": {
+      "coin": "tBTC-lightning",
+      "channel_id": "1234567890abcdef",
+      "force": true
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "status": "Channel closed successfully"
+      },
+      "id": 1
+  }
+  ```
+</CollapsibleSection>

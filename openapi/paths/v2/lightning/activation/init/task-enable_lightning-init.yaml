@@ -1,0 +1,56 @@
+/task::enable_lightning::init:
+  post:
+    summary: Request a task to initialize a lightning node on the Komodo DeFi Framework.
+    description: Request a task to initialize a lightning node on the Komodo DeFi
+      Framework.
+    operationId: task::enable_lightning::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_lightning::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  activation_params:
+                    description: A standard [LightningActivationParams](/komodo-defi-framework/api/common_structures/lightning/#lightning-activation-params)
+                      object.
+                    $ref: ../../components/schemas/LightningActivationParams.yaml
+                  ticker:
+                    type: string
+                    description: Ticker of coin to activate.
+                required:
+                - activation_params
+                - ticker
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

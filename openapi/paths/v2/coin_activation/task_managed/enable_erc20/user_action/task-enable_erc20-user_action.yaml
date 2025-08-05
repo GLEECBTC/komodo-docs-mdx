@@ -1,0 +1,68 @@
+/task::enable_erc20::user_action:
+  post:
+    summary: Provide required user input (e.g., Trezor button confirmation) during
+      the ERC-20 token activation task.
+    description: Provide required user input (e.g., Trezor button confirmation) during
+      the ERC-20 token activation task.
+    operationId: task::enable_erc20::user_action
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_erc20::user_action
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: Task identifier.
+                  user_action:
+                    type: object
+                    description: Object containing the parameters below.
+                  user_action.action_type:
+                    type: string
+                    description: Action type identifier (e.g., `TrezorPin`).
+                  user_action.pin:
+                    type: string
+                    description: Required if `action_type` is `TrezorPin`. Trezor
+                      PIN mapped via numpad grid.
+                  userpass:
+                    type: string
+                    description: RPC password.
+                required:
+                - task_id
+                - user_action
+                - user_action.action_type
+                - userpass
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Updated task status.
+          example: {}

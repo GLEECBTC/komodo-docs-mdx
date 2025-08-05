@@ -1,0 +1,49 @@
+export const title = "Komodo DeFi Framework Method: Initialize Account Balance Task";
+export const description = "Initialise an account balance request for HD wallets in the Komodo DeFi Framework API.";
+
+# Initialize Account Balance Task
+
+## task::account\_balance::init {{label : 'task::account_balance::init', tag : 'API-v2'}}
+
+Use the `task::account_balance::init` method to initialise an account balance request.
+
+### Request Parameters
+
+| Parameter      | Type    | Required | Description                                                                                                                                     |
+| -------------- | ------- | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| account\_index | integer |     ✓    | For GUIs, this will be zero. In CLI you can use other values if you [know what you are doing](https://learnmeabitcoin.com/technical/hd-wallets) |
+| coin           | string  |     ✓    | Ticker of activated coin you want to see addresses and balance for                                                                              |
+
+### Response Parameters
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+<CodeGroup title="Initialize Account Balance Task" tag="POST" label="task::account_balance::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::account_balance::init",
+    "params": {
+      "coin": "COIN_NAME",
+      "account_index": 0
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Initialize Account Balance Task Response" collapsedText="Show Initialize Account Balance Task Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 6
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

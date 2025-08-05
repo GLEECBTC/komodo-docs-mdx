@@ -1,0 +1,11 @@
+components:
+  schemas:
+    DepthInfo:
+      type: object
+      properties:
+        asks:
+          type: number
+          description: The number of asks for this trading pair
+        bids:
+          type: number
+          description: The number of bids for this trading pair

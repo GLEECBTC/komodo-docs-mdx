@@ -1,0 +1,10 @@
+components:
+  schemas:
+    InvalidFeePolicy:
+      type: object
+      properties:
+        (none):
+          type: string
+          description: the error description
+      required:
+      - (none)

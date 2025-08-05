@@ -1,0 +1,39 @@
+/get_trade_fee:
+  post:
+    summary: The get_trade_fee method returns the approximate amount of the miner
+      fee that is paid per swap transaction.
+    description: The get_trade_fee method returns the approximate amount of the miner
+      fee that is paid per swap transaction.
+    operationId: get_trade_fee
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_trade_fee
+              coin:
+                type: string
+                description: The name of the coin for the requested trade fee
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

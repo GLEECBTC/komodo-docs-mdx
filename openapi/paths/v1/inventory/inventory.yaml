@@ -1,0 +1,37 @@
+/inventory:
+  post:
+    summary: Return an overview of current maker/taker order inventory (legacy API).
+    description: Return an overview of current maker/taker order inventory (legacy
+      API).
+    operationId: inventory
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: RPC password (`RPC_UserP@SSW0RD`).
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - inventory
+            required:
+            - userpass
+            - method
+            - userpass
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              orders:
+                type: array
+                description: List of active orders with details.
+          example: {}

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ActionEnum:
+      type: string
+      description: 'Used in [best\_orders](/komodo-defi-framework/api/legacy/best_orders/)
+        and other trading methods:
+
+
+        **Values:**
+
+        - `buy`: Find orders to buy the specified coin
+
+        - `sell`: Find orders to sell the specified coin
+
+        '
+      enum:
+      - buy
+      - sell
+      title: 'Component: ActionEnum'

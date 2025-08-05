@@ -2,16 +2,33 @@ export const title = "Komodo DeFi Framework Method: Enable ERC20";
 export const description =
   "The enable_erc20 method allows you to activate additional ERC20 like tokens of a EVM type platform coin.";
 
-# enable\_erc20
+# Enable ERC20
+
+## enable\_erc20 {{label : 'enable_erc20', tag : 'API-v2'}}
 
 The `enable_erc20` method allows you to activate additional ERC20 like tokens of a EVM type platform coin. Before using this method, you first need to use the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method.
 
-| parameter                                  | Type    | Description                                                                                        |
-| ------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------- |
-| ticker                                     | string  | Ticker of the ERC20 like token coin.                                                               |
-| activation\_params.required\_confirmations | integer | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
+### Request Parameters
 
-<CodeGroup title="" tag="POST" label="enable_erc20" mm2MethodDecorate="true">
+| Parameter          | Type   | Required | Default | Description                                                                                                                  |
+| ------------------ | ------ | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    |    -    | Ticker of the ERC20-like token you want to enable.                                                                           |
+| activation\_params | object |     ✗    |    -    | A standard [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) object. |
+
+### Response Parameters
+
+| Parameter                | Type   | Description                                                       |
+| ------------------------ | ------ | ----------------------------------------------------------------- |
+| balances                 | object | An object containing balance information for activated addresses. |
+| platform\_coin           | string | The platform coin for this token (e.g., "ETH" for ERC20 tokens).  |
+| required\_confirmations  | number | The number of confirmations required for transactions.            |
+| token\_contract\_address | string | The contract address of the activated token.                      |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="Enable ERC20" tag="POST" label="enable_erc20" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -27,64 +44,68 @@ The `enable_erc20` method allows you to activate additional ERC20 like tokens of
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Enable ERC20 Response" collapsedText="Show Enable ERC20 Response">
+  #### Response (success)
 
-```json
-{
-  "mmrpc": "2.0",
-  "result": {
-    "balances": {
-      "0x0d317904AF3BA3A993d557b6cba147FEA4DeB57E": {
-        "spendable": "0",
-        "unspendable": "0"
-      }
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "balances": {
+        "0x0d317904AF3BA3A993d557b6cba147FEA4DeB57E": {
+          "spendable": "0",
+          "unspendable": "0"
+        }
+      },
+      "platform_coin": "ETH",
+      "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef",
+      "required_confirmations": 3
     },
-    "platform_coin": "ETH",
-    "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef",
-    "required_confirmations": 3
-  },
-  "id": null
-}
-```
+    "id": null
+  }
+  ```
 
-## Error - Platform coin is not yet activated
+  #### ⚠️ Error Responses
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Platform coin ETH is not activated",
-  "error_path": "token.lp_coins",
-  "error_trace": "token:126] lp_coins:2797]",
-  "error_type": "PlatformCoinIsNotActivated",
-  "error_data": "ETH",
-  "id": null
-}
-```
+  ##### Platform Coin Is Not Yet Activated
 
-## Error - Token already activated
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform coin ETH is not activated",
+    "error_path": "token.lp_coins",
+    "error_trace": "token:126] lp_coins:2797]",
+    "error_type": "PlatformCoinIsNotActivated",
+    "error_data": "ETH",
+    "id": null
+  }
+  ```
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token BAT-ERC20 is already activated",
-  "error_path": "token",
-  "error_trace": "token:119]",
-  "error_type": "TokenIsAlreadyActivated",
-  "error_data": "BAT-ERC20",
-  "id": null
-}
-```
+  ##### Token Already Activated
 
-## Error - Token config not found in coins file
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token BAT-ERC20 is already activated",
+    "error_path": "token",
+    "error_trace": "token:119]",
+    "error_type": "TokenIsAlreadyActivated",
+    "error_data": "BAT-ERC20",
+    "id": null
+  }
+  ```
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Token BATT-ERC20 config is not found",
-  "error_path": "token.prelude",
-  "error_trace": "token:122] prelude:79]",
-  "error_type": "TokenConfigIsNotFound",
-  "error_data": "BATT-ERC20",
-  "id": null
-}
-```
+  ##### Token Config Not Found in Coins File
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token BATT-ERC20 config is not found",
+    "error_path": "token.prelude",
+    "error_trace": "token:122] prelude:79]",
+    "error_type": "TokenConfigIsNotFound",
+    "error_data": "BATT-ERC20",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

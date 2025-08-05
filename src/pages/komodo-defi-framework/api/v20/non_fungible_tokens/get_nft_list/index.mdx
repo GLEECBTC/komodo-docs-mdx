@@ -1,26 +1,26 @@
-export const title = "Komodo DeFi Framework Method: Non Fungible Tokens - Get NFT List";
-export const description =
-  "This document describes all the get_nft_list method Komodo DeFi Framework provides to get a list of your wallets NFTs";
+export const title = "Komodo DeFi Framework Method: Get NFT List";
+export const description = "The get_nft_list method returns a list of NFTs owned by the user, with support for filtering, pagination, and spam protection.";
 
-# Get a list of NFTs {{label : 'get_nft_list', tag : 'API-v2'}}
+# Get NFT List
+
+## get\_nft\_list {{label : 'get_nft_list', tag : 'API-v2'}}
 
 Returns a list of the NFTs owned by the user, shown in descending order of the `block_number` value (the block height when the amount or owner changed). If the request is for NFTs on more than one chain, this means that the order may not be chronological. In the case of ERC1155 tokens, the `block_number` will update when additional NFTs are received or when all NFTs are withdrawn, but will generally remain the same if only some NFTs are withdrawn.
 
 <Note>
-  Before using this method, you must first call the [update\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/update_nft/)
-  method to populate/refresh the local database.
+  Before using this method, you must first call the [update\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/update_nft/) method to populate or refresh the local database.
 </Note>
 
 ### Request Parameters
 
-| Parameter           | Type    | Description                                                                                                                                                             |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| chains              | array   | List of networks to scan for NFTs. Options are: `POLYGON`, `FANTOM`, `ETH`, `BSC`, or `AVALANCHE`.                                                                      |
-| max                 | boolean | Optional, defaults to `false`. If `true`, response will return all NFTs without pagination, and will ignore the `limit` and `page_number` values.                       |
-| limit               | integer | Optional, defaults to `10`. The number of NFTs displayed per page in response.                                                                                          |
-| page\_number        | integer | Optional, defaults to `1`. The page offset for items in response.                                                                                                       |
-| protect\_from\_spam | boolean | Optional, defaults to `false`. If `true`, any potential spam link found in collection name, token name, symbol will be replaced with `URL redacted for user protection` |
-| filters             | object  | Optional. A standard [NftFilter](/komodo-defi-framework/api/common_structures/nfts/#nft-filter) object.                                                                 |
+| Parameter           | Type    | Required | Default | Description                                                                                                                                       |
+| ------------------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| chains              | array   |     ✓    |   `-`   | List of networks to scan for NFTs. See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum) for allowed values. |
+| filters             | object  |     ✗    |   `-`   | A standard [NftFilter](/komodo-defi-framework/api/common_structures/nfts/#nft-filter) object.                                                     |
+| limit               | integer |     ✗    |   `10`  | The number of NFTs displayed per page in response.                                                                                                |
+| max                 | boolean |     ✗    | `false` | If `true`, response will return all NFTs without pagination, and will ignore the `limit` and `page_number` values.                                |
+| page\_number        | integer |     ✗    |   `1`   | The page offset for items in response.                                                                                                            |
+| protect\_from\_spam | boolean |     ✗    | `false` | If `true`, any potential spam link found in collection name, token name, or symbol will be replaced with `URL redacted for user protection`.      |
 
 ### Response Parameters
 
@@ -30,9 +30,11 @@ Returns a list of the NFTs owned by the user, shown in descending order of the `
 | skipped   | integer         | The number of NFTs in your wallet excluded by the request filters.                                 |
 | total     | integer         | The total number of NFTs in your wallet matching the request filters.                              |
 
-#### 📌 Example with no optional params
+#### 📌 Examples
 
-<CodeGroup title="Get a list of NFTs" tag="POST" label="get_nft_list" mm2MethodDecorate="true">
+#### Example with No Optional Params
+
+<CodeGroup title="Get NFT List (basic)" tag="POST" label="get_nft_list" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -48,106 +50,106 @@ Returns a list of the NFTs owned by the user, shown in descending order of the `
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get NFT List (basic) Response" collapsedText="Show Get NFT List (basic) Response">
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "nfts": [
-        {
-          "chain": "BSC",
-          "token_address": "0x5c7d6712dfaf0cb079d48981781c8705e8417ca0",
-          "token_id": "0",
-          "amount": "1",
-          "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "token_hash": "b34ddf294013d20a6d70691027625839",
-          "block_number_minted": 25465916,
-          "block_number": 25919780,
-          "contract_type": "ERC1155",
-          "name": null,
-          "symbol": null,
-          "token_uri": "https://tikimetadata.s3.amazonaws.com/tiki_box.json",
-          "token_domain": "tikimetadata.s3.amazonaws.com",
-          "metadata": "{\"name\":\"Tiki box\",\"description\":\"Born to usher in Bull markets. Tiki JumpStarters are crazed guardians that worship NGU technology. Tiki guardians attach themselves to their owners to guide and protect them from the evils of the crypto industry. Manifested by the power of community and infused with unlimited creativity, the Unlockable Road Map summons powerful gifts and surprises to all Tiki Holders. Booyaaah!!\",\"external_url\":\"\",\"image\":\"https://tikimetadata.s3.amazonaws.com/tiki_box.png\",\"attributes\":[{\"trait_type\":\"Crypto Logo\",\"value\":\"TIKI NFT CRYPTOLOGO SCAR\"}],\"properties\":{\"category\":\"image\",\"creators\":[]}}",
-          "last_token_uri_sync": "2023-02-07T17:10:08.402Z",
-          "last_metadata_sync": "2023-02-07T17:10:16.858Z",
-          "minter_address": "ERC1155 tokens don't have a single minter",
-          "possible_spam": false,
-          "possible_phishing": false,
-          "uri_meta": {
-            "image": "https://tikimetadata.s3.amazonaws.com/tiki_box.png",
-            "image_url": "https://tikimetadata.s3.amazonaws.com/tiki_box.png",
-            "image_domain": "tikimetadata.s3.amazonaws.com",
-            "name": "Tiki box",
-            "description": "Born to usher in Bull markets. Tiki JumpStarters are crazed guardians that worship NGU technology. Tiki guardians attach themselves to their owners to guide and protect them from the evils of the crypto industry. Manifested by the power of community and infused with unlimited creativity, the Unlockable Road Map summons powerful gifts and surprises to all Tiki Holders. Booyaaah!!",
-            "attributes": [
+      "mmrpc": "2.0",
+      "result": {
+          "nfts": [
               {
-                "trait_type": "Crypto Logo",
-                "value": "TIKI NFT CRYPTOLOGO SCAR"
-              }
-            ],
-            "animation_url": null,
-            "animation_domain": null,
-            "external_url": "",
-            "external_domain": null,
-            "image_details": null
-          }
-        },
-        {
-          "chain": "POLYGON",
-          "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
-          "token_id": "5",
-          "amount": "1",
-          "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "token_hash": "28f970585fd743b056859a6e41f50a8e",
-          "block_number_minted": 36781490,
-          "block_number": 42491885,
-          "contract_type": "ERC1155",
-          "name": null,
-          "symbol": null,
-          "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
-          "token_domain": "app.thesmurfssociety.com",
-          "metadata": "{\"name\":\"Forest Mushrooms\",\"description\":\"Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.\",\"image\":\"https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg\",\"animation_url\":null,\"external_url\":\"https://app.thesmurfssociety.com/detail/ingredients/5\",\"attributes\":[{\"trait_type\":\"Type\",\"value\":\"Ingredient\"},{\"trait_type\":\"Category\",\"value\":\"COMMON\"}]}",
-          "last_token_uri_sync": "2022-12-13T13:12:50.840Z",
-          "last_metadata_sync": "2023-05-15T07:30:04.882Z",
-          "minter_address": "ERC1155 tokens don't have a single minter",
-          "possible_spam": false,
-          "possible_phishing": false,
-          "uri_meta": {
-            "image": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_domain": "metadata.thesmurfssociety.com",
-            "name": "Forest Mushrooms",
-            "description": "Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.",
-            "attributes": [
-              {
-                "trait_type": "Type",
-                "value": "Ingredient"
+                  "chain": "BSC",
+                  "token_address": "0x5c7d6712dfaf0cb079d48981781c8705e8417ca0",
+                  "token_id": "0",
+                  "amount": "1",
+                  "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
+                  "token_hash": "b34ddf294013d20a6d70691027625839",
+                  "block_number_minted": 25465916,
+                  "block_number": 25919780,
+                  "contract_type": "ERC1155",
+                  "name": null,
+                  "symbol": null,
+                  "token_uri": "https://tikimetadata.s3.amazonaws.com/tiki_box.json",
+                  "token_domain": "tikimetadata.s3.amazonaws.com",
+                  "metadata": "{\"name\":\"Tiki box\",\"description\":\"Born to usher in Bull markets. Tiki JumpStarters are crazed guardians that worship NGU technology. Tiki guardians attach themselves to their owners to guide and protect them from the evils of the crypto industry. Manifested by the power of community and infused with unlimited creativity, the Unlockable Road Map summons powerful gifts and surprises to all Tiki Holders. Booyaaah!!\",\"external_url\":\"\",\"image\":\"https://tikimetadata.s3.amazonaws.com/tiki_box.png\",\"attributes\":[{\"trait_type\":\"Crypto Logo\",\"value\":\"TIKI NFT CRYPTOLOGO SCAR\"}],\"properties\":{\"category\":\"image\",\"creators\":[]}}",
+                  "last_token_uri_sync": "2023-02-07T17:10:08.402Z",
+                  "last_metadata_sync": "2023-02-07T17:10:16.858Z",
+                  "minter_address": "ERC1155 tokens don't have a single minter",
+                  "possible_spam": false,
+                  "possible_phishing": false,
+                  "uri_meta": {
+                      "image": "https://tikimetadata.s3.amazonaws.com/tiki_box.png",
+                      "image_url": "https://tikimetadata.s3.amazonaws.com/tiki_box.png",
+                      "image_domain": "tikimetadata.s3.amazonaws.com",
+                      "name": "Tiki box",
+                      "description": "Born to usher in Bull markets. Tiki JumpStarters are crazed guardians that worship NGU technology. Tiki guardians attach themselves to their owners to guide and protect them from the evils of the crypto industry. Manifested by the power of community and infused with unlimited creativity, the Unlockable Road Map summons powerful gifts and surprises to all Tiki Holders. Booyaaah!!",
+                      "attributes": [
+                          {
+                              "trait_type": "Crypto Logo",
+                              "value": "TIKI NFT CRYPTOLOGO SCAR"
+                          }
+                      ],
+                      "animation_url": null,
+                      "animation_domain": null,
+                      "external_url": "",
+                      "external_domain": null,
+                      "image_details": null
+                  }
               },
               {
-                "trait_type": "Category",
-                "value": "COMMON"
+                  "chain": "POLYGON",
+                  "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
+                  "token_id": "5",
+                  "amount": "1",
+                  "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
+                  "token_hash": "28f970585fd743b056859a6e41f50a8e",
+                  "block_number_minted": 36781490,
+                  "block_number": 42491885,
+                  "contract_type": "ERC1155",
+                  "name": null,
+                  "symbol": null,
+                  "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
+                  "token_domain": "app.thesmurfssociety.com",
+                  "metadata": "{\"name\":\"Forest Mushrooms\",\"description\":\"Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.\",\"image\":\"https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg\",\"animation_url\":null,\"external_url\":\"https://app.thesmurfssociety.com/detail/ingredients/5\",\"attributes\":[{\"trait_type\":\"Type\",\"value\":\"Ingredient\"},{\"trait_type\":\"Category\",\"value\":\"COMMON\"}]}",
+                  "last_token_uri_sync": "2022-12-13T13:12:50.840Z",
+                  "last_metadata_sync": "2023-05-15T07:30:04.882Z",
+                  "minter_address": "ERC1155 tokens don't have a single minter",
+                  "possible_spam": false,
+                  "possible_phishing": false,
+                  "uri_meta": {
+                      "image": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
+                      "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
+                      "image_domain": "metadata.thesmurfssociety.com",
+                      "name": "Forest Mushrooms",
+                      "description": "Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.",
+                      "attributes": [
+                          {
+                              "trait_type": "Type",
+                              "value": "Ingredient"
+                          },
+                          {
+                              "trait_type": "Category",
+                              "value": "COMMON"
+                          }
+                      ],
+                      "animation_url": null,
+                      "animation_domain": null,
+                      "external_url": "https://app.thesmurfssociety.com/detail/ingredients/5",
+                      "external_domain": "app.thesmurfssociety.com",
+                      "image_details": null
+                  }
               }
-            ],
-            "animation_url": null,
-            "animation_domain": null,
-            "external_url": "https://app.thesmurfssociety.com/detail/ingredients/5",
-            "external_domain": "app.thesmurfssociety.com",
-            "image_details": null
-          }
-        }
-      ],
-      "skipped": 0,
-      "total": 2
-    },
-    "id": null
+          ],
+          "skipped": 0,
+          "total": 2
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-#### 📌 Example with optional limit & page\_number params
+#### Example with Optional Limit & Page Number Params
 
-<CodeGroup title="Get a list of NFTs" tag="POST" label="get_nft_list" mm2MethodDecorate="true">
+<CodeGroup title="Get NFT List (paginated)" tag="POST" label="get_nft_list" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -165,159 +167,81 @@ Returns a list of the NFTs owned by the user, shown in descending order of the `
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get NFT List (paginated) Response" collapsedText="Show Get NFT List (paginated) Response">
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "nfts": [
-        {
-          "chain": "POLYGON",
-          "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
-          "token_id": "5",
-          "amount": "1",
-          "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "token_hash": "28f970585fd743b056859a6e41f50a8e",
-          "block_number_minted": 36781490,
-          "block_number": 42491885,
-          "contract_type": "ERC1155",
-          "name": null,
-          "symbol": null,
-          "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
-          "token_domain": "app.thesmurfssociety.com",
-          "metadata": "{\"name\":\"Forest Mushrooms\",\"description\":\"Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.\",\"image\":\"https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg\",\"animation_url\":null,\"external_url\":\"https://app.thesmurfssociety.com/detail/ingredients/5\",\"attributes\":[{\"trait_type\":\"Type\",\"value\":\"Ingredient\"},{\"trait_type\":\"Category\",\"value\":\"COMMON\"}]}",
-          "last_token_uri_sync": "2022-12-13T13:12:50.840Z",
-          "last_metadata_sync": "2023-05-15T07:30:04.882Z",
-          "minter_address": "ERC1155 tokens don't have a single minter",
-          "possible_spam": false,
-          "possible_phishing": false,
-          "uri_meta": {
-            "image": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_domain": "metadata.thesmurfssociety.com",
-            "name": "Forest Mushrooms",
-            "description": "Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.",
-            "attributes": [
+      "mmrpc": "2.0",
+      "result": {
+          "nfts": [
               {
-                "trait_type": "Type",
-                "value": "Ingredient"
-              },
-              {
-                "trait_type": "Category",
-                "value": "COMMON"
+                  "chain": "POLYGON",
+                  "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
+                  "token_id": "5",
+                  "amount": "1",
+                  "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
+                  "token_hash": "28f970585fd743b056859a6e41f50a8e",
+                  "block_number_minted": 36781490,
+                  "block_number": 42491885,
+                  "contract_type": "ERC1155",
+                  "name": null,
+                  "symbol": null,
+                  "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
+                  "token_domain": "app.thesmurfssociety.com",
+                  "metadata": "{\"name\":\"Forest Mushrooms\",\"description\":\"Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.\",\"image\":\"https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg\",\"animation_url\":null,\"external_url\":\"https://app.thesmurfssociety.com/detail/ingredients/5\",\"attributes\":[{\"trait_type\":\"Type\",\"value\":\"Ingredient\"},{\"trait_type\":\"Category\",\"value\":\"COMMON\"}]}",
+                  "last_token_uri_sync": "2022-12-13T13:12:50.840Z",
+                  "last_metadata_sync": "2023-05-15T07:30:04.882Z",
+                  "minter_address": "ERC1155 tokens don't have a single minter",
+                  "possible_spam": false,
+                  "possible_phishing": false,
+                  "uri_meta": {
+                      "image": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
+                      "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
+                      "image_domain": "metadata.thesmurfssociety.com",
+                      "name": "Forest Mushrooms",
+                      "description": "Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.",
+                      "attributes": [
+                          {
+                              "trait_type": "Type",
+                              "value": "Ingredient"
+                          },
+                          {
+                              "trait_type": "Category",
+                              "value": "COMMON"
+                          }
+                      ],
+                      "animation_url": null,
+                      "animation_domain": null,
+                      "external_url": "https://app.thesmurfssociety.com/detail/ingredients/5",
+                      "external_domain": "app.thesmurfssociety.com",
+                      "image_details": null
+                  }
               }
-            ],
-            "animation_url": null,
-            "animation_domain": null,
-            "external_url": "https://app.thesmurfssociety.com/detail/ingredients/5",
-            "external_domain": "app.thesmurfssociety.com",
-            "image_details": null
-          }
-        }
-      ],
-      "skipped": 1,
-      "total": 1
-    },
-    "id": null
+          ],
+          "skipped": 0,
+          "total": 2
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-#### 📌 Example with optional spam protection
+<CollapsibleSection expandedText="Hide Get NFT List Error Responses" collapsedText="Show Get NFT List Error Responses">
+  #### ⚠️ Error Responses
 
-<CodeGroup title="Get a list of NFTs" tag="POST" label="get_nft_list" mm2MethodDecorate="true">
+  ##### TokenNotFoundInWallet
+
   ```json
   {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "get_nft_list",
-    "mmrpc": "2.0",
-    "params": {
-      "chains": [
-        "BSC",
-        "POLYGON"
-      ],
-      "protect_from_spam": true,
-      "filters": {
-        "exclude_spam": true,
-        "exclude_phishing": true
-      }
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "nfts": [
-        {
-          "chain": "POLYGON",
-          "token_address": "0x48c75fbf0452fa8ff2928ddf46b0fe7629cca2ff",
-          "token_id": "5",
-          "amount": "1",
-          "owner_of": "0xf622a6c52c94b500542e2ae6bcad24c53bc5b6a2",
-          "token_hash": "28f970585fd743b056859a6e41f50a8e",
-          "block_number_minted": 36781490,
-          "block_number": 42491885,
-          "contract_type": "ERC1155",
-          "name": null,
-          "symbol": null,
-          "token_uri": "https://app.thesmurfssociety.com/metadata/public/metadata/cauldron/5",
-          "token_domain": "app.thesmurfssociety.com",
-          "metadata": "{\"name\":\"Forest Mushrooms\",\"description\":\"Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.\",\"image\":\"https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg\",\"animation_url\":null,\"external_url\":\"https://app.thesmurfssociety.com/detail/ingredients/5\",\"attributes\":[{\"trait_type\":\"Type\",\"value\":\"Ingredient\"},{\"trait_type\":\"Category\",\"value\":\"COMMON\"}]}",
-          "last_token_uri_sync": "2022-12-13T13:12:50.840Z",
-          "last_metadata_sync": "2023-05-15T07:30:04.882Z",
-          "minter_address": "ERC1155 tokens don't have a single minter",
-          "possible_spam": false,
-          "possible_phishing": false,
-          "uri_meta": {
-            "image": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_url": "https://metadata.thesmurfssociety.com/ingredients/nft/5.Forest_Mushrooms.jpg",
-            "image_domain": "metadata.thesmurfssociety.com",
-            "name": "Forest Mushrooms",
-            "description": "Sweet and nutty with distinct earthy tones, these forest mushrooms will make a fine addition to all your soups, salads, and potions.",
-            "attributes": [
-              {
-                "trait_type": "Type",
-                "value": "Ingredient"
-              },
-              {
-                "trait_type": "Category",
-                "value": "COMMON"
-              }
-            ],
-            "animation_url": null,
-            "animation_domain": null,
-            "external_url": "https://app.thesmurfssociety.com/detail/ingredients/5",
-            "external_domain": "app.thesmurfssociety.com",
-            "image_details": null
-          }
-        }
-      ],
-      "skipped": 0,
-      "total": 1
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "error": "Token: token_address 0xfd913a305d70a60aac4faac70c739563738e1f82, token_id 214300044414 was not found in wallet",
+      "error_path": "nft",
+      "error_trace": "nft:123]",
+      "error_type": "TokenNotFoundInWallet",
+      "error_data": {
+          "token_address": "0xfd913a305d70a60aac4faac70c739563738e1f82",
+          "token_id": "214300044414"
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>
-
-### 📌 Error responses
-
-#### Unsupported Chain Type
-
-The supported chains are
-
-```json
-{
-  "mmrpc":"2.0",
-  "error":"Error parsing request: UnsupportedChainType",
-  "error_path":"dispatcher",
-  "error_trace":"dispatcher:109]",
-  "error_type":"InvalidRequest",
-  "error_data":"UnsupportedChainType",
-  "id":null
-}
-```

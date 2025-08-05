@@ -1,0 +1,40 @@
+/min_trading_vol:
+  post:
+    summary: The min_trading_vol method returns the minimum required volume for buy/sell/setprice
+      methods for the selected coin.
+    description: The min_trading_vol method returns the minimum required volume for
+      buy/sell/setprice methods for the selected coin.
+    operationId: min_trading_vol
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - min_trading_vol
+              coin:
+                type: string
+                description: The name of the coin to retrieve the minimum trading
+                  volume
+            required:
+            - userpass
+            - method
+            - coin
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ChannelTypeEnum:
+      type: string
+      description: 'Used in Lightning Network channel filter methods for [list\_open\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/list_open_channels_by_filter/)
+        and [list\_closed\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/list_closed_channels_by_filter/):
+
+
+        **Values:**
+
+        - `Inbound`: Channel where the counterparty opened the channel to your node
+
+        - `Outbound`: Channel where your node opened the channel to the counterparty
+
+        '
+      enum:
+      - Inbound
+      - Outbound
+      title: 'Component: ChannelTypeEnum'

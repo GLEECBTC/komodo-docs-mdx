@@ -1,30 +1,31 @@
-export const title = "Komodo DeFi Framework Method: Convert utxo Address";
-export const description = "The convert_utxo_address method takes a UTXO address as input, and returns the equivalent address for another UTXO coin.";
+export const title = "Komodo DeFi Framework Method: Convert UTXO Address";
+export const description = "The convert_utxo_address method takes a UTXO address as input and returns the equivalent address for another UTXO coin.";
 
-# convert\_utxo\_address
+# Convert UTXO Address
 
-**convert\_utxo\_address address to\_coin**
+## convert\_utxo\_address {{label : 'convert_utxo_address', tag : 'API-v1'}}
 
-The `convert_utxo_address` method takes a UTXO address as input, and returns the equivalent address for another UTXO coin (e.g. from BTC address to RVN address)
+The `convert_utxo_address` method takes a UTXO address as input and returns the equivalent address for another UTXO coin (e.g., from a BTC address to an RVN address).
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                   |
-| --------- | ------ | ----------------------------- |
-| address   | string | Input UTXO address            |
-| to\_coin  | string | Input address to convert from |
+| Parameter | Type   | Required | Description                                                          |
+| --------- | ------ | :------: | -------------------------------------------------------------------- |
+| address   | string |     ✓    | Input UTXO address                                                   |
+| coin      | string |     ✓    | Ticker of UTXO coin corresponding to the input address (source coin) |
+| to\_coin  | string |     ✓    | Ticker of target UTXO coin (the coin to convert the address to)      |
 
-## Response
+### Response parameters
 
-| Structure | Type   | Description       |
+| Parameter | Type   | Description       |
 | --------- | ------ | ----------------- |
 | result    | string | Converted address |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="convert_utxo_address" mm2MethodDecorate="true">
+<CodeGroup title="convert_utxo_address" tag="POST" label="convert_utxo_address" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -37,31 +38,31 @@ The `convert_utxo_address` method takes a UTXO address as input, and returns the
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response
 
   ```json
   {
-    "result": "RN3StWykhsERZaFjwmn9L9E5u2dPAt3YTS"
+      "result": "RN3StWykhsERZaFjwmn9L9E5u2dPAt3YTS"
   }
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (error - coin not enabled)
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response (coin not enabled)
 
   ```json
   {
-    "error": "rpc:174] dispatcher_legacy:155] lp_coins:1668] Coin RVN is not activated"
+      "error": "rpc:174] dispatcher_legacy:155] lp_coins:1668] Coin RVN is not activated"
   }
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (error - input address checksum failed)
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response (input address checksum failed)
 
   ```json
   {
-    "error": "rpc:174] dispatcher_legacy:155] lp_coins:1665] Invalid Checksum"
+      "error": "rpc:174] dispatcher_legacy:155] lp_coins:1665] Invalid Checksum"
   }
   ```
 </CollapsibleSection>

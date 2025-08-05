@@ -1,30 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Max Taker Vol";
 export const description = "The max_taker_vol method returns the maximum available volume for buy/sell methods for selected coin.";
 
-# max\_taker\_vol
+# Max Taker Vol
 
-**max\_taker\_vol coin**
+## max\_taker\_vol {{label : 'max_taker_vol', tag : 'API-v1'}}
 
-The `max_taker_vol` method returns the maximum available volume for buy/sell methods for selected `coin`.
-This takes the dex fee and blockchain miner fees into account. The result should be used as is for `sell` method or divided by price for `buy` method.
+The `max_taker_vol` method returns the maximum available volume for buy/sell methods for selected `coin`. This takes the dex fee and blockchain miner fees into account. The result should be used as is for `sell` method or divided by price for `buy` method.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                                                     |
-| --------- | ------ | --------------------------------------------------------------- |
-| coin      | string | the name of the coin to retrieve the max available taker volume |
+| Parameter | Type   | Required | Description                                                     |
+| --------- | ------ | :------: | --------------------------------------------------------------- |
+| coin      | string |     ✓    | The name of the coin to retrieve the max available taker volume |
 
-#### Response
+### Response
 
-| Structure | Type     | Description                                                                                                                                         |
+| Parameter | Type     | Description                                                                                                                                         |
 | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result    | fraction | the max available taker volume, represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
+| result    | fraction | The max available taker volume, represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="max_taker_vol" mm2MethodDecorate="true">
+<CodeGroup title="max_taker_vol" tag="POST" label="max_taker_vol" mm2MethodDecorate="true">
   ```json
   {
     "method": "max_taker_vol",
@@ -40,10 +39,18 @@ This takes the dex fee and blockchain miner fees into account. The result should
 
   ```json
   {
-    "result": {
-      "denom": "38900000000",
-      "numer": "309786160299"
-    }
+      "result": {
+          "denom": "38900000000",
+          "numer": "309786160299"
+      }
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Response (error)
+
+  ```json
+  { "error": "Invalid coin" }
   ```
 </CollapsibleSection>

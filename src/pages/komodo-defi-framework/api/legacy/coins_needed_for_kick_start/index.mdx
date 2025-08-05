@@ -1,29 +1,29 @@
-export const title = "Komodo DeFi Framework Method: Coins needed for kick Start";
+export const title = "Komodo DeFi Framework Method: Coins Needed For Kick Start";
 export const description = "Learn how to kick-start interrupted swaps on the Komodo DeFi Framework API by activating the necessary coins using the coins_needed_for_kick_start method.";
 
-# coins\_needed\_for\_kick\_start
+# Coins Needed for Kick Start
 
-**coins\_needed\_for\_kick\_start()**
+## coins\_needed\_for\_kick\_start {{label : 'coins_needed_for_kick_start', tag : 'API-v1'}}
 
-If the Komodo DeFi Framework API is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after the Komodo DeFi Framework API is started to continue the interrupted swaps. Consider calling this method on Komodo DeFi Framework API startup and activate the returned coins using `enable` or `electrum` methods.
+If the Komodo DeFi Framework API is stopped while making a swap or having an active order, it will attempt to kick-start them on the next launch and continue from the point where it stopped. The `coins_needed_for_kick_start` method returns the tickers of coins that should be activated as soon as possible after the Komodo DeFi Framework API is started to continue the interrupted swaps. Consider calling this method on Komodo DeFi Framework API startup and activate the returned coins using the [`enable`](/komodo-defi-framework/api/legacy/coin_activation/enable/#enable) or [`electrum`](/komodo-defi-framework/api/legacy/coin_activation/electrum/#electrum) methods.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response parameters
 
-| Structure | Type             | Description                                                              |
+| Parameter | Type             | Description                                                              |
 | --------- | ---------------- | ------------------------------------------------------------------------ |
-| result    | array of strings | tickers of coins that should be activated to kick-start swaps and orders |
+| result    | array of strings | Tickers of coins that should be activated to kick-start swaps and orders |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="coins_needed_for_kick_start" mm2MethodDecorate="true">
+<CodeGroup title="coins_needed_for_kick_start" tag="POST" label="coins_needed_for_kick_start" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,15 +33,17 @@ If the Komodo DeFi Framework API is stopped while making a swap/having the activ
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (BTC and KMD should be activated ASAP in this case)
+  #### Response
 
   ```json
   { "result": ["BTC", "KMD"] }
   ```
+</CollapsibleSection>
 
-  #### Response (no swaps and orders waiting to be started)
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
 
   ```json
-  { "result": [] }
+  { "error": "No swaps or orders waiting to be started" }
   ```
 </CollapsibleSection>

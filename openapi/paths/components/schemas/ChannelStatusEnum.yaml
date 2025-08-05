@@ -1,0 +1,22 @@
+components:
+  schemas:
+    ChannelStatusEnum:
+      type: string
+      description: 'Used in Lightning Network [get\_channel\_details](/komodo-defi-framework/api/v20/lightning/channels/get_channel_details/)
+        response to indicate channel status:
+
+
+        **Values:**
+
+        - `Open`: Channel is currently open and available for transactions
+
+        - `Closed`: Channel has been closed (either cooperatively or force-closed)
+
+        - `Pending`: Channel is in the process of opening or closing
+
+        '
+      enum:
+      - Open
+      - Closed
+      - Pending
+      title: 'Component: ChannelStatusEnum'

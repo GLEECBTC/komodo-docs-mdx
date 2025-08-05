@@ -1,0 +1,90 @@
+export const title = "Komodo DeFi Framework Method: Initialize Tendermint Token Activation Task";
+export const description = "Start a task-managed activation flow for a Tendermint token.";
+
+# Initialize Tendermint Token Activation Task
+
+## task::enable\_tendermint\_token::init {{label : 'task::enable_tendermint_token::init', tag : 'API-v2'}}
+
+After calling this method, the Komodo DeFi Framework daemon creates a **task-managed activation** flow for a Tendermint-based token. The request immediately returns a `task_id`. Use [`task::enable_tendermint_token::status`](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/status/) to poll progress or [`task::enable_tendermint_token::cancel`](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint_token/cancel/) to abort.
+
+### Request Parameter Table
+
+| Parameter          | Type   | Required | Default | Description                                                                                                                     |
+| ------------------ | ------ | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------- |
+| ticker             | string |     ✓    |    -    | Token ticker (e.g., `OSMO`).                                                                                                    |
+| activation\_params | object |     ✗    |    -    | A [TokenActivationParams](/komodo-defi-framework/api/common_structures/activation/#token-activation-params) object (see below). |
+| userpass           | string |     ✓    |    -    | RPC password (`RPC_UserP@SSW0RD`).                                                                                              |
+
+`activation_params` supports the following optional fields:
+
+| Parameter               | Type    | Required | Default | Description                                                                                                      |
+| ----------------------- | ------- | :------: | :-----: | ---------------------------------------------------------------------------------------------------------------- |
+| required\_confirmations | integer |     ✗    |   `3`   | Confirmations to wait for swap-related transactions. If omitted, falls back to the parent platform-coin setting. |
+
+#### Command
+
+<CodeGroup title="Tendermint Token Activation (init)" tag="POST" label="task::enable_tendermint_token::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_tendermint_token::init",
+    "params": {
+      "ticker": "OSMO",
+      "activation_params": {
+        "required_confirmations": 5
+      }
+    },
+    "id": 1
+  }
+  ```
+</CodeGroup>
+
+### Response Parameter Table
+
+| Parameter | Type    | Description                                          |
+| --------- | ------- | ---------------------------------------------------- |
+| task\_id  | integer | Unique identifier of the activation task.            |
+| status    | string  | Initial task status (always `InProgress` on return). |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 42,
+      "status": "InProgress"
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter    | Type   | Description                                                  |
+| ------------ | ------ | ------------------------------------------------------------ |
+| error        | string | Human-readable message describing the failure.               |
+| error\_type  | string | Enumerated error identifier (e.g., `CoinCreationError`).     |
+| error\_path  | string | Internal code path that generated the error (debugging aid). |
+| error\_trace | string | Call-stack trace snippet (debugging aid).                    |
+
+Typical error cases include `CoinCreationError` (invalid RPC/electrum endpoints) and `HwError` (hardware-wallet interaction failure). For `HwError`, inspect the `error_data` field to determine which user action is required.
+
+### Request Parameters
+
+| Parameter | Type   | Required | Description                  |
+| --------- | ------ | :------: | ---------------------------- |
+| ticker    | string |     ✓    | Token ticker (e.g., `IRIS`). |
+| userpass  | string |     ✓    | RPC password.                |
+
+### Response Parameters
+
+| Parameter | Type    | Description                 |
+| --------- | ------- | --------------------------- |
+| task\_id  | integer | Activation task identifier. |
+| status    | string  | Initial status.             |
+
+...

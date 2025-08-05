@@ -1,0 +1,51 @@
+export const title = "Komodo DeFi Framework Method: Get Claimable Lightning Balances";
+export const description = "Get claimable Lightning Network channel balances using the Komodo DeFi Framework API.";
+
+# Get Claimable Lightning Balances
+
+## lightning::channels::get\_claimable\_balances {{label : 'lightning::channels::get_claimable_balances', tag : 'API-v2'}}
+
+Returns a list of claimable balances for a coin.
+
+### Request Parameters
+
+| Parameter                         | Type    | Required | Default | Description                                                           |
+| --------------------------------- | ------- | :------: | :-----: | --------------------------------------------------------------------- |
+| coin                              | string  |     ✓    |    -    | The ticker of the coin you would like to view claimable balances for. |
+| include\_open\_channels\_balances | boolean |     ✗    | `false` | If `true`, includes balances from open channels.                      |
+
+### Response Parameters
+
+| Parameter | Type  | Description                 |
+| --------- | ----- | --------------------------- |
+| result    | array | List of claimable balances. |
+| id        | int   | Request identifier.         |
+
+#### 📌 Example
+
+<CodeGroup title="lightning::channels::get_claimable_balances" tag="POST" label="lightning::channels::get_claimable_balances" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "lightning::channels::get_claimable_balances",
+    "params": {
+      "coin": "tBTC-lightning",
+      "include_open_channels_balances": true
+    },
+    "id": 762
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": [ /* ... claimable balances ... */ ],
+      "id": 762
+  }
+  ```
+</CollapsibleSection>

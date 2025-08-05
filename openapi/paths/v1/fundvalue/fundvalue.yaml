@@ -1,0 +1,43 @@
+/fundvalue:
+  post:
+    summary: Calculate the current portfolio value across enabled coins (legacy API).
+    description: Calculate the current portfolio value across enabled coins (legacy
+      API).
+    operationId: fundvalue
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: RPC password (`RPC_UserP@SSW0RD`).
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - fundvalue
+              coins:
+                type: string
+                description: If provided, restrict calculation to specified coin tickers.
+            required:
+            - userpass
+            - method
+            - userpass
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_value_usd:
+                type: string
+                description: Portfolio value denominated in USD.
+              per_coin_values:
+                type: object
+                description: Key/value map of coin symbol → value in USD.
+          example: {}

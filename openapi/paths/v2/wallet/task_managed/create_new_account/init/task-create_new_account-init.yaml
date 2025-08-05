@@ -1,0 +1,67 @@
+/task::create_new_account::init:
+  post:
+    summary: Initialize a task to create a new HD account using the Komodo DeFi Framework
+      API.
+    description: Initialize a task to create a new HD account using the Komodo DeFi
+      Framework API.
+    operationId: task::create_new_account::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::create_new_account::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of coin you would like to initialize a HD
+                      account for.
+                  account_id:
+                    type: integer
+                    description: If not defined, will increment to the next unused
+                      account id in the wallet.
+                  scan:
+                    type: boolean
+                    description: If `true`, will scan the account for funded addresses.
+                    default: true
+                  gap_limit:
+                    type: integer
+                    description: The maximum number of empty addresses in a row. Defaults
+                      to the value provided on activation, or `20` if no value was
+                      provided.
+                    default: 20
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

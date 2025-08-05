@@ -1,0 +1,51 @@
+/convertaddress:
+  post:
+    summary: The convertaddress method converts an input address to a specified address
+      format.
+    description: The convertaddress method converts an input address to a specified
+      address format.
+    operationId: convertaddress
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - convertaddress
+              coin:
+                type: string
+                description: The name of the coin address context
+              from:
+                type: string
+                description: Input address
+              to_address_format:
+                description: A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format)
+                  object
+                $ref: ../../components/schemas/AddressFormat.yaml
+            required:
+            - userpass
+            - method
+            - coin
+            - from
+            - to_address_format
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+                description: The result of address conversion
+          example: {}

@@ -1,0 +1,71 @@
+/task::get_new_address::init:
+  post:
+    summary: Generate a new HD address in the Komodo DeFi Framework API.
+    description: Generate a new HD address in the Komodo DeFi Framework API.
+    operationId: task::get_new_address::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::get_new_address::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin you want to get a new address
+                      for
+                    default: '-'
+                  account_id:
+                    type: integer
+                    description: Generally this will be `0` unless you have multiple
+                      accounts registered on your Trezor
+                    default: 0
+                  chain:
+                    type: string
+                    description: '`Internal`, or `External`. External is used for
+                      addresses that are intended to be visible outside of the wallet
+                      (e.g. for receiving payments). Internal is used for addresses
+                      which are not meant to be visible outside of the wallet and
+                      is used to return the leftover change from a transaction.'
+                    default: '"External"'
+                  gap_limit:
+                    type: integer
+                    description: The maximum number of empty addresses in a row. Defaults
+                      to the value provided on activation or 20 if no value was provided
+                    default: 20
+                required:
+                - coin
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              new_address:
+                description: A standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info)
+                  object.
+                $ref: ../../components/schemas/NewAddressInfo.yaml
+          example: {}

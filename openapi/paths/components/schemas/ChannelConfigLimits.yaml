@@ -1,0 +1,51 @@
+components:
+  schemas:
+    ChannelConfigLimits:
+      type: object
+      properties:
+        force_announced_channel_preference:
+          type: boolean
+          description: The user may override this preference in the channel opening
+            request method call.
+          default: '`false`'
+        their_to_self_delay:
+          type: integer
+          description: The time that we require our counterparty to wait to claim
+            their money, if they broadcast a revoked transaction. This can be increased
+            to provide more punishment for broadcasting old states, but will result
+            in higher fees (since emergency transactions will be larger).
+          default: '`1008`'
+        our_to_self_delay:
+          type: integer
+          description: The time that our counterparty requires us to wait to claim
+            our money, if we broadcast a revoked transaction.
+          default: '`1008`'
+        our_htlc_minimum_msat:
+          type: integer
+          description: The smallest value [HTLC](https://academy.binance.com/en/glossary/hashed-timelock-contract)
+            we will accept to forward from the counterparty.
+          default: '`0`'
+        max_accepted_htlcs:
+          type: integer
+          description: The maximum number of [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract)
+            we will accept from the counterparty.
+          default: '`483`'
+        min_max_htlc_value_in_flight_msat:
+          type: boolean
+          description: The remote node sets a limit on the maximum value of pending
+            HTLCs to them at any given time to limit their funds exposure to [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract).
+            This allows us to set a minimum such value.
+          default: '`0`'
+        max_channel_reserve_sats:
+          type: boolean
+          description: The remote node will require us to keep a certain amount in
+            direct payment to ourselves at all time, ensuring that we are able to
+            be punished if we broadcast an old state. This allows us to limit the
+            amount which we will have to keep to ourselves (and cannot use for [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract)).
+          default: '`18446744073709551615`'
+        min_max_accepted_htlcs:
+          type: boolean
+          description: The remote node sets a limit on the maximum number of pending
+            HTLCs to them at any given time. This allows us to set a minimum such
+            value.
+          default: '`0`'

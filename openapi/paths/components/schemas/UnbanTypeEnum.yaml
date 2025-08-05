@@ -1,0 +1,19 @@
+components:
+  schemas:
+    UnbanTypeEnum:
+      type: string
+      description: 'Used in [unban\_pubkeys](/komodo-defi-framework/api/legacy/unban_pubkeys/)
+        method:
+
+
+        **Values:**
+
+        - `All`: Unban all currently banned pubkeys
+
+        - `Few`: Unban specific pubkeys from a list
+
+        '
+      enum:
+      - All
+      - Few
+      title: 'Component: UnbanTypeEnum'

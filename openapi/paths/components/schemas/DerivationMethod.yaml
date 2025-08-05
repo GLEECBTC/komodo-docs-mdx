@@ -1,0 +1,11 @@
+components:
+  schemas:
+    DerivationMethod:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Defines how keypairs will be generated. Possible values: `Iguana`
+            or `HDWallet`'
+      required:
+      - type

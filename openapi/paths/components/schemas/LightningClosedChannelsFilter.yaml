@@ -1,0 +1,42 @@
+components:
+  schemas:
+    LightningClosedChannelsFilter:
+      type: object
+      properties:
+        channel_id:
+          type: string
+          description: Unique string identifying a channel by its ID.
+        counterparty_node_id:
+          type: string
+          description: A hexadecimal string identifying a counterparty node.
+        funding_tx:
+          type: string
+          description: A transaction ID which added funds.
+        from_funding_value:
+          type: integer
+          description: The minimum value of channel funding in satoshis.
+        to_funding_value:
+          type: integer
+          description: The maximum value of channel funding in satoshis.
+        channel_type:
+          type: string
+          description: '`Inbound` or `Outbound`.'
+        closing_tx:
+          type: integer
+          description: A transaction ID which closed the channel.
+        closure_reason:
+          type: integer
+          description: The reason a channel was closed.
+        claiming_tx:
+          type: integer
+          description: The ID of the transaction that returned the remaining outbound
+            funds when the channel was closed to our on-chain address.
+        from_claimed_balance:
+          type: integer
+          description: The minimum balance of channel funds claimed in satoshis.
+        to_claimed_balance:
+          type: integer
+          description: The maximum balance of channel funds claimed in satoshis.
+        channel_visibility:
+          type: integer
+          description: '`Public` or `Private`.'

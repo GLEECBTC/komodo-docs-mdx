@@ -1,0 +1,55 @@
+/set_swap_transaction_fee_policy:
+  post:
+    summary: Method description for set_swap_transaction_fee_policy
+    description: Method description for set_swap_transaction_fee_policy
+    operationId: set_swap_transaction_fee_policy
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - set_swap_transaction_fee_policy
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: Ticker of the supported ETH/EVM coin or token for
+                      which you want to set the fee policy.
+                  swap_tx_fee_policy:
+                    type: string
+                    description: 'Possible values: `Low`, `Medium`, `High`, `Internal`.'
+                required:
+                - coin
+                - swap_tx_fee_policy
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: The fee policy that was set for the given coin.
+          example: {}

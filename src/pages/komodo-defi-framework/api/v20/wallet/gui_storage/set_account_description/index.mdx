@@ -1,0 +1,63 @@
+export const title = "Komodo DeFi Framework Method: Set GUI Storage Account Description";
+export const description = "Update the descriptive text of a GUI-storage account.";
+
+# Set GUI Storage Account Description
+
+## gui\_storage::set\_account\_description {{label : 'gui_storage::set_account_description', tag : 'API-v2'}}
+
+Sets or replaces the `description` field for the specified account.
+
+### Request Parameters
+
+| Parameter   | Type                                                                         | Required | Description                         |
+| ----------- | ---------------------------------------------------------------------------- | :------: | ----------------------------------- |
+| account\_id | [AccountId](/komodo-defi-framework/api/common_structures/wallet/#account-id) |     ✓    | Account to update.                  |
+| description | string                                                                       |     ✓    | New description (≤ 600 characters). |
+
+### Response Parameters
+
+| Parameter | Type   | Description                                              |
+| --------- | ------ | -------------------------------------------------------- |
+| result    | string | Returns `success` when the description has been updated. |
+
+#### 📌 Example
+
+<CodeGroup title="set_account_description" tag="POST" label="gui_storage::set_account_description" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "gui_storage::set_account_description",
+    "params": {
+      "account_id": {
+        "type": "hd",
+        "account_idx": 0
+      },
+      "description": "My hardware account"
+    },
+    "id": 17,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 17
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Parameter           | Type   | Description                                    |
+| ------------------- | ------ | ---------------------------------------------- |
+| DescriptionTooLong  | string | Provided `description` exceeds maximum length. |
+| NoSuchAccount       | string | The specified `account_id` does not exist.     |
+| ErrorLoadingAccount | string | Storage read error.                            |
+| ErrorSavingAccount  | string | Storage write error.                           |
+| InternalError       | string | Unhandled internal error.                      |

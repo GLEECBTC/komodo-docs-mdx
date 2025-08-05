@@ -1,31 +1,31 @@
 export const title = "Komodo DeFi Framework Method: Validate Address";
 export const description = "The validateaddress method checks if an input string is a valid address of the specified coin.";
 
-# validateaddress
+# Validate Address
 
-**validateaddress coin address**
+## validateaddress {{label: 'validateaddress', tag: 'API-v1'}}
 
 The `validateaddress` method checks if an input string is a valid address of the specified coin.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type   | Description                      |
-| --------- | ------ | -------------------------------- |
-| coin      | string | the coin to validate address for |
-| address   | string | the input string to validate     |
+| Parameter | Type   | Required | Description                      |
+| --------- | ------ | :------: | -------------------------------- |
+| coin      | string |     ✓    | The coin to validate address for |
+| address   | string |     ✓    | The input string to validate     |
 
-## Response
+### Response parameters
 
-| Structure | Type              | Description                                                                    |
+| Parameter | Type              | Description                                                                    |
 | --------- | ----------------- | ------------------------------------------------------------------------------ |
 | is\_valid | bool              | Whether input string is a valid coin address.                                  |
 | reason    | string (optional) | Only present if not valid. The reason why input string is not a valid address. |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="validateaddress" mm2MethodDecorate="true">
+<CodeGroup title="validateaddress" tag="POST" label="validateaddress" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -41,9 +41,9 @@ The `validateaddress` method checks if an input string is a valid address of the
 
   ```json
   {
-    "result": {
-      "is_valid": true
-    }
+      "result": {
+          "is_valid": true
+      }
   }
   ```
 
@@ -51,10 +51,10 @@ The `validateaddress` method checks if an input string is a valid address of the
 
   ```json
   {
-    "result": {
-      "is_valid": false,
-      "reason": "utxo:415] Checksum verification failed"
-    }
+      "result": {
+          "is_valid": false,
+          "reason": "utxo:415] Checksum verification failed"
+      }
   }
   ```
 
@@ -62,10 +62,10 @@ The `validateaddress` method checks if an input string is a valid address of the
 
   ```json
   {
-    "result": {
-      "is_valid": false,
-      "reason": "eth:360] eth:2522] Invalid address checksum"
-    }
+      "result": {
+          "is_valid": false,
+          "reason": "eth:360] eth:2522] Invalid address checksum"
+      }
   }
   ```
 </CollapsibleSection>

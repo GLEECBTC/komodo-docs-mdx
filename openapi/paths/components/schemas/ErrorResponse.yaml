@@ -1,0 +1,20 @@
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A human-readable error message.
+        error_path:
+          type: string
+          description: The path in the code where the error occurred.
+        error_trace:
+          type: string
+          description: A stack trace of the error.
+        error_type:
+          type: string
+          description: The type of the error.
+        error_data:
+          type: object
+          description: Additional data related to the error.

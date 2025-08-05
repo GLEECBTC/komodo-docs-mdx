@@ -1,0 +1,37 @@
+{
+    "activation": {
+        "name": "Coin & Token Activation",
+        "description": "Methods for activating coins, tokens, and blockchain protocols",
+        "patterns": ["enable", "activation", "task::enable"]
+    },
+    "lightning": {
+        "name": "Lightning Network",
+        "description": "Lightning Network channel and payment management",
+        "patterns": ["lightning::", "task::enable_lightning"]
+    },
+    "trading": {
+        "name": "Trading & Orders",
+        "description": "Order placement, trading, and market operations",
+        "patterns": ["buy", "sell", "setprice", "cancel_order", "orderbook", "trade", "swap", "best_orders"]
+    },
+    "wallet": {
+        "name": "Wallet Management",
+        "description": "Wallet operations, balances, and transaction management",
+        "patterns": ["balance", "withdraw", "my_tx_history", "get_wallet", "get_public_key"]
+    },
+    "streaming": {
+        "name": "Real-time Streaming",
+        "description": "WebSocket streaming endpoints for real-time data",
+        "patterns": ["stream::"]
+    },
+    "tasks": {
+        "name": "Task Management",
+        "description": "Asynchronous task operations and status monitoring",
+        "patterns": ["task::", "init", "status", "cancel", "user_action"]
+    },
+    "utility": {
+        "name": "Utility & Information",
+        "description": "General utility methods and system information",
+        "patterns": ["version", "metrics", "get_", "convert", "sign_", "verify_"]
+    }
+} 

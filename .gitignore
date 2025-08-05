@@ -38,5 +38,13 @@ Thumbs.db
 filepathSlugs.json
 links-to-manually-check
 .env
+.venv/
+backups/
+utils/py/data/reports/
+utils/py/data/cache/
+utils/py/data/category_mappings.json
+utils/py/data/komodo-defi-framework/
+
+reports/undocumented_enums_for_review.txt
 MM2.json
 utils/docker/kdf-config/coins

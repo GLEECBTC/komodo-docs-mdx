@@ -1,47 +1,50 @@
 export const title = "Komodo DeFi Framework Method: Withdraw";
 export const description = "The withdraw method generates, signs, and returns a transaction that transfers the amount of coin to the address indicated in the to argument.";
 
-# withdraw
+# Withdraw Coins
+
+## withdraw {{label : 'withdraw', tag : 'API-v2'}}
 
 The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.
 
 This method generates a raw transaction which should then be broadcast using [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
 
-## Arguments
+### Request Parameters
 
-| Structure            | Type             | Description                                                                                                                                                                                                                                     |
-| -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
-| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                            |
-| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
-| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                             |
-| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                |
-| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                           |
-| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
-| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
-| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
+| Parameter            | Type             | Required | Default | Description                                                                                                                                                                                                                                     |
+| -------------------- | ---------------- | :------: | :-----: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                 | string           |     ✓    |    -    | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
+| to                   | string           |     ✓    |    -    | Coins are withdrawn to this address.                                                                                                                                                                                                            |
+| amount               | string (numeric) |     ✗    |    -    | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
+| fee                  | object           |     ✗    |    -    | A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                                     |
+| from                 | object           |     ✗    |    -    | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
+| ibc\_source\_channel | integer          |     ✗    |    -    | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
+| max                  | bool             |     ✗    | `false` | Withdraw the maximum available amount.                                                                                                                                                                                                          |
+| memo                 | string           |     ✗    |    -    | Adds a transaction memo for compatible coins (e.g., Tendermint ecosystem).                                                                                                                                                                      |
+| broadcast            | bool             |     ✗    | `false` | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
 
-### Response
+### Response Parameters
 
-| Structure                    | Type                       | Description                                                                                                                                                                                             |
-| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
-| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
-| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
-| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
-| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
-| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                   |
-| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                      |
-| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                   |
-| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                  |
-| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                         |
-| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
-| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                           |
-| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                  |
+| Parameter                    | Type                       | Description                                                                                                                                                                                              |
+| ---------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                         | string                     | The name of the coin the user wants to withdraw.                                                                                                                                                         |
+| fee\_details                 | object                     | The fee details of the generated transaction; this value differs for UTXO and ETH/ERC20 coins. Check the examples for more details.                                                                      |
+| from                         | array of strings           | Coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins).                                                            |
+| kmd\_rewards                 | object (optional)          | An object containing information about accrued rewards; always exists if the coin is `KMD`.                                                                                                              |
+| kmd\_rewards.amount          | string (numeric, optional) | The amount of accrued rewards.                                                                                                                                                                           |
+| kmd\_rewards.claimed\_by\_me | bool (optional)            | Whether the rewards have been claimed by me.                                                                                                                                                             |
+| my\_balance\_change          | string (numeric)           | The expected balance change in `my_address` after the transaction broadcasts.                                                                                                                            |
+| received\_by\_me             | string (numeric)           | The amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address`. |
+| spent\_by\_me                | string (numeric)           | The amount of coins spent by `my_address`; this value may differ from the request amount, as the transaction fee is added here.                                                                          |
+| to                           | array of strings           | Coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent.                                                                                    |
+| total\_amount                | string (numeric)           | The total amount of coins transferred.                                                                                                                                                                   |
+| tx\_hash                     | string                     | The hash of the generated transaction.                                                                                                                                                                   |
+| tx\_hex                      | string                     | Transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Not used for Sia protocol coins.                 |
+| tx\_json                     | object                     | For Sia protocol coins only. The transaction details in JSON format. Use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).                      |
 
-### 📌 Examples
+#### 📌 Examples
 
-#### Withdraw BTC, KMD, and other BTC-based forks
+##### UTXO Coin Withdraw Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -59,8 +62,8 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (KMD success)
+<CollapsibleSection expandedText="Hide UTXO Coin Withdraw Response" collapsedText="Show UTXO Coin Withdraw Response">
+  ##### UTXO Coin Withdraw Response
 
   ```json
   {
@@ -99,7 +102,7 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CollapsibleSection>
 
-#### HD Withdraw with derivation\_path
+##### HD Withdraw with Derivation Path Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -120,15 +123,15 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (KMD success)
+<CollapsibleSection expandedText="Hide HD Withdraw with Derivation Path Response" collapsedText="Show HD Withdraw with Derivation Path Response">
+  ##### HD Withdraw with Derivation Path Response
 
   ```json
   # TODO: Add response
   ```
 </CollapsibleSection>
 
-#### HD Withdraw with `account_id`, `chain` and `address_id`
+##### HD Withdraw with Account ID Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -151,15 +154,15 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (KMD success)
+<CollapsibleSection expandedText="Hide HD Withdraw with Account ID Response" collapsedText="Show HD Withdraw with Account ID Response">
+  ##### HD Withdraw with Account ID Response
 
   ```json
   # TODO: Add response
   ```
 </CollapsibleSection>
 
-#### Withdraw BTC, KMD, and other BTC-based forks, fixed fee
+#### UTXO Fixed Fee Withdraw Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -181,14 +184,14 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<CollapsibleSection expandedText="Hide UTXO Fixed Fee Withdraw Response" collapsedText="Show UTXO Fixed Fee Withdraw Response">
+  ##### UTXO Fixed Fee Withdraw Response
 
   ```json
   {
     "mmrpc": "2.0",
     "result": {
-      "tx_hex": "0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
+      "tx_hex": "0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d000000000000000000000000000000",
       "tx_hash": "1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
       "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
       "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
@@ -211,7 +214,7 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CollapsibleSection>
 
-#### Withdraw BTC, KMD, and other BTC-based forks, 1 coin per Kbyte fee
+##### UTXO Per Kbyte Fee Withdraw Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -233,8 +236,8 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<CollapsibleSection expandedText="Hide UTXO Per Kbyte Fee Withdraw Response" collapsedText="Show UTXO Per Kbyte Fee Withdraw Response">
+  ##### UTXO Per Kbyte Fee Withdraw Response
 
   ```json
   {
@@ -281,8 +284,8 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<CollapsibleSection expandedText="Hide ETH Coin Withdraw Response" collapsedText="Show ETH Coin Withdraw Response">
+  ##### ETH Coin Withdraw Response
 
   ```json
   {
@@ -311,7 +314,7 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CollapsibleSection>
 
-#### ETH/ERC20 and other ETH-based forks, with gas fee
+##### ETH with Custom Gas Fee Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -334,8 +337,8 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<CollapsibleSection expandedText="Hide ETH with Custom Gas Fee Response" collapsedText="Show ETH with Custom Gas Fee Response">
+  ##### ETH with Custom Gas Fee Response
 
   ```json
   {
@@ -366,7 +369,7 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CollapsibleSection>
 
-#### Withdraw maximum
+##### Maximum Withdraw Request
 
 <CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
   ```json
@@ -384,8 +387,8 @@ This method generates a raw transaction which should then be broadcast using [se
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ##### Response (success)
+<CollapsibleSection expandedText="Hide Maximum Withdraw Response" collapsedText="Show Maximum Withdraw Response">
+  ##### Maximum Withdraw Response
 
   ```json
   {
@@ -603,8 +606,8 @@ As a result, when submitting a withdrawal via metamask it will be rejected unles
     "result": {
       "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
       "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
-      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
-      "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahjaswsac8"],
+      "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4"],
       "total_amount": "13.038553",
       "spent_by_me": "13.038553",
       "received_by_me": "13",
@@ -697,46 +700,65 @@ Using the Cosmos [Ecosystem IBC protocol](https://everstake.one/blog/cosmos-ibc-
   You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
 </CollapsibleSection>
 
-### Error Responses
+### Error Types
 
-#### InvalidRequest: Unknown fee type
+| Parameter        | Type   | Description                                                  |
+| ---------------- | ------ | ------------------------------------------------------------ |
+| InvalidAmount    | string | The specified amount is invalid or exceeds available balance |
+| InvalidAddress   | string | The specified address is invalid                             |
+| NoSuchCoin       | string | Coin does not exist or has not been activated                |
+| TransactionError | string | Error occurred during transaction creation or signing        |
 
-```json
-{
-    "mmrpc": "2.0",
-    "error": "Error parsing request: unknown variant `Tendermint`, expected one of `UtxoFixed`, `UtxoPerKbyte`, `EthGas`, `Qrc20Gas`, `CosmosGas`",
-    "error_path": "dispatcher",
-    "error_trace": "dispatcher:109]",
-    "error_type": "InvalidRequest",
-    "error_data": "unknown variant `Tendermint`, expected one of `UtxoFixed`, `UtxoPerKbyte`, `EthGas`, `Qrc20Gas`, `CosmosGas`",
-    "id": 0
-}
-```
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Invalid Amount)
 
-#### InvalidRequest: wrong parameter type
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Invalid amount: exceeds available balance",
+      "error_path": "withdraw",
+      "error_trace": "withdraw:456]",
+      "error_type": "InvalidAmount",
+      "error_data": "exceeds available balance"
+  }
+  ```
 
-```json
-{
-    "mmrpc": "2.0",
-    "error": "Error parsing request: invalid type: string \"0.1\", expected f64",
-    "error_path": "dispatcher",
-    "error_trace": "dispatcher:109]",
-    "error_type": "InvalidRequest",
-    "error_data": "invalid type: string \"0.1\", expected f64",
-    "id": 0
-}
-```
+  ##### Error (Invalid Address)
 
-#### InvalidFeePolicy: attempt to use EthGas for UTXO coin
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Invalid address: address format is incorrect",
+      "error_path": "withdraw",
+      "error_trace": "withdraw:789]",
+      "error_type": "InvalidAddress",
+      "error_data": "address format is incorrect"
+  }
+  ```
 
-```json
-{
-  "mmrpc": "2.0",
-  "error": "Invalid fee policy: Expected 'UtxoFixed' or 'UtxoPerKbyte' fee types, found EthGas",
-  "error_path": "utxo_common",
-  "error_trace": "utxo_common:1371]",
-  "error_type": "InvalidFeePolicy",
-  "error_data": "Expected 'UtxoFixed' or 'UtxoPerKbyte' fee types, found EthGas",
-  "id": 0
-}
-```
+  ##### Error (No Such Coin)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Coin does not exist or has not been activated",
+      "error_path": "coin_activation",
+      "error_trace": "coin_activation:1234]",
+      "error_type": "NoSuchCoin",
+      "error_data": "Coin does not exist or has not been activated"
+  }
+  ```
+
+  ##### Error (Transaction Error)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Transaction error: failed to create or sign transaction",
+      "error_path": "transaction",
+      "error_trace": "transaction:5678]",
+      "error_type": "TransactionError",
+      "error_data": "failed to create or sign transaction"
+  }
+  ```
+</CollapsibleSection>

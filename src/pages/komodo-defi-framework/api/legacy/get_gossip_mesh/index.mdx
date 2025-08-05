@@ -1,29 +1,29 @@
 export const title = "Komodo DeFi Framework Method: Get Gossip Mesh";
 export const description = "The get_gossip_mesh method returns an array of peerIDs added to a topics' mesh for each known gossipsub topic.";
 
-# get\_gossip\_mesh
+# Get Gossip Mesh
 
-**get\_gossip\_mesh**
+## get\_gossip\_mesh {{label : 'get_gossip_mesh', tag : 'API-v1'}}
 
 The `get_gossip_mesh` method returns an array of peerIDs added to a topics' mesh for each known gossipsub topic.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Parameter | Type | Required | Description                               |
+| --------- | ---- | :------: | ----------------------------------------- |
+| (none)    |      |     -    | This method does not take any parameters. |
 
-#### Response
+### Response parameters
 
-| Structure        | Type  | Description                                                      |
+| Parameter        | Type  | Description                                                      |
 | ---------------- | ----- | ---------------------------------------------------------------- |
-| Topic-PeerID map | Array | PeerIDs added to a topics' mesh (for each known gossipsub topic) |
+| Topic-PeerID map | array | PeerIDs added to a topics' mesh (for each known gossipsub topic) |
 
-#### 📌 Examples
+#### 📌 Example
 
-#### Command
+#### Request
 
-<CodeGroup title="" tag="POST" label="get_gossip_mesh" mm2MethodDecorate="true">
+<CodeGroup title="get_gossip_mesh" tag="POST" label="get_gossip_mesh" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,11 +33,19 @@ The `get_gossip_mesh` method returns an array of peerIDs added to a topics' mesh
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  #### Response
 
   ```json
   {
-    "result": {}
+      "result": {}
   }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Response" collapsedText="Show Error Response">
+  #### Error response
+
+  ```json
+  { "error": "No mesh topics found" }
   ```
 </CollapsibleSection>

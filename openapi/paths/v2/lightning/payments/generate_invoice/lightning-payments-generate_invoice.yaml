@@ -1,0 +1,65 @@
+/lightning::payments::generate_invoice:
+  post:
+    summary: Generate a Lightning Network invoice using the Komodo DeFi Framework
+      API.
+    description: Generate a Lightning Network invoice using the Komodo DeFi Framework
+      API.
+    operationId: lightning::payments::generate_invoice
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::payments::generate_invoice
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The ticker of the coin for the invoice.
+                  amount:
+                    type: string
+                    description: Amount to receive (in satoshis or msats).
+                  description:
+                    type: string
+                    description: Invoice description.
+                  expiry:
+                    type: integer
+                    description: Invoice expiry time in seconds.
+                required:
+                - coin
+                - amount
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              invoice:
+                type: string
+                description: The generated Lightning invoice.
+              id:
+                type: integer
+                description: Request identifier.
+          example: {}

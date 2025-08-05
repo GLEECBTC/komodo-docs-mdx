@@ -1,0 +1,47 @@
+/ban_pubkey:
+  post:
+    summary: The ban_pubkey method bans the selected pubkey ignoring its order matching
+      messages and preventing its orders from displaying in the orderbook.
+    description: The ban_pubkey method bans the selected pubkey ignoring its order
+      matching messages and preventing its orders from displaying in the orderbook.
+    operationId: ban_pubkey
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - ban_pubkey
+              pubkey:
+                type: string
+                description: The pubkey to ban
+              reason:
+                type: string
+                description: The reason for banning
+              duration_min:
+                type: integer
+                description: Optional. Minutes to apply the ban. If not set, ban will
+                  persist until kdf is restarted.
+            required:
+            - userpass
+            - method
+            - pubkey
+            - reason
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

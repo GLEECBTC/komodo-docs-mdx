@@ -1,0 +1,16 @@
+components:
+  schemas:
+    ActivationMode:
+      type: object
+      properties:
+        rpc:
+          type: string
+          description: '`Native` if running a native blockchain node, `Electrum` if
+            using electrum servers or `Light` for ZHTLC coins.'
+          default: '`-`'
+        rpc_data:
+          description: '`Electrum` or `Light` mode only. A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data)
+            object.'
+          $ref: '#/components/schemas/ActivationRpcData'
+      required:
+      - rpc

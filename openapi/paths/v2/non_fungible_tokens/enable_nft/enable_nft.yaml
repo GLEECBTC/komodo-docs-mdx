@@ -1,0 +1,56 @@
+/enable_nft:
+  post:
+    summary: The enable_nft method activates NFT-like tokens on the platform if the
+      NFT network was already activated, but without the nft_req parameter.
+    description: The enable_nft method activates NFT-like tokens on the platform if
+      the NFT network was already activated, but without the nft_req parameter.
+    operationId: enable_nft
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - enable_nft
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  ticker:
+                    description: The ticker of the NFT network, with `NFT_` as a prefix.
+                      See [NftNetworkEnum](/komodo-defi-framework/api/common_structures/enums/#nft-network-enum)
+                      for allowed values.
+                    $ref: ../../components/schemas/NftNetworkEnum.yaml
+                  activation_params:
+                    description: A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider)
+                      object.
+                    $ref: ../../components/schemas/NftProvider.yaml
+                required:
+                - ticker
+                - activation_params
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+          example: {}

@@ -1,0 +1,28 @@
+components:
+  schemas:
+    ConfirmationTargets:
+      type: object
+      properties:
+        background:
+          type: integer
+          description: Used for transactions that can tolerate slower confirmation
+            times when the transaction fee rate decreases. These transactions are
+            not time-sensitive and can afford to wait longer for confirmation. The
+            recommended range is `12` to `144` blocks to ensure a low `feerate`.
+        normal:
+          type: integer
+          description: Used for transactions that we want to confirm promptly, without
+            significant delay (e.g, transactions for opening payment channels). These
+            transactions are important but not critical. Suggested value is `6` blocks
+            to ensure a moderate `feerate`.
+        high_priority:
+          type: integer
+          description: Used for transactions that require quick confirmation to prevent
+            potential loss of funds (e.g. redeeming a Hashed Time Lock Contract (HTLC)
+            on the blockchain before it times out). These transactions are time-critical
+            and must be confirmed promptly to ensure the security of funds. Recommended
+            value for `high_priority` is 1-2 blocks to ensure a high `feerate`.
+      required:
+      - background
+      - high_priority
+      - normal

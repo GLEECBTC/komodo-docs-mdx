@@ -1,0 +1,54 @@
+/task::connect_metamask::init:
+  post:
+    summary: Begin a task-managed process that initialises and authenticates MetaMask
+      with the Komodo DeFi Framework node.
+    description: Begin a task-managed process that initialises and authenticates MetaMask
+      with the Komodo DeFi Framework node.
+    operationId: task::connect_metamask::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::connect_metamask::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  project:
+                    type: string
+                    description: A short, human-readable identifier for the DApp or
+                      integration requesting the context.
+                required:
+                - project
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number that is used to query task status
+                  or to cancel it
+          example: {}

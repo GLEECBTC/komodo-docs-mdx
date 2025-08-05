@@ -1,0 +1,60 @@
+/lightning::nodes::connect_to_node:
+  post:
+    summary: Connect to a Lightning node using the Komodo DeFi Framework API.
+    description: Connect to a Lightning node using the Komodo DeFi Framework API.
+    operationId: lightning::nodes::connect_to_node
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - lightning::nodes::connect_to_node
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  coin:
+                    type: string
+                    description: The coin ticker you would like to connect to a node
+                      on.
+                  node_address:
+                    type: string
+                    description: Lightning node addresses always have a format of
+                      `node_pubkey`@`ip_address`:`port`.
+                required:
+                - coin
+                - node_address
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Connection result message (e.g., success, already connected,
+                  etc.)
+              id:
+                type: integer
+                description: Request identifier, or null.
+          example: {}

@@ -1,0 +1,57 @@
+/gui_storage::set_account_balance:
+  post:
+    summary: Update the stored USD balance value for a specific GUI-storage account
+      (does not affect on-chain funds).
+    description: Update the stored USD balance value for a specific GUI-storage account
+      (does not affect on-chain funds).
+    operationId: gui_storage::set_account_balance
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - gui_storage::set_account_balance
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                    description: Account to update.
+                  balance_usd:
+                    type: string
+                    description: New balance expressed in US dollars. Accepts decimal
+                      strings (e.g., `123.45`).
+                required:
+                - account_id
+                - balance_usd
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Returns `success` when the balance has been stored.
+          example: {}

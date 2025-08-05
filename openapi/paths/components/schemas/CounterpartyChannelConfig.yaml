@@ -1,0 +1,59 @@
+components:
+  schemas:
+    CounterpartyChannelConfig:
+      type: object
+      properties:
+        allow_outbound_0conf:
+          type: boolean
+          description: When setting an outbound channel, it can be used straight away
+            [without waiting](https://docs.rs/lightning/latest/lightning/util/config/struct.ChannelHandshakeLimits.html#structfield.trust_own_funding_0conf)
+            for any on-chain confirmations.
+          default: '`true`'
+        force_announced_channel_preference:
+          type: boolean
+          description: Set to force an incoming channel to match our announced channel
+            preference in ChannelOptions announced\_channel.
+          default: '`true`'
+        outbound_channels_confirmations:
+          type: integer
+          description: Confirmations we will wait for before considering an inbound
+            channel locked in.
+          default: '`144`'
+        our_locktime_limit:
+          type: boolean
+          description: Set to the amount of blocks we're willing to wait to claim
+            money back to us.
+          default: '`2016`'
+        min_funding_sats:
+          type: boolean
+          description: Minimum allowed satoshis when an inbound channel is funded.
+          default: '`0`'
+        max_funding_sats:
+          type: boolean
+          description: Maximum allowed satoshis when an inbound channel is funded.
+          default: '`16777215`'
+        max_htlc_minimum_msat:
+          type: boolean
+          description: The remote node sets a limit on the minimum size of HTLCs we
+            can send to them. This allows us to limit the maximum minimum-size they
+            can require.
+          default: '`18446744073709551615`'
+        min_max_htlc_value_in_flight_msat:
+          type: boolean
+          description: The remote node sets a limit on the maximum value of pending
+            HTLCs to them at any given time to limit their funds exposure to [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract).
+            This allows us to set a minimum such value.
+          default: '`0`'
+        max_channel_reserve_sats:
+          type: boolean
+          description: The remote node will require us to keep a certain amount in
+            direct payment to ourselves at all time, ensuring that we are able to
+            be punished if we broadcast an old state. This allows us to limit the
+            amount which we will have to keep to ourselves (and cannot use for [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract)).
+          default: '`18446744073709551615`'
+        min_max_accepted_htlcs:
+          type: boolean
+          description: The remote node sets a limit on the maximum number of pending
+            HTLCs to them at any given time. This allows us to set a minimum such
+            value.
+          default: '`0`'

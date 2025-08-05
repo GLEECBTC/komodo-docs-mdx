@@ -1,0 +1,107 @@
+/task::enable_eth::init:
+  post:
+    summary: Task managed activation of ETH and EVM tokens.
+    description: Task managed activation of ETH and EVM tokens.
+    operationId: task::enable_eth::init
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::enable_eth::init
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    description: One or more RPC nodes used to communicate with the
+                      Ethereum network. Each object must include a `url` (string)
+                      and may include `komodo_proxy` (boolean).
+                  swap_contract_address:
+                    type: string
+                    description: Address of the Komodo atomic-swap smart-contract
+                      deployed on the target chain.
+                  ticker:
+                    type: string
+                    description: Ticker of the ETH-based platform coin you want to
+                      enable.
+                  contract_supports_watchers:
+                    type: boolean
+                    description: Set to `true` if the deployed swap contract supports
+                      watcher extensions.
+                    default: false
+                  erc20_tokens_requests:
+                    type: array
+                    description: Token activation requests to execute along with the
+                      platform coin.
+                  fallback_swap_contract:
+                    type: string
+                    description: Optional fallback contract address used when the
+                      primary `swap_contract_address` fails.
+                  gap_limit:
+                    type: integer
+                    description: HD-wallet gap-limit to use when scanning for used
+                      addresses.
+                    default: 20
+                  get_balances:
+                    type: boolean
+                    description: When `false`, balances are not queried after activation,
+                      making the call return faster.
+                    default: true
+                  path_to_address:
+                    type: object
+                    description: Explicit HD path of the address to use for swaps.
+                      Applies only to HD wallets.
+                  priv_key_policy:
+                    type: object
+                    description: Determines where the private key comes from.
+                    default: '{ "type": "ContextPrivKey" }'
+                  required_confirmations:
+                    type: integer
+                    description: Number of block confirmations to wait for critical
+                      swap steps.
+                    default: 3
+                  rpc_mode:
+                    type: string
+                    description: Set to `"Metamask"` when activating through MetaMask
+                      (web only).
+                    default: '"Default"'
+                  swap_v2_contracts:
+                    type: object
+                    description: 'Advanced: addresses of maker-, taker- and NFT-swap
+                      V2 contracts, if they differ from the defaults.'
+                required:
+                - nodes
+                - swap_contract_address
+                - ticker
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              task_id:
+                type: integer
+                description: An identifying number which is used to query task status.
+          example: {}

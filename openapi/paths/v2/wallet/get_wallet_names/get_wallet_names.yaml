@@ -1,0 +1,53 @@
+/get_wallet_names:
+  post:
+    summary: The get_wallet_names method returns a list of wallet names for a user
+    description: The get_wallet_names method returns a list of wallet names for a
+      user
+    operationId: get_wallet_names
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - get_wallet_names
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  '*None*':
+                    type: string
+                    description: '*This method has no parameters.*'
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              activated_wallet:
+                type: string
+                description: Name of the currently active wallet. If not yet logged
+                  in, returns `null`.
+              wallet_names:
+                type: string
+                description: Names of wallets stored on a user's device.
+          example: {}

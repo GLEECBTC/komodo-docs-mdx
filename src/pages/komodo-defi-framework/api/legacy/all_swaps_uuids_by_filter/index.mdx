@@ -1,31 +1,32 @@
 export const title = "Komodo DeFi Framework Method: All Swaps UUIDs by Filter";
 export const description = "The all_swaps_uuids_by_filter method returns all uuids of swaps that match the selected filters.";
 
-# all\_swaps\_uuids\_by\_filter
+# All Swaps UUIDs by Filter
 
-**all\_swaps\_uuids\_by\_filter (my\_coin other\_coin from\_timestamp to\_timestamp)**
+## all\_swaps\_uuids\_by\_filter {{label : 'all_swaps_uuids_by_filter', tag : 'API-v1'}}
 
-The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the selected filters. Please note that all filters (my\_coin, from\_timestamp, etc.) are combined using logical AND.
+The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the selected filters. All filters (my\_coin, from\_timestamp, etc.) are combined using logical AND.
 
-## Arguments
+### Request Parameters
 
-| Structure       | Type                          | Description                                                                            |
-| --------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
-| my\_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition            |
-| other\_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition      |
-| from\_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
-| to\_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition    |
+| Parameter       | Type                          | Required | Description                                                                            |
+| --------------- | ----------------------------- | :------: | -------------------------------------------------------------------------------------- |
+| from\_timestamp | number (timestamp in seconds) |     ✗    | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
+| my\_coin        | string                        |     ✗    | return only swaps that match the `swap.my_coin = request.my_coin` condition            |
+| other\_coin     | string                        |     ✗    | return only swaps that match the `swap.other_coin = request.other_coin` condition      |
+| to\_timestamp   | number (timestamp in seconds) |     ✗    | return only swaps that match the `swap.started_at < request.to_timestamp` condition    |
 
-## Response
+### Response Parameters
 
-| Structure       | Type             | Description                                    |
+| Parameter       | Type             | Description                                    |
 | --------------- | ---------------- | ---------------------------------------------- |
-| uuids           | array of strings | uuids of swaps that match the selected filters |
+| found\_records  | number           | the number of found uuids                      |
+| from\_timestamp | number           | from\_timestamp that was set in request        |
 | my\_coin        | string           | my\_coin that was set in request               |
 | other\_coin     | string           | other\_coin that was set in request            |
-| from\_timestamp | number           | from\_timestamp that was set in request        |
-| to\_timestamp   | number           | to\_timestamp that was set in request          |
 | records\_found  | number           | the number of found uuids                      |
+| to\_timestamp   | number           | to\_timestamp that was set in request          |
+| uuids           | array of strings | uuids of swaps that match the selected filters |
 
 #### 📌 Examples
 
@@ -74,19 +75,19 @@ The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the
 
   ```json
   {
-    "result": {
-      "uuids": [
-        "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
-        "7592a07a-2805-4050-8ab8-984480e812f0",
-        "82cbad96-ea9f-40fb-9225-07496323e35d",
-        "177f7fa5-c9f3-4673-a2fa-28451a123e61"
-      ],
-      "my_coin": "MARTY",
-      "other_coin": null,
-      "from_timestamp": null,
-      "to_timestamp": null,
-      "found_records": 4
-    }
+      "result": {
+          "uuids": [
+              "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+              "7592a07a-2805-4050-8ab8-984480e812f0",
+              "82cbad96-ea9f-40fb-9225-07496323e35d",
+              "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+          ],
+          "my_coin": "MARTY",
+          "other_coin": null,
+          "from_timestamp": null,
+          "to_timestamp": null,
+          "found_records": 4
+      }
   }
   ```
 </CollapsibleSection>

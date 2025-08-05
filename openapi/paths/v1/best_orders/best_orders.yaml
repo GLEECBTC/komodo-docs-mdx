@@ -1,0 +1,52 @@
+/best_orders:
+  post:
+    summary: The best_orders method returns the best price orders that can fill the
+      volume for all existing pairs with the selected coin.
+    description: The best_orders method returns the best price orders that can fill
+      the volume for all existing pairs with the selected coin.
+    operationId: best_orders
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - best_orders
+              action:
+                description: A standard [ActionEnum](/komodo-defi-framework/api/common_structures/enums/#action-enum)
+                  enum. Whether to `buy` or `sell` the selected coin
+                $ref: ../../components/schemas/ActionEnum.yaml
+              coin:
+                type: string
+                description: The ticker of the coin to get best orders
+              volume:
+                type: string
+                description: The amount of `coin` user is willing to buy or sell
+            required:
+            - userpass
+            - method
+            - action
+            - coin
+            - volume
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: A map of standard [OrderDataV1](/komodo-defi-framework/api/common_structures/orders/#order-data-v1)
+                  objects (by ticker)
+                $ref: ../../components/schemas/OrderDataV1.yaml
+          example: {}

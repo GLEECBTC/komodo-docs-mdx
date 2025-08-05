@@ -1,0 +1,64 @@
+/task::create_new_account::status:
+  post:
+    summary: Query the status of a HD account creation task in the Komodo DeFi Framework
+      API.
+    description: Query the status of a HD account creation task in the Komodo DeFi
+      Framework API.
+    operationId: task::create_new_account::status
+    tags:
+    - default
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userpass:
+                type: string
+                description: User password for authentication.
+                example: RPC_UserP@SSW0RD
+              method:
+                type: string
+                description: Name of the method to be called.
+                enum:
+                - task::create_new_account::status
+              mmrpc:
+                type: string
+                description: The version of the Komodo DeFi SDK RPC protocol. Must
+                  be exactly '2.0'
+                example: '2.0'
+              params:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    description: The identifying number returned when initiating the
+                      task.
+                    default: '-'
+                  forget_if_finished:
+                    type: boolean
+                    description: If `false`, will return final response for completed
+                      tasks.
+                    default: true
+                required:
+                - task_id
+            required:
+            - userpass
+            - method
+            - mmrpc
+    responses:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Status of the task. `Ok`, `InProgress` or `Error`.
+              details:
+                description: If in progress, either `Preparing` or `RequestingAccountBalance`.
+                  Once complete, a standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info)
+                  object.
+                $ref: ../../components/schemas/WalletAccountInfo.yaml
+          example: {}
