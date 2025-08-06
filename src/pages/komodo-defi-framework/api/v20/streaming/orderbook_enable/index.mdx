@@ -1,27 +1,28 @@
-export const title = "Komodo DeFi Framework Method: Enable Orderbook Streaming";
+export const title = "Komodo DeFi Framework Method: Orderbook Streaming";
 export const description = "Using this method, you can enable the orderbook stream for a given pair.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# orderbook\_enable
+# Orderbook Streaming
+
+## stream::orderbook::enable {{label : 'stream::orderbook::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the orderbook stream for a given pair.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| base       | string  | Base currency of a pair                                                                                                          |
-| rel        | string  | Related currency, also known as the "quote currency"                                                                             |
+<CompactTable source="streaming.OrderbookEnableRequestParameters" />
 
 <Note>
   For this method, `base` and `rel` are essentially interchangeable, and inverting the base coin and rel coin in a request will return the same data.
 </Note>
 
-### 📌 Examples
+### Response Parameters
 
-#### Request
+<CompactTable source="streaming.OrderbookEnableResponseParameters" />
 
-<CodeGroup title="" tag="POST" label="orderbook_enable" mm2MethodDecorate="true">
+#### 📌 Examples
+
+<CodeGroup title="Enable Orderbook Streaming" tag="POST" label="stream::orderbook::enable" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -36,9 +37,7 @@ Using this method, you can enable the orderbook stream for a given pair.
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
+<CollapsibleSection expandedText="Hide Enable Orderbook Streaming Response" collapsedText="Show Enable Orderbook Streaming Response">
   ```json
   {
     "mmrpc": "2.0",
@@ -54,8 +53,12 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"ORDERBOOK_UPDATE/orbk/KMD:MATIC","message":{"order_type":"NewOrUpdatedItem","order_data":{"pubkey":"026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245","base":"MATIC","rel":"KMD","price":[[1,[4249903049,3]],[1,[1410065408,2]]],"max_volume":[[1,[1477927621,23427]],[1,[1783793664,116]]],"min_volume":[[1,[1223297773,7148]],[1,[552894464,46566]]],"uuid":"b18bb3ab-8476-4a06-9cf6-9744e1bf6442","created_at":1746432644}}} `
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### UnknownClient
+### Error Types
+
+<CompactTable source="streaming.OrderbookEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Unknown Client)
 
   No client has an open connection using this `client_id`.
 
@@ -71,7 +74,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### ClientAlreadyListening
+  ##### Error (Client Already Listening)
 
   The requested events are already being sent to the `client_id`.
 
@@ -87,3 +90,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 </CollapsibleSection>
+
+Here is an example of the stream data you should be able to see in [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) for each orderbook updated event:
+
+`data: {"_type":"ORDERBOOK_UPDATE/orbk/KMD:MATIC","message":{"order_type":"NewOrUpdatedItem","order_data":{"pubkey":"026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245","base":"MATIC","rel":"KMD","price":[[1,[4249903049,3]],[1,[1410065408,2]]],"max_volume":[[1,[1477927621,23427]],[1,[1783793664,116]]],"min_volume":[[1,[1223297773,7148]],[1,[552894464,46566]]],"uuid":"b18bb3ab-8476-4a06-9cf6-9744e1bf6442","created_at":1746432644}}} `

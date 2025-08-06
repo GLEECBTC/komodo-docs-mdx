@@ -1,0 +1,426 @@
+{
+  "BalanceEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin to activate streaming for. The coin must be activated first."
+      },
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)"
+      },
+      {
+        "parameter": "config",
+        "type": "object",
+        "required": false,
+        "description": "EVM only. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+      }
+    ]
+  },
+  "BalanceEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "BalanceEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "CoinNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin was not found or is not activated yet"
+      },
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      },
+      {
+        "parameter": "EnableError",
+        "type": "string",
+        "required": false,
+        "description": "The config object is not used in non-EVM coins or other configuration errors"
+      }
+    ]
+  },
+  "DisableRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": true,
+        "description": "This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))"
+      },
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": true,
+        "description": "An identifier for the data stream to disable."
+      }
+    ]
+  },
+  "DisableResponseParameters": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": false,
+        "description": "Success message confirming the stream was disabled"
+      }
+    ]
+  },
+  "DisableErrorTypes": {
+    "data": [
+      {
+        "parameter": "StreamerNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified streamer_id was not found"
+      },
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      }
+    ]
+  },
+  "FeeEstimatorRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": true,
+        "description": "This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))"
+      },
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin or token to enable the fee estimation stream for."
+      }
+    ]
+  },
+  "FeeEstimatorResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "FeeEstimatorErrorTypes": {
+    "data": [
+      {
+        "parameter": "CoinNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin was not found or is not activated yet"
+      },
+      {
+        "parameter": "CoinNotSupported",
+        "type": "string",
+        "required": false,
+        "description": "Currently only EVM coins/tokens support fee estimation"
+      },
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Error parsing request or invalid configuration parameters"
+      }
+    ]
+  },
+  "HeartbeatEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)."
+      },
+      {
+        "parameter": "config",
+        "type": "object",
+        "required": false,
+        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+      }
+    ]
+  },
+  "HeartbeatEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "HeartbeatEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      }
+    ]
+  },
+  "NetworkEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)"
+      },
+      {
+        "parameter": "config",
+        "type": "object",
+        "required": false,
+        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+      }
+    ]
+  },
+  "NetworkEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "NetworkEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      }
+    ]
+  },
+  "OrderStatusEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": true,
+        "description": "This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))"
+      }
+    ]
+  },
+  "OrderStatusEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "OrderStatusEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      }
+    ]
+  },
+  "OrderbookEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "base",
+        "type": "string",
+        "required": true,
+        "description": "Base currency of a pair"
+      },
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": true,
+        "description": "This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))"
+      },
+      {
+        "parameter": "rel",
+        "type": "string",
+        "required": true,
+        "description": "Related currency, also known as the \"quote currency\""
+      }
+    ]
+  },
+  "OrderbookEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "OrderbookEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      }
+    ]
+  },
+  "SwapStatusEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": true,
+        "description": "This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1))"
+      }
+    ]
+  },
+  "SwapStatusEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "SwapStatusEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      }
+    ]
+  },
+  "TxHistoryEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin to activate streaming for. The coin must be activated first."
+      },
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)"
+      }
+    ]
+  },
+  "TxHistoryEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "TxHistoryEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "CoinNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin was not found or is not activated yet"
+      },
+      {
+        "parameter": "UnknownClient",
+        "type": "string",
+        "required": false,
+        "description": "No client has an open connection using this client_id"
+      },
+      {
+        "parameter": "ClientAlreadyListening",
+        "type": "string",
+        "required": false,
+        "description": "The requested events are already being sent to the client_id"
+      },
+      {
+        "parameter": "CoinNotSupported",
+        "type": "string",
+        "required": false,
+        "description": "The coin type is not supported for this stream"
+      }
+    ]
+  }
+}

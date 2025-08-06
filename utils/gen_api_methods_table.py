@@ -16,10 +16,10 @@ def slugify_for_api_table(text):
     return text.lower()
 
 def get_method_name(line):
-    if line.startswith("## ") and "label" in line:
-        return line.split('label')[1].split(':')[1].split(',')[0].replace("'", "").replace('"', "").strip()
-    elif 'CodeGroup' in line and "label" in line:
+    if 'CodeGroup' in line and "label" in line:
         return line.split('label="')[1].split('"')[0]
+    elif line.startswith("## ") and "label" in line:
+        return line.split('label')[1].split(':')[1].split(',')[0].replace("'", "").replace('"', "").strip()
     return ""
 
 def ignore_file(file):
