@@ -1,21 +1,24 @@
 export const title = "Komodo DeFi Framework Method: Update Version Stat Collection";
 export const description = "The update_version_stat_collection method updates the polling interval for version stats collection.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# update\_version\_stat\_collection
+# Update Version Stat Collection
+
+## update\_version\_stat\_collection {{label : 'update_version_stat_collection', tag : 'API-v2'}}
 
 The `update_version_stat_collection` method updates the polling interval for version stats collection. Note: the new interval will take effect after the current interval loop has completed.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type    | Description                                      |
-| --------- | ------- | ------------------------------------------------ |
-| interval  | integer | polling rate (in seconds) to query node versions |
+<CompactTable source="v2-utils.UpdateVersionStatCollectionRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2-utils.UpdateVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="update_version_stat_collection" mm2MethodDecorate="true">
+<CodeGroup title="Update Version Stat Collection" tag="POST" label="update_version_stat_collection" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -28,29 +31,35 @@ The `update_version_stat_collection` method updates the polling interval for ver
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Update Version Stat Collection Response" collapsedText="Show Update Version Stat Collection Response">
   #### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
+      "mmrpc": "2.0",
+      "result": "success",
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (error - stats collection not running)
+### Error Types
+
+<CompactTable source="v2-utils.UpdateVersionStatCollectionErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### NotRunning
 
   ```json
   {
-    "mmrpc": "2.0",
-    "error": "start_version_stat_collection is not running",
-    "error_path": "lp_stats",
-    "error_trace": "lp_stats:374]",
-    "error_type": "NotRunning",
-    "id": null
+      "mmrpc": "2.0",
+      "error": "start_version_stat_collection is not running",
+      "error_path": "lp_stats",
+      "error_trace": "lp_stats:374]",
+      "error_type": "NotRunning",
+      "id": null
   }
   ```
 </CollapsibleSection>

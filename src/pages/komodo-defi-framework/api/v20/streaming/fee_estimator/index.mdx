@@ -1,22 +1,24 @@
-export const title = "Komodo DeFi Framework Method: Enable Fee Estimator Streaming";
+export const title = "Komodo DeFi Framework Method: Fee Estimator Streaming";
 export const description = "Using this method, you can enable the fee estimation stream.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# fee\_estimator\_enable
+# Fee Estimator Streaming
+
+## stream::fee\_estimator::enable {{label : 'stream::fee_estimator::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the fee estimation stream. For requesting fee estimates without streaming, use [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas/).
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| coin       | string  | The coin or token to enable the fee estimation stream for.                                                                       |
+<CompactTable source="streaming.FeeEstimatorRequestParameters" />
 
-### 📌 Examples
+### Response Parameters
 
-#### Request
+<CompactTable source="streaming.FeeEstimatorResponseParameters" />
 
-<CodeGroup title="" tag="POST" label="fee_estimator_enable" mm2MethodDecorate="true">
+#### 📌 Examples
+
+<CodeGroup title="fee_estimator_enable" tag="POST" label="fee_estimator_enable" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -35,8 +37,6 @@ Using this method, you can enable the fee estimation stream. For requesting fee 
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
   ```json
   {
     "mmrpc": "2.0",
@@ -52,10 +52,12 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"FEE_ESTIMATION:MATIC","message":{"base_fee":"0.000000281","low":{"max_priority_fee_per_gas":"30","max_fee_per_gas":"30.000000309","min_wait_time":null,"max_wait_time":null},"medium":{"max_priority_fee_per_gas":"32.633147189","max_fee_per_gas":"32.633147519","min_wait_time":null,"max_wait_time":null},"high":{"max_priority_fee_per_gas":"38.9999999","max_fee_per_gas":"39.000000251","min_wait_time":null,"max_wait_time":null},"source":"simple","base_fee_trend":"","priority_fee_trend":"","units":"Gwei"}}`
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### CoinNotFound
+### Error Types
 
-  You need to activate the coin first.
+<CompactTable source="streaming.FeeEstimatorErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Coin Not Found)
 
   ```json
   {
@@ -68,9 +70,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### CoinNotSupported
-
-  Currently only EVM coins/tokens (e.g. BNB, ETH, MATIC, AVAX) support fee estimation.
+  ##### Error (Coin Not Supported)
 
   ```json
   {
@@ -84,9 +84,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### UnknownClient
-
-  No client has an open connection using this `client_id`.
+  ##### Error (Unknown Client)
 
   ```json
   {
@@ -100,9 +98,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### ClientAlreadyListening
-
-  The requested events are already being sent to the `client_id`.
+  ##### Error (Client Already Listening)
 
   ```json
   {
@@ -116,9 +112,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### InvalidRequest
-
-  The requested events are already being sent to the `client_id`.
+  ##### Error (Invalid Request)
 
   ```json
   {

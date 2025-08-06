@@ -1,21 +1,24 @@
 export const title = "Komodo DeFi Framework Method: Enable Swap Status Streaming";
 export const description = "Using this method, you can enable the swap status stream.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# swap\_status\_enable
+# Enable Swap Status Streaming
+
+## stream::swap\_status::enable {{label : 'stream::swap_status::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the swap status stream.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
+<CompactTable source="streaming.SwapStatusEnableRequestParameters" />
 
-### 📌 Examples
+### Response Parameters
 
-#### Request
+<CompactTable source="streaming.SwapStatusEnableResponseParameters" />
 
-<CodeGroup title="" tag="POST" label="swap_status_enable" mm2MethodDecorate="true">
+#### 📌 Examples
+
+<CodeGroup title="swap_status_enable" tag="POST" label="swap_status_enable" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -29,8 +32,6 @@ Using this method, you can enable the swap status stream.
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
   ```json
   {
     "mmrpc": "2.0",
@@ -46,10 +47,12 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"SWAP_STATUS","message":{"swap_type":"TakerV1","swap_data":{"uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","event":{"timestamp":1746432461259,"event":{"type":"TakerPaymentInstructionsReceived","data":null}}}}}`
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### UnknownClient
+### Error Types
 
-  No client has an open connection using this `client_id`.
+<CompactTable source="streaming.SwapStatusEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Unknown Client)
 
   ```json
   {
@@ -63,9 +66,7 @@ Here is an example of the stream data you should be able to see in [http://local
   }
   ```
 
-  #### ClientAlreadyListening
-
-  The requested events are already being sent to the `client_id`.
+  ##### Error (Client Already Listening)
 
   ```json
   {

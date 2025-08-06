@@ -1,0 +1,77 @@
+export const title = "Komodo DeFi Framework Method: MetaMask Connection Task: Status";
+export const description = "Query the status of a running MetaMask connection task.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# MetaMask Connection Task: Status
+
+## task::connect\_metamask::status {{label : 'task::connect_metamask::status', tag : 'API-v2'}}
+
+After calling `task::connect_metamask::init`, use this method to poll for progress, gather additional details, or fetch the final result once the MetaMask context is ready.
+
+### Request Parameters
+
+<CompactTable source="v2-utils.TaskConnectMetamaskStatusRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2-utils.TaskConnectMetamaskStatusResponse" />
+
+Possible in-progress `status` values:
+
+*   `Initializing` – Preparing the MetaMask context.
+*   `SigningLoginMetadata` – Waiting for the user to sign the login metadata inside MetaMask.
+
+When the task completes successfully, `status` will be `Ok` and `details` will hold the resulting Ethereum address.
+
+#### 📌 Examples
+
+<CodeGroup title="connect_metamask::status (in progress)" tag="POST" label="task::connect_metamask::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::connect_metamask::status",
+    "params": {
+      "task_id": 42,
+      "forget_if_finished": false
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (in progress)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "Initializing"
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (ready, successful)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "eth_address": "0x7b6E7C4555c5F6f5Fc4d0fAA940bAe50cC3C7d29"
+      }
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2-utils.TaskConnectMetamaskStatusErrors" />

@@ -2,7 +2,6 @@ export const title = "Komodo Defi SDK Swaps: Maker Events";
 export const description = "A description of events and outcomes for each step of an atomic swap from the maker's perspective.";
 import CompactTable from '@/components/mdx/CompactTable';
 
-
 # Maker Events
 
 ## maker\_events {{label : 'maker_events', tag : 'structures'}}
@@ -188,6 +187,7 @@ Click on the Events below to view thier structure:
   Maker starts waiting for taker to send his payment after this event occurs.
 
   <CompactTable source="maker-events.MakerPaymentSent" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -206,6 +206,7 @@ Click on the Events below to view thier structure:
   When this event occurs, maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
   <CompactTable source="maker-events.MakerPaymentDataSendFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -219,6 +220,7 @@ Click on the Events below to view thier structure:
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
   <CompactTable source="maker-events.MakerPaymentWaitConfirmFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -237,6 +239,7 @@ Click on the Events below to view thier structure:
   Maker starts waiting for taker payment confirmation after this event occurs.
 
   <CompactTable source="maker-events.TakerPaymentReceived" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -262,6 +265,7 @@ Click on the Events below to view thier structure:
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
   <CompactTable source="maker-events.TakerPaymentValidateFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -280,6 +284,7 @@ Click on the Events below to view thier structure:
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
   <CompactTable source="maker-events.TakerPaymentWaitConfirmFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -301,6 +306,7 @@ Click on the Events below to view thier structure:
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
   <CompactTable source="maker-events.TakerPaymentSpendFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -316,6 +322,7 @@ Click on the Events below to view thier structure:
   Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
   <CompactTable source="maker-events.TakerPaymentSpent" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -344,6 +351,7 @@ Click on the Events below to view thier structure:
   Maker attempts to refund the maker payment.
 
   <CompactTable source="maker-events.TakerPaymentSpendConfirmFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -363,6 +371,7 @@ Click on the Events below to view thier structure:
   The `MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
 
   <CompactTable source="maker-events.MakerPaymentWaitRefundStarted" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     {
@@ -378,6 +387,7 @@ Click on the Events below to view thier structure:
   The swap finishes immediately when this event occurs.
 
   <CompactTable source="maker-events.MakerPaymentRefundFailed" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA
@@ -391,6 +401,7 @@ Click on the Events below to view thier structure:
   The swap finishes immediately when this event occurs.
 
   <CompactTable source="maker-events.MakerPaymentRefunded" />
+
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
     TODO: Example TBA

@@ -1,22 +1,24 @@
-export const title = "Komodo DeFi Framework Method: Disable Event Streaming";
+export const title = "Komodo DeFi Framework Method: Disable Streaming";
 export const description = "Using this method, you can disable specific streaming events.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# disable
+# Disable Streaming
+
+## stream::disable {{label : 'stream::disable', tag : 'API-v2'}}
 
 Using this method, you can disable specific streaming events.
 
 ### Request Parameters
 
-| Parameter    | Type    | Description                                                                                                                      |
-| ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id   | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| streamer\_id | string  | An identifier for the data stream to disable.                                                                                    |
+<CompactTable source="streaming.DisableRequestParameters" />
 
-### 📌 Examples
+### Response Parameters
 
-#### Request
+<CompactTable source="streaming.DisableResponseParameters" />
 
-<CodeGroup title="" tag="POST" label="disable" mm2MethodDecorate="true">
+#### 📌 Examples
+
+<CodeGroup title="stream::disable" tag="POST" label="stream::disable" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -31,8 +33,6 @@ Using this method, you can disable specific streaming events.
 </CodeGroup>
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
   ```json
     {
         "mmrpc": "2.0",
@@ -44,8 +44,12 @@ Using this method, you can disable specific streaming events.
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  #### StreamerNotFound
+### Error Types
+
+<CompactTable source="streaming.DisableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Streamer Not Found)
 
   ```json
     {
@@ -59,9 +63,7 @@ Using this method, you can disable specific streaming events.
     }
   ```
 
-  #### UnknownClient
-
-  No client has an open connection using this `client_id`.
+  ##### Error (Unknown Client)
 
   ```json
     {

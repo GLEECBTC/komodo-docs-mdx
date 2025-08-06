@@ -107,6 +107,10 @@
           {
             "title": "Configuring Komodo DeFi Framework API",
             "href": "/komodo-defi-framework/setup/configure-mm2-json/"
+          },
+          {
+            "title": "Telegram Alerts",
+            "href": "/komodo-defi-framework/setup/telegram-alerts/"
           }
         ]
       },
@@ -455,10 +459,6 @@
           {
             "title": "stop_simple_market_maker_bot",
             "href": "/komodo-defi-framework/api/v20/swaps_and_orders/stop_simple_market_maker_bot/"
-          },
-          {
-            "title": "telegram_alerts",
-            "href": "/komodo-defi-framework/api/v20/utils/telegram_alerts/"
           }
         ]
       },
@@ -737,8 +737,52 @@
             "href": "/komodo-defi-framework/api/v20/utils/peer_connection_healthcheck/"
           },
           {
-            "title": "Trezor Initialisation",
+            "title": "get_shared_db_id",
+            "href": "/komodo-defi-framework/api/v20/utils/get_shared_db_id/"
+          },
+          {
+            "title": "send_asked_data",
+            "href": "/komodo-defi-framework/api/v20/utils/send_asked_data/"
+          },
+          {
+            "title": "trezor_connection_status",
+            "href": "/komodo-defi-framework/api/v20/utils/trezor_connection_status/"
+          },
+          {
+            "title": "Task: Init Trezor",
             "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/"
+          },
+          {
+            "title": "task::init_trezor::cancel",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/cancel/"
+          },
+          {
+            "title": "task::init_trezor::init",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/init/"
+          },
+          {
+            "title": "task::init_trezor::status",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/status/"
+          },
+          {
+            "title": "task::init_trezor::user_action",
+            "href": "/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/"
+          },
+          {
+            "title": "Task: Connect MetaMask",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/"
+          },
+          {
+            "title": "task::connect_metamask::init",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/init/"
+          },
+          {
+            "title": "task::connect_metamask::status",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/status/"
+          },
+          {
+            "title": "task::connect_metamask::cancel",
+            "href": "/komodo-defi-framework/api/v20/utils/task_connect_metamask/cancel/"
           }
         ]
       }
