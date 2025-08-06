@@ -2,7 +2,6 @@ export const title = "Komodo DeFi SDK Common Structures: Wallet Operations";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
 import CompactTable from '@/components/mdx/CompactTable';
 
-
 # Wallet Common Structures
 
 ## wallet\_common\_structures {{label : 'wallet_common_structures', tag : 'structures'}}
@@ -512,6 +511,7 @@ The `HdKeysInfo` object includes the following items for individual address info
 The `IguanaKeysInfo` object includes the following items for private key information in Iguana mode:
 
 <CompactTable source="wallet.IguanaKeysInfo" />
+
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### UTXO Coin Example (KMD)
 
@@ -565,6 +565,7 @@ The `IguanaKeysInfo` object includes the following items for private key informa
 The `available` balance is not sufficient to transfer the specified amount.
 
 <CompactTable source="wallet.NotSufficientBalance" />
+
 #### Response (NotSufficientBalance error)
 
 ```json
@@ -583,22 +584,24 @@ The `available` balance is not sufficient to transfer the specified amount.
 }
 ```
 
-
 #### AmountTooLow
 
 The specified amount is too low. Required at least `threshold`.
 
 <CompactTable source="wallet.AmountTooLow" />
+
 #### InvalidAddress
 
 The specified `to` address is not valid.
 
 <CompactTable source="wallet.InvalidAddress" />
+
 #### InvalidFeePolicy
 
 The specified `fee` is not valid.
 
 <CompactTable source="wallet.InvalidFeePolicy" />
+
 #### Response (InvalidFeePolicy error - attempt to use EthGas for UTXO coin)
 
 ```json
@@ -638,6 +641,7 @@ Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/
 Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/)
 
 <CompactTable source="wallet.NotAccruedReason" />
+
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   Example with accrued rewards:
 

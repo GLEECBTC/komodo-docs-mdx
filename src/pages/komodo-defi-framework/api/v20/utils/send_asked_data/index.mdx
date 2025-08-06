@@ -1,0 +1,56 @@
+export const title = "Komodo DeFi Framework Method: Send Asked Data";
+export const description = "Provide data asynchronously to another component that previously issued a data request via the internal event bus.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Send Asked Data
+
+## send\_asked\_data {{label : 'send_asked_data', tag : 'API-v2'}}
+
+The `send_asked_data` method is a **utility** RPC used mainly by front-end or plugin components to reply to an earlier `ask_for_data` request emitted by the node.\
+When another part of the system (for example, a GUI) needs some data, it calls `ask_for_data` which broadcasts an internal **DataNeeded** event with a `data_id`.\
+Your component then gathers the requested information and posts it back via `send_asked_data`.
+
+<Note type="info">
+  This RPC is part of the low-level event-bus mechanism and is **not** used in typical wallet or swap flows.  It requires the `data_id` received from a `DataNeeded` event.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2-utils.SendAskedDataRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2-utils.SendAskedDataResponse" />
+
+### 📌 Example
+
+<CodeGroup title="Send Asked Data" tag="POST" label="send_asked_data" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "send_asked_data",
+    "id": 0,
+    "params": {
+      "data_id": 42,
+      "data": {
+        "name": "Komodo"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Send Asked Data Response" collapsedText="Show Send Asked Data Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": true,
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2-utils.SendAskedDataErrors" />

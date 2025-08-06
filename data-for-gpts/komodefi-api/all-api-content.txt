@@ -3486,8 +3486,8 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [delete\_wallet](/komodo-defi-framework/api/v20/wallet/delete_wallet/#delete-wallet)                                                                         |                                                                                                                                                                               |
 |                                                                                                                                 | [disable](/komodo-defi-framework/api/v20/streaming/disable/#disable)                                                                                         |                                                                                                                                                                               |
 | [disable\_coin](/komodo-defi-framework/api/legacy/disable_coin/#disable-coin)                                                   |                                                                                                                                                              |                                                                                                                                                                               |
-| [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method)                                                  |                                                                                                                                                              |                                                                                                                                                                               |
-| [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable-method)                                                      |                                                                                                                                                              |                                                                                                                                                                               |
+| [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum)                                                  |                                                                                                                                                              |                                                                                                                                                                               |
+| [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable)                                                      |                                                                                                                                                              |                                                                                                                                                                               |
 |                                                                                                                                 | [enable\_bch\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_bch_with_tokens/#enable-bch-with-tokens)                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [enable\_erc20](/komodo-defi-framework/api/v20/coin_activation/enable_erc20/#enable-erc20)                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/#enable-eth-with-tokens)                                   |                                                                                                                                                                               |
@@ -8213,7 +8213,7 @@ export const description =
 
 The `my_tx_history` method returns the blockchain transactions involving the Komodo DeFi Framework API node's coin address.
 
-The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable-method) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method) call.
+The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum) call.
 
 This method is deprecated and is incompatible with coins activated in HD mode. Use the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method instead.
 
@@ -13860,7 +13860,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_bch::user\_action {{label : 'task::enable_bch::user_action', tag : 'API-v2'}}
 
@@ -14266,7 +14266,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_eth::user\_action {{label : 'task::enable_eth::user_action', tag : 'API-v2'}}
 
@@ -15268,7 +15268,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_utxo::user\_action {{label : 'task::enable_utxo::user_action', tag : 'API-v2'}}
 
@@ -24829,7 +24829,7 @@ Possible "In progress" Cases:
 }
 ```
 
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::init\_trezor::cancel {{label : 'task::init_trezor::cancel', tag : 'API-v2'}}
 
