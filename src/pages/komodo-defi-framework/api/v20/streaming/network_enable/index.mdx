@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Enable Network Streaming";
 export const description = "Using this method, you can enable network events streaming.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Enable Network Streaming
 
@@ -9,10 +10,7 @@ Using this method, you can enable network events streaming to a specific client.
 
 ### Request Parameters
 
-| Parameter  | Type    | Required | Default | Description                                                                                                                                                                     |
-| ---------- | ------- | :------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer |     ✗    |   `0`   | In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-| config     | object  |     ✗    |    -    | A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.                                                                            |
+<CompactTable source="streaming.NetworkEnableRequestParameters" />
 
 <Note>
   The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
@@ -20,9 +18,7 @@ Using this method, you can enable network events streaming to a specific client.
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
+<CompactTable source="streaming.NetworkEnableResponseParameters" />
 
 #### 📌 Examples
 
@@ -60,10 +56,7 @@ Here is an example of the stream data you should be able to see in [http://local
 
 ### Error Types
 
-| Parameter              | Type   | Description                                                   |
-| ---------------------- | ------ | ------------------------------------------------------------- |
-| UnknownClient          | string | No client has an open connection using this client\_id        |
-| ClientAlreadyListening | string | The requested events are already being sent to the client\_id |
+<CompactTable source="streaming.NetworkEnableErrorTypes" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   ##### Error Response (Unknown Client)

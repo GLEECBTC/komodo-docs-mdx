@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Orderbook Streaming";
 export const description = "Using this method, you can enable the orderbook stream for a given pair.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Orderbook Streaming
 
@@ -9,11 +10,7 @@ Using this method, you can enable the orderbook stream for a given pair.
 
 ### Request Parameters
 
-| Parameter  | Type    | Required | Description                                                                                                                      |
-| ---------- | ------- | :------: | -------------------------------------------------------------------------------------------------------------------------------- |
-| base       | string  |     ✓    | Base currency of a pair                                                                                                          |
-| client\_id | integer |     ✓    | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| rel        | string  |     ✓    | Related currency, also known as the "quote currency"                                                                             |
+<CompactTable source="streaming.OrderbookEnableRequestParameters" />
 
 <Note>
   For this method, `base` and `rel` are essentially interchangeable, and inverting the base coin and rel coin in a request will return the same data.
@@ -21,9 +18,7 @@ Using this method, you can enable the orderbook stream for a given pair.
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
+<CompactTable source="streaming.OrderbookEnableResponseParameters" />
 
 #### 📌 Examples
 
@@ -60,10 +55,7 @@ Here is an example of the stream data you should be able to see in [http://local
 
 ### Error Types
 
-| Parameter              | Type   | Description                                                   |
-| ---------------------- | ------ | ------------------------------------------------------------- |
-| UnknownClient          | string | No client has an open connection using this client\_id        |
-| ClientAlreadyListening | string | The requested events are already being sent to the client\_id |
+<CompactTable source="streaming.OrderbookEnableErrorTypes" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   ##### Error Response (Unknown Client)

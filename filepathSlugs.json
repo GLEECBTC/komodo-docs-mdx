@@ -3612,99 +3612,105 @@
     "not-enough-nfts-amount-trying-to-send-more-nfts-than-you-have"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/balance_enable/index.mdx": [
-    "balance-enable",
+    "enable-balance-streaming",
+    "stream-balance-enable",
     "request-parameters",
     "response-parameters",
     "examples",
-    "request",
-    "response",
-    "coin-not-found",
-    "unknown-client",
-    "client-already-listening",
-    "enable-error-error"
+    "error-types",
+    "error-response-coin-not-found",
+    "error-unknown-client",
+    "error-client-already-listening",
+    "error-enable-error"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/disable/index.mdx": [
-    "disable",
+    "disable-streaming",
+    "stream-disable",
     "request-parameters",
+    "response-parameters",
     "examples",
-    "request",
-    "response",
-    "streamer-not-found",
-    "unknown-client"
+    "error-types",
+    "error-response-streamer-not-found",
+    "error-unknown-client"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/fee_estimator/index.mdx": [
-    "fee-estimator-enable",
+    "fee-estimator-streaming",
+    "stream-fee-estimator-enable",
     "request-parameters",
+    "response-parameters",
     "examples",
-    "request",
-    "response",
-    "coin-not-found",
-    "coin-not-supported",
-    "unknown-client",
-    "client-already-listening",
-    "invalid-request"
+    "error-types",
+    "error-response-coin-not-found",
+    "error-coin-not-supported",
+    "error-unknown-client",
+    "error-client-already-listening",
+    "error-invalid-request"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/heartbeat_enable/index.mdx": [
-    "heartbeat-enable",
+    "enable-heartbeat-streaming",
+    "stream-heartbeat-enable",
     "request-parameters",
     "response-parameters",
     "examples",
-    "request",
-    "response",
-    "unknown-client",
-    "client-already-listening"
+    "error-types",
+    "error-response-unknown-client",
+    "error-client-already-listening"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/index.mdx": [
-    "streaming-methods"
+    "streaming-methods-overview",
+    "streaming"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/network_enable/index.mdx": [
-    "network-enable",
+    "enable-network-streaming",
+    "stream-network-enable",
     "request-parameters",
     "response-parameters",
     "examples",
-    "request",
-    "response",
-    "unknown-client",
-    "client-already-listening"
+    "error-types",
+    "error-response-unknown-client",
+    "error-client-already-listening"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/order_status_enable/index.mdx": [
-    "order-status-enable",
-    "request-parameters",
-    "examples",
-    "request",
-    "response",
-    "unknown-client",
-    "client-already-listening"
-  ],
-  "src/pages/komodo-defi-framework/api/v20/streaming/orderbook_enable/index.mdx": [
-    "orderbook-enable",
-    "request-parameters",
-    "examples",
-    "request",
-    "response",
-    "unknown-client",
-    "client-already-listening"
-  ],
-  "src/pages/komodo-defi-framework/api/v20/streaming/swap_status_enable/index.mdx": [
-    "swap-status-enable",
-    "request-parameters",
-    "examples",
-    "request",
-    "response",
-    "unknown-client",
-    "client-already-listening"
-  ],
-  "src/pages/komodo-defi-framework/api/v20/streaming/tx_history_enable/index.mdx": [
-    "tx-history-enable",
+    "enable-order-status-streaming",
+    "stream-order-status-enable",
     "request-parameters",
     "response-parameters",
     "examples",
-    "request",
-    "response",
-    "coin-not-found",
-    "unknown-client",
-    "client-already-listening",
-    "coin-not-supported-error"
+    "error-types",
+    "error-response-unknown-client",
+    "error-client-already-listening"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/streaming/orderbook_enable/index.mdx": [
+    "orderbook-streaming",
+    "stream-orderbook-enable",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "error-types",
+    "error-response-unknown-client",
+    "error-client-already-listening"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/streaming/swap_status_enable/index.mdx": [
+    "enable-swap-status-streaming",
+    "stream-swap-status-enable",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "error-types",
+    "error-response-unknown-client",
+    "error-client-already-listening"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/streaming/tx_history_enable/index.mdx": [
+    "enable-transaction-history-streaming",
+    "stream-tx-history-enable",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "error-types",
+    "error-response-coin-not-found",
+    "error-unknown-client",
+    "error-client-already-listening",
+    "error-coin-not-supported"
   ],
   "src/pages/komodo-defi-framework/api/v20/swaps_and_orders/active_swaps/index.mdx": [
     "active-swaps",

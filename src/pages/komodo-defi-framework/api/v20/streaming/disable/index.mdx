@@ -1,5 +1,6 @@
 export const title = "Komodo DeFi Framework Method: Disable Streaming";
 export const description = "Using this method, you can disable specific streaming events.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Disable Streaming
 
@@ -9,16 +10,11 @@ Using this method, you can disable specific streaming events.
 
 ### Request Parameters
 
-| Parameter    | Type    | Required | Description                                                                                                                      |
-| ------------ | ------- | :------: | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id   | integer |     ✓    | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| streamer\_id | string  |     ✓    | An identifier for the data stream to disable.                                                                                    |
+<CompactTable source="streaming.DisableRequestParameters" />
 
 ### Response Parameters
 
-| Parameter | Type   | Description                                        |
-| --------- | ------ | -------------------------------------------------- |
-| result    | string | Success message confirming the stream was disabled |
+<CompactTable source="streaming.DisableResponseParameters" />
 
 #### 📌 Examples
 
@@ -50,10 +46,7 @@ Using this method, you can disable specific streaming events.
 
 ### Error Types
 
-| Parameter        | Type   | Description                                            |
-| ---------------- | ------ | ------------------------------------------------------ |
-| StreamerNotFound | string | The specified streamer\_id was not found               |
-| UnknownClient    | string | No client has an open connection using this client\_id |
+<CompactTable source="streaming.DisableErrorTypes" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   ##### Error Response (Streamer Not Found)
