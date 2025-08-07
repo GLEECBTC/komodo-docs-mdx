@@ -34,35 +34,7 @@ Use this method for task managed activation of Tendermint coins & tokens. Refer 
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_tendermint::init",
-    "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
-      "nodes": [
-        {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
-        {
-          "url": "https://rpc.irishub-1.irisnet.org",
-          "komodo_proxy": false
-        }
-      ]
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -96,19 +68,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_tendermint::status" tag="POST" label="task::enable_tendermint::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_tendermint::status",
-    "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_tendermint::status" tag="POST" label="task::enable_tendermint::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintStatus" />
 
 #### Response
 
@@ -330,22 +290,7 @@ If the `task::enable_tendermint::status` returns `UserActionRequired`, we need t
 
 #### Command
 
-<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_tendermint::user_action",
-    "params": {
-      "task_id": 0,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -380,18 +325,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 | error\_type  | string | An enumerated value for the returned error.                    |
 | error\_data  | string | The input task ID which resulted in the error.                 |
 
-<CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_tendermint::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

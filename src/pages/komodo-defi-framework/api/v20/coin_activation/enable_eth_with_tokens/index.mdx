@@ -44,64 +44,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request including optional gas station parameters
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ETH",
-      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-      "gas_station_decimals": 8,
-      "gas_station_policy": {
-        "policy": "MeanAverageFast"
-      },
-      "mm2": 1,
-      "priv_key_policy": {
-        "type": "ContextPrivKey"
-      },
-      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-      "nodes": [
-        {
-          "url": "https://eth1.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth2.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth3.cipig.net:18555",
-          "komodo_proxy": false
-        }
-      ],
-      "tx_history": true,
-      "erc20_tokens_requests": [
-        {
-          "ticker": "APE-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "BCH-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "MINDS-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "BUSD-ERC20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableEthWithTokensGasStation" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -158,51 +101,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request with `get_balances` set to false
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "MATIC",
-      "get_balances": false,
-      "tx_history": false,
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "swap_v2_contracts": {
-        "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
-      },
-      "nodes": [
-        {
-          "url": "https://polygon-rpc.com"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/polygon"
-        },
-        {
-          "url": "https://block-proxy.komodo.earth/rpc/matic"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableEthWithTokensMaticBalancesFalse" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -241,52 +140,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request including NFT initialization
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "MATIC",
-      "get_balances": false,
-      "tx_history": false,
-      "nft_req": {
-        "type": "Moralis",
-        "info": {
-          "url": "https://moralis-proxy.komodo.earth"
-        }
-      },
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "nodes": [
-        {
-          "url": "https://polygon-rpc.com"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/polygon"
-        },
-        {
-          "url": "https://block-proxy.komodo.earth/rpc/matic"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableEthWithTokensMaticNft" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -342,53 +196,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 Prior to coin activation using WalletConnect, you need to establish a connection with [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ETH",
-      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-      "gas_station_decimals": 8,
-      "gas_station_policy": {
-        "policy": "MeanAverageFast"
-      },
-      "mm2": 1,
-      "rpc_mode": "Default",
-      "priv_key_policy": {
-        "type": "WalletConnect",
-        "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd"
-      },
-      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-      "nodes": [
-        {
-          "url": "https://eth1.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth2.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth3.cipig.net:18555",
-          "komodo_proxy": false
-        }
-      ],
-      "tx_history": true,
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PEPE-ERC20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableEthWithTokensWalletConnect" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response

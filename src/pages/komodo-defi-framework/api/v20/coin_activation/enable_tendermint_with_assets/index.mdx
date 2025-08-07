@@ -35,37 +35,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request with `get_balances` set to `false`
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true">
-  ```json
-  {
-    "method": "enable_tendermint_with_assets",
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
-      "nodes": [
-        {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
-        {
-          "url": "https://rpc.irishub-1.irisnet.org",
-          "komodo_proxy": false
-        }
-      ],
-      "tx_history": true,
-      "get_balances": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsBalancesFalse" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -86,36 +56,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request with token activation and `get_balances` as `true`
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true">
-  ```json
-  {
-    "method": "enable_tendermint_with_assets",
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
-      "nodes": [
-        {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
-        {
-          "url": "https://rpc.irishub-1.irisnet.org",
-          "komodo_proxy": false
-        }
-      ],
-      "get_balances": true
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsBalancesTrue" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -145,38 +86,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request for Metamask / WalletConnect activation
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_tendermint_with_assets",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ATOM",
-      "tx_history": true,
-      "get_balances": true,
-      "activation_params": {
-        "priv_key_policy": {
-          "type": "WalletConnect",
-          "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd"
-        }
-      },
-      "nodes": [
-        {
-          "url": "https://cosmos-rpc.alpha.komodo.earth/",
-          "api_url": "https://cosmos-api.alpha.komodo.earth/",
-          "grpc_url": "https://cosmos-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://cosmos-rpc.alpha.komodo.earth/websocket"
-        },
-        {
-          "url": "https://cosmoshub.rpc.stakin-nodes.com/"
-        }
-      ],
-      "tokens_params": []
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsWalletConnect" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response

@@ -42,67 +42,7 @@ Use this method for task managed activation of BCH and SLP tokens. Refer to the 
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_bch::init" tag="POST" label="task::enable_bch::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_bch::init",
-    "params": {
-      "ticker": "BCH",
-      "activation_params": {
-        "bchd_urls": [
-          "https://bchd.dragonhound.info"
-        ],
-        "mode": {
-          "rpc": "Electrum",
-          "rpc_data": {
-            "servers": [
-              {
-                "url": "bch.imaginary.cash:50002",
-                "protocol": "SSL"
-              },
-              {
-                "url": "cashnode.bch.ninja:50002",
-                "protocol": "SSL"
-              },
-              {
-                "url": "bch.soul-dev.com:50002",
-                "protocol": "SSL"
-              },
-              {
-                "url": "electrum3.cipig.net:20055",
-                "protocol": "SSL"
-              }
-            ]
-          }
-        },
-        "slp_tokens_requests": [
-          {
-            "ticker": "USDF"
-          },
-          {
-            "ticker": "ASLP-SLP",
-            "required_confirmations": 3
-          }
-        ],
-        "tx_history": true,
-        "required_confirmations": 5,
-        "requires_notarization": false,
-        "address_format": {
-          "format": "cashaddress",
-          "network": "bitcoincash"
-        },
-        "utxo_merge_params": {
-          "merge_at": 50,
-          "check_every": 10,
-          "max_merge_at_once": 25
-        }
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_bch::init" tag="POST" label="task::enable_bch::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -136,19 +76,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_bch::status" tag="POST" label="task::enable_bch::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_bch::status",
-    "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_bch::status" tag="POST" label="task::enable_bch::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchStatus" />
 
 | Parameter | Type   | Description                                                                                                           |
 | --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -288,22 +216,7 @@ If the `task::enable_bch::status` returns `UserActionRequired`, we need to use t
 
 #### Command
 
-<CodeGroup title="task::enable_bch::user_action" tag="POST" label="task::enable_bch::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_bch::user_action",
-    "params": {
-      "task_id": 0,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_bch::user_action" tag="POST" label="task::enable_bch::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -338,18 +251,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 | error\_type  | string | An enumerated value for the returned error.                    |
 | error\_data  | string | The input task ID which resulted in the error.                 |
 
-<CodeGroup title="task::enable_bch::cancel" tag="POST" label="task::enable_bch::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_bch::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_bch::cancel" tag="POST" label="task::enable_bch::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

@@ -11,21 +11,7 @@ The `enable_erc20` method allows you to activate additional ERC20 like tokens of
 | ticker                                     | string  | Ticker of the ERC20 like token coin.                                                               |
 | activation\_params.required\_confirmations | integer | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
 
-<CodeGroup title="" tag="POST" label="enable_erc20" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_erc20",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "BAT-ERC20",
-      "activation_params": {
-        "required_confirmations": 3
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_erc20" mm2MethodDecorate="true" source="v2-coin-activation.EnableErc20Basic" />
 
 ## Response
 

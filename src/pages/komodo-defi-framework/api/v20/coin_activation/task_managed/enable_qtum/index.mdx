@@ -39,41 +39,7 @@ Use this method for task managed activation of QTUM coins and tokens. Refer to t
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_qtum::init",
-    "params": {
-      "ticker": "QTUM",
-      "activation_params": {
-        "mode": {
-          "rpc": "Electrum",
-          "rpc_data": {
-            "servers": [
-              {
-                "url": "electrum2.cipig.net:10050"
-              },
-              {
-                "url": "electrum3.cipig.net:20050",
-                "ws_url": "electrum3.cipig.net:30050",
-                "protocol": "SSL"
-              }
-            ]
-          }
-        },
-        "scan_policy": "scan_if_new_wallet",
-        "priv_key_policy": {
-          "type": "Trezor"
-        },
-        "min_addresses_number": 3,
-        "gap_limit": 20
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -107,19 +73,7 @@ The response will return the following:
 
 #### Request
 
-<CodeGroup title="task::enable_qtum::status" tag="POST" label="task::enable_qtum::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_qtum::status",
-    "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_qtum::status" tag="POST" label="task::enable_qtum::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumStatus" />
 
 The response formats for this method are the same as the [task managed activation](/komodo-defi-framework/api/v20/coin_activation/task_managed/) responses.
 
@@ -148,22 +102,7 @@ If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use 
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_qtum::user_action",
-    "params": {
-      "task_id": 0,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -226,18 +165,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_qtum::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
