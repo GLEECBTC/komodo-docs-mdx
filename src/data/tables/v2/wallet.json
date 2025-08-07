@@ -1,0 +1,58 @@
+{
+  "RequestParameters": {
+    "data": [
+      {
+        "parameter": "wallet_name",
+        "type": "string",
+        "required": true,
+        "description": "The name of the wallet to delete."
+      },
+      {
+        "parameter": "password",
+        "type": "string",
+        "required": true,
+        "description": "The password of the wallet."
+      }
+    ]
+  },
+  "ErrorTypes": {
+    "data": [
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or missing required parameters."
+      },
+      {
+        "parameter": "WalletNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified `wallet_name` was not found."
+      },
+      {
+        "parameter": "InvalidPassword",
+        "type": "string",
+        "required": false,
+        "description": "The provided `password` is incorrect."
+      },
+      {
+        "parameter": "CannotDeleteActiveWallet",
+        "type": "string",
+        "required": false,
+        "description": "An attempt was made to delete the currently active wallet."
+      },
+      {
+        "parameter": "WalletsStorageError",
+        "type": "string",
+        "required": false,
+        "description": "A storage-related error occurred while accessing wallet data."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "An internal server error occurred."
+      }
+    ]
+  }
+}

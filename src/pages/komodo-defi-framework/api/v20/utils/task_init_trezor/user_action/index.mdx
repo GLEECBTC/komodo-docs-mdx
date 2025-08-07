@@ -1,0 +1,96 @@
+export const title = "task::init_trezor::user_action";
+export const description = "Send user action (PIN or passphrase) to the Trezor device during initialisation in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Komodo DeFi Framework Method: task::init\_trezor::user\_action
+
+## task::init\_trezor::user\_action {{label : 'task::init_trezor::user_action', tag : 'API-v2'}}
+
+When you see the pin grid on your device, or it asks for a passphrase word, use this method.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorUserActionRequest" />
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorUserActionResponse" />
+
+<Note>
+  Even an incorrect PIN will return `success`. This doesn't mean the PIN was accepted, just that it was communicated without errors. If the PIN was incorrect, you will see an error like below in the next response for a method that requires authentication.
+</Note>
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Error on platform coin KMD creation: Hardware Wallet context is not initialized",
+      "error_path": "lib.init_utxo_standard_activation.utxo_coin_builder",
+      "error_trace": "lib:103] init_utxo_standard_activation:79] utxo_coin_builder:317]",
+      "error_type": "CoinCreationError",
+      "error_data": {
+        "ticker": "KMD",
+        "error": "Hardware Wallet context is not initialized"
+      }
+    }
+  },
+  "id": null
+}
+```
+
+#### 📌 Examples
+
+#### Command (for TrezorPin)
+
+<CodeGroup title="task::init_trezor::user_action" tag="POST" label="task::init_trezor::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::user_action",
+    "params": {
+      "task_id": 0,
+      "user_action": {
+        "action_type": "TrezorPin",
+        "pin": "862743"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Command (for TrezorPassphrase)
+
+<CodeGroup title="task::init_trezor::user_action" tag="POST" label="task::init_trezor::user_action" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::user_action",
+    "params": {
+      "task_id": 0,
+      "user_action": {
+        "action_type": "TrezorPassphrase",
+        "passphrase": "breakfast"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
