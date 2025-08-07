@@ -75,64 +75,19 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumBch" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "LTC",
-    "address": "Lh2zFS66gP5qF1bRxoCXT6bMw8YShjoRry",
-    "balance": "7.62",
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "required_confirmations": 3,
-    "requires_notarization": false,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyElectrumBch" />
 
 #### UTXO coin activation with `required_confirmations`, `requires_notarization` and `mm2` arguments {{label : 'electrum', tag : 'legacy'}}
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumKmd" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "KMD",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "762",
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyElectrumKmd" />
 
 #### QTUM/QRC20 coin activation {{label : 'electrum', tag : 'legacy'}}
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumQtum" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "QTUM",
-    "address": "QjXkGgoiycYRm2NbiMpkEHuQt7SB9BKHjz",
-    "balance": "7.77",
-    "required_confirmations": 3,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyElectrumQtum" />
 
 #### Error responses
 
@@ -176,123 +131,37 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNative" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "TKL",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "333",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableNative" />
 
 #### Command (With `required_confirmations`, `requires_notarization` and `mm2` arguments)
 
 <CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNativeWithParams" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "TKL",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "777",
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableNativeWithParams" />
 
 #### Command (for Ethereum and ERC20-based blockchains)
 
 <CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEth" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "ETH",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "50",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableEth" />
 
 #### EVM coin activation with gas\_station\_url and policy {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEthGasStation" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "ETH",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "50",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableEthGasStation" />
 
 #### Polygon (MATIC) and PLG20 activation {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableMatic" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "NZDS-PLG20",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "350",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableMatic" />
 
 #### Binance Coin (BNB) and BEP20 activation {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableBnb" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "BUSD-BEP20",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "45",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses requestKey="LegacyEnableBnb" />
 
 For enabling Z coins, refer to the [ZHTLC activation tasks](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/) in the v2.0 Dev API.
 
