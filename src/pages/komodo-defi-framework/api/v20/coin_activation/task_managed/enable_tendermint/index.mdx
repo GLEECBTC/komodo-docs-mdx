@@ -12,23 +12,11 @@ Use this method for task managed activation of Tendermint coins & tokens. Refer 
 
 #### Arguments
 
-| Parameter               | Type             | Description                                                                                                                                                                                                                                                               |
-| ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                  | string           | Ticker of the platform protocol coin.  Options: `ATOM`, `IRIS`, `OSMOSIS`                                                                                                                                                                                                 |
-| mm2                     | integer          | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                |
-| tokens\_params          | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                                      |
-| nodes                   | array of objects | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node).                                                                                                                                                                         |
-| priv\_key\_policy       | string           | Optional, defaults to `ContextPrivKey`. value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm`                     |
-| tx\_history             | boolean          | Optional, defaults to `false`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                |
-| required\_confirmations | integer          | Optional, defaults to `3`. When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap                                                                                       |
-| requires\_notarization  | boolean          | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |
-| get\_balances           | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                   |
+<CompactTable source="v2/coin_activation.TaskEnableTendermintArguments" />
 
 #### Response
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
@@ -61,10 +49,7 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Command
 
@@ -72,14 +57,7 @@ The response will return the following:
 
 #### Response
 
-| Parameter        | Type             | Description                                                                                                                                                                   |
-| ---------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| current\_block   | integer          | Block height of the coin being activated                                                                                                                                      |
-| ticker           | string           | Ticker of the platform protocol coin, as input in the request.                                                                                                                |
-| address          | string           | An address for the activated coin                                                                                                                                             |
-| balance          | object           | Only returned when `get_balances` is `true`. A standard [BalanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.                             |
-| tokens\_balances | array of objects | Only returned when `get_balances` is `true`. A list of standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) objects, one for each token. |
-| tokens\_tickers  | array            | Only returned when `get_balances` is `false`. A list of each token which was activated.                                                                                       |
+<CompactTable source="v2/coin_activation.TaskStatusTendermintResponse" />
 |                  |                  |                                                                                                                                                                               |
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">

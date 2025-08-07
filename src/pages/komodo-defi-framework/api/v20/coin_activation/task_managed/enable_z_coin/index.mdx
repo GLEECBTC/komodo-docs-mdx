@@ -30,16 +30,11 @@ To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx
 
 #### Arguments
 
-| Structure          | Type   | Description                                                                                                          |
-| ------------------ | ------ | -------------------------------------------------------------------------------------------------------------------- |
-| ticker             | string | Ticker of coin to activate                                                                                           |
-| activation\_params | object | A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object. |
+<CompactTable source="v2/coin_activation.TaskEnableZCoinArguments" />
 
 #### Response
 
-| Structure | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
@@ -149,17 +144,11 @@ Z coins need to build sync a local block cache and wallet database before they c
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                              |
-| -------------------- | ------- | ---------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.              |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true` |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Response
 
-| Parameter | Type   | Description                                                                                                           |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| status    | string | A short indication of how the enabling is progressing.                                                                |
-| details   | object | Depending on the state of enabling progress, this will contain different information as shown in the responses below. |
+<CompactTable source="v2/coin_activation.TaskStatusResponse" />
 
 Possible `status` values while activation is in progress:
 

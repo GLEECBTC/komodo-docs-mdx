@@ -11,20 +11,7 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 ### Request Parameters
 
-| Parameter                | Type             | Description                                                                                                                                                                                                                                               |
-| ------------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                   | string           | Ticker of the platform protocol coin. Options: `BCH` or `tBCH`                                                                                                                                                                                            |
-| bchd\_urls               | array of strings | A list of BCHD gRPC API server URLs, used for  validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/).               |
-| mode                     | object           | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.                                                                                                                                             |
-| tx\_history              | boolean          | If `true`, spawns a background loop to store the local cache of address(es) transactions. Defaults to `false`.                                                                                                                                            |
-| slp\_tokens\_requests    | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                      |
-| address\_format          | object           | Optional. Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.                                                                                  |
-| allow\_slp\_unsafe\_conf | boolean          | Optional, defaults to `false`. If `true`, allows bchd\_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning.                                                              |
-| get\_balances            | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                   |
-| required\_confirmations  | integer          | Optional, defaults to value in the coins file, or `3` if not set. Confirmations to wait for steps in swap.                                                                                                                                                |
-| requires\_notarization   | boolean          | Optional, defaults to `true`. Has no effect on BCH.                                                                                                                                                                                                       |
-| tx\_history              | boolean          | Optional, defaults to `true`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |
-| utxo\_merge\_params      | object           | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.                                    |
+<CompactTable source="v2/coin_activation.EnableBchWithTokensArguments" />
 
 <Note>
   *   Go to: [https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums) for a full list of nodes/servers.
@@ -32,11 +19,7 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 ### Response Parameters
 
-| Parameter             | Type    | Description                                                                                                                                                                          |
-| --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| current\_block        | integer | Block height of the coin being activated                                                                                                                                             |
-| bch\_addresses\_infos | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
-| slp\_addresses\_infos | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
+<CompactTable source="v2/coin_activation.EnableBchWithTokensResponse" />
 
 <DevComment>
   bch\_addresses\_infos and slp\_addresses\_infos are the same. This should be consolidated in the api.

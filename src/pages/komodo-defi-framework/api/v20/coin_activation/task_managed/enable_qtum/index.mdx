@@ -12,28 +12,11 @@ Use this method for task managed activation of QTUM coins and tokens. Refer to t
 
 #### Arguments
 
-| Parameter                       | Type    | Description                                                                                                                                                                                                      |
-| ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                          | string  | The ticker of the coin you want to enable.                                                                                                                                                                       |
-| activation\_params              | object  | An object containing the actvation parameters below.                                                                                                                                                             |
-| .priv\_key\_policy              | object  | Optional. A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. Defaults to `{"type": "ContextPrivKey"}`.                                                     |
-| .min\_addresses\_number         | integer | How many additional addreesses to generate at a minimum.                                                                                                                                                         |
-| .scan\_policy                   | string  | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework.                              |
-| .gap\_limit                     | integer | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                                                          |
-| .mode                           | object  | An object containing RPC type and data parameters as below.                                                                                                                                                      |
-| ..rpc                           | string  | UTXO RPC mode. Options: `{ "rpc":"Native" }` if running a native blockchain node, or `"rpc":"Electrum"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers` |
-| ..rpc\_data                     | object  | An object containing electrum server information.                                                                                                                                                                |
-| ...servers                      | list    | A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums))                                                  |
-| ....url                         | object  | The url and port of a coins electrum server                                                                                                                                                                      |
-| ....ws\_url                     | object  | Optional. Used to define electrum server url/port for websocket connections.                                                                                                                                     |
-| ....protocol                    | object  | Defines electrum server protocol as `TCP` or `SSL`. Defaults to `TCP`                                                                                                                                            |
-| ....disable\_cert\_verification | boolean | Optional. For `SSL` electrum connections, this will allow expired certificates.                                                                                                                                  |
+<CompactTable source="v2/coin_activation.TaskEnableQtumArguments" />
 
 #### Response
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
@@ -66,10 +49,7 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Request
 
@@ -83,20 +63,13 @@ If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use 
 
 #### Arguments
 
-| Parameter                 | Type            | Description                                                                                                                                                                                      |
-| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                      |
-| user\_action              | object          | Object containing the params below                                                                                                                                                               |
-| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
-| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+<CompactTable source="v2/coin_activation.TaskUserActionArguments" />
 
 <OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
 
 #### Response
 
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+<CompactTable source="v2/coin_activation.TaskUserActionResponse" />
 
 #### 📌 Examples
 
@@ -146,20 +119,11 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Arguments
 
-| Structure | Type    | Description                                                           |
-| --------- | ------- | --------------------------------------------------------------------- |
-| task\_id  | integer | The identifying number returned when initiating the enabling process. |
+<CompactTable source="v2/coin_activation.TaskCancelArguments" />
 
 #### Response
 
-| Structure    | Type   | Description                                                    |
-| ------------ | ------ | -------------------------------------------------------------- |
-| result       | string | Indicates task cancellation was succesful.                     |
-| error        | string | An error message to explain what went wrong.                   |
-| error\_path  | string | An indicator of the class or function which reurned the error. |
-| error\_trace | string | An indicator of where in the source code the error was thrown. |
-| error\_type  | string | An enumerated value for the returned error.                    |
-| error\_data  | string | The input task ID which resulted in the error.                 |
+<CompactTable source="v2/coin_activation.TaskCancelResponse" />
 
 #### 📌 Examples
 

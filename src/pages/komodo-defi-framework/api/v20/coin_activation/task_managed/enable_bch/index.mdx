@@ -16,27 +16,11 @@ Use this method for task managed activation of BCH and SLP tokens. Refer to the 
 
 #### Arguments
 
-| Parameter                | Type             | Description                                                                                                                                                                                                                                               |
-| ------------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                   | string           | Ticker of the platform protocol coin. Options: `BCH` or `tBCH`                                                                                                                                                                                            |
-| bchd\_urls               | array of strings | A list of BCHD gRPC API server URLs, used for  validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/).               |
-| mode                     | object           | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.                                                                                                                                             |
-| tx\_history              | boolean          | If `true`, spawns a background loop to store the local cache of address(es) transactions. Defaults to `false`.                                                                                                                                            |
-| slp\_tokens\_requests    | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                      |
-| address\_format          | object           | Optional. Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.                                                                                  |
-| allow\_slp\_unsafe\_conf | boolean          | Optional, defaults to `false`. If `true`, allows bchd\_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning.                                                              |
-| get\_balances            | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                   |
-| required\_confirmations  | integer          | Optional, defaults to value in the coins file, or `3` if not set. Confirmations to wait for steps in swap.                                                                                                                                                |
-| requires\_notarization   | boolean          | Optional, defaults to `true`. Has no effect on BCH.                                                                                                                                                                                                       |
-| tx\_history              | boolean          | Optional, defaults to `true`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |
-| utxo\_merge\_params      | object           | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.                                    |
-|                          |                  |                                                                                                                                                                                                                                                           |
+<CompactTable source="v2/coin_activation.TaskEnableBchArguments" />
 
 #### Response
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
@@ -69,19 +53,13 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Command
 
 <CodeGroup title="task::enable_bch::status" tag="POST" label="task::enable_bch::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchStatus" />
 
-| Parameter | Type   | Description                                                                                                           |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| status    | string | A short indication of how the enabling is progressing.                                                                |
-| details   | object | Depending on the state of enabling progress, this will contain different information as shown in the responses below. |
+<CompactTable source="v2/coin_activation.TaskStatusResponse" />
 
 Possible `status` values while activation is in progress:
 
