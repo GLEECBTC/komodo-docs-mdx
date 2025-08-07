@@ -11,7 +11,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 This object represents the number of blocks required for an on-chain lightning-related transaction to be confirmed.
 It is used for estimating the transaction fee rate (`feerate`) for different transaction types in the context of permissionless transactions performed by the node. Different target types are `background`, `normal`, and `high_priority`.
 
-<CompactTable source="lightning.ConfirmationTargets" />
+<CompactTable source="common-structures/lightning.ConfirmationTargets" />
 
 <Note>
   Using the recommended values in the above table with a coin that has a block time of 10 minutes, the equivalent time in minutes is:
@@ -23,15 +23,15 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### CounterpartyChannelConfig
 
-<CompactTable source="lightning.CounterpartyChannelConfig" variant="compact" />
+<CompactTable source="common-structures/lightning.CounterpartyChannelConfig" variant="compact" />
 
 ### LightningActivationParams
 
-<CompactTable source="lightning.LightningActivationParams" />
+<CompactTable source="common-structures/lightning.LightningActivationParams" />
 
 ### LightningChannelAmount
 
-<CompactTable source="lightning.LightningChannelAmount" />
+<CompactTable source="common-structures/lightning.LightningChannelAmount" />
 
 ### LightningChannelConfig
 
@@ -40,7 +40,7 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
   If not specified when using the [open\_channel](/komodo-defi-framework/api/v20/lightning/channels/) or [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/) methods, the values in this object will default to the values set in the `coins` configuration file.
 </Note>
 
-<CompactTable source="lightning.LightningChannelConfig" variant="compact" />
+<CompactTable source="common-structures/lightning.LightningChannelConfig" variant="compact" />
 
 <Note>
   For GUIs and wallet apps, it is recommended to set `announced_channel` to `false` (the default value), as the node is not expected to be reliably online.
@@ -48,11 +48,11 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### LightningChannelOptions
 
-<CompactTable source="lightning.LightningChannelOptions" />
+<CompactTable source="common-structures/lightning.LightningChannelOptions" />
 
 ### LightningClosedChannelsFilter
 
-<CompactTable source="lightning.LightningClosedChannelsFilter" />
+<CompactTable source="common-structures/lightning.LightningClosedChannelsFilter" />
 
 <DevComment>
   Response may change to be more consistent in future.
@@ -61,19 +61,19 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### LightningOpenChannelsFilter
 
-<CompactTable source="lightning.LightningOpenChannelsFilter" variant="compact" />
+<CompactTable source="common-structures/lightning.LightningOpenChannelsFilter" variant="compact" />
 
 ### LightningPayment
 
-<CompactTable source="lightning.LightningPayment" />
+<CompactTable source="common-structures/lightning.LightningPayment" />
 
 ### LightningPaymentFilter
 
-<CompactTable source="lightning.LightningPaymentFilter" variant="compact" />
+<CompactTable source="common-structures/lightning.LightningPaymentFilter" variant="compact" />
 
 ### LightningPaymentType
 
-<CompactTable source="lightning.LightningPaymentType" />
+<CompactTable source="common-structures/lightning.LightningPaymentType" />
 
 <DevComment>
   Response may change in future.
@@ -82,20 +82,20 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### ChannelConfigLimits
 
-<CompactTable source="lightning.ChannelConfigLimits" variant="compact" />
+<CompactTable source="common-structures/lightning.ChannelConfigLimits" variant="compact" />
 
 ### LightningActivationParams
 
-<CompactTable source="lightning.LightningActivationParams_1" />
+<CompactTable source="common-structures/lightning.LightningActivationParams_1" />
 
 ### LightningChannelValue
 
-<CompactTable source="lightning.LightningChannelValue" />
+<CompactTable source="common-structures/lightning.LightningChannelValue" />
 
 ### LightningChannelConfig
 
-<CompactTable source="lightning.LightningChannelConfig_1" variant="compact" />
+<CompactTable source="common-structures/lightning.LightningChannelConfig_1" variant="compact" />
 
 ### LightningClosedChannelsFilter
 
-<CompactTable source="lightning.LightningClosedChannelsFilter_1" />
+<CompactTable source="common-structures/lightning.LightningClosedChannelsFilter_1" />

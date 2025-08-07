@@ -10,7 +10,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 The `AccountAddressInfo` object includes the following items for active addresses in the activation response for a coin in HD mode:
 
-<CompactTable source="wallet.AccountAddressInfo" />
+<CompactTable source="common-structures/wallet.AccountAddressInfo" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -28,7 +28,7 @@ The `AccountAddressInfo` object includes the following items for active addresse
 
 ## AddressFormat
 
-<CompactTable source="wallet.AccountAddressInfo_1" />
+<CompactTable source="common-structures/wallet.AccountAddressInfo_1" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -51,7 +51,7 @@ The `AccountAddressInfo` object includes the following items for active addresse
 
 The `AddressInfo` object includes the following items for a given address:
 
-<CompactTable source="wallet.AddressInfo" />
+<CompactTable source="common-structures/wallet.AddressInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example with balances
@@ -86,7 +86,7 @@ The `AddressInfo` object includes the following items for a given address:
 
 The `AddressPath` object includes the following items:
 
-<CompactTable source="wallet.AddressPath" />
+<CompactTable source="common-structures/wallet.AddressPath" />
 
 <CollapsibleSection expandedText="Hide Account/Chain/Address Example" collapsedText="Show Account/Chain/Address Example">
   ```json
@@ -110,7 +110,7 @@ The `AddressPath` object includes the following items:
 
 The `BalanceInfo` object includes the following items for a given coin or token:
 
-<CompactTable source="wallet.BalanceInfo" />
+<CompactTable source="common-structures/wallet.BalanceInfo" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -125,7 +125,7 @@ The `BalanceInfo` object includes the following items for a given coin or token:
 
 The `DerivationMethod` object includes the following items for a given coin or token:
 
-<CompactTable source="wallet.DerivationMethod" />
+<CompactTable source="common-structures/wallet.DerivationMethod" />
 
 <Note>
   Using the same seed or private key to generate keypairs using different derivation methods will result in a different address and private key for each method.
@@ -146,37 +146,37 @@ Where the value indicates:
 
 ### ExtendedFeeInfo
 
-<CompactTable source="wallet.ExtendedFeeInfo" />
+<CompactTable source="common-structures/wallet.ExtendedFeeInfo" />
 
 ### FeeInfo
 
 The `FeeInfo` response object includes the following items for [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests:
 
-<CompactTable source="wallet.FeeInfo" />
+<CompactTable source="common-structures/wallet.FeeInfo" />
 
 ### HistoryTarget
 
 Used to specify a HD wallet `account_id` or `address_id` for [my\_tx\_history v2](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) requests.
 
-<CompactTable source="wallet.HistoryTarget" />
+<CompactTable source="common-structures/wallet.HistoryTarget" />
 
 ### InputTxns
 
 The `InputTxns` object includes the following items:
 
-<CompactTable source="wallet.InputTxns" />
+<CompactTable source="common-structures/wallet.InputTxns" />
 
 ### NewAddressInfo
 
 The `NewAddressInfo` response object includes the following items for request in HD mode:
 
-<CompactTable source="wallet.NewAddressInfo" />
+<CompactTable source="common-structures/wallet.NewAddressInfo" />
 
 ### PayForGas
 
 The `PayForGas` object includes the following items:
 
-<CompactTable source="wallet.PayForGas" variant="compact" />
+<CompactTable source="common-structures/wallet.PayForGas" variant="compact" />
 
 <Note>
   [Eip1559](https://www.coinbase.com/en-au/blog/the-technical-benefits-of-eip-1559) allows users to save on gas fees. To use this feature for a coin/token, its entry in your `coins` file must include fields for `chain_id` and `max_eth_tx_type`. To allow eip-1559 transactions, `max_eth_tx_type` should be set to `2`. To find the `chain_id` for an \[EVM network([https://blog.thirdweb.com/evm-compatible-blockchains-and-ethereum-virtual-machine/](https://blog.thirdweb.com/evm-compatible-blockchains-and-ethereum-virtual-machine/))], refer to [chainlist.org](https://chainlist.org). There is also a new `gas_fee_estimator` parameter in the coins file, which can be set to `Provider` or `Simple`.
@@ -211,7 +211,7 @@ The `PayForGas` object includes the following items:
 
 The `StakingDetails` object includes the following items:
 
-<CompactTable source="wallet.StakingDetails" />
+<CompactTable source="common-structures/wallet.StakingDetails" />
 
 <CollapsibleSection expandedText="Hide Cosmos Example" collapsedText="Show Cosmos Example">
   ```json
@@ -236,7 +236,7 @@ The `StakingDetails` object includes the following items:
 
 The `StakingInfoDetails` object includes the following items:
 
-<CompactTable source="wallet.StakingInfoDetails" />
+<CompactTable source="common-structures/wallet.StakingInfoDetails" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -253,7 +253,7 @@ The `StakingInfoDetails` object includes the following items:
 
 The `ClaimingDetails` object includes the following items:
 
-<CompactTable source="wallet.ClaimingDetails" />
+<CompactTable source="common-structures/wallet.ClaimingDetails" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -269,7 +269,7 @@ The `ClaimingDetails` object includes the following items:
 
 The `PrivKeyPolicy` object includes the following items:
 
-<CompactTable source="wallet.PrivKeyPolicy" />
+<CompactTable source="common-structures/wallet.PrivKeyPolicy" />
 
 <CollapsibleSection expandedText="Hide Trezor Example" collapsedText="Show Trezor Example">
   ```json
@@ -291,7 +291,7 @@ The `PrivKeyPolicy` object includes the following items:
 
 The `RawTxInfo` object includes the following items:
 
-<CompactTable source="wallet.RawTxInfo" />
+<CompactTable source="common-structures/wallet.RawTxInfo" />
 
 <DevComment>
   TODO: Confirm units used in ETH/EVM transactions.
@@ -327,7 +327,7 @@ The `RawTxInfo` object includes the following items:
 
 The `ScanAddressesInfo` response object includes the following items for request in HD mode:
 
-<CompactTable source="wallet.ScanAddressesInfo" />
+<CompactTable source="common-structures/wallet.ScanAddressesInfo" />
 
 <DevComment>
   Confirm `new_addresses` array has the structure of `NewAddressInfo`.
@@ -335,13 +335,13 @@ The `ScanAddressesInfo` response object includes the following items for request
 
 ### TotalFeeInfo
 
-<CompactTable source="wallet.TotalFeeInfo" />
+<CompactTable source="common-structures/wallet.TotalFeeInfo" />
 
 ### WithdrawFee
 
 The `WithdrawFee` object varies depending on the coin or token type. Refer to the examples to view the object structure for each type.
 
-<CompactTable source="wallet.WithdrawFee" />
+<CompactTable source="common-structures/wallet.WithdrawFee" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example of Eth type
@@ -394,7 +394,7 @@ The `WithdrawFee` object varies depending on the coin or token type. Refer to th
 
 The `WalletAccountInfo` object includes the following items in the activation response for a coin in HD mode:
 
-<CompactTable source="wallet.WalletAccountInfo" />
+<CompactTable source="common-structures/wallet.WalletAccountInfo" />
 
 ```json
 {
@@ -414,7 +414,7 @@ The `WalletAccountInfo` object includes the following items in the activation re
 
 The `WalletBalanceInfo` object includes the following items in the activation response for a coin in HD mode:
 
-<CompactTable source="wallet.WalletBalanceInfo" />
+<CompactTable source="common-structures/wallet.WalletBalanceInfo" />
 
 ```json
 {
@@ -432,13 +432,13 @@ The `WalletBalanceInfo` object includes the following items in the activation re
 The `WithdrawFromInfo` response object includes the following items for HD Wallet [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests.
 You can use either the `derivation_path` on its own, or the `account_id`, `chain` and `address_id` together.
 
-<CompactTable source="wallet.WithdrawFromInfo" />
+<CompactTable source="common-structures/wallet.WithdrawFromInfo" />
 
 ### AccountId
 
 Identifier used across GUI-storage methods to reference a stored account.
 
-<CompactTable source="wallet.AccountId" />
+<CompactTable source="common-structures/wallet.AccountId" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -457,7 +457,7 @@ Identifier used across GUI-storage methods to reference a stored account.
 
 The `HdCoinKeys` object includes the following items for HD mode private key export responses:
 
-<CompactTable source="wallet.HdCoinKeys" />
+<CompactTable source="common-structures/wallet.HdCoinKeys" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -479,7 +479,7 @@ The `HdCoinKeys` object includes the following items for HD mode private key exp
 
 The `HdKeysInfo` object includes the following items for individual address information in HD mode:
 
-<CompactTable source="wallet.HdKeysInfo" />
+<CompactTable source="common-structures/wallet.HdKeysInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Standard Coin Example (KMD)
@@ -510,7 +510,7 @@ The `HdKeysInfo` object includes the following items for individual address info
 
 The `IguanaKeysInfo` object includes the following items for private key information in Iguana mode:
 
-<CompactTable source="wallet.IguanaKeysInfo" />
+<CompactTable source="common-structures/wallet.IguanaKeysInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### UTXO Coin Example (KMD)
@@ -564,7 +564,7 @@ The `IguanaKeysInfo` object includes the following items for private key informa
 
 The `available` balance is not sufficient to transfer the specified amount.
 
-<CompactTable source="wallet.NotSufficientBalance" />
+<CompactTable source="common-structures/wallet.NotSufficientBalance" />
 
 #### Response (NotSufficientBalance error)
 
@@ -588,19 +588,19 @@ The `available` balance is not sufficient to transfer the specified amount.
 
 The specified amount is too low. Required at least `threshold`.
 
-<CompactTable source="wallet.AmountTooLow" />
+<CompactTable source="common-structures/wallet.AmountTooLow" />
 
 #### InvalidAddress
 
 The specified `to` address is not valid.
 
-<CompactTable source="wallet.InvalidAddress" />
+<CompactTable source="common-structures/wallet.InvalidAddress" />
 
 #### InvalidFeePolicy
 
 The specified `fee` is not valid.
 
-<CompactTable source="wallet.InvalidFeePolicy" />
+<CompactTable source="common-structures/wallet.InvalidFeePolicy" />
 
 #### Response (InvalidFeePolicy error - attempt to use EthGas for UTXO coin)
 
@@ -634,13 +634,13 @@ The specified `fee` is not valid.
 
 Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/)
 
-<CompactTable source="wallet.AccruedRewards" />
+<CompactTable source="common-structures/wallet.AccruedRewards" />
 
 ### NotAccruedReason
 
 Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/)
 
-<CompactTable source="wallet.NotAccruedReason" />
+<CompactTable source="common-structures/wallet.NotAccruedReason" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   Example with accrued rewards:
@@ -668,7 +668,7 @@ Used in [kmd\_rewards\_info](/komodo-defi-framework/api/legacy/kmd_rewards_info/
 
 Represents the identifier of an account that can be set as the **enabled** (active) GUI-storage account.
 
-<CompactTable source="wallet.EnabledAccountId" />
+<CompactTable source="common-structures/wallet.EnabledAccountId" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -684,7 +684,7 @@ Represents the identifier of an account that can be set as the **enabled** (acti
 
 Used when creating a brand-new account via the `gui_storage::enable_account` method (when `policy` = `new`) or the `gui_storage::add_account` method.
 
-<CompactTable source="wallet.NewAccount" />
+<CompactTable source="common-structures/wallet.NewAccount" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json

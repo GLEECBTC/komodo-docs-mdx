@@ -77,28 +77,18 @@ function loadTableFiles() {
         const fileKey = path.basename(filePath, '.json');
         const dirPath = path.dirname(relativePath);
         
-        // Create a unique key that includes subdirectory structure
-        const fullKey = dirPath === '.' ? fileKey : `${dirPath.replace(/\//g, '-')}-${fileKey}`;
+        // Create keys with directory prefixes
+        // e.g., "common-structures/activation" for files in common-structures/activation.json
+        const keyWithDir = dirPath === '.' ? fileKey : `${dirPath}/${fileKey}`;
         
-        // Store with the full key first to avoid conflicts
-        if (fullKey !== fileKey) {
-          tableFiles[fullKey] = {
-            path: filePath,
-            content: content,
-            relativePath: relativePath
-          };
-        }
+        // Store with directory-prefixed key
+        tableFiles[keyWithDir] = {
+          path: filePath,
+          content: content,
+          relativePath: relativePath
+        };
         
-        // Store simple filename, but prefer common-structures over v2
-        if (!tableFiles[fileKey] || relativePath.startsWith('common-structures/')) {
-          tableFiles[fileKey] = {
-            path: filePath,
-            content: content,
-            relativePath: relativePath
-          };
-        }
-        
-        console.log(`📋 Loaded table file: ${fileKey} (${relativePath})`);
+        console.log(`📋 Loaded table file: ${keyWithDir} (${relativePath})`);
       } catch (error) {
         validationErrors.push(`Failed to parse JSON file ${filePath}: ${error.message}`);
       }
@@ -187,15 +177,27 @@ function validateCompactTableReferences(references, tableFiles) {
   let referencesValid = true;
   
   references.forEach(ref => {
-    const [fileName, tableName] = ref.source.split('.');
+    // Split on the last dot to handle directory paths
+    const lastDotIndex = ref.source.lastIndexOf('.');
     
-    if (!fileName || !tableName) {
-      validationErrors.push(`Invalid source format "${ref.source}" in ${ref.file}:${ref.line} (expected format: "filename.tablename")`);
+    if (lastDotIndex === -1) {
+      validationErrors.push(`Invalid source format "${ref.source}" in ${ref.file}:${ref.line} (expected format: "directory/filename.tablename")`);
       referencesValid = false;
       return;
     }
     
+    const fileName = ref.source.substring(0, lastDotIndex);
+    const tableName = ref.source.substring(lastDotIndex + 1);
+    
+    if (!fileName || !tableName) {
+      validationErrors.push(`Invalid source format "${ref.source}" in ${ref.file}:${ref.line} (expected format: "directory/filename.tablename")`);
+      referencesValid = false;
+      return;
+    }
+    
+    // Find the table file with the exact key (including directory)
     const tableFile = tableFiles[fileName];
+    
     if (!tableFile) {
       validationErrors.push(`Table file "${fileName}" not found for reference "${ref.source}" in ${ref.file}:${ref.line}`);
       referencesValid = false;

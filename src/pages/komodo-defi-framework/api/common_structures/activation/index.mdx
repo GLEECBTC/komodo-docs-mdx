@@ -8,7 +8,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ### ActivationMode
 
-<CompactTable source="activation.ActivationMode" />
+<CompactTable source="common-structures/activation.ActivationMode" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   Defines the activation mode for QTUM, BCH, UTXO & ZHTLC coins.
@@ -36,7 +36,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 Contains information about electrum & lightwallet\_d servers for coins being used in `Electrum` or `Light` mode.
 
-<CompactTable source="activation.ActivationParams" />
+<CompactTable source="common-structures/activation.ActivationParams" />
 
 <DevComment>
   `electrum` and `electrum_servers` are both used for the same purpose. This should be consolidated in the API.
@@ -46,7 +46,7 @@ Contains information about electrum & lightwallet\_d servers for coins being use
 
 The `ActivationParams` object defines additional parameters used for activation. These params may vary depending on the coin type.
 
-<CompactTable source="activation.ActivationParams" variant="compact" />
+<CompactTable source="common-structures/activation.ActivationParams" variant="compact" />
 
 <DevComment>
   Is priv\_key\_policy still a thing?
@@ -69,7 +69,7 @@ The `ActivationParams` object defines additional parameters used for activation.
 
 Contains information electrum servers for coins being used in `Electrum` or `Light` mode.
 
-<CompactTable source="activation.ActivationServers" variant="compact" />
+<CompactTable source="common-structures/activation.ActivationServers" variant="compact" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### ZHTLC Example
@@ -133,7 +133,7 @@ Contains information electrum servers for coins being used in `Electrum` or `Lig
 
 The `AddressInfo` object includes the following items for a given address:
 
-<CompactTable source="activation.AddressInfo" />
+<CompactTable source="common-structures/activation.AddressInfo" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example with balances
@@ -166,17 +166,17 @@ The `AddressInfo` object includes the following items for a given address:
 
 ### CoinProtocol
 
-<CompactTable source="activation.CoinProtocol" />
+<CompactTable source="common-structures/activation.CoinProtocol" />
 
 ### CoinProtocolData
 
-<CompactTable source="activation.CoinProtocolData" />
+<CompactTable source="common-structures/activation.CoinProtocolData" />
 
 ### CoinNode
 
 The `CoinNode` object includes the following items for a given coin or token:
 
-<CompactTable source="activation.CoinNode" />
+<CompactTable source="common-structures/activation.CoinNode" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -191,7 +191,7 @@ The `CoinNode` object includes the following items for a given coin or token:
 
 The `SwapV2Contracts` object includes the following items for a given coin or token:
 
-<CompactTable source="activation.TokensRequest" />
+<CompactTable source="common-structures/activation.TokensRequest" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -207,13 +207,13 @@ The `SwapV2Contracts` object includes the following items for a given coin or to
 
 Standard object structure used in token activation methods for specifying activation parameters.
 
-<CompactTable source="activation.TokenActivationParams" />
+<CompactTable source="common-structures/activation.TokenActivationParams" />
 
 ### TokensRequest
 
 The `TokensRequest` object includes the following items for a given coin or token:
 
-<CompactTable source="activation.TokensRequest" />
+<CompactTable source="common-structures/activation.TokensRequest" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -228,7 +228,7 @@ The `TokensRequest` object includes the following items for a given coin or toke
 
 The `UtxoMergeParams` object defines how often and at which thresholds to merge UTXOs. This is useful for wallets which have been used for a long time, and have many small UTXOs from mining activity.
 
-<CompactTable source="activation.UtxoMergeParams" />
+<CompactTable source="common-structures/activation.UtxoMergeParams" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json

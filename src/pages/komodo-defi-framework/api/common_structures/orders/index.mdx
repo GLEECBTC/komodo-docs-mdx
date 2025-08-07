@@ -8,23 +8,23 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ### 1inchProtocolImage
 
-<CompactTable source="orders.1inchProtocolImage" />
+<CompactTable source="common-structures/orders.1inchProtocolImage" />
 
 ### 1inchProtocolInfo
 
-<CompactTable source="orders.1inchProtocolInfo" />
+<CompactTable source="common-structures/orders.1inchProtocolInfo" />
 
 ### 1inchTokenInfo
 
-<CompactTable source="orders.1inchTokenInfo" variant="compact" />
+<CompactTable source="common-structures/orders.1inchTokenInfo" variant="compact" />
 
 ### 1inchTxFields
 
-<CompactTable source="orders.1inchTxFields" />
+<CompactTable source="common-structures/orders.1inchTxFields" />
 
 ### CancelBy
 
-<CompactTable source="orders.CancelBy" />
+<CompactTable source="common-structures/orders.CancelBy" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   To cancel all orders for a specific coin:
@@ -53,7 +53,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ### ConfSettings
 
-<CompactTable source="orders.ConfSettings" />
+<CompactTable source="common-structures/orders.ConfSettings" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -70,7 +70,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ## MatchBy
 
-<CompactTable source="orders.MatchBy" />
+<CompactTable source="common-structures/orders.MatchBy" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -98,7 +98,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ## OrderAddress
 
-<CompactTable source="orders.OrderAddress" />
+<CompactTable source="common-structures/orders.OrderAddress" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -115,7 +115,7 @@ import CompactTable from '@/components/mdx/CompactTable';
   Compare and confirm the differences between this object in v1 and v2 methods.
 </DevComment>
 
-<CompactTable source="orders.OrderDataV1" />
+<CompactTable source="common-structures/orders.OrderDataV1" />
 
 ### OrderDataV2
 
@@ -123,11 +123,11 @@ import CompactTable from '@/components/mdx/CompactTable';
   Compare and confirm the differences between this object in v1 and v2 methods.
 </DevComment>
 
-<CompactTable source="orders.OrderDataV2" />
+<CompactTable source="common-structures/orders.OrderDataV2" />
 
 ### OrderStatusData
 
-<CompactTable source="orders.OrderStatusData" variant="compact" />
+<CompactTable source="common-structures/orders.OrderStatusData" variant="compact" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
@@ -205,7 +205,7 @@ import CompactTable from '@/components/mdx/CompactTable';
   Compare and confirm the differences between this object in v1 and v2 methods.
 </DevComment>
 
-<CompactTable source="orders.OrderDataV1_1" />
+<CompactTable source="common-structures/orders.OrderDataV1_1" />
 
 ### OrderDataV2
 
@@ -213,15 +213,15 @@ import CompactTable from '@/components/mdx/CompactTable';
   Compare and confirm the differences between this object in v1 and v2 methods.
 </DevComment>
 
-<CompactTable source="orders.OrderDataV2_1" />
+<CompactTable source="common-structures/orders.OrderDataV2_1" />
 
 ## OrderSummaryData
 
-<CompactTable source="orders.OrderDataV2_2" />
+<CompactTable source="common-structures/orders.OrderDataV2_2" />
 
 ### OrderType
 
-<CompactTable source="orders.OrderType" />
+<CompactTable source="common-structures/orders.OrderType" />
 
 <Note>
   If your order includes UTXO coins activated via electrum, and connection to its servers is lost, your order will automatically cancel and will need to be recreated once the connection is restored.
@@ -251,7 +251,7 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 ### RequestBy
 
-<CompactTable source="orders.RequestBy" />
+<CompactTable source="common-structures/orders.RequestBy" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   Filter response to return the best trades for up to 20 of the coin defined in the parent object:
@@ -279,13 +279,13 @@ import CompactTable from '@/components/mdx/CompactTable';
 
 Used in [orderbook\_depth](/komodo-defi-framework/api/legacy/orderbook_depth/) responses to represent the depth information for a trading pair.
 
-<CompactTable source="orders.PairDepth" />
+<CompactTable source="common-structures/orders.PairDepth" />
 
 ### DepthInfo
 
 Used within [PairDepth](/komodo-defi-framework/api/common_structures/orders/#pair-depth) objects to represent ask and bid counts.
 
-<CompactTable source="orders.DepthInfo" />
+<CompactTable source="common-structures/orders.DepthInfo" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json

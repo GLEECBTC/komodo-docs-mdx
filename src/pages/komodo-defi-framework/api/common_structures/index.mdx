@@ -24,7 +24,7 @@ Structures which are used in more than one section are listed below:
 
 The `EventStreamConfig` object defines which events will be streamed to the client:
 
-<CompactTable source="common.EventStreamConfig" />
+<CompactTable source="common-structures/common.EventStreamConfig" />
 
 Configurable events, and how to enable them, is detailed in the [streaming methods doc](/komodo-defi-framework/api/v20/streaming/)
 
@@ -45,7 +45,7 @@ The `CLIENT_ID` value used in the url must match the `client_id` value used when
 
 The 'FilterCriteria' object allows you to filter the results based on specific parameters.
 
-<CompactTable source="common.FractionalValue" />
+<CompactTable source="common-structures/common.FractionalValue" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -69,7 +69,7 @@ The 'FilterCriteria' object allows you to filter the results based on specific p
 
 The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
 
-<CompactTable source="common.NumericFormatsValue" />
+<CompactTable source="common-structures/common.NumericFormatsValue" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -84,7 +84,7 @@ The `FractionalValue` object includes a [numerator and denominator](https://www.
 
 The `NumericFormatsValue` returns a price or amount in three different formats: `fraction`, `rational`, and `decimal`.
 
-<CompactTable source="common.PagingOptions" />
+<CompactTable source="common-structures/common.PagingOptions" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -106,7 +106,7 @@ The `NumericFormatsValue` returns a price or amount in three different formats: 
 
 The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
 
-<CompactTable source="common.Pagination" />
+<CompactTable source="common-structures/common.Pagination" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -126,7 +126,7 @@ The `PagingOptions` object includes options of page selection to consult when lo
 
 For requests which return many results, pagination offsets may be applied. \*\* Use either value, not both. \*\*
 
-<CompactTable source="common.StreamingConfig" />
+<CompactTable source="common-structures/common.StreamingConfig" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -169,7 +169,7 @@ The Komodo DeFi SDK now offers the [num-rational crate](https://crates.io/crates
 
 You can optionally apply more detailed configuration to event streaming methods.
 
-<CompactTable source="common.StreamingFeeConfig" />
+<CompactTable source="common-structures/common.StreamingFeeConfig" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### Example
@@ -184,7 +184,7 @@ You can optionally apply more detailed configuration to event streaming methods.
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ### StreamingFeeConfig
 
-  <CompactTable source="common.SyncStatus" />
+  <CompactTable source="common-structures/common.SyncStatus" />
 
   #### Example (stream::fee\_estimator::enable)
 
@@ -198,11 +198,11 @@ You can optionally apply more detailed configuration to event streaming methods.
 
 ### SyncStatus
 
-<CompactTable source="common.SyncStatusExtended" />
+<CompactTable source="common-structures/common.SyncStatusExtended" />
 
 ### SyncStatusExtended
 
-<CompactTable source="common.WcConnNs" />
+<CompactTable source="common-structures/common.WcConnNs" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -239,7 +239,7 @@ You can optionally apply more detailed configuration to event streaming methods.
 
 The `WcConnNs` object contains details of approved chains, methods and events while connected via [WalletConnect](https://specs.walletconnect.com/2.0/).
 
-<CompactTable source="common.WcSession" />
+<CompactTable source="common-structures/common.WcSession" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   #### EIP155 Example
@@ -287,7 +287,7 @@ The `WcConnNs` object contains details of approved chains, methods and events wh
 
 The `WcSession` object contains details of active WalletConnect sessions.
 
-<CompactTable source="common.ErrorResponse" />
+<CompactTable source="common-structures/common.ErrorResponse" />
 
 Within each session object, there are a some values which are required as input in other WalletConnect methods:
 
@@ -296,4 +296,4 @@ Within each session object, there are a some values which are required as input 
 
 ### ErrorResponse
 
-<CompactTable source="common.ErrorResponse" />
+<CompactTable source="common-structures/common.ErrorResponse" />

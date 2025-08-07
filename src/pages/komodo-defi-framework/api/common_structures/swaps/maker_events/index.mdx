@@ -53,7 +53,7 @@ Click on the Events below to view thier structure:
 
   The swap goes to the negotiation stage after this event occurs.
 
-  <CompactTable source="maker-events.Started" variant="compact" />
+  <CompactTable source="common-structures/maker-events.Started" variant="compact" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -67,7 +67,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.StartFailed" />
+  <CompactTable source="common-structures/maker-events.StartFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -81,7 +81,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker to send the dex fee after this event occurs.
 
-  <CompactTable source="maker-events.Negotiated" />
+  <CompactTable source="common-structures/maker-events.Negotiated" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -114,7 +114,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.NegotiateFailed" />
+  <CompactTable source="common-structures/maker-events.NegotiateFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -133,7 +133,7 @@ Click on the Events below to view thier structure:
 
   Maker sends their payment after this event occurs.
 
-  <CompactTable source="maker-events.TakerFeeValidated" />
+  <CompactTable source="common-structures/maker-events.TakerFeeValidated" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -153,7 +153,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.TakerFeeValidateFailed" />
+  <CompactTable source="common-structures/maker-events.TakerFeeValidateFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -167,7 +167,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.MakerPaymentTransactionFailed" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentTransactionFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -186,7 +186,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker to send his payment after this event occurs.
 
-  <CompactTable source="maker-events.MakerPaymentSent" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentSent" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -205,7 +205,7 @@ Click on the Events below to view thier structure:
   The `MakerPaymentDataSendFailed` event indicates that maker was not able to send his payment data to taker due to a network error.
   When this event occurs, maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  <CompactTable source="maker-events.MakerPaymentDataSendFailed" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentDataSendFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -219,7 +219,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  <CompactTable source="maker-events.MakerPaymentWaitConfirmFailed" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentWaitConfirmFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -238,7 +238,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for taker payment confirmation after this event occurs.
 
-  <CompactTable source="maker-events.TakerPaymentReceived" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentReceived" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -264,7 +264,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  <CompactTable source="maker-events.TakerPaymentValidateFailed" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentValidateFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -283,7 +283,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  <CompactTable source="maker-events.TakerPaymentWaitConfirmFailed" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentWaitConfirmFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -305,7 +305,7 @@ Click on the Events below to view thier structure:
 
   When this event occurs maker starts waiting for **maker payment lock time expiration** to issue a refund.
 
-  <CompactTable source="maker-events.TakerPaymentSpendFailed" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentSpendFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -321,7 +321,7 @@ Click on the Events below to view thier structure:
 
   Maker starts waiting for **taker payment spend** confirmation after this event occurs.
 
-  <CompactTable source="maker-events.TakerPaymentSpent" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentSpent" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -350,7 +350,7 @@ Click on the Events below to view thier structure:
 
   Maker attempts to refund the maker payment.
 
-  <CompactTable source="maker-events.TakerPaymentSpendConfirmFailed" />
+  <CompactTable source="common-structures/maker-events.TakerPaymentSpendConfirmFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -370,7 +370,7 @@ Click on the Events below to view thier structure:
 
   The `MakerPaymentWaitRefundStarted` event indicates that maker started waiting for lock time expiration to refund the payment.
 
-  <CompactTable source="maker-events.MakerPaymentWaitRefundStarted" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentWaitRefundStarted" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -386,7 +386,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.MakerPaymentRefundFailed" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentRefundFailed" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json
@@ -400,7 +400,7 @@ Click on the Events below to view thier structure:
 
   The swap finishes immediately when this event occurs.
 
-  <CompactTable source="maker-events.MakerPaymentRefunded" />
+  <CompactTable source="common-structures/maker-events.MakerPaymentRefunded" />
 
   <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
     ```json

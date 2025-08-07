@@ -11,13 +11,13 @@ When you see the pin grid on your device, or it asks for a passphrase word, use 
 
 ### Request Parameters
 
-<CompactTable source="v2-utils.TaskInitTrezorUserActionRequest" />
+<CompactTable source="v2/utils.TaskInitTrezorUserActionRequest" />
 
 <OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
 
 ### Response Parameters
 
-<CompactTable source="v2-utils.TaskInitTrezorUserActionResponse" />
+<CompactTable source="v2/utils.TaskInitTrezorUserActionResponse" />
 
 <Note>
   Even an incorrect PIN will return `success`. This doesn't mean the PIN was accepted, just that it was communicated without errors. If the PIN was incorrect, you will see an error like below in the next response for a method that requires authentication.
