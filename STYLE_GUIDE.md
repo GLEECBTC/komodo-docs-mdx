@@ -78,31 +78,110 @@ For example:
 
 ### CompactTable Component
 
-For improved table layout and responsive design, use the `CompactTable` component instead of standard markdown tables when dealing with API parameters:
+For improved table layout and responsive design, use the `CompactTable` component instead of standard markdown tables when dealing with API parameters. The `CompactTable` component allows pulling table data from centralized JSON files and generating tables from the data. This ensures consistency and maintainability across the documentation.
+
+#### How CompactTable Works
+
+CompactTable uses a source attribute that references table data stored in JSON files:
+- Table data is stored in `/src/data/tables/` directory
+- Data is organized by subdirectory: `common-structures/`, `v2/`, etc.
+- Each JSON file contains multiple table definitions
+- Tables are referenced using the format: `directory/filename.tablename`
+
+#### Import and Usage
+
+First import the component at the top of your MDX file:
+```jsx
+import CompactTable from '@/components/mdx/CompactTable';
+```
+
+Then use it with a source reference:
+```jsx
+<CompactTable source="common-structures/activation.ActivationMode" />
+```
+
+With variant option:
+```jsx
+<CompactTable source="v2/streaming.BalanceEnableRequestParameters" variant="compact" />
+```
+
+#### Source Reference Format
+
+The `source` attribute follows this pattern:
+- `directory/filename.tablename`
+- Examples:
+  - `common-structures/activation.ActivationMode`
+  - `v2/utils.GetTokenInfoRequest`
+  - `common-structures/wallet.BalanceInfo`
+
+#### JSON Data Structure
+
+Table data files are located in `/src/data/tables/` and follow this structure:
+
+```json
+{
+  "TableName": {
+    "title": "Table Title (optional)",
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The name of the coin to activate. Can include [markdown links](/path/to/page/)."
+      },
+      {
+        "parameter": "amount",
+        "type": "float",
+        "required": false,
+        "default": "0",
+        "description": "Optional. The amount to send."
+      }
+    ]
+  }
+}
+```
 
 #### When to Use CompactTable
 
 - **API documentation** with parameter tables
-- **Pages with multiple tables** that need consistent formatting
-- **Mobile-heavy content** requiring responsive design
-- **Tables with many required parameters** needing clear indication
+- **Common structures** used across multiple methods
+- **Consistent data structures** that need central management
+- **Tables with complex descriptions** including internal links
 
-#### Required Parameter Best Practices
+#### Variants
 
-**✅ Do:**
-- Use asterisk (*) + bold styling + color for required parameters
-- Include legend in table header: "* = required"
-- Combine visual cues for accessibility
-- Use `required: true/false` in data structure
+- **Default**: Standard table layout with all columns
+- **`compact`**: Reduced spacing for dense pages with many tables
+- **`minimal`**: Simplified layout for sidebars or quick reference
 
-**❌ Don't:**
-- Rely on bold text alone
-- Use separate Required/Default columns (wastes space)
-- Use unclear symbols like ✓/✗ without legend
+#### Benefits
 
-#### Usage Examples
+- **Centralized data management**: Update table data in one place
+- **Consistency**: Ensures uniform table structure across docs
+- **Validation**: JSON schema validation ensures data integrity
+- **Link validation**: Internal links in descriptions are automatically validated
+- **Reusability**: Same table data can be referenced from multiple pages
 
-**Basic Usage:**
+#### Migration from Standard Tables
+
+**Before (problematic layout):**
+```markdown
+| Parameter | Type | Required | Default | Description |
+| --------- | ---- | :------: | :-----: | ----------- |
+| coin      | string |    ✓   |   `-`   | Name of coin |
+```
+
+**After (space-efficient):**
+```jsx
+<CompactTable data={[
+  { parameter: "coin", type: "string", required: true, description: "Name of coin" }
+]} />
+```
+
+#### Miscellanious
+
+Also supports sending data directly, but not encouraged.
+
 ```jsx
 <CompactTable 
   data={[
@@ -122,46 +201,6 @@ For improved table layout and responsive design, use the `CompactTable` componen
   ]}
 />
 ```
-
-**Compact Variant (for dense pages):**
-```jsx
-<CompactTable 
-  variant="compact"
-  data={parameterData}
-/>
-```
-
-**Minimal Variant (for sidebars/inline docs):**
-```jsx
-<CompactTable 
-  variant="minimal"
-  data={parameterData}
-  columns={['Parameter', 'Type', 'Description']}
-/>
-```
-
-#### Migration from Standard Tables
-
-**Before (problematic layout):**
-```markdown
-| Parameter | Type | Required | Default | Description |
-| --------- | ---- | :------: | :-----: | ----------- |
-| coin      | string |    ✓   |   `-`   | Name of coin |
-```
-
-**After (space-efficient):**
-```jsx
-<CompactTable data={[
-  { parameter: "coin", type: "string", required: true, description: "Name of coin" }
-]} />
-```
-
-#### Benefits
-- **~30% space reduction** compared to 5-column tables
-- **Consistent required parameter styling** across all documentation
-- **Responsive design** with mobile/tablet breakpoints  
-- **Accessibility compliant** with ARIA labels and screen reader support
-- **Dark mode support** built-in
 
 ## Variables
 
