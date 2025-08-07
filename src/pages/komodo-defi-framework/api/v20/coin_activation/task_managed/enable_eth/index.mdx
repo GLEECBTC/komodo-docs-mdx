@@ -63,7 +63,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthInit />
+<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthInitTrezor" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -97,7 +97,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthStatus />
+<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthStatus" />
 
 #### Response (ready, successful, HD mode)
 
@@ -264,7 +264,7 @@ If the `task::enable_eth::status` returns `UserActionRequired`, we need to use t
 
 #### Command
 
-<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthUserAction />
+<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
