@@ -1,0 +1,48 @@
+export const title = "Komodo DeFi Framework Method: Get Shared Database ID";
+export const description =
+  "Return the deterministic identifier used as the root directory name for this node's SQLite databases.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Get Shared Database ID
+
+## get\_shared\_db\_id {{label : 'get_shared_db_id', tag : 'API-v2'}}
+
+The `get_shared_db_id` method returns a 20-byte identifier (H160) derived from the node's seed phrase.\
+It is used as the root folder name for **all** SQLite databases on the host.  • The value is **identical for all HD accounts derived from the same seed** and **different** for separate seeds.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.GetSharedDbIdRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.GetSharedDbIdResponse" />
+
+### 📌 Examples
+
+<CodeGroup title="Get Shared Database ID" tag="POST" label="get_shared_db_id" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "get_shared_db_id",
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Get Shared Database ID Response" collapsedText="Show Get Shared Database ID Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "shared_db_id": "0x3ca9c5b85e5f3af62f3ae3903f1e2d8d9d7e2c12"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2/utils.GetSharedDbIdErrors" />

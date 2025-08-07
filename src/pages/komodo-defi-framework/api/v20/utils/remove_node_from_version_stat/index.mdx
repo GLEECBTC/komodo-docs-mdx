@@ -1,21 +1,24 @@
 export const title = "Komodo DeFi Framework Method: Remove Node from Version Stat";
-export const description = "The remove_node_from_version_stat method removes a Node from the local database that tracks which version of KDF it is running.";
+export const description = "Removes a node from the local version stat database in Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# remove\_node\_from\_version\_stat
+# Remove Node from Version Stat
 
-The `remove_node_from_version_stat` method removes a Node (by name) from the local database which tracks which version of KDF it is running. The name parameter is an arbitrary identifying string, such as "seed\_alpha" or "dragonhound\_DEV".
+## remove\_node\_from\_version\_stat {{label : 'remove_node_from_version_stat', tag : 'API-v2'}}
 
-## Arguments
+The `remove_node_from_version_stat` method removes a node (by name) from the local database which tracks which version of KDF it is running. The `name` parameter is an arbitrary identifying string, such as `seed_alpha` or `dragonhound_DEV`.
 
-| Structure | Type   | Description                   |
-| --------- | ------ | ----------------------------- |
-| name      | string | the name assigned to the node |
+### Request Parameters
+
+<CompactTable source="v2/utils.RemoveNodeFromVersionStatRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.RemoveNodeFromVersionStatResponse" />
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="remove_node_from_version_stat" mm2MethodDecorate="true">
+<CodeGroup title="Remove Node from Version Stat" tag="POST" label="remove_node_from_version_stat" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -28,14 +31,14 @@ The `remove_node_from_version_stat` method removes a Node (by name) from the loc
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Remove Node from Version Stat Response" collapsedText="Show Remove Node from Version Stat Response">
   #### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
+      "mmrpc": "2.0",
+      "result": "success",
+      "id": null
   }
   ```
 </CollapsibleSection>

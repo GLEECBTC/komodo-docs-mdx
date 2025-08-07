@@ -1618,7 +1618,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_bch::user\_action {{label : 'task::enable_bch::user_action', tag : 'API-v2'}}
 
@@ -1772,7 +1772,7 @@ Use this method for task managed activation of ETH/EVM coins & tokens. Refer to 
 | min\_addresses\_number      | integer          | Optional, HD wallets only. How many additional addreesses to generate at a minimum.                                                                                                                                                                                                                                                          |
 | scan\_policy                | string           | Optional, HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework.                                                                                                                               |
 | gap\_limit                  | integer          | Optional, HD wallets only. The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                                                                                                                                                           |
-| path\_to\_address           | object           | Optional, HD wallets only. A standard [AddressDerivationPath](/komodo-defi-framework/api/common_structures/wallet/#address-derivation-path) object.                                                                                                                                                                                          |
+| path\_to\_address           | object           | Optional, HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.                                                                                                                                                                                                               |
 | swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object.                                                                                     |
 
 ### Response
@@ -2024,7 +2024,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_eth::user\_action {{label : 'task::enable_eth::user_action', tag : 'API-v2'}}
 
@@ -3026,7 +3026,7 @@ Possible Error Cases:
 
 *   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
 *   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
 ## task::enable\_utxo::user\_action {{label : 'task::enable_utxo::user_action', tag : 'API-v2'}}
 
@@ -3802,14 +3802,6 @@ The `available` balance is not sufficient to transfer the specified amount.
   "id": 0
 }
 ```
-
-#### ZeroBalanceToWithdrawMax
-
-The available balance is zero.
-
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
 
 #### AmountTooLow
 
@@ -6010,7 +6002,7 @@ export const title = "Komodo DeFi Framework Method: Non Fungible Tokens";
 export const description =
   "This document describes the clear_nft_db method Komodo DeFi Framework provides to clear NFT data from your local database";
 
-# Clear NFT Database {{label : 'clear_nft_db', tag : 'API-v2'}}
+# Clear NFT DB {{label : 'clear_nft_db', tag : 'API-v2'}}
 
 This method will clear the NFT database data stored in the local database for selected (or all) networks.
 
@@ -7341,33 +7333,24 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
 ```
 
 View the source code at: [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs)
-export const title = "Komodo DeFi Framework Method: Balance Events Streaming";
+export const title = "Komodo DeFi Framework Method: Enable Balance Streaming";
 export const description = "Using this method, you can enable balance events streaming for a specific coin.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# balance\_enable
+# Enable Balance Streaming
+
+## stream::balance::enable {{label : 'stream::balance::enable', tag : 'API-v2'}}
 
 Using this method, you can enable balance events streaming for a specific coin, to a specific client. For ETH-like coins and tokens, you can also specify the streaming interval in seconds (to avoid excessive polling leading to upstream API rate limts)
 
 ### Request Parameters
-
-| Parameter  | Type    | Description                                                                                                                                                                               |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin       | string  | Ticker of the coin to activate streaming for. The coin must be activated first.                                                                                                           |
-| client\_id | integer | Optional. In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-| config     | object  | Optional, EVM only. A standard [StreamingFeeConfig](/komodo-defi-framework/api/common_structures/#streaming-fee-config) object.                                                           |
 
 The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
 The selected coin must be enabled prior to enabling streaming.
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
-
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7384,8 +7367,6 @@ The selected coin must be enabled prior to enabling streaming.
 }
 ```
 
-#### Response
-
 ```json
 {
     "mmrpc": "2.0",
@@ -7400,9 +7381,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"BALANCE:MATIC","message":[{"ticker":"MATIC","address":"0xc11b6070c84a1e6fc62b2a2acf70831545d5edd4","balance":{"spendable":"2.00000001","unspendable":"0"}}]}`
 
-#### CoinNotFound
+### Error Types
 
-You need to activate the coin first.
+##### Error Response (Coin Not Found)
 
 ```json
 {
@@ -7415,9 +7396,7 @@ You need to activate the coin first.
 }
 ```
 
-#### UnknownClient
-
-No client has an open connection using this `client_id`.
+##### Error (Unknown Client)
 
 ```json
 {
@@ -7431,9 +7410,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -7447,9 +7424,7 @@ The requested events are already being sent to the `client_id`.
 } 
 ```
 
-#### EnableError Error
-
-The `config` object is not used in non-EVM coins.
+##### Error (Enable Error)
 
 ```json
 {
@@ -7462,23 +7437,21 @@ The `config` object is not used in non-EVM coins.
     "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: Disable Event Streaming";
+export const title = "Komodo DeFi Framework Method: Disable Streaming";
 export const description = "Using this method, you can disable specific streaming events.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# disable
+# Disable Streaming
+
+## stream::disable {{label : 'stream::disable', tag : 'API-v2'}}
 
 Using this method, you can disable specific streaming events.
 
 ### Request Parameters
 
-| Parameter    | Type    | Description                                                                                                                      |
-| ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id   | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| streamer\_id | string  | An identifier for the data stream to disable.                                                                                    |
+### Response Parameters
 
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7492,8 +7465,6 @@ Using this method, you can disable specific streaming events.
 }
 ```
 
-#### Response
-
 ```json
   {
       "mmrpc": "2.0",
@@ -7504,7 +7475,9 @@ Using this method, you can disable specific streaming events.
   }
 ```
 
-#### StreamerNotFound
+### Error Types
+
+##### Error Response (Streamer Not Found)
 
 ```json
   {
@@ -7518,9 +7491,7 @@ Using this method, you can disable specific streaming events.
   }
 ```
 
-#### UnknownClient
-
-No client has an open connection using this `client_id`.
+##### Error (Unknown Client)
 
 ```json
   {
@@ -7533,23 +7504,21 @@ No client has an open connection using this `client_id`.
       "id": null
   }
 ```
-export const title = "Komodo DeFi Framework Method: Enable Fee Estimator Streaming";
+export const title = "Komodo DeFi Framework Method: Fee Estimator Streaming";
 export const description = "Using this method, you can enable the fee estimation stream.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# fee\_estimator\_enable
+# Fee Estimator Streaming
+
+## stream::fee\_estimator::enable {{label : 'stream::fee_estimator::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the fee estimation stream. For requesting fee estimates without streaming, use [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas/).
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| coin       | string  | The coin or token to enable the fee estimation stream for.                                                                       |
+### Response Parameters
 
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7567,8 +7536,6 @@ Using this method, you can enable the fee estimation stream. For requesting fee 
 }
 ```
 
-#### Response
-
 ```json
 {
   "mmrpc": "2.0",
@@ -7583,9 +7550,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"FEE_ESTIMATION:MATIC","message":{"base_fee":"0.000000281","low":{"max_priority_fee_per_gas":"30","max_fee_per_gas":"30.000000309","min_wait_time":null,"max_wait_time":null},"medium":{"max_priority_fee_per_gas":"32.633147189","max_fee_per_gas":"32.633147519","min_wait_time":null,"max_wait_time":null},"high":{"max_priority_fee_per_gas":"38.9999999","max_fee_per_gas":"39.000000251","min_wait_time":null,"max_wait_time":null},"source":"simple","base_fee_trend":"","priority_fee_trend":"","units":"Gwei"}}`
 
-#### CoinNotFound
+### Error Types
 
-You need to activate the coin first.
+##### Error Response (Coin Not Found)
 
 ```json
 {
@@ -7598,9 +7565,7 @@ You need to activate the coin first.
 }
 ```
 
-#### CoinNotSupported
-
-Currently only EVM coins/tokens (e.g. BNB, ETH, MATIC, AVAX) support fee estimation.
+##### Error (Coin Not Supported)
 
 ```json
 {
@@ -7614,9 +7579,7 @@ Currently only EVM coins/tokens (e.g. BNB, ETH, MATIC, AVAX) support fee estimat
 }
 ```
 
-#### UnknownClient
-
-No client has an open connection using this `client_id`.
+##### Error (Unknown Client)
 
 ```json
 {
@@ -7630,9 +7593,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -7646,9 +7607,7 @@ The requested events are already being sent to the `client_id`.
 }
 ```
 
-#### InvalidRequest
-
-The requested events are already being sent to the `client_id`.
+##### Error (Invalid Request)
 
 ```json
 {
@@ -7661,31 +7620,23 @@ The requested events are already being sent to the `client_id`.
     "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: Heartbeat Events";
+export const title = "Komodo DeFi Framework Method: Enable Heartbeat Streaming";
 export const description = "Using this method, you can enable heartbeat events streaming.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# heartbeat\_enable
+# Enable Heartbeat Streaming
+
+## stream::heartbeat::enable {{label : 'stream::heartbeat::enable', tag : 'API-v2'}}
 
 Using this method, you can enable heartbeat events streaming to a specific client.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                                                                               |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | Optional. In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-| config     | object  | Optional. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.                                                                            |
-
 The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
-
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7701,8 +7652,6 @@ The client defines its own id when opening a connection to the stream, and each 
 }
 ```
 
-#### Response
-
 ```json
 {
     "mmrpc": "2.0",
@@ -7717,9 +7666,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"HEARTBEAT","message":{}}`
 
-#### UnknownClient
+### Error Types
 
-No client has an open connection using this `client_id`.
+##### Error Response (Unknown Client)
 
 ```json
 {
@@ -7733,9 +7682,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -7748,38 +7695,41 @@ The requested events are already being sent to the `client_id`.
     "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: Streaming Methods";
-export const description =
-  "The methods in this document show how to configure and initiate the KDF streaming interface";
+export const title = "Komodo DeFi Framework Method Overview: Streaming Methods";
+export const description = "This document provides an overview of methods to configure and initiate the KDF streaming interface.";
 
-# Streaming Methods
+# Streaming Methods Overview
 
-These methods give the user fine grained control over which event streams to activate, and how often to poll them for data.
-export const title = "Komodo DeFi Framework Method: Network Events";
+## streaming {{label : 'streaming', tag : 'overview'}}
+
+These methods give the user fine-grained control over which event streams to activate, and how often to poll them for data.
+
+*   Enable balance streaming with [stream::balance\_enable](/komodo-defi-framework/api/v20/streaming/balance_enable/)
+*   Disable streaming with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)
+*   Enable fee estimator streaming with [stream::fee\_estimator](/komodo-defi-framework/api/v20/streaming/fee_estimator/)
+*   Enable heartbeat streaming with [stream::heartbeat\_enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/)
+*   Enable network streaming with [stream::network\_enable](/komodo-defi-framework/api/v20/streaming/network_enable/)
+*   Enable order status streaming with [stream::order\_status\_enable](/komodo-defi-framework/api/v20/streaming/order_status_enable/)
+*   Enable orderbook streaming with [stream::orderbook\_enable](/komodo-defi-framework/api/v20/streaming/orderbook_enable/)
+*   Enable swap status streaming with [stream::swap\_status\_enable](/komodo-defi-framework/api/v20/streaming/swap_status_enable/)
+*   Enable transaction history streaming with [stream::tx\_history\_enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/)
+export const title = "Komodo DeFi Framework Method: Enable Network Streaming";
 export const description = "Using this method, you can enable network events streaming.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# network\_enable
+# Enable Network Streaming
+
+## stream::network::enable {{label : 'stream::network::enable', tag : 'API-v2'}}
 
 Using this method, you can enable network events streaming to a specific client.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                                                                               |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | Optional. In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-| config     | object  | Optional. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.                                                                            |
-
 The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
-
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7795,8 +7745,6 @@ The client defines its own id when opening a connection to the stream, and each 
 }
 ```
 
-#### Response
-
 ```json
 {
     "mmrpc": "2.0",
@@ -7811,9 +7759,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"NETWORK","message":{"directly_connected_peers":{"12D3KooWBhGrTVfaK9v12eA3Et84Y8Bc6ixfZVVGShsad2GBWzm3":["/ip4/162.55.5.83/tcp/42845"],"12D3KooWMjrYgoAVk5NKyqxPyYJUJyCY9nnZhFt7xwWjAe568PSN":["/ip4/65.108.252.86/tcp/42845/p2p/12D3KooWMjrYgoAVk5NKyqxPyYJUJyCY9nnZhFt7xwWjAe568PSN"]},"gossip_mesh":{"swap/4bfe3af7-dd62-4dbe-9c16-68697c4aa24d":[],"hcheck/12D3KooWEurexTFLmsiw2bQoKdrWuNZSQmjvTinoCMNmfRwfZUmW":[],"orbk/DOC:MARTY":[]},"gossip_peer_topics":{"12D3KooWMjrYgoAVk5NKyqxPyYJUJyCY9nnZhFt7xwWjAe568PSN":[],"12D3KooWBhGrTVfaK9v12eA3Et84Y8Bc6ixfZVVGShsad2GBWzm3":[]},"gossip_topic_peers":{},"relay_mesh":["12D3KooWMjrYgoAVk5NKyqxPyYJUJyCY9nnZhFt7xwWjAe568PSN","12D3KooWBhGrTVfaK9v12eA3Et84Y8Bc6ixfZVVGShsad2GBWzm3"]}}`
 
-#### UnknownClient
+### Error Types
 
-No client has an open connection using this `client_id`.
+##### Error Response (Unknown Client)
 
 ```json
 {
@@ -7827,9 +7775,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -7844,20 +7790,19 @@ The requested events are already being sent to the `client_id`.
 ```
 export const title = "Komodo DeFi Framework Method: Enable Order Status Streaming";
 export const description = "Using this method, you can enable the order status stream.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# order\_status\_enable
+# Enable Order Status Streaming
+
+## stream::order\_status::enable {{label : 'stream::order_status::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the order status stream.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
+### Response Parameters
 
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7869,8 +7814,6 @@ Using this method, you can enable the order status stream.
   }
 }
 ```
-
-#### Response
 
 ```json
 {
@@ -7886,9 +7829,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"ORDER_STATUS","message":{"order_type":"TakerMatch","order_data":{"reserved":{"base":"DOC","rel":"MARTY","base_amount":[[1,[12]],[1,[5]]],"rel_amount":[[1,[12]],[1,[5]]],"taker_order_uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","maker_order_uuid":"3842068d-d8ca-4dc3-85d7-7fb2b6f4b691","sender_pubkey":"15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732","dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000","conf_settings":{"base_confs":1,"base_nota":false,"rel_confs":1,"rel_nota":false},"base_protocol_info":[145,168,115,116,97,110,100,97,114,100],"rel_protocol_info":[145,168,115,116,97,110,100,97,114,100]},"connect":{"taker_order_uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","maker_order_uuid":"3842068d-d8ca-4dc3-85d7-7fb2b6f4b691","sender_pubkey":"71792f7a6846a0da28f3422501927ae103355c02750bc4c4d8430375329a09ac","dest_pub_key":"15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732"},"connected":null,"last_updated":1746432440044}}}`
 
-#### UnknownClient
+### Error Types
 
-No client has an open connection using this `client_id`.
+##### Error Response (Unknown Client)
 
 ```json
 {
@@ -7902,9 +7845,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -7917,26 +7858,23 @@ The requested events are already being sent to the `client_id`.
   "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: Enable Orderbook Streaming";
+export const title = "Komodo DeFi Framework Method: Orderbook Streaming";
 export const description = "Using this method, you can enable the orderbook stream for a given pair.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# orderbook\_enable
+# Orderbook Streaming
+
+## stream::orderbook::enable {{label : 'stream::orderbook::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the orderbook stream for a given pair.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
-| base       | string  | Base currency of a pair                                                                                                          |
-| rel        | string  | Related currency, also known as the "quote currency"                                                                             |
-
 For this method, `base` and `rel` are essentially interchangeable, and inverting the base coin and rel coin in a request will return the same data.
 
-### 📌 Examples
+### Response Parameters
 
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -7950,8 +7888,6 @@ For this method, `base` and `rel` are essentially interchangeable, and inverting
   }
 }
 ```
-
-#### Response
 
 ```json
 {
@@ -7967,7 +7903,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"ORDERBOOK_UPDATE/orbk/KMD:MATIC","message":{"order_type":"NewOrUpdatedItem","order_data":{"pubkey":"026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245","base":"MATIC","rel":"KMD","price":[[1,[4249903049,3]],[1,[1410065408,2]]],"max_volume":[[1,[1477927621,23427]],[1,[1783793664,116]]],"min_volume":[[1,[1223297773,7148]],[1,[552894464,46566]]],"uuid":"b18bb3ab-8476-4a06-9cf6-9744e1bf6442","created_at":1746432644}}} `
 
-#### UnknownClient
+### Error Types
+
+##### Error Response (Unknown Client)
 
 No client has an open connection using this `client_id`.
 
@@ -7983,7 +7921,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
+##### Error (Client Already Listening)
 
 The requested events are already being sent to the `client_id`.
 
@@ -7998,22 +7936,25 @@ The requested events are already being sent to the `client_id`.
   "id": null
 }
 ```
+
+Here is an example of the stream data you should be able to see in [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) for each orderbook updated event:
+
+`data: {"_type":"ORDERBOOK_UPDATE/orbk/KMD:MATIC","message":{"order_type":"NewOrUpdatedItem","order_data":{"pubkey":"026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245","base":"MATIC","rel":"KMD","price":[[1,[4249903049,3]],[1,[1410065408,2]]],"max_volume":[[1,[1477927621,23427]],[1,[1783793664,116]]],"min_volume":[[1,[1223297773,7148]],[1,[552894464,46566]]],"uuid":"b18bb3ab-8476-4a06-9cf6-9744e1bf6442","created_at":1746432644}}} `
 export const title = "Komodo DeFi Framework Method: Enable Swap Status Streaming";
 export const description = "Using this method, you can enable the swap status stream.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# swap\_status\_enable
+# Enable Swap Status Streaming
+
+## stream::swap\_status::enable {{label : 'stream::swap_status::enable', tag : 'API-v2'}}
 
 Using this method, you can enable the swap status stream.
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                      |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| client\_id | integer | This ID can be used to access data (e.g. via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)) |
+### Response Parameters
 
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -8025,8 +7966,6 @@ Using this method, you can enable the swap status stream.
   }
 }
 ```
-
-#### Response
 
 ```json
 {
@@ -8042,9 +7981,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"SWAP_STATUS","message":{"swap_type":"TakerV1","swap_data":{"uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","event":{"timestamp":1746432461259,"event":{"type":"TakerPaymentInstructionsReceived","data":null}}}}}`
 
-#### UnknownClient
+### Error Types
 
-No client has an open connection using this `client_id`.
+##### Error Response (Unknown Client)
 
 ```json
 {
@@ -8058,9 +7997,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -8073,10 +8010,13 @@ The requested events are already being sent to the `client_id`.
     "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: Transaction History Events Streaming";
+export const title = "Komodo DeFi Framework Method: Enable Transaction History Streaming";
 export const description = "Using this method, you can enable transaction history events streaming for a specific coin.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# tx\_history\_enable
+# Enable Transaction History Streaming
+
+## stream::tx\_history::enable {{label : 'stream::tx_history::enable', tag : 'API-v2'}}
 
 Using this method, you can enable transaction history events streaming for a specific coin.
 This method is only compatible with the following coin types: `UTXO`, `BCH/SLP`, `TENDERMINT`, `QTUM`, `ZHTLC`.
@@ -8085,23 +8025,12 @@ For this stream to return data, the coin being queried **must** include the `"tx
 
 ### Request Parameters
 
-| Parameter  | Type    | Description                                                                                                                                                                               |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin       | string  | Ticker of the coin to activate streaming for. The coin must be activated first.                                                                                                           |
-| client\_id | integer | Optional. In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) |
-
 The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
 The selected coin must be enabled prior to enabling streaming.
 
 ### Response Parameters
 
-| Parameter    | Type   | Description                                                                                                                                                             |
-| ------------ | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| streamer\_id | string | An identifier for the data stream. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/). |
-
-### 📌 Examples
-
-#### Request
+#### 📌 Examples
 
 ```json
 {
@@ -8114,8 +8043,6 @@ The selected coin must be enabled prior to enabling streaming.
   }
 }
 ```
-
-#### Response
 
 ```json
 {
@@ -8131,9 +8058,9 @@ Here is an example of the stream data you should be able to see in [http://local
 
 `data: {"_type":"TX_HISTORY:KMD","message":{"tx_hex":"0400008085202f89015c649b8da32385ec58802385d179018db8e791d752a2cdf8d7fbf9247049bb81010000006a4730440220224c598d9af09684a848435bded40f9b24cc664d129d2dff5d0c094e6919cf1a0220143d896e7c42d13f57c98fb7eabfdeee27386ece324ec84a18308c106f1cf16301210295546acd9bdd19ec68093fef17e76b098fff5ff9815bb2adbfc2a618f41a74c6ffffffff0200a3e111000000001976a91482a6b17e64687148f4922b1385a11e6221bf5f5988aca0a0548c9c0100001976a914d92154e3a7a6da1b0cc1a4f84bc97fff24a79a3588acb66f1868000000000000000000000000000000","tx_hash":"05e9b6f5c96c71af3435cab55dbb807da47ed93ef1b84fc0a5fa867956e9ce9d","from":["RV5Ge4dLvRHGiYCanRBBEDM1eMR3wHDNLs"],"to":["RMC1cWXngQf2117apEKoLh3x27NoG88yzd","RV5Ge4dLvRHGiYCanRBBEDM1eMR3wHDNLs"],"total_amount":"17721.80883336","spent_by_me":"0","received_by_me":"3","my_balance_change":"3","block_height":0,"timestamp":0,"fee_details":{"type":"Utxo","coin":"KMD","amount":"0.00001"},"coin":"KMD","internal_id":"05e9b6f5c96c71af3435cab55dbb807da47ed93ef1b84fc0a5fa867956e9ce9d","transaction_type":"StandardTransfer","memo":null}}`
 
-#### CoinNotFound
+### Error Types
 
-You need to activate the coin first.
+##### Error Response (Coin Not Found)
 
 ```json
 {
@@ -8146,9 +8073,7 @@ You need to activate the coin first.
 }
 ```
 
-#### UnknownClient
-
-No client has an open connection using this `client_id`.
+##### Error (Unknown Client)
 
 ```json
 {
@@ -8162,9 +8087,7 @@ No client has an open connection using this `client_id`.
 }
 ```
 
-#### ClientAlreadyListening
-
-The requested events are already being sent to the `client_id`.
+##### Error (Client Already Listening)
 
 ```json
 {
@@ -8178,9 +8101,7 @@ The requested events are already being sent to the `client_id`.
 }
 ```
 
-#### CoinNotSupported Error
-
-The coin type is not supported for this stream.
+##### Error (Coin Not Supported)
 
 ```json
 {
@@ -11320,28 +11241,24 @@ The request was failed due to a Komodo DeFi Framework API internal error.
 }
 ```
 export const title = "Komodo DeFi Framework Method: Add Node to Version Stat";
-export const description = "The add_node_to_version_stat method adds a Node's name, IP address and PeerID to a local database to track which version of KDF it is running.";
+export const description = "The add_node_to_version_stat method adds a Node's name, IP address, and PeerID to a local database to track which version of KDF it is running.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# add\_node\_to\_version\_stat
+# Add Node to Version Stat
 
-The `add_node_to_version_stat` method adds a Node's name, IP address and PeerID to a local database to track which version of KDF it is running. The name parameter is an arbitrary identifying string, such as "seed\_alpha" or "dragonhound\_DEV". The address parameter is the node's IP address or domain names. The Peer ID can be found in the KDF log file after a connection has been initiated, and looks like the below:
+## add\_node\_to\_version\_stat {{label : 'add_node_to_version_stat', tag : 'API-v2'}}
 
-`07 09:33:58, atomicdex_behaviour:610] INFO Local peer id: PeerId("12D3KooWReXsTVCKGAna1tzrD1jaUttTSs17ULFuvvzoGD9bqmmA")
-`
+The `add_node_to_version_stat` method adds a node's name, IP address, and PeerID to a local database to track which version of KDF it is running. The `name` parameter is an arbitrary identifying string, such as `seed_alpha` or `dragonhound_DEV`. The `address` parameter is the node's IP address or domain name. The Peer ID can be found in the KDF log file after a connection has been initiated, and looks like the below:
 
-Note: To allow collection of version stats, added nodes must open ports 42845 (tcp) and 42855 (ws).
+`07 09:33:58, atomicdex_behaviour:610] INFO Local peer id: PeerId("12D3KooWReXsTVCKGAna1tzrD1jaUttTSs17ULFuvvzoGD9bqmmA")`
 
-## Arguments
+To allow collection of version stats, added nodes must open ports 42845 (tcp) and 42855 (ws).
 
-| Structure | Type   | Description                   |
-| --------- | ------ | ----------------------------- |
-| name      | string | the name assigned to the node |
-| address   | string | the IP address of the node    |
-| peer\_id  | string | the node's unique Peer ID     |
+### Request Parameters
+
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -11360,72 +11277,76 @@ Note: To allow collection of version stats, added nodes must open ports 42845 (t
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": "success",
-  "id": null
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
 }
 ```
 
-#### Response (error - peer id already in database)
+### Error Types
+
+#### ⚠️ Error Responses
+
+##### DatabaseError (Unique Constraint - Peer ID)
 
 ```json
 {
-  "mmrpc": "2.0",
-  "error": "Database error: UNIQUE constraint failed: nodes.peer_id",
-  "error_path": "lp_stats",
-  "error_trace": "lp_stats:124]",
-  "error_type": "DatabaseError",
-  "error_data": "UNIQUE constraint failed: nodes.peer_id",
-  "id": null
+    "mmrpc": "2.0",
+    "error": "Database error: UNIQUE constraint failed: nodes.peer_id",
+    "error_path": "lp_stats",
+    "error_trace": "lp_stats:124]",
+    "error_type": "DatabaseError",
+    "error_data": "UNIQUE constraint failed: nodes.peer_id",
+    "id": null
 }
 ```
 
-#### Response (error - name already in database)
+##### DatabaseError (Unique Constraint - Name)
 
 ```json
 {
-  "mmrpc": "2.0",
-  "error": "Database error: UNIQUE constraint failed: nodes.name",
-  "error_path": "lp_stats",
-  "error_trace": "lp_stats:124]",
-  "error_type": "DatabaseError",
-  "error_data": "UNIQUE constraint failed: nodes.name",
-  "id": null
+    "mmrpc": "2.0",
+    "error": "Database error: UNIQUE constraint failed: nodes.name",
+    "error_path": "lp_stats",
+    "error_trace": "lp_stats:124]",
+    "error_type": "DatabaseError",
+    "error_data": "UNIQUE constraint failed: nodes.name",
+    "id": null
 }
 ```
 
-#### Response (error - invalid Peer ID)
+##### PeerIdParseError
 
 ```json
 {
-  "mmrpc": "2.0",
-  "error": "Error on parse peer id 12D3RsaaWRmXsJsCKGAD5FJSsd7CSbbdrsd: decoding multihash failed",
-  "error_path": "lp_stats",
-  "error_trace": "lp_stats:121]",
-  "error_type": "PeerIdParseError",
-  "error_data": [
-    "12D3RsaaWRmXsJsCKGAD5FJSsd7CSbbdrsd",
-    "decoding multihash failed"
-  ],
-  "id": null
+    "mmrpc": "2.0",
+    "error": "Error on parse peer id 12D3RsaaWRmXsJsCKGAD5FJSsd7CSbbdrsd: decoding multihash failed",
+    "error_path": "lp_stats",
+    "error_trace": "lp_stats:121]",
+    "error_type": "PeerIdParseError",
+    "error_data": [
+        "12D3RsaaWRmXsJsCKGAD5FJSsd7CSbbdrsd",
+        "decoding multihash failed"
+    ],
+    "id": null
 }
 ```
 export const title = "Komodo DeFi Framework Method: Change Mnemonic Password";
 export const description = "The change_mnemonic_password method allows a user to update the password used to encrypt a mnemonic phrase in their local database.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# change\_mnemonic\_password
+# Change Mnemonic Password
+
+## change\_mnemonic\_password {{label : 'change_mnemonic_password', tag : 'API-v2'}}
 
 The `change_mnemonic_password` method allows a user to update the password used to encrypt a mnemonic phrase in their local database.
 
 While this will change the password used to encrypt the mnemonic phrase in the local database, it will not update the `wallet_password` value in the MM2.json config file.
 This will need to be updated manually, otherise you will see a log error `Error initializing wallet: Error generating or decrypting mnemonic: Error decrypting mnemonic: HMAC error: MAC tag mismatch` on next launch.
 
-## Arguments
+### Request Parameters
 
-| Structure         | Type   | Description                                                          |
-| ----------------- | ------ | -------------------------------------------------------------------- |
-| current\_password | string | the active mnemonic password for your wallet                         |
-| new\_password     | string | the new password to use for encrypting your active mnemonic password |
+### Response Parameters
 
 #### 📌 Examples
 
@@ -11453,7 +11374,11 @@ This will need to be updated manually, otherise you will see a log error `Error 
 }
 ```
 
-#### Response (error - wrong password)
+### Error Types
+
+#### ⚠️ Error Responses
+
+##### WalletsStorageError (Wrong Password)
 
 ```json
 {
@@ -11470,28 +11395,19 @@ This will need to be updated manually, otherise you will see a log error `Error 
 To view your mnemonic phrase in plain text, use [get\_mnemonic](/komodo-defi-framework/api/v20/utils/get_mnemonic/#get-mnemonic).
 export const title = "Komodo DeFi Framework Method: Get Current MTP";
 export const description = "The get_current_mtp method returns the Median Time Past (MTP) from electrum servers for UTXO coins.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_current\_mtp
+# Get Current MTP
+
+## get\_current\_mtp {{label : 'get_current_mtp', tag : 'API-v2'}}
 
 The `get_current_mtp` method returns the Median Time Past (MTP) from electrum servers for UTXO coins. This information is useful for debugging, specifically in cases where an electrum server has been misconfigured.
 
-## Arguments
+### Request Parameters
 
-| Parameter | Type    | Description                                                                             |
-| --------- | ------- | --------------------------------------------------------------------------------------- |
-| coin      | string  | A compatible (UTXO) coin's ticker                                                       |
-| id        | integer | Optional. Identifies a request to allow matching it with a response. Defaults to `null` |
-
-#### Response
-
-| Parameter | Type    | Description                                                                                                   |
-| --------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| mtp       | integer | Unix timestamp                                                                                                |
-| id        | integer | Identifies a response to allow matching it with a request. Defaults to `null` if `id` not provided in request |
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -11509,39 +11425,30 @@ The `get_current_mtp` method returns the Median Time Past (MTP) from electrum se
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-    "mtp": 1658746383
-  },
-  "id": 42
+    "mmrpc": "2.0",
+    "result": {
+        "mtp": 1658746383
+    },
+    "id": 42
 }
 ```
 export const title = "Komodo DeFi Framework Method: Get Enabled Coins";
 export const description = "The get_enabled_coins method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_enabled\_coins
+# Get Enabled Coins
+
+## get\_enabled\_coins {{label : 'get_enabled_coins', tag : 'API-v2'}}
 
 The `get_enabled_coins` method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.
 
-## Parameters
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+### Response Parameters
 
-#### Response
-
-| Structure    | Type             | Description                                     |
-| ------------ | ---------------- | ----------------------------------------------- |
-| coins        | array of objects | A list of key value pairs for activated tickers |
-| coins.ticker | string           | the ticker of an activated coin                 |
-
-The \[get\_enabled\_coins v2.0] method does not return addresses, as it was designed for HD wallets, which generate addresses on the fly.
-If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the [v1 method](/komodo-defi-framework/api/legacy/get_enabled_coins/#get-enabled-coins).
+The \[get\_enabled\_coins v2.0] method does not return addresses, as it was designed for HD wallets, which generate addresses on the fly. If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the [v1 method](/komodo-defi-framework/api/legacy/get_enabled_coins/#get-enabled-coins).
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -11557,69 +11464,39 @@ If you need to get the addresses for coins and have not set `enable_hd` in your 
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-      "coins": [
-          {
-              "ticker": "ETH"
-          },
-          {
-              "ticker": "PGX-PLG20"
-          },
-          {
-              "ticker": "ATOM-IBC_IRIS"
-          },
-          {
-              "ticker": "NFT_ETH"
-          },
-          {
-              "ticker": "KMD"
-          },
-          {
-              "ticker": "IRIS"
-          },
-          {
-              "ticker": "AAVE-PLG20"
-          },
-          {
-              "ticker": "MINDS-ERC20"
-          },
-          {
-              "ticker": "NFT_MATIC"
-          },
-          {
-              "ticker": "MATIC"
-          }
-      ]
-  },
-  "id": 0
+    "mmrpc": "2.0",
+    "result": {
+        "coins": [
+            { "ticker": "ETH" },
+            { "ticker": "PGX-PLG20" },
+            { "ticker": "ATOM-IBC_IRIS" },
+            { "ticker": "NFT_ETH" },
+            { "ticker": "KMD" },
+            { "ticker": "IRIS" },
+            { "ticker": "AAVE-PLG20" },
+            { "ticker": "MINDS-ERC20" },
+            { "ticker": "NFT_MATIC" },
+            { "ticker": "MATIC" }
+        ]
+    },
+    "id": 0
 }
 ```
 export const title = "Komodo DeFi Framework Method: Get Mnemonic";
 export const description = "The get_mnemonic method returns the user's mnemonic seed phrase, in encrypted or plain text format.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_mnemonic
+# Get Mnemonic
 
-"The get\_mnemonic method returns the user's mnemonic seed phrase, in encrypted or plain text format."
+## get\_mnemonic {{label : 'get_mnemonic', tag : 'API-v2'}}
 
-## Arguments
+The `get_mnemonic` method returns the user's mnemonic seed phrase, in encrypted or plain text format.
 
-| Structure | Type   | Description                                                                                            |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------ |
-| format    | string | Either `encrypted` or `plaintext`. Defaults to `encrypted`.                                            |
-| password  | string | The password to decrypt your stored mnemonic phrase. Only required if `plaintext` format is requested. |
+### Request Parameters
 
-#### Response
+### Response Parameters
 
-| Structure                 | Type   | Description                                                                                |
-| ------------------------- | ------ | ------------------------------------------------------------------------------------------ |
-| format                    | string | Same as the input `format` parameter.                                                      |
-| mnemonic                  | string | For `plaintext` requests, the decrypted mnemonic seed phrase                               |
-| encrypted\_mnemonic\_data | object | For `encrpyted` requests, the encrypted format and ciphertext for the mnemonic seed phrase |
-
-#### 📌 Examples
-
-#### For encrypted output
+#### 📌 Example (encrypted output)
 
 ```json
 {
@@ -11637,34 +11514,34 @@ export const description = "The get_mnemonic method returns the user's mnemonic 
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-      "format": "encrypted",
-      "encrypted_mnemonic_data": {
-          "encryption_algorithm": "AES256CBC",
-          "key_derivation_details": {
-              "Argon2": {
-                  "params": {
-                      "algorithm": "Argon2id",
-                      "version": "0x13",
-                      "m_cost": 65536,
-                      "t_cost": 2,
-                      "p_cost": 1
-                  },
-                  "salt_aes": "CqkfcntVxFJNXqOKPHaG8w",
-                  "salt_hmac": "i63qgwjc+3oWMuHWC2XSJA"
-              }
-          },
-          "iv": "mNjmbZLJqgLzulKFBDBuPA==",
-          "ciphertext": "tP2vF0hRhllW00pGvYiKysBI0vl3acLj+aoocBViTTByXCpjpkLuaMWqe0Vs02cb1wvgPsVqZkE4MPg4sCQxbd18iS7Er6+BbVY3HQ2LSig=",
-          "tag": "TwWXhIFQl1TSdR4cJpbkK2oNXd9zIEhJmO6pML1uc2E="
-      }
-  },
-  "id": null
+    "mmrpc": "2.0",
+    "result": {
+        "format": "encrypted",
+        "encrypted_mnemonic_data": {
+            "encryption_algorithm": "AES256CBC",
+            "key_derivation_details": {
+                "Argon2": {
+                    "params": {
+                        "algorithm": "Argon2id",
+                        "version": "0x13",
+                        "m_cost": 65536,
+                        "t_cost": 2,
+                        "p_cost": 1
+                    },
+                    "salt_aes": "CqkfcntVxFJNXqOKPHaG8w",
+                    "salt_hmac": "i63qgwjc+3oWMuHWC2XSJA"
+                }
+            },
+            "iv": "mNjmbZLJqgLzulKFBDBuPA==",
+            "ciphertext": "tP2vF0hRhllW00pGvYiKysBI0vl3acLj+aoocBViTTByXCpjpkLuaMWqe0Vs02cb1wvgPsVqZkE4MPg4sCQxbd18iS7Er6+BbVY3HQ2LSig=",
+            "tag": "TwWXhIFQl1TSdR4cJpbkK2oNXd9zIEhJmO6pML1uc2E="
+        }
+    },
+    "id": null
 }
 ```
 
-#### For plain text output
+#### 📌 Example (plain text output)
 
 ```json
 {
@@ -11683,34 +11560,29 @@ export const description = "The get_mnemonic method returns the user's mnemonic 
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-      "format": "plaintext",
-      "mnemonic": "unique spy ugly child cup sad capital invest essay lunch doctor know"
-  },
-  "id": null
+    "mmrpc": "2.0",
+    "result": {
+        "format": "plaintext",
+        "mnemonic": "unique spy ugly child cup sad capital invest essay lunch doctor know"
+    },
+    "id": null
 }
 ```
 
 You can update the password with the [change\_mnemonic\_password](/komodo-defi-framework/api/v20/utils/change_mnemonic_password/#change-mnemonic-password) method.
 export const title = "Komodo DeFi Framework Method: Get Public Key";
 export const description = "The get_public_key method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_public\_key
+# Get Public Key
+
+## get\_public\_key {{label : 'get_public_key', tag : 'API-v2'}}
 
 The `get_public_key` method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
-
-#### Response
-
-| Structure   | Type   | Description   |
-| ----------- | ------ | ------------- |
-| public\_key | string | User's pubkey |
+### Response Parameters
 
 #### 📌 Examples
 
@@ -11739,26 +11611,19 @@ The `get_public_key` method returns the compressed secp256k1 pubkey correspondin
 ```
 export const title = "Komodo DeFi Framework Method: Get Public Key Hash";
 export const description = "The get_public_key_hash method returns the RIPEMD-160 hash version of your public key.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_public\_key\_hash
+# Get Public Key Hash
 
-The `get_public_key_hash` method returns the [RIPEMD-160](https://en.bitcoin.it/wiki/RIPEMD-160) hash version of your public key
+## get\_public\_key\_hash {{label : 'get_public_key_hash', tag : 'API-v2'}}
 
-## Arguments
+The `get_public_key_hash` method returns the [RIPEMD-160](https://en.bitcoin.it/wiki/RIPEMD-160) hash version of your public key.
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+### Request Parameters
 
-#### Response
-
-| Structure         | Type   | Description                       |
-| ----------------- | ------ | --------------------------------- |
-| public\_key\_hash | string | User's RIPEMD-160 public key hash |
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -11774,44 +11639,68 @@ The `get_public_key_hash` method returns the [RIPEMD-160](https://en.bitcoin.it/
 
 ```json
 {
+    "mmrpc": "2.0",
+    "result": {
+        "public_key_hash": "05aab5342166f8594baf17a7d9bef5d567443327"
+    },
+    "id": 0
+}
+```
+export const title = "Komodo DeFi Framework Method: Get Shared Database ID";
+export const description =
+  "Return the deterministic identifier used as the root directory name for this node's SQLite databases.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Get Shared Database ID
+
+## get\_shared\_db\_id {{label : 'get_shared_db_id', tag : 'API-v2'}}
+
+The `get_shared_db_id` method returns a 20-byte identifier (H160) derived from the node's seed phrase.\
+It is used as the root folder name for **all** SQLite databases on the host.  • The value is **identical for all HD accounts derived from the same seed** and **different** for separate seeds.
+
+### Request Parameters
+
+### Response Parameters
+
+### 📌 Examples
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "method": "get_shared_db_id",
+  "id": 0
+}
+```
+
+```json
+{
   "mmrpc": "2.0",
   "result": {
-    "public_key_hash": "05aab5342166f8594baf17a7d9bef5d567443327"
+    "shared_db_id": "0x3ca9c5b85e5f3af62f3ae3903f1e2d8d9d7e2c12"
   },
   "id": 0
 }
 ```
+
+### Error Types
 export const title = "Komodo DeFi Framework Method: Get Token Info";
 export const description = "The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# get\_token\_info
+# Get Token Info
 
-The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input.
-The platform parent coin (e.g. ETH, AVAX, MATIC etc) must be activated before using this method. After requesting the token info, you will be able to activate the custom token.
+## get\_token\_info {{label : 'get_token_info', tag : 'API-v2'}}
 
-Custom tokens will be `wallet_only` - i.e. you can send and recieve tokens, but will not be able to do atomic swaps.
-To apply for a formal listing of the custom token, please [review the requirements](/komodo-defi-framework/tutorials/listing-a-new-coin/) in our "coins" github repository, and get in our with our team on the [KomodoPlatform Discord](https://komodoplatform.com/discord).
+The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input. The platform parent coin (e.g., ETH, AVAX, MATIC, etc.) must be activated before using this method. After requesting the token info, you will be able to activate the custom token.
 
-## Arguments
+Custom tokens will be `wallet_only`—i.e., you can send and receive tokens, but will not be able to do atomic swaps. To apply for a formal listing of the custom token, please [review the requirements](/komodo-defi-framework/tutorials/listing-a-new-coin/) in our "coins" GitHub repository, and get in touch with our team on the [KomodoPlatform Discord](https://komodoplatform.com/discord).
 
-| Structure                                 | Type   | Description                                                                                                                                                                                                        |
-| ----------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| protocol.type                             | string | Token type - e.g `ERC20` for tokens on the Ethereum network                                                                                                                                                        |
-| protocol.protocol\_data                   | object | Required for tokens only.                                                                                                                                                                                          |
-| protocol.protocol\_data.platform          | string | The parent coin of the token's platform - e.g `MATIC` for PLG20 tokens                                                                                                                                             |
-| protocol.protocol\_data.contract\_address | string | **Must be mixed case** The identifying hex string for the token's contract. Can be found on sites like [EthScan](https://etherscan.io/), [BscScan](https://bscscan.com/) & [PolygonScan](https://polygonscan.com/) |
+### Request Parameters
 
-### Response
+### Response Parameters
 
-| Structure     | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type          | string  | Token type - e.g `PLG20` for tokens on the Polygon network                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| info.symbol   | string  | The ticker of the token linked to the contract address and network requested                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| info.decimals | integer | Defines the number of digits after the decimal point that should be used to display the orderbook amounts, balance, and the value of inputs to be used in the case of order creation or a `withdraw` transaction. The default value used for a UTXO type coin (Bitcoin Protocol) is `8` and the default value used for a ERC20 Token is `18`. It is **very important** for this value to be set correctly. For example, if this value was set as `9` for BTC, a command to withdraw `1 BTC` tries to withdraw `10^9` satoshis of Bitcoin, i.e., `10 BTC` |
-
-### 📌 Examples
-
-#### Get Token Info on Avalanche
+#### 📌 Examples
 
 ```json
 {
@@ -11834,21 +11723,23 @@ To apply for a formal listing of the custom token, please [review the requiremen
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-      "type": "ERC20",
-      "info": {
-          "symbol": "PNIC",
-          "decimals": 18
-      }
-  },
-  "id": null
+    "mmrpc": "2.0",
+    "result": {
+        "type": "ERC20",
+        "info": {
+            "symbol": "PNIC",
+            "decimals": 18
+        }
+    },
+    "id": null
 }
 ```
 
-### Error Responses
+### Error Types
 
-#### InvalidRequest: Protocol parent coin not active
+#### ⚠️ Error Responses
+
+##### NoSuchCoin
 
 ```json
 {
@@ -11863,67 +11754,78 @@ To apply for a formal listing of the custom token, please [review the requiremen
     "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: v2 Utilities";
-export const description =
-  "This section includes utility methods for the Komodo DeFi Framework.";
+export const title = "Komodo DeFi Framework Method Overview: Utility Methods";
+export const description = "This document provides an overview of all utility methods available in the Komodo DeFi Framework.";
 
-# v2 Utility Methods
+# Utility Methods Overview
 
-*   [get\_current\_mtp](/komodo-defi-framework/api/v20/utils/get_current_mtp/)
-*   [get\_token\_info](/komodo-defi-framework/api/v20/utils/get_token_info/)
-*   [peer\_connection\_healthcheck](/komodo-defi-framework/api/v20/utils/peer_connection_healthcheck/)
-export const title = "Komodo DeFi Framework Method: Signing and Verifying Messages";
-export const description = "The methods in this section allow you to sign and verify messages for all coins supported by Komodo DeFi Framework.";
+## utils {{label : 'utils', tag : 'overview'}}
 
-# Signing\_and\_Verifying\_Messages
+*   [Get Current MTP](/komodo-defi-framework/api/v20/utils/get_current_mtp/)
+*   [Get Token Info](/komodo-defi-framework/api/v20/utils/get_token_info/)
+*   [Peer Connection Healthcheck](/komodo-defi-framework/api/v20/utils/peer_connection_healthcheck/)
+*   [Add Node to Version Stat](/komodo-defi-framework/api/v20/utils/add_node_to_version_stat/)
+*   [Change Mnemonic Password](/komodo-defi-framework/api/v20/utils/change_mnemonic_password/)
+*   [Get Enabled Coins](/komodo-defi-framework/api/v20/utils/get_enabled_coins/)
+*   [Get Mnemonic](/komodo-defi-framework/api/v20/utils/get_mnemonic/)
+*   [Get Public Key](/komodo-defi-framework/api/v20/utils/get_public_key/)
+*   [Get Public Key Hash](/komodo-defi-framework/api/v20/utils/get_public_key_hash/)
+*   [Remove Node from Version Stat](/komodo-defi-framework/api/v20/utils/remove_node_from_version_stat/)
+*   [Start Version Stat Collection](/komodo-defi-framework/api/v20/utils/start_version_stat_collection/)
+*   [Stop Version Stat Collection](/komodo-defi-framework/api/v20/utils/stop_version_stat_collection/)
+*   [Update Version Stat Collection](/komodo-defi-framework/api/v20/utils/update_version_stat_collection/)
+export const title = "Komodo DeFi Framework Method Overview: Message Signing and Verification";
+export const description = "This document provides an overview of message signing and verification methods available in the Komodo DeFi Framework.";
 
-Cryptographically signed messages are a useful feature which can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
+# Message Signing and Verification Overview
+
+## message\_signing {{label : 'message_signing', tag : 'overview'}}
+
+*   [Sign Message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/)
+*   [Verify Message](/komodo-defi-framework/api/v20/utils/message_signing/verify_message/)
+
+Cryptographically signed messages are a useful feature that can be used to [prove ownership of an address](https://www.coindesk.com/policy/2020/05/25/craig-wright-called-fraud-in-message-signed-with-bitcoin-addresses-he-claims-to-own/).
 
 If your [`coins`](https://github.com/KomodoPlatform/coins) file contains the correct [`sign_message_prefix`](https://bitcoin.stackexchange.com/questions/77324/how-are-bitcoin-signed-messages-generated/77325#77325) parameter value for a coin, you can sign messages with the [Komodo DeFi Framework API](https://github.com/KomodoPlatform/komodo-defi-framework).
-For signing with a HD wallet, the [`coins`](https://github.com/KomodoPlatform/coins) file must also contain the coin's [derivation path](https://www.blockplate.com/blogs/blockplate/what-is-a-derivation-path) prefix.
+For signing with an HD wallet, the [`coins`](https://github.com/KomodoPlatform/coins) file must also contain the coin's [derivation path](https://www.blockplate.com/blogs/blockplate/what-is-a-derivation-path) prefix.
+
+#### Example coin config
 
 ```json
-  {
+{
     "coin": "DGB",
     "name": "digibyte",
     "fname": "DigiByte",
     "protocol": {
-      "type": "UTXO"
+        "type": "UTXO"
     },
     ...
     "sign_message_prefix": "DigiByte Signed Message:\n",
     "derivation_path": "m/44'/20'",
     "trezor_coin": "DigiByte",
     "links": {
-      "github": "https://github.com/digibyte/digibyte",
-      "homepage": "https://digibyte.io"
+        "github": "https://github.com/digibyte/digibyte",
+        "homepage": "https://digibyte.io"
     }
-  }
+}
 ```
-
-See the individual methods for signing and Verifying below:
 export const title = "Komodo DeFi Framework Method: Sign Message";
 export const description = "The method in this document allows you to sign messages for all coins supported by Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Sign Message
 
-The `sign_message` method allows one to prove ownership of a specific wallet address. A unique digital signature is provided for the message being signed. This signature, along with the original message and the wallet address, can then be verified, confirming that the message originated from the owner of the address and has not been altered.
+## sign\_message {{label : 'sign_message', tag : 'API-v2'}}
 
-## Arguments
+The `sign_message` method allows you to prove ownership of a specific wallet address. A unique digital signature is provided for the message being signed. This signature, along with the original message and the wallet address, can then be verified, confirming that the message originated from the owner of the address and has not been altered.
 
-| Structure | Type   | Description                                                                                                                                                                                                                                                      |
-| --------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin      | string | The coin to sign a message with                                                                                                                                                                                                                                  |
-| message   | string | The message you want to sign                                                                                                                                                                                                                                     |
-| address   | string | Optional, HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain` and `address_id` will default to `0`. |
+### Request Parameters
 
-## Response
+### Response Parameters
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| signature | string | The signature generated for the message |
+#### 📌 Examples
 
-## Command
+##### Basic Usage
 
 ```json
 {
@@ -11942,15 +11844,15 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-    "signature": "H43eTmJxBKEPiHkrCe/8NsRidkKCIkXDxLyp30Ez/RwoApGdg89Hlvj9mTMSPGp8om5297zvdL8EVx3IdIe2swY="
-  },
-  "id": 0
+    "mmrpc": "2.0",
+    "result": {
+        "signature": "H43eTmJxBKEPiHkrCe/8NsRidkKCIkXDxLyp30Ez/RwoApGdg89Hlvj9mTMSPGp8om5297zvdL8EVx3IdIe2swY="
+    },
+    "id": 0
 }
 ```
 
-## Command (HD wallet with derivation path)
+##### HD Wallet with Derivation Path
 
 ```json
 {
@@ -11980,7 +11882,7 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
 }
 ```
 
-## Command (HD wallet with account and address id)
+##### HD Wallet with Account and Address ID
 
 ```json
 {
@@ -12012,20 +11914,16 @@ The `sign_message` method allows one to prove ownership of a specific wallet add
 }
 ```
 
-For HD wallets, if the `address` parameter is not provided, the root derivation path will be used, for example `m/84'/2'/0'/0/0`.
+For HD wallets, if the `address` parameter is not provided, the root derivation path will be used, for example, `m/84'/2'/0'/0/0`.
 The two examples above point to the same address. The derivation path follows the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` (or `m/84'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` for segwit coins).
-The `account_id` and `address_id` are the indices of the account and address in the wallet, starting from 0.
-The `chain` is either `External` or `Internal`, and expressed as an integer with `External` being 0 and `Internal` being 1.
+The `account_id` and `address_id` are the indices of the account and address in the wallet, starting from `0`.
+The `chain` is either `External` or `Internal`, and is expressed as an integer with `External` being `0` and `Internal` being `1`.
 
-## ⚠ Error types
+### Error Types
 
-**PrefixNotFound:** sign\_message\_prefix is not set in coin config file
-**CoinIsNotFound:** Specified coin is not found
-**SigningError:** Error attempting to sign message
-**InvalidRequest:** Message signing is not supported by the given coin type
-**InternalError:** An internal error occured during the signing process
+#### ⚠️ Error Responses
 
-### PrefixNotFound
+##### PrefixNotFound
 
 ```json
 {
@@ -12038,7 +11936,7 @@ The `chain` is either `External` or `Internal`, and expressed as an integer with
 }
 ```
 
-### InternalError
+##### InternalError
 
 ```json
 {
@@ -12053,27 +11951,19 @@ The `chain` is either `External` or `Internal`, and expressed as an integer with
 ```
 export const title = "Komodo DeFi Framework Method: Verify Message";
 export const description = "The method in this document allows you to verify messages for all coins supported by Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Verify Message
 
-The `verify_Message` method allows one to confirm the authenticity of a signed message. By using the original message, the wallet's address, and the signature, the verification process can confirm that the message was created by the owner and that it has not been altered.
+## verify\_message {{label : 'verify_message', tag : 'API-v2'}}
 
-## Arguments
+The `verify_message` method allows you to confirm the authenticity of a signed message. By using the original message, the wallet's address, and the signature, the verification process can confirm that the message was created by the owner and that it has not been altered.
 
-| Structure | Type   | Description                                          |
-| --------- | ------ | ---------------------------------------------------- |
-| coin      | string | The coin to sign a message with                      |
-| message   | string | The message input via the `sign_message` method sign |
-| signature | string | The signature generated for the message              |
-| address   | string | The address used to sign the message                 |
+### Request Parameters
 
-## Response
+### Response Parameters
 
-| Structure | Type    | Description                                                 |
-| --------- | ------- | ----------------------------------------------------------- |
-| is\_valid | boolean | `true` is message signature is valid; `false` if it is not. |
-
-## Command
+#### 📌 Examples
 
 ```json
 {
@@ -12094,11 +11984,11 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-    "is_valid": true
-  },
-  "id": 0
+    "mmrpc": "2.0",
+    "result": {
+        "is_valid": true
+    },
+    "id": 0
 }
 ```
 
@@ -12106,24 +11996,19 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": {
-    "is_valid": false
-  },
-  "id": 0
+    "mmrpc": "2.0",
+    "result": {
+        "is_valid": false
+    },
+    "id": 0
 }
 ```
 
-## ⚠ Error types
+### Error Types
 
-**PrefixNotFound:** sign\_message\_prefix is not set in coin config
-**CoinIsNotFound:** Specified coin is not found
-**InvalidRequest:** Message verification is not supported by the given coin type
-**InternalError:** An internal error occured during the verification process
-**SignatureDecodingError:** Given signature could not be decoded
-**AddressDecodingError:** Given address could not be decoded
+#### ⚠️ Error Responses
 
-### PrefixNotFound
+##### PrefixNotFound
 
 ```json
 {
@@ -12136,7 +12021,7 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 }
 ```
 
-### InternalError
+##### InternalError
 
 ```json
 {
@@ -12150,7 +12035,7 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 }
 ```
 
-### SignatureDecodingError
+##### SignatureDecodingError
 
 ```json
 {
@@ -12165,26 +12050,19 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 ```
 export const title = "Komodo DeFi Framework Method: Peer Connection Healthcheck";
 export const description = "The peer_connection_healthcheck method checks if a peer is connected to the KDF network.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# peer\_connection\_healthcheck
+# Peer Connection Healthcheck
+
+## peer\_connection\_healthcheck {{label : 'peer_connection_healthcheck', tag : 'API-v2'}}
 
 The `peer_connection_healthcheck` method checks if a peer is connected to the KDF network using the [currently configured](/komodo-defi-framework/setup/configure-mm2-json/) `netid`.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
-
-#### Response
-
-| Structure | Type    | Description                             |
-| --------- | ------- | --------------------------------------- |
-| result    | boolean | True if peer found connected to network |
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -12217,21 +12095,20 @@ The `peer_connection_healthcheck` method checks if a peer is connected to the KD
 }
 ```
 export const title = "Komodo DeFi Framework Method: Remove Node from Version Stat";
-export const description = "The remove_node_from_version_stat method removes a Node from the local database that tracks which version of KDF it is running.";
+export const description = "Removes a node from the local version stat database in Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# remove\_node\_from\_version\_stat
+# Remove Node from Version Stat
 
-The `remove_node_from_version_stat` method removes a Node (by name) from the local database which tracks which version of KDF it is running. The name parameter is an arbitrary identifying string, such as "seed\_alpha" or "dragonhound\_DEV".
+## remove\_node\_from\_version\_stat {{label : 'remove_node_from_version_stat', tag : 'API-v2'}}
 
-## Arguments
+The `remove_node_from_version_stat` method removes a node (by name) from the local database which tracks which version of KDF it is running. The `name` parameter is an arbitrary identifying string, such as `seed_alpha` or `dragonhound_DEV`.
 
-| Structure | Type   | Description                   |
-| --------- | ------ | ----------------------------- |
-| name      | string | the name assigned to the node |
+### Request Parameters
+
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -12248,23 +12125,68 @@ The `remove_node_from_version_stat` method removes a Node (by name) from the loc
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": "success",
-  "id": null
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
 }
 ```
+export const title = "Komodo DeFi Framework Method: Send Asked Data";
+export const description = "Provide data asynchronously to another component that previously issued a data request via the internal event bus.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Send Asked Data
+
+## send\_asked\_data {{label : 'send_asked_data', tag : 'API-v2'}}
+
+The `send_asked_data` method is a **utility** RPC used mainly by front-end or plugin components to reply to an earlier `ask_for_data` request emitted by the node.\
+When another part of the system (for example, a GUI) needs some data, it calls `ask_for_data` which broadcasts an internal **DataNeeded** event with a `data_id`.\
+Your component then gathers the requested information and posts it back via `send_asked_data`.
+
+This RPC is part of the low-level event-bus mechanism and is **not** used in typical wallet or swap flows.  It requires the `data_id` received from a `DataNeeded` event.
+
+### Request Parameters
+
+### Response Parameters
+
+### 📌 Example
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "method": "send_asked_data",
+  "id": 0,
+  "params": {
+    "data_id": 42,
+    "data": {
+      "name": "Komodo"
+    }
+  }
+}
+```
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": true,
+  "id": 0
+}
+```
+
+### Error Types
 export const title = "Komodo DeFi Framework Method: Start Version Stat Collection";
 export const description = "The start_version_stat_collection method initiates storing version statistics for nodes previously registered via the add_node_to_version_stat method.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# start\_version\_stat\_collection
+# Start Version Stat Collection
+
+## start\_version\_stat\_collection {{label : 'start_version_stat_collection', tag : 'API-v2'}}
 
 The `start_version_stat_collection` method initiates storing version statistics for nodes previously registered via the `add_node_to_version_stat` method.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type    | Description                                      |
-| --------- | ------- | ------------------------------------------------ |
-| interval  | integer | polling rate (in seconds) to check node versions |
+### Response Parameters
 
 #### 📌 Examples
 
@@ -12291,7 +12213,11 @@ The `start_version_stat_collection` method initiates storing version statistics 
 }
 ```
 
-#### Response (error - invalid peer id unable to parse)
+### Error Types
+
+#### ⚠️ Error Responses
+
+##### DatabaseError
 
 ```json
 {
@@ -12306,26 +12232,19 @@ The `start_version_stat_collection` method initiates storing version statistics 
 ```
 export const title = "Komodo DeFi Framework Method: Stop Version Stat Collection";
 export const description = "The stop_version_stat_collection method stops the collection of version stats at the end of the current loop interval.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# stop\_version\_stat\_collection
+# Stop Version Stat Collection
+
+## stop\_version\_stat\_collection {{label : 'stop_version_stat_collection', tag : 'API-v2'}}
 
 The `stop_version_stat_collection` method stops the collection of version stats at the end of the current loop interval.
 
-#### Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
-
-#### Response
-
-| Structure | Type   | Description      |
-| --------- | ------ | ---------------- |
-| result    | string | success or error |
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -12340,51 +12259,271 @@ The `stop_version_stat_collection` method stops the collection of version stats 
 
 ```json
 {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+}
+```
+
+### Error Types
+
+#### ⚠️ Error Responses
+
+##### NotRunning
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "start_version_stat_collection is not running",
+    "error_path": "lp_stats",
+    "error_trace": "lp_stats:395]",
+    "error_type": "NotRunning",
+    "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Cancel MetaMask Connection Task";
+export const description = "Cancel a running MetaMask connection task in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Cancel MetaMask Connection Task
+
+## task::connect\_metamask::cancel {{label : 'task::connect_metamask::cancel', tag : 'API-v2'}}
+
+Use `task::connect_metamask::cancel` to abort the MetaMask initialisation task.
+
+### Request Parameters
+
+### Response Parameters
+
+#### 📌 Cancel MetaMask Connection Task
+
+```json
+{
+  "mmrpc": "2.0",
+  "method": "task::connect_metamask::cancel",
+  "params": {
+    "task_id": 42
+  },
+  "id": 1,
+  "userpass": "RPC_UserP@SSW0RD"
+}
+```
+
+#### Response (success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": "success",
+  "id": 1
+}
+```
+
+#### Response (task already finished)
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Task is finished already",
+  "error_path": "init_metamask.manager",
+  "error_trace": "init_metamask:215] manager:104]",
+  "error_type": "TaskFinished",
+  "error_data": 42,
+  "id": 1
+}
+```
+export const title = "Komodo DeFi Framework Method Overview: Connect MetaMask Task";
+export const description = "Overview of the task-managed flow for establishing a MetaMask context with the Komodo DeFi Framework.";
+
+# Connect MetaMask Task Overview
+
+## task::connect\_metamask {{label : 'task::connect_metamask', tag : 'overview'}}
+
+This section provides an overview of the task-managed flow used to initialise a MetaMask context and bind it to a Komodo DeFi Framework node. Each action in the flow is documented on its own dedicated page:
+
+*   [Init MetaMask Connection](/komodo-defi-framework/api/v20/utils/task_connect_metamask/init/)
+*   [MetaMask Connection Status](/komodo-defi-framework/api/v20/utils/task_connect_metamask/status/)
+*   [Cancel MetaMask Connection](/komodo-defi-framework/api/v20/utils/task_connect_metamask/cancel/)
+export const title = "Komodo DeFi Framework Method: Initialise MetaMask Connection Task";
+export const description = "Begin a task-managed process that initialises and authenticates MetaMask with the Komodo DeFi Framework node.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Initialise MetaMask Connection Task
+
+## task::connect\_metamask::init {{label : 'task::connect_metamask::init', tag : 'API-v2'}}
+
+Use this method to begin a task-managed process that establishes a MetaMask context. The method returns a `task_id` that can be polled using `task::connect_metamask::status`.
+
+### Request Parameters
+
+### Response Parameters
+
+#### 📌 Examples
+
+```json
+{
+  "mmrpc": "2.0",
+  "method": "task::connect_metamask::init",
+  "params": {
+    "project": "my_kdf_app"
+  },
+  "id": 1,
+  "userpass": "RPC_UserP@SSW0RD"
+}
+```
+
+#### Response (success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "task_id": 42
+  },
+  "id": 1
+}
+```
+
+### Error Types
+export const title = "Komodo DeFi Framework Method: MetaMask Connection Task: Status";
+export const description = "Query the status of a running MetaMask connection task.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# MetaMask Connection Task: Status
+
+## task::connect\_metamask::status {{label : 'task::connect_metamask::status', tag : 'API-v2'}}
+
+After calling `task::connect_metamask::init`, use this method to poll for progress, gather additional details, or fetch the final result once the MetaMask context is ready.
+
+### Request Parameters
+
+### Response Parameters
+
+Possible in-progress `status` values:
+
+*   `Initializing` – Preparing the MetaMask context.
+*   `SigningLoginMetadata` – Waiting for the user to sign the login metadata inside MetaMask.
+
+When the task completes successfully, `status` will be `Ok` and `details` will hold the resulting Ethereum address.
+
+#### 📌 Examples
+
+```json
+{
+  "mmrpc": "2.0",
+  "method": "task::connect_metamask::status",
+  "params": {
+    "task_id": 42,
+    "forget_if_finished": false
+  },
+  "id": 1,
+  "userpass": "RPC_UserP@SSW0RD"
+}
+```
+
+#### Response (in progress)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "InProgress",
+    "details": "Initializing"
+  },
+  "id": 1
+}
+```
+
+#### Response (ready, successful)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Ok",
+    "details": {
+      "eth_address": "0x7b6E7C4555c5F6f5Fc4d0fAA940bAe50cC3C7d29"
+    }
+  },
+  "id": 1
+}
+```
+
+### Error Types
+export const title = "Komodo DeFi Framework Method: Cancel Trezor Initialization Task";
+export const description = "Cancel the Trezor initialisation task in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Cancel Trezor Initialization Task
+
+## task::init\_trezor::cancel {{label : 'task::init_trezor::cancel', tag : 'API-v2'}}
+
+Use the `task::init_trezor::cancel` method to cancel the initialisation task.
+
+### Request Parameters
+
+### Response Parameters
+
+#### 📌 Examples
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "method": "task::init_trezor::cancel",
+  "params": {
+    "task_id": 0
+  }
+}
+```
+
+#### Response (ready, successful)
+
+```json
+{
   "mmrpc": "2.0",
   "result": "success",
   "id": null
 }
 ```
 
-#### Response (error - stats collection not running)
+#### Response (error, task already finished)
 
 ```json
 {
   "mmrpc": "2.0",
-  "error": "start_version_stat_collection is not running",
-  "error_path": "lp_stats",
-  "error_trace": "lp_stats:395]",
-  "error_type": "NotRunning",
+  "error": "Task is finished already",
+  "error_path": "init_hw.manager",
+  "error_trace": "init_hw:209] manager:104]",
+  "error_type": "TaskFinished",
+  "error_data": 0,
   "id": null
 }
 ```
-export const title = "Komodo DeFi Framework: Trezor Initialisation";
-export const description = "Prepare your Trezor device for use in the Komodo DeFi Framework API, and authenticate using your PIN or phrase.";
+export const title = "Komodo DeFi Framework Method Overview: Trezor Initialization";
+export const description = "This document provides an overview of Trezor initialization methods available in the Komodo DeFi Framework.";
 
-import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+# Trezor Initialization Overview
 
-# Trezor Initialisation
+## trezor\_initialisation {{label : 'trezor_initialisation', tag : 'overview'}}
 
-The methods below prepare your Trezor device for use within the Komodo DeFi Framework API. Once completed, you can authenticate using your PIN or phrase with [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-user-action).
+*   [Cancel Trezor Initialization](/komodo-defi-framework/api/v20/utils/task_init_trezor/cancel/)
+*   [Init Trezor](/komodo-defi-framework/api/v20/utils/task_init_trezor/init/)
+*   [Status of Trezor Initialization](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/)
+*   [User Action for Trezor](/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/)
+export const title = "task::init_trezor::init";
+export const description = "Initialise your Trezor device for use in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-Methods with a `task::` prefix will be linked to a numeric
-`task_id` value which can be used to query the status or outcome of a task.
+# Komodo DeFi Framework Method: task::init\_trezor::init
 
 ## task::init\_trezor::init {{label : 'task::init_trezor::init', tag : 'API-v2'}}
 
 Before using this method, launch the Komodo DeFi Framework API, and plug in your Trezor.
 
-#### Arguments
+### Request Parameters
 
-| Parameter      | Type   | Description                                                                                                                                                                                                                                           |
-| -------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| device\_pubkey | string | Optional. If known, you can specify the device pubkey. If not known, this will be part of the [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-status) response which you can save for future use |
-
-#### Response
-
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+### Response Parameters
 
 #### 📌 Examples
 
@@ -12423,29 +12562,19 @@ Before using this method, launch the Komodo DeFi Framework API, and plug in your
   "id": null
 }
 ```
+export const title = "task::init_trezor::status";
+export const description = "Query the status of Trezor device initialisation in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Komodo DeFi Framework Method: task::init\_trezor::status
 
 ## task::init\_trezor::status {{label : 'task::init_trezor::status', tag : 'API-v2'}}
 
-After running the `task::init_trezor::init` method, we can query the status of device initialisation to check its progress.
+After running the `task::init_trezor::init` method, you can query the status of device initialisation to check its progress.
 
-#### Arguments
+### Request Parameters
 
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
-
-#### Response
-
-| Parameter              | Type         | Description                                                                                                                                                         |
-| ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| status                 | string       | A short indication of how the requested process is progressing.                                                                                                     |
-| details                | object       | Depending on the state of process progress, this will contain different information as detailed in the items below.                                                 |
-| details.type           | string       | Type of hardware wallet device (e.g. `Trezor`)                                                                                                                      |
-| details.model          | string       | The model of the hardware wallet device (e.g. `One` or `T`)                                                                                                         |
-| details.device\_name   | string       | The name of the device as defned by user in Trezor Suite or another wallet application.                                                                             |
-| details.device\_id     | string (hex) | An unique identifier of the device, set during manufacturing.                                                                                                       |
-| details.device\_pubkey | string (hex) | The hardware wallet device's pubkey. If included in the `task::init_trezor::init` request, it wll be the same as input. If not, it should be stored for future use. |
+### Response Parameters
 
 #### 📌 Examples
 
@@ -12495,7 +12624,7 @@ Possible "In progress" Cases:
 }
 ```
 
-*   `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-user-action) section for more information.
+*   `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/) section for more information.
 
 ```json
 {
@@ -12530,8 +12659,6 @@ Possible "In progress" Cases:
 ```
 
 #### Error Responses (by `error_type`)
-
-:
 
 *   `HwContextInitializingAlready` - Returned if user calls `task::init_trezor::init` before the previous `task::init_trezor::init` task has been completed.
 
@@ -12573,7 +12700,7 @@ Possible "In progress" Cases:
 }
 ```
 
-*   `NoSuchTask` - Something went wrong or `task::init_trezor::init` was not called. Refer to the [task::init\_trezor::init](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-init) section for more information.
+*   `NoSuchTask` - Something went wrong or `task::init_trezor::init` was not called. Refer to the [task::init\_trezor::init](/komodo-defi-framework/api/v20/utils/task_init_trezor/init/) section for more information.
 
 ```json
 {
@@ -12587,87 +12714,88 @@ Possible "In progress" Cases:
 }
 ```
 
-*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/#details-for-hw-error-error-type) for more info.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
 
-## task::init\_trezor::cancel {{label : 'task::init_trezor::cancel', tag : 'API-v2'}}
+## Details for `HwError` error type
 
-Use the `task::init_trezor::cancel` method to cancel the initialisation task.
+When requesting the status of a task, if an `error_type` of `HwError` is returned, the GUI / User should check the details in `error_data` field to know which action is required (as detailed below).
 
-#### Arguments
+### FoundUnexpectedDevice
 
-| Parameter | Type    | Description                                                                 |
-| --------- | ------- | --------------------------------------------------------------------------- |
-| task\_id  | integer | The identifying number returned when initiating the initialisation process. |
-
-#### Response
-
-| Parameter    | Type   | Description                                                                            |
-| ------------ | ------ | -------------------------------------------------------------------------------------- |
-| result       | string | Returns with value `success` when successful, otherwise returns the error values below |
-| error        | string | Description of the error                                                               |
-| error\_path  | string | Used for debugging. A reference to the function in code base which returned the error  |
-| error\_trace | string | Used for debugging. A trace of lines of code which led to the returned error           |
-| error\_type  | string | An enumerated error identifier to indicate the category of error                       |
-| error\_data  | string | Additonal context for the error type                                                   |
-
-#### 📌 Examples
-
-#### Command
-
-```json
-{
-  "userpass": "RPC_UserP@SSW0RD",
-  "mmrpc": "2.0",
-  "method": "task::init_trezor::cancel",
-  "params": {
-    "task_id": 0
-  }
-}
-```
-
-#### Response (ready, successful)
+The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter
 
 ```json
 {
   "mmrpc": "2.0",
-  "result": "success",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Found unexpected device. Please re-initialize Hardware wallet",
+      "error_path": "lib.common_impl.coin_balance.utxo_common.hd_pubkey.hw_ctx",
+      "error_trace": "lib:93] common_impl:46] coin_balance:304] utxo_common:163] hd_pubkey:176] hw_ctx:149]",
+      "error_type": "HwError",
+      "error_data": "FoundUnexpectedDevice"
+    }
+  },
   "id": null
 }
 ```
 
-#### Response (error, task already finished)
+### FoundMultipleDevices
+
+Multiple Trezor devices are plugged in. Remove the additional devices, and keep the one you want to use plugged in.
 
 ```json
 {
   "mmrpc": "2.0",
-  "error": "Task is finished already",
-  "error_path": "init_hw.manager",
-  "error_trace": "init_hw:209] manager:104]",
-  "error_type": "TaskFinished",
-  "error_data": 0,
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Found multiple devices. Please unplug unused devices",
+      "error_path": "init_hw.crypto_ctx.hw_client",
+      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:152] hw_client:126]",
+      "error_type": "HwError",
+      "error_data": "FoundMultipleDevices"
+    }
+  },
   "id": null
 }
 ```
+
+### NoTrezorDeviceAvailable
+
+No Trezor device detected by the Komodo DeFi Framework API. Make sure it is plugged in, or try a different USB cable / port.
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "No Trezor device available",
+      "error_path": "init_hw.crypto_ctx.hw_ctx.response.usb.libusb",
+      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_ctx:120] response:136] usb:46] libusb:195]",
+      "error_type": "HwError",
+      "error_data": "NoTrezorDeviceAvailable"
+    }
+  },
+  "id": null
+}
+```
+export const title = "task::init_trezor::user_action";
+export const description = "Send user action (PIN or passphrase) to the Trezor device during initialisation in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Komodo DeFi Framework Method: task::init\_trezor::user\_action
 
 ## task::init\_trezor::user\_action {{label : 'task::init_trezor::user_action', tag : 'API-v2'}}
 
 When you see the pin grid on your device, or it asks for a passphrase word, use this method.
 
-#### Arguments
+### Request Parameters
 
-| Parameter                 | Type            | Description                                                                                                                                                                                                                          |
-| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                                                          |
-| user\_action              | object          | Object containing the params below                                                                                                                                                                                                   |
-| user\_action.action\_type | string          | Either `TrezorPin` or `TrezorPassphrase`, depending on which is requested by responses from related methods returning `"status": "UserActionRequired"`                                                                               |
-| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information.                                     |
-| user\_action.passphrase   | string          | The [passphrase](https://trezor.io/learn/a/passphrases-and-hidden-wallets) functions like an extra word added to your recovery seed, and it used to access hidden wallets. To access the default wallet, input an empty string here. |
-
-#### Response
-
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+### Response Parameters
 
 Even an incorrect PIN will return `success`. This doesn't mean the PIN was accepted, just that it was communicated without errors. If the PIN was incorrect, you will see an error like below in the next response for a method that requires authentication.
 
@@ -12736,132 +12864,57 @@ Even an incorrect PIN will return `success`. This doesn't mean the PIN was accep
   "id": null
 }
 ```
+export const title = "Komodo DeFi Framework Method: Trezor Connection Status";
+export const description = "Check whether a Trezor device linked to the node is currently connected and ready for use.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-## Details for `HwError` error type
+# Trezor Connection Status
 
-When requesting the status of a task, if an `error_type` of `HwError` is returned, the GUI / User should check the details in `error_data` field to know which action is required (as detailed below).
+## trezor\_connection\_status {{label : 'trezor_connection_status', tag : 'API-v2'}}
 
-### FoundUnexpectedDevice
+The `trezor_connection_status` method reports the real-time connection state of a **Trezor hardware wallet** that was previously initialized (see [`task::init_trezor::*`](/komodo-defi-framework/api/v20/utils/task_init_trezor/)).
 
-The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter
+### Request Parameters
+
+### Response Parameters
+
+### 📌 Example
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "method": "trezor_connection_status",
+  "id": 0
+}
+```
 
 ```json
 {
   "mmrpc": "2.0",
   "result": {
-    "status": "Error",
-    "details": {
-      "error": "Found unexpected device. Please re-initialize Hardware wallet",
-      "error_path": "lib.common_impl.coin_balance.utxo_common.hd_pubkey.hw_ctx",
-      "error_trace": "lib:93] common_impl:46] coin_balance:304] utxo_common:163] hd_pubkey:176] hw_ctx:149]",
-      "error_type": "HwError",
-      "error_data": "FoundUnexpectedDevice"
-    }
+    "status": "Connected"
   },
-  "id": null
+  "id": 0
 }
 ```
 
-### FoundMultipleDevices
-
-Multiple Trezor devices are plugged in. Remove the additional devices, and keep the one you want to use plugged in.
-
-```json
-{
-  "mmrpc": "2.0",
-  "result": {
-    "status": "Error",
-    "details": {
-      "error": "Found multiple devices. Please unplug unused devices",
-      "error_path": "init_hw.crypto_ctx.hw_client",
-      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:152] hw_client:126]",
-      "error_type": "HwError",
-      "error_data": "FoundMultipleDevices"
-    }
-  },
-  "id": null
-}
-```
-
-### NoTrezorDeviceAvailable
-
-No Trezor device detected by the Komodo DeFi Framework API. Make sure it is plugged in, or try a different USB cable / port.
-
-```json
-{
-  "mmrpc": "2.0",
-  "result": {
-    "status": "Error",
-    "details": {
-      "error": "No Trezor device available",
-      "error_path": "init_hw.crypto_ctx.hw_ctx.response.usb.libusb",
-      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_ctx:120] response:136] usb:46] libusb:195]",
-      "error_type": "HwError",
-      "error_data": "NoTrezorDeviceAvailable"
-    }
-  },
-  "id": null
-}
-```
-export const title = "Komodo DeFi Framework Method: Telegram Alerts for MM Bot";
-export const description = "The Komodo DeFi Framework API Market Maker bot can be configured to send status update alerts via Telegram.";
-
-# Telegram Alerts for Market Maker Bot
-
-The Komodo DeFi Framework API Market Maker bot can be configured to send status update alerts via [Telegram!](https://telegram.org/)
-
-To set this up, you can add some additional parameters to your MM2.json as shown in the example below
-
-```json
-{
-	"gui": "MarketMakerBot",
-	"netid": 8762,
-	"rpc_password": "YOUR_PASSWORD",
-	"passphrase": "YOUR SEED PHRASE",
-	"dbdir": "/path/to/your/komodefi/DB",
-	"message_service_cfg": {
-		"telegram": {
-			"api_key": "YOUR:TELEGRAM_API_TOKEN",
-			"chat_registry": {
-				"default": "YOUR_TELEGRAM_CHAT_ID",
-				"maker_bot": "YOUR_TELEGRAM_CHAT_ID",
-				"swap_events": "YOUR_TELEGRAM_CHAT_ID"
-			}
-		}
-	}
-}
-```
-
-The extra fields required are:
-
-| Parameter                   | Type   | Description              |
-| --------------------------- | ------ | ------------------------ |
-| api\_key                    | string | A Telegram bot API token |
-| chat\_registry.default      | string | A Telegram Chat ID       |
-| chat\_registry.maker\_bot   | string | A Telegram Chat ID       |
-| chat\_registry.swap\_events | string | A Telegram Chat ID       |
-
-You can use the same Telegram chat ID for all three `chat_registry` subfields, or sent your alerts to a different chat ID if you want to separate the alerts by type.
-
-To get a Telegram bot API token, you need to [have chat with the BotFather](https://sean-bradley.medium.com/get-telegram-chat-id-80b575520659)
-
-To get a Telegram chat ID, check out [this guide](https://sean-bradley.medium.com/get-telegram-chat-id-80b575520659)
+### Error Types
 export const title = "Komodo DeFi Framework Method: Update Version Stat Collection";
 export const description = "The update_version_stat_collection method updates the polling interval for version stats collection.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# update\_version\_stat\_collection
+# Update Version Stat Collection
+
+## update\_version\_stat\_collection {{label : 'update_version_stat_collection', tag : 'API-v2'}}
 
 The `update_version_stat_collection` method updates the polling interval for version stats collection. Note: the new interval will take effect after the current interval loop has completed.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type    | Description                                      |
-| --------- | ------- | ------------------------------------------------ |
-| interval  | integer | polling rate (in seconds) to query node versions |
+### Response Parameters
 
 #### 📌 Examples
-
-#### Command
 
 ```json
 {
@@ -12878,26 +12931,32 @@ The `update_version_stat_collection` method updates the polling interval for ver
 
 ```json
 {
-  "mmrpc": "2.0",
-  "result": "success",
-  "id": null
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
 }
 ```
 
-#### Response (error - stats collection not running)
+### Error Types
+
+#### ⚠️ Error Responses
+
+##### NotRunning
 
 ```json
 {
-  "mmrpc": "2.0",
-  "error": "start_version_stat_collection is not running",
-  "error_path": "lp_stats",
-  "error_trace": "lp_stats:374]",
-  "error_type": "NotRunning",
-  "id": null
+    "mmrpc": "2.0",
+    "error": "start_version_stat_collection is not running",
+    "error_path": "lp_stats",
+    "error_trace": "lp_stats:374]",
+    "error_type": "NotRunning",
+    "id": null
 }
 ```
 export const title = "Komodo DeFi Framework Method: Delete Wallet";
 export const description = "Securely deletes a wallet from the Komodo DeFi Framework.";
+
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Delete Wallet
 
@@ -12906,11 +12965,6 @@ export const description = "Securely deletes a wallet from the Komodo DeFi Frame
 Securely deletes a wallet. The wallet must not be the currently active wallet. This action is irreversible.
 
 ### Request Parameters
-
-| Parameter    | Type   | Required | Description                       |
-| ------------ | ------ | :------: | --------------------------------- |
-| wallet\_name | string |     ✓    | The name of the wallet to delete. |
-| password     | string |     ✓    | The password of the wallet.       |
 
 ### Response Parameters
 
@@ -12943,15 +12997,6 @@ The response for a successful request is `null`.
 ```
 
 ### Error Types
-
-| Parameter                | Type   | Description                                                   |
-| :----------------------- | :----- | :------------------------------------------------------------ |
-| InvalidRequest           | string | The request is malformed or missing required parameters.      |
-| WalletNotFound           | string | The specified `wallet_name` was not found.                    |
-| InvalidPassword          | string | The provided `password` is incorrect.                         |
-| CannotDeleteActiveWallet | string | An attempt was made to delete the currently active wallet.    |
-| WalletsStorageError      | string | A storage-related error occurred while accessing wallet data. |
-| InternalError            | string | An internal server error occurred.                            |
 
 #### Error Response (Wallet Not Found)
 
@@ -15041,19 +15086,57 @@ Use the `task::get_new_address::status` method to check the status of a HD addre
 }
 ```
 
-#### Response (success)
+#### Response (success - Single Token Platform)
 
 ```json
 {
     "mmrpc": "2.0",
     "result": {
-        "new_address": {
-            "address": "RDKyU11wFTa8kYETaDbr4YuJZG8C4e6JUm",
-            "derivation_path": "m/44'/141'/0'/0/3",
-            "chain": "External",
-            "balance": {
-                "spendable": "0",
-                "unspendable": "0"
+        "status": "Ok",
+        "details": {
+            "new_address": {
+                "address": "RDKyU11wFTa8kYETaDbr4YuJZG8C4e6JUm",
+                "derivation_path": "m/44'/141'/0'/0/3",
+                "chain": "External",
+                "balance": {
+                    "DOC": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                    }
+                }
+            }
+        }
+    },
+    "id": null
+}
+```
+
+#### Response (success - Multi-Token Platform)
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "new_address": {
+                "address": "0xAcDf1eb42FF03F5a2aCFc4B40CBDE459A515498A",
+                "derivation_path": "m/44'/60'/0'/0/1",
+                "chain": "External",
+                "balance": {
+                    "ETH": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                    },
+                    "USDT-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                    },
+                    "XRP-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                    }
+                }
             }
         }
     },
@@ -15180,10 +15263,10 @@ In some cases, the methods used to interact with HD wallets are the same as thos
 
 ## Initialisation and authentication (Hardware wallets only):
 
-*   Initialise connection with your Trezor with [task::init\_trezor::init](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-init)
-*   Check the status of the connecton with [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-status)
-*   Cancel authentication process with [task::init\_trezor::cancel](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-cancel)
-*   Authenticate using PIN or phrase with [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/#task-init-trezor-user-action)
+*   Initialise connection with your Trezor with [task::init\_trezor::init](/komodo-defi-framework/api/v20/utils/task_init_trezor/init/#task-init-trezor-init)
+*   Check the status of the connecton with [task::init\_trezor::status](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#task-init-trezor-status)
+*   Cancel authentication process with [task::init\_trezor::cancel](/komodo-defi-framework/api/v20/utils/task_init_trezor/cancel/#task-init-trezor-cancel)
+*   Authenticate using PIN or phrase with [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/#task-init-trezor-user-action)
 
 These methods (and others with a `task::` prefix) will be linked to a numeric
 `task_id` value which is used to query the status or outcome of the task.
@@ -15376,8 +15459,10 @@ Use the `task::scan_for_new_addresses::status` method to query the status of a H
                   "derivation_path": "m/44'/141'/0'/0/3",
                   "chain": "External",
                   "balance": {
-                      "spendable": "0",
-                      "unspendable": "0"
+                      "DOC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                      }
                   }
               },
               {
@@ -15385,8 +15470,10 @@ Use the `task::scan_for_new_addresses::status` method to query the status of a H
                   "derivation_path": "m/44'/141'/0'/0/4",
                   "chain": "External",
                   "balance": {
-                      "spendable": "0.444",
-                      "unspendable": "0"
+                      "DOC": {
+                          "spendable": "0.444",
+                          "unspendable": "0"
+                      }
                   }
               }
           ]

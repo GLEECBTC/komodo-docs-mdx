@@ -1,0 +1,279 @@
+export const title = "Komodo DeFi Framework Method: Enums";
+export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Enums
+
+## enums {{label : 'enums', tag : 'structures'}}
+
+<TocForIndex />
+
+The enumerated values below are the valid options for params in the request or response of multiple Komodo DeFi SDK methods have been grouped into the following sections:
+
+## Common Enums
+
+### SwapMethodEnum
+
+Used in [trade\_preimage](/komodo-defi-framework/api/legacy/trade_preimage/) method to specify the swap operation type:
+
+| Value      | Description                                                  |
+| ---------- | ------------------------------------------------------------ |
+| `buy`      | Create a buy order (taker wants to receive the base coin)    |
+| `sell`     | Create a sell order (taker wants to sell the base coin)      |
+| `setprice` | Create a maker order (provide liquidity at a specific price) |
+
+### ActionEnum
+
+Used in [best\_orders](/komodo-defi-framework/api/legacy/best_orders/) and other trading methods:
+
+| Value  | Description                            |
+| ------ | -------------------------------------- |
+| `buy`  | Find orders to buy the specified coin  |
+| `sell` | Find orders to sell the specified coin |
+
+### OrderTypeEnum
+
+Used in [orders\_history\_by\_filter](/komodo-defi-framework/api/legacy/orders_history_by_filter/) to filter by order role:
+
+| Value   | Description                                      |
+| ------- | ------------------------------------------------ |
+| `Maker` | Orders that provide liquidity to the orderbook   |
+| `Taker` | Orders that consume liquidity from the orderbook |
+
+### OrderStatusEnum
+
+Used in [orders\_history\_by\_filter](/komodo-defi-framework/api/legacy/orders_history_by_filter/) to filter by order status:
+
+**Active Order Statuses:**
+
+| Value     | Order Type  | Description                  |
+| --------- | ----------- | ---------------------------- |
+| `Created` | Maker/Taker | Order has been created       |
+| `Updated` | Maker       | Maker order has been updated |
+
+**Inactive Order Statuses:**
+
+| Value                  | Order Type  | Description                          |
+| ---------------------- | ----------- | ------------------------------------ |
+| `Fulfilled`            | Maker/Taker | Order has been completely filled     |
+| `Insufficient Balance` | Maker       | Insufficient funds to complete order |
+| `Cancelled`            | Maker/Taker | Order has been manually cancelled    |
+| `Timed Out`            | Taker       | Taker order expired before matching  |
+
+### UnbanTypeEnum
+
+Used in [unban\_pubkeys](/komodo-defi-framework/api/legacy/unban_pubkeys/) method:
+
+| Value | Description                        |
+| ----- | ---------------------------------- |
+| `All` | Unban all currently banned pubkeys |
+| `Few` | Unban specific pubkeys from a list |
+
+### BanTypeEnum
+
+Used in [list\_banned\_pubkeys](/komodo-defi-framework/api/legacy/list_banned_pubkeys/) response to indicate the type of ban:
+
+| Value        | Description                                                   |
+| ------------ | ------------------------------------------------------------- |
+| `Manual`     | Pubkey was manually banned by the user                        |
+| `FailedSwap` | Pubkey was automatically banned due to a failed swap protocol |
+
+### MetricTypeEnum
+
+Used in [metrics](/komodo-defi-framework/api/legacy/metrics/) response to indicate the type of metric measurement:
+
+| Value       | Description                                                                   |
+| ----------- | ----------------------------------------------------------------------------- |
+| `counter`   | A monotonically increasing metric that tracks cumulative events or quantities |
+| `gauge`     | A metric that represents a single numerical value that can go up or down      |
+| `histogram` | A metric that samples observations and counts them in configurable buckets    |
+
+### CancelByTypeEnum
+
+Used in [cancel\_all\_orders](/komodo-defi-framework/api/legacy/cancel_all_orders/) method to specify which orders to cancel:
+
+| Value  | Description                                                  |
+| ------ | ------------------------------------------------------------ |
+| `All`  | Cancel all active orders created by the node                 |
+| `Pair` | Cancel all orders for a specific trading pair (base/rel)     |
+| `Coin` | Cancel all orders involving a specific coin (as base or rel) |
+
+### ChannelStatusEnum
+
+Used in Lightning Network [get\_channel\_details](/komodo-defi-framework/api/v20/lightning/channels/) response to indicate channel status:
+
+| Value     | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `Open`    | Channel is currently open and available for transactions       |
+| `Closed`  | Channel has been closed (either cooperatively or force-closed) |
+| `Pending` | Channel is in the process of opening or closing                |
+
+### ChannelTypeEnum
+
+Used in Lightning Network channel filter methods for [list\_open\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/) and [list\_closed\_channels\_by\_filter](/komodo-defi-framework/api/v20/lightning/channels/):
+
+| Value      | Description                                                    |
+| ---------- | -------------------------------------------------------------- |
+| `Inbound`  | Channel where the counterparty opened the channel to your node |
+| `Outbound` | Channel where your node opened the channel to the counterparty |
+
+### EstimatorTypeEnum
+
+Used in [get\_eth\_estimated\_fee\_per\_gas](/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas/#get-eth-estimated-fee-per-gas) to specify gas estimation strategies:
+
+| Value          | Description                                                               |
+| -------------- | ------------------------------------------------------------------------- |
+| `Conservative` | Use conservative gas estimation for slower but more reliable confirmation |
+| `Standard`     | Use standard gas estimation for normal transaction speed                  |
+| `Fast`         | Use fast gas estimation for quicker transaction confirmation              |
+| `Fastest`      | Use fastest gas estimation for immediate transaction processing           |
+
+### GasStationPolicyEnum
+
+Used in ETH/EVM coin activation and configuration to define the method of gas price calculation from the gas station response.
+
+| Value           | Description                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| MeanAverageFast | Use the mean between average and fast fields from the gas station response. |
+| Average         | Use the average value from the gas station response.                        |
+
+<DevComment>
+  I cant see these values in [https://github.com/KomodoPlatform/komodo-defi-framework](https://github.com/KomodoPlatform/komodo-defi-framework) codebase. Need to confirm if valid, and what else is available.
+</DevComment>
+
+### NftNetworkEnum
+
+| Value     | Description         |
+| --------- | ------------------- |
+| POLYGON   | Polygon network     |
+| FANTOM    | Fantom network      |
+| ETH       | Ethereum network    |
+| BSC       | Binance Smart Chain |
+| AVALANCHE | Avalanche network   |
+
+### NftContractType Enum
+
+| Value   | Description                |
+| ------- | -------------------------- |
+| ERC721  | ERC-721 NFT contract type  |
+| ERC1155 | ERC-1155 NFT contract type |
+
+### NftStatusEnum (for NFT transfers)
+
+| Value   | Description      |
+| ------- | ---------------- |
+| Receive | NFT was received |
+| Send    | NFT was sent     |
+
+### PrivKeyPolicyEnum
+
+Defines the private key management policy for a coin or token. Used in activation and wallet-related requests to specify how private keys are handled.
+
+| Value         | Description                                                                                                                                                                                       |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Iguana        | The legacy private key policy. One-to-one mapping of private keys to addresses. Only a single key and corresponding address is activated per coin, without hierarchical deterministic derivation. |
+| HDWallet      | The HD Wallet private key policy. Uses a BIP44 derivation path up to the coin level and manages keys using an HD Wallet scheme.                                                                   |
+| Trezor        | The Trezor hardware wallet private key policy. Key management is handled by the Trezor device.                                                                                                    |
+| Metamask      | (WASM only) The Metamask private key policy. Used when interfacing with the Metamask extension in web-based contexts.                                                                             |
+| WalletConnect | The WalletConnect private key policy. Represents key management for connections established via WalletConnect, including both compressed and uncompressed public keys and the session topic.      |
+
+### PrivKeyActivationPolicyEnum
+
+This enum is used in general coin activation requests to specify the private key policy for the coin being enabled. For ETH/EVM coins, see EthPrivKeyActivationPolicyEnum below.
+
+| Value          | Description                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| ContextPrivKey | Use the context (software) private key for activation. This is the default policy for most activations. |
+| Trezor         | Use a Trezor hardware wallet for private key management during activation.                              |
+
+### EthPrivKeyActivationPolicyEnum
+
+Used in ETH/EVM coin activation requests to specify the private key policy.
+
+| Value          | Description                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| ContextPrivKey | Use the context (software) private key for activation. This is the default policy for most activations. |
+| Trezor         | Use a Trezor hardware wallet for private key management during activation.                              |
+| Metamask       | (WASM only) Use the Metamask extension for private key management in web-based contexts.                |
+| WalletConnect  | Use WalletConnect for private key management. Includes the session topic for the connection.            |
+
+### EthRpcModeEnum
+
+Used in ETH/EVM coin activation requests to specify the RPC mode.
+
+| Value    | Description                                                                 |
+| -------- | --------------------------------------------------------------------------- |
+| Default  | Use the default RPC mode for ETH/EVM coins.                                 |
+| Metamask | (WASM only) Use the Metamask extension for RPC calls in web-based contexts. |
+
+### UtxoRpcModeEnum
+
+Used in UTXO coin activation requests to specify the RPC mode.
+
+| Value    | Description                                                                             |
+| -------- | --------------------------------------------------------------------------------------- |
+| Native   | Use the native daemon for RPC calls.                                                    |
+| Electrum | Use Electrum servers for RPC calls. Includes server settings and connection parameters. |
+
+### ZcoinRpcModeEnum
+
+Used in ZHTLC coin activation requests to specify the RPC mode.
+
+| Value  | Description                                                                                 |
+| ------ | ------------------------------------------------------------------------------------------- |
+| Native | (Non-WASM) Use the native daemon for RPC calls.                                             |
+| Light  | Use Electrum/light client mode for RPC calls. Includes server settings and sync parameters. |
+
+## ScanPolicyEnum
+
+The `ScanPolicyEnum` defines the available scan policies for enabling coins with HD wallets.
+
+| Value           | Description                                                                                                                    |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| DoNotScan       | Do not scan for new addresses.                                                                                                 |
+| ScanIfNewWallet | Scan for new addresses only if the coin HD wallet has not been enabled before (i.e., if there were no HD accounts in storage). |
+| Scan            | Scan for new addresses even if the coin HD wallet has been enabled before.                                                     |
+
+### TaskActivationStatusEnum
+
+| Value                      | Description                                                                                                                 |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ActivatingCoin             | The first step of activation. It does not require any action from the user.                                                 |
+| RequestingWalletBalance    | The first step of activation, while initial balances info is being requested. It does not require any action from the user. |
+| Finishing                  | Activation process completed.                                                                                               |
+| WaitingForTrezorToConnect  | Waiting for the user to plugin a Trezor device.                                                                             |
+| FollowHwDeviceInstructions | Waiting for the user to follow the instructions on the device.                                                              |
+| Ok                         | Activation complete and successful.                                                                                         |
+| InProgress                 | Activation is still in progress.                                                                                            |
+| UserActionRequired         | User input is required to continue.                                                                                         |
+
+### NftNetworkEnum
+
+| Value     | Description         |
+| --------- | ------------------- |
+| POLYGON   | Polygon network     |
+| FANTOM    | Fantom network      |
+| ETH       | Ethereum network    |
+| BSC       | Binance Smart Chain |
+| AVALANCHE | Avalanche network   |
+
+### NftContractTypeEnum
+
+| Value   | Description                |
+| ------- | -------------------------- |
+| ERC721  | ERC-721 NFT contract type  |
+| ERC1155 | ERC-1155 NFT contract type |
+
+### NftStatusEnum (for NFT transfers)
+
+| Value   | Description      |
+| ------- | ---------------- |
+| Receive | NFT was received |
+| Send    | NFT was sent     |
+
+### EnableAccountPolicyEnum
+
+| Value      | Description                                                                                                                                                                                   |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `existing` | Enable an account that already exists in GUI storage. Requires an `account_id` parameter of type [EnabledAccountId](/komodo-defi-framework/api/common_structures/wallet/#enabled-account-id). |
+| `new`      | Create a new account record (see [NewAccount](/komodo-defi-framework/api/common_structures/wallet/#new-account)) and immediately set it as the enabled account.                               |

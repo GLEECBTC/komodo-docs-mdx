@@ -1318,7 +1318,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 *   [Moonriver (MOVR)](https://moonbeam.network/networks/moonriver/) & [MVR20 tokens](https://moonriver.moonscan.io/tokens)
 *   And more!
 
-## Electrum Method
+## Electrum
 
 Electrum mode is only available for UTXO based coins and QTUM/QRC20 tokens.
 
@@ -1506,7 +1506,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 }
 ```
 
-## Enable Method
+## Enable
 
 #### Arguments
 
@@ -2758,17 +2758,17 @@ This method only works when the KMD coin is activated.
 
 #### Response
 
-| Structure         | Type                       | Description                                                                                                                                         |
-| ----------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result            | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it |
-| tx\_hash          | string                     | the hash of the transaction                                                                                                                         |
-| height            | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                    |
-| output\_index     | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                             |
-| amount            | string (numeric)           | the transaction output’s value                                                                                                                      |
-| locktime          | number (integer)           | the transaction output's locktime                                                                                                                   |
-| accrued\_rewards  | object                     | the amount of accrued rewards if they exist or the reason for their non existence                                                                   |
-| accrue\_start\_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                   |
-| accrue\_stop\_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)          |
+| Structure         | Type                       | Description                                                                                                                                                                                                                                                                              |
+| ----------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result            | array of objects           | the rewards info; each element corresponds to an unspent output and contains detailed information about the active user rewards corresponding to it                                                                                                                                      |
+| tx\_hash          | string                     | the hash of the transaction                                                                                                                                                                                                                                                              |
+| height            | number (integer, optional) | the height of the block in which the transaction was included (empty if the tx is not mined yet)                                                                                                                                                                                         |
+| output\_index     | number (integer)           | the zero-based index of the output in the transaction’s list of outputs                                                                                                                                                                                                                  |
+| amount            | string (numeric)           | the transaction output’s value                                                                                                                                                                                                                                                           |
+| locktime          | number (integer)           | the transaction output's locktime                                                                                                                                                                                                                                                        |
+| accrued\_rewards  | object                     | either a [NotAccruedReason](/komodo-defi-framework/api/common_structures/wallet/#not-accrued-reason) or [AccruedRewards](/komodo-defi-framework/api/common_structures/wallet/#accrued-rewards) object, showing the amount of accrued rewards, or the reason why rewards are not accrued. |
+| accrue\_start\_at | number (integer, optional) | the rewards start to accrue at this time for the given transaction (empty if the rewards will never accrue to it)                                                                                                                                                                        |
+| accrue\_stop\_at  | number (integer, optional) | the rewards stop to accrue at this time for the given transaction (empty if the tx is not mined yet or if rewards will never accrue to it)                                                                                                                                               |
 
 Where the `accrued_rewards` has either
 
@@ -4580,7 +4580,7 @@ export const description =
 
 The `my_tx_history` method returns the blockchain transactions involving the Komodo DeFi Framework API node's coin address.
 
-The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable-method) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method) call.
+The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum) call.
 
 This method is deprecated and is incompatible with coins activated in HD mode. Use the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method instead.
 
@@ -7460,21 +7460,30 @@ export const description = "The stop method stops the Komodo DeFi Framework API 
 
 # stop
 
-**stop()**
+## stop {{label : 'stop', tag : 'API-v1`'}}
 
 The `stop` method stops the Komodo DeFi Framework API software.
 
-## Arguments
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
-## Response
+### Response
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |             |
+
+#### 📌 Examples
+
+```json
+{
+  "method": "stop",
+  "userpass": "RPC_UserP@SSW0RD"
+}
+```
 export const title = "Komodo DeFi Framework Method: Trade Preimage";
 export const description = "The trade_preimage method returns the approximate fee amounts that are paid per the whole swap.";
 

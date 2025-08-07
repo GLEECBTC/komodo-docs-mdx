@@ -1,0 +1,59 @@
+export const title = "Komodo DeFi Framework Method: Cancel MetaMask Connection Task";
+export const description = "Cancel a running MetaMask connection task in the Komodo DeFi Framework API.";
+import CompactTable from '@/components/mdx/CompactTable';
+
+# Cancel MetaMask Connection Task
+
+## task::connect\_metamask::cancel {{label : 'task::connect_metamask::cancel', tag : 'API-v2'}}
+
+Use `task::connect_metamask::cancel` to abort the MetaMask initialisation task.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TaskConnectMetamaskCancelRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TaskConnectMetamaskCancelResponse" />
+
+#### 📌 Cancel MetaMask Connection Task
+
+<CodeGroup title="Cancel MetaMask Connection Task" tag="POST" label="task::connect_metamask::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::connect_metamask::cancel",
+    "params": {
+      "task_id": 42
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": 1
+  }
+  ```
+
+  #### Response (task already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_metamask.manager",
+    "error_trace": "init_metamask:215] manager:104]",
+    "error_type": "TaskFinished",
+    "error_data": 42,
+    "id": 1
+  }
+  ```
+</CollapsibleSection>

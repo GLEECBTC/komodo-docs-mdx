@@ -352,15 +352,25 @@ function hasValidTitleDescExportsImgImports(children, filePath) {
             }
           }
         } else if (node.type === "ImportDeclaration" && node.source.type === "Literal") {
-          const importImgPath = node.source.value
-          if (!importImgPath.startsWith("@/public/images/docs")) {
-            invalidImagePaths.push(importImgPath)
-          } else {
-            let imagePath = importImgPath.replace("@/public/images/docs", "src/images");
-            if (!fs.existsSync(imagePath)) {
-              imagesNotFound.push(imagePath)
+          const importPath = node.source.value
+          
+          // Only validate imports that are actually for images (not components or other modules)
+          const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.ico', '.bmp'];
+          const isImageImport = imageExtensions.some(ext => importPath.toLowerCase().includes(ext)) || 
+                               importPath.includes('/images/') || 
+                               importPath.startsWith('@/public/images/');
+          
+          if (isImageImport) {
+            if (!importPath.startsWith("@/public/images/docs")) {
+              invalidImagePaths.push(importPath)
+            } else {
+              let imagePath = importPath.replace("@/public/images/docs", "src/images");
+              if (!fs.existsSync(imagePath)) {
+                imagesNotFound.push(imagePath)
+              }
             }
           }
+          // Skip validation for component imports like '@/components/CompactTable'
         }
       }
     } catch (e) {
