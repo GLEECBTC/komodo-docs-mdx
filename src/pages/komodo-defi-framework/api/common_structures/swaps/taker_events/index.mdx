@@ -1,7 +1,10 @@
 export const title = "Komodo Defi SDK Swaps: Taker Events";
 export const description = "A description of events and outcomes for each step of an atomic swap from the taker's perspective.";
+import CompactTable from '@/components/mdx/CompactTable';
 
-# Taker Swap Events
+# Taker Events
+
+## taker\_events {{label : 'taker_events', tag : 'structures'}}
 
 The atomic swap process goes through a series of steps to perform and confirm transactions, then release funds accordingly. If a swap fails, the taker payment will be returned to the taker's address (minus network transaction fees). Sometimes failed swaps were due to a taker or maker going offline in the middle of a swap, so `Swap Watcher` seednodes were created to process certain events on behalf of the maker/taker.
 
@@ -55,25 +58,7 @@ Click on an Event below to view its structure:
 
     The swap goes to negotiation stage after this event occurs.
 
-    | Structure                      | Type                              | Description                                                                                                                                                                                                                  |
-    | ------------------------------ | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | taker\_coin                    | string                            | the ticker of taker coin                                                                                                                                                                                                     |
-    | maker\_coin                    | string                            | the ticker of maker coin                                                                                                                                                                                                     |
-    | maker                          | string (hexadecimal)              | the p2p ID of maker node                                                                                                                                                                                                     |
-    | my\_persistent\_pub            | string (hexadecimal)              | a persistent secp256k1 public key of taker node                                                                                                                                                                              |
-    | lock\_duration                 | number (integer)                  | the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration \* 2 |
-    | maker\_amount                  | string (numeric)                  | the amount of coins to be swapped by maker                                                                                                                                                                                   |
-    | taker\_amount                  | string (numeric)                  | the amount of coins to be swapped by taker                                                                                                                                                                                   |
-    | maker\_payment\_confirmations  | number (integer)                  | the required number of blockchain confirmations for maker payment                                                                                                                                                            |
-    | maker\_payment\_requires\_nota | bool                              | whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
-    | taker\_payment\_confirmations  | number (integer)                  | the required number of blockchain confirmations for taker payment                                                                                                                                                            |
-    | taker\_payment\_requires\_nota | bool                              | whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`                                                                                                                        |
-    | taker\_payment\_lock           | number (UTC timestamp in seconds) | the taker payment is locked until this timestamp                                                                                                                                                                             |
-    | uuid                           | string                            | the swap uuid                                                                                                                                                                                                                |
-    | started\_at                    | number (UTC timestamp in seconds) | the timestamp at the start of the swap                                                                                                                                                                                       |
-    | maker\_payment\_wait           | number (UTC timestamp in seconds) | taker will wait for maker payment confirmation until this timestamp                                                                                                                                                          |
-    | maker\_coin\_start\_block      | number (integer)                  | the maker coin block number at the start of the swap                                                                                                                                                                         |
-    | taker\_coin\_start\_block      | number (integer)                  | the taker coin block number at the start of the swap                                                                                                                                                                         |
+    <CompactTable source="common-structures/taker-events.Started" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -126,9 +111,7 @@ The `StartFailed` event indicates that some of the pre-checks did not pass, and 
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.StartFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -148,13 +131,9 @@ The swap finishes immediately when this event occurs.
 
 The `Negotiated` event indicates that taker has received and validated swap negotiation data from maker.
 
-Taker sends dex fee after this event occurs.
+Taker generates taker fee transaction after this event occurs.
 
-| Structure                | Type                              | Description                                                       |
-| ------------------------ | --------------------------------- | ----------------------------------------------------------------- |
-| maker\_payment\_locktime | number (UTC timestamp in seconds) | the maker payment is locked until this timestamp                  |
-| maker\_pubkey            | string (hexadecimal)              | a persistent secp256k1 public key of maker node                   |
-| secret\_hash             | string (hexadecimal)              | the swap payments are expected to be locked with this secret hash |
+<CompactTable source="common-structures/taker-events.Negotiated" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -177,9 +156,7 @@ The `NegotiateFailed` event indicates that maker negotiation data was not receiv
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.NegotiateFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -194,14 +171,11 @@ The swap finishes immediately when this event occurs.
 
 #### TakerFeeSent
 
-The `TakerFeeSent` event indicates that taker broadcast the dex fee transaction.
+The `TakerFeeSent` event indicates that taker has broadcast the dex fee transaction.
 
 Taker starts waiting for maker payment after this event occurs.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.TakerFeeSent" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -221,9 +195,7 @@ The `TakerFeeSendFailed` event indicates that the taker dex fee transaction fail
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerFeeSendFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -260,9 +232,7 @@ The `MakerPaymentValidateFailed` event indicates that taker was not able to rece
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.MakerPaymentValidateFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -284,10 +254,7 @@ The `MakerPaymentReceived` event indicates that taker received the maker payment
 
 Taker starts waiting for transaction confirmation after this event occurs.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.MakerPaymentReceived" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -313,9 +280,7 @@ The `MakerPaymentWaitConfirmFailed` event indicates that the maker payment trans
 
 Taker swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.MakerPaymentWaitConfirmFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -347,10 +312,7 @@ The `TakerPaymentSent` event indicates that taker broadcast taker payment transa
 
 Taker starts waiting for maker to spend this transaction.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.TakerPaymentSent" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -370,9 +332,7 @@ The `TakerPaymentTransactionFailed` event indicates that taker failed to broadca
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentTransactionFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -394,9 +354,7 @@ The `TakerPaymentWaitConfirmFailed` event indicates that the taker payment trans
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentWaitConfirmFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -418,9 +376,7 @@ The `TakerPaymentDataSendFailed` event indicates that taker was not able to send
 
 When this event occurs taker starts waiting for taker payment lock time expiration to issue a refund.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentDataSendFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -442,12 +398,7 @@ The `TakerPaymentSpent` event indicates that maker spent taker payment and taker
 
 When this event occurs taker extracts the secret from the transaction and attempts to spend maker payment.
 
-| Structure            | Type   | Description                                                |
-| -------------------- | ------ | ---------------------------------------------------------- |
-| secret               | string | the atomic swap secret extracted from spending transaction |
-| transaction          | object | transaction object                                         |
-| transaction.tx\_hash | string | the hash of the transaction                                |
-| transaction.tx\_hex  | string | transaction bytes in hexadecimal format                    |
+<CompactTable source="common-structures/taker-events.TakerPaymentSpent" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -470,9 +421,7 @@ The `TakerPaymentWaitForSpendFailed` event indicates that maker did not spend ta
 
 When this event occurs taker attempts to refund the payment.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentWaitForSpendFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -494,9 +443,7 @@ The `MakerPaymentSpendFailed` event indicates that taker failed to broadcast **m
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.MakerPaymentSpendFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -515,17 +462,14 @@ The `MakerPaymentSpent` event indicates that taker spent maker payment.
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.MakerPaymentSpent" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
   {
     "type": "MakerPaymentSpent",
     "data": {
-      "tx_hex": "0400008085202f890180cf0d2057acf781f5854b576080842641ff56d6f0457258f2a15710fa35958700000000d74730440220159ac3c574bed4473bd6da6eb4b37a3c073dbe5311a4648795f2b0c02b68ef8d022034bc743cbe656b3d335a138f21093fcc9039f50bff40cf56e2654eb9eb225ca901201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63048cb0d363b17521037310a8fb9fd8f198a1a21db830252ad681fccda580ed4101f3f6bfb98b34fab5ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f654882103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac68ffffffff0118ddf505000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac8cb0d363000000000000000000000000000000",
+      "tx_hex": "0400008085202f890180cf0d2057acf781f5854b576080842641ff56d6f0457258f2a15710fa35958700000000d74730440220159ac3c574bed4473bd6da6eb4b37a3c073dbe5311a4648795f2b0c02b68ef8d022034bc743cbe656b3d335a138f21093fcc9039f50bff40cf56e2654eb9eb225ca901201e2e0289634d42865e0f82ff0546ce2a384ae3548fb3f927c4aa1faefb0aa5d4004c6b63049858835db1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a9149af6a305578518d693fca3f1e4c529224a81f654882103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2ac68ffffffff0118ddf505000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac8cb0d363000000000000000000000000000000",
       "tx_hash": "02c6bc927712478b866c3303cfdfacb868545a6730513605d4d7b5b2dbe97b09"
     }
   }
@@ -536,10 +480,7 @@ The swap finishes immediately when this event occurs.
 
 The `MakerPaymentSpendConfirmed` event indicates that the broadcasted tx for taker spending maker payment was not reverted.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.MakerPaymentSpendConfirmed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -547,7 +488,7 @@ The `MakerPaymentSpendConfirmed` event indicates that the broadcasted tx for tak
     "type" : "MakerPaymentSpendConfirmed",
     "data" : {
       "tx_hash" : "a2513faf3d479b8e14096be9b0ba8977d669a7a9ca722be0e2bbe3833fa51a4e",
-      "tx_hex" : "0400008085202f8901d331b98aec95c8ed36484398b7bdec98858d5efae3ac0eb8be4cb39ef016e0fd00000000d7473044022049a5831a2ef057c5a119b19a694dc653e37a1a8b0122125132aecd5dd47312ff02206672c43113830247623f508ee49ba2db15732c22d8f2fec3c8acfc1f19b84654012017456a9b1b3817b612737c929a731e241a28147fc0530e876f9f79e34abd86f7004c6b630457f7ec64b17521031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac6782012088a914c1eae4df923e04a343030902472e70664a525e6d8821023c5ba1d7ef6fa015eb33defb3aba2a961898a51bbb7ff30344d07ba75ad3f289ac68ffffffff01b2530000000000001976a91484c74592ed8ac05340906784d277ca4d4e0af08e88ac57f7ec64000000000000000000000000000000"
+      "tx_hex" : "0400008085202f8901d331b98aec95c8ed36484398b7bdec98858d5efae3ac0eb8be4cb39ef016e0fd00000000d7473044022049a5831a2ef057c5a119b19a694dc653e37a1a8b0122125132aecd5dd47312ff02206672c43113830247623f508ee49ba2db15732c22d8f2fec3c8acfc1f19b84654012017456a9b1b3817b612737c929a731e241a28147fc0530e876f9f79e34abd86f7004c6b630457f7ec64b17521031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac6782012088a914c1eae4df923e04a343030902472e70664a525e6d8821023c5ba1d7ef6fa015eb33defb3aba2a961898a51bbb7ff30344d07ba75ad3f289ac6782012088a914e8eeeea9c6e8988f1ace7bb5b0222efd9fc9d2ed882103081f37ad0ab55bcbd8e2f45e6a364ebf88f727f80c14e7a4f083e9d6555afee7ac68feffffff016aa93203000000001976a91484c74592ed8ac05340906784d277ca4d4e0af08e88ac57f7ec64000000000000000000000000000000"
     }
   }
   ```
@@ -557,10 +498,7 @@ The `MakerPaymentSpendConfirmed` event indicates that the broadcasted tx for tak
 
 The `MakerPaymentSpendConfirmFailed` event indicates that the broadcasted tx for taker spending maker payment was not reverted.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.MakerPaymentSpendConfirmFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -582,10 +520,7 @@ The `MakerPaymentSpentByWatcher` event indicates that the maker payment has been
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.MakerPaymentSpentByWatcher" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -593,7 +528,7 @@ The swap finishes immediately when this event occurs.
     "type" : "MakerPaymentSpentByWatcher",
     "data" : {
       "tx_hash" : "a2513faf3d479b8e14096be9b0ba8977d669a7a9ca722be0e2bbe3833fa51a4e",
-      "tx_hex" : "0400008085202f8901d331b98aec95c8ed36484398b7bdec98858d5efae3ac0eb8be4cb39ef016e0fd00000000d7473044022049a5831a2ef057c5a119b19a694dc653e37a1a8b0122125132aecd5dd47312ff02206672c43113830247623f508ee49ba2db15732c22d8f2fec3c8acfc1f19b84654012017456a9b1b3817b612737c929a731e241a28147fc0530e876f9f79e34abd86f7004c6b630457f7ec64b17521031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac6782012088a914c1eae4df923e04a343030902472e70664a525e6d8821023c5ba1d7ef6fa015eb33defb3aba2a961898a51bbb7ff30344d07ba75ad3f289ac68ffffffff01b2530000000000001976a91484c74592ed8ac05340906784d277ca4d4e0af08e88ac57f7ec64000000000000000000000000000000"
+      "tx_hex" : "0400008085202f8901d331b98aec95c8ed36484398b7bdec98858d5efae3ac0eb8be4cb39ef016e0fd00000000d7473044022049a5831a2ef057c5a119b19a694dc653e37a1a8b0122125132aecd5dd47312ff02206672c43113830247623f508ee49ba2db15732c22d8f2fec3c8acfc1f19b84654012017456a9b1b3817b612737c929a731e241a28147fc0530e876f9f79e34abd86f7004c6b630457f7ec64b17521031bb83b58ec130e28e0a6d5d2acf2eb01b0d3f1670e021d47d31db8a858219da8ac6782012088a914c1eae4df923e04a343030902472e70664a525e6d8821023c5ba1d7ef6fa015eb33defb3aba2a961898a51bbb7ff30344d07ba75ad3f289ac6782012088a914e8eeeea9c6e8988f1ace7bb5b0222efd9fc9d2ed882103081f37ad0ab55bcbd8e2f45e6a364ebf88f727f80c14e7a4f083e9d6555afee7ac68feffffff01b2530000000000001976a91484c74592ed8ac05340906784d277ca4d4e0af08e88ac57f7ec64000000000000000000000000000000"
     }
   }
   ```
@@ -603,9 +538,7 @@ The swap finishes immediately when this event occurs.
 
 `TakerPaymentWaitRefundStarted` event indicates that taker started waiting for lock time expiration to refund the payment.
 
-| Structure   | Type                   | Description                                |
-| ----------- | ---------------------- | ------------------------------------------ |
-| wait\_until | number (UTC timestamp) | the timestamp at which a refund will occur |
+<CompactTable source="common-structures/taker-events.TakerPaymentWaitRefundStarted" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -641,9 +574,7 @@ The swap finishes immediately when this event occurs.
 The `TakerPaymentRefundedByWatcher` is fired if the watcher refunded the taker payment for the taker while the taker is offline.
 It will be shown in the swap status when the taker runs the defi framework again after being offline (if the watcher refunded the swap during the time the taker was offline).
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentRefundedByWatcher" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -665,9 +596,7 @@ It will be shown in the swap status when the taker runs the defi framework again
 `TakerPaymentRefundFailed` event indicates that taker was not able to broadcast a refund transaction to taker coin blockchain.
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                        |
-| --------- | ------ | ---------------------------------- |
-| error     | string | error description with stack trace |
+<CompactTable source="common-structures/taker-events.TakerPaymentRefundFailed" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json
@@ -689,10 +618,7 @@ The `TakerPaymentRefunded` event indicates that taker broadcast the taker paymen
 
 The swap finishes immediately when this event occurs.
 
-| Structure | Type   | Description                             |
-| --------- | ------ | --------------------------------------- |
-| tx\_hash  | string | the hash of the transaction             |
-| tx\_hex   | string | transaction bytes in hexadecimal format |
+<CompactTable source="common-structures/taker-events.TakerPaymentRefunded" />
 
 <CollapsibleSection expandedText="Hide Event" collapsedText="Show Event">
   ```json

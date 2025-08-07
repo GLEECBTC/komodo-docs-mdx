@@ -92,6 +92,12 @@ jobs:
           set -o pipefail
           node utils/js/h1_presence_format_checker.js
 
+      - name: Validate CompactTable data
+        run: |
+          set -e
+          set -o pipefail
+          node utils/js/validate_compact_table_data.js
+
       - name: Prepare data files for GPTs
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
         run: |

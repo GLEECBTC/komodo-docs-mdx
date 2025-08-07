@@ -1,0 +1,892 @@
+{
+  "AccountAddressInfo": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The account address for a specific derivation path under the `account_index`."
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "`External` or `Internal`, as defined in the activation request."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      }
+    ]
+  },
+  "AccountAddressInfo_1": {
+    "data": [
+      {
+        "parameter": "format",
+        "type": "string (enum)",
+        "required": true,
+        "description": "address format to which the input address should be converted. Possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins; `contract` or `wallet` for QTUM/QRC20"
+      },
+      {
+        "parameter": "network",
+        "type": "string (enum)",
+        "required": false,
+        "description": "Optional. Network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest"
+      }
+    ]
+  },
+  "AddressInfo": {
+    "data": [
+      {
+        "parameter": "balances",
+        "type": "object",
+        "required": false,
+        "description": "A standard [balanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`"
+      },
+      {
+        "parameter": "derivation_method",
+        "type": "object",
+        "required": true,
+        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object"
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key associated with the seed used to launch Komodo DeFi Framework"
+      },
+      {
+        "parameter": "tickers",
+        "type": "array",
+        "required": false,
+        "description": "A list of tokens which were successfully activated. Only included in responses where `get_balances` is `false`"
+      }
+    ]
+  },
+  "AddressPath": {
+    "data": [
+      {
+        "parameter": "account_id",
+        "type": "integer",
+        "required": true,
+        "description": "The index of the account in the wallet, starting from `0`."
+      },
+      {
+        "parameter": "chain",
+        "type": "integer",
+        "required": false,
+        "description": "The `chain` is either `External` or `Internal`, and expressed as an integer with `External` being 0 and `Internal` being 1."
+      },
+      {
+        "parameter": "address_id",
+        "type": "integer",
+        "required": false,
+        "description": "The index of the address in the account, starting from `0`."
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": false,
+        "description": "The derivation path of the address, following the format `m/44'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` (or `m/84'/COIN_ID'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` for segwit coins)."
+      }
+    ]
+  },
+  "BalanceInfo": {
+    "data": [
+      {
+        "parameter": "spendable",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "The available amount of a coin or token which is ready to be traded or withdrawn."
+      },
+      {
+        "parameter": "unspendable",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "The amount of a coin or token which is awaiting confirmation on the block chain for an incoming or outgoing transaction."
+      }
+    ]
+  },
+  "DerivationMethod": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Defines how keypairs will be generated. Possible values: `Iguana` or `HDWallet`"
+      }
+    ]
+  },
+  "ExtendedFeeInfo": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)"
+      },
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "fee amount (in decimal representation)"
+      },
+      {
+        "parameter": "amount_rat",
+        "type": "rational",
+        "required": true,
+        "description": "fee amount (in rational representation)"
+      },
+      {
+        "parameter": "amount_fraction",
+        "type": "fraction",
+        "required": true,
+        "description": "fee amount (in fraction representation)"
+      },
+      {
+        "parameter": "paid_from_trading_vol",
+        "type": "bool",
+        "required": true,
+        "description": "whether the fee is paid from trading volume and not use actual `coin` balance"
+      }
+    ]
+  },
+  "FeeInfo": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Type of transaction fee. Possible values: `UtxoFixed`, `UtxoPerKbyte`, `UtxoPriority`, `EthGas`, `Qrc20Gas`, `CosmosGas`"
+      },
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": false,
+        "description": "Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte)"
+      },
+      {
+        "parameter": "priority",
+        "type": "string",
+        "required": false,
+        "description": "Used only when type is `UtxoPriority`. Possible values: 'Low', 'Normal', 'High'."
+      },
+      {
+        "parameter": "gas_price",
+        "type": "string (numeric)",
+        "required": false,
+        "description": "Used only when fee type is `Qrc20Gas` or `EthGas`; sets the gas price in `gwei` units."
+      },
+      {
+        "parameter": "gas_price",
+        "type": "number (double)",
+        "required": false,
+        "description": "Used only when fee type is `CosmosGas`; sets the gas price."
+      },
+      {
+        "parameter": "gas",
+        "type": "number (integer)",
+        "required": false,
+        "description": "Used only when fee type is `EthGas`; sets the gas limit for transaction"
+      },
+      {
+        "parameter": "gas_limit",
+        "type": "number (integer)",
+        "required": false,
+        "description": "Used only when fee type is `Qrc20Gas` or `CosmosGas`; sets the gas limit for transaction"
+      }
+    ]
+  },
+  "HistoryTarget": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Filters results by `account_id` or `address_id` part of the derivation path."
+      },
+      {
+        "parameter": "account_id",
+        "type": "integer",
+        "required": true,
+        "description": "`ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path."
+      },
+      {
+        "parameter": "address_id",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. `ADDRESS_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": false,
+        "description": "Optional. `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
+      }
+    ]
+  },
+  "InputTxns": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "The transaction id of an unspent transaction from the same wallet output."
+      },
+      {
+        "parameter": "index",
+        "type": "integer",
+        "required": true,
+        "description": "The [output index](https://bitcoin.stackexchange.com/questions/100765/what-does-the-index-of-an-utxo-stand-for) of this unspent transaction output."
+      },
+      {
+        "parameter": "script_pub_key",
+        "type": "string",
+        "required": true,
+        "description": "The [scriptpubkey](https://learnmeabitcoin.com/technical/scriptPubKey) of this unspent transaction output."
+      },
+      {
+        "parameter": "amount",
+        "type": "float",
+        "required": true,
+        "description": "The value of this unspent transaction output."
+      }
+    ]
+  },
+  "NewAddressInfo": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The account address for a specific derivation path under the `account_index`."
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address. If there are no more addresses with balances within the gap limit, the address index will increment."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "`Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
+      }
+    ]
+  },
+  "PayForGas": {
+    "data": [
+      {
+        "parameter": "tx_type",
+        "type": "string",
+        "required": true,
+        "description": "ETH/EVM coins and tokens only. Options are `Legacy` or `Eip1559`. The type of transaction values being configured."
+      },
+      {
+        "parameter": "gas_price",
+        "type": "decimal",
+        "required": false,
+        "description": "Optional. Only used if tx_type is `Legacy`. Values are in Gwei. The maximium price per gas unit the user is willing to pay for the transaction."
+      },
+      {
+        "parameter": "max_fee_per_gas",
+        "type": "decimal",
+        "required": false,
+        "description": "Optional. Only used if tx_type is `Eip1559`. Values are in Gwei. The maximum amount to pay per unit of gas to get your transaction included in a block."
+      },
+      {
+        "parameter": "max_priority_fee_per_gas",
+        "type": "decimal",
+        "required": false,
+        "description": "Optional. Only used if tx_type is `Eip1559`. Values are in Gwei. This is paid directly to the miner, and can be set by the user to attract minimal delay in transaction confirmation."
+      },
+      {
+        "parameter": "min_wait_time",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. Only used if tx_type is `Eip1559`. Estimated minimum transaction wait time in mempool (in ms) for this priority level."
+      },
+      {
+        "parameter": "max_wait_time",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. Only used if tx_type is `Eip1559`. Estimated maximum transaction wait time in mempool (in ms) for this priority level."
+      }
+    ],
+    "variant": "compact"
+  },
+  "StakingDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
+      },
+      {
+        "parameter": "validator_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the validator to delegate staking to."
+      },
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of coins to stake send to the validator for delegated staking (Cosmos only - QTUM will stake your whole balance)."
+      }
+    ]
+  },
+  "StakingInfoDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' is supported."
+      },
+      {
+        "parameter": "filter_by_status",
+        "type": "string",
+        "required": true,
+        "description": "Return only validators matching a specific status. Options are `Bonded`, `Unbonded`, and `All`. Defaults to `Bonded`."
+      },
+      {
+        "parameter": "limit",
+        "type": "integer",
+        "required": false,
+        "description": "Optional, defaults to `10`. The number of validators displayed per page in response."
+      },
+      {
+        "parameter": "page_number",
+        "type": "integer",
+        "required": false,
+        "description": "Optional, defaults to `1`. The page offset for items in response."
+      }
+    ]
+  },
+  "ClaimingDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
+      },
+      {
+        "parameter": "validator_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the validator to delegate staking to."
+      },
+      {
+        "parameter": "force",
+        "type": "boolean",
+        "required": false,
+        "description": "Defaults to `false`. If `true`, will process unprofitable transactions (reward value less than network fees)"
+      }
+    ]
+  },
+  "PrivKeyPolicy": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Options are `ContextPrivKey`, `WalletConnect`, `Metamask`, or `Trezor`. Defaults to `ContextPrivKey`."
+      },
+      {
+        "parameter": "data",
+        "type": "list",
+        "required": false,
+        "description": "`WalletConnect` type only. The `session_topic` hex string, returned from the response to [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)."
+      }
+    ]
+  },
+  "RawTxInfo": {
+    "data": [
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": false,
+        "description": "UTXO only. The raw unsigned hex of a proposed transaction."
+      },
+      {
+        "parameter": "prev_txns",
+        "type": "list",
+        "required": false,
+        "description": "UTXO only. A list of standard [InputTxns objects](/komodo-defi-framework/api/common_structures/wallet/#input-txns)."
+      },
+      {
+        "parameter": "to",
+        "type": "string",
+        "required": false,
+        "description": "ETH/EVM only. A destination address to send the funds to."
+      },
+      {
+        "parameter": "value",
+        "type": "string",
+        "required": false,
+        "description": "ETH/EVM only. The amount of funds to be sent as a string with a `0x` prefix, in [wei](https://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na) units."
+      },
+      {
+        "parameter": "gas_limit",
+        "type": "string",
+        "required": false,
+        "description": "ETH/EVM only. The maximum gas to be used for sending the transaction, in [gwei](https://eth-converter.com/) units."
+      },
+      {
+        "parameter": "pay_for_gas",
+        "type": "object",
+        "required": false,
+        "description": "ETH/EVM only. Used for EIP-1559 fee policy config. A standard [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas) object."
+      }
+    ]
+  },
+  "ScanAddressesInfo": {
+    "data": [
+      {
+        "parameter": "account_index",
+        "type": "integer",
+        "required": true,
+        "description": "`ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**"
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the account."
+      },
+      {
+        "parameter": "new_addresses",
+        "type": "list",
+        "required": true,
+        "description": "A list of standard [NewAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#new-address-info) objects."
+      }
+    ]
+  },
+  "TotalFeeInfo": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas)"
+      },
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "fee amount (in decimal representation)"
+      },
+      {
+        "parameter": "amount_rat",
+        "type": "rational",
+        "required": true,
+        "description": "fee amount (in rational representation)"
+      },
+      {
+        "parameter": "amount_fraction",
+        "type": "fraction",
+        "required": true,
+        "description": "fee amount (in fraction representation)"
+      },
+      {
+        "parameter": "required_balance",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the required `coin` balance to pay the fee"
+      },
+      {
+        "parameter": "required_balance_rat",
+        "type": "rational",
+        "required": true,
+        "description": "`required_balance` in rational representation"
+      },
+      {
+        "parameter": "required_balance_fraction",
+        "type": "fraction",
+        "required": true,
+        "description": "`required_balance` in fraction representation"
+      }
+    ]
+  },
+  "WithdrawFee": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The fee type. Either `Utxo`, `Tendermint`, `Qrc20` or `Eth`."
+      },
+      {
+        "parameter": "amount",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Utxo` or `Tendermint` type only. The fee amount."
+      },
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin which will be used to pay the transaction fee."
+      },
+      {
+        "parameter": "gas",
+        "type": "integer",
+        "required": false,
+        "description": "`Eth` type only. The amount of gas to be used for the transaction."
+      },
+      {
+        "parameter": "gas_price",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Eth` or `Qrc20` type only. Price per unit of gas to be used for the transaction."
+      },
+      {
+        "parameter": "gas_limit",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Tendermint` or `Qrc20` type only. Maximum gas to be used for the transaction."
+      },
+      {
+        "parameter": "miner_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Tendermint` type only. Fee to mine the transaction."
+      },
+      {
+        "parameter": "total_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Eth` type only. Gas price multiplied by gas amount."
+      },
+      {
+        "parameter": "total_gas_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Qrc20` type only. Gas price multiplied by gas amount."
+      }
+    ]
+  },
+  "WalletAccountInfo": {
+    "data": [
+      {
+        "parameter": "account_index",
+        "type": "integer",
+        "required": true,
+        "description": "`ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**"
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "Derivation path up to the `COIN` child. E.g. `\"m/44'/141'/0'\"`"
+      },
+      {
+        "parameter": "total_balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      },
+      {
+        "parameter": "addresses",
+        "type": "list",
+        "required": true,
+        "description": "A list of standard [AccountAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#account-address-info) objects."
+      }
+    ]
+  },
+  "WalletBalanceInfo": {
+    "data": [
+      {
+        "parameter": "wallet_type",
+        "type": "string",
+        "required": true,
+        "description": "In HD wallet mode, this will return `HD`. <DevComment> What are the other values? </DevComment>"
+      },
+      {
+        "parameter": "accounts",
+        "type": "object",
+        "required": true,
+        "description": "A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object."
+      }
+    ]
+  },
+  "WithdrawFromInfo": {
+    "data": [
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": false,
+        "description": "Optional. The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address."
+      },
+      {
+        "parameter": "account_id",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. `ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**"
+      },
+      {
+        "parameter": "address_id",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. `ADDRESS_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": false,
+        "description": "Optional. `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
+      }
+    ]
+  },
+  "AccountId": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Defines account kind. Possible values: `iguana`, `hd`, `hw`."
+      },
+      {
+        "parameter": "account_idx",
+        "type": "integer",
+        "required": false,
+        "description": "Only when `type` = `hd`. Index of the HD account (starting at 0)."
+      },
+      {
+        "parameter": "device_pubkey",
+        "type": "string",
+        "required": false,
+        "description": "Only when `type` = `hw`. Hex-encoded pubkey of the hardware wallet device."
+      }
+    ]
+  },
+  "HdCoinKeys": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the coin."
+      },
+      {
+        "parameter": "addresses",
+        "type": "array",
+        "required": true,
+        "description": "Array of [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) objects for each address."
+      }
+    ]
+  },
+  "HdKeysInfo": {
+    "data": [
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address."
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key for the address."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet address."
+      },
+      {
+        "parameter": "priv_key",
+        "type": "string",
+        "required": true,
+        "description": "The private key for the address."
+      },
+      {
+        "parameter": "viewing_key",
+        "type": "string",
+        "required": false,
+        "description": "The viewing key for the address. Only included for ZHTLC coins like ARRR that support enhanced privacy features."
+      }
+    ]
+  },
+  "IguanaKeysInfo": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the coin."
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key for the coin."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet address for the coin."
+      },
+      {
+        "parameter": "priv_key",
+        "type": "string",
+        "required": true,
+        "description": "The private key for the coin."
+      }
+    ]
+  },
+  "NotSufficientBalance": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the name of the coin which balance is not sufficient. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)"
+      },
+      {
+        "parameter": "available",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the balance available for transfer"
+      },
+      {
+        "parameter": "required",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount required to transfer the specified amount. This amount is necessary but may not be sufficient"
+      }
+    ]
+  },
+  "AmountTooLow": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount the user was willing to transfer"
+      },
+      {
+        "parameter": "threshold",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the `amount` has not to be less than the `threshold`"
+      }
+    ]
+  },
+  "InvalidAddress": {
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "string",
+        "required": true,
+        "description": "the error description"
+      }
+    ]
+  },
+  "InvalidFeePolicy": {
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "string",
+        "required": true,
+        "description": "the error description"
+      }
+    ]
+  },
+  "AccruedVariant": {
+    "data": [
+      {
+        "parameter": "Accrued",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of accrued rewards"
+      }
+    ]
+  },
+  "AccruedRewards": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of accrued rewards"
+      }
+    ]
+  },
+  "NotAccruedReason": {
+    "data": [
+      {
+        "parameter": "reason",
+        "type": "string",
+        "required": true,
+        "description": "the reason why rewards were not accrued"
+      }
+    ]
+  },
+  "EnabledAccountId": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Account kind. Accepted values are `iguana` and `hd`."
+      },
+      {
+        "parameter": "account_idx",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. Required only when `type` = `hd`. The index of the HD account to enable (starting from `0`)."
+      }
+    ]
+  },
+  "NewAccount": {
+    "data": [
+      {
+        "parameter": "account_id",
+        "type": "EnabledAccountId",
+        "required": true,
+        "description": "Identifier of the new account."
+      },
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": true,
+        "description": "User-friendly name for the account (maximum 255 characters)."
+      },
+      {
+        "parameter": "description",
+        "type": "string",
+        "required": false,
+        "description": "Optional. Optional longer description (maximum 600 characters)."
+      },
+      {
+        "parameter": "balance_usd",
+        "type": "string (numeric)",
+        "required": false,
+        "default": "0",
+        "description": "Optional, defaults to `0`. Optional initial USD balance shown in GUIs."
+      }
+    ]
+  }
+}
