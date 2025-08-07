@@ -90,12 +90,7 @@ CompactTable uses a source attribute that references table data stored in JSON f
 
 #### Import and Usage
 
-First import the component at the top of your MDX file:
-```jsx
-import CompactTable from '@/components/mdx/CompactTable';
-```
-
-Then use it with a source reference:
+The CompactTable component is globally imported. To use it with a source reference:
 ```jsx
 <CompactTable source="common-structures/activation.ActivationMode" />
 ```
