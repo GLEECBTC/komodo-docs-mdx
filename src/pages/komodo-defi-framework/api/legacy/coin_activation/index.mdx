@@ -63,31 +63,11 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 #### Arguments
 
-| Structure                | Type            | Description                                                                                                                                                                                                                                                               |   |
-| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
-| coin                     | string          | Ticker of coin to activate                                                                                                                                                                                                                                                |   |
-| servers                  | list of objects | A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects.                                                                                                                                              |   |
-| mm2                      | integer         | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                |   |
-| min\_connected           | integer         | Optional, defaults to `1`. Minimum number of electrum servers to maintain an active connection to.                                                                                                                                                                        |   |
-| max\_connected           | integer         | Optional. Maximum number of electrum servers to maintain an active connection to. If not set, defaults to all servers in activation request.                                                                                                                              |   |
-| required\_confirmations  | integer         | Optional, defaults to `3`. Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                              |   |
-| requires\_notarization   | boolean         | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |   |
-| swap\_contract\_address  | string          | QRC20 only. Address of etomic swap smart contract                                                                                                                                                                                                                         |   |
-| fallback\_swap\_contract | string          | QRC20 only. Address of backup etomic swap smart contract                                                                                                                                                                                                                  |   |
-| utxo\_merge\_params      | object          | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.                                                    |   |
+<CompactTable source="legacy/coin_activation.ElectrumArguments" />
 
 #### Response
 
-| Structure               | Type              | Description                                                                                                                                                     |
-| ----------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address                 | string            | the address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
-| balance                 | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
-| unspendable\_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
-| coin                    | string            | the ticker of the enabled coin                                                                                                                                  |
-| required\_confirmations | number            | the number of transaction confirmations for which the Komodo DeFi Framework API must wait during the atomic swap process                                        |
-| mature\_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
-| requires\_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
-| result                  | string            | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
+<CompactTable source="legacy/coin_activation.ElectrumResponse" />
 
 #### 📌 Examples
 
@@ -184,31 +164,11 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Arguments
 
-| Structure                   | Type                                                                 | Description                                                                                                                                                                                                                                                                             |
-| --------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                        | string                                                               | the name of the coin the user desires to enable                                                                                                                                                                                                                                         |
-| urls                        | array of strings (required for ETH/ERC20 and other gas model chains) | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                         |
-| swap\_contract\_address     | string (required for QRC20 only)                                     | address of etomic swap smart contract                                                                                                                                                                                                                                                   |
-| fallback\_swap\_contract    | string (required for QRC20 only)                                     | address of backup etomic swap smart contract                                                                                                                                                                                                                                            |
-| gas\_station\_decimals      | integer (optional for ETH/ERC20 and other gas model chains)          | Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. Defaults to `8` |
-| gas\_station\_policy.policy | string (optional for ETH/ERC20 and other gas model chains)           | Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value. Defaults to `"MeanAverageFast"`.                                                          |
-| mm2                         | integer                                                              | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                              |
-| tx\_history                 | bool                                                                 | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                             |
-| required\_confirmations     | integer (optional, defaults to `3`)                                  | Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                                                                       |
-| requires\_notarization      | boolean (optional, defaults to `false`)                              | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                              |
+<CompactTable source="legacy/coin_activation.EnableArguments" />
 
 #### Response
 
-| Structure               | Type              | Description                                                                                                        |
-| ----------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
-| address                 | string            | the address of the user's `coin` wallet, based on the user's passphrase                                            |
-| balance                 | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                        |
-| unspendable\_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                      |
-| coin                    | string            | the ticker of enabled coin                                                                                         |
-| required\_confirmations | number            | Komodo DeFi Framework API will wait for the this number of coin's transaction confirmations during the swap        |
-| requires\_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions |
-| mature\_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                        |
-| result                  | string            | the result of the request; this value either indicates `success`, or an error or other type of failure             |
+<CompactTable source="legacy/coin_activation.EnableResponse" />
 
 #### 📌 Examples
 
