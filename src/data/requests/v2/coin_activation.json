@@ -23,8 +23,8 @@
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
-          "url": "https://polygon.gateway.tenderly.co",
-          "ws_url": "wss://polygon.gateway.tenderly.co"
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
         }
       ],
       "erc20_tokens_requests": [
@@ -126,8 +126,8 @@
           "komodo_proxy": true
         },
         {
-          "url": "https://mainnet.gateway.tenderly.co",
-          "ws_url": "wss://mainnet.gateway.tenderly.co"
+          "url": "https://eth.drpc.org",
+          "ws_url": "wss://eth.drpc.org"
         }
       ],
       "tx_history": true,
@@ -224,8 +224,8 @@
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
-          "url": "https://polygon.gateway.tenderly.co",
-          "ws_url": "wss://polygon.gateway.tenderly.co"
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
         }
       ],
       "erc20_tokens_requests": [
@@ -468,16 +468,16 @@
           "rpc_data": {
             "servers": [
               {
-                "url": "qtum.electrum2.cipig.net:30050",
+                "url": "qtum.electrum1.cipig.net:30050",
                 "protocol": "WSS"
               },
               {
-                "url": "qtum.electrum2.cipig.net:10050",
+                "url": "qtum.electrum3.cipig.net:10050",
                 "protocol": "TCP"
               },
               {
-                "url": "qtum.electrum2.cipig.net:20050",
-                "protocol": "SSL"
+                "url": "qtum.electrum3.cipig.net:30050",
+                "protocol": "WSS"
               }
             ]
           }
@@ -532,16 +532,16 @@
           "rpc_data": {
             "servers": [
               {
-                "url": "kmd.electrum1.cipig.net:20001",
-                "protocol": "SSL"
-              },
-              {
                 "url": "kmd.electrum3.cipig.net:20001",
                 "protocol": "SSL"
               },
               {
-                "url": "kmd.electrum2.cipig.net:20001",
-                "protocol": "SSL"
+                "url": "kmd.electrum3.cipig.net:10001",
+                "protocol": "TCP"
+              },
+              {
+                "url": "kmd.electrum2.cipig.net:30001",
+                "protocol": "WSS"
               }
             ]
           }
@@ -820,5 +820,129 @@
     "params": {
       "task_id": 3
     }
+  },
+  "LegacyElectrumBch": {
+    "coin": "BCH",
+    "method": "electrum",
+    "servers": [
+      {
+        "url": "bch3.cipig.net:10015",
+        "protocol": "SSL",
+        "ws_url": "bch3.cipig.net:30015"
+      },
+      {
+        "url": "bch2.cipig.net:10015",
+        "protocol": "SSL",
+        "ws_url": "bch2.cipig.net:30015"
+      },
+      {
+        "url": "bch1.cipig.net:10015",
+        "protocol": "SSL",
+        "ws_url": "bch1.cipig.net:30015"
+      }
+    ],
+    "min_connected": 1,
+    "max_connected": 2,
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyElectrumKmd": {
+    "coin": "KMD",
+    "method": "electrum",
+    "servers": [
+      {
+        "url": "electrum1.cipig.net:10001"
+      },
+      {
+        "url": "electrum2.cipig.net:10001"
+      },
+      {
+        "url": "electrum3.cipig.net:10001"
+      }
+    ],
+    "required_confirmations": 10,
+    "requires_notarization": true,
+    "mm2": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyElectrumQtum": {
+    "coin": "QTUM",
+    "method": "electrum",
+    "servers": [
+      {
+        "url": "electrum1.cipig.net:10050"
+      },
+      {
+        "url": "electrum2.cipig.net:10050"
+      },
+      {
+        "url": "electrum3.cipig.net:10050"
+      }
+    ],
+    "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableNative": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable",
+    "coin": "TKL"
+  },
+  "LegacyEnableNativeWithParams": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable",
+    "coin": "TKL",
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true
+  },
+  "LegacyEnableEth": {
+    "coin": "ETH",
+    "method": "enable",
+    "urls": [
+      "http://eth1.cipig.net:18555",
+      "http://eth2.cipig.net:18555",
+      "http://eth3.cipig.net:18555"
+    ],
+    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableEthGasStation": {
+    "coin": "ETH",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable",
+    "urls": [
+      "http://eth1.cipig.net:18555",
+      "http://eth2.cipig.net:18555",
+      "http://eth3.cipig.net:18555"
+    ],
+    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+    "gas_station_decimals": 8,
+    "gas_station_policy": {
+      "policy": "MeanAverageFast"
+    }
+  },
+  "LegacyEnableMatic": {
+    "coin": "NZDS-PLG20",
+    "method": "enable",
+    "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+    "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+    "urls": [
+      "https://polygon-rpc.com"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableBnb": {
+    "coin": "BUSD-BEP20",
+    "method": "enable",
+    "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+    "urls": [
+      "http://bsc1.cipig.net:8655",
+      "http://bsc2.cipig.net:8655",
+      "http://bsc3.cipig.net:8655"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
   }
 }

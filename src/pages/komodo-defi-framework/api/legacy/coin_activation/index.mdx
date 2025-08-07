@@ -93,42 +93,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 #### UTXO coin activation {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "BCH",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "bch.imaginary.cash:50002",
-        "protocol": "SSL",
-        "ws_url": "bch.imaginary.cash:50004"
-      },
-      {
-        "url": "bch.soul-dev.com:50002",
-        "protocol": "SSL",
-        "ws_url": "bch.soul-dev.com:50004"
-      },
-      {
-        "url": "cashnode.bch.ninja:50002",
-        "protocol": "SSL",
-        "ws_url": "cashnode.bch.ninja:50004"
-      },
-      {
-        "url": "electrum3.cipig.net:20055",
-        "protocol": "SSL",
-        "ws_url": "electrum3.cipig.net:30055"
-      },
-      {
-        "url": "electrum3.cipig.net:10055"
-      }
-    ],
-    "min_connected": 1,
-    "max_connected": 2,
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="coin_activation.LegacyElectrumBch" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (Success)
@@ -149,29 +114,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 #### UTXO coin activation with `required_confirmations`, `requires_notarization` and `mm2` arguments {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "KMD",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "electrum1.cipig.net:10001"
-      },
-      {
-        "url": "electrum2.cipig.net:10001"
-      },
-      {
-        "url": "electrum3.cipig.net:10001"
-      }
-    ],
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "mm2": 1,
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="coin_activation.LegacyElectrumKmd" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (Success)
@@ -192,27 +135,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 #### QTUM/QRC20 coin activation {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "QTUM",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "electrum1.cipig.net:10050"
-      },
-      {
-        "url": "electrum2.cipig.net:10050"
-      },
-      {
-        "url": "electrum3.cipig.net:10050"
-      }
-    ],
-    "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="coin_activation.LegacyElectrumQtum" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (Success)
@@ -291,15 +214,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Native UTXO coin activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableNative" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -320,18 +235,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Command (With `required_confirmations`, `requires_notarization` and `mm2` arguments)
 
-<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL",
-    "mm2": 1,
-    "required_confirmations": 10,
-    "requires_notarization": true
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableNativeWithParams" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -352,22 +256,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Command (for Ethereum and ERC20-based blockchains)
 
-<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "ETH",
-    "method": "enable",
-    "urls": [
-      "http://eth1.cipig.net:18555",
-      "http://eth2.cipig.net:18555",
-      "http://eth3.cipig.net:18555"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableEth" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -387,27 +276,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### EVM coin activation with gas\_station\_url and policy {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "ETH",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "urls": [
-      "http://eth1.cipig.net:18555",
-      "http://eth2.cipig.net:18555",
-      "http://eth3.cipig.net:18555"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-    "gas_station_decimals": 8,
-    "gas_station_policy": {
-      "policy": "MeanAverageFast"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableEthGasStation" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -427,20 +296,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Polygon (MATIC) and PLG20 activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "NZDS-PLG20",
-    "method": "enable",
-    "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "urls": [
-      "https://polygon-rpc.com"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableMatic" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -460,22 +316,7 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Binance Coin (BNB) and BEP20 activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "BUSD-BEP20",
-    "method": "enable",
-    "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "urls": [
-      "http://bsc1.cipig.net:8655",
-      "http://bsc2.cipig.net:8655",
-      "http://bsc3.cipig.net:8655"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="coin_activation.LegacyEnableBnb" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
