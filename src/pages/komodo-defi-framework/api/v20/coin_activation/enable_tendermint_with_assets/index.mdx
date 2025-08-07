@@ -1,6 +1,8 @@
 export const title = "Komodo DeFi Framework Method: Enable Tendermint Token with Assets";
 export const description = "Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC assets in a single command.";
 
+import CompactTable from '@/components/mdx/CompactTable';
+
 # enable\_tendermint\_with\_assets
 
 Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC assets in a single command.
@@ -17,7 +19,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request with `get_balances` set to `false`
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsBalancesFalse" />
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsBalancesFalse" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -38,7 +40,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request with token activation and `get_balances` as `true`
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsBalancesTrue" />
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsBalancesTrue" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -68,7 +70,7 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 #### Request for Metamask / WalletConnect activation
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2-coin-activation.EnableTendermintWithAssetsWalletConnect" />
+<CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsWalletConnect" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response

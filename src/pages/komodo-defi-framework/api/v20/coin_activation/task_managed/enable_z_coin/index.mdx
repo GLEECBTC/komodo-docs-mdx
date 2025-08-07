@@ -3,6 +3,7 @@ export const description =
   "The methods in this document allow activation of ZHTLC coins like ARRR & ZOMBIE.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Task: Z Coin Activation
 
@@ -40,11 +41,11 @@ To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx
 
 #### Enable Z coin without any optional parameters
 
-<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableZCoinInitBasic" />
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitBasic" />
 
 #### Sync from block 2528700, with custom `.zcash-params` path and scan params
 
-<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableZCoinInitWithSyncParams" />
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitWithSyncParams" />
 
 #### Sync from sapling activation height (earliest)
 
@@ -170,7 +171,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Status of Z coin activation
 
-<CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableZCoinStatus" />
+<CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinStatus" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (ActivatingCoin - enabling has started)
@@ -353,7 +354,7 @@ If the `task::enable_z_coin::status` returns `UserActionRequired`, we need to us
 | --------- | ------ | --------------------------- |
 | result    | string | The outcome of the request. |
 
-<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableZCoinUserAction" />
+<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -392,7 +393,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Command
 
-<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableZCoinCancel" />
+<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

@@ -3,6 +3,7 @@ export const description =
   "The methods in this document demonstrate the activation of BCH & SLP tokens.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Task: BCH/SLP Activation
 
@@ -26,7 +27,7 @@ Use this method for task managed activation of BCH and SLP tokens. Refer to the 
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_bch::init" tag="POST" label="task::enable_bch::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchInit" />
+<CodeGroup title="task::enable_bch::init" tag="POST" label="task::enable_bch::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -57,7 +58,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_bch::status" tag="POST" label="task::enable_bch::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchStatus" />
+<CodeGroup title="task::enable_bch::status" tag="POST" label="task::enable_bch::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchStatus" />
 
 <CompactTable source="v2/coin_activation.TaskStatusResponse" />
 
@@ -194,7 +195,7 @@ If the `task::enable_bch::status` returns `UserActionRequired`, we need to use t
 
 #### Command
 
-<CodeGroup title="task::enable_bch::user_action" tag="POST" label="task::enable_bch::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchUserAction" />
+<CodeGroup title="task::enable_bch::user_action" tag="POST" label="task::enable_bch::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -229,7 +230,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 | error\_type  | string | An enumerated value for the returned error.                    |
 | error\_data  | string | The input task ID which resulted in the error.                 |
 
-<CodeGroup title="task::enable_bch::cancel" tag="POST" label="task::enable_bch::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableBchCancel" />
+<CodeGroup title="task::enable_bch::cancel" tag="POST" label="task::enable_bch::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

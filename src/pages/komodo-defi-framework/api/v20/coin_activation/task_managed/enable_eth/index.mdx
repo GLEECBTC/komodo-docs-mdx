@@ -3,6 +3,7 @@ export const description =
   "The methods in this document demonstrate the task managed activation of ETH/EVM coins and tokens.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Task: ETH/EVM Activation
 
@@ -39,7 +40,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthInitTrezor" />
+<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthInitTrezor" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -70,7 +71,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthStatus" />
+<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthStatus" />
 
 #### Response (ready, successful, HD mode)
 
@@ -226,7 +227,7 @@ If the `task::enable_eth::status` returns `UserActionRequired`, we need to use t
 
 #### Command
 
-<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthUserAction" />
+<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -252,7 +253,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CompactTable source="v2/coin_activation.TaskCancelResponse" />
 
-<CodeGroup title="task::enable_eth::cancel" tag="POST" label="task::enable_eth::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableEthCancel" />
+<CodeGroup title="task::enable_eth::cancel" tag="POST" label="task::enable_eth::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthCancel" />
 
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">

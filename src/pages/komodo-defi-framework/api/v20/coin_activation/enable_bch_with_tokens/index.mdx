@@ -1,6 +1,8 @@
 export const title = "Komodo DeFi Framework Method: Enable BCH with Tokens";
 export const description = "Using this method, you can enable BCH/tBCH along with multiple SLP tokens in a single command.";
 
+import CompactTable from '@/components/mdx/CompactTable';
+
 # enable\_bch\_with\_tokens
 
 The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, you can enable BCH/tBCH along with multiple SLP tokens in a single command.
@@ -29,7 +31,7 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 #### Request with tx\_history, cashaddress format, and automated utxo merging.
 
-<CodeGroup title="" tag="POST" label="enable_bch_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableBchWithTokensTxHistory" />
+<CodeGroup title="" tag="POST" label="enable_bch_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableBchWithTokensTxHistory" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -73,7 +75,7 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 #### Request with `get_balances` set to false
 
-<CodeGroup title="" tag="POST" label="enable_bch_with_tokens" mm2MethodDecorate="true" source="v2-coin-activation.EnableBchWithTokensBalancesFalse" />
+<CodeGroup title="" tag="POST" label="enable_bch_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableBchWithTokensBalancesFalse" />
 
 #### Response
 

@@ -3,6 +3,7 @@ export const description =
   "The methods in this document allow activation of Tendermint coins.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Task: Tendermint Activation
 
@@ -22,7 +23,7 @@ Use this method for task managed activation of Tendermint coins & tokens. Refer 
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintInit" />
+<CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -53,7 +54,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_tendermint::status" tag="POST" label="task::enable_tendermint::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintStatus" />
+<CodeGroup title="task::enable_tendermint::status" tag="POST" label="task::enable_tendermint::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintStatus" />
 
 #### Response
 
@@ -268,7 +269,7 @@ If the `task::enable_tendermint::status` returns `UserActionRequired`, we need t
 
 #### Command
 
-<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintUserAction" />
+<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -303,7 +304,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 | error\_type  | string | An enumerated value for the returned error.                    |
 | error\_data  | string | The input task ID which resulted in the error.                 |
 
-<CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableTendermintCancel" />
+<CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

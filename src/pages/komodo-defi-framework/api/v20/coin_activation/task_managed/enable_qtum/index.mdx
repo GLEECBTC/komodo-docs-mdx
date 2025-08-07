@@ -3,6 +3,7 @@ export const description =
   "The methods in this document allow activation of QTUM.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # Task: QTUM Activation
 
@@ -22,7 +23,7 @@ Use this method for task managed activation of QTUM coins and tokens. Refer to t
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumInit" />
+<CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -53,7 +54,7 @@ The response will return the following:
 
 #### Request
 
-<CodeGroup title="task::enable_qtum::status" tag="POST" label="task::enable_qtum::status" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumStatus" />
+<CodeGroup title="task::enable_qtum::status" tag="POST" label="task::enable_qtum::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumStatus" />
 
 The response formats for this method are the same as the [task managed activation](/komodo-defi-framework/api/v20/coin_activation/task_managed/) responses.
 
@@ -75,7 +76,7 @@ If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use 
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumUserAction" />
+<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -129,7 +130,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true" source="v2-coin-activation.TaskEnableQtumCancel" />
+<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
