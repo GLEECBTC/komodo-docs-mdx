@@ -262,7 +262,7 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
 | Structure     | Type    | Description                                                                              |
 | ------------- | ------- | ---------------------------------------------------------------------------------------- |
 | pubkey        | string  | The pubkey to ban                                                                        |
-| reason        | string  | The reason of banning                                                                    |
+| reason        | string  | Optional. The reason for banning                                                         |
 | duration\_min | integer | Optional. Minutes to apply the ban. If not set, ban will persist until kdf is restarted. |
 
 ## Response
@@ -280,7 +280,7 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
   "userpass": "RPC_UserP@SSW0RD",
   "method": "ban_pubkey",
   "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
-  "reason": "test",
+  "reason": "Being a naughty boy",
   "duration_min": 15
 }
 ```
@@ -293,11 +293,20 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
 }
 ```
 
-#### Response (error)
+#### Error (already banned)
 
 ```json
 {
   "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
+}
+```
+
+#### Error (invalid pubkey)
+
+```json
+
+{
+  "error": "rpc:184] dispatcher_legacy:140] pubkey_banning:63] invalid value: string \"2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac\", expected a hash string"
 }
 ```
 export const title = "Komodo DeFi Framework Method: Batch Requests";
@@ -2874,7 +2883,7 @@ Some cases of swap failures give cause for banning a node. For example, a market
     },
     "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044730": {
       "type": "Manual",
-      "reason": "test"
+      "reason": "Being Australian"
     }
   }
 }
@@ -7868,7 +7877,7 @@ Use the secp256k1 pubkey without prefix for this method input. E.g. if pubkey is
     "unbanned": {
       "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420": {
         "type": "Manual",
-        "reason": "testing"
+        "reason": "Having comedy mistaken for malice"
       }
     },
     "were_not_banned": []
