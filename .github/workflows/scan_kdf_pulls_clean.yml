@@ -14,12 +14,7 @@ on:
         description: 'Specific PR numbers to process (comma-separated)'
         required: false
         type: string
-  push:                    # TEMPORARY: Remove before merging to master
-    branches: 
-      - 'kdf/auto-issues'  # Your current branch
-    paths:
-      - '.github/workflows/scan_kdf_pulls_clean.yml'
-      - '.github/scripts/sync-docs-issues.js'
+
 
 permissions:
   contents: read
@@ -58,8 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # OpenAI API key for AI-generated summaries (optional)
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # Run wet on kdf/auto-issues branch for testing, dry-run on other push events
-          DRY_RUN: ${{ github.event_name == 'push' && github.ref != 'refs/heads/kdf/auto-issues' && 'true' || inputs.dry_run || 'false' }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
           SPECIFIC_PRS: ${{ inputs.pr_numbers || '' }}
         run: node scripts/sync-docs-issues.js
         working-directory: .github
@@ -70,7 +64,7 @@ jobs:
           echo "## Docs Sync Results" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Mode | ${{ github.event_name == 'push' && github.ref != 'refs/heads/kdf/auto-issues' && 'DRY RUN (safety)' || inputs.dry_run == 'true' && 'DRY RUN (manual)' || 'WET RUN (creates issues)' }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Mode | ${{ inputs.dry_run == 'true' && 'DRY RUN (testing)' || 'WET RUN (creates issues)' }}" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "| Branch | ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "| Repository | ${{ env.SOURCE_OWNER }}/${{ env.SOURCE_REPO }}" >> $GITHUB_STEP_SUMMARY
