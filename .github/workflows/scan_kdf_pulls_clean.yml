@@ -55,7 +55,6 @@ jobs:
 
       - name: Run docs sync
         env:
-          # GITHUB_TOKEN is automatically provided by GitHub Actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # OpenAI API key for AI-generated summaries (optional)
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
