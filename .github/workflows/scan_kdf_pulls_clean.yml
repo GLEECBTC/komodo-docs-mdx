@@ -47,11 +47,11 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: '.github/package-lock.json'
           
       - name: Install dependencies
-        run: |
-          npm init -y
-          npm install @octokit/core@^5.0.0 @octokit/plugin-retry@^6.0.0 @octokit/plugin-throttling@^8.0.0
+        working-directory: .github
+        run: npm ci --only=production
 
       - name: Run docs sync
         env:
@@ -60,7 +60,8 @@ jobs:
           # Default to dry-run for push events (safety), otherwise use input
           DRY_RUN: ${{ github.event_name == 'push' && 'true' || inputs.dry_run || 'false' }}
           SPECIFIC_PRS: ${{ inputs.pr_numbers || '' }}
-        run: node .github/scripts/sync-docs-issues.js
+        run: node scripts/sync-docs-issues.js
+        working-directory: .github
         
       - name: Generate summary
         if: always()
