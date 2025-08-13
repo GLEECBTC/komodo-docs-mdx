@@ -291,8 +291,10 @@ ${prBody}`;
   
   async createDocumentationIssue(pr, files, aiSummary) {
     if (this.config.dryRun) {
-      console.info(`[DRY RUN] Would create docs issue for PR #${pr.number}`);
-      return { data: { number: 'DRY-RUN', html_url: 'dry-run' } };
+      const dryRunUrl = `https://github.com/${this.config.targetOwner}/${this.config.targetRepo}/issues`;
+      console.info(`📝 [DRY RUN] Would create docs issue for PR #${pr.number}`);
+      console.info(`🔗 [DRY RUN] Issue would be created at: ${dryRunUrl}`);
+      return { data: { number: 'DRY-RUN', html_url: dryRunUrl } };
     }
     
     const title = `Docs: PR #${pr.number} – ${pr.title}`;
@@ -313,6 +315,9 @@ ${prBody}`;
       issue_number: created.data.number,
       body: `Source PR: ${pr.html_url}`
     });
+    
+    // Log the created issue URL
+    console.info(`🔗 Created issue: ${created.data.html_url}`);
     
     return created;
   }
@@ -358,10 +363,10 @@ ${prBody}`;
   
   async run() {
     try {
-      console.info(`Starting docs sync - DRY RUN: ${this.config.dryRun}`);
+      console.info(`🚀 Starting docs sync - DRY RUN: ${this.config.dryRun}`);
       
       const prs = await this.listCandidatePRs();
-      console.info(`Found ${prs.length} candidate PR(s) with label "${this.config.triggerLabel}"`);
+      console.info(`📋 Found ${prs.length} candidate PR(s) with label "${this.config.triggerLabel}"`);
       
       // Process PRs with some concurrency control
       const concurrency = 3;
@@ -371,18 +376,21 @@ ${prBody}`;
       }
       
       // Output final summary
-      console.info(`\n=== SYNC SUMMARY ===`);
-      console.info(`PRs Processed: ${this.stats.processed}`);
-      console.info(`Issues Created: ${this.stats.created}`);
-      console.info(`PRs Skipped: ${this.stats.skipped}`);
-      console.info(`Errors: ${this.stats.errors}`);
+      console.info(`\n📊 === SYNC SUMMARY ===`);
+      console.info(`📈 PRs Processed: ${this.stats.processed}`);
+      console.info(`✅ Issues Created: ${this.stats.created}`);
+      console.info(`⏭️  PRs Skipped: ${this.stats.skipped}`);
+      console.info(`❌ Errors: ${this.stats.errors}`);
       
       if (this.stats.errors > 0) {
+        console.error(`❌ Sync completed with ${this.stats.errors} errors`);
         process.exit(1);
+      } else {
+        console.info(`🎉 Sync completed successfully!`);
       }
       
     } catch (error) {
-      console.error(`Sync failed: ${error.message}`);
+      console.error(`💥 Sync failed: ${error.message}`);
       process.exit(1);
     }
   }
