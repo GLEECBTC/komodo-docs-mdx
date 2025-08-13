@@ -80,8 +80,15 @@ class DocsSyncManager {
   
   async findExistingIssue(prHtmlUrl) {
     try {
+      // Use the newer search API with explicit headers to avoid deprecation warnings
       const q = `repo:${this.config.targetOwner}/${this.config.targetRepo} in:body "source-pr:${prHtmlUrl}" type:issue`;
-      const res = await this.octokit.request("GET /search/issues", { q, per_page: 5 });
+      const res = await this.octokit.request("GET /search/issues", { 
+        q, 
+        per_page: 5,
+        headers: {
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+      });
       const open = res.data.items.find(i => i.state === "open");
       return open || res.data.items[0] || null;
     } catch (error) {
@@ -138,7 +145,10 @@ class DocsSyncManager {
           sort: "updated",
           order: "desc",
           per_page: 50,
-          page
+          page,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
         });
         
         all.push(...res.data.items);
