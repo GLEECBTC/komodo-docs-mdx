@@ -1,0 +1,66 @@
+name: Sync docs issues from framework PRs
+
+on:
+  schedule:
+    - cron: "13 3 * * *"   # Daily at 3:13 AM UTC
+  workflow_dispatch:       # Allow manual triggering
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no issues created)'
+        required: false
+        default: false
+        type: boolean
+      pr_numbers:
+        description: 'Specific PR numbers to process (comma-separated)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+env:
+  SOURCE_OWNER: KomodoPlatform
+  SOURCE_REPO: komodo-defi-framework
+  TARGET_OWNER: KomodoPlatform
+  TARGET_REPO: komodo-docs-mdx
+  PR_TRIGGER_LABEL: "status: pending docs"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install @octokit/core@^5.0.0 @octokit/plugin-retry@^6.0.0 @octokit/plugin-throttling@^8.0.0
+
+      - name: Run docs sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCS_SYNC_TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          SPECIFIC_PRS: ${{ inputs.pr_numbers || '' }}
+        run: node .github/scripts/sync-docs-issues.js
+        
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "## Docs Sync Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Dry Run | ${{ inputs.dry_run || 'false' }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Repository | ${{ env.SOURCE_OWNER }}/${{ env.SOURCE_REPO }}" >> $GITHUB_STEP_SUMMARY
