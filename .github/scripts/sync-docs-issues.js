@@ -49,7 +49,7 @@ class DocsSyncManager {
   }
   
   initializeOctokit() {
-    const auth = process.env.DOCS_SYNC_TOKEN || process.env.GITHUB_TOKEN;
+    const auth = process.env.GITHUB_TOKEN;
     if (!auth) {
       throw new Error("No authentication token available");
     }
@@ -197,14 +197,35 @@ class DocsSyncManager {
   }
   
   async generateAISummary(pr, files) {
-    // Use GitHub Copilot Chat API if available, otherwise skip
-    const token = process.env.DOCS_SYNC_TOKEN || process.env.GITHUB_TOKEN;
-    if (!token) return null;
-    
+    // Try multiple AI services in order of preference
+    const approaches = [
+      () => this.generateChatGPTConnectorSummary(pr, files),
+      () => this.generateCopilotSummary(pr, files),
+      () => this.generateOpenAISummary(pr, files)
+    ];
+
+    for (const approach of approaches) {
+      try {
+        const result = await approach();
+        if (result) {
+          return result;
+        }
+      } catch (error) {
+        console.warn(`AI approach failed: ${error.message}`);
+        continue;
+      }
+    }
+
+    console.info("All AI summary approaches failed, continuing without AI summary");
+    return null;
+  }
+
+  async generateChatGPTConnectorSummary(pr, files) {
+    // Use GitHub's ChatGPT Connector if available
     try {
       const changedList = files.slice(0, 40).map(f => `- ${f.status} ${f.filename}`).join("\n");
       const prBody = (pr.body || "").slice(0, 2000);
-      
+
       const prompt = `Summarize this code PR for documentation work in <=120 words.
 Focus on what needs docs: new/changed features, RPC methods, parameters/defaults, breaking changes, and example snippets to update.
 
@@ -214,8 +235,57 @@ ${changedList}
 
 PR description (trimmed):
 ${prBody}`;
-      
-      // Use GitHub Copilot Chat API
+
+      // GitHub ChatGPT Connector endpoint (if enabled by org)
+      const response = await this.octokit.request("POST /repos/{owner}/{repo}/chatgpt", {
+        owner: this.config.sourceOwner,
+        repo: this.config.sourceRepo,
+        messages: [
+          {
+            role: "system",
+            content: "You are a concise technical documentation assistant. Summarize code changes for documentation teams."
+          },
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        model: "gpt-4",
+        max_tokens: 200,
+        temperature: 0.2
+      });
+
+      console.info("✅ Using ChatGPT Connector for AI summary");
+      return response.data.choices?.[0]?.message?.content?.trim() || null;
+
+    } catch (error) {
+      if (error.status === 404) {
+        console.info("ChatGPT Connector not available");
+      } else if (error.status === 403) {
+        console.info("ChatGPT Connector access denied");
+      } else {
+        console.warn(`ChatGPT Connector error: ${error.message}`);
+      }
+      throw error;
+    }
+  }
+
+  async generateCopilotSummary(pr, files) {
+    // Fallback to GitHub Copilot Chat API
+    try {
+      const changedList = files.slice(0, 40).map(f => `- ${f.status} ${f.filename}`).join("\n");
+      const prBody = (pr.body || "").slice(0, 2000);
+
+      const prompt = `Summarize this code PR for documentation work in <=120 words.
+Focus on what needs docs: new/changed features, RPC methods, parameters/defaults, breaking changes, and example snippets to update.
+
+PR title: ${pr.title}
+Changed files:
+${changedList}
+
+PR description (trimmed):
+${prBody}`;
+
       const response = await this.octokit.request("POST /copilot/chat/completions", {
         messages: [
           {
@@ -223,7 +293,7 @@ ${prBody}`;
             content: "You are a concise technical documentation assistant. Summarize code changes for documentation teams."
           },
           {
-            role: "user", 
+            role: "user",
             content: prompt
           }
         ],
@@ -231,17 +301,76 @@ ${prBody}`;
         max_tokens: 200,
         temperature: 0.2
       });
-      
+
+      console.info("✅ Using GitHub Copilot for AI summary");
       return response.data.choices?.[0]?.message?.content?.trim() || null;
-      
+
     } catch (error) {
-      // Copilot Chat might not be available or enabled
       if (error.status === 404 || error.status === 403) {
-        console.info("GitHub Copilot Chat API not available, skipping AI summaries");
-        return null;
+        console.info("GitHub Copilot Chat API not available");
+      } else {
+        console.warn(`Copilot API error: ${error.message}`);
       }
-      console.warn(`AI summary error: ${error.message}`);
-      return null;
+      throw error;
+    }
+  }
+
+  async generateOpenAISummary(pr, files) {
+    // Final fallback to OpenAI direct API (if API key provided)
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error("No OpenAI API key available");
+    }
+
+    try {
+      const changedList = files.slice(0, 40).map(f => `- ${f.status} ${f.filename}`).join("\n");
+      const prBody = (pr.body || "").slice(0, 2000);
+
+      const prompt = `Summarize this code PR for documentation work in <=120 words.
+Focus on what needs docs: new/changed features, RPC methods, parameters/defaults, breaking changes, and example snippets to update.
+
+PR title: ${pr.title}
+Changed files:
+${changedList}
+
+PR description (trimmed):
+${prBody}`;
+
+      const fetch = (await import('node-fetch')).default;
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content: "You are a concise technical documentation assistant. Summarize code changes for documentation teams."
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          max_tokens: 200,
+          temperature: 0.2
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`OpenAI API failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.info("✅ Using OpenAI direct API for AI summary");
+      return data.choices?.[0]?.message?.content?.trim() || null;
+
+    } catch (error) {
+      console.warn(`OpenAI API error: ${error.message}`);
+      throw error;
     }
   }
   

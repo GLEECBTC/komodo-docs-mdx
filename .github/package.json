@@ -9,7 +9,8 @@
   "dependencies": {
     "@octokit/core": "^5.0.0",
     "@octokit/plugin-retry": "^6.0.0",
-    "@octokit/plugin-throttling": "^8.0.0"
+    "@octokit/plugin-throttling": "^8.0.0",
+    "node-fetch": "^3.3.0"
   },
   "engines": {
     "node": ">=18"

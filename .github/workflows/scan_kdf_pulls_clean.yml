@@ -55,8 +55,10 @@ jobs:
 
       - name: Run docs sync
         env:
+          # GITHUB_TOKEN is automatically provided by GitHub Actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCS_SYNC_TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
+          # Optional: Only needed for OpenAI direct API fallback
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           # Default to dry-run for push events (safety), otherwise use input
           DRY_RUN: ${{ github.event_name == 'push' && 'true' || inputs.dry_run || 'false' }}
           SPECIFIC_PRS: ${{ inputs.pr_numbers || '' }}
