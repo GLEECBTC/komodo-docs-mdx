@@ -1,3 +1,16 @@
+# Auto PR from Issues Workflow
+# 
+# This workflow automatically creates pull requests for documentation updates
+# based on issues labeled with "ai-draft-pr".
+#
+# IMPORTANT: Follows AI Agent Reference Guide principles:
+# - Creates documentation files with proper {{label}} attributes
+# - Updates sidebar.json manually
+# - Lets build scripts auto-generate API index and file path slugs
+# - Validates documentation structure with test suite
+#
+# See: AI_AGENT_REFERENCE_GUIDE.md for complete documentation requirements
+
 name: Auto PR from Issues
 
 on:
@@ -73,8 +86,16 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || '' }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
           SPECIFIC_ISSUES: ${{ inputs.issue_numbers || '' }}
-        run: node scripts/auto-pr-from-issues.js
-        working-directory: .github
+        run: |
+          # Run the auto-PR creation script from .github directory
+          cd .github
+          node scripts/auto-pr-from-issues.js
+          
+          # Return to root and validate generated documentation
+          cd ..
+          echo "Validating generated documentation..."
+          source utils/py/.venv/bin/activate
+          ./utils/run_tests.sh
         
       - name: Generate summary
         if: always()

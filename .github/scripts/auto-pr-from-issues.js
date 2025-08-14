@@ -3,6 +3,15 @@
 /**
  * Auto PR from Issues Script
  * Scans issues labeled with "auto PR" and creates pull requests with required documentation updates
+ * 
+ * IMPORTANT: This script follows the AI Agent Reference Guide for KDF documentation.
+ * 
+ * Key principles:
+ * 1. NEVER edit auto-generated files (src/pages/komodo-defi-framework/api/index.mdx, filepathSlugs.json)
+ * 2. Include required {{label}} attributes for method parsing
+ * 3. Use proper directory structure and naming conventions
+ * 4. Let build scripts handle slug generation and API index updates
+ * 5. Manual updates: sidebar.json, changelog, and documentation files only
  */
 
 const { Octokit } = require("@octokit/core");
@@ -246,17 +255,37 @@ class AutoPRManager {
 Title: ${issueData.title}
 Description: ${issueData.description}
 
-Requirements:
-1. Use the export title and description format at the top
-2. Include proper heading with label and tag attributes
-3. Add Request Parameters table with realistic parameters
-4. Include Response structure
-5. Add a complete code example using CodeGroup with mm2MethodDecorate="true"
-6. Use proper MDX formatting and components
-7. Follow the existing documentation patterns for KDF methods
-8. Be comprehensive but concise
+CRITICAL REQUIREMENTS (AI Agent Reference Guide):
+1. MUST include {{label : '${method}', tag : 'API-v2'}} in the main heading
+2. MUST include label="${method}" in the CodeGroup component
+3. Use standard table format (not CompactTable components)
+4. Follow this exact structure:
 
-The documentation should be production-ready and follow the established style guide.`;
+export const title = "...";
+export const description = "...";
+
+# ${method}
+
+## ${method} {{label : '${method}', tag : 'API-v2'}}
+
+Description...
+
+## Arguments
+| Structure | Type | Description |
+|-----------|------|-------------|
+
+## Response  
+| Structure | Type | Description |
+|-----------|------|-------------|
+
+#### 📌 Examples
+<CodeGroup title="..." tag="POST" label="${method}" mm2MethodDecorate="true">
+
+5. The {{label}} attributes are CRITICAL for auto-generation scripts
+6. Use realistic KDF method parameters and response structures
+7. Be comprehensive but production-ready
+
+This documentation will be parsed by scripts to auto-generate API indexes and navigation.`;
 
       const fetch = (await import('node-fetch')).default;
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -301,65 +330,45 @@ The documentation should be production-ready and follow the established style gu
     const methodTitle = method.replace(/::/g, ' ').replace(/_/g, ' ').toLowerCase()
       .replace(/\b\w/g, l => l.toUpperCase());
     
+    // Note: This template follows the AI Agent Reference Guide requirements
+    // The {{label}} attribute is CRITICAL for script parsing and auto-generation
     return `export const title = "Komodo DeFi Framework Method: ${methodTitle}";
 export const description = "Documentation for the ${method} method of the Komodo DeFi Framework.";
-import CompactTable from '@/components/mdx/CompactTable';
 
-# ${methodTitle}
+# ${method}
 
-## ${methodTitle} {{label : '${method}', tag : 'API-v2'}}
+## ${method} {{label : '${method}', tag : 'API-v2'}}
 
 The \`${method}\` method ${issueData.description ? issueData.description.slice(0, 200) + '...' : 'provides functionality for the Komodo DeFi Framework.'} 
 
-### Request Parameters
+## Arguments
 
-<CompactTable 
-  data={[
-    {
-      parameter: "userpass",
-      type: "string", 
-      required: false,
-      description: "Your password for protected RPC methods. Skip this field if the method is public."
-    },
-    {
-      parameter: "mmrpc",
-      type: "string",
-      required: true,
-      default: "2.0", 
-      description: "Version of the Komodo DeFi SDK RPC protocol."
-    }
-  ]}
-/>
+| Structure | Type | Description |
+|-----------|------|-------------|
+| userpass | string | Your password for protected RPC methods. Skip this field if the method is public. |
+| mmrpc | string | Version of the Komodo DeFi SDK RPC protocol. Must be "2.0". |
 
-### Response
+## Response
 
-<CompactTable 
-  data={[
-    {
-      parameter: "result",
-      type: "object", 
-      description: "The result object containing method-specific data."
-    }
-  ]}
-/>
+| Structure | Type | Description |
+|-----------|------|-------------|
+| result | object | The result object containing method-specific data. |
 
-### 📌 Examples
+#### 📌 Examples
 
 <CodeGroup title="${methodTitle}" tag="POST" label="${method}" mm2MethodDecorate="true">
-
-\`\`\`json
-{
-  "userpass": "RPC_UserP@SSW0RD",
-  "mmrpc": "2.0",
-  "method": "${method}",
-  "params": {},
-  "id": 42
-}
-\`\`\`
-
+  \`\`\`json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "${method}",
+    "params": {},
+    "id": 42
+  }
+  \`\`\`
 </CodeGroup>
 
-<Note type="info">
+<Note>
   This documentation was auto-generated from issue #${issueData.number || 'N/A'}. Please review and update as needed.
 </Note>`;
   }
@@ -386,8 +395,35 @@ The \`${method}\` method ${issueData.description ? issueData.description.slice(0
         console.info(`📝 Created documentation: ${doc.path}`);
       }
       
-      // Stage and commit changes
-      execSync(`git add .`, { cwd: this.repoRoot, stdio: 'inherit' });
+      // Run build scripts to auto-generate API index and slugs
+      console.info("🔧 Running build scripts to generate API index and file path slugs...");
+      try {
+        execSync(`source utils/py/.venv/bin/activate && ./utils/gen_api_methods_table.py`, { 
+          cwd: this.repoRoot, 
+          stdio: 'inherit',
+          shell: '/bin/bash'
+        });
+        console.info("✅ Auto-generation completed successfully");
+      } catch (buildError) {
+        console.error(`❌ Build script failed: ${buildError.message}`);
+        throw buildError;
+      }
+      
+      // Stage only specific files (exclude auto-generated files that shouldn't be committed manually)
+      const filesToCommit = [
+        ...generatedDocs.map(doc => doc.path.replace(this.repoRoot + '/', '')),
+        'src/data/sidebar.json', // Only if it was updated
+        'src/pages/komodo-defi-framework/changelog/index.mdx' // Only if it was updated
+      ];
+      
+      for (const file of filesToCommit) {
+        try {
+          execSync(`git add "${file}"`, { cwd: this.repoRoot, stdio: 'inherit' });
+        } catch (addError) {
+          console.warn(`Could not add ${file} (may not exist or not modified)`);
+        }
+      }
+      
       execSync(`git commit -m "${commitMessage}"`, { 
         cwd: this.repoRoot, 
         stdio: 'inherit' 
