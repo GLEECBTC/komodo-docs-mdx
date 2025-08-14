@@ -185,14 +185,94 @@ class AutoPRManager {
     if (titleMethodMatch && !methods.includes(titleMethodMatch[1])) {
       methods.push(titleMethodMatch[1]);
     }
+
+    // Extract structured method information if available (from enhanced sync script)
+    const structuredMethods = this.extractStructuredMethods(body);
+    const codeExamples = this.extractCodeExamples(body);
     
     return {
       methods: [...new Set(methods)],
       paths: [...new Set(paths)],
       types: [...new Set(types)],
       description: body,
-      title: title
+      title: title,
+      structuredMethods: structuredMethods,
+      codeExamples: codeExamples
     };
+  }
+
+  /**
+   * Extract structured method information from issue body (created by sync script)
+   */
+  extractStructuredMethods(body) {
+    const methods = [];
+    const methodSections = body.split('#### Method:').slice(1);
+    
+    methodSections.forEach(section => {
+      const lines = section.split('\n');
+      const methodMatch = lines[0].match(/`([^`]+)`/);
+      if (!methodMatch) return;
+      
+      const methodName = methodMatch[1];
+      const method = { name: methodName, parameters: [] };
+      
+      let inParams = false;
+      let currentExample = '';
+      let inExample = false;
+      
+      lines.forEach(line => {
+        if (line.includes('**Request Parameters:**')) {
+          inParams = true;
+        } else if (line.includes('**Example Request:**')) {
+          inParams = false;
+          inExample = true;
+        } else if (line.startsWith('```json')) {
+          currentExample = '';
+        } else if (line.startsWith('```') && inExample) {
+          try {
+            method.example = JSON.parse(currentExample);
+          } catch (e) {
+            // Invalid JSON, skip
+          }
+          inExample = false;
+        } else if (inExample) {
+          currentExample += line + '\n';
+        } else if (inParams && line.startsWith('- ')) {
+          const paramMatch = line.match(/- `([^`]+)` \(([^)]+)\): Example value `([^`]+)`/);
+          if (paramMatch) {
+            method.parameters.push({
+              name: paramMatch[1],
+              type: paramMatch[2],
+              example: paramMatch[3]
+            });
+          }
+        }
+      });
+      
+      methods.push(method);
+    });
+    
+    return methods;
+  }
+
+  /**
+   * Extract JSON code examples from text
+   */
+  extractCodeExamples(text) {
+    const examples = [];
+    const codeBlockPattern = /```json\s*\n([\s\S]*?)\n```/gi;
+    
+    let match;
+    while ((match = codeBlockPattern.exec(text)) !== null) {
+      try {
+        const parsed = JSON.parse(match[1]);
+        examples.push(parsed);
+      } catch (e) {
+        // Skip invalid JSON
+      }
+    }
+    
+    return examples;
   }
   
   convertMethodToPath(method) {
@@ -229,9 +309,9 @@ class AutoPRManager {
     const filePath = path.join(dirPath, fileName);
     
     // Generate method documentation using AI if available
-    const aiContent = await this.generateAIDocumentation(issueData, method);
+    const aiContent = await this.generateAIDocumentation(issueData, method, category);
     
-    const content = aiContent || this.generateTemplateDocumentation(method, issueData);
+    const content = aiContent || this.generateTemplateDocumentation(method, issueData, category);
     
     return {
       path: filePath,
@@ -242,7 +322,7 @@ class AutoPRManager {
     };
   }
   
-  async generateAIDocumentation(issueData, method) {
+  async generateAIDocumentation(issueData, method, category = 'misc') {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       console.info("No OpenAI API key provided, using template documentation");
@@ -258,11 +338,13 @@ Description: ${issueData.description}
 CRITICAL REQUIREMENTS (AI Agent Reference Guide):
 1. MUST include {{label : '${method}', tag : 'API-v2'}} in the main heading
 2. MUST include label="${method}" in the CodeGroup component
-3. Use standard table format (not CompactTable components)
-4. Follow this exact structure:
+3. MUST use CompactTable components for request/response parameter tables
+4. MUST include the CompactTable import statement
+5. Follow this exact structure:
 
 export const title = "...";
 export const description = "...";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # ${method}
 
@@ -270,20 +352,21 @@ export const description = "...";
 
 Description...
 
-## Arguments
-| Structure | Type | Description |
-|-----------|------|-------------|
+### Request Parameters
 
-## Response  
-| Structure | Type | Description |
-|-----------|------|-------------|
+<CompactTable source="v2/${category}.${method}Request" />
+
+### Response Parameters
+
+<CompactTable source="v2/${category}.${method}Response" />
 
 #### 📌 Examples
 <CodeGroup title="..." tag="POST" label="${method}" mm2MethodDecorate="true">
 
-5. The {{label}} attributes are CRITICAL for auto-generation scripts
-6. Use realistic KDF method parameters and response structures
-7. Be comprehensive but production-ready
+6. The {{label}} attributes are CRITICAL for auto-generation scripts
+7. Use realistic KDF method parameters and response structures  
+8. Be comprehensive but production-ready
+9. CompactTable components reference JSON schema files in src/data/tables/
 
 This documentation will be parsed by scripts to auto-generate API indexes and navigation.`;
 
@@ -326,51 +409,87 @@ This documentation will be parsed by scripts to auto-generate API indexes and na
     }
   }
   
-  generateTemplateDocumentation(method, issueData) {
+  generateTemplateDocumentation(method, issueData, category = 'misc') {
     const methodTitle = method.replace(/::/g, ' ').replace(/_/g, ' ').toLowerCase()
       .replace(/\b\w/g, l => l.toUpperCase());
+    
+    // Find structured method info for this method
+    const structuredMethod = issueData.structuredMethods?.find(m => m.name === method);
+    const exampleFromIssue = structuredMethod?.example || 
+                            issueData.codeExamples?.find(ex => ex.method === method);
+    
+    // Generate parameter documentation from extracted data
+    let parameterDocs = '';
+    if (structuredMethod?.parameters?.length > 0) {
+      parameterDocs = '\n**Extracted Parameters:**\n\n';
+      structuredMethod.parameters.forEach(param => {
+        parameterDocs += `- **${param.name}** (${param.type}): Example: \`${param.example}\`\n`;
+      });
+      parameterDocs += '\n';
+    }
+    
+    // Use real example if available, otherwise generate template
+    const exampleRequest = exampleFromIssue || {
+      "userpass": "RPC_UserP@SSW0RD",
+      "mmrpc": "2.0",
+      "method": method,
+      "params": {},
+      "id": 42
+    };
     
     // Note: This template follows the AI Agent Reference Guide requirements
     // The {{label}} attribute is CRITICAL for script parsing and auto-generation
     return `export const title = "Komodo DeFi Framework Method: ${methodTitle}";
 export const description = "Documentation for the ${method} method of the Komodo DeFi Framework.";
+import CompactTable from '@/components/mdx/CompactTable';
 
 # ${method}
 
 ## ${method} {{label : '${method}', tag : 'API-v2'}}
 
-The \`${method}\` method ${issueData.description ? issueData.description.slice(0, 200) + '...' : 'provides functionality for the Komodo DeFi Framework.'} 
+The \`${method}\` method ${this.extractMethodDescription(issueData, method)} 
+${parameterDocs}
+### Request Parameters
 
-## Arguments
+<CompactTable source="v2/${category}.${method}Request" />
 
-| Structure | Type | Description |
-|-----------|------|-------------|
-| userpass | string | Your password for protected RPC methods. Skip this field if the method is public. |
-| mmrpc | string | Version of the Komodo DeFi SDK RPC protocol. Must be "2.0". |
+### Response Parameters
 
-## Response
-
-| Structure | Type | Description |
-|-----------|------|-------------|
-| result | object | The result object containing method-specific data. |
+<CompactTable source="v2/${category}.${method}Response" />
 
 #### 📌 Examples
 
 <CodeGroup title="${methodTitle}" tag="POST" label="${method}" mm2MethodDecorate="true">
   \`\`\`json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "${method}",
-    "params": {},
-    "id": 42
-  }
+  ${JSON.stringify(exampleRequest, null, 2)}
   \`\`\`
 </CodeGroup>
 
 <Note>
-  This documentation was auto-generated from issue #${issueData.number || 'N/A'}. Please review and update as needed.
+  This documentation was auto-generated from issue #${issueData.number || 'N/A'}${structuredMethod ? ' with extracted parameter information from the source PR' : ''}. Please review and update as needed.
 </Note>`;
+  }
+
+  /**
+   * Extract method description from issue data
+   */
+  extractMethodDescription(issueData, method) {
+    const description = issueData.description || '';
+    
+    // Try to find method-specific description
+    const methodSection = description.split(`#### Method: \`${method}\``)[1];
+    if (methodSection) {
+      const lines = methodSection.split('\n').slice(1, 5); // Take first few lines
+      return lines.join(' ').replace(/\*\*.*?\*\*/g, '').trim().slice(0, 200) + '...';
+    }
+    
+    // Fall back to summary or generic description
+    const summaryMatch = description.match(/### Summary\s*\n([^\n#]+)/);
+    if (summaryMatch) {
+      return summaryMatch[1].trim().slice(0, 200) + '...';
+    }
+    
+    return 'provides functionality for the Komodo DeFi Framework.';
   }
   
   async createBranchAndCommit(issue, generatedDocs) {

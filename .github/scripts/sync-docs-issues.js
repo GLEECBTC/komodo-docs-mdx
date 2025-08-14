@@ -196,6 +196,114 @@ class DocsSyncManager {
     }
   }
   
+  /**
+   * Extract JSON code blocks from PR description and comments
+   */
+  extractCodeExamples(pr) {
+    const text = pr.body || "";
+    const codeBlocks = [];
+    
+    // Match JSON code blocks with various markdown formats
+    const patterns = [
+      /```json\s*\n([\s\S]*?)\n```/gi,
+      /```\s*\n(\{[\s\S]*?\})\s*\n```/gi,
+      /`{[^`]*}`/gi
+    ];
+    
+    patterns.forEach(pattern => {
+      let match;
+      while ((match = pattern.exec(text)) !== null) {
+        try {
+          const jsonText = match[1] || match[0];
+          // Clean up the JSON (remove comments, fix common issues)
+          let cleanJson = jsonText
+            .replace(/\/\/.*$/gm, '') // Remove line comments
+            .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
+            .trim(); // Remove extra whitespace
+          
+          // Handle template variables more carefully
+          cleanJson = cleanJson.replace(/"{{[^}]*}}"/g, '"{{placeholder}}"');
+          
+          const parsed = JSON.parse(cleanJson);
+          codeBlocks.push({
+            raw: match[0],
+            json: parsed,
+            text: cleanJson
+          });
+        } catch (e) {
+          // Not valid JSON, skip
+        }
+      }
+    });
+    
+    return codeBlocks;
+  }
+
+  /**
+   * Derive RPC method information from code examples
+   */
+  deriveMethodInfo(codeBlocks) {
+    const methods = [];
+    
+    codeBlocks.forEach(block => {
+      if (block.json && block.json.method) {
+        const method = {
+          name: block.json.method,
+          params: block.json.params || {},
+          example: block.json,
+          hasUserpass: !!block.json.userpass,
+          hasMmrpc: !!block.json.mmrpc
+        };
+        
+        // Extract parameter structure
+        if (method.params && typeof method.params === 'object') {
+          method.requestParams = this.extractParameterStructure(method.params);
+        }
+        
+        methods.push(method);
+      }
+    });
+    
+    return methods;
+  }
+
+  /**
+   * Extract parameter structure for documentation
+   */
+  extractParameterStructure(params, prefix = '') {
+    const structure = [];
+    
+    Object.entries(params).forEach(([key, value]) => {
+      const param = {
+        name: prefix ? `${prefix}.${key}` : key,
+        type: this.inferType(value),
+        example: value
+      };
+      
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        param.type = 'object';
+        param.properties = this.extractParameterStructure(value, param.name);
+      }
+      
+      structure.push(param);
+    });
+    
+    return structure;
+  }
+
+  /**
+   * Infer parameter type from example value
+   */
+  inferType(value) {
+    if (value === null) return 'null';
+    if (typeof value === 'boolean') return 'boolean';
+    if (typeof value === 'number') return Number.isInteger(value) ? 'integer' : 'number';
+    if (typeof value === 'string') return 'string';
+    if (Array.isArray(value)) return 'array';
+    if (typeof value === 'object') return 'object';
+    return 'unknown';
+  }
+
   async generateAISummary(pr, files) {
     // Use OpenAI API for AI summaries
     const apiKey = process.env.OPENAI_API_KEY;
@@ -254,7 +362,7 @@ ${prBody}`;
       return data.choices?.[0]?.message?.content?.trim() || null;
 
     } catch (error) {
-      console.warn(`OpenAI API error: ${error.message}`);
+      console.warn(`OpenAI API API error: ${error.message}`);
       return null;
     }
   }
@@ -266,6 +374,10 @@ ${prBody}`;
       `- \`${f.filename}\`${f.status !== 'modified' ? ` (${f.status})` : ""}`
     ).join("\n");
     
+    // Extract code examples and method information
+    const codeBlocks = this.extractCodeExamples(pr);
+    const methods = this.deriveMethodInfo(codeBlocks);
+    
     const sections = [
       marker,
       `### Source`,
@@ -274,17 +386,63 @@ ${prBody}`;
       `- Author: @${pr.user?.login}`,
       ``,
       aiSummary ? `### Summary\n${aiSummary}\n` : "",
+    ];
+
+    // Add extracted method information
+    if (methods.length > 0) {
+      sections.push(`### Detected RPC Methods`);
+      methods.forEach(method => {
+        sections.push(`#### Method: \`${method.name}\``);
+        sections.push(`**Request Parameters:**`);
+        
+        if (method.requestParams && method.requestParams.length > 0) {
+          method.requestParams.forEach(param => {
+            sections.push(`- \`${param.name}\` (${param.type}): Example value \`${JSON.stringify(param.example)}\``);
+            if (param.properties) {
+              param.properties.forEach(prop => {
+                sections.push(`  - \`${prop.name}\` (${prop.type}): Example value \`${JSON.stringify(prop.example)}\``);
+              });
+            }
+          });
+        } else {
+          sections.push(`- No parameters detected`);
+        }
+        
+        sections.push(`**Example Request:**`);
+        sections.push('```json');
+        sections.push(JSON.stringify(method.example, null, 2));
+        sections.push('```');
+        sections.push('');
+      });
+    }
+
+    sections.push(
       `### Suggested docs tasks`,
       `- [ ] Update relevant pages`,
       `- [ ] Add/adjust RPC docs: purpose, parameters (types/defaults), and examples`,
       `- [ ] Provide JSON-RPC request/response samples`,
       `- [ ] Update changelog/What's New (if applicable)`,
-      ``,
+      ``
+    );
+
+    if (methods.length > 0) {
+      sections.push(`### Method Documentation Requirements`);
+      methods.forEach(method => {
+        sections.push(`- [ ] Create documentation file for \`${method.name}\``);
+        sections.push(`- [ ] Define parameter types and validation rules`);
+        sections.push(`- [ ] Document response structure`);
+        sections.push(`- [ ] Add CompactTable components for request/response`);
+        sections.push(`- [ ] Include working code examples`);
+      });
+      sections.push('');
+    }
+
+    sections.push(
       `### Changed files (for scoping)`,
       changed || "_No file listing_",
       ``,
-      `> _This issue was generated automatically; edit as needed._`
-    ];
+      `> _This issue was generated automatically from PR analysis. Code examples and parameters were extracted automatically._`
+    );
     
     return sections.filter(Boolean).join("\n");
   }
