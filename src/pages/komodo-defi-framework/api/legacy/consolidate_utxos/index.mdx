@@ -1,40 +1,40 @@
 export const title = "Komodo DeFi Framework Method: Consolidate UTXOs";
 export const description = "The consolidate_utxos method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin to optimize transaction efficiency and reduce wallet fragmentation.";
 
-# consolidate_utxos
+# consolidate\_utxos
 
-**consolidate_utxos coin merge_conditions**
+**consolidate\_utxos coin merge\_conditions**
 
 The `consolidate_utxos` method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin. This operation helps optimize transaction efficiency by reducing wallet fragmentation and lowering the number of UTXOs, which can improve transaction creation speed and reduce fees.
 
 <Note>
-This method is specifically designed for UTXO-based coins (Bitcoin, Litecoin, KMD, etc.) and will not work with account-based coins like Ethereum or ERC-20 tokens.
+  This method is specifically designed for UTXO-based coins (Bitcoin, Litecoin, KMD, etc.) and will not work with account-based coins like Ethereum or ERC-20 tokens.
 </Note>
 
 ## Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| coin | string | The name of the UTXO-based coin to consolidate |
-| merge_conditions | object | Optional. Configuration object for consolidation behavior |
-| merge_conditions.merge_at | integer | Optional. Minimum number of lone UTXOs that triggers automatic consolidation. Default: 100 |
-| merge_conditions.max_merge_at_once | integer | Optional. Maximum number of UTXOs to merge in a single transaction. Default: 50 |
+| Structure                              | Type    | Description                                                                                |
+| -------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| coin                                   | string  | The name of the UTXO-based coin to consolidate                                             |
+| merge\_conditions                      | object  | Optional. Configuration object for consolidation behavior                                  |
+| merge\_conditions.merge\_at            | integer | Optional. Minimum number of lone UTXOs that triggers automatic consolidation. Default: 100 |
+| merge\_conditions.max\_merge\_at\_once | integer | Optional. Maximum number of UTXOs to merge in a single transaction. Default: 50            |
 
 ## Response
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| tx_hash | string | The hash of the consolidation transaction |
-| tx_hex | string | The raw transaction hex that can be broadcast using `send_raw_transaction` |
-| from | array of strings | Source addresses (UTXOs) that were consolidated |
-| to | array of strings | Destination address where consolidated funds were sent |
-| total_amount | string (numeric) | Total amount consolidated |
-| spent_by_me | string (numeric) | Total amount spent including fees |
-| received_by_me | string (numeric) | Amount received after consolidation |
-| my_balance_change | string (numeric) | Net balance change (typically negative due to transaction fees) |
-| fee_details | object | Fee information for the consolidation transaction |
-| coin | string | The coin that was consolidated |
-| utxos_merged | integer | Number of UTXOs that were successfully merged |
+| Structure           | Type             | Description                                                                |
+| ------------------- | ---------------- | -------------------------------------------------------------------------- |
+| tx\_hash            | string           | The hash of the consolidation transaction                                  |
+| tx\_hex             | string           | The raw transaction hex that can be broadcast using `send_raw_transaction` |
+| from                | array of strings | Source addresses (UTXOs) that were consolidated                            |
+| to                  | array of strings | Destination address where consolidated funds were sent                     |
+| total\_amount       | string (numeric) | Total amount consolidated                                                  |
+| spent\_by\_me       | string (numeric) | Total amount spent including fees                                          |
+| received\_by\_me    | string (numeric) | Amount received after consolidation                                        |
+| my\_balance\_change | string (numeric) | Net balance change (typically negative due to transaction fees)            |
+| fee\_details        | object           | Fee information for the consolidation transaction                          |
+| coin                | string           | The coin that was consolidated                                             |
+| utxos\_merged       | integer          | Number of UTXOs that were successfully merged                              |
 
 #### 📌 Examples
 
@@ -155,12 +155,12 @@ This method is specifically designed for UTXO-based coins (Bitcoin, Litecoin, KM
 
 ## Additional Notes
 
-- **Transaction Broadcasting**: The `consolidate_utxos` method only creates the consolidation transaction. You must use the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to broadcast the transaction to the network.
+*   **Transaction Broadcasting**: The `consolidate_utxos` method only creates the consolidation transaction. You must use the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to broadcast the transaction to the network.
 
-- **Fee Optimization**: Consolidating UTXOs can reduce future transaction fees by minimizing the number of inputs required for subsequent transactions.
+*   **Fee Optimization**: Consolidating UTXOs can reduce future transaction fees by minimizing the number of inputs required for subsequent transactions.
 
-- **Timing Considerations**: It's generally best to consolidate UTXOs during periods of low network congestion to minimize transaction fees.
+*   **Timing Considerations**: It's generally best to consolidate UTXOs during periods of low network congestion to minimize transaction fees.
 
-- **Privacy Impact**: Consolidation transactions can link multiple addresses/UTXOs together, which may impact privacy. Consider this when deciding whether to consolidate.
+*   **Privacy Impact**: Consolidation transactions can link multiple addresses/UTXOs together, which may impact privacy. Consider this when deciding whether to consolidate.
 
-- **Automatic Triggering**: If you don't specify `merge_conditions`, the default behavior will trigger consolidation when you have 100 or more UTXOs, merging up to 50 at once.
+*   **Automatic Triggering**: If you don't specify `merge_conditions`, the default behavior will trigger consolidation when you have 100 or more UTXOs, merging up to 50 at once.
