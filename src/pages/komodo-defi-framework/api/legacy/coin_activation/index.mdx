@@ -75,19 +75,19 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumBch" />
 
-<KdfResponses requestKey="LegacyElectrumBch" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyElectrumBch" />
 
 #### UTXO coin activation with `required_confirmations`, `requires_notarization` and `mm2` arguments {{label : 'electrum', tag : 'legacy'}}
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumKmd" />
 
-<KdfResponses requestKey="LegacyElectrumKmd" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyElectrumKmd" />
 
 #### QTUM/QRC20 coin activation {{label : 'electrum', tag : 'legacy'}}
 
 <CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumQtum" />
 
-<KdfResponses requestKey="LegacyElectrumQtum" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyElectrumQtum" />
 
 #### Error responses
 
@@ -131,37 +131,37 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNative" />
 
-<KdfResponses requestKey="LegacyEnableNative" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableNative" />
 
 #### Command (With `required_confirmations`, `requires_notarization` and `mm2` arguments)
 
 <CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNativeWithParams" />
 
-<KdfResponses requestKey="LegacyEnableNativeWithParams" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableNativeWithParams" />
 
 #### Command (for Ethereum and ERC20-based blockchains)
 
 <CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEth" />
 
-<KdfResponses requestKey="LegacyEnableEth" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableEth" />
 
 #### EVM coin activation with gas\_station\_url and policy {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEthGasStation" />
 
-<KdfResponses requestKey="LegacyEnableEthGasStation" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableEthGasStation" />
 
 #### Polygon (MATIC) and PLG20 activation {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableMatic" />
 
-<KdfResponses requestKey="LegacyEnableMatic" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableMatic" />
 
 #### Binance Coin (BNB) and BEP20 activation {{label : 'enable', tag : 'legacy'}}
 
 <CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableBnb" />
 
-<KdfResponses requestKey="LegacyEnableBnb" />
+<KdfResponses requestKey="legacy/coin_activation.LegacyEnableBnb" />
 
 For enabling Z coins, refer to the [ZHTLC activation tasks](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/) in the v2.0 Dev API.
 
