@@ -41,15 +41,19 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Cache dependencies
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache npm dependencies
         uses: actions/cache@v4
+        id: npm-cache
         with:
-          path: |
-            ~/.npm
-            utils/js/node_modules
-          key: npm-${{ hashFiles('utils/js/package-lock.json') }}
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('utils/js/package-lock.json') }}
           restore-keys: |
-            npm-
+            ${{ runner.os }}-npm-
 
       - name: Generate API methods table
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
@@ -159,19 +163,30 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Restore cache
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Cache Next.js build
         uses: actions/cache@v4
         with:
           path: |
             website-komodoplatform.com/.next/cache
-            website-komodoplatform.com/node_modules/.cache
-            website-komodoplatform.com/.yarn/cache
           # Generate a new cache whenever packages or source files change.
-          key: nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/src/**/*.[jt]s', 'website-komodoplatform.com/src/**/*.[jt]sx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/src/**/*.[jt]s', 'website-komodoplatform.com/src/**/*.[jt]sx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
-            nextjs-
+            ${{ runner.os }}-nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Get updated content, Install deps, build, Add no-index headers before publishing to cloudflare
         working-directory: website-komodoplatform.com
@@ -219,7 +234,8 @@ jobs:
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_fileData.json src/data/docs/_fileData.json
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_searchIndex.json src/data/docs/searchIndex.json
           
-          # Build and export
+          # Build first to create .next directory, then export
+          yarn build
           yarn export          
           echo -e "https://:project.pages.dev/*\n  X-Robots-Tag: noindex" > ./out/_headers
 
