@@ -44,10 +44,12 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            ~/.npm
+            utils/js/node_modules
+          key: npm-${{ hashFiles('utils/js/package-lock.json') }}
           restore-keys: |
-            npm-${{ runner.os }}-
+            npm-
 
       - name: Generate API methods table
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
@@ -162,11 +164,14 @@ jobs:
         with:
           path: |
             website-komodoplatform.com/.next/cache
+            website-komodoplatform.com/node_modules/.cache
+            website-komodoplatform.com/.yarn/cache
           # Generate a new cache whenever packages or source files change.
-          key:
-            nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/**.[jt]s', 'website-komodoplatform.com/**.[jt]sx') }}
-            # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
+          key: nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/src/**/*.[jt]s', 'website-komodoplatform.com/src/**/*.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
+            nextjs-
 
       - name: Get updated content, Install deps, build, Add no-index headers before publishing to cloudflare
         working-directory: website-komodoplatform.com
@@ -214,7 +219,7 @@ jobs:
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_fileData.json src/data/docs/_fileData.json
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_searchIndex.json src/data/docs/searchIndex.json
           
-          # Export and add headers
+          # Build and export
           yarn export          
           echo -e "https://:project.pages.dev/*\n  X-Robots-Tag: noindex" > ./out/_headers
 
