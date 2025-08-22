@@ -430,6 +430,7 @@ jobs:
           set -e
           set -o pipefail
           rm -rf $GITHUB_WORKSPACE/website-komodoplatform.com
+          rm $GITHUB_WORKSPACE/package.json $GITHUB_WORKSPACE/package-lock.json
 
       # - name: Check if diff exists
       #   id: diff_check
