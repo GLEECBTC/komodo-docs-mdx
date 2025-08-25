@@ -51,12 +51,17 @@ def extract_ticker_from_request(request_data: Dict[str, Any]) -> Optional[str]:
     # Look for ticker in params
     if 'params' in request_data:
         params = request_data['params']
-        if isinstance(params, dict) and 'ticker' in params:
-            return params['ticker']
+        if isinstance(params, dict):
+            if 'ticker' in params:
+                return params['ticker']
+            elif 'coin' in params:
+                return params['coin']
     
     # Look for ticker in other common locations
-    if 'ticker' in request_data:
+    elif 'ticker' in request_data:
         return request_data['ticker']
+    elif 'coin' in request_data:
+        return request_data['coin']
     
     return None
 
@@ -95,7 +100,7 @@ def select_preferred_servers(servers: List[Dict[str, Any]], max_count: int = 3) 
             # Randomly select from regular servers
             selected_servers.extend(random.sample(regular_servers, remaining_slots))
     
-    logger.debug(f"Selected {len(selected_servers)} servers from {len(servers)} available ({len(priority_servers)} priority, {len(regular_servers)} regular)")
+    logger.info(f"Selected {len(selected_servers)} servers from {len(servers)} available ({len(priority_servers)} priority, {len(regular_servers)} regular)")
     return selected_servers
 
 def select_preferred_urls(urls: List[str], max_count: int = 3) -> List[str]:
@@ -132,7 +137,7 @@ def select_preferred_urls(urls: List[str], max_count: int = 3) -> List[str]:
             # Randomly select from regular URLs
             selected_urls.extend(random.sample(regular_urls, remaining_slots))
     
-    logger.debug(f"Selected {len(selected_urls)} URLs from {len(urls)} available ({len(priority_urls)} priority, {len(regular_urls)} regular)")
+    logger.info(f"Selected {len(selected_urls)} URLs from {len(urls)} available ({len(priority_urls)} priority, {len(regular_urls)} regular)")
     return selected_urls
 
 def detect_coin_protocol(coin_config: Dict[str, Any]) -> str:
@@ -240,7 +245,19 @@ def update_utxo_electrum_servers(request_data: Dict[str, Any], coin_config: Dict
                 rpc_data['servers'] = new_servers
                 logger.info(f"Updated UTXO electrum servers for ticker '{ticker}': {len(old_servers)} -> {len(new_servers)} servers")
                 return True
-    
+    else:
+        # Legacy method
+        if request_data['method'] == 'electrum':
+            old_servers = request_data['servers']
+            request_data['servers'] = new_servers
+            logger.info(f"Updated UTXO electrum servers for ticker '{ticker}': {len(old_servers)} -> {len(new_servers)} servers")
+            return True
+        elif request_data['method'] == 'enable':
+            if 'urls' in request_data:
+                old_servers = request_data['urls']
+                request_data['urls'] = [ i['url'] for i in new_servers ]
+                logger.info(f"Updated UTXO electrum urls for ticker '{ticker}': {len(old_servers)} -> {len(new_servers)} servers")
+                return True
     return False
 
 def update_zhtlc_servers(request_data: Dict[str, Any], coin_config: Dict[str, Any], ticker: str) -> bool:
@@ -346,6 +363,12 @@ def update_eth_nodes(request_data: Dict[str, Any], coin_config: Dict[str, Any], 
         logger.info(f"Updated ETH nodes for ticker '{ticker}': {len(old_nodes)} -> {len(new_nodes)} nodes")
         return True
     
+    elif request_data['method'] == 'enable':
+        if 'urls' in request_data:
+            old_urls = request_data['urls']
+            request_data['urls'] = [ i['url'] for i in new_nodes ]
+            logger.info(f"Updated ETH nodes for ticker '{ticker}': {len(old_urls)} -> {len(new_nodes)} nodes")
+            return True
     return False
 
 def update_nodes_in_request(request_data: Dict[str, Any], coins_config: Dict[str, Any], request_name: str = "Unknown") -> bool:
@@ -364,12 +387,12 @@ def update_nodes_in_request(request_data: Dict[str, Any], coins_config: Dict[str
     ticker = extract_ticker_from_request(request_data)
     
     if method:
-        logger.debug(f"Scanning method '{method}' in request '{request_name}'")
+        logger.info(f"Scanning method '{method}' in request '{request_name}'")
     else:
-        logger.debug(f"Scanning request '{request_name}' (no method field)")
+        logger.info(f"Scanning request '{request_name}' (no method field)")
     
     if not ticker:
-        logger.debug(f"No ticker found in request '{request_name}'")
+        logger.info(f"No ticker found in request '{request_name}'")
         return False
     
     if ticker not in coins_config:
@@ -379,7 +402,7 @@ def update_nodes_in_request(request_data: Dict[str, Any], coins_config: Dict[str
     coin_config = coins_config[ticker]
     protocol = detect_coin_protocol(coin_config)
     
-    logger.debug(f"Detected protocol '{protocol}' for ticker '{ticker}'")
+    logger.info(f"Detected protocol '{protocol}' for ticker '{ticker}'")
     
     # Route to appropriate update function based on protocol
     if protocol == 'TENDERMINT':
