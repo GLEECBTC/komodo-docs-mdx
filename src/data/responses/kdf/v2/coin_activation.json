@@ -1,1 +1,169 @@
-{}
+{
+  "TaskEnableZCoinStatus": {
+    "success": [
+      {
+        "title": "ActivatingCoin - enabling has started",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress",
+            "details": "ActivatingCoin"
+          },
+          "id": null
+        }
+      },
+      {
+        "title": "UpdatingBlocksCache",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress",
+            "details": {
+              "UpdatingBlocksCache": {
+                "current_scanned_block": 265930,
+                "latest_block": 269656
+              }
+            }
+          },
+          "id": null
+        }
+      },
+      {
+        "title": "BuildingWalletDb",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress",
+            "details": {
+              "BuildingWalletDb": {
+                "current_scanned_block": 265311,
+                "latest_block": 269656
+              }
+            }
+          },
+          "id": null
+        }
+      },
+      {
+        "title": "Enabling complete",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Ok",
+            "details": {
+              "ticker": "ZOMBIE",
+              "current_block": 269657,
+              "wallet_balance": {
+                "wallet_type": "Iguana",
+                "address": "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj",
+                "balance": {
+                  "spendable": "29.99989008",
+                  "unspendable": "0"
+                }
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": [
+      {
+        "title": "CoinCreationError - no Zcash Params",
+        "notes": "",
+        "json": {
+          "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+          "error_path": "lib.z_coin_activation.z_coin",
+          "error_trace": "lib:104] z_coin_activation:218] z_coin:1007]",
+          "error_type": "CoinCreationError",
+          "error_data": {
+            "ticker": "ZOMBIE",
+            "error": "ZCashParamsNotFound"
+          }
+        }
+      },
+      {
+        "title": "NoSuchTask",
+        "notes": "You'll see this if the task number does not exist, or the task has already completed.",
+        "json": {
+          "mmrpc": "2.0",
+          "error": "No such task '1'",
+          "error_path": "init_standalone_coin",
+          "error_trace": "init_standalone_coin:119]",
+          "error_type": "NoSuchTask",
+          "error_data": 1,
+          "id": null
+        }
+      },
+      {
+        "title": "InvalidRequest",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "error": "Error parsing request: invalid value: integer `-205`, expected u64",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:109]",
+          "error_type": "InvalidRequest",
+          "error_data": "invalid value: integer `-205`, expected u64",
+          "id": 42
+        }
+      },
+      {
+        "title": "No Zcash Params (alt format)",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Error",
+            "details": {
+              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_path": "lib.z_coin_activation.z_coin",
+              "error_trace": "lib:103] z_coin_activation:192] z_coin:761]",
+              "error_type": "CoinCreationError",
+              "error_data": {
+                "ticker": "ZOMBIE",
+                "error": "ZCashParamsNotFound"
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ]
+  },
+  "TaskEnableEthStatus": {
+    "success": [
+      {
+        "title": "InProgress - ActivatingCoin",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress", 
+            "details": "ActivatingCoin"
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": [
+      {
+        "title": "No such task",
+        "notes": "Task ID does not exist or has been completed",
+        "json": {
+          "mmrpc": "2.0", 
+          "error": "No such task '5'",
+          "error_path": "init_standalone_coin",
+          "error_trace": "init_standalone_coin:119]",
+          "error_type": "NoSuchTask",
+          "error_data": 5,
+          "id": null
+        }
+      }
+    ]
+  }
+}
