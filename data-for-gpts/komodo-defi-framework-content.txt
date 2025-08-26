@@ -1,6 +1,6 @@
 export const title = "Komodo DeFi SDK Common Structures: Activation";
 export const description = "The Komodo DeFi SDK uses a variety of activation methods, depending on the type of coin.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Activation Common Structures
 
@@ -197,7 +197,7 @@ The `UtxoMergeParams` object defines how often and at which thresholds to merge 
 ```
 export const title = "Komodo DeFi Framework Method: Enums";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enums
 
@@ -472,7 +472,7 @@ The `ScanPolicyEnum` defines the available scan policies for enabling coins with
 | `new`      | Create a new account record (see [NewAccount](/komodo-defi-framework/api/common_structures/wallet/#new-account)) and immediately set it as the enabled account.                               |
 export const title = "Komodo DeFi Framework RPC Errors";
 export const description = "A comprehensive list of possible RPC errors in Komodo DeFi Framework.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # KDF RPC Errors
 
@@ -3270,7 +3270,7 @@ This document lists all possible error types that can be returned by the Komodo 
 | ZcashParamsError     | An error occurred with the Zcash parameters.                              |
 export const title = "Komodo DeFi Framework Method: Common Structures";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Common Structures
 
@@ -3521,7 +3521,7 @@ Within each session object, there are a some values which are required as input 
 ### ErrorResponse
 export const title = "Komodo DeFi Framework Method: Lightning Common Structures";
 export const description = "Lightning Network common structures for Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Lightning Common Structures
 
@@ -3580,7 +3580,7 @@ See [https://github.com/KomodoPlatform/komodo-docs-mdx/pull/31#discussion\\\_r12
 ### LightningClosedChannelsFilter
 export const title = "Komodo DeFi SDK Common Structures: Non-Fungible Tokens";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # NFT Common Structures
 
@@ -3704,7 +3704,7 @@ Sub-object of [TokenProtocol](/komodo-defi-framework/api/common_structures/nfts/
 The `WithdrawNftData` object is used for withdrawals of NFTs on ERC721 and ERC1155 contracts. It includes the following items for a given coin or token:
 export const title = "Komodo DeFi SDK Common Structures: Orders";
 export const description = "Each order on the Komodo Defi oderbook can be queried to view full details of each order for a pair, or the best orders for a ticker.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Order Common Structures
 
@@ -3942,7 +3942,7 @@ Used within [PairDepth](/komodo-defi-framework/api/common_structures/orders/#pai
 ```
 export const title = "Komodo DeFi Framework Method: Rational Number Type";
 export const description = "The Komodo DeFi Framework API now offers the num-rational crate feature. This is used to represent order volumes and prices.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Rational Number Type
 
@@ -3982,7 +3982,7 @@ The numerator and denominator are BigInteger numbers represented as a sign and a
 *   `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
 export const title = "Komodo DeFi SDK Common Structures: Swaps";
 export const description = "Each active or completed trade from the Komodo DeFi SDK includes an unique identifier (UUID), a summary of the trade and detailed information relating to each swap event.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Swap Common Structures
 
@@ -4054,7 +4054,7 @@ Each swap status will be nested under its associated UUID.
 ```
 export const title = "Komodo Defi SDK Swaps: Maker Events";
 export const description = "A description of events and outcomes for each step of an atomic swap from the maker's perspective.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Maker Events
 
@@ -4392,7 +4392,7 @@ The `Finished` event indicates that the swap finished.
 This event does not have additional data.
 export const title = "Komodo Defi SDK Swaps: Taker Events";
 export const description = "A description of events and outcomes for each step of an atomic swap from the taker's perspective.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Taker Events
 
@@ -4947,7 +4947,7 @@ The `Finished` event indicates that the swap finished.
 This event does not have additional data.
 export const title = "Komodo DeFi SDK Common Structures: Wallet Operations";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Wallet Common Structures
 
@@ -21674,7 +21674,7 @@ If you would like to withdraw all NFTs from a token\_address, you must use the `
 View the source code at: [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/mm2src/coins/nft.rs)
 export const title = "Komodo DeFi Framework Method: Enable Balance Streaming";
 export const description = "Using this method, you can enable balance events streaming for a specific coin.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Balance Streaming
 
@@ -21778,7 +21778,7 @@ Here is an example of the stream data you should be able to see in [http://local
 ```
 export const title = "Komodo DeFi Framework Method: Disable Streaming";
 export const description = "Using this method, you can disable specific streaming events.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Disable Streaming
 
@@ -21845,7 +21845,7 @@ Using this method, you can disable specific streaming events.
 ```
 export const title = "Komodo DeFi Framework Method: Fee Estimator Streaming";
 export const description = "Using this method, you can enable the fee estimation stream.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Fee Estimator Streaming
 
@@ -21961,7 +21961,7 @@ Here is an example of the stream data you should be able to see in [http://local
 ```
 export const title = "Komodo DeFi Framework Method: Enable Heartbeat Streaming";
 export const description = "Using this method, you can enable heartbeat events streaming.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Heartbeat Streaming
 
@@ -22054,7 +22054,7 @@ These methods give the user fine-grained control over which event streams to act
 *   Enable transaction history streaming with [stream::tx\_history\_enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/)
 export const title = "Komodo DeFi Framework Method: Enable Network Streaming";
 export const description = "Using this method, you can enable network events streaming.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Network Streaming
 
@@ -22129,7 +22129,7 @@ Here is an example of the stream data you should be able to see in [http://local
 ```
 export const title = "Komodo DeFi Framework Method: Enable Order Status Streaming";
 export const description = "Using this method, you can enable the order status stream.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Order Status Streaming
 
@@ -22199,7 +22199,7 @@ Here is an example of the stream data you should be able to see in [http://local
 ```
 export const title = "Komodo DeFi Framework Method: Orderbook Streaming";
 export const description = "Using this method, you can enable the orderbook stream for a given pair.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Orderbook Streaming
 
@@ -22281,7 +22281,7 @@ Here is an example of the stream data you should be able to see in [http://local
 `data: {"_type":"ORDERBOOK_UPDATE/orbk/KMD:MATIC","message":{"order_type":"NewOrUpdatedItem","order_data":{"pubkey":"026da2fc632afabbb1b86d04a9a012db25eca74db38ba2eccd88552f27f4c0b245","base":"MATIC","rel":"KMD","price":[[1,[4249903049,3]],[1,[1410065408,2]]],"max_volume":[[1,[1477927621,23427]],[1,[1783793664,116]]],"min_volume":[[1,[1223297773,7148]],[1,[552894464,46566]]],"uuid":"b18bb3ab-8476-4a06-9cf6-9744e1bf6442","created_at":1746432644}}} `
 export const title = "Komodo DeFi Framework Method: Enable Swap Status Streaming";
 export const description = "Using this method, you can enable the swap status stream.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Swap Status Streaming
 
@@ -22351,7 +22351,7 @@ Here is an example of the stream data you should be able to see in [http://local
 ```
 export const title = "Komodo DeFi Framework Method: Enable Transaction History Streaming";
 export const description = "Using this method, you can enable transaction history events streaming for a specific coin.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Enable Transaction History Streaming
 
@@ -25581,7 +25581,7 @@ The request was failed due to a Komodo DeFi Framework API internal error.
 ```
 export const title = "Komodo DeFi Framework Method: Add Node to Version Stat";
 export const description = "The add_node_to_version_stat method adds a Node's name, IP address, and PeerID to a local database to track which version of KDF it is running.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Add Node to Version Stat
 
@@ -25672,7 +25672,7 @@ To allow collection of version stats, added nodes must open ports 42845 (tcp) an
 ```
 export const title = "Komodo DeFi Framework Method: Change Mnemonic Password";
 export const description = "The change_mnemonic_password method allows a user to update the password used to encrypt a mnemonic phrase in their local database.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Change Mnemonic Password
 
@@ -25734,7 +25734,7 @@ This will need to be updated manually, otherise you will see a log error `Error 
 To view your mnemonic phrase in plain text, use [get\_mnemonic](/komodo-defi-framework/api/v20/utils/get_mnemonic/#get-mnemonic).
 export const title = "Komodo DeFi Framework Method: Get Current MTP";
 export const description = "The get_current_mtp method returns the Median Time Past (MTP) from electrum servers for UTXO coins.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Current MTP
 
@@ -25773,7 +25773,7 @@ The `get_current_mtp` method returns the Median Time Past (MTP) from electrum se
 ```
 export const title = "Komodo DeFi Framework Method: Get Enabled Coins";
 export const description = "The get_enabled_coins method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Enabled Coins
 
@@ -25823,7 +25823,7 @@ The \[get\_enabled\_coins v2.0] method does not return addresses, as it was desi
 ```
 export const title = "Komodo DeFi Framework Method: Get Mnemonic";
 export const description = "The get_mnemonic method returns the user's mnemonic seed phrase, in encrypted or plain text format.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Mnemonic
 
@@ -25911,7 +25911,7 @@ The `get_mnemonic` method returns the user's mnemonic seed phrase, in encrypted 
 You can update the password with the [change\_mnemonic\_password](/komodo-defi-framework/api/v20/utils/change_mnemonic_password/#change-mnemonic-password) method.
 export const title = "Komodo DeFi Framework Method: Get Public Key";
 export const description = "The get_public_key method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Public Key
 
@@ -25950,7 +25950,7 @@ The `get_public_key` method returns the compressed secp256k1 pubkey correspondin
 ```
 export const title = "Komodo DeFi Framework Method: Get Public Key Hash";
 export const description = "The get_public_key_hash method returns the RIPEMD-160 hash version of your public key.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Public Key Hash
 
@@ -25988,7 +25988,7 @@ The `get_public_key_hash` method returns the [RIPEMD-160](https://en.bitcoin.it/
 export const title = "Komodo DeFi Framework Method: Get Shared Database ID";
 export const description =
   "Return the deterministic identifier used as the root directory name for this node's SQLite databases.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Shared Database ID
 
@@ -26025,7 +26025,7 @@ It is used as the root folder name for **all** SQLite databases on the host.  â€
 ### Error Types
 export const title = "Komodo DeFi Framework Method: Get Token Info";
 export const description = "The `get_token_info` method returns the ticker and decimals values (required for activation) given a platform and contract as input.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Get Token Info
 
@@ -26150,7 +26150,7 @@ For signing with an HD wallet, the [`coins`](https://github.com/KomodoPlatform/c
 ```
 export const title = "Komodo DeFi Framework Method: Sign Message";
 export const description = "The method in this document allows you to sign messages for all coins supported by Komodo DeFi Framework.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Sign Message
 
@@ -26290,7 +26290,7 @@ The `chain` is either `External` or `Internal`, and is expressed as an integer w
 ```
 export const title = "Komodo DeFi Framework Method: Verify Message";
 export const description = "The method in this document allows you to verify messages for all coins supported by Komodo DeFi Framework.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Verify Message
 
@@ -26389,7 +26389,7 @@ The `verify_message` method allows you to confirm the authenticity of a signed m
 ```
 export const title = "Komodo DeFi Framework Method: Peer Connection Healthcheck";
 export const description = "The peer_connection_healthcheck method checks if a peer is connected to the KDF network.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Peer Connection Healthcheck
 
@@ -26435,7 +26435,7 @@ The `peer_connection_healthcheck` method checks if a peer is connected to the KD
 ```
 export const title = "Komodo DeFi Framework Method: Remove Node from Version Stat";
 export const description = "Removes a node from the local version stat database in Komodo DeFi Framework.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Remove Node from Version Stat
 
@@ -26471,7 +26471,7 @@ The `remove_node_from_version_stat` method removes a node (by name) from the loc
 ```
 export const title = "Komodo DeFi Framework Method: Send Asked Data";
 export const description = "Provide data asynchronously to another component that previously issued a data request via the internal event bus.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Send Asked Data
 
@@ -26515,7 +26515,7 @@ This RPC is part of the low-level event-bus mechanism and is **not** used in typ
 ### Error Types
 export const title = "Komodo DeFi Framework Method: Start Version Stat Collection";
 export const description = "The start_version_stat_collection method initiates storing version statistics for nodes previously registered via the add_node_to_version_stat method.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Start Version Stat Collection
 
@@ -26571,7 +26571,7 @@ The `start_version_stat_collection` method initiates storing version statistics 
 ```
 export const title = "Komodo DeFi Framework Method: Stop Version Stat Collection";
 export const description = "The stop_version_stat_collection method stops the collection of version stats at the end of the current loop interval.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Stop Version Stat Collection
 
@@ -26622,7 +26622,7 @@ The `stop_version_stat_collection` method stops the collection of version stats 
 ```
 export const title = "Komodo DeFi Framework Method: Cancel MetaMask Connection Task";
 export const description = "Cancel a running MetaMask connection task in the Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Cancel MetaMask Connection Task
 
@@ -26685,7 +26685,7 @@ This section provides an overview of the task-managed flow used to initialise a 
 *   [Cancel MetaMask Connection](/komodo-defi-framework/api/v20/utils/task_connect_metamask/cancel/)
 export const title = "Komodo DeFi Framework Method: Initialise MetaMask Connection Task";
 export const description = "Begin a task-managed process that initialises and authenticates MetaMask with the Komodo DeFi Framework node.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Initialise MetaMask Connection Task
 
@@ -26726,7 +26726,7 @@ Use this method to begin a task-managed process that establishes a MetaMask cont
 ### Error Types
 export const title = "Komodo DeFi Framework Method: MetaMask Connection Task: Status";
 export const description = "Query the status of a running MetaMask connection task.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # MetaMask Connection Task: Status
 
@@ -26791,7 +26791,7 @@ When the task completes successfully, `status` will be `Ok` and `details` will h
 ### Error Types
 export const title = "Komodo DeFi Framework Method: Cancel Trezor Initialization Task";
 export const description = "Cancel the Trezor initialisation task in the Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Cancel Trezor Initialization Task
 
@@ -26852,7 +26852,7 @@ export const description = "This document provides an overview of Trezor initial
 *   [User Action for Trezor](/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/)
 export const title = "task::init_trezor::init";
 export const description = "Initialise your Trezor device for use in the Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Komodo DeFi Framework Method: task::init\_trezor::init
 
@@ -26903,7 +26903,7 @@ Before using this method, launch the Komodo DeFi Framework API, and plug in your
 ```
 export const title = "task::init_trezor::status";
 export const description = "Query the status of Trezor device initialisation in the Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Komodo DeFi Framework Method: task::init\_trezor::status
 
@@ -27123,7 +27123,7 @@ No Trezor device detected by the Komodo DeFi Framework API. Make sure it is plug
 ```
 export const title = "task::init_trezor::user_action";
 export const description = "Send user action (PIN or passphrase) to the Trezor device during initialisation in the Komodo DeFi Framework API.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
 
 # Komodo DeFi Framework Method: task::init\_trezor::user\_action
@@ -27205,7 +27205,7 @@ Even an incorrect PIN will return `success`. This doesn't mean the PIN was accep
 ```
 export const title = "Komodo DeFi Framework Method: Trezor Connection Status";
 export const description = "Check whether a Trezor device linked to the node is currently connected and ready for use.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Trezor Connection Status
 
@@ -27241,7 +27241,7 @@ The `trezor_connection_status` method reports the real-time connection state of 
 ### Error Types
 export const title = "Komodo DeFi Framework Method: Update Version Stat Collection";
 export const description = "The update_version_stat_collection method updates the polling interval for version stats collection.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Update Version Stat Collection
 
@@ -27295,7 +27295,7 @@ The `update_version_stat_collection` method updates the polling interval for ver
 export const title = "Komodo DeFi Framework Method: Delete Wallet";
 export const description = "Securely deletes a wallet from the Komodo DeFi Framework.";
 
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Delete Wallet
 
@@ -34274,7 +34274,7 @@ If everything installed successfully, a response that is similar to the followin
 The Komodo DeFi Framework API executable is now built and available here: `~/komodo-defi-framework/target/debug/kdf`
 export const title = "Komodo DeFi Framework Method: Telegram Alerts for Bot Trading";
 export const description = "The Komodo DeFi Framework API Market Maker bot can be configured to send status update alerts via Telegram.";
-import CompactTable from '@/components/mdx/CompactTable';
+
 
 # Telegram Alerts for Bot Trading
 

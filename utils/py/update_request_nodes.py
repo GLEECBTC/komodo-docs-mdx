@@ -100,7 +100,7 @@ def select_preferred_servers(servers: List[Dict[str, Any]], max_count: int = 3) 
             # Randomly select from regular servers
             selected_servers.extend(random.sample(regular_servers, remaining_slots))
     
-    logger.info(f"Selected {len(selected_servers)} servers from {len(servers)} available ({len(priority_servers)} priority, {len(regular_servers)} regular)")
+    logger.debug(f"Selected {len(selected_servers)} servers from {len(servers)} available ({len(priority_servers)} priority, {len(regular_servers)} regular)")
     return selected_servers
 
 def select_preferred_urls(urls: List[str], max_count: int = 3) -> List[str]:
@@ -137,7 +137,7 @@ def select_preferred_urls(urls: List[str], max_count: int = 3) -> List[str]:
             # Randomly select from regular URLs
             selected_urls.extend(random.sample(regular_urls, remaining_slots))
     
-    logger.info(f"Selected {len(selected_urls)} URLs from {len(urls)} available ({len(priority_urls)} priority, {len(regular_urls)} regular)")
+    logger.debug(f"Selected {len(selected_urls)} URLs from {len(urls)} available ({len(priority_urls)} priority, {len(regular_urls)} regular)")
     return selected_urls
 
 def detect_coin_protocol(coin_config: Dict[str, Any]) -> str:
@@ -387,12 +387,12 @@ def update_nodes_in_request(request_data: Dict[str, Any], coins_config: Dict[str
     ticker = extract_ticker_from_request(request_data)
     
     if method:
-        logger.info(f"Scanning method '{method}' in request '{request_name}'")
+        logger.debug(f"Scanning method '{method}' in request '{request_name}'")
     else:
-        logger.info(f"Scanning request '{request_name}' (no method field)")
+        logger.debug(f"Scanning request '{request_name}' (no method field)")
     
     if not ticker:
-        logger.info(f"No ticker found in request '{request_name}'")
+        logger.debug(f"No ticker found in request '{request_name}'")
         return False
     
     if ticker not in coins_config:
@@ -402,7 +402,7 @@ def update_nodes_in_request(request_data: Dict[str, Any], coins_config: Dict[str
     coin_config = coins_config[ticker]
     protocol = detect_coin_protocol(coin_config)
     
-    logger.info(f"Detected protocol '{protocol}' for ticker '{ticker}'")
+    logger.debug(f"Detected protocol '{protocol}' for ticker '{ticker}'")
     
     # Route to appropriate update function based on protocol
     if protocol == 'TENDERMINT':

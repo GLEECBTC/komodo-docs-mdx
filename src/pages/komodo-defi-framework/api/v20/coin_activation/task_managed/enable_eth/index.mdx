@@ -12,29 +12,7 @@ Use this method for task managed activation of ETH/EVM coins & tokens. Refer to 
 
 #### Arguments
 
-| Parameter                   | Type             | Description                                                                                                                                                                                                                                                                                                                                  |
-| --------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                      | string           | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`                                                                                                                                                                                                                                      |
-| mm2                         | integer          | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                                                                                   |
-| swap\_contract\_address     | string           | Address of etomic swap smart contract                                                                                                                                                                                                                                                                                                        |
-| fallback\_swap\_contract    | string           | Address of backup etomic swap smart contract.                                                                                                                                                                                                                                                                                                |
-| nodes                       | array of objects | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects.                                                                                                                                                                                                                                   |
-| erc20\_tokens\_requests     | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                                                                                                         |
-| gas\_station\_url           | string           | Optional, a url for gas station api.                                                                                                                                                                                                                                                                                                         |
-| gas\_station\_decimals      | integer          | Optional, for ETH/ERC20 and other gas model chains. Defaults to `8`. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |
-| gas\_station\_policy.policy | string           | Optional, for ETH/ERC20 and other gas model chains. Defaults to `"MeanAverageFast"`. Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value.                                                           |
-| get\_balances               | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                                                                                      |
-| priv\_key\_policy           | string           | Optional, defaults to `ContextPrivKey`. value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm`                                                                                        |
-| required\_confirmations     | integer          | Optional, defaults to `3`. When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap                                                                                                                                                          |
-| requires\_notarization      | boolean          | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                                                    |
-| rpc\_mode                   | string           | Optional, defaults to `Default`. Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`.                                                                                                                                                                                                                      |
-| tx\_history                 | boolean          | Optional, defaults to `false`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                                                   |
-| nft\_req                    | object           | Optional, non-HD only. encapsulates the request parameters for NFT activation, including NFT provider configuration.                                                                                                                                                                                                                         |
-| min\_addresses\_number      | integer          | Optional, HD wallets only. How many additional addreesses to generate at a minimum.                                                                                                                                                                                                                                                          |
-| scan\_policy                | string           | Optional, HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework.                                                                                                                               |
-| gap\_limit                  | integer          | Optional, HD wallets only. The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                                                                                                                                                           |
-| path\_to\_address           | object           | Optional, HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.                                                                                                                                                                                                               |
-| swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object.                                                                                     |
+<CompactTable source="v2/coin_activation.TaskEnableEthArguments" />
 
 ### Response
 
@@ -55,61 +33,13 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Response
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_eth::init",
-    "params": {
-      "ticker": "MATIC",
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "swap_v2_contracts": {
-        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
-      },
-      "nodes": [
-        {
-          "url": "https://polygon-rpc.com"
-        },
-        {
-          "url": "https://poly-rpc.gateway.pokt.network"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "path_to_address": {
-        "account_id": 0,
-        "chain": "External",
-        "address_id": 1
-      },
-      "gap_limit": 20,
-      "scan_policy": "scan_if_new_wallet",
-      "min_addresses_number": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthInitTrezor" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -136,34 +66,15 @@ The response will return the following:
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                               |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Command
 
-<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_eth::status",
-    "params": {
-      "task_id": 1,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_eth::status" tag="POST" label="task::enable_eth::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthStatus" />
 
 #### Response (ready, successful, HD mode)
 
-| Parameter       | Type    | Description                                                                                                                                                                                                           |
-| --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| current\_block  | integer | Block height of the coin being activated                                                                                                                                                                              |
-| ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                   |
-| wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the acttivation request. |
+<CompactTable source="v2/coin_activation.TaskStatusResponseReady" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   ```json
@@ -303,41 +214,19 @@ If the `task::enable_eth::status` returns `UserActionRequired`, we need to use t
 
 #### Arguments
 
-| Parameter                 | Type            | Description                                                                                                                                                                                      |
-| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                      |
-| user\_action              | object          | Object containing the params below                                                                                                                                                               |
-| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
-| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+<CompactTable source="v2/coin_activation.TaskUserActionArguments" />
 
 <OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
 
 #### Response
 
-| Parameter | Type   | Description                 |
-| --------- | ------ | --------------------------- |
-| result    | string | The outcome of the request. |
+<CompactTable source="v2/coin_activation.TaskUserActionResponse" />
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_eth::user_action",
-    "params": {
-      "task_id": 0,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -357,33 +246,13 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Arguments
 
-| Structure | Type    | Description                                                           |
-| --------- | ------- | --------------------------------------------------------------------- |
-| task\_id  | integer | The identifying number returned when initiating the enabling process. |
+<CompactTable source="v2/coin_activation.TaskCancelArguments" />
 
 #### Response
 
-| Structure    | Type   | Description                                                    |
-| ------------ | ------ | -------------------------------------------------------------- |
-| result       | string | Indicates task cancellation was succesful.                     |
-| error        | string | An error message to explain what went wrong.                   |
-| error\_path  | string | An indicator of the class or function which reurned the error. |
-| error\_trace | string | An indicator of where in the source code the error was thrown. |
-| error\_type  | string | An enumerated value for the returned error.                    |
-| error\_data  | string | The input task ID which resulted in the error.                 |
+<CompactTable source="v2/coin_activation.TaskCancelResponse" />
 
-<CodeGroup title="task::enable_eth::cancel" tag="POST" label="task::enable_eth::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_eth::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_eth::cancel" tag="POST" label="task::enable_eth::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

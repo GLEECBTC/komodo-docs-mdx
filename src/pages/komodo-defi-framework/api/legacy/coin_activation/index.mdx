@@ -63,173 +63,31 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 
 #### Arguments
 
-| Structure                | Type            | Description                                                                                                                                                                                                                                                               |   |
-| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
-| coin                     | string          | Ticker of coin to activate                                                                                                                                                                                                                                                |   |
-| servers                  | list of objects | A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects.                                                                                                                                              |   |
-| mm2                      | integer         | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                |   |
-| min\_connected           | integer         | Optional, defaults to `1`. Minimum number of electrum servers to maintain an active connection to.                                                                                                                                                                        |   |
-| max\_connected           | integer         | Optional. Maximum number of electrum servers to maintain an active connection to. If not set, defaults to all servers in activation request.                                                                                                                              |   |
-| required\_confirmations  | integer         | Optional, defaults to `3`. Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                              |   |
-| requires\_notarization   | boolean         | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |   |
-| swap\_contract\_address  | string          | QRC20 only. Address of etomic swap smart contract                                                                                                                                                                                                                         |   |
-| fallback\_swap\_contract | string          | QRC20 only. Address of backup etomic swap smart contract                                                                                                                                                                                                                  |   |
-| utxo\_merge\_params      | object          | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.                                                    |   |
+<CompactTable source="legacy/coin_activation.ElectrumArguments" />
 
 #### Response
 
-| Structure               | Type              | Description                                                                                                                                                     |
-| ----------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| address                 | string            | the address of the user's `coin` wallet, based on the user's passphrase                                                                                         |
-| balance                 | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                                                                     |
-| unspendable\_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                   |
-| coin                    | string            | the ticker of the enabled coin                                                                                                                                  |
-| required\_confirmations | number            | the number of transaction confirmations for which the Komodo DeFi Framework API must wait during the atomic swap process                                        |
-| mature\_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                                                                     |
-| requires\_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW |
-| result                  | string            | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                       |
+<CompactTable source="legacy/coin_activation.ElectrumResponse" />
 
 #### 📌 Examples
 
 #### UTXO coin activation {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "BCH",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "bch.imaginary.cash:50002",
-        "protocol": "SSL",
-        "ws_url": "bch.imaginary.cash:50004"
-      },
-      {
-        "url": "bch.soul-dev.com:50002",
-        "protocol": "SSL",
-        "ws_url": "bch.soul-dev.com:50004"
-      },
-      {
-        "url": "cashnode.bch.ninja:50002",
-        "protocol": "SSL",
-        "ws_url": "cashnode.bch.ninja:50004"
-      },
-      {
-        "url": "electrum3.cipig.net:20055",
-        "protocol": "SSL",
-        "ws_url": "electrum3.cipig.net:30055"
-      },
-      {
-        "url": "electrum3.cipig.net:10055"
-      }
-    ],
-    "min_connected": 1,
-    "max_connected": 2,
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumBch" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "LTC",
-    "address": "Lh2zFS66gP5qF1bRxoCXT6bMw8YShjoRry",
-    "balance": "7.62",
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "required_confirmations": 3,
-    "requires_notarization": false,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyElectrumBch" />
 
 #### UTXO coin activation with `required_confirmations`, `requires_notarization` and `mm2` arguments {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "KMD",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "electrum1.cipig.net:10001"
-      },
-      {
-        "url": "electrum2.cipig.net:10001"
-      },
-      {
-        "url": "electrum3.cipig.net:10001"
-      }
-    ],
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "mm2": 1,
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumKmd" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "KMD",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "762",
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyElectrumKmd" />
 
 #### QTUM/QRC20 coin activation {{label : 'electrum', tag : 'legacy'}}
 
-<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "QTUM",
-    "method": "electrum",
-    "servers": [
-      {
-        "url": "electrum1.cipig.net:10050"
-      },
-      {
-        "url": "electrum2.cipig.net:10050"
-      },
-      {
-        "url": "electrum3.cipig.net:10050"
-      }
-    ],
-    "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Electrum Method" tag="POST" label="electrum" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyElectrumQtum" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (Success)
-
-  ```json
-  {
-    "coin": "QTUM",
-    "address": "QjXkGgoiycYRm2NbiMpkEHuQt7SB9BKHjz",
-    "balance": "7.77",
-    "required_confirmations": 3,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyElectrumQtum" />
 
 #### Error responses
 
@@ -261,237 +119,49 @@ If max\_connected is \< min\_connected, you will see the following error:
 
 #### Arguments
 
-| Structure                   | Type                                                                 | Description                                                                                                                                                                                                                                                                             |
-| --------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                        | string                                                               | the name of the coin the user desires to enable                                                                                                                                                                                                                                         |
-| urls                        | array of strings (required for ETH/ERC20 and other gas model chains) | urls of Ethereum RPC nodes to which the user desires to connect                                                                                                                                                                                                                         |
-| swap\_contract\_address     | string (required for QRC20 only)                                     | address of etomic swap smart contract                                                                                                                                                                                                                                                   |
-| fallback\_swap\_contract    | string (required for QRC20 only)                                     | address of backup etomic swap smart contract                                                                                                                                                                                                                                            |
-| gas\_station\_decimals      | integer (optional for ETH/ERC20 and other gas model chains)          | Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. Defaults to `8` |
-| gas\_station\_policy.policy | string (optional for ETH/ERC20 and other gas model chains)           | Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value. Defaults to `"MeanAverageFast"`.                                                          |
-| mm2                         | integer                                                              | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                              |
-| tx\_history                 | bool                                                                 | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                             |
-| required\_confirmations     | integer (optional, defaults to `3`)                                  | Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap.                                                                                                                                                                       |
-| requires\_notarization      | boolean (optional, defaults to `false`)                              | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                              |
+<CompactTable source="legacy/coin_activation.EnableArguments" />
 
 #### Response
 
-| Structure               | Type              | Description                                                                                                        |
-| ----------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------ |
-| address                 | string            | the address of the user's `coin` wallet, based on the user's passphrase                                            |
-| balance                 | string (numeric)  | the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`                        |
-| unspendable\_balance    | string (numeric)  | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                      |
-| coin                    | string            | the ticker of enabled coin                                                                                         |
-| required\_confirmations | number            | Komodo DeFi Framework API will wait for the this number of coin's transaction confirmations during the swap        |
-| requires\_notarization  | bool              | whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions |
-| mature\_confirmations   | number (optional) | the number of coinbase transaction confirmations required to become mature; UTXO coins only                        |
-| result                  | string            | the result of the request; this value either indicates `success`, or an error or other type of failure             |
+<CompactTable source="legacy/coin_activation.EnableResponse" />
 
 #### 📌 Examples
 
 #### Native UTXO coin activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNative" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "TKL",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "333",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableNative" />
 
 #### Command (With `required_confirmations`, `requires_notarization` and `mm2` arguments)
 
-<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL",
-    "mm2": 1,
-    "required_confirmations": 10,
-    "requires_notarization": true
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableNativeWithParams" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "TKL",
-    "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-    "balance": "777",
-    "required_confirmations": 10,
-    "requires_notarization": true,
-    "unspendable_balance": "0",
-    "mature_confirmations": 100,
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableNativeWithParams" />
 
 #### Command (for Ethereum and ERC20-based blockchains)
 
-<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "ETH",
-    "method": "enable",
-    "urls": [
-      "http://eth1.cipig.net:18555",
-      "http://eth2.cipig.net:18555",
-      "http://eth3.cipig.net:18555"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEth" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "ETH",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "50",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableEth" />
 
 #### EVM coin activation with gas\_station\_url and policy {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "ETH",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "urls": [
-      "http://eth1.cipig.net:18555",
-      "http://eth2.cipig.net:18555",
-      "http://eth3.cipig.net:18555"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-    "gas_station_decimals": 8,
-    "gas_station_policy": {
-      "policy": "MeanAverageFast"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableEthGasStation" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "ETH",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "50",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableEthGasStation" />
 
 #### Polygon (MATIC) and PLG20 activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "NZDS-PLG20",
-    "method": "enable",
-    "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "urls": [
-      "https://polygon-rpc.com"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableMatic" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "NZDS-PLG20",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "350",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableMatic" />
 
 #### Binance Coin (BNB) and BEP20 activation {{label : 'enable', tag : 'legacy'}}
 
-<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true">
-  ```json
-  {
-    "coin": "BUSD-BEP20",
-    "method": "enable",
-    "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "urls": [
-      "http://bsc1.cipig.net:8655",
-      "http://bsc2.cipig.net:8655",
-      "http://bsc3.cipig.net:8655"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Enable Method" tag="POST" label="enable" mm2MethodDecorate="true" source="legacy/coin_activation.LegacyEnableBnb" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "coin": "BUSD-BEP20",
-    "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-    "balance": "45",
-    "required_confirmations": 1,
-    "requires_notarization": false,
-    "unspendable_balance": "0",
-    "result": "success"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/coin_activation.LegacyEnableBnb" />
 
 For enabling Z coins, refer to the [ZHTLC activation tasks](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/) in the v2.0 Dev API.
 

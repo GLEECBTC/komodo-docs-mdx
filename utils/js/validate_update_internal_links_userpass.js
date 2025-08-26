@@ -128,7 +128,29 @@ async function processFile(filePath, filepathSlugs) {
                 attr.value === "true"
             )
           ) {
-            // console.log(node)
+            // Check if it has a source attribute (new format)
+            const sourceAttr = node.attributes.find(
+              (attr) =>
+                attr.type === "mdxJsxAttribute" &&
+                attr.name === "source"
+            );
+
+        
+            
+            if (sourceAttr) {
+              // If source attribute exists, validate it
+              if (typeof sourceAttr.value !== "string" || sourceAttr.value.length === 0) {
+                throw new Error(
+                  `CodeGroup with mm2MethodDecorate="true" has invalid source attribute value in file ${filePath}. Source must be a non-empty string.`
+                );
+              }
+              if (node.children.length === 0) {
+                // Valid new format with source attribute and no children - skip processing
+                return SKIP;
+              }
+            }
+            
+            // Original format with child JSON code block
             const originalChild = node.children[0];
             if (node.children.length !== 1 || originalChild.lang !== "json") {
               throw new Error(
@@ -151,6 +173,7 @@ code node:
 ${JSON.stringify(node, null, 2)}`);
           }
         } catch (error) {
+          console.error(error)
           throw new Error(`Error:
 ${JSON.stringify(error, null, 2)}         
 Filepath: ${filePath} 
