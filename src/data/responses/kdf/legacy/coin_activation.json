@@ -1,0 +1,280 @@
+{
+    "LegacyEnableEth": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "address": "0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94",
+            "balance": "12.00283000",
+            "locked_by_swaps": "0.00000000",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "mature_confirmations": 0,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Transport error",
+          "notes": "Connection to ETH node failed",
+          "json": {
+            "error": "Transport error: JsonRpcError { client_info: \"coin: ETH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"9\", method: \"eth_getBalance\", params: [String(\"0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94\"), String(\"latest\")] }, error: Transport(\"All electrum servers unavailable!\") }"
+          }
+        },
+        {
+          "title": "Already enabled",
+          "notes": "The coin is already activated",
+          "json": {
+            "error": "lp_coins:1308] eth:295] Coin ETH is already activated"
+          }
+        }
+      ]
+    },
+    "LegacyElectrumBch": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "address": "1DgpBvyeUNHasBt3h3qzC1p9Z8qTgr6t5m",
+            "balance": "0.12345678",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Connection failed",
+          "notes": "Unable to connect to electrum servers",
+          "json": {
+            "error": "All electrum servers for BCH are unavailable"
+          }
+        }
+      ]
+    },
+    "LegacyElectrumKmd": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "KMD",
+            "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+            "balance": "762",
+            "unspendable_balance": "0",
+            "mature_confirmations": 100,
+            "required_confirmations": 10,
+            "requires_notarization": true,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Missing mm2 parameter",
+          "notes": "mm2 param is not set in coins config or enable request",
+          "json": {
+            "error": "lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
+          }
+        },
+        {
+          "title": "Invalid min_connected",
+          "notes": "min_connected should be greater than 0",
+          "json": {
+            "error": "rpc:184] dispatcher_legacy:141] lp_commands_legacy:141] lp_coins:4462] utxo_standard:73] utxo_coin_builder:616] Internal error: manager:129] min_connected should be greater than 0"
+          }
+        },
+        {
+          "title": "Invalid connection range",
+          "notes": "min_connected must be <= max_connected",
+          "json": {
+            "error": "rpc:184] dispatcher_legacy:141] lp_commands_legacy:141] lp_coins:4462] utxo_standard:73] utxo_coin_builder:616] Internal error: manager:132] min_connected (2) must be <= max_connected (1)"
+          }
+        }
+      ]
+    },
+    "LegacyElectrumQtum": {
+      "success": [
+        {
+          "title": "Success", 
+          "notes": "",
+          "json": {
+            "coin": "QTUM",
+            "address": "QjXkGgoiycYRm2NbiMpkEHuQt7SB9BKHjz",
+            "balance": "7.77",
+            "required_confirmations": 3,
+            "requires_notarization": false,
+            "unspendable_balance": "0",
+            "mature_confirmations": 100,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Missing mm2 parameter",
+          "notes": "mm2 param is not set in coins config or enable request",
+          "json": {
+            "error": "lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
+          }
+        }
+      ]
+    },
+    "LegacyEnableNative": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "TKL",
+            "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+            "balance": "333",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "unspendable_balance": "0",
+            "mature_confirmations": 100,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Connection failed",
+          "notes": "Unable to connect to daemon",
+          "json": {
+            "error": "Failed to connect to native daemon"
+          }
+        }
+      ]
+    },
+    "LegacyEnableNativeWithParams": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "TKL",
+            "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+            "balance": "777",
+            "required_confirmations": 10,
+            "requires_notarization": true,
+            "unspendable_balance": "0",
+            "mature_confirmations": 100,
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Connection failed",
+          "notes": "Unable to connect to daemon",
+          "json": {
+            "error": "Failed to connect to native daemon"
+          }
+        }
+      ]
+    },
+    "LegacyEnableEthGasStation": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "ETH",
+            "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+            "balance": "50",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "unspendable_balance": "0",
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Gas station error",
+          "notes": "Unable to fetch gas price from station",
+          "json": {
+            "error": "Failed to get gas price from station"
+          }
+        },
+        {
+          "title": "Already enabled",
+          "notes": "The coin is already activated",
+          "json": {
+            "error": "lp_coins:1308] eth:295] Coin ETH is already activated"
+          }
+        }
+      ]
+    },
+    "LegacyEnableMatic": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "NZDS-PLG20",
+            "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+            "balance": "350",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "unspendable_balance": "0",
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Connection failed",
+          "notes": "Unable to connect to Polygon RPC",
+          "json": {
+            "error": "All Polygon RPC servers unavailable"
+          }
+        },
+        {
+          "title": "Already enabled", 
+          "notes": "The coin is already activated",
+          "json": {
+            "error": "lp_coins:1308] Coin NZDS-PLG20 is already activated"
+          }
+        }
+      ]
+    },
+    "LegacyEnableBnb": {
+      "success": [
+        {
+          "title": "Success",
+          "notes": "",
+          "json": {
+            "coin": "BUSD-BEP20",
+            "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+            "balance": "45",
+            "required_confirmations": 1,
+            "requires_notarization": false,
+            "unspendable_balance": "0",
+            "result": "success"
+          }
+        }
+      ],
+      "error": [
+        {
+          "title": "Connection failed",
+          "notes": "Unable to connect to BSC RPC",
+          "json": {
+            "error": "All BSC RPC servers unavailable"
+          }
+        },
+        {
+          "title": "Already enabled",
+          "notes": "The coin is already activated", 
+          "json": {
+            "error": "lp_coins:1308] Coin BUSD-BEP20 is already activated"
+          }
+        }
+      ]
+    }
+  }
