@@ -48,8 +48,8 @@ class KdfResponseValidator:
         # Valid response types
         self.valid_response_types = {'success', 'error'}
         
-        # Valid request key pattern (alphanumeric, camelCase/PascalCase)
-        self.request_key_pattern = re.compile(r'^[A-Z][a-zA-Z0-9]*$')
+        # Valid request key pattern (alphanumeric, PascalCase with optional leading numeric)
+        self.request_key_pattern = re.compile(r'^[A-Z0-9][a-zA-Z0-9]*$')
 
     def validate_all(self) -> Tuple[bool, List[ValidationError], List[ValidationError]]:
         """Validate all KDF response files."""
