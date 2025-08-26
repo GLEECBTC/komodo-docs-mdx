@@ -146,14 +146,6 @@ class KdfResponseValidator:
 
     def _validate_request_key(self, file_path: Path, request_key: str):
         """Validate request key naming convention."""
-        if not isinstance(request_key, str):
-            self.errors.append(ValidationError(
-                str(file_path),
-                "INVALID_KEY_TYPE",
-                f"Request key must be string, got {type(request_key).__name__}",
-                request_key
-            ))
-            return
             
         if not self.request_key_pattern.match(request_key):
             self.errors.append(ValidationError(
