@@ -81,8 +81,8 @@ def main():
     parser.add_argument(
         "--directory", 
         "-d",
-        default="src/data/requests",
-        help="Directory to search for JSON files (default: src/data/requests)"
+        default="src/data/requests/kdf",
+        help="Directory to search for JSON files (default: src/data/requests/kdf)"
     )
     parser.add_argument(
         "--dry-run",

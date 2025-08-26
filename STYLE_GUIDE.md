@@ -203,7 +203,7 @@ The `KdfResponses` component is used to display API responses for Komodo DeFi Fr
 
 #### How KdfResponses Works
 
-KdfResponses pulls response data from JSON files stored in `/src/data/kdf_responses/`:
+KdfResponses pulls response data from JSON files stored in `/src/data/responses/kdf/`:
 - Response data is organized by subdirectory: `legacy/`, `v2/`, etc.
 - Each JSON file contains multiple response definitions
 - Responses are referenced using the `responseKey` attribute
@@ -227,7 +227,7 @@ The `responseKey` attribute follows this pattern:
 
 #### JSON Data Structure
 
-Response data files are located in `/src/data/kdf_responses/` and follow this structure:
+Response data files are located in `/src/data/responses/kdf/` and follow this structure:
 
 ```json
 {

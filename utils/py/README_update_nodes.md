@@ -30,7 +30,7 @@ source utils/py/.venv/bin/activate
 
 Update a single file in-place:
 ```bash
-python utils/py/update_request_nodes.py src/data/requests/v2/coin_activation.json
+python utils/py/update_request_nodes.py src/data/requests/kdf/v2/coin_activation.json
 ```
 
 Update a file and save to a different location:
@@ -48,17 +48,17 @@ python utils/py/update_request_nodes.py input.json output.json
 
 #### Update coin activation examples
 ```bash
-python utils/py/update_request_nodes.py src/data/requests/v2/coin_activation.json
+python utils/py/update_request_nodes.py src/data/requests/kdf/v2/coin_activation.json
 ```
 
 #### Batch update multiple files
 ```bash
-find src/data/requests/ -name "*.json" -exec python utils/py/update_request_nodes.py {} \;
+find src/data/requests/kdf/ -name "*.json" -exec python utils/py/update_request_nodes.py {} \;
 ```
 
 #### Test mode (save to different file)
 ```bash
-python utils/py/update_request_nodes.py src/data/requests/v2/coin_activation.json /tmp/test_output.json
+python utils/py/update_request_nodes.py src/data/requests/kdf/v2/coin_activation.json /tmp/test_output.json
 ```
 
 ## Supported Coin Protocols
@@ -236,7 +236,7 @@ For CI/CD integration, you can create a script that updates all request files:
 ```bash
 #!/bin/bash
 # Update all request JSON files
-find src/data/requests/ -name "*.json" | while read file; do
+find src/data/requests/kdf -name "*.json" | while read file; do
     echo "Updating $file..."
     python utils/py/update_request_nodes.py "$file"
 done
