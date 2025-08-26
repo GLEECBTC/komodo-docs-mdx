@@ -6,7 +6,7 @@ Validates the structure and content of KDF response JSON files to ensure
 they follow the expected format for the KdfResponses component.
 
 Usage:
-    python validate_kdf_responses.py
+    python validate_responses/kdf.py
 
 Features:
 - Validates JSON structure and syntax
@@ -52,7 +52,7 @@ class KdfResponseValidator:
 
     def validate_all(self) -> Tuple[bool, List[ValidationError], List[ValidationError]]:
         """Validate all KDF response files."""
-        base_path = Path('src/data/kdf_responses')
+        base_path = Path('src/data/responses/kdf')
         
         if not base_path.exists():
             self.errors.append(ValidationError(
@@ -327,14 +327,14 @@ class KdfResponseValidator:
         # Load request data
         requests_by_version = {}
         for version in ['legacy', 'v2']:
-            requests_path = Path(f'src/data/requests/{version}')
+            requests_path = Path(f'src/data/requests/kdf/{version}')
             if requests_path.exists():
                 requests_by_version[version] = self._load_request_keys(requests_path)
 
         # Load response data  
         responses_by_version = {}
         for version in ['legacy', 'v2']:
-            responses_path = Path(f'src/data/kdf_responses/{version}')
+            responses_path = Path(f'src/data/responses/kdf/{version}')
             if responses_path.exists():
                 responses_by_version[version] = self._load_response_keys(responses_path)
 
@@ -347,7 +347,7 @@ class KdfResponseValidator:
             missing_responses = request_keys - response_keys
             for key in missing_responses:
                 self.warnings.append(ValidationError(
-                    f"src/data/kdf_responses/{version}/",
+                    f"src/data/responses/kdf/{version}/",
                     "MISSING_RESPONSE",
                     f"Request '{key}' exists but has no corresponding response data",
                     f"{version}/{key}"
@@ -357,7 +357,7 @@ class KdfResponseValidator:
             missing_requests = response_keys - request_keys
             for key in missing_requests:
                 self.warnings.append(ValidationError(
-                    f"src/data/requests/{version}/",
+                    f"src/data/requests/kdf/{version}/",
                     "MISSING_REQUEST", 
                     f"Response '{key}' exists but has no corresponding request data",
                     f"{version}/{key}"
