@@ -148,25 +148,6 @@
           },
           "id": null
         }
-      },
-      {
-        "title": "Ok - Complete",
-        "notes": "",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "Ok",
-            "details": {
-              "ticker": "MATIC",
-              "platform_coin": {
-                "platform": "ETH",
-                "ticker": "MATIC"
-              },
-              "current_block": 12345678
-            }
-          },
-          "id": null
-        }
       }
     ],
     "error": [

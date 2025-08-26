@@ -16,20 +16,6 @@
         }
       ],
       "error": [
-        {
-          "title": "Transport error",
-          "notes": "Connection to ETH node failed",
-          "json": {
-            "error": "Transport error: JsonRpcError { client_info: \"coin: ETH\", request: JsonRpcRequest { jsonrpc: \"2.0\", id: \"9\", method: \"eth_getBalance\", params: [String(\"0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94\"), String(\"latest\")] }, error: Transport(\"All electrum servers unavailable!\") }"
-          }
-        },
-        {
-          "title": "Already enabled",
-          "notes": "The coin is already activated",
-          "json": {
-            "error": "lp_coins:1308] eth:295] Coin ETH is already activated"
-          }
-        }
       ]
     },
     "LegacyElectrumBch": {
