@@ -36,6 +36,9 @@ class PostmanCollectionGenerator:
         # Load method configuration
         self.method_config = self.load_method_config()
         
+        # Load common responses
+        self.common_responses = self.load_common_responses()
+        
     def load_json_file(self, file_path: Path) -> Optional[Dict]:
         """Load JSON file and return its content"""
         try:
@@ -53,6 +56,30 @@ class PostmanCollectionGenerator:
         config_file = self.workspace_root / "src/data/kdf_methods.json"
         config = self.load_json_file(config_file)
         return config if config else {}
+
+    def load_common_responses(self) -> Dict[str, Dict]:
+        """Load common responses from common.json"""
+        common_file = self.responses_dir / "common.json"
+        common_responses = self.load_json_file(common_file)
+        return common_responses if common_responses else {}
+
+    def resolve_response_reference(self, response_value: Any, common_responses: Dict[str, Dict]) -> Any:
+        """Resolve response references to common responses"""
+        if isinstance(response_value, str) and response_value in common_responses:
+            # String reference to common response
+            return common_responses[response_value]
+        elif isinstance(response_value, list):
+            # List of responses, some might be references
+            resolved_list = []
+            for item in response_value:
+                if isinstance(item, str) and item in common_responses:
+                    resolved_list.append(common_responses[item])
+                else:
+                    resolved_list.append(item)
+            return resolved_list
+        else:
+            # Regular response object
+            return response_value
 
     def load_all_tables(self) -> Dict[str, Dict]:
         """Load all table files and combine them"""
@@ -267,7 +294,15 @@ class PostmanCollectionGenerator:
         if not response_data:
             return False
         
-        return request_key in response_data
+        if request_key not in response_data:
+            return False
+        
+        # Resolve any common response references
+        response_value = response_data[request_key]
+        resolved_response = self.resolve_response_reference(response_value, self.common_responses)
+        
+        # Check if the resolved response is valid
+        return resolved_response is not None
 
     def create_postman_request(self, request_key: str, request_data: Dict, version: str, tables: Dict[str, Dict], method_examples: List[tuple] = None) -> Dict:
         """Create a Postman request object"""
