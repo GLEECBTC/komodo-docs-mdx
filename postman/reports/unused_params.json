@@ -1,0 +1,27 @@
+{
+  "enable": [
+    "requires_notarization",
+    "urls",
+    "gas_station_policy.policy",
+    "gas_station_decimals",
+    "swap_contract_address",
+    "required_confirmations",
+    "mm2",
+    "coin",
+    "fallback_swap_contract",
+    "tx_history"
+  ],
+  "task::enable_utxo::init": [
+    "requires_notarization",
+    "get_balances",
+    "path_to_address",
+    "scan_blocks_per_iteration",
+    "zcash_params_path",
+    "required_confirmations",
+    "tx_history",
+    "scan_interval_ms"
+  ],
+  "task::enable_utxo::user_action": [
+    "user_action.pin"
+  ]
+}

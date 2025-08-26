@@ -1,0 +1,113 @@
+{
+  "task::enable_utxo::init": {
+    "table": "ActivationParams",
+    "examples": {
+      "TaskEnableUtxoInit": "Initialize UTXO Coin"
+    }
+  },
+  "task::enable_utxo::status": {
+    "table": "TaskStatusArguments",
+    "examples": {
+      "TaskEnableUtxoStatus": "Check UTXO Task Status"
+    }
+  },
+  "task::enable_utxo::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {
+      "TaskEnableUtxoUserActionPin": "Provide Trezor PIN",
+      "TaskEnableUtxoUserActionPass": "Provide Trezor Passphrase"
+    }
+  },
+  "task::enable_utxo::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {
+      "TaskEnableUtxoCancel": "Cancel UTXO Task"
+    }
+  },
+  "task::enable_eth::init": {
+    "table": "TaskEnableEthArguments",
+    "examples": {}
+  },
+  "task::enable_eth::status": {
+    "table": "TaskStatusArguments",
+    "examples": {}
+  },
+  "task::enable_eth::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {}
+  },
+  "task::enable_eth::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {}
+  },
+  "task::enable_qtum::init": {
+    "table": "TaskEnableQtumArguments",
+    "examples": {}
+  },
+  "task::enable_qtum::status": {
+    "table": "TaskStatusArguments",
+    "examples": {}
+  },
+  "task::enable_qtum::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {}
+  },
+  "task::enable_qtum::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {}
+  },
+  "task::enable_bch::init": {
+    "table": "TaskEnableBchArguments",
+    "examples": {}
+  },
+  "task::enable_bch::status": {
+    "table": "TaskStatusArguments",
+    "examples": {}
+  },
+  "task::enable_bch::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {}
+  },
+  "task::enable_bch::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {}
+  },
+  "task::enable_tendermint::init": {
+    "table": "TaskEnableTendermintArguments",
+    "examples": {}
+  },
+  "task::enable_tendermint::status": {
+    "table": "TaskStatusArguments",
+    "examples": {}
+  },
+  "task::enable_tendermint::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {}
+  },
+  "task::enable_tendermint::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {}
+  },
+  "task::enable_z_coin::init": {
+    "table": "TaskEnableZCoinArguments",
+    "examples": {}
+  },
+  "task::enable_z_coin::status": {
+    "table": "TaskStatusArguments",
+    "examples": {}
+  },
+  "task::enable_z_coin::user_action": {
+    "table": "TaskUserActionArguments",
+    "examples": {}
+  },
+  "task::enable_z_coin::cancel": {
+    "table": "TaskCancelArguments",
+    "examples": {}
+  },
+  "enable": {
+    "table": "EnableArguments",
+    "examples": {
+      "LegacyEnableMatic": "Enable Matic Token (Legacy)"
+    }
+  }
+}

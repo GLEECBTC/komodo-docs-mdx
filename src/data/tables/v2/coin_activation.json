@@ -565,13 +565,19 @@
         "parameter": "user_action.action_type",
         "type": "string",
         "required": true,
-        "description": "Will be `TrezorPin` for this method"
+        "description": "Will be `TrezorPin` or `TrezorPassphrase`."
       },
       {
         "parameter": "user_action.pin",
         "type": "string (number)",
         "required": true,
         "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
+      },
+      {
+        "parameter": "user_action.passphrase",
+        "type": "string",
+        "required": true,
+        "description": "Your Trezor passphrase. This is the passphrase you use to unlock a hidden wallet on your Trezor device. Can be empty if you are using a non-hidden wallet."
       }
     ]
   },

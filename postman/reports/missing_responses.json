@@ -1,0 +1,15 @@
+{
+  "task::enable_utxo::init": [
+    "TaskEnableUtxoInit"
+  ],
+  "task::enable_utxo::status": [
+    "TaskEnableUtxoStatus"
+  ],
+  "task::enable_utxo::user_action": [
+    "TaskEnableUtxoUserActionPin",
+    "TaskEnableUtxoUserActionPass"
+  ],
+  "task::enable_utxo::cancel": [
+    "TaskEnableUtxoCancel"
+  ]
+}
