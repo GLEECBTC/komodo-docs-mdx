@@ -6,7 +6,7 @@ Validates the structure and content of KDF response JSON files to ensure
 they follow the expected format for the KdfResponses component.
 
 Usage:
-    python validate_kdf_responses.py [--fix-minor-issues]
+    python validate_kdf_responses.py
 
 Features:
 - Validates JSON structure and syntax
@@ -39,8 +39,7 @@ class ValidationError:
 
 
 class KdfResponseValidator:
-    def __init__(self, fix_minor_issues: bool = False):
-        self.fix_minor_issues = fix_minor_issues
+    def __init__(self):
         self.errors: List[ValidationError] = []
         self.warnings: List[ValidationError] = []
         self.fixes_applied: List[str] = []
@@ -418,8 +417,6 @@ class KdfResponseValidator:
 def main():
     """Main execution function."""
     parser = argparse.ArgumentParser(description='Validate KDF response JSON files')
-    parser.add_argument('--fix-minor-issues', action='store_true', 
-                       help='Automatically fix minor formatting issues')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Show detailed output including warnings')
     
@@ -433,7 +430,7 @@ def main():
     print("🔍 Validating KDF response files...")
     print(f"📂 Working directory: {os.getcwd()}")
     
-    validator = KdfResponseValidator(fix_minor_issues=args.fix_minor_issues)
+    validator = KdfResponseValidator()
     success, errors, warnings = validator.validate_all()
     
     # Report results
