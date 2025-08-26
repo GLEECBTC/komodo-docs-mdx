@@ -120,7 +120,7 @@ class KdfResponseValidator:
                 return
                 
             # Validate structure
-            self._validate_file_structure(file_path, data, version)
+            self._validate_file_structure(file_path, data)
             
         except Exception as e:
             self.errors.append(ValidationError(
@@ -129,7 +129,7 @@ class KdfResponseValidator:
                 f"Error reading file: {str(e)}"
             ))
 
-    def _validate_file_structure(self, file_path: Path, data: Dict, version: str):
+    def _validate_file_structure(self, file_path: Path, data: Dict):
         """Validate the overall structure of a response file."""
         if not data:
             self.warnings.append(ValidationError(
