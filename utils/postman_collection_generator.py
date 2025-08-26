@@ -583,36 +583,46 @@ pm.test("Capture task_id", function () {{
         return collection
 
     def save_reports(self, reports_dir: Path) -> None:
-        """Save validation reports"""
+        """Save validation reports with consistent alphabetical sorting"""
         # Create reports directory
         reports_dir.mkdir(parents=True, exist_ok=True)
         
         # Save unused parameters report
         if self.unused_params:
+            # Sort keys alphabetically and sort parameter lists within each method
+            sorted_unused = {}
+            for method in sorted(self.unused_params.keys()):
+                sorted_unused[method] = sorted(self.unused_params[method])
+            
             unused_file = reports_dir / "unused_params.json"
             with open(unused_file, 'w') as f:
-                json.dump(self.unused_params, f, indent=2)
+                json.dump(sorted_unused, f, indent=2, sort_keys=True)
             logger.info(f"Unused parameters report saved to {unused_file}")
         
         # Save missing responses report
         if self.missing_responses:
+            # Sort keys alphabetically and sort response lists within each method
+            sorted_missing = {}
+            for method in sorted(self.missing_responses.keys()):
+                sorted_missing[method] = sorted(self.missing_responses[method])
+            
             missing_file = reports_dir / "missing_responses.json"
             with open(missing_file, 'w') as f:
-                json.dump(self.missing_responses, f, indent=2)
+                json.dump(sorted_missing, f, indent=2, sort_keys=True)
             logger.info(f"Missing responses report saved to {missing_file}")
         
         # Save untranslated keys report
         if self.untranslated_keys:
             untranslated_file = reports_dir / "untranslated_keys.json"
             with open(untranslated_file, 'w') as f:
-                json.dump(self.untranslated_keys, f, indent=2)
+                json.dump(sorted(self.untranslated_keys), f, indent=2)
             logger.info(f"Untranslated keys report saved to {untranslated_file}")
         
         # Save missing tables report
         if self.missing_tables:
             missing_tables_file = reports_dir / "missing_tables.json"
             with open(missing_tables_file, 'w') as f:
-                json.dump(self.missing_tables, f, indent=2)
+                json.dump(sorted(self.missing_tables), f, indent=2)
             logger.info(f"Missing tables report saved to {missing_tables_file}")
 
     def generate_and_save(self, base_dir: str) -> None:
