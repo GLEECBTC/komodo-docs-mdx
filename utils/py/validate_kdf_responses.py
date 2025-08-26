@@ -131,14 +131,6 @@ class KdfResponseValidator:
 
     def _validate_file_structure(self, file_path: Path, data: Dict, version: str):
         """Validate the overall structure of a response file."""
-        if not isinstance(data, dict):
-            self.errors.append(ValidationError(
-                str(file_path),
-                "INVALID_STRUCTURE",
-                "Root element must be an object/dictionary"
-            ))
-            return
-            
         if not data:
             self.warnings.append(ValidationError(
                 str(file_path),
