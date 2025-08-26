@@ -1,4 +1,46 @@
 {
+  "task::enable_eth::init": [
+    "TaskEnableEthInitTrezor"
+  ],
+  "task::enable_eth::cancel": [
+    "TaskEnableEthCancel"
+  ],
+  "task::enable_eth::user_action": [
+    "TaskEnableEthUserAction"
+  ],
+  "enable_erc20": [
+    "EnableErc20Basic"
+  ],
+  "enable_tendermint_token": [
+    "EnableTendermintTokenBasic"
+  ],
+  "enable_eth_with_tokens": [
+    "EnableEthWithTokensGasStation",
+    "EnableEthWithTokensMaticBalancesFalse",
+    "EnableEthWithTokensMaticNft",
+    "EnableEthWithTokensWalletConnect"
+  ],
+  "enable_tendermint_with_assets": [
+    "EnableTendermintWithAssetsBalancesFalse",
+    "EnableTendermintWithAssetsBalancesTrue",
+    "EnableTendermintWithAssetsWalletConnect"
+  ],
+  "enable_bch_with_tokens": [
+    "EnableBchWithTokensTxHistory",
+    "EnableBchWithTokensBalancesFalse"
+  ],
+  "task::enable_qtum::init": [
+    "TaskEnableQtumInit"
+  ],
+  "task::enable_qtum::status": [
+    "TaskEnableQtumStatus"
+  ],
+  "task::enable_qtum::user_action": [
+    "TaskEnableQtumUserAction"
+  ],
+  "task::enable_qtum::cancel": [
+    "TaskEnableQtumCancel"
+  ],
   "task::enable_utxo::init": [
     "TaskEnableUtxoInit"
   ],
@@ -11,5 +53,39 @@
   ],
   "task::enable_utxo::cancel": [
     "TaskEnableUtxoCancel"
+  ],
+  "task::enable_tendermint::init": [
+    "TaskEnableTendermintInit"
+  ],
+  "task::enable_tendermint::status": [
+    "TaskEnableTendermintStatus"
+  ],
+  "task::enable_tendermint::user_action": [
+    "TaskEnableTendermintUserAction"
+  ],
+  "task::enable_tendermint::cancel": [
+    "TaskEnableTendermintCancel"
+  ],
+  "task::enable_bch::init": [
+    "TaskEnableBchInit"
+  ],
+  "task::enable_bch::status": [
+    "TaskEnableBchStatus"
+  ],
+  "task::enable_bch::user_action": [
+    "TaskEnableBchUserAction"
+  ],
+  "task::enable_bch::cancel": [
+    "TaskEnableBchCancel"
+  ],
+  "task::enable_z_coin::init": [
+    "TaskEnableZCoinInitBasic",
+    "TaskEnableZCoinInitWithSyncParams"
+  ],
+  "task::enable_z_coin::user_action": [
+    "TaskEnableZCoinUserAction"
+  ],
+  "task::enable_z_coin::cancel": [
+    "TaskEnableZCoinCancel"
   ]
 }

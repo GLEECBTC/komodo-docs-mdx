@@ -1,27 +1,83 @@
 {
   "enable": [
-    "requires_notarization",
-    "urls",
+    "coin",
+    "tx_history",
     "gas_station_policy.policy",
     "gas_station_decimals",
-    "swap_contract_address",
+    "fallback_swap_contract",
     "required_confirmations",
     "mm2",
-    "coin",
-    "fallback_swap_contract",
-    "tx_history"
+    "urls",
+    "swap_contract_address",
+    "requires_notarization"
+  ],
+  "task::enable_eth::init": [
+    "tx_history",
+    "get_balances",
+    "gas_station_policy.policy",
+    "nft_req",
+    "gas_station_decimals",
+    "priv_key_policy",
+    "mm2",
+    "rpc_mode",
+    "requires_notarization"
+  ],
+  "task::enable_eth::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_qtum::init": [
+    "..rpc",
+    ".gap_limit",
+    "activation_params",
+    ".mode",
+    "..rpc_data",
+    ".scan_policy",
+    "....url",
+    ".min_addresses_number",
+    "...servers",
+    ".priv_key_policy",
+    "....disable_cert_verification",
+    "....protocol",
+    "....ws_url"
+  ],
+  "task::enable_qtum::user_action": [
+    "user_action.passphrase"
   ],
   "task::enable_utxo::init": [
-    "requires_notarization",
-    "get_balances",
-    "path_to_address",
-    "scan_blocks_per_iteration",
-    "zcash_params_path",
-    "required_confirmations",
     "tx_history",
-    "scan_interval_ms"
+    "scan_blocks_per_iteration",
+    "get_balances",
+    "zcash_params_path",
+    "scan_interval_ms",
+    "required_confirmations",
+    "path_to_address",
+    "requires_notarization"
   ],
   "task::enable_utxo::user_action": [
     "user_action.pin"
+  ],
+  "task::enable_tendermint::init": [
+    "tx_history",
+    "get_balances",
+    "priv_key_policy",
+    "required_confirmations",
+    "mm2",
+    "requires_notarization"
+  ],
+  "task::enable_tendermint::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_bch::init": [
+    "get_balances",
+    "allow_slp_unsafe_conf"
+  ],
+  "task::enable_bch::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_z_coin::init": [
+    "activation_params"
+  ],
+  "task::enable_z_coin::user_action": [
+    "user_action.passphrase"
   ]
 }

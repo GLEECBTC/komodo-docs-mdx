@@ -564,7 +564,7 @@
       "forget_if_finished": false
     }
   },
-  "TaskEnableUtxoUserAction": {
+  "TaskEnableUtxoUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_utxo::user_action",
@@ -573,6 +573,18 @@
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
+      }
+    }
+  },
+  "TaskEnableUtxoUserActionPass": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::enable_utxo::user_action",
+    "params": {
+      "task_id": 1,
+      "user_action": {
+        "action_type": "TrezorPassphrase",
+        "passphrase": "eureka"
       }
     }
   },

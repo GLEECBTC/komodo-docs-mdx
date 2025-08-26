@@ -1,3 +1,8 @@
 [
-  "test::method"
+  "electrum",
+  "enable_erc20",
+  "enable_tendermint_token",
+  "enable_eth_with_tokens",
+  "enable_tendermint_with_assets",
+  "enable_bch_with_tokens"
 ]
