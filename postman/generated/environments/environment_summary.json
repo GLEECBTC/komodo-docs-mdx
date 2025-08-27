@@ -1,0 +1,312 @@
+{
+  "environments": {
+    "native_hd": {
+      "name": "KDF API (Native + HD)",
+      "description": "Komodo DeFi Framework API for Native environments with HD wallets",
+      "preferred_protocols": {
+        "electrum": [
+          "TCP",
+          "SSL"
+        ],
+        "websocket": [
+          "ws",
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "Native environment with HD wallet support. Includes HD-specific parameters.",
+      "wallet_type": "hd"
+    },
+    "native_iguana": {
+      "name": "KDF API (Native + Iguana)",
+      "description": "Komodo DeFi Framework API for Native environments with Iguana wallets",
+      "preferred_protocols": {
+        "electrum": [
+          "TCP",
+          "SSL"
+        ],
+        "websocket": [
+          "ws",
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "Native environment with legacy Iguana wallet support.",
+      "wallet_type": "iguana"
+    },
+    "wasm_hd": {
+      "name": "KDF API (WASM + HD)",
+      "description": "Komodo DeFi Framework API for WASM environments with HD wallets",
+      "preferred_protocols": {
+        "electrum": [
+          "WSS"
+        ],
+        "websocket": [
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "WASM environment with HD wallet support. WSS protocols only.",
+      "wallet_type": "hd"
+    },
+    "wasm_iguana": {
+      "name": "KDF API (WASM + Iguana)",
+      "description": "Komodo DeFi Framework API for WASM environments with Iguana wallets",
+      "preferred_protocols": {
+        "electrum": [
+          "WSS"
+        ],
+        "websocket": [
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "WASM environment with legacy Iguana wallet support. WSS protocols only.",
+      "wallet_type": "iguana"
+    },
+    "trezor_native_hd": {
+      "name": "KDF API (Native + Trezor + HD)",
+      "description": "Komodo DeFi Framework API for Native with Trezor hardware wallet and HD support",
+      "preferred_protocols": {
+        "electrum": [
+          "TCP",
+          "SSL"
+        ],
+        "websocket": [
+          "ws",
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "Native environment with Trezor hardware wallet and HD wallet support",
+      "hardware": [
+        "trezor"
+      ],
+      "wallet_type": "hd"
+    },
+    "trezor_wasm_hd": {
+      "name": "KDF API (WASM + Trezor + HD)",
+      "description": "Komodo DeFi Framework API for WASM with Trezor hardware wallet and HD support",
+      "preferred_protocols": {
+        "electrum": [
+          "WSS"
+        ],
+        "websocket": [
+          "wss"
+        ]
+      },
+      "base_url": "http://127.0.0.1:7783",
+      "notes": "WASM environment with Trezor hardware wallet and HD wallet support",
+      "hardware": [
+        "trezor"
+      ],
+      "wallet_type": "hd"
+    }
+  },
+  "method_compatibility": {
+    "methods_by_environment": {
+      "native": [
+        "task::enable_utxo::init",
+        "task::enable_utxo::status",
+        "task::enable_utxo::user_action",
+        "task::enable_utxo::cancel",
+        "task::enable_eth::init",
+        "task::enable_eth::status",
+        "task::enable_eth::user_action",
+        "task::enable_eth::cancel",
+        "task::enable_qtum::init",
+        "task::enable_qtum::status",
+        "task::enable_qtum::user_action",
+        "task::enable_qtum::cancel",
+        "task::enable_bch::init",
+        "task::enable_bch::status",
+        "task::enable_bch::user_action",
+        "task::enable_bch::cancel",
+        "task::enable_tendermint::init",
+        "task::enable_tendermint::status",
+        "task::enable_tendermint::user_action",
+        "task::enable_tendermint::cancel",
+        "task::enable_z_coin::init",
+        "task::enable_z_coin::status",
+        "task::enable_z_coin::user_action",
+        "task::enable_z_coin::cancel",
+        "enable"
+      ],
+      "wasm": [
+        "task::enable_utxo::init",
+        "task::enable_utxo::status",
+        "task::enable_utxo::user_action",
+        "task::enable_utxo::cancel",
+        "task::enable_eth::init",
+        "task::enable_eth::status",
+        "task::enable_eth::user_action",
+        "task::enable_eth::cancel",
+        "task::enable_qtum::init",
+        "task::enable_qtum::status",
+        "task::enable_qtum::user_action",
+        "task::enable_qtum::cancel",
+        "task::enable_bch::init",
+        "task::enable_bch::status",
+        "task::enable_bch::user_action",
+        "task::enable_bch::cancel",
+        "task::enable_tendermint::init",
+        "task::enable_tendermint::status",
+        "task::enable_tendermint::user_action",
+        "task::enable_tendermint::cancel",
+        "enable"
+      ]
+    },
+    "hardware_only_methods": [
+      {
+        "method": "task::enable_utxo::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native",
+          "wasm"
+        ]
+      },
+      {
+        "method": "task::enable_eth::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native",
+          "wasm"
+        ]
+      },
+      {
+        "method": "task::enable_qtum::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native",
+          "wasm"
+        ]
+      },
+      {
+        "method": "task::enable_bch::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native",
+          "wasm"
+        ]
+      },
+      {
+        "method": "task::enable_tendermint::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native",
+          "wasm"
+        ]
+      },
+      {
+        "method": "task::enable_z_coin::user_action",
+        "hardware": [
+          "trezor"
+        ],
+        "environments": [
+          "native"
+        ]
+      }
+    ],
+    "environment_restrictions": {
+      "task::enable_z_coin::init": [
+        "native"
+      ],
+      "task::enable_z_coin::status": [
+        "native"
+      ],
+      "task::enable_z_coin::user_action": [
+        "native"
+      ],
+      "task::enable_z_coin::cancel": [
+        "native"
+      ]
+    },
+    "protocol_preferences": {
+      "task::enable_utxo::init": {
+        "electrum": {
+          "native": [
+            "TCP",
+            "SSL"
+          ],
+          "wasm": [
+            "WSS"
+          ]
+        }
+      },
+      "task::enable_eth::init": {
+        "websocket": {
+          "native": [
+            "ws",
+            "wss"
+          ],
+          "wasm": [
+            "wss"
+          ]
+        }
+      },
+      "task::enable_qtum::init": {
+        "electrum": {
+          "native": [
+            "TCP",
+            "SSL"
+          ],
+          "wasm": [
+            "WSS"
+          ]
+        }
+      },
+      "task::enable_bch::init": {
+        "electrum": {
+          "native": [
+            "TCP",
+            "SSL"
+          ],
+          "wasm": [
+            "WSS"
+          ]
+        }
+      },
+      "task::enable_tendermint::init": {
+        "websocket": {
+          "native": [
+            "ws",
+            "wss"
+          ],
+          "wasm": [
+            "wss"
+          ]
+        }
+      },
+      "enable": {
+        "electrum": {
+          "native": [
+            "TCP",
+            "SSL"
+          ],
+          "wasm": [
+            "WSS"
+          ]
+        }
+      }
+    }
+  },
+  "generated_collections": [
+    "native_hd",
+    "native_iguana",
+    "wasm_hd",
+    "wasm_iguana",
+    "trezor_native_hd",
+    "trezor_wasm_hd"
+  ],
+  "generation_timestamp": "2025-08-27T17:01:30.987451"
+}

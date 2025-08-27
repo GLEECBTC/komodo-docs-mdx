@@ -1,0 +1,407 @@
+{
+  "info": {
+    "name": "KDF API (WASM)",
+    "description": "Komodo DeFi Framework API for WASM environments\n\nWebSocket Secure (WSS) protocols only, supports Trezor and MetaMask\n\nSupported Protocols:\n- electrum: WSS\n- websocket: wss",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "kdf-wasm-20250827"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:7783",
+      "type": "string"
+    },
+    {
+      "key": "userpass",
+      "value": "RPC_UserP@SSW0RD",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Task Enable ETH",
+      "item": [
+        {
+          "name": "TaskEnableEthInitTrezor (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_eth::init\",\n  \"params\": {\n    \"ticker\": \"MATIC\",\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"swap_v2_contracts\": {\n      \"taker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"nft_maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\"\n    },\n    \"nodes\": [\n      {\n        \"url\": \"https://node.komodo.earth:8080/polygon\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"PGX-PLG20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"AAVE-PLG20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"path_to_address\": {\n      \"account_id\": 0,\n      \"chain\": \"External\",\n      \"address_id\": 1\n    },\n    \"gap_limit\": 20,\n    \"scan_policy\": \"scan_if_new_wallet\",\n    \"min_addresses_number\": 3\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_eth::init\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only.\n\nProtocol preferences: {'websocket': ['wss']}"
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableEthStatus (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_eth::status\",\n  \"params\": {\n    \"task_id\": 1,\n    \"forget_if_finished\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_eth::status\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableEthCancel (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"method\": \"task::enable_eth::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": 3\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_eth::cancel\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task Enable QTUM",
+      "item": [
+        {
+          "name": "TaskEnableQtumInit (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_qtum::init\",\n  \"params\": {\n    \"ticker\": \"QTUM\",\n    \"activation_params\": {\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"qtum.electrum1.cipig.net:30050\",\n              \"protocol\": \"WSS\"\n            },\n            {\n              \"url\": \"qtum.electrum3.cipig.net:10050\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"qtum.electrum3.cipig.net:30050\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"scan_policy\": \"scan_if_new_wallet\",\n      \"priv_key_policy\": {\n        \"type\": \"Trezor\"\n      },\n      \"min_addresses_number\": 3,\n      \"gap_limit\": 20\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_qtum::init\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only.\n\nProtocol preferences: {'electrum': ['WSS']}"
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableQtumStatus (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_qtum::status\",\n  \"params\": {\n    \"task_id\": 0,\n    \"forget_if_finished\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_qtum::status\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableQtumCancel (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"method\": \"task::enable_qtum::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": 3\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_qtum::cancel\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task Enable UTXO",
+      "item": [
+        {
+          "name": "Initialize UTXO Coin (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_utxo::init\",\n  \"params\": {\n    \"ticker\": \"KMD\",\n    \"activation_params\": {\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"kmd.electrum3.cipig.net:20001\",\n              \"protocol\": \"SSL\"\n            },\n            {\n              \"url\": \"kmd.electrum3.cipig.net:10001\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"kmd.electrum2.cipig.net:30001\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"scan_policy\": \"scan_if_new_wallet\",\n      \"priv_key_policy\": {\n        \"type\": \"Trezor\"\n      },\n      \"min_addresses_number\": 3,\n      \"gap_limit\": 20\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_utxo::init\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only.\n\nProtocol preferences: {'electrum': ['WSS']}"
+          },
+          "response": []
+        },
+        {
+          "name": "Check UTXO Task Status (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_utxo::status\",\n  \"params\": {\n    \"task_id\": 1,\n    \"forget_if_finished\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_utxo::status\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel UTXO Task (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"method\": \"task::enable_utxo::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": 1\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_utxo::cancel\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task Enable TENDERMINT",
+      "item": [
+        {
+          "name": "TaskEnableTendermintInit (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_tendermint::init\",\n  \"params\": {\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ],\n    \"nodes\": [\n      {\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ]\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_tendermint::init\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only.\n\nProtocol preferences: {'websocket': ['wss']}"
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableTendermintStatus (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_tendermint::status\",\n  \"params\": {\n    \"task_id\": 0,\n    \"forget_if_finished\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_tendermint::status\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableTendermintCancel (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"method\": \"task::enable_tendermint::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": 3\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_tendermint::cancel\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task Enable BCH",
+      "item": [
+        {
+          "name": "TaskEnableBchInit (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_bch::init\",\n  \"params\": {\n    \"ticker\": \"BCH\",\n    \"activation_params\": {\n      \"bchd_urls\": [\n        \"https://bchd.dragonhound.info\"\n      ],\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"bch.electrum3.cipig.net:10055\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"bch.electrum3.cipig.net:20055\",\n              \"protocol\": \"SSL\"\n            },\n            {\n              \"url\": \"bch.electrum3.cipig.net:30055\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"slp_tokens_requests\": [\n        {\n          \"ticker\": \"USDF\"\n        },\n        {\n          \"ticker\": \"ASLP-SLP\",\n          \"required_confirmations\": 3\n        }\n      ],\n      \"tx_history\": true,\n      \"required_confirmations\": 5,\n      \"requires_notarization\": false,\n      \"address_format\": {\n        \"format\": \"cashaddress\",\n        \"network\": \"bitcoincash\"\n      },\n      \"utxo_merge_params\": {\n        \"merge_at\": 50,\n        \"check_every\": 10,\n        \"max_merge_at_once\": 25\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_bch::init\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only.\n\nProtocol preferences: {'electrum': ['WSS']}"
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableBchStatus (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_bch::status\",\n  \"params\": {\n    \"task_id\": 0,\n    \"forget_if_finished\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_bch::status\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        },
+        {
+          "name": "TaskEnableBchCancel (Wasm)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userpass\": \"RPC_UserP@SSW0RD\",\n  \"method\": \"task::enable_bch::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": 3\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": [
+                "{{base_url}}"
+              ]
+            },
+            "description": "Method: task::enable_bch::cancel\nEnvironment: Wasm\n\nNote: This request uses WebSocket Secure (WSS) protocols only."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
