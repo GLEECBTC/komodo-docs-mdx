@@ -3,12 +3,30 @@
     "table": "ActivationParams",
     "examples": {
       "TaskEnableUtxoInit": "Initialize UTXO Coin"
+    },
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "electrum": {
+          "native": ["TCP", "SSL"],
+          "wasm": ["WSS"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": []
+      }
     }
   },
   "task::enable_utxo::status": {
     "table": "TaskStatusArguments",
     "examples": {
       "TaskEnableUtxoStatus": "Check UTXO Task Status"
+    },
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
     }
   },
   "task::enable_utxo::user_action": {
@@ -16,98 +34,255 @@
     "examples": {
       "TaskEnableUtxoUserActionPin": "Provide Trezor PIN",
       "TaskEnableUtxoUserActionPass": "Provide Trezor Passphrase"
+    },
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "hardware": ["trezor"],
+      "example_requirements": {
+        "TaskEnableUtxoUserActionPin": {
+          "hardware": ["trezor"]
+        },
+        "TaskEnableUtxoUserActionPass": {
+          "hardware": ["trezor"]
+        }
+      }
     }
   },
   "task::enable_utxo::cancel": {
     "table": "TaskCancelArguments",
     "examples": {
       "TaskEnableUtxoCancel": "Cancel UTXO Task"
+    },
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
     }
   },
   "task::enable_eth::init": {
     "table": "TaskEnableEthArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "websocket": {
+          "native": ["ws", "wss"],
+          "wasm": ["wss"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": ["nft_req"]
+      }
+    }
   },
   "task::enable_eth::status": {
     "table": "TaskStatusArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_eth::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "hardware": ["trezor"]
+    }
   },
   "task::enable_eth::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_qtum::init": {
     "table": "TaskEnableQtumArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "electrum": {
+          "native": ["TCP", "SSL"],
+          "wasm": ["WSS"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": []
+      }
+    }
   },
   "task::enable_qtum::status": {
     "table": "TaskStatusArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_qtum::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "hardware": ["trezor"]
+    }
   },
   "task::enable_qtum::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_bch::init": {
     "table": "TaskEnableBchArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "electrum": {
+          "native": ["TCP", "SSL"],
+          "wasm": ["WSS"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": []
+      }
+    }
   },
   "task::enable_bch::status": {
     "table": "TaskStatusArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_bch::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "hardware": ["trezor"]
+    }
   },
   "task::enable_bch::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_tendermint::init": {
     "table": "TaskEnableTendermintArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "websocket": {
+          "native": ["ws", "wss"],
+          "wasm": ["wss"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": []
+      }
+    }
   },
   "task::enable_tendermint::status": {
     "table": "TaskStatusArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_tendermint::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "hardware": ["trezor"]
+    }
   },
   "task::enable_tendermint::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"]
+    }
   },
   "task::enable_z_coin::init": {
     "table": "TaskEnableZCoinArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native"],
+      "wallet_types": ["iguana"],
+      "notes": "Z-coin activation requires native environment for zcash params and non-HD wallet"
+    }
   },
   "task::enable_z_coin::status": {
     "table": "TaskStatusArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native"],
+      "wallet_types": ["iguana"]
+    }
   },
   "task::enable_z_coin::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native"],
+      "wallet_types": ["iguana"],
+      "hardware": ["trezor"]
+    }
   },
   "task::enable_z_coin::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {}
+    "examples": {},
+    "requirements": {
+      "environments": ["native"],
+      "wallet_types": ["iguana"]
+    }
   },
   "enable": {
     "table": "EnableArguments",
     "examples": {
       "LegacyEnableMatic": "Enable Matic Token (Legacy)"
+    },
+    "requirements": {
+      "environments": ["native", "wasm"],
+      "wallet_types": ["hd", "iguana"],
+      "protocols": {
+        "electrum": {
+          "native": ["TCP", "SSL"],
+          "wasm": ["WSS"]
+        }
+      },
+      "conditional_params": {
+        "hd_only": ["gap_limit", "scan_policy", "min_addresses_number", "path_to_address"],
+        "non_hd_only": []
+      }
     }
   }
 }
