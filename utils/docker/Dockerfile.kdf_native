@@ -1,5 +1,20 @@
+# Multi-stage build for KDF
+FROM rust:1.75 as builder
+
+# Install protobuf compiler
+RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY . .
+
+# Build KDF in release mode
+ENV KDF_BUILD_TAG=docker-build
+RUN cargo build --release
+
+# Runtime stage
 FROM docker.io/debian:stable-slim
 RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 WORKDIR /kdf
-COPY target/release/kdf /usr/local/bin/kdf
+COPY --from=builder /app/target/release/kdf /usr/local/bin/kdf
+EXPOSE 7783
 CMD ["kdf"]

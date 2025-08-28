@@ -89,6 +89,19 @@ jobs:
           # Start services with docker compose (will build KDF containers from source)
           echo "Building and starting KDF containers..."
           docker compose up --build -d kdf-native-hd kdf-native-nonhd
+          
+          # Wait for services to be healthy (extended timeout for build + startup)
+          echo "Waiting for KDF instances to be ready..."
+          timeout 600 bash -c 'until docker compose ps | grep -E "(kdf-native-hd|kdf-native-nonhd)" | grep -q "healthy"; do sleep 15; echo "Still waiting..."; done' || {
+            echo "Services failed to become healthy within timeout"
+            echo "=== Container status ==="
+            docker compose ps
+            echo "=== KDF Native HD logs ==="
+            docker compose logs kdf-native-hd
+            echo "=== KDF Native NonHD logs ==="
+            docker compose logs kdf-native-nonhd
+            exit 1
+          }
 
       - name: Run Postman tests for Native HD
         if: ${{ github.event.inputs.test_environment == 'all' || github.event.inputs.test_environment == 'native_hd' || github.event.inputs.test_environment == '' }}
