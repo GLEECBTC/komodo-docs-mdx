@@ -68,11 +68,15 @@ jobs:
           echo "Building KDF from branch: ${{ env.KDF_BRANCH }}"
           echo "Test environment: ${{ github.event.inputs.test_environment || 'all' }}"
 
-      - name: Build KDF image using official setup
+      - name: Clone and prepare KDF source
         run: |
-          # Use the build script that leverages official KDF Docker setup exclusively
-          # This will fail if official Dockerfiles are not available
-          KDF_BRANCH=${{ env.KDF_BRANCH }} ./utils/docker/build-kdf.sh
+          # Clone KDF repository for building
+          echo "Cloning KDF from branch: ${{ env.KDF_BRANCH }}"
+          rm -rf tmp/kdf-build || true
+          git clone https://github.com/KomodoPlatform/komodo-defi-framework.git tmp/kdf-build
+          cd tmp/kdf-build
+          git checkout ${{ env.KDF_BRANCH }}
+          echo "KDF source prepared at $(pwd)"
           
       - name: Build response processor image
         run: |
@@ -82,17 +86,9 @@ jobs:
 
       - name: Start KDF instances and run tests
         run: |
-          # Start services with docker compose
+          # Start services with docker compose (will build KDF containers from source)
+          echo "Building and starting KDF containers..."
           docker compose up --build -d kdf-native-hd kdf-native-nonhd
-          
-          # Wait for services to be healthy
-          echo "Waiting for KDF instances to be ready..."
-          timeout 300 bash -c 'until docker compose ps | grep -E "(kdf-native-hd|kdf-native-nonhd)" | grep -q "healthy"; do sleep 10; echo "Still waiting..."; done' || {
-            echo "Services failed to become healthy within timeout"
-            docker compose logs kdf-native-hd
-            docker compose logs kdf-native-nonhd
-            exit 1
-          }
 
       - name: Run Postman tests for Native HD
         if: ${{ github.event.inputs.test_environment == 'all' || github.event.inputs.test_environment == 'native_hd' || github.event.inputs.test_environment == '' }}
@@ -237,7 +233,7 @@ jobs:
         if: always()
         run: |
           docker compose down -v || true
-          # Clean up only our specific images (safer than system prune)
-          docker image rm kdf:latest 2>/dev/null || true
+          # Clean up build context and images
+          rm -rf tmp/kdf-build || true
           docker image rm response-processor:latest 2>/dev/null || true
           docker image prune -f --filter "dangling=true" || true
