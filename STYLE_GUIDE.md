@@ -90,12 +90,7 @@ CompactTable uses a source attribute that references table data stored in JSON f
 
 #### Import and Usage
 
-First import the component at the top of your MDX file:
-```jsx
-import CompactTable from '@/components/mdx/CompactTable';
-```
-
-Then use it with a source reference:
+The CompactTable component is globally imported. To use it with a source reference:
 ```jsx
 <CompactTable source="common-structures/activation.ActivationMode" />
 ```
@@ -201,6 +196,77 @@ Also supports sending data directly, but not encouraged.
   ]}
 />
 ```
+
+### KdfResponses Component
+
+The `KdfResponses` component is used to display API responses for Komodo DeFi Framework methods. It automatically generates response examples from centralized JSON data files, ensuring consistency across documentation.
+
+#### How KdfResponses Works
+
+KdfResponses pulls response data from JSON files stored in `/src/data/responses/kdf/`:
+- Response data is organized by subdirectory: `legacy/`, `v2/`, etc.
+- Each JSON file contains multiple response definitions
+- Responses are referenced using the `responseKey` attribute
+
+#### Usage
+
+The KdfResponses component is globally imported already. To use it:
+
+```jsx
+<KdfResponses responseKey="legacy/coin_activation.LegacyElectrumBch" />
+```
+
+#### Response Key Format
+
+The `responseKey` attribute follows this pattern:
+- `directory/filename.responsename`
+- Examples:
+  - `legacy/coin_activation.LegacyElectrumBch`
+  - `legacy/coin_activation.LegacyEnableNative`
+  - `v2/activation.EnableCoinResponse`
+
+#### JSON Data Structure
+
+Response data files are located in `/src/data/responses/kdf/` and follow this structure:
+
+```json
+{
+  "ResponseName": {
+    "type": "success",
+    "title": "Response (successful activation)",
+    "description": "Optional description of the response",
+    "data": {
+      "result": {
+        "address": "RNacVDT8GwQ54CWe5PkEUemLz3WPapEXH9",
+        "balance": "0",
+        "coin": "KMD"
+      }
+    }
+  }
+}
+```
+
+#### When to Use KdfResponses
+
+- **API method responses**: Display standardized response examples
+- **Success responses**: Show expected successful returns
+- **Error responses**: Document potential error states
+- **Multiple response variations**: Different responses based on request parameters
+
+#### Benefits
+
+- **Centralized response management**: Update responses in one place
+- **Consistency**: Ensures uniform response structure across docs
+- **Validation**: JSON schema validation ensures data integrity
+- **Reusability**: Same response data can be referenced from multiple pages
+- **Automatic formatting**: Responses are automatically formatted as JSON code blocks
+
+#### Best Practices
+
+- Place `KdfResponses` immediately after the corresponding `CodeGroup` request example
+- Use descriptive response names that match the method name
+- Include both successful and error responses where applicable
+- Group related responses in the same JSON file
 
 ## Variables
 

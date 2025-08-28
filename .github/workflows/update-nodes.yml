@@ -1,0 +1,156 @@
+name: Update Server Values in Request Examples
+
+on:
+  workflow_dispatch:
+    # Allow manual triggering
+  push:
+    paths:
+      - 'src/data/requests/kdf/**/*.json'
+      - 'utils/py/update_request_nodes.py'
+    branches:
+      - dev
+      - main
+
+jobs:
+  update-nodes:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Create virtual environment
+      run: |
+        python -m venv utils/py/.venv
+        source utils/py/.venv/bin/activate
+        pip install --upgrade pip
+    
+    - name: Find and update request JSON files
+      run: |
+        source utils/py/.venv/bin/activate
+        
+        echo "🔍 Finding request JSON files to update..."
+        updated_files=()
+        
+        # Find all JSON files in the requests directory
+        find src/data/requests/kdf/ -name "*.json" | while read file; do
+          echo "📄 Processing: $file"
+          
+          # Run the update script and capture output
+          if python utils/py/update_request_nodes.py "$file" 2>&1 | grep -q "Successfully updated"; then
+            echo "✅ Updated: $file"
+            echo "$file" >> /tmp/updated_files.txt
+          else
+            echo "ℹ️ No updates needed for: $file"
+          fi
+        done
+        
+        # Read updated files list if it exists
+        if [ -f /tmp/updated_files.txt ]; then
+          echo "📋 Updated files:"
+          cat /tmp/updated_files.txt
+          echo "UPDATED_FILES_COUNT=$(wc -l < /tmp/updated_files.txt)" >> $GITHUB_ENV
+        else
+          echo "UPDATED_FILES_COUNT=0" >> $GITHUB_ENV
+        fi
+    
+    - name: Check for changes
+      id: check-changes
+      run: |
+        if git diff --quiet; then
+          echo "No changes detected"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Show changes
+      if: steps.check-changes.outputs.has_changes == 'true'
+      run: |
+        echo "📊 Changes summary:"
+        git diff --stat
+        echo ""
+        echo "🔍 Detailed changes:"
+        git diff
+    
+    - name: Create Pull Request
+      if: steps.check-changes.outputs.has_changes == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: |
+          🔄 Update server values in request examples
+          
+          - Updated ${{ env.UPDATED_FILES_COUNT }} request file(s) with latest server/node values
+          - Supports ETH/EVM, Tendermint, UTXO, and ZHTLC protocols  
+          - Limits to 3 servers max, prioritizing cipig/komodo domains
+          - Synchronized with coins repository data
+          - Addresses issue #360
+        title: "🔄 Update server values in request examples"
+        body: |
+          ## 📋 Summary
+          
+          This automated PR updates server and node values in documentation request examples to keep them synchronized with the latest data from the [coins repository](https://github.com/KomodoPlatform/coins).
+          
+          ## 🔧 Protocol Support
+          
+          The update script now supports all major coin protocols:
+          - **ETH/EVM**: Updates `nodes` from coins_config `nodes`
+          - **Tendermint**: Updates `nodes` from coins_config `rpc_urls`  
+          - **UTXO**: Updates `servers` from coins_config `electrum`
+          - **ZHTLC**: Updates `light_wallet_d_servers` + `electrum_servers`
+          
+          ## 📊 Server Selection
+          
+          - Limited to **3 servers maximum** for lightweight payloads
+          - **Priority domains**: cipig.net, komodo.earth preferred
+          - **Random selection** when more than 3 servers available
+          
+          ## 📊 Changes
+          
+          - **Files Updated**: ${{ env.UPDATED_FILES_COUNT }}
+          - **Source**: https://raw.githubusercontent.com/KomodoPlatform/coins/master/utils/coins_config.json
+          - **Script**: `utils/py/update_request_nodes.py`
+          
+          ## 🎯 Related Issue
+          
+          Addresses #360 - Keep electrum server values updated in the postman collection
+          
+          ## ✅ Validation
+          
+          - [x] All JSON files remain valid after updates
+          - [x] Only server/node arrays were modified
+          - [x] Original request structure preserved
+          
+          ## 🤖 Automation
+          
+          This PR was created automatically by the `update-nodes.yml` workflow.
+          
+          ---
+          
+          **Note**: Please review the changes to ensure the new server/node values are appropriate before merging.
+        branch: update-nodes-${{ github.run_number }}
+        delete-branch: true
+        labels: |
+          enhancement
+          automated
+          CI/CD
+          P1
+          Important task which needs to be completed soon
+    
+    - name: Summary
+      run: |
+        if [ "${{ steps.check-changes.outputs.has_changes }}" = "true" ]; then
+          echo "🎉 Successfully created PR with updated node values!"
+          echo "📊 Updated ${{ env.UPDATED_FILES_COUNT }} file(s)"
+        else
+          echo "✅ All request files are already up-to-date!"
+        fi

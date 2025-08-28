@@ -6,26 +6,9 @@ export const description =
 
 The `enable_tendermint_token` method allows you to activate additional Tendermint assets. Before using this method, you first need to use the [enable\_tendermint\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/) method.
 
-| parameter                                  | Type    | Description                                                                                        |
-| ------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------- |
-| ticker                                     | string  | Ticker of the Tendermint asset.                                                                    |
-| activation\_params.required\_confirmations | integer | Optional. Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |
+<CompactTable source="v2/coin_activation.EnableTendermintTokenArguments" />
 
-<CodeGroup title="" tag="POST" label="enable_tendermint_token" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_tendermint_token",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ATOM-IBC_IRIS",
-      "activation_params": {
-        "required_confirmations": 3
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_tendermint_token" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintTokenBasic" />
 
 ## Response
 
