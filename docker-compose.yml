@@ -40,8 +40,6 @@ services:
       - kdf-network
     healthcheck:
       test: ["CMD-SHELL", "curl --url 'http://127.0.0.1:8778' --data '{\"method\":\"version\"}' || exit 1"]
-
-
       interval: 30s
       timeout: 10s
       retries: 5
