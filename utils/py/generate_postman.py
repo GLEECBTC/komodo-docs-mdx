@@ -899,7 +899,41 @@ pm.test("Capture task_id", function () {{
     
     # ===== MAIN GENERATION METHODS =====
     
-    def generate_all_collections(self, output_dir: Path) -> Dict[str, str]:
+    def _count_collection_items(self, collection_data: Dict) -> int:
+        """Count the total number of requests in a collection."""
+        count = 0
+        
+        def count_items(items):
+            nonlocal count
+            for item in items:
+                if "request" in item:
+                    count += 1
+                elif "item" in item:
+                    count_items(item["item"])
+        
+        if "item" in collection_data:
+            count_items(collection_data["item"])
+        
+        return count
+    
+    def _count_report_items(self, report_data: Any) -> int:
+        """Count items in a report based on its structure."""
+        if isinstance(report_data, dict):
+            # For reports like missing_responses and unused_params
+            total = 0
+            for key, value in report_data.items():
+                if isinstance(value, list):
+                    total += len(value)
+                else:
+                    total += 1
+            return total
+        elif isinstance(report_data, list):
+            # For reports like untranslated_keys and missing_tables
+            return len(report_data)
+        else:
+            return 1
+    
+    def generate_all_collections(self, output_dir: Path) -> Dict[str, Dict]:
         """Generate all collection types."""
         generated_files = {}
         
@@ -918,7 +952,13 @@ pm.test("Capture task_id", function () {{
         standard_file = standard_dir / "kdf_comprehensive_collection.json"
         with open(standard_file, 'w') as f:
             json.dump(standard_collection, f, indent=2)
-        generated_files["standard"] = str(standard_file)
+        
+        # Count items in standard collection
+        standard_count = self._count_collection_items(standard_collection)
+        generated_files["standard"] = {
+            "file": str(standard_file),
+            "count": standard_count
+        }
         logger.info(f"Standard collection saved to {standard_file}")
         
         # Generate environment-specific collections
@@ -933,23 +973,57 @@ pm.test("Capture task_id", function () {{
             with open(env_file, 'w') as f:
                 json.dump(env_collection, f, indent=2)
             
-            generated_files[environment] = str(env_file)
+            # Count items in environment collection
+            env_count = self._count_collection_items(env_collection)
+            generated_files[environment] = {
+                "file": str(env_file),
+                "count": env_count
+            }
             logger.info(f"Environment collection saved to {env_file}")
         
         # Save reports
         self.save_reports(reports_dir)
         
+        # Prepare reports data with file paths and counts
+        reports_data = {}
+        
+        # Unused params
+        if self.unused_params:
+            unused_params_file = reports_dir / "unused_params.json"
+            reports_data["unused_params"] = {
+                "file": str(unused_params_file),
+                "count": self._count_report_items(self.unused_params)
+            }
+        
+        # Missing responses
+        if self.missing_responses:
+            missing_responses_file = reports_dir / "missing_responses.json"
+            reports_data["missing_responses"] = {
+                "file": str(missing_responses_file),
+                "count": self._count_report_items(self.missing_responses)
+            }
+        
+        # Untranslated keys
+        if self.untranslated_keys:
+            untranslated_keys_file = reports_dir / "untranslated_keys.json"
+            reports_data["untranslated_keys"] = {
+                "file": str(untranslated_keys_file),
+                "count": len(self.untranslated_keys)
+            }
+        
+        # Missing tables
+        if self.missing_tables:
+            missing_tables_file = reports_dir / "missing_tables.json"
+            reports_data["missing_tables"] = {
+                "file": str(missing_tables_file),
+                "count": len(self.missing_tables)
+            }
+        
         # Generate summary
         summary = {
             "generation_timestamp": datetime.now().isoformat(),
             "generated_files": generated_files,
-            "environments": list(env_configs.keys()),
-            "reports": {
-                "unused_params": len(self.unused_params),
-                "missing_responses": len(self.missing_responses),
-                "untranslated_keys": len(self.untranslated_keys),
-                "missing_tables": len(self.missing_tables)
-            }
+            "reports": reports_data
         }
         
         summary_file = output_dir / "generation_summary.json"
@@ -1038,8 +1112,10 @@ Examples:
             generated_files = generator.generate_all_collections(output_dir)
             
             print(f"\n✅ Generated {len(generated_files)} collections:")
-            for collection_type, file_path in generated_files.items():
-                print(f"  {collection_type}: {file_path}")
+            for collection_type, file_info in generated_files.items():
+                file_path = file_info["file"]
+                count = file_info["count"]
+                print(f"  {collection_type}: {file_path} ({count} requests)")
             
             print(f"\n📊 Summary: {output_dir / 'generation_summary.json'}")
             
