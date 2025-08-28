@@ -1,0 +1,5 @@
+FROM docker.io/debian:stable-slim
+RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
+WORKDIR /kdf
+COPY target/release/kdf /usr/local/bin/kdf
+CMD ["kdf"]

@@ -1,0 +1,140 @@
+services:
+  # Native KDF with HD wallet support
+  kdf-native-hd:
+    build:
+      context: tmp/kdf-build
+      dockerfile: ../../utils/docker/Dockerfile.kdf_native
+    container_name: kdf-native-hd
+    ports:
+      - "7783:8779"  # External:Internal port mapping (8779 is configured in MM2.json)
+    volumes:
+      - ./utils/docker/kdf-config-kdf-native-hd/MM2.json:/kdf/MM2.json:ro
+      - ./utils/docker/kdf-config/coins:/kdf/coins:ro
+      - ./utils/docker/kdf-db-native-hd:/kdf/db
+    environment:
+      - RUST_LOG=info
+    networks:
+      - kdf-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl --url 'http://127.0.0.1:8779' --data '{\"method\":\"version\"}' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+  # Native KDF with non-HD wallet support
+  kdf-native-nonhd:
+    build:
+      context: tmp/kdf-build
+      dockerfile: ../../utils/docker/Dockerfile.kdf_native
+    container_name: kdf-native-nonhd
+    ports:
+      - "7784:8778"  # External:Internal port mapping (8778 is configured in MM2.json)
+    volumes:
+      - ./utils/docker/kdf-config-kdf-native-nonhd/MM2.json:/kdf/MM2.json:ro
+      - ./utils/docker/kdf-config/coins:/kdf/coins:ro
+      - ./utils/docker/kdf-db-native-nonhd:/kdf/db
+    environment:
+      - RUST_LOG=info
+    networks:
+      - kdf-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl --url 'http://127.0.0.1:8778' --data '{\"method\":\"version\"}' || exit 1"]
+
+
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+  # Newman test runner for Native HD
+  newman-native-hd:
+    image: postman/newman:latest
+    container_name: newman-native-hd
+    depends_on:
+      kdf-native-hd:
+        condition: service_healthy
+    volumes:
+      - ./postman/generated:/postman:ro
+      - ./test-reports:/var/newman:rw
+    networks:
+      - kdf-network
+    environment:
+      - KDF_BASE_URL=http://kdf-native-hd:8779
+      - WALLET_TYPE=hd
+      - ENVIRONMENT=native_hd
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      mkdir -p /var/newman/native-hd
+      newman run /postman/kdf_postman_collection.json \
+        --environment /postman/environments/kdf_native_hd_collection.json \
+        --reporters cli,json,junit \
+        --reporter-json-export /var/newman/native-hd/results.json \
+        --reporter-junit-export /var/newman/native-hd/results.xml \
+        --timeout 60000 \
+        --delay-request 1000 \
+        --bail folder
+
+  # Newman test runner for Native Non-HD
+  newman-native-nonhd:
+    image: postman/newman:latest
+    container_name: newman-native-nonhd
+    depends_on:
+      kdf-native-nonhd:
+        condition: service_healthy
+    volumes:
+      - ./postman/generated:/postman:ro
+      - ./test-reports:/var/newman:rw
+    networks:
+      - kdf-network
+    environment:
+      - KDF_BASE_URL=http://kdf-native-nonhd:8778
+      - WALLET_TYPE=iguana
+      - ENVIRONMENT=native_iguana
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      mkdir -p /var/newman/native-nonhd
+      newman run /postman/kdf_postman_collection.json \
+        --environment /postman/environments/kdf_native_iguana_collection.json \
+        --reporters cli,json,junit \
+        --reporter-json-export /var/newman/native-nonhd/results.json \
+        --reporter-junit-export /var/newman/native-nonhd/results.xml \
+        --timeout 60000 \
+        --delay-request 1000 \
+        --bail folder
+
+  # Response processor service
+  response-processor:
+    build:
+      context: .
+      dockerfile: utils/docker/Dockerfile.processor
+    container_name: response-processor
+    depends_on:
+      - newman-native-hd
+      - newman-native-nonhd
+    volumes:
+      - ./test-reports:/input:ro
+      - ./postman/reports:/output:rw
+      - ./src/data/responses:/templates:ro
+    networks:
+      - kdf-network
+    environment:
+      - ENVIRONMENT_TYPES=native_hd,native_iguana
+    command:
+      - sh
+      - -c
+      - |
+        python /app/process_responses.py \
+          --input-dir /input \
+          --output-dir /output \
+          --template-dir /templates \
+          --timestamp $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+networks:
+  kdf-network:
+    driver: bridge
+
+volumes:
+  kdf-db-native-hd:
+  kdf-db-native-nonhd:
+  test-reports:

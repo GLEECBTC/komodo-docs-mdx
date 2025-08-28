@@ -8,7 +8,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://127.0.0.1:7783",
+      "value": "http://kdf-native-nonhd:8778",
       "type": "string"
     },
     {

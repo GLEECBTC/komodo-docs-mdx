@@ -1,0 +1,243 @@
+name: KDF Postman API Tests
+
+on:
+  push:
+    branches: ["main", "dev"]
+    paths:
+      - 'postman/**'
+      - 'src/data/responses/**'
+      - '.github/workflows/postman-kdf-tests.yml'
+      - 'docker-compose.yml'
+  pull_request:
+    branches: ["main", "dev"]
+    paths:
+      - 'postman/**'
+      - 'src/data/responses/**'
+      - '.github/workflows/postman-kdf-tests.yml'
+      - 'docker-compose.yml'
+  workflow_dispatch:
+    inputs:
+      test_environment:
+        description: 'Test environment to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - native_hd
+          - native_iguana
+      kdf_branch:
+        description: 'KDF branch to test'
+        required: false
+        default: 'dev'
+        type: string
+
+jobs:
+  kdf-postman-tests:
+    runs-on: ubuntu-22.04
+    
+    env:
+      DOCKER_BUILDKIT: 1
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      KDF_BRANCH: ${{ github.event.inputs.kdf_branch || 'dev' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub (if needed for base images)
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        continue-on-error: true
+
+      - name: Create test reports directory
+        run: |
+          mkdir -p test-reports
+          chmod 777 test-reports
+
+      - name: Display build information
+        run: |
+          echo "Building KDF from branch: ${{ env.KDF_BRANCH }}"
+          echo "Test environment: ${{ github.event.inputs.test_environment || 'all' }}"
+
+      - name: Build KDF image using official setup
+        run: |
+          # Use the build script that leverages official KDF Docker setup exclusively
+          # This will fail if official Dockerfiles are not available
+          KDF_BRANCH=${{ env.KDF_BRANCH }} ./utils/docker/build-kdf.sh
+          
+      - name: Build response processor image
+        run: |
+          # Build response processor image
+          docker build -f utils/docker/Dockerfile.processor \
+            -t response-processor:latest .
+
+      - name: Start KDF instances and run tests
+        run: |
+          # Start services with docker compose
+          docker compose up --build -d kdf-native-hd kdf-native-nonhd
+          
+          # Wait for services to be healthy
+          echo "Waiting for KDF instances to be ready..."
+          timeout 300 bash -c 'until docker compose ps | grep -E "(kdf-native-hd|kdf-native-nonhd)" | grep -q "healthy"; do sleep 10; echo "Still waiting..."; done' || {
+            echo "Services failed to become healthy within timeout"
+            docker compose logs kdf-native-hd
+            docker compose logs kdf-native-nonhd
+            exit 1
+          }
+
+      - name: Run Postman tests for Native HD
+        if: ${{ github.event.inputs.test_environment == 'all' || github.event.inputs.test_environment == 'native_hd' || github.event.inputs.test_environment == '' }}
+        run: |
+          docker compose up --no-deps newman-native-hd
+        continue-on-error: true
+
+      - name: Run Postman tests for Native Iguana
+        if: ${{ github.event.inputs.test_environment == 'all' || github.event.inputs.test_environment == 'native_iguana' || github.event.inputs.test_environment == '' }}
+        run: |
+          docker compose up --no-deps newman-native-nonhd
+        continue-on-error: true
+
+      - name: Process test results
+        run: |
+          docker compose up --no-deps response-processor
+        continue-on-error: true
+
+      - name: Collect logs and results
+        if: always()
+        run: |
+          # Create logs directory
+          mkdir -p logs
+          
+          # Collect container logs
+          docker compose logs kdf-native-hd > logs/kdf-native-hd.log 2>&1 || true
+          docker compose logs kdf-native-nonhd > logs/kdf-native-nonhd.log 2>&1 || true
+          docker compose logs newman-native-hd > logs/newman-native-hd.log 2>&1 || true
+          docker compose logs newman-native-nonhd > logs/newman-native-nonhd.log 2>&1 || true
+          docker compose logs response-processor > logs/response-processor.log 2>&1 || true
+          
+          # List generated files
+          echo "=== Generated test reports ==="
+          find test-reports -type f -ls || echo "No test reports found"
+          
+          echo "=== Generated response reports ==="
+          find postman/reports -type f -name "*.json" -ls || echo "No response reports found"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kdf-postman-test-results-${{ github.run_number }}
+          path: |
+            test-reports/
+            postman/reports/postman_test_results_*.json
+            postman/reports/test_summary_*.json
+            logs/
+          retention-days: 30
+
+      - name: Upload Newman results as GitHub test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: KDF API Tests
+          path: 'test-reports/**/results.xml'
+          reporter: java-junit
+          fail-on-error: false
+
+      - name: Comment on PR with test results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Look for test summary files
+            const summaryFiles = [];
+            const reportsDir = 'postman/reports';
+            
+            if (fs.existsSync(reportsDir)) {
+              const files = fs.readdirSync(reportsDir);
+              summaryFiles.push(...files.filter(f => f.startsWith('test_summary_')));
+            }
+            
+            let commentBody = '## 🧪 KDF API Test Results\n\n';
+            
+            if (summaryFiles.length > 0) {
+              const latestSummary = summaryFiles.sort().pop();
+              const summaryPath = path.join(reportsDir, latestSummary);
+              
+              try {
+                const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+                
+                commentBody += `**Test Run:** ${summary.generated_at}\n`;
+                commentBody += `**Environments Tested:** ${summary.environments_tested}\n`;
+                commentBody += `**Total Methods:** ${summary.total_methods}\n\n`;
+                
+                commentBody += '### Method Test Summary\n\n';
+                commentBody += '| Method | Success | Errors |\n';
+                commentBody += '|--------|---------|--------|\n';
+                
+                for (const [method, stats] of Object.entries(summary.summary_by_method)) {
+                  const successIcon = stats.success_count > 0 ? '✅' : '❌';
+                  const errorIcon = stats.error_count > 0 ? '⚠️' : '✅';
+                  commentBody += `| ${method} | ${successIcon} ${stats.success_count} | ${errorIcon} ${stats.error_count} |\n`;
+                }
+                
+              } catch (e) {
+                commentBody += `Error reading test summary: ${e.message}\n`;
+              }
+            } else {
+              commentBody += '⚠️ No test summary found. Check the workflow logs for details.\n';
+            }
+            
+            commentBody += '\n📊 Full test results are available in the workflow artifacts.\n';
+            
+            // Post or update comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const marker = '<!-- KDF_API_TEST_RESULTS -->';
+            const existing = comments.find(c => 
+              c.user.login === 'github-actions[bot]' && 
+              c.body.includes(marker)
+            );
+            
+            const finalComment = marker + '\n' + commentBody;
+            
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: finalComment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: finalComment
+              });
+            }
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker compose down -v || true
+          # Clean up only our specific images (safer than system prune)
+          docker image rm kdf:latest 2>/dev/null || true
+          docker image rm response-processor:latest 2>/dev/null || true
+          docker image prune -f --filter "dangling=true" || true
