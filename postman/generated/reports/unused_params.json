@@ -1,4 +1,16 @@
 {
+  "electrum": [
+    "coin",
+    "fallback_swap_contract",
+    "max_connected",
+    "min_connected",
+    "mm2",
+    "required_confirmations",
+    "requires_notarization",
+    "servers",
+    "swap_contract_address",
+    "utxo_merge_params"
+  ],
   "enable": [
     "coin",
     "fallback_swap_contract",
@@ -10,6 +22,30 @@
     "swap_contract_address",
     "tx_history",
     "urls"
+  ],
+  "enable_bch_with_tokens": [
+    "address_format",
+    "required_confirmations",
+    "requires_notarization",
+    "utxo_merge_params"
+  ],
+  "enable_erc20": [
+    "activation_params.required_confirmations"
+  ],
+  "enable_eth_with_tokens": [
+    "get_balances",
+    "nft_req",
+    "requires_notarization",
+    "swap_v2_contracts"
+  ],
+  "enable_tendermint_token": [
+    "activation_params.required_confirmations"
+  ],
+  "enable_tendermint_with_assets": [
+    "activation_params",
+    "mm2",
+    "required_confirmations",
+    "requires_notarization"
   ],
   "task::enable_bch::init": [
     "allow_slp_unsafe_conf",
