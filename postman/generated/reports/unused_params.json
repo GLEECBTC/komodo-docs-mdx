@@ -1,0 +1,83 @@
+{
+  "enable": [
+    "coin",
+    "fallback_swap_contract",
+    "gas_station_decimals",
+    "gas_station_policy.policy",
+    "mm2",
+    "required_confirmations",
+    "requires_notarization",
+    "swap_contract_address",
+    "tx_history",
+    "urls"
+  ],
+  "task::enable_bch::init": [
+    "allow_slp_unsafe_conf",
+    "get_balances"
+  ],
+  "task::enable_bch::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_eth::init": [
+    "gas_station_decimals",
+    "gas_station_policy.policy",
+    "get_balances",
+    "mm2",
+    "nft_req",
+    "priv_key_policy",
+    "requires_notarization",
+    "rpc_mode",
+    "tx_history"
+  ],
+  "task::enable_eth::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_qtum::init": [
+    "....disable_cert_verification",
+    "....protocol",
+    "....url",
+    "....ws_url",
+    "...servers",
+    "..rpc",
+    "..rpc_data",
+    ".gap_limit",
+    ".min_addresses_number",
+    ".mode",
+    ".priv_key_policy",
+    ".scan_policy",
+    "activation_params"
+  ],
+  "task::enable_qtum::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_tendermint::init": [
+    "get_balances",
+    "mm2",
+    "priv_key_policy",
+    "required_confirmations",
+    "requires_notarization",
+    "tx_history"
+  ],
+  "task::enable_tendermint::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_utxo::init": [
+    "get_balances",
+    "path_to_address",
+    "required_confirmations",
+    "requires_notarization",
+    "scan_blocks_per_iteration",
+    "scan_interval_ms",
+    "tx_history",
+    "zcash_params_path"
+  ],
+  "task::enable_utxo::user_action": [
+    "user_action.pin"
+  ],
+  "task::enable_z_coin::init": [
+    "activation_params"
+  ],
+  "task::enable_z_coin::user_action": [
+    "user_action.passphrase"
+  ]
+}
