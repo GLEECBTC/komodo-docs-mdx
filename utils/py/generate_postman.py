@@ -897,6 +897,154 @@ pm.test("Capture task_id", function () {{
                 json.dump(sorted(self.missing_tables), f, indent=2)
             logger.info(f"Missing tables report saved to {missing_tables_file}")
     
+    # ===== SELF-REPAIR FUNCTIONALITY =====
+    
+    def discover_missing_methods(self) -> Dict[str, Dict]:
+        """Discover methods in request files that are missing from method config."""
+        missing_methods = {}
+        
+        # Scan all request files to find methods
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            
+            for json_file in version_dir.glob("*.json"):
+                requests_data = self.load_json_file(json_file)
+                if not requests_data:
+                    continue
+                
+                for request_key, request_data in requests_data.items():
+                    method = request_data.get("method")
+                    if method and method not in self.method_config:
+                        if method not in missing_methods:
+                            missing_methods[method] = {
+                                "examples": {},
+                                "version": version_dir.name,
+                                "file": json_file.stem
+                            }
+                        
+                        # Infer a human-readable name for this example
+                        example_name = self._infer_example_name(request_key, method)
+                        missing_methods[method]["examples"][request_key] = example_name
+        
+        return missing_methods
+    
+    def _infer_example_name(self, request_key: str, method: str) -> str:
+        """Infer a human-readable name for a request example."""
+        # Remove common prefixes
+        name = request_key
+        
+        # Convert CamelCase to Title Case with spaces
+        import re
+        name = re.sub(r'([A-Z])', r' \1', name).strip()
+        
+        # Clean up specific patterns
+        name = name.replace("Enable ", "Enable ")
+        name = name.replace("Task ", "")
+        name = name.replace("Legacy ", "")
+        
+        # Add context based on method type
+        if "enable_" in method:
+            if "Init" in request_key:
+                name = name.replace(" Init", " Initialization")
+            elif "Status" in request_key:
+                name = name.replace(" Status", " Status Check")
+            elif "Cancel" in request_key:
+                name = name.replace(" Cancel", " Cancellation")
+            elif "UserAction" in request_key:
+                if "Pin" in request_key:
+                    name = name.replace(" User Action Pin", " (Trezor PIN)")
+                else:
+                    name = name.replace(" User Action", " User Action")
+        
+        return name
+    
+    def _infer_method_requirements(self, method: str, examples: Dict[str, str]) -> Dict[str, Any]:
+        """Infer method requirements based on method name and examples."""
+        requirements = {
+            "environments": ["native", "wasm"],
+            "wallet_types": ["hd", "iguana"]
+        }
+        
+        # Infer environment and wallet compatibility based on method patterns
+        
+        # Stream methods are wasm-only
+        if method.startswith("stream::"):
+            requirements["environments"] = ["wasm"]
+        
+        # Trezor methods require hardware
+        if "trezor" in method.lower() or "::user_action" in method.lower():
+            requirements["wallet_types"] = ["trezor"]
+        
+        # Infer from example patterns
+        for example_key in examples.keys():
+            if "Trezor" in example_key:
+                # Trezor examples indicate hardware wallet requirement
+                requirements["wallet_types"] = ["trezor"]
+            
+            if "WalletConnect" in example_key:
+                if "wallet_types" in requirements:
+                    # WalletConnect typically works with both HD and iguana
+                    pass
+        
+        return requirements
+    
+    def _infer_table_name(self, method: str) -> str:
+        """Infer a table name based on method name."""
+        # Convert method name to a table name
+        table_name = method.replace("::", "_").replace("_", " ").title().replace(" ", "")
+        table_name += "Arguments"
+        return table_name
+    
+    def auto_repair_missing_methods(self, dry_run: bool = True) -> Dict[str, Any]:
+        """Automatically repair missing method configurations."""
+        missing_methods = self.discover_missing_methods()
+        repair_plan = {
+            "discovered_methods": len(missing_methods),
+            "methods": {},
+            "would_add": [] if not dry_run else list(missing_methods.keys())
+        }
+        
+        if not missing_methods:
+            logger.info("No missing methods discovered - configuration is complete!")
+            return repair_plan
+        
+        logger.info(f"Discovered {len(missing_methods)} missing methods")
+        
+        for method, method_info in missing_methods.items():
+            table_name = self._infer_table_name(method)
+            requirements = self._infer_method_requirements(method, method_info["examples"])
+            
+            method_config = {
+                "table": table_name,
+                "examples": method_info["examples"],
+                "requirements": requirements
+            }
+            
+            repair_plan["methods"][method] = method_config
+            
+            if dry_run:
+                logger.info(f"Would add method '{method}' with {len(method_info['examples'])} examples")
+            else:
+                self.method_config[method] = method_config
+                logger.info(f"Added method '{method}' with {len(method_info['examples'])} examples")
+        
+        if not dry_run:
+            self._save_method_config()
+            logger.info(f"Saved updated method configuration with {len(missing_methods)} new methods")
+        
+        return repair_plan
+    
+    def _save_method_config(self):
+        """Save the updated method configuration back to file."""
+        config_file = self.workspace_root / "src" / "data" / "kdf_methods.json"
+        
+        # Sort the methods alphabetically for better organization
+        sorted_config = dict(sorted(self.method_config.items()))
+        
+        with open(config_file, 'w') as f:
+            json.dump(sorted_config, f, indent=2)
+    
     # ===== MAIN GENERATION METHODS =====
     
     def _count_collection_items(self, collection_data: Dict) -> int:
@@ -933,9 +1081,18 @@ pm.test("Capture task_id", function () {{
         else:
             return 1
     
-    def generate_all_collections(self, output_dir: Path) -> Dict[str, Dict]:
+    def generate_all_collections(self, output_dir: Path, auto_repair: bool = False) -> Dict[str, Dict]:
         """Generate all collection types."""
         generated_files = {}
+        
+        # Auto-repair missing method configurations if requested
+        if auto_repair:
+            logger.info("🔧 Running self-repair for missing method configurations...")
+            repair_plan = self.auto_repair_missing_methods(dry_run=False)
+            if repair_plan["discovered_methods"] > 0:
+                logger.info(f"✅ Auto-repaired {repair_plan['discovered_methods']} missing method configurations")
+            else:
+                logger.info("✅ No missing method configurations found")
         
         # Create output directories
         standard_dir = output_dir / "collections"
@@ -1043,6 +1200,12 @@ Examples:
   # Generate all collections (standard + all environments)
   python unified_postman_generator.py --all
   
+  # Generate with auto-repair of missing method configurations
+  python unified_postman_generator.py --all --auto-repair
+  
+  # Check what would be repaired without making changes
+  python unified_postman_generator.py --dry-run-repair
+  
   # Generate only standard comprehensive collection
   python unified_postman_generator.py --standard
   
@@ -1074,6 +1237,11 @@ Examples:
         choices=['native_hd', 'native_iguana', 'wasm_hd', 'wasm_iguana', 'trezor_native_hd', 'trezor_wasm_hd'],
         help="Generate specific environment collection"
     )
+    mode_group.add_argument(
+        '--dry-run-repair',
+        action='store_true',
+        help="Show what would be repaired without making changes"
+    )
     
     # Optional arguments
     parser.add_argument(
@@ -1088,6 +1256,11 @@ Examples:
         '--verbose', '-v',
         action='store_true',
         help="Enable verbose output"
+    )
+    parser.add_argument(
+        '--auto-repair',
+        action='store_true',
+        help="Automatically repair missing method configurations"
     )
     
     args = parser.parse_args()
@@ -1107,9 +1280,24 @@ Examples:
         
         output_dir.mkdir(parents=True, exist_ok=True)
         
+        # Handle dry-run repair mode
+        if args.dry_run_repair:
+            print("🔍 Checking for missing method configurations...")
+            repair_plan = generator.auto_repair_missing_methods(dry_run=True)
+            
+            if repair_plan["discovered_methods"] == 0:
+                print("✅ No missing method configurations found!")
+            else:
+                print(f"📋 Found {repair_plan['discovered_methods']} missing method configurations:")
+                for method in repair_plan["would_add"]:
+                    examples_count = len(repair_plan["methods"][method]["examples"])
+                    print(f"  • {method} (with {examples_count} examples)")
+                print(f"\nTo apply these fixes, run with --auto-repair")
+            return
+        
         if args.all:
             print("🚀 Generating all collections...")
-            generated_files = generator.generate_all_collections(output_dir)
+            generated_files = generator.generate_all_collections(output_dir, auto_repair=args.auto_repair)
             
             print(f"\n✅ Generated {len(generated_files)} collections:")
             for collection_type, file_info in generated_files.items():
