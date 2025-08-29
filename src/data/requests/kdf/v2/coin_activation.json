@@ -65,7 +65,7 @@
       "task_id": 3
     }
   },
-  "TaskEnableEthUserAction": {
+  "TaskEnableEthUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_eth::user_action",
@@ -500,7 +500,7 @@
       "forget_if_finished": false
     }
   },
-  "TaskEnableQtumUserAction": {
+  "TaskEnableQtumUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_qtum::user_action",
@@ -576,18 +576,6 @@
       }
     }
   },
-  "TaskEnableUtxoUserActionPass": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_utxo::user_action",
-    "params": {
-      "task_id": 1,
-      "user_action": {
-        "action_type": "TrezorPassphrase",
-        "passphrase": "eureka"
-      }
-    }
-  },
   "TaskEnableUtxoCancel": {
     "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_utxo::cancel",
@@ -629,7 +617,7 @@
       "forget_if_finished": false
     }
   },
-  "TaskEnableTendermintUserAction": {
+  "TaskEnableTendermintUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_tendermint::user_action",
@@ -711,7 +699,7 @@
       "forget_if_finished": false
     }
   },
-  "TaskEnableBchUserAction": {
+  "TaskEnableBchUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_bch::user_action",
@@ -813,7 +801,7 @@
       "forget_if_finished": false
     }
   },
-  "TaskEnableZCoinUserAction": {
+  "TaskEnableZCoinUserActionPin": {
     "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "method": "task::enable_z_coin::user_action",

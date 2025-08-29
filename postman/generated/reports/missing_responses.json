@@ -30,7 +30,7 @@
     "TaskEnableBchStatus"
   ],
   "task::enable_bch::user_action": [
-    "TaskEnableBchUserAction"
+    "TaskEnableBchUserActionPin"
   ],
   "task::enable_eth::cancel": [
     "TaskEnableEthCancel"
@@ -39,7 +39,7 @@
     "TaskEnableEthInitTrezor"
   ],
   "task::enable_eth::user_action": [
-    "TaskEnableEthUserAction"
+    "TaskEnableEthUserActionPin"
   ],
   "task::enable_qtum::cancel": [
     "TaskEnableQtumCancel"
@@ -51,7 +51,7 @@
     "TaskEnableQtumStatus"
   ],
   "task::enable_qtum::user_action": [
-    "TaskEnableQtumUserAction"
+    "TaskEnableQtumUserActionPin"
   ],
   "task::enable_tendermint::cancel": [
     "TaskEnableTendermintCancel"
@@ -63,7 +63,7 @@
     "TaskEnableTendermintStatus"
   ],
   "task::enable_tendermint::user_action": [
-    "TaskEnableTendermintUserAction"
+    "TaskEnableTendermintUserActionPin"
   ],
   "task::enable_utxo::cancel": [
     "TaskEnableUtxoCancel"
@@ -75,7 +75,6 @@
     "TaskEnableUtxoStatus"
   ],
   "task::enable_utxo::user_action": [
-    "TaskEnableUtxoUserActionPass",
     "TaskEnableUtxoUserActionPin"
   ],
   "task::enable_z_coin::cancel": [
@@ -86,6 +85,6 @@
     "TaskEnableZCoinInitWithSyncParams"
   ],
   "task::enable_z_coin::user_action": [
-    "TaskEnableZCoinUserAction"
+    "TaskEnableZCoinUserActionPin"
   ]
 }
