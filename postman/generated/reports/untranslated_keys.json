@@ -1,9 +1,1 @@
-[
-  "LegacyEnableBnb",
-  "LegacyEnableEthGasStation",
-  "LegacyEnableNative",
-  "LegacyEnableNativeWithParams",
-  "TaskEnableEthInitTrezor",
-  "TaskEnableZCoinInitBasic",
-  "TaskEnableZCoinInitWithSyncParams"
-]
+[]

@@ -1,5 +1,5 @@
 {
-  "generation_timestamp": "2025-08-29T11:49:55.864481",
+  "generation_timestamp": "2025-08-29T18:40:52.728426",
   "generated_files": {
     "standard": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/collections/kdf_comprehensive_collection.json",
@@ -7,19 +7,19 @@
     },
     "native_hd": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/environments/kdf_native_hd_collection.json",
-      "count": 15
+      "count": 26
     },
     "native_iguana": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/environments/kdf_native_iguana_collection.json",
-      "count": 19
+      "count": 30
     },
     "wasm_hd": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/environments/kdf_wasm_hd_collection.json",
-      "count": 15
+      "count": 26
     },
     "wasm_iguana": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/environments/kdf_wasm_iguana_collection.json",
-      "count": 15
+      "count": 26
     },
     "trezor_native_hd": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/environments/kdf_trezor_native_hd_collection.json",
@@ -33,7 +33,7 @@
   "reports": {
     "unused_params": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/unused_params.json",
-      "count": 55
+      "count": 79
     },
     "missing_responses": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/missing_responses.json",
@@ -41,11 +41,11 @@
     },
     "untranslated_keys": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/untranslated_keys.json",
-      "count": 21
+      "count": 0
     },
     "missing_tables": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/missing_tables.json",
-      "count": 6
+      "count": 0
     }
   }
 }

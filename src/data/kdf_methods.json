@@ -21,7 +21,11 @@
     "table": "EnableArguments",
     "examples": {
       "LegacyEnableMatic": "Enable Matic Token (Legacy)",
-      "LegacyEnableEth": "Enable Ethereum Token (Legacy)"
+      "LegacyEnableEth": "Enable Ethereum Token (Legacy)",
+      "LegacyEnableBnb": "Enable BNB Token (Legacy)",
+      "LegacyEnableEthGasStation": "Enable Ethereum Token (Legacy) with Gas Station",
+      "LegacyEnableNative": "Enable UTXO coin with local blockchain data",
+      "LegacyEnableNativeWithParams": "Enable UTXO coin with local blockchain data with basic parameters"
     },
     "requirements": {
       "environments": [
@@ -224,7 +228,8 @@
   "task::enable_eth::init": {
     "table": "TaskEnableEthArguments",
     "examples": {
-      "TaskEnableEthInit": "Initialize EVM coin (ETH, AVAX, etc.)"
+      "TaskEnableEthInit": "Initialize EVM coin (ETH, AVAX, etc.)",
+      "TaskEnableEthInitTrezor": "Initialize EVM coin (ETH, AVAX, etc.) with Trezor"
     },
     "requirements": {
       "environments": [
@@ -535,7 +540,9 @@
   "task::enable_z_coin::init": {
     "table": "TaskEnableZCoinArguments",
     "examples": {
-      "TaskEnableZCoinInit": "Initialize Z-coin"
+      "TaskEnableZCoinInit": "Initialize Z-coin",
+      "TaskEnableZCoinInitWithSyncParams": "Initialize Z-coin with sync params",
+      "TaskEnableZCoinInitBasic": "Initialize Z-coin with basic params"
     },
     "requirements": {
       "environments": [

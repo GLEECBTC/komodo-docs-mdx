@@ -858,44 +858,47 @@ pm.test("Capture task_id", function () {{
     # ===== REPORTS =====
     
     def save_reports(self, reports_dir: Path) -> None:
-        """Save validation reports with consistent alphabetical sorting."""
+        """Save validation reports with consistent alphabetical sorting.
+        
+        Always writes all report files, even if empty, to indicate current state.
+        """
         reports_dir.mkdir(parents=True, exist_ok=True)
         
-        # Save unused parameters report
+        # Save unused parameters report (always)
+        sorted_unused = {}
         if self.unused_params:
-            sorted_unused = {}
             for method in sorted(self.unused_params.keys()):
                 sorted_unused[method] = sorted(self.unused_params[method])
-            
-            unused_file = reports_dir / "unused_params.json"
-            with open(unused_file, 'w') as f:
-                json.dump(sorted_unused, f, indent=2, sort_keys=True)
-            logger.info(f"Unused parameters report saved to {unused_file}")
         
-        # Save missing responses report
+        unused_file = reports_dir / "unused_params.json"
+        with open(unused_file, 'w') as f:
+            json.dump(sorted_unused, f, indent=2, sort_keys=True)
+        logger.info(f"Unused parameters report saved to {unused_file}")
+        
+        # Save missing responses report (always)
+        sorted_missing = {}
         if self.missing_responses:
-            sorted_missing = {}
             for method in sorted(self.missing_responses.keys()):
                 sorted_missing[method] = sorted(self.missing_responses[method])
-            
-            missing_file = reports_dir / "missing_responses.json"
-            with open(missing_file, 'w') as f:
-                json.dump(sorted_missing, f, indent=2, sort_keys=True)
-            logger.info(f"Missing responses report saved to {missing_file}")
         
-        # Save untranslated keys report
-        if self.untranslated_keys:
-            untranslated_file = reports_dir / "untranslated_keys.json"
-            with open(untranslated_file, 'w') as f:
-                json.dump(sorted(self.untranslated_keys), f, indent=2)
-            logger.info(f"Untranslated keys report saved to {untranslated_file}")
+        missing_file = reports_dir / "missing_responses.json"
+        with open(missing_file, 'w') as f:
+            json.dump(sorted_missing, f, indent=2, sort_keys=True)
+        logger.info(f"Missing responses report saved to {missing_file}")
         
-        # Save missing tables report
-        if self.missing_tables:
-            missing_tables_file = reports_dir / "missing_tables.json"
-            with open(missing_tables_file, 'w') as f:
-                json.dump(sorted(self.missing_tables), f, indent=2)
-            logger.info(f"Missing tables report saved to {missing_tables_file}")
+        # Save untranslated keys report (always)
+        untranslated_list = sorted(self.untranslated_keys) if self.untranslated_keys else []
+        untranslated_file = reports_dir / "untranslated_keys.json"
+        with open(untranslated_file, 'w') as f:
+            json.dump(untranslated_list, f, indent=2)
+        logger.info(f"Untranslated keys report saved to {untranslated_file}")
+        
+        # Save missing tables report (always)
+        missing_tables_list = sorted(self.missing_tables) if self.missing_tables else []
+        missing_tables_file = reports_dir / "missing_tables.json"
+        with open(missing_tables_file, 'w') as f:
+            json.dump(missing_tables_list, f, indent=2)
+        logger.info(f"Missing tables report saved to {missing_tables_file}")
     
     # ===== SELF-REPAIR FUNCTIONALITY =====
     
@@ -1141,40 +1144,36 @@ pm.test("Capture task_id", function () {{
         # Save reports
         self.save_reports(reports_dir)
         
-        # Prepare reports data with file paths and counts
+        # Prepare reports data with file paths and counts (always include all reports)
         reports_data = {}
         
-        # Unused params
-        if self.unused_params:
-            unused_params_file = reports_dir / "unused_params.json"
-            reports_data["unused_params"] = {
-                "file": str(unused_params_file),
-                "count": self._count_report_items(self.unused_params)
-            }
+        # Unused params (always)
+        unused_params_file = reports_dir / "unused_params.json"
+        reports_data["unused_params"] = {
+            "file": str(unused_params_file),
+            "count": self._count_report_items(self.unused_params) if self.unused_params else 0
+        }
         
-        # Missing responses
-        if self.missing_responses:
-            missing_responses_file = reports_dir / "missing_responses.json"
-            reports_data["missing_responses"] = {
-                "file": str(missing_responses_file),
-                "count": self._count_report_items(self.missing_responses)
-            }
+        # Missing responses (always)
+        missing_responses_file = reports_dir / "missing_responses.json"
+        reports_data["missing_responses"] = {
+            "file": str(missing_responses_file),
+            "count": self._count_report_items(self.missing_responses) if self.missing_responses else 0
+        }
         
-        # Untranslated keys
-        if self.untranslated_keys:
-            untranslated_keys_file = reports_dir / "untranslated_keys.json"
-            reports_data["untranslated_keys"] = {
-                "file": str(untranslated_keys_file),
-                "count": len(self.untranslated_keys)
-            }
+        # Untranslated keys (always)
+        untranslated_keys_file = reports_dir / "untranslated_keys.json"
+        reports_data["untranslated_keys"] = {
+            "file": str(untranslated_keys_file),
+            "count": len(self.untranslated_keys) if self.untranslated_keys else 0
+        }
         
-        # Missing tables
-        if self.missing_tables:
-            missing_tables_file = reports_dir / "missing_tables.json"
-            reports_data["missing_tables"] = {
-                "file": str(missing_tables_file),
-                "count": len(self.missing_tables)
-            }
+        # Missing tables (always)
+        missing_tables_file = reports_dir / "missing_tables.json"
+        reports_data["missing_tables"] = {
+            "file": str(missing_tables_file),
+            "count": len(self.missing_tables) if self.missing_tables else 0
+        }
         
         # Generate summary
         summary = {
