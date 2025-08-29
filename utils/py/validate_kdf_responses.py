@@ -43,6 +43,7 @@ class KdfResponseValidator:
         self.errors: List[ValidationError] = []
         self.warnings: List[ValidationError] = []
         self.fixes_applied: List[str] = []
+        self.common_responses: Dict[str, Dict] = {}
         
         # Valid response types
         self.valid_response_types = {'success', 'error'}
@@ -62,6 +63,9 @@ class KdfResponseValidator:
             ))
             return False, self.errors, self.warnings
             
+        # Load common responses first
+        self._load_common_responses(base_path)
+            
         # Validate legacy and v2 directories
         for version in ['legacy', 'v2']:
             version_path = base_path / version
@@ -78,6 +82,41 @@ class KdfResponseValidator:
         self._validate_request_response_alignment()
         
         return len(self.errors) == 0, self.errors, self.warnings
+
+    def _load_common_responses(self, base_path: Path):
+        """Load common responses from common.json."""
+        common_file = base_path / 'common.json'
+        if common_file.exists():
+            try:
+                with open(common_file, 'r', encoding='utf-8') as f:
+                    self.common_responses = json.load(f)
+            except (json.JSONDecodeError, Exception) as e:
+                self.warnings.append(ValidationError(
+                    str(common_file),
+                    "COMMON_RESPONSES_LOAD_ERROR",
+                    f"Failed to load common responses: {str(e)}"
+                ))
+
+    def resolve_response_reference(self, response_value: Any) -> Any:
+        """Resolve response references to common responses."""
+        if isinstance(response_value, str) and response_value in self.common_responses:
+            return self.common_responses[response_value]
+        elif isinstance(response_value, list):
+            resolved_list = []
+            for item in response_value:
+                if isinstance(item, str) and item in self.common_responses:
+                    resolved_list.append(self.common_responses[item])
+                else:
+                    resolved_list.append(item)
+            return resolved_list
+        elif isinstance(response_value, dict):
+            # Recursively resolve references in dictionaries
+            resolved_dict = {}
+            for key, value in response_value.items():
+                resolved_dict[key] = self.resolve_response_reference(value)
+            return resolved_dict
+        else:
+            return response_value
 
     def _validate_directory(self, dir_path: Path, version: str):
         """Validate all JSON files in a directory."""
@@ -142,7 +181,9 @@ class KdfResponseValidator:
         # Validate each request key and its responses
         for request_key, responses in data.items():
             self._validate_request_key(file_path, request_key)
-            self._validate_response_structure(file_path, request_key, responses)
+            # Resolve common response references before validation
+            resolved_responses = self.resolve_response_reference(responses)
+            self._validate_response_structure(file_path, request_key, resolved_responses)
 
     def _validate_request_key(self, file_path: Path, request_key: str):
         """Validate request key naming convention."""
