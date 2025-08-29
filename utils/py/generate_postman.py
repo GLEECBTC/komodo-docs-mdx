@@ -1116,7 +1116,7 @@ pm.test("Capture task_id", function () {{
         # Count items in standard collection
         standard_count = self._count_collection_items(standard_collection)
         generated_files["standard"] = {
-            "file": str(standard_file),
+            "file": str(standard_file.relative_to(self.workspace_root)),
             "count": standard_count
         }
         logger.info(f"Standard collection saved to {standard_file}")
@@ -1136,7 +1136,7 @@ pm.test("Capture task_id", function () {{
             # Count items in environment collection
             env_count = self._count_collection_items(env_collection)
             generated_files[environment] = {
-                "file": str(env_file),
+                "file": str(env_file.relative_to(self.workspace_root)),
                 "count": env_count
             }
             logger.info(f"Environment collection saved to {env_file}")
@@ -1150,28 +1150,28 @@ pm.test("Capture task_id", function () {{
         # Unused params (always)
         unused_params_file = reports_dir / "unused_params.json"
         reports_data["unused_params"] = {
-            "file": str(unused_params_file),
+            "file": str(unused_params_file.relative_to(self.workspace_root)),
             "count": self._count_report_items(self.unused_params) if self.unused_params else 0
         }
         
         # Missing responses (always)
         missing_responses_file = reports_dir / "missing_responses.json"
         reports_data["missing_responses"] = {
-            "file": str(missing_responses_file),
+            "file": str(missing_responses_file.relative_to(self.workspace_root)),
             "count": self._count_report_items(self.missing_responses) if self.missing_responses else 0
         }
         
         # Untranslated keys (always)
         untranslated_keys_file = reports_dir / "untranslated_keys.json"
         reports_data["untranslated_keys"] = {
-            "file": str(untranslated_keys_file),
+            "file": str(untranslated_keys_file.relative_to(self.workspace_root)),
             "count": len(self.untranslated_keys) if self.untranslated_keys else 0
         }
         
         # Missing tables (always)
         missing_tables_file = reports_dir / "missing_tables.json"
         reports_data["missing_tables"] = {
-            "file": str(missing_tables_file),
+            "file": str(missing_tables_file.relative_to(self.workspace_root)),
             "count": len(self.missing_tables) if self.missing_tables else 0
         }
         
