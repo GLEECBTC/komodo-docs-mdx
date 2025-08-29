@@ -72,7 +72,7 @@
     "zcash_params_path"
   ],
   "task::enable_utxo::user_action": [
-    "user_action.pin"
+    "user_action.passphrase"
   ],
   "task::enable_z_coin::init": [
     "activation_params"

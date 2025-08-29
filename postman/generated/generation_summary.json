@@ -1,5 +1,5 @@
 {
-  "generation_timestamp": "2025-08-29T02:34:24.214693",
+  "generation_timestamp": "2025-08-29T11:49:55.864481",
   "generated_files": {
     "standard": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/collections/kdf_comprehensive_collection.json",
@@ -37,11 +37,11 @@
     },
     "missing_responses": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/missing_responses.json",
-      "count": 35
+      "count": 34
     },
     "untranslated_keys": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/untranslated_keys.json",
-      "count": 40
+      "count": 21
     },
     "missing_tables": {
       "file": "/home/smk/GITHUB/KP/komodo-docs-mdx/postman/generated/reports/missing_tables.json",

@@ -32,8 +32,7 @@
   "task::enable_utxo::user_action": {
     "table": "TaskUserActionArguments",
     "examples": {
-      "TaskEnableUtxoUserActionPin": "Provide Trezor PIN",
-      "TaskEnableUtxoUserActionPass": "Provide Trezor Passphrase"
+      "TaskEnableUtxoUserActionPin": "Provide Trezor PIN"
     },
     "requirements": {
       "environments": ["native", "wasm"],
@@ -42,9 +41,6 @@
       "example_requirements": {
         "TaskEnableUtxoUserActionPin": {
           "hardware": ["trezor"]
-        },
-        "TaskEnableUtxoUserActionPass": {
-          "hardware": ["trezor"]
         }
       }
     }
@@ -52,7 +48,7 @@
   "task::enable_utxo::cancel": {
     "table": "TaskCancelArguments",
     "examples": {
-      "TaskEnableUtxoCancel": "Cancel UTXO Task"
+      "TaskEnableUtxoCancel": "Cancel UTXO Activation Task"
     },
     "requirements": {
       "environments": ["native", "wasm"],
@@ -61,7 +57,9 @@
   },
   "task::enable_eth::init": {
     "table": "TaskEnableEthArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableEthInit": "Initialize EVM coin (ETH, AVAX, etc.)"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -79,7 +77,9 @@
   },
   "task::enable_eth::status": {
     "table": "TaskStatusArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableEthStatus": "Check EVM Task Status"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -87,7 +87,9 @@
   },
   "task::enable_eth::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableEthUserActionPin": "Provide Trezor PIN"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -96,7 +98,9 @@
   },
   "task::enable_eth::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableEthCancel": "Cancel EVM Activation Task"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -104,7 +108,9 @@
   },
   "task::enable_qtum::init": {
     "table": "TaskEnableQtumArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableQtumInit": "Initialize Qtum"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -122,7 +128,9 @@
   },
   "task::enable_qtum::status": {
     "table": "TaskStatusArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableQtumStatus": "Check Qtum Activation Task Status"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -130,7 +138,9 @@
   },
   "task::enable_qtum::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableQtumUserActionPin": "Provide Trezor PIN"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -139,7 +149,9 @@
   },
   "task::enable_qtum::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableQtumCancel": "Cancel Qtum Activation Task"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -147,7 +159,9 @@
   },
   "task::enable_bch::init": {
     "table": "TaskEnableBchArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableBchInit": "Initialize Bitcoin Cash"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -165,7 +179,9 @@
   },
   "task::enable_bch::status": {
     "table": "TaskStatusArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableBchStatus": "Check Bitcoin Cash Activation Task Status"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -173,7 +189,9 @@
   },
   "task::enable_bch::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableBchUserActionPin": "Provide Trezor PIN"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -182,7 +200,9 @@
   },
   "task::enable_bch::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableBchCancel": "Cancel Bitcoin Cash Activation Task"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -190,7 +210,9 @@
   },
   "task::enable_tendermint::init": {
     "table": "TaskEnableTendermintArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableTendermintInit": "Initialize Tendermint Coin"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -208,7 +230,9 @@
   },
   "task::enable_tendermint::status": {
     "table": "TaskStatusArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableTendermintStatus": "Check Tendermint Activation Task Status"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -216,7 +240,9 @@
   },
   "task::enable_tendermint::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableTendermintUserActionPin": "Provide Trezor PIN"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"],
@@ -225,7 +251,9 @@
   },
   "task::enable_tendermint::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableTendermintCancel": "Cancel Tendermint Activation Task"
+    },
     "requirements": {
       "environments": ["native", "wasm"],
       "wallet_types": ["hd", "iguana"]
@@ -233,7 +261,9 @@
   },
   "task::enable_z_coin::init": {
     "table": "TaskEnableZCoinArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableZCoinInit": "Initialize Z-coin"
+    },
     "requirements": {
       "environments": ["native"],
       "wallet_types": ["iguana"],
@@ -242,7 +272,9 @@
   },
   "task::enable_z_coin::status": {
     "table": "TaskStatusArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableZCoinStatus": "Check Z-coin Activation Task Status"
+    },
     "requirements": {
       "environments": ["native"],
       "wallet_types": ["iguana"]
@@ -250,7 +282,9 @@
   },
   "task::enable_z_coin::user_action": {
     "table": "TaskUserActionArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableZCoinUserActionPin": "Provide Trezor PIN"
+    },
     "requirements": {
       "environments": ["native"],
       "wallet_types": ["iguana"],
@@ -259,7 +293,9 @@
   },
   "task::enable_z_coin::cancel": {
     "table": "TaskCancelArguments",
-    "examples": {},
+    "examples": {
+      "TaskEnableZCoinCancel": "Cancel Z-coin Activation Task"
+    },
     "requirements": {
       "environments": ["native"],
       "wallet_types": ["iguana"]
@@ -268,7 +304,8 @@
   "enable": {
     "table": "EnableArguments",
     "examples": {
-      "LegacyEnableMatic": "Enable Matic Token (Legacy)"
+      "LegacyEnableMatic": "Enable Matic Token (Legacy)",
+      "LegacyEnableEth": "Enable Ethereum Token (Legacy)"
     },
     "requirements": {
       "environments": ["native", "wasm"],
