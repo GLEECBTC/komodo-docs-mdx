@@ -1,4 +1,231 @@
 {
+  "EnableErc20Basic": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container (enhanced)",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "ETH",
+            "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef",
+            "required_confirmations": 3
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "EnableTendermintWithAssetsBalancesFalse": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "ticker": "IRIS",
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "current_block": 31622007,
+            "tokens_tickers": [
+              "ATOM-IBC_IRIS"
+            ]
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "EnableTendermintWithAssetsBalancesTrue": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "ticker": "IRIS",
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "current_block": 31625317,
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableEthStatus": {
+    "success": [
+      {
+        "title": "InProgress - ActivatingCoin",
+        "notes": "",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress",
+            "details": "ActivatingCoin"
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": [
+      "NoSuchTask"
+    ]
+  },
+  "TaskEnableTendermintInit": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 1
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableTendermintStatus": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Ok",
+            "details": {
+              "ticker": "IRIS",
+              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+              "current_block": 31625315,
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableTendermintStatus_2": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Ok",
+            "details": {
+              "ticker": "IRIS",
+              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+              "current_block": 31625318,
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableUtxoCancel": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container (enhanced)",
+        "json": {
+          "mmrpc": "2.0",
+          "result": "success",
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableUtxoStatus": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container (enhanced)",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "InProgress",
+            "details": "ActivatingCoin"
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableZCoinCancel": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container (enhanced)",
+        "json": {
+          "mmrpc": "2.0",
+          "result": "success",
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableZCoinInitBasic": {
+    "success": [
+      "SuccessTaskId"
+    ],
+    "error": []
+  },
+  "TaskEnableZCoinInitWithSyncParams": {
+    "success": [
+      "SuccessTaskId"
+    ],
+    "error": []
+  },
   "TaskEnableZCoinStatus": {
     "success": [
       {
@@ -121,25 +348,6 @@
           "id": null
         }
       }
-    ]
-  },
-  "TaskEnableEthStatus": {
-    "success": [
-      {
-        "title": "InProgress - ActivatingCoin",
-        "notes": "",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "InProgress", 
-            "details": "ActivatingCoin"
-          },
-          "id": null
-        }
-      }
-    ],
-    "error": [
-      "NoSuchTask"
     ]
   }
 }

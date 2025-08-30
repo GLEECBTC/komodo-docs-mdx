@@ -11,5 +11,16 @@
             "error_data": 1,
             "id": null
         }
-    }
+    },
+    "SuccessTaskId": {
+        "title": "Success",
+        "notes": "Response collected automatically via Docker container",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 0
+          },
+          "id": null
+        }
+      }
 }

@@ -3,9 +3,6 @@
     "EnableBchWithTokensBalancesFalse",
     "EnableBchWithTokensTxHistory"
   ],
-  "enable_erc20": [
-    "EnableErc20Basic"
-  ],
   "enable_eth_with_tokens": [
     "EnableEthWithTokensGasStation",
     "EnableEthWithTokensMaticBalancesFalse",
@@ -16,8 +13,6 @@
     "EnableTendermintTokenBasic"
   ],
   "enable_tendermint_with_assets": [
-    "EnableTendermintWithAssetsBalancesFalse",
-    "EnableTendermintWithAssetsBalancesTrue",
     "EnableTendermintWithAssetsWalletConnect"
   ],
   "task::enable_bch::cancel": [
@@ -56,33 +51,14 @@
   "task::enable_tendermint::cancel": [
     "TaskEnableTendermintCancel"
   ],
-  "task::enable_tendermint::init": [
-    "TaskEnableTendermintInit"
-  ],
-  "task::enable_tendermint::status": [
-    "TaskEnableTendermintStatus"
-  ],
   "task::enable_tendermint::user_action": [
     "TaskEnableTendermintUserActionPin"
-  ],
-  "task::enable_utxo::cancel": [
-    "TaskEnableUtxoCancel"
   ],
   "task::enable_utxo::init": [
     "TaskEnableUtxoInit"
   ],
-  "task::enable_utxo::status": [
-    "TaskEnableUtxoStatus"
-  ],
   "task::enable_utxo::user_action": [
     "TaskEnableUtxoUserActionPin"
-  ],
-  "task::enable_z_coin::cancel": [
-    "TaskEnableZCoinCancel"
-  ],
-  "task::enable_z_coin::init": [
-    "TaskEnableZCoinInitBasic",
-    "TaskEnableZCoinInitWithSyncParams"
   ],
   "task::enable_z_coin::user_action": [
     "TaskEnableZCoinUserActionPin"

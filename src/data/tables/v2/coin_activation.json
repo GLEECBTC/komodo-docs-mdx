@@ -120,23 +120,6 @@
       }
     ]
   },
-  "EnableTendermintTokenArguments": {
-    "data": [
-      {
-        "parameter": "ticker",
-        "type": "string",
-        "required": true,
-        "description": "Ticker of the Tendermint asset."
-      },
-      {
-        "parameter": "activation_params.required_confirmations",
-        "type": "integer",
-        "required": false,
-        "default": "value in the coins file if not set",
-        "description": "Confirmations to wait for steps in swap."
-      }
-    ]
-  },
   "EnableEthWithTokensArguments": {
     "data": [
       {
@@ -273,6 +256,23 @@
       }
     ]
   },
+  "EnableTendermintTokenArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Tendermint asset."
+      },
+      {
+        "parameter": "activation_params.required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "value in the coins file if not set",
+        "description": "Confirmations to wait for steps in swap."
+      }
+    ]
+  },
   "EnableTendermintWithAssetsArguments": {
     "data": [
       {
@@ -379,6 +379,138 @@
         "type": "array",
         "required": false,
         "description": "Only returned when `get_balances` is `false`. A list of each token which was activated."
+      }
+    ]
+  },
+  "TaskCancelArguments": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the enabling process."
+      }
+    ]
+  },
+  "TaskCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates task cancellation was succesful."
+      },
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "An error message to explain what went wrong."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": true,
+        "description": "An indicator of the class or function which reurned the error."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": true,
+        "description": "An indicator of where in the source code the error was thrown."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": true,
+        "description": "An enumerated value for the returned error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "string",
+        "required": true,
+        "description": "The input task ID which resulted in the error."
+      }
+    ]
+  },
+  "TaskEnableBchArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the platform protocol coin. Options: `BCH` or `tBCH`"
+      },
+      {
+        "parameter": "bchd_urls",
+        "type": "array of strings",
+        "required": true,
+        "description": "A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/)."
+      },
+      {
+        "parameter": "mode",
+        "type": "object",
+        "required": true,
+        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "default": "`false`",
+        "description": "If `true`, spawns a background loop to store the local cache of address(es) transactions."
+      },
+      {
+        "parameter": "slp_tokens_requests",
+        "type": "array of objects",
+        "required": true,
+        "description": "A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects."
+      },
+      {
+        "parameter": "address_format",
+        "type": "object",
+        "required": false,
+        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
+      },
+      {
+        "parameter": "allow_slp_unsafe_conf",
+        "type": "boolean",
+        "required": false,
+        "default": "`false`",
+        "description": "If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning."
+      },
+      {
+        "parameter": "get_balances",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "value in the coins file, or `3` if not set",
+        "description": "Confirmations to wait for steps in swap."
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "Has no effect on BCH."
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method"
+      },
+      {
+        "parameter": "utxo_merge_params",
+        "type": "object",
+        "required": true,
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
       }
     ]
   },
@@ -520,127 +652,6 @@
       }
     ]
   },
-  "TaskResponse": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "An identifying number which is used to query task status."
-      }
-    ]
-  },
-  "TaskStatusArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the initialisation process."
-      },
-      {
-        "parameter": "forget_if_finished",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `false`, will return final response for completed tasks."
-      }
-    ]
-  },
-  "TaskUserActionArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the initialisation process."
-      },
-      {
-        "parameter": "user_action",
-        "type": "object",
-        "required": true,
-        "description": "Object containing the params below"
-      },
-      {
-        "parameter": "user_action.action_type",
-        "type": "string",
-        "required": true,
-        "description": "Will be `TrezorPin` or `TrezorPassphrase`."
-      },
-      {
-        "parameter": "user_action.pin",
-        "type": "string (number)",
-        "required": true,
-        "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
-      },
-      {
-        "parameter": "user_action.passphrase",
-        "type": "string",
-        "required": true,
-        "description": "Your Trezor passphrase. This is the passphrase you use to unlock a hidden wallet on your Trezor device. Can be empty if you are using a non-hidden wallet."
-      }
-    ]
-  },
-  "TaskUserActionResponse": {
-    "data": [
-      {
-        "parameter": "result",
-        "type": "string",
-        "required": true,
-        "description": "The outcome of the request."
-      }
-    ]
-  },
-  "TaskCancelArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the enabling process."
-      }
-    ]
-  },
-  "TaskCancelResponse": {
-    "data": [
-      {
-        "parameter": "result",
-        "type": "string",
-        "required": true,
-        "description": "Indicates task cancellation was succesful."
-      },
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "An error message to explain what went wrong."
-      },
-      {
-        "parameter": "error_path",
-        "type": "string",
-        "required": true,
-        "description": "An indicator of the class or function which reurned the error."
-      },
-      {
-        "parameter": "error_trace",
-        "type": "string",
-        "required": true,
-        "description": "An indicator of where in the source code the error was thrown."
-      },
-      {
-        "parameter": "error_type",
-        "type": "string",
-        "required": true,
-        "description": "An enumerated value for the returned error."
-      },
-      {
-        "parameter": "error_data",
-        "type": "string",
-        "required": true,
-        "description": "The input task ID which resulted in the error."
-      }
-    ]
-  },
   "TaskEnableQtumArguments": {
     "data": [
       {
@@ -731,88 +742,6 @@
       }
     ]
   },
-  "TaskEnableBchArguments": {
-    "data": [
-      {
-        "parameter": "ticker",
-        "type": "string",
-        "required": true,
-        "description": "Ticker of the platform protocol coin. Options: `BCH` or `tBCH`"
-      },
-      {
-        "parameter": "bchd_urls",
-        "type": "array of strings",
-        "required": true,
-        "description": "A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/)."
-      },
-      {
-        "parameter": "mode",
-        "type": "object",
-        "required": true,
-        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
-      },
-      {
-        "parameter": "tx_history",
-        "type": "boolean",
-        "required": false,
-        "default": "`false`",
-        "description": "If `true`, spawns a background loop to store the local cache of address(es) transactions."
-      },
-      {
-        "parameter": "slp_tokens_requests",
-        "type": "array of objects",
-        "required": true,
-        "description": "A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects."
-      },
-      {
-        "parameter": "address_format",
-        "type": "object",
-        "required": false,
-        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
-      },
-      {
-        "parameter": "allow_slp_unsafe_conf",
-        "type": "boolean",
-        "required": false,
-        "default": "`false`",
-        "description": "If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning."
-      },
-      {
-        "parameter": "get_balances",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
-      },
-      {
-        "parameter": "required_confirmations",
-        "type": "integer",
-        "required": false,
-        "default": "value in the coins file, or `3` if not set",
-        "description": "Confirmations to wait for steps in swap."
-      },
-      {
-        "parameter": "requires_notarization",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "Has no effect on BCH."
-      },
-      {
-        "parameter": "tx_history",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method"
-      },
-      {
-        "parameter": "utxo_merge_params",
-        "type": "object",
-        "required": true,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
-      }
-    ]
-  },
   "TaskEnableTendermintArguments": {
     "data": [
       {
@@ -889,6 +818,65 @@
         "type": "object",
         "required": true,
         "description": "A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object."
+      }
+    ]
+  },
+  "TaskResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "An identifying number which is used to query task status."
+      }
+    ]
+  },
+  "TaskStatusArguments": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the initialisation process."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `false`, will return final response for completed tasks."
+      }
+    ]
+  },
+  "TaskStatusErrorResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "A short indication of how the requested process is progressing."
+      },
+      {
+        "parameter": "details.result",
+        "type": "object",
+        "required": true,
+        "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
+      }
+    ]
+  },
+  "TaskStatusInProgress": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "Will return `InProgress` if task is not yet comepleted"
+      },
+      {
+        "parameter": "details",
+        "type": "string",
+        "required": true,
+        "description": "An indication of the current step of the activation process"
       }
     ]
   },
@@ -970,35 +958,47 @@
       }
     ]
   },
-  "TaskStatusInProgress": {
+  "TaskUserActionArguments": {
     "data": [
       {
-        "parameter": "status",
-        "type": "string",
+        "parameter": "task_id",
+        "type": "integer",
         "required": true,
-        "description": "Will return `InProgress` if task is not yet comepleted"
+        "description": "The identifying number returned when initiating the initialisation process."
       },
       {
-        "parameter": "details",
+        "parameter": "user_action",
+        "type": "object",
+        "required": true,
+        "description": "Object containing the params below"
+      },
+      {
+        "parameter": "user_action.action_type",
         "type": "string",
         "required": true,
-        "description": "An indication of the current step of the activation process"
+        "description": "Will be `TrezorPin` or `TrezorPassphrase`."
+      },
+      {
+        "parameter": "user_action.pin",
+        "type": "string (number)",
+        "required": true,
+        "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
+      },
+      {
+        "parameter": "user_action.passphrase",
+        "type": "string",
+        "required": true,
+        "description": "Your Trezor passphrase. This is the passphrase you use to unlock a hidden wallet on your Trezor device. Can be empty if you are using a non-hidden wallet."
       }
     ]
   },
-  "TaskStatusErrorResponse": {
+  "TaskUserActionResponse": {
     "data": [
       {
-        "parameter": "status",
+        "parameter": "result",
         "type": "string",
         "required": true,
-        "description": "A short indication of how the requested process is progressing."
-      },
-      {
-        "parameter": "details.result",
-        "type": "object",
-        "required": true,
-        "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
+        "description": "The outcome of the request."
       }
     ]
   }

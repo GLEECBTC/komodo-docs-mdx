@@ -43,6 +43,48 @@
       }
     ]
   },
+  "AccountId": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Defines account kind. Possible values: `iguana`, `hd`, `hw`."
+      },
+      {
+        "parameter": "account_idx",
+        "type": "integer",
+        "required": false,
+        "description": "Only when `type` = `hd`. Index of the HD account (starting at 0)."
+      },
+      {
+        "parameter": "device_pubkey",
+        "type": "string",
+        "required": false,
+        "description": "Only when `type` = `hw`. Hex-encoded pubkey of the hardware wallet device."
+      }
+    ]
+  },
+  "AccruedRewards": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of accrued rewards"
+      }
+    ]
+  },
+  "AccruedVariant": {
+    "data": [
+      {
+        "parameter": "Accrued",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of accrued rewards"
+      }
+    ]
+  },
   "AddressInfo": {
     "data": [
       {
@@ -99,6 +141,22 @@
       }
     ]
   },
+  "AmountTooLow": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount the user was willing to transfer"
+      },
+      {
+        "parameter": "threshold",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the `amount` has not to be less than the `threshold`"
+      }
+    ]
+  },
   "BalanceInfo": {
     "data": [
       {
@@ -115,6 +173,28 @@
       }
     ]
   },
+  "ClaimingDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
+      },
+      {
+        "parameter": "validator_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the validator to delegate staking to."
+      },
+      {
+        "parameter": "force",
+        "type": "boolean",
+        "required": false,
+        "description": "Defaults to `false`. If `true`, will process unprofitable transactions (reward value less than network fees)"
+      }
+    ]
+  },
   "DerivationMethod": {
     "data": [
       {
@@ -122,6 +202,22 @@
         "type": "string",
         "required": true,
         "description": "Defines how keypairs will be generated. Possible values: `Iguana` or `HDWallet`"
+      }
+    ]
+  },
+  "EnabledAccountId": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Account kind. Accepted values are `iguana` and `hd`."
+      },
+      {
+        "parameter": "account_idx",
+        "type": "integer",
+        "required": false,
+        "description": "Optional. Required only when `type` = `hd`. The index of the HD account to enable (starting from `0`)."
       }
     ]
   },
@@ -205,6 +301,56 @@
       }
     ]
   },
+  "HdCoinKeys": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the coin."
+      },
+      {
+        "parameter": "addresses",
+        "type": "array",
+        "required": true,
+        "description": "Array of [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) objects for each address."
+      }
+    ]
+  },
+  "HdKeysInfo": {
+    "data": [
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address."
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key for the address."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet address."
+      },
+      {
+        "parameter": "priv_key",
+        "type": "string",
+        "required": true,
+        "description": "The private key for the address."
+      },
+      {
+        "parameter": "viewing_key",
+        "type": "string",
+        "required": false,
+        "description": "The viewing key for the address. Only included for ZHTLC coins like ARRR that support enhanced privacy features."
+      }
+    ]
+  },
   "HistoryTarget": {
     "data": [
       {
@@ -230,6 +376,34 @@
         "type": "string",
         "required": false,
         "description": "Optional. `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
+      }
+    ]
+  },
+  "IguanaKeysInfo": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the coin."
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key for the coin."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet address for the coin."
+      },
+      {
+        "parameter": "priv_key",
+        "type": "string",
+        "required": true,
+        "description": "The private key for the coin."
       }
     ]
   },
@@ -261,6 +435,55 @@
       }
     ]
   },
+  "InvalidAddress": {
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "string",
+        "required": true,
+        "description": "the error description"
+      }
+    ]
+  },
+  "InvalidFeePolicy": {
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "string",
+        "required": true,
+        "description": "the error description"
+      }
+    ]
+  },
+  "NewAccount": {
+    "data": [
+      {
+        "parameter": "account_id",
+        "type": "EnabledAccountId",
+        "required": true,
+        "description": "Identifier of the new account."
+      },
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": true,
+        "description": "User-friendly name for the account (maximum 255 characters)."
+      },
+      {
+        "parameter": "description",
+        "type": "string",
+        "required": false,
+        "description": "Optional. Optional longer description (maximum 600 characters)."
+      },
+      {
+        "parameter": "balance_usd",
+        "type": "string (numeric)",
+        "required": false,
+        "default": "0",
+        "description": "Optional, defaults to `0`. Optional initial USD balance shown in GUIs."
+      }
+    ]
+  },
   "NewAddressInfo": {
     "data": [
       {
@@ -286,6 +509,38 @@
         "type": "string",
         "required": true,
         "description": "`Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
+      }
+    ]
+  },
+  "NotAccruedReason": {
+    "data": [
+      {
+        "parameter": "reason",
+        "type": "string",
+        "required": true,
+        "description": "the reason why rewards were not accrued"
+      }
+    ]
+  },
+  "NotSufficientBalance": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the name of the coin which balance is not sufficient. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)"
+      },
+      {
+        "parameter": "available",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the balance available for transfer"
+      },
+      {
+        "parameter": "required",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount required to transfer the specified amount. This amount is necessary but may not be sufficient"
       }
     ]
   },
@@ -329,78 +584,6 @@
       }
     ],
     "variant": "compact"
-  },
-  "StakingDetails": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
-      },
-      {
-        "parameter": "validator_address",
-        "type": "string",
-        "required": true,
-        "description": "The address of the validator to delegate staking to."
-      },
-      {
-        "parameter": "amount",
-        "type": "string",
-        "required": true,
-        "description": "The amount of coins to stake send to the validator for delegated staking (Cosmos only - QTUM will stake your whole balance)."
-      }
-    ]
-  },
-  "StakingInfoDetails": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "The coin type. Currently, only 'Cosmos' is supported."
-      },
-      {
-        "parameter": "filter_by_status",
-        "type": "string",
-        "required": true,
-        "description": "Return only validators matching a specific status. Options are `Bonded`, `Unbonded`, and `All`. Defaults to `Bonded`."
-      },
-      {
-        "parameter": "limit",
-        "type": "integer",
-        "required": false,
-        "description": "Optional, defaults to `10`. The number of validators displayed per page in response."
-      },
-      {
-        "parameter": "page_number",
-        "type": "integer",
-        "required": false,
-        "description": "Optional, defaults to `1`. The page offset for items in response."
-      }
-    ]
-  },
-  "ClaimingDetails": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
-      },
-      {
-        "parameter": "validator_address",
-        "type": "string",
-        "required": true,
-        "description": "The address of the validator to delegate staking to."
-      },
-      {
-        "parameter": "force",
-        "type": "boolean",
-        "required": false,
-        "description": "Defaults to `false`. If `true`, will process unprofitable transactions (reward value less than network fees)"
-      }
-    ]
   },
   "PrivKeyPolicy": {
     "data": [
@@ -480,6 +663,56 @@
       }
     ]
   },
+  "StakingDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' and `Qtum` are supported."
+      },
+      {
+        "parameter": "validator_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the validator to delegate staking to."
+      },
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of coins to stake send to the validator for delegated staking (Cosmos only - QTUM will stake your whole balance)."
+      }
+    ]
+  },
+  "StakingInfoDetails": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "The coin type. Currently, only 'Cosmos' is supported."
+      },
+      {
+        "parameter": "filter_by_status",
+        "type": "string",
+        "required": true,
+        "description": "Return only validators matching a specific status. Options are `Bonded`, `Unbonded`, and `All`. Defaults to `Bonded`."
+      },
+      {
+        "parameter": "limit",
+        "type": "integer",
+        "required": false,
+        "description": "Optional, defaults to `10`. The number of validators displayed per page in response."
+      },
+      {
+        "parameter": "page_number",
+        "type": "integer",
+        "required": false,
+        "description": "Optional, defaults to `1`. The page offset for items in response."
+      }
+    ]
+  },
   "TotalFeeInfo": {
     "data": [
       {
@@ -523,6 +756,50 @@
         "type": "fraction",
         "required": true,
         "description": "`required_balance` in fraction representation"
+      }
+    ]
+  },
+  "WalletAccountInfo": {
+    "data": [
+      {
+        "parameter": "account_index",
+        "type": "integer",
+        "required": true,
+        "description": "`ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**"
+      },
+      {
+        "parameter": "derivation_path",
+        "type": "string",
+        "required": true,
+        "description": "Derivation path up to the `COIN` child. E.g. `\"m/44'/141'/0'\"`"
+      },
+      {
+        "parameter": "total_balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      },
+      {
+        "parameter": "addresses",
+        "type": "list",
+        "required": true,
+        "description": "A list of standard [AccountAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#account-address-info) objects."
+      }
+    ]
+  },
+  "WalletBalanceInfo": {
+    "data": [
+      {
+        "parameter": "wallet_type",
+        "type": "string",
+        "required": true,
+        "description": "In HD wallet mode, this will return `HD`. <DevComment> What are the other values? </DevComment>"
+      },
+      {
+        "parameter": "accounts",
+        "type": "object",
+        "required": true,
+        "description": "A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object."
       }
     ]
   },
@@ -584,50 +861,6 @@
       }
     ]
   },
-  "WalletAccountInfo": {
-    "data": [
-      {
-        "parameter": "account_index",
-        "type": "integer",
-        "required": true,
-        "description": "`ACCOUNT_ID` child in the `m/44'/COIN'/ACCOUNT_ID'/CHAIN/ADDRESS_ID` BIP44 derivation path. **Please don't confuse with the global account.**"
-      },
-      {
-        "parameter": "derivation_path",
-        "type": "string",
-        "required": true,
-        "description": "Derivation path up to the `COIN` child. E.g. `\"m/44'/141'/0'\"`"
-      },
-      {
-        "parameter": "total_balance",
-        "type": "object",
-        "required": true,
-        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
-      },
-      {
-        "parameter": "addresses",
-        "type": "list",
-        "required": true,
-        "description": "A list of standard [AccountAddressInfo](/komodo-defi-framework/api/common_structures/wallet/#account-address-info) objects."
-      }
-    ]
-  },
-  "WalletBalanceInfo": {
-    "data": [
-      {
-        "parameter": "wallet_type",
-        "type": "string",
-        "required": true,
-        "description": "In HD wallet mode, this will return `HD`. <DevComment> What are the other values? </DevComment>"
-      },
-      {
-        "parameter": "accounts",
-        "type": "object",
-        "required": true,
-        "description": "A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object."
-      }
-    ]
-  },
   "WithdrawFromInfo": {
     "data": [
       {
@@ -653,239 +886,6 @@
         "type": "string",
         "required": false,
         "description": "Optional. `Internal`, or `External`. External is used for addresses that are meant to be visible outside of the wallet (e.g. for receiving payments). Internal is used for addresses which are not meant to be visible outside of the wallet and is used for return transaction change."
-      }
-    ]
-  },
-  "AccountId": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "Defines account kind. Possible values: `iguana`, `hd`, `hw`."
-      },
-      {
-        "parameter": "account_idx",
-        "type": "integer",
-        "required": false,
-        "description": "Only when `type` = `hd`. Index of the HD account (starting at 0)."
-      },
-      {
-        "parameter": "device_pubkey",
-        "type": "string",
-        "required": false,
-        "description": "Only when `type` = `hw`. Hex-encoded pubkey of the hardware wallet device."
-      }
-    ]
-  },
-  "HdCoinKeys": {
-    "data": [
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": true,
-        "description": "The ticker symbol of the coin."
-      },
-      {
-        "parameter": "addresses",
-        "type": "array",
-        "required": true,
-        "description": "Array of [HdKeysInfo](/komodo-defi-framework/api/common_structures/wallet/#hd-keys-info) objects for each address."
-      }
-    ]
-  },
-  "HdKeysInfo": {
-    "data": [
-      {
-        "parameter": "derivation_path",
-        "type": "string",
-        "required": true,
-        "description": "The [BIP44 derivation path](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) of the address."
-      },
-      {
-        "parameter": "pubkey",
-        "type": "string",
-        "required": true,
-        "description": "The public key for the address."
-      },
-      {
-        "parameter": "address",
-        "type": "string",
-        "required": true,
-        "description": "The wallet address."
-      },
-      {
-        "parameter": "priv_key",
-        "type": "string",
-        "required": true,
-        "description": "The private key for the address."
-      },
-      {
-        "parameter": "viewing_key",
-        "type": "string",
-        "required": false,
-        "description": "The viewing key for the address. Only included for ZHTLC coins like ARRR that support enhanced privacy features."
-      }
-    ]
-  },
-  "IguanaKeysInfo": {
-    "data": [
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": true,
-        "description": "The ticker symbol of the coin."
-      },
-      {
-        "parameter": "pubkey",
-        "type": "string",
-        "required": true,
-        "description": "The public key for the coin."
-      },
-      {
-        "parameter": "address",
-        "type": "string",
-        "required": true,
-        "description": "The wallet address for the coin."
-      },
-      {
-        "parameter": "priv_key",
-        "type": "string",
-        "required": true,
-        "description": "The private key for the coin."
-      }
-    ]
-  },
-  "NotSufficientBalance": {
-    "data": [
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": true,
-        "description": "the name of the coin which balance is not sufficient. This coin name may differ from the requested coin. For example, ERC20 fees are paid by ETH (gas)"
-      },
-      {
-        "parameter": "available",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the balance available for transfer"
-      },
-      {
-        "parameter": "required",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the amount required to transfer the specified amount. This amount is necessary but may not be sufficient"
-      }
-    ]
-  },
-  "AmountTooLow": {
-    "data": [
-      {
-        "parameter": "amount",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the amount the user was willing to transfer"
-      },
-      {
-        "parameter": "threshold",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the `amount` has not to be less than the `threshold`"
-      }
-    ]
-  },
-  "InvalidAddress": {
-    "data": [
-      {
-        "parameter": "(none)",
-        "type": "string",
-        "required": true,
-        "description": "the error description"
-      }
-    ]
-  },
-  "InvalidFeePolicy": {
-    "data": [
-      {
-        "parameter": "(none)",
-        "type": "string",
-        "required": true,
-        "description": "the error description"
-      }
-    ]
-  },
-  "AccruedVariant": {
-    "data": [
-      {
-        "parameter": "Accrued",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the amount of accrued rewards"
-      }
-    ]
-  },
-  "AccruedRewards": {
-    "data": [
-      {
-        "parameter": "amount",
-        "type": "string (numeric)",
-        "required": true,
-        "description": "the amount of accrued rewards"
-      }
-    ]
-  },
-  "NotAccruedReason": {
-    "data": [
-      {
-        "parameter": "reason",
-        "type": "string",
-        "required": true,
-        "description": "the reason why rewards were not accrued"
-      }
-    ]
-  },
-  "EnabledAccountId": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "Account kind. Accepted values are `iguana` and `hd`."
-      },
-      {
-        "parameter": "account_idx",
-        "type": "integer",
-        "required": false,
-        "description": "Optional. Required only when `type` = `hd`. The index of the HD account to enable (starting from `0`)."
-      }
-    ]
-  },
-  "NewAccount": {
-    "data": [
-      {
-        "parameter": "account_id",
-        "type": "EnabledAccountId",
-        "required": true,
-        "description": "Identifier of the new account."
-      },
-      {
-        "parameter": "name",
-        "type": "string",
-        "required": true,
-        "description": "User-friendly name for the account (maximum 255 characters)."
-      },
-      {
-        "parameter": "description",
-        "type": "string",
-        "required": false,
-        "description": "Optional. Optional longer description (maximum 600 characters)."
-      },
-      {
-        "parameter": "balance_usd",
-        "type": "string (numeric)",
-        "required": false,
-        "default": "0",
-        "description": "Optional, defaults to `0`. Optional initial USD balance shown in GUIs."
       }
     ]
   }

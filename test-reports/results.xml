@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="KDF API (Native + Iguana)" tests="30" time="0.130">
+  <testsuite name="Task Enable ETH / Initialize EVM coin (ETH, AVAX, etc.) with Trezor (Native Iguana)" id="408246aa-73fc-408b-aff3-abef07e57c8e" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.045">
+    <testcase name="Capture task_id" time="0.045" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable ETH / Check EVM Task Status (Native Iguana)" id="e6488715-25d6-4136-b804-fb6bdee9b9f8" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.004"/>
+  <testsuite name="Task Enable ETH / Cancel EVM Activation Task (Native Iguana)" id="269ec0f4-ca10-40a6-aacc-aaf6eafa128e" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Erc20 Basic (Native Iguana)" id="37b4ba25-7646-4b18-ae58-ed6ef9263cc4" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Tendermint Token Basic (Native Iguana)" id="8002cf8b-b77e-4607-b93b-93a278574a10" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Eth With Tokens Gas Station (Native Iguana)" id="46767187-7634-4be5-a984-9f0228e8e458" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.002"/>
+  <testsuite name="Legacy Enable / Enable Eth With Tokens Matic Balances False (Native Iguana)" id="b1ee740b-631a-4689-9430-b64fab39b2b9" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.002"/>
+  <testsuite name="Legacy Enable / Enable Eth With Tokens Matic Nft (Native Iguana)" id="0e577cfa-c8ac-4955-a1e9-2eec1d16c15e" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.004"/>
+  <testsuite name="Legacy Enable / Enable Eth With Tokens Wallet Connect (Native Iguana)" id="170c0559-07dd-4e45-8cb9-b5f910451964" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.005"/>
+  <testsuite name="Legacy Enable / Enable Tendermint With Assets Balances False (Native Iguana)" id="2c99c0b8-3af2-41f8-82a2-157bc6b79566" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Tendermint With Assets Balances True (Native Iguana)" id="7c266fc8-c05b-4ff8-8261-42bf604f19e1" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Tendermint With Assets Wallet Connect (Native Iguana)" id="fef07798-8274-4ecc-970f-0b51876aa75a" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Bch With Tokens Tx History (Native Iguana)" id="2aa212ee-ce55-46e1-af93-f6ca48102e95" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Legacy Enable / Enable Bch With Tokens Balances False (Native Iguana)" id="5146501d-c2f5-4bc1-a290-149425184921" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable QTUM / Initialize Qtum (Native Iguana)" id="b3955613-3870-4c94-a1a9-ccd06cb947cf" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="Capture task_id" time="0.003" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable QTUM / Check Qtum Activation Task Status (Native Iguana)" id="af01eae0-c034-4fc1-b07d-f1bedf3e2c7b" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable QTUM / Cancel Qtum Activation Task (Native Iguana)" id="7fd8b53e-abc9-4d2b-b206-112a1b77b4ab" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable UTXO / Initialize UTXO Coin (Native Iguana)" id="fe3c590a-b584-4c28-8b54-04843a1c8970" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="Capture task_id" time="0.003" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable UTXO / Check UTXO Task Status (Native Iguana)" id="b5888a18-0f98-4b56-8772-cb7d4d1bfdc7" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable UTXO / Cancel UTXO Activation Task (Native Iguana)" id="af21760a-3000-4f80-981e-b80fd0bdb7a1" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable TENDERMINT / Initialize Tendermint Coin (Native Iguana)" id="4f42ca1e-016a-47ec-9df0-23659db5ab69" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="Capture task_id" time="0.003" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable TENDERMINT / Check Tendermint Activation Task Status (Native Iguana)" id="9a1208b9-2284-47a3-85e9-e84aef1c6807" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable TENDERMINT / Cancel Tendermint Activation Task (Native Iguana)" id="cb48ce41-947f-4b56-9d69-df8c5f135ec2" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.002"/>
+  <testsuite name="Task Enable BCH / Initialize Bitcoin Cash (Native Iguana)" id="a7aa6c45-63e4-485c-9613-810b38c62135" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="Capture task_id" time="0.002" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable BCH / Check Bitcoin Cash Activation Task Status (Native Iguana)" id="2d177b1e-a079-4eaf-a62a-ffa2885ed763" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable BCH / Cancel Bitcoin Cash Activation Task (Native Iguana)" id="178a8e1e-87ac-4b16-9291-8e66e3bde992" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable Z_COIN / Initialize Z-coin with basic params (Native Iguana)" id="5078b96d-ac03-431d-89ef-fa1f9965cb7d" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="Capture task_id" time="0.002" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable Z_COIN / Initialize Z-coin with sync params (Native Iguana)" id="cf8c27fa-0f45-484c-996a-b45556451fc7" timestamp="2025-08-30T13:38:24.634Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="Capture task_id" time="0.002" classname="KdfApiNativeIguana"/>
+  </testsuite>
+  <testsuite name="Task Enable Z_COIN / Check Z-coin Activation Task Status (Native Iguana)" id="0195ff89-1956-4b16-bb12-21d3acc283eb" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+  <testsuite name="Task Enable Z_COIN / Cancel Z-coin Activation Task (Native Iguana)" id="376003d4-db38-4961-b4d9-efa906457dd3" timestamp="2025-08-30T13:38:24.634Z" tests="0" failures="0" errors="0" time="0.003"/>
+</testsuites>

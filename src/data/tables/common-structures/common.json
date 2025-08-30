@@ -1,4 +1,38 @@
 {
+  "ErrorResponse": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "A human-readable error message."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": true,
+        "description": "The path in the code where the error occurred."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": true,
+        "description": "A stack trace of the error."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of the error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "object",
+        "required": true,
+        "description": "Additional data related to the error."
+      }
+    ]
+  },
   "EventStreamConfig": {
     "data": [
       {
@@ -53,6 +87,23 @@
       }
     ]
   },
+  "Pagination": {
+    "data": [
+      {
+        "parameter": "PageNumber",
+        "type": "integer",
+        "required": false,
+        "default": "1",
+        "description": "Offset for paginated results"
+      },
+      {
+        "parameter": "FromId",
+        "type": "integer",
+        "required": false,
+        "description": "Ignores any results prior to this UUID"
+      }
+    ]
+  },
   "PagingOptions": {
     "data": [
       {
@@ -73,23 +124,6 @@
         "type": "number",
         "required": false,
         "description": "Returns limit swaps from the selected page. This parameter is ignored if from_uuid is set."
-      }
-    ]
-  },
-  "Pagination": {
-    "data": [
-      {
-        "parameter": "PageNumber",
-        "type": "integer",
-        "required": false,
-        "default": "1",
-        "description": "Offset for paginated results"
-      },
-      {
-        "parameter": "FromId",
-        "type": "integer",
-        "required": false,
-        "description": "Ignores any results prior to this UUID"
       }
     ]
   },
@@ -226,40 +260,6 @@
         "type": "integer",
         "required": true,
         "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/) indicating when the connection will expire if not otherwise closed."
-      }
-    ]
-  },
-  "ErrorResponse": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "A human-readable error message."
-      },
-      {
-        "parameter": "error_path",
-        "type": "string",
-        "required": true,
-        "description": "The path in the code where the error occurred."
-      },
-      {
-        "parameter": "error_trace",
-        "type": "string",
-        "required": true,
-        "description": "A stack trace of the error."
-      },
-      {
-        "parameter": "error_type",
-        "type": "string",
-        "required": true,
-        "description": "The type of the error."
-      },
-      {
-        "parameter": "error_data",
-        "type": "object",
-        "required": true,
-        "description": "Additional data related to the error."
       }
     ]
   }

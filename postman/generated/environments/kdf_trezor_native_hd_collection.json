@@ -3,12 +3,12 @@
     "name": "KDF API (Native + Trezor + HD)",
     "description": "Komodo DeFi Framework API for Native with Trezor hardware wallet and HD support\n\nNative environment with Trezor hardware wallet and HD wallet support\n\nSupported Protocols:\n- electrum: TCP, SSL\n- websocket: ws, wss\n\nHardware Support: trezor",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_postman_id": "kdf-trezor_native_hd-20250829"
+    "_postman_id": "kdf-trezor_native_hd-20250830"
   },
   "variable": [
     {
       "key": "base_url",
-      "value": "http://127.0.0.1:7783",
+      "value": "http://kdf-native-hd:8779",
       "type": "string"
     },
     {

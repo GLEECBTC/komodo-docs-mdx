@@ -156,6 +156,23 @@
       }
     ]
   },
+  "CoinNode": {
+    "data": [
+      {
+        "parameter": "url",
+        "type": "string",
+        "required": true,
+        "description": "URL of an RPC node"
+      },
+      {
+        "parameter": "komodo_auth",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Must be set to `true` to access RPC nodes run behind [komodo-defi-proxy](https://github.com/KomodoPlatform/komodo-defi-proxy)"
+      }
+    ]
+  },
   "CoinProtocol": {
     "data": [
       {
@@ -191,23 +208,6 @@
         "type": "object",
         "required": true,
         "description": "A standard [ConfirmationTargets](/komodo-defi-framework/api/common_structures/lightning/#confirmation-targets) object."
-      }
-    ]
-  },
-  "CoinNode": {
-    "data": [
-      {
-        "parameter": "url",
-        "type": "string",
-        "required": true,
-        "description": "URL of an RPC node"
-      },
-      {
-        "parameter": "komodo_auth",
-        "type": "boolean",
-        "required": false,
-        "default": "false",
-        "description": "Must be set to `true` to access RPC nodes run behind [komodo-defi-proxy](https://github.com/KomodoPlatform/komodo-defi-proxy)"
       }
     ]
   },

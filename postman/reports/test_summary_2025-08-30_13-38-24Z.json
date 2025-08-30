@@ -1,0 +1,103 @@
+{
+  "generated_at": "2025-08-30T13:38:24Z",
+  "environments_tested": 2,
+  "total_methods": 24,
+  "summary_by_method": {
+    "TaskEnableZCoinStatus": {
+      "success_count": 4,
+      "error_count": 4
+    },
+    "TaskEnableEthStatus": {
+      "success_count": 1,
+      "error_count": 1
+    },
+    "EnableTendermintWithAssetsBalancesFalse": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableZCoinInitBasic": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableZCoinInitWithSyncParams": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "EnableErc20Basic": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableUtxoCancel": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableUtxoStatus": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableZCoinCancel": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "EnableTendermintWithAssetsBalancesTrue": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableTendermintInit": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableTendermintStatus": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "TaskEnableTendermintStatus_2": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "LegacyEnableEth": {
+      "success_count": 1,
+      "error_count": 0
+    },
+    "LegacyElectrumBch": {
+      "success_count": 1,
+      "error_count": 1
+    },
+    "LegacyElectrumKmd": {
+      "success_count": 1,
+      "error_count": 3
+    },
+    "LegacyElectrumQtum": {
+      "success_count": 1,
+      "error_count": 1
+    },
+    "LegacyEnableNative": {
+      "success_count": 1,
+      "error_count": 1
+    },
+    "LegacyEnableNativeWithParams": {
+      "success_count": 1,
+      "error_count": 1
+    },
+    "LegacyEnableEthGasStation": {
+      "success_count": 1,
+      "error_count": 2
+    },
+    "LegacyEnableMatic": {
+      "success_count": 1,
+      "error_count": 2
+    },
+    "LegacyEnableBnb": {
+      "success_count": 1,
+      "error_count": 2
+    },
+    "NoSuchTask": {
+      "success_count": 0,
+      "error_count": 0
+    },
+    "SuccessTaskId": {
+      "success_count": 0,
+      "error_count": 0
+    }
+  }
+}

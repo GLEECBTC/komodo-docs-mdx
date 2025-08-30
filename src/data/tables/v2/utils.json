@@ -1,4 +1,20 @@
 {
+  "AddNodeToVersionStatErrors": {
+    "data": [
+      {
+        "parameter": "DatabaseError",
+        "type": "string",
+        "required": false,
+        "description": "Database constraint error occurred."
+      },
+      {
+        "parameter": "PeerIdParseError",
+        "type": "string",
+        "required": false,
+        "description": "The provided peer ID format is invalid."
+      }
+    ]
+  },
   "AddNodeToVersionStatRequest": {
     "data": [
       {
@@ -31,19 +47,13 @@
       }
     ]
   },
-  "AddNodeToVersionStatErrors": {
+  "ChangeMnemonicPasswordErrors": {
     "data": [
       {
-        "parameter": "DatabaseError",
+        "parameter": "WalletsStorageError",
         "type": "string",
         "required": false,
-        "description": "Database constraint error occurred."
-      },
-      {
-        "parameter": "PeerIdParseError",
-        "type": "string",
-        "required": false,
-        "description": "The provided peer ID format is invalid."
+        "description": "Error decrypting or accessing wallet storage."
       }
     ]
   },
@@ -70,16 +80,6 @@
         "type": "null",
         "required": true,
         "description": "Returns null on successful password change."
-      }
-    ]
-  },
-  "ChangeMnemonicPasswordErrors": {
-    "data": [
-      {
-        "parameter": "WalletsStorageError",
-        "type": "string",
-        "required": false,
-        "description": "Error decrypting or accessing wallet storage."
       }
     ]
   },
@@ -182,6 +182,26 @@
       }
     ]
   },
+  "GetPublicKeyHashRequest": {
+    "data": [
+      {
+        "parameter": "*None*",
+        "type": "*N/A*",
+        "required": false,
+        "description": "*This method has no parameters.*"
+      }
+    ]
+  },
+  "GetPublicKeyHashResponse": {
+    "data": [
+      {
+        "parameter": "public_key_hash",
+        "type": "string",
+        "required": true,
+        "description": "User's RIPEMD-160 public key hash"
+      }
+    ]
+  },
   "GetPublicKeyRequest": {
     "data": [
       {
@@ -202,23 +222,13 @@
       }
     ]
   },
-  "GetPublicKeyHashRequest": {
+  "GetSharedDbIdErrors": {
     "data": [
       {
-        "parameter": "*None*",
-        "type": "*N/A*",
-        "required": false,
-        "description": "*This method has no parameters.*"
-      }
-    ]
-  },
-  "GetPublicKeyHashResponse": {
-    "data": [
-      {
-        "parameter": "public_key_hash",
+        "parameter": "Internal",
         "type": "string",
-        "required": true,
-        "description": "User's RIPEMD-160 public key hash"
+        "required": false,
+        "description": "Unhandled internal error (rare)."
       }
     ]
   },
@@ -242,13 +252,13 @@
       }
     ]
   },
-  "GetSharedDbIdErrors": {
+  "GetTokenInfoErrors": {
     "data": [
       {
-        "parameter": "Internal",
+        "parameter": "NoSuchCoin",
         "type": "string",
         "required": false,
-        "description": "Unhandled internal error (rare)."
+        "description": "The specified platform coin was not found or is not activated yet."
       }
     ]
   },
@@ -268,7 +278,7 @@
         "parameter": "type",
         "type": "string",
         "required": true,
-        "description": "Token type—e.g., `PLG20` for tokens on the Polygon network."
+        "description": "Token type\u2014e.g., `PLG20` for tokens on the Polygon network."
       },
       {
         "parameter": "info.symbol",
@@ -281,16 +291,6 @@
         "type": "integer",
         "required": true,
         "description": "Defines the number of digits after the decimal point that should be used to display the orderbook amounts, balance, and the value of inputs to be used in the case of order creation or a `withdraw` transaction. The default value used for a UTXO type coin (Bitcoin protocol) is `8`, and the default value used for an ERC20 token is `18`. It is **very important** for this value to be set correctly. For example, if this value was set as `9` for BTC, a command to withdraw `1 BTC` tries to withdraw `10^9` satoshis of Bitcoin, i.e., `10 BTC`."
-      }
-    ]
-  },
-  "GetTokenInfoErrors": {
-    "data": [
-      {
-        "parameter": "NoSuchCoin",
-        "type": "string",
-        "required": false,
-        "description": "The specified platform coin was not found or is not activated yet."
       }
     ]
   },
@@ -334,6 +334,22 @@
       }
     ]
   },
+  "SendAskedDataErrors": {
+    "data": [
+      {
+        "parameter": "NotFound",
+        "type": "integer",
+        "required": false,
+        "description": "No awaiting `ask_for_data` with the specified `data_id`."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal error while delivering data (rare)."
+      }
+    ]
+  },
   "SendAskedDataRequest": {
     "data": [
       {
@@ -360,19 +376,79 @@
       }
     ]
   },
-  "SendAskedDataErrors": {
+  "SignMessageErrors": {
     "data": [
       {
-        "parameter": "NotFound",
-        "type": "integer",
-        "required": false,
-        "description": "No awaiting `ask_for_data` with the specified `data_id`."
-      },
-      {
-        "parameter": "Internal",
+        "parameter": "PrefixNotFound",
         "type": "string",
         "required": false,
-        "description": "Internal error while delivering data (rare)."
+        "description": "`sign_message_prefix` is not set in coin config file"
+      },
+      {
+        "parameter": "CoinIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Specified coin is not found"
+      },
+      {
+        "parameter": "SigningError",
+        "type": "string",
+        "required": false,
+        "description": "Error attempting to sign message"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Message signing is not supported by the given coin type"
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "An internal error occurred during the signing process"
+      }
+    ]
+  },
+  "SignMessageRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin to sign a message with."
+      },
+      {
+        "parameter": "message",
+        "type": "string",
+        "required": true,
+        "description": "The message you want to sign."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": false,
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`."
+      }
+    ]
+  },
+  "SignMessageResponse": {
+    "data": [
+      {
+        "parameter": "signature",
+        "type": "string",
+        "required": true,
+        "description": "The signature generated for the message."
+      }
+    ]
+  },
+  "StartVersionStatCollectionErrors": {
+    "data": [
+      {
+        "parameter": "DatabaseError",
+        "type": "string",
+        "required": false,
+        "description": "Database constraint error occurred."
       }
     ]
   },
@@ -396,13 +472,13 @@
       }
     ]
   },
-  "StartVersionStatCollectionErrors": {
+  "StopVersionStatCollectionErrors": {
     "data": [
       {
-        "parameter": "DatabaseError",
+        "parameter": "NotRunning",
         "type": "string",
         "required": false,
-        "description": "Database constraint error occurred."
+        "description": "Version stat collection is not currently running"
       }
     ]
   },
@@ -423,16 +499,6 @@
         "type": "string",
         "required": true,
         "description": "`success` or error"
-      }
-    ]
-  },
-  "StopVersionStatCollectionErrors": {
-    "data": [
-      {
-        "parameter": "NotRunning",
-        "type": "string",
-        "required": false,
-        "description": "Version stat collection is not currently running"
       }
     ]
   },
@@ -486,26 +552,6 @@
       }
     ]
   },
-  "TaskConnectMetamaskInitRequest": {
-    "data": [
-      {
-        "parameter": "project",
-        "type": "string",
-        "required": true,
-        "description": "A short, human-readable identifier for the DApp or integration requesting the context."
-      }
-    ]
-  },
-  "TaskConnectMetamaskInitResponse": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "An identifying number that is used to query task status or to cancel it"
-      }
-    ]
-  },
   "TaskConnectMetamaskInitErrors": {
     "data": [
       {
@@ -546,36 +592,23 @@
       }
     ]
   },
-  "TaskConnectMetamaskStatusRequest": {
+  "TaskConnectMetamaskInitRequest": {
+    "data": [
+      {
+        "parameter": "project",
+        "type": "string",
+        "required": true,
+        "description": "A short, human-readable identifier for the DApp or integration requesting the context."
+      }
+    ]
+  },
+  "TaskConnectMetamaskInitResponse": {
     "data": [
       {
         "parameter": "task_id",
         "type": "integer",
         "required": true,
-        "description": "The `task_id` returned by the *init* call."
-      },
-      {
-        "parameter": "forget_if_finished",
-        "type": "boolean",
-        "required": false,
-        "default": "true",
-        "description": "If `false`, the final (completed) response is returned on every call."
-      }
-    ]
-  },
-  "TaskConnectMetamaskStatusResponse": {
-    "data": [
-      {
-        "parameter": "status",
-        "type": "string",
-        "required": true,
-        "description": "A short indication of how the connection process is progressing (`Initializing`, `SigningLoginMetadata`, `Ok`, or `Error`)."
-      },
-      {
-        "parameter": "details",
-        "type": "object",
-        "required": true,
-        "description": "Extra data whose structure depends on the current `status`. See examples below. In the successful case it contains `eth_address`."
+        "description": "An identifying number that is used to query task status or to cancel it"
       }
     ]
   },
@@ -610,6 +643,39 @@
         "type": "string",
         "required": false,
         "description": "The request failed due to an internal error in the Komodo DeFi Framework API."
+      }
+    ]
+  },
+  "TaskConnectMetamaskStatusRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The `task_id` returned by the *init* call."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "If `false`, the final (completed) response is returned on every call."
+      }
+    ]
+  },
+  "TaskConnectMetamaskStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "A short indication of how the connection process is progressing (`Initializing`, `SigningLoginMetadata`, `Ok`, or `Error`)."
+      },
+      {
+        "parameter": "details",
+        "type": "object",
+        "required": true,
+        "description": "Extra data whose structure depends on the current `status`. See examples below. In the successful case it contains `eth_address`."
       }
     ]
   },
@@ -790,23 +856,31 @@
       }
     ]
   },
-  "TrezorConnectionStatusRequest": {
+  "TelegramAlertsConfig": {
     "data": [
       {
-        "parameter": "device_pubkey",
-        "type": "string",
-        "required": false,
-        "description": "Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned."
-      }
-    ]
-  },
-  "TrezorConnectionStatusResponse": {
-    "data": [
-      {
-        "parameter": "status",
+        "parameter": "api_key",
         "type": "string",
         "required": true,
-        "description": "One of: `Connected`, `Disconnected`, `Busy`."
+        "description": "A Telegram bot API token"
+      },
+      {
+        "parameter": "chat_registry.default",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
+      },
+      {
+        "parameter": "chat_registry.maker_bot",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
+      },
+      {
+        "parameter": "chat_registry.swap_events",
+        "type": "string",
+        "required": true,
+        "description": "A Telegram Chat ID"
       }
     ]
   },
@@ -832,6 +906,36 @@
       }
     ]
   },
+  "TrezorConnectionStatusRequest": {
+    "data": [
+      {
+        "parameter": "device_pubkey",
+        "type": "string",
+        "required": false,
+        "description": "Expected public key of the Trezor device. If specified and a *different* device is connected, an error is returned."
+      }
+    ]
+  },
+  "TrezorConnectionStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "One of: `Connected`, `Disconnected`, `Busy`."
+      }
+    ]
+  },
+  "UpdateVersionStatCollectionErrors": {
+    "data": [
+      {
+        "parameter": "NotRunning",
+        "type": "string",
+        "required": false,
+        "description": "Version stat collection is not currently running"
+      }
+    ]
+  },
   "UpdateVersionStatCollectionRequest": {
     "data": [
       {
@@ -849,120 +953,6 @@
         "type": "string",
         "required": true,
         "description": "The outcome of the request."
-      }
-    ]
-  },
-  "UpdateVersionStatCollectionErrors": {
-    "data": [
-      {
-        "parameter": "NotRunning",
-        "type": "string",
-        "required": false,
-        "description": "Version stat collection is not currently running"
-      }
-    ]
-  },
-  "SignMessageRequest": {
-    "data": [
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": true,
-        "description": "The coin to sign a message with."
-      },
-      {
-        "parameter": "message",
-        "type": "string",
-        "required": true,
-        "description": "The message you want to sign."
-      },
-      {
-        "parameter": "address",
-        "type": "string",
-        "required": false,
-        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`."
-      }
-    ]
-  },
-  "SignMessageResponse": {
-    "data": [
-      {
-        "parameter": "signature",
-        "type": "string",
-        "required": true,
-        "description": "The signature generated for the message."
-      }
-    ]
-  },
-  "SignMessageErrors": {
-    "data": [
-      {
-        "parameter": "PrefixNotFound",
-        "type": "string",
-        "required": false,
-        "description": "`sign_message_prefix` is not set in coin config file"
-      },
-      {
-        "parameter": "CoinIsNotFound",
-        "type": "string",
-        "required": false,
-        "description": "Specified coin is not found"
-      },
-      {
-        "parameter": "SigningError",
-        "type": "string",
-        "required": false,
-        "description": "Error attempting to sign message"
-      },
-      {
-        "parameter": "InvalidRequest",
-        "type": "string",
-        "required": false,
-        "description": "Message signing is not supported by the given coin type"
-      },
-      {
-        "parameter": "InternalError",
-        "type": "string",
-        "required": false,
-        "description": "An internal error occurred during the signing process"
-      }
-    ]
-  },
-  "VerifyMessageRequest": {
-    "data": [
-      {
-        "parameter": "address",
-        "type": "string",
-        "required": true,
-        "description": "The address used to sign the message."
-      },
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": true,
-        "description": "The coin to verify the message with."
-      },
-      {
-        "parameter": "message",
-        "type": "string",
-        "required": true,
-        "description": "The message input via the `sign_message` method."
-      },
-      {
-        "parameter": "signature",
-        "type": "string",
-        "required": true,
-        "description": "The signature generated for the message."
-      }
-    ]
-  },
-  "VerifyMessageResponse": {
-    "data": [
-      {
-        "parameter": "is_valid",
-        "type": "boolean",
-        "required": true,
-        "description": "`true` if the message signature is valid; `false` if it is not."
       }
     ]
   },
@@ -1006,31 +996,41 @@
       }
     ]
   },
-  "TelegramAlertsConfig": {
+  "VerifyMessageRequest": {
     "data": [
       {
-        "parameter": "api_key",
+        "parameter": "address",
         "type": "string",
         "required": true,
-        "description": "A Telegram bot API token"
+        "description": "The address used to sign the message."
       },
       {
-        "parameter": "chat_registry.default",
+        "parameter": "coin",
         "type": "string",
         "required": true,
-        "description": "A Telegram Chat ID"
+        "description": "The coin to verify the message with."
       },
       {
-        "parameter": "chat_registry.maker_bot",
+        "parameter": "message",
         "type": "string",
         "required": true,
-        "description": "A Telegram Chat ID"
+        "description": "The message input via the `sign_message` method."
       },
       {
-        "parameter": "chat_registry.swap_events",
+        "parameter": "signature",
         "type": "string",
         "required": true,
-        "description": "A Telegram Chat ID"
+        "description": "The signature generated for the message."
+      }
+    ]
+  },
+  "VerifyMessageResponse": {
+    "data": [
+      {
+        "parameter": "is_valid",
+        "type": "boolean",
+        "required": true,
+        "description": "`true` if the message signature is valid; `false` if it is not."
       }
     ]
   }

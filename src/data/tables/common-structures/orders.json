@@ -210,6 +210,22 @@
       }
     ]
   },
+  "DepthInfo": {
+    "data": [
+      {
+        "parameter": "asks",
+        "type": "number",
+        "required": true,
+        "description": "The number of asks for this trading pair"
+      },
+      {
+        "parameter": "bids",
+        "type": "number",
+        "required": true,
+        "description": "The number of bids for this trading pair"
+      }
+    ]
+  },
   "MatchBy": {
     "data": [
       {
@@ -244,6 +260,214 @@
     ]
   },
   "OrderDataV1": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": false,
+        "description": "The ticker of the coin"
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": false,
+        "description": "The address offering the trade"
+      },
+      {
+        "parameter": "price",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The price the user is willing to buy or sell per one unit of the coin from request"
+      },
+      {
+        "parameter": "price_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The price represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "price_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The price represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "maxvolume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The maximum amount of `base` the offer provider is willing to sell"
+      },
+      {
+        "parameter": "max_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "max_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "min_volume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The minimum amount of `base` coin the offer provider is willing to sell"
+      },
+      {
+        "parameter": "min_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The min volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "min_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The min volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": false,
+        "description": "The pubkey of the offer provider"
+      },
+      {
+        "parameter": "age",
+        "type": "number",
+        "required": false,
+        "description": "The age of the offer (in seconds)"
+      },
+      {
+        "parameter": "zcredits",
+        "type": "number",
+        "required": false,
+        "description": "The zeroconf deposit amount (deprecated)"
+      },
+      {
+        "parameter": "netid",
+        "type": "number",
+        "required": false,
+        "description": "The id of the network on which the request is made"
+      },
+      {
+        "parameter": "uuid",
+        "type": "string",
+        "required": false,
+        "description": "The uuid of order"
+      },
+      {
+        "parameter": "is_mine",
+        "type": "bool",
+        "required": false,
+        "description": "Whether the order is placed by me"
+      },
+      {
+        "parameter": "base_max_volume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The maximum amount of `base` coin the offer provider is willing to buy or sell"
+      },
+      {
+        "parameter": "base_max_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The `base_max_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "base_max_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The `base_max_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "base_min_volume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The minimum amount of `base` coin the offer provider is willing to buy or sell"
+      },
+      {
+        "parameter": "base_min_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The `base_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "base_min_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The `base_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "base_confs",
+        "type": "number",
+        "required": false,
+        "description": "The confirmations settings of `base` coin set by the offer provider"
+      },
+      {
+        "parameter": "base_nota",
+        "type": "bool",
+        "required": false,
+        "description": "The notarisation settings of `base` coin set by the offer provider"
+      },
+      {
+        "parameter": "rel_max_volume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The maximum amount of `rel` coin the offer provider is willing to buy or sell"
+      },
+      {
+        "parameter": "rel_max_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The `rel_max_volume` max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "rel_max_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The `rel_max_volume` max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "rel_min_volume",
+        "type": "string (decimal)",
+        "required": false,
+        "description": "The minimum amount of `rel` coin the offer provider is willing to buy or sell"
+      },
+      {
+        "parameter": "rel_min_volume_rat",
+        "type": "rational",
+        "required": false,
+        "description": "The `rel_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "rel_min_volume_fraction",
+        "type": "object",
+        "required": false,
+        "description": "The `rel_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      },
+      {
+        "parameter": "rel_confs",
+        "type": "number",
+        "required": false,
+        "description": "The confirmations settings of `rel` coin set by the offer provider"
+      },
+      {
+        "parameter": "rel_nota",
+        "type": "bool",
+        "required": false,
+        "description": "The notarisation settings of `rel` coin set by the offer provider"
+      },
+      {
+        "parameter": "original_tickers",
+        "type": "list (string)",
+        "required": false,
+        "description": "Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file"
+      }
+    ]
+  },
+  "OrderDataV1_1": {
     "data": [
       {
         "parameter": "coin",
@@ -533,333 +757,6 @@
       }
     ]
   },
-  "OrderStatusData": {
-    "data": [
-      {
-        "parameter": "base",
-        "type": "string",
-        "required": true,
-        "description": "base currency"
-      },
-      {
-        "parameter": "rel",
-        "type": "string",
-        "required": true,
-        "description": "rel currency"
-      },
-      {
-        "parameter": "price",
-        "type": "number",
-        "required": true,
-        "description": "order price as decimal number"
-      },
-      {
-        "parameter": "price_rat",
-        "type": "rational number",
-        "required": true,
-        "description": "order price as rational number"
-      },
-      {
-        "parameter": "max_base_vol",
-        "type": "number",
-        "required": true,
-        "description": "Maximum trade volume"
-      },
-      {
-        "parameter": "max_base_vol_rat",
-        "type": "rational number",
-        "required": true,
-        "description": "Maximum trade volume as rational number"
-      },
-      {
-        "parameter": "min_base_vol",
-        "type": "number",
-        "required": true,
-        "description": "Minimum trade volume"
-      },
-      {
-        "parameter": "min_base_vol_rat",
-        "type": "rational number",
-        "required": true,
-        "description": "Minimum trade volume as rational number"
-      },
-      {
-        "parameter": "created_at",
-        "type": "number",
-        "required": true,
-        "description": "Timestamp of order creation"
-      },
-      {
-        "parameter": "updated_at",
-        "type": "number",
-        "required": true,
-        "description": "Timestamp of last order update"
-      },
-      {
-        "parameter": "matches",
-        "type": "list",
-        "required": true,
-        "description": "UUIDS of matching orders"
-      },
-      {
-        "parameter": "started_swaps",
-        "type": "list",
-        "required": true,
-        "description": "UUIDS of swaps started"
-      },
-      {
-        "parameter": "uuid",
-        "type": "string",
-        "required": true,
-        "description": "UUID of this order"
-      },
-      {
-        "parameter": "conf_settings",
-        "type": "object",
-        "required": true,
-        "description": "Confirmation / Notarisation settings for order"
-      },
-      {
-        "parameter": "base_orderbook_ticker",
-        "type": "string",
-        "required": false,
-        "description": "The ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value."
-      },
-      {
-        "parameter": "rel_orderbook_ticker",
-        "type": "string",
-        "required": false,
-        "description": "The ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value."
-      },
-      {
-        "parameter": "cancellable",
-        "type": "boolean",
-        "required": true,
-        "description": "`true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress)"
-      },
-      {
-        "parameter": "cancellation_reason",
-        "type": "string",
-        "required": false,
-        "description": "`Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching."
-      },
-      {
-        "parameter": "available_amount",
-        "type": "string",
-        "required": true,
-        "description": "Funds available for order to be matched against, taking into account current spendable balance and `max_volume`"
-      }
-    ],
-    "variant": "compact"
-  },
-  "OrderDataV1_1": {
-    "data": [
-      {
-        "parameter": "coin",
-        "type": "string",
-        "required": false,
-        "description": "The ticker of the coin"
-      },
-      {
-        "parameter": "address",
-        "type": "string",
-        "required": false,
-        "description": "The address offering the trade"
-      },
-      {
-        "parameter": "price",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The price the user is willing to buy or sell per one unit of the coin from request"
-      },
-      {
-        "parameter": "price_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The price represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "price_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The price represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "maxvolume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The maximum amount of `base` the offer provider is willing to sell"
-      },
-      {
-        "parameter": "max_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "max_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "min_volume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The minimum amount of `base` coin the offer provider is willing to sell"
-      },
-      {
-        "parameter": "min_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The min volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "min_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The min volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "pubkey",
-        "type": "string",
-        "required": false,
-        "description": "The pubkey of the offer provider"
-      },
-      {
-        "parameter": "age",
-        "type": "number",
-        "required": false,
-        "description": "The age of the offer (in seconds)"
-      },
-      {
-        "parameter": "zcredits",
-        "type": "number",
-        "required": false,
-        "description": "The zeroconf deposit amount (deprecated)"
-      },
-      {
-        "parameter": "netid",
-        "type": "number",
-        "required": false,
-        "description": "The id of the network on which the request is made"
-      },
-      {
-        "parameter": "uuid",
-        "type": "string",
-        "required": false,
-        "description": "The uuid of order"
-      },
-      {
-        "parameter": "is_mine",
-        "type": "bool",
-        "required": false,
-        "description": "Whether the order is placed by me"
-      },
-      {
-        "parameter": "base_max_volume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The maximum amount of `base` coin the offer provider is willing to buy or sell"
-      },
-      {
-        "parameter": "base_max_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The `base_max_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "base_max_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The `base_max_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "base_min_volume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The minimum amount of `base` coin the offer provider is willing to buy or sell"
-      },
-      {
-        "parameter": "base_min_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The `base_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "base_min_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The `base_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "base_confs",
-        "type": "number",
-        "required": false,
-        "description": "The confirmations settings of `base` coin set by the offer provider"
-      },
-      {
-        "parameter": "base_nota",
-        "type": "bool",
-        "required": false,
-        "description": "The notarisation settings of `base` coin set by the offer provider"
-      },
-      {
-        "parameter": "rel_max_volume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The maximum amount of `rel` coin the offer provider is willing to buy or sell"
-      },
-      {
-        "parameter": "rel_max_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The `rel_max_volume` max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "rel_max_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The `rel_max_volume` max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "rel_min_volume",
-        "type": "string (decimal)",
-        "required": false,
-        "description": "The minimum amount of `rel` coin the offer provider is willing to buy or sell"
-      },
-      {
-        "parameter": "rel_min_volume_rat",
-        "type": "rational",
-        "required": false,
-        "description": "The `rel_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
-      },
-      {
-        "parameter": "rel_min_volume_fraction",
-        "type": "object",
-        "required": false,
-        "description": "The `rel_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
-      },
-      {
-        "parameter": "rel_confs",
-        "type": "number",
-        "required": false,
-        "description": "The confirmations settings of `rel` coin set by the offer provider"
-      },
-      {
-        "parameter": "rel_nota",
-        "type": "bool",
-        "required": false,
-        "description": "The notarisation settings of `rel` coin set by the offer provider"
-      },
-      {
-        "parameter": "original_tickers",
-        "type": "list (string)",
-        "required": false,
-        "description": "Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file"
-      }
-    ]
-  },
   "OrderDataV2_1": {
     "data": [
       {
@@ -1006,6 +903,125 @@
       }
     ]
   },
+  "OrderStatusData": {
+    "data": [
+      {
+        "parameter": "base",
+        "type": "string",
+        "required": true,
+        "description": "base currency"
+      },
+      {
+        "parameter": "rel",
+        "type": "string",
+        "required": true,
+        "description": "rel currency"
+      },
+      {
+        "parameter": "price",
+        "type": "number",
+        "required": true,
+        "description": "order price as decimal number"
+      },
+      {
+        "parameter": "price_rat",
+        "type": "rational number",
+        "required": true,
+        "description": "order price as rational number"
+      },
+      {
+        "parameter": "max_base_vol",
+        "type": "number",
+        "required": true,
+        "description": "Maximum trade volume"
+      },
+      {
+        "parameter": "max_base_vol_rat",
+        "type": "rational number",
+        "required": true,
+        "description": "Maximum trade volume as rational number"
+      },
+      {
+        "parameter": "min_base_vol",
+        "type": "number",
+        "required": true,
+        "description": "Minimum trade volume"
+      },
+      {
+        "parameter": "min_base_vol_rat",
+        "type": "rational number",
+        "required": true,
+        "description": "Minimum trade volume as rational number"
+      },
+      {
+        "parameter": "created_at",
+        "type": "number",
+        "required": true,
+        "description": "Timestamp of order creation"
+      },
+      {
+        "parameter": "updated_at",
+        "type": "number",
+        "required": true,
+        "description": "Timestamp of last order update"
+      },
+      {
+        "parameter": "matches",
+        "type": "list",
+        "required": true,
+        "description": "UUIDS of matching orders"
+      },
+      {
+        "parameter": "started_swaps",
+        "type": "list",
+        "required": true,
+        "description": "UUIDS of swaps started"
+      },
+      {
+        "parameter": "uuid",
+        "type": "string",
+        "required": true,
+        "description": "UUID of this order"
+      },
+      {
+        "parameter": "conf_settings",
+        "type": "object",
+        "required": true,
+        "description": "Confirmation / Notarisation settings for order"
+      },
+      {
+        "parameter": "base_orderbook_ticker",
+        "type": "string",
+        "required": false,
+        "description": "The ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value."
+      },
+      {
+        "parameter": "rel_orderbook_ticker",
+        "type": "string",
+        "required": false,
+        "description": "The ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value."
+      },
+      {
+        "parameter": "cancellable",
+        "type": "boolean",
+        "required": true,
+        "description": "`true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress)"
+      },
+      {
+        "parameter": "cancellation_reason",
+        "type": "string",
+        "required": false,
+        "description": "`Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching."
+      },
+      {
+        "parameter": "available_amount",
+        "type": "string",
+        "required": true,
+        "description": "Funds available for order to be matched against, taking into account current spendable balance and `max_volume`"
+      }
+    ],
+    "variant": "compact"
+  },
   "OrderType": {
     "data": [
       {
@@ -1013,22 +1029,6 @@
         "type": "string",
         "required": true,
         "description": "There are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled`"
-      }
-    ]
-  },
-  "RequestBy": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "integer",
-        "required": true,
-        "description": "Defines whether requesting by `volume` or by `number`."
-      },
-      {
-        "parameter": "value",
-        "type": "numeric string",
-        "required": true,
-        "description": "If `type` is `volume`, the amount of `coin` (defined in the parent object) the user is willing to buy or sell. If `type` is `number`, the number of best price trades to return."
       }
     ]
   },
@@ -1054,19 +1054,19 @@
       }
     ]
   },
-  "DepthInfo": {
+  "RequestBy": {
     "data": [
       {
-        "parameter": "asks",
-        "type": "number",
+        "parameter": "type",
+        "type": "integer",
         "required": true,
-        "description": "The number of asks for this trading pair"
+        "description": "Defines whether requesting by `volume` or by `number`."
       },
       {
-        "parameter": "bids",
-        "type": "number",
+        "parameter": "value",
+        "type": "numeric string",
         "required": true,
-        "description": "The number of bids for this trading pair"
+        "description": "If `type` is `volume`, the amount of `coin` (defined in the parent object) the user is willing to buy or sell. If `type` is `number`, the number of best price trades to return."
       }
     ]
   }

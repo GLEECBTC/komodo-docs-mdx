@@ -1,4 +1,65 @@
 {
+  "ChannelConfigLimits": {
+    "data": [
+      {
+        "parameter": "force_announced_channel_preference",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Optional, defaults to `false`. The user may override this preference in the channel opening request method call."
+      },
+      {
+        "parameter": "their_to_self_delay",
+        "type": "integer",
+        "required": false,
+        "default": "1008",
+        "description": "Optional, defaults to `1008`. The time that we require our counterparty to wait to claim their money, if they broadcast a revoked transaction. This can be increased to provide more punishment for broadcasting old states, but will result in higher fees (since emergency transactions will be larger)."
+      },
+      {
+        "parameter": "our_to_self_delay",
+        "type": "integer",
+        "required": false,
+        "default": "1008",
+        "description": "Optional, defaults to `1008`. The time that our counterparty requires us to wait to claim our money, if we broadcast a revoked transaction."
+      },
+      {
+        "parameter": "our_htlc_minimum_msat",
+        "type": "integer",
+        "required": false,
+        "default": "0",
+        "description": "Optional, defaults to `0`. The smallest value [HTLC](https://academy.binance.com/en/glossary/hashed-timelock-contract) we will accept to forward from the counterparty."
+      },
+      {
+        "parameter": "max_accepted_htlcs",
+        "type": "integer",
+        "required": false,
+        "default": "483",
+        "description": "Optional, defaults to `483`. The maximum number of [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract) we will accept from the counterparty."
+      },
+      {
+        "parameter": "min_max_htlc_value_in_flight_msat",
+        "type": "boolean",
+        "required": false,
+        "default": "0",
+        "description": "Optional, defaults to `0`. The remote node sets a limit on the maximum value of pending HTLCs to them at any given time to limit their funds exposure to [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract). This allows us to set a minimum such value."
+      },
+      {
+        "parameter": "max_channel_reserve_sats",
+        "type": "boolean",
+        "required": false,
+        "default": "18446744073709551615",
+        "description": "Optional, defaults to `18446744073709551615`. The remote node will require us to keep a certain amount in direct payment to ourselves at all time, ensuring that we are able to be punished if we broadcast an old state. This allows us to limit the amount which we will have to keep to ourselves (and cannot use for [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract))."
+      },
+      {
+        "parameter": "min_max_accepted_htlcs",
+        "type": "boolean",
+        "required": false,
+        "default": "0",
+        "description": "Optional, defaults to `0`. The remote node sets a limit on the maximum number of pending HTLCs to them at any given time. This allows us to set a minimum such value."
+      }
+    ],
+    "variant": "compact"
+  },
   "ConfirmationTargets": {
     "data": [
       {
@@ -133,6 +194,29 @@
       }
     ]
   },
+  "LightningActivationParams_1": {
+    "data": [
+      {
+        "parameter": "node_pubkey",
+        "type": "string",
+        "required": true,
+        "description": "Lightning node pubkey"
+      },
+      {
+        "parameter": "backup_password",
+        "type": "string",
+        "required": true,
+        "description": "Backup password used to encrypt channel backups"
+      },
+      {
+        "parameter": "listening_port",
+        "type": "integer",
+        "required": false,
+        "default": "9735",
+        "description": "Optional, defaults to `9735`. Listening port for the Lightning network"
+      }
+    ]
+  },
   "LightningChannelAmount": {
     "data": [
       {
@@ -210,6 +294,41 @@
     ],
     "variant": "compact"
   },
+  "LightningChannelConfig_1": {
+    "data": [
+      {
+        "parameter": "forwarding_fee_proportional_millionths",
+        "type": "integer",
+        "required": false,
+        "description": "Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional_fee_in_millionths_sats."
+      },
+      {
+        "parameter": "forwarding_fee_base_msat",
+        "type": "integer",
+        "required": false,
+        "description": "Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional_fee_in_millionths_sats."
+      },
+      {
+        "parameter": "cltv_expiry_delta",
+        "type": "integer",
+        "required": false,
+        "description": "Blocks until [CheckLockTimeVerify (CLTV)](https://academy.bit2me.com/en/que-es-cltv-bitcoin/) expiry."
+      },
+      {
+        "parameter": "max_dust_htlc_exposure_msat",
+        "type": "integer",
+        "required": false,
+        "description": "Limit our total exposure to in-flight [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract) which are burned to fees as they are too small to claim on-chain."
+      },
+      {
+        "parameter": "force_close_avoidance_max_fee_sats",
+        "type": "integer",
+        "required": false,
+        "description": "The additional fee we're willing to pay to avoid waiting for the counterparty's locktime to reclaim funds."
+      }
+    ],
+    "variant": "compact"
+  },
   "LightningChannelOptions": {
     "data": [
       {
@@ -249,7 +368,99 @@
       }
     ]
   },
+  "LightningChannelValue": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "`Exact` for a specific amount or `Max` for whole balance."
+      },
+      {
+        "parameter": "value",
+        "type": "object",
+        "required": false,
+        "description": "Optional. Required if type is `Exact`. The amount in BTC you want to open the channel with."
+      }
+    ]
+  },
   "LightningClosedChannelsFilter": {
+    "data": [
+      {
+        "parameter": "channel_id",
+        "type": "string",
+        "required": false,
+        "description": "Unique string identifying a channel by its ID."
+      },
+      {
+        "parameter": "counterparty_node_id",
+        "type": "string",
+        "required": false,
+        "description": "A hexadecimal string identifying a counterparty node."
+      },
+      {
+        "parameter": "funding_tx",
+        "type": "string",
+        "required": false,
+        "description": "A transaction ID which added funds."
+      },
+      {
+        "parameter": "from_funding_value",
+        "type": "integer",
+        "required": false,
+        "description": "The minimum value of channel funding in satoshis."
+      },
+      {
+        "parameter": "to_funding_value",
+        "type": "integer",
+        "required": false,
+        "description": "The maximum value of channel funding in satoshis."
+      },
+      {
+        "parameter": "channel_type",
+        "type": "string",
+        "required": false,
+        "description": "`Inbound` or `Outbound`."
+      },
+      {
+        "parameter": "closing_tx",
+        "type": "integer",
+        "required": false,
+        "description": "A transaction ID which closed the channel."
+      },
+      {
+        "parameter": "closure_reason",
+        "type": "integer",
+        "required": false,
+        "description": "The reason a channel was closed."
+      },
+      {
+        "parameter": "claiming_tx",
+        "type": "integer",
+        "required": false,
+        "description": "The ID of the transaction that returned the remaining outbound funds when the channel was closed to our on-chain address."
+      },
+      {
+        "parameter": "from_claimed_balance",
+        "type": "integer",
+        "required": false,
+        "description": "The minimum balance of channel funds claimed in satoshis."
+      },
+      {
+        "parameter": "to_claimed_balance",
+        "type": "integer",
+        "required": false,
+        "description": "The maximum balance of channel funds claimed in satoshis."
+      },
+      {
+        "parameter": "channel_visibility",
+        "type": "integer",
+        "required": false,
+        "description": "`Public` or `Private`."
+      }
+    ]
+  },
+  "LightningClosedChannelsFilter_1": {
     "data": [
       {
         "parameter": "channel_id",
@@ -526,217 +737,6 @@
         "type": "string",
         "required": false,
         "description": "Only used if `type` is `Outbound Payment`. A pubkey which will receive the payment."
-      }
-    ]
-  },
-  "ChannelConfigLimits": {
-    "data": [
-      {
-        "parameter": "force_announced_channel_preference",
-        "type": "boolean",
-        "required": false,
-        "default": "false",
-        "description": "Optional, defaults to `false`. The user may override this preference in the channel opening request method call."
-      },
-      {
-        "parameter": "their_to_self_delay",
-        "type": "integer",
-        "required": false,
-        "default": "1008",
-        "description": "Optional, defaults to `1008`. The time that we require our counterparty to wait to claim their money, if they broadcast a revoked transaction. This can be increased to provide more punishment for broadcasting old states, but will result in higher fees (since emergency transactions will be larger)."
-      },
-      {
-        "parameter": "our_to_self_delay",
-        "type": "integer",
-        "required": false,
-        "default": "1008",
-        "description": "Optional, defaults to `1008`. The time that our counterparty requires us to wait to claim our money, if we broadcast a revoked transaction."
-      },
-      {
-        "parameter": "our_htlc_minimum_msat",
-        "type": "integer",
-        "required": false,
-        "default": "0",
-        "description": "Optional, defaults to `0`. The smallest value [HTLC](https://academy.binance.com/en/glossary/hashed-timelock-contract) we will accept to forward from the counterparty."
-      },
-      {
-        "parameter": "max_accepted_htlcs",
-        "type": "integer",
-        "required": false,
-        "default": "483",
-        "description": "Optional, defaults to `483`. The maximum number of [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract) we will accept from the counterparty."
-      },
-      {
-        "parameter": "min_max_htlc_value_in_flight_msat",
-        "type": "boolean",
-        "required": false,
-        "default": "0",
-        "description": "Optional, defaults to `0`. The remote node sets a limit on the maximum value of pending HTLCs to them at any given time to limit their funds exposure to [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract). This allows us to set a minimum such value."
-      },
-      {
-        "parameter": "max_channel_reserve_sats",
-        "type": "boolean",
-        "required": false,
-        "default": "18446744073709551615",
-        "description": "Optional, defaults to `18446744073709551615`. The remote node will require us to keep a certain amount in direct payment to ourselves at all time, ensuring that we are able to be punished if we broadcast an old state. This allows us to limit the amount which we will have to keep to ourselves (and cannot use for [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract))."
-      },
-      {
-        "parameter": "min_max_accepted_htlcs",
-        "type": "boolean",
-        "required": false,
-        "default": "0",
-        "description": "Optional, defaults to `0`. The remote node sets a limit on the maximum number of pending HTLCs to them at any given time. This allows us to set a minimum such value."
-      }
-    ],
-    "variant": "compact"
-  },
-  "LightningActivationParams_1": {
-    "data": [
-      {
-        "parameter": "node_pubkey",
-        "type": "string",
-        "required": true,
-        "description": "Lightning node pubkey"
-      },
-      {
-        "parameter": "backup_password",
-        "type": "string",
-        "required": true,
-        "description": "Backup password used to encrypt channel backups"
-      },
-      {
-        "parameter": "listening_port",
-        "type": "integer",
-        "required": false,
-        "default": "9735",
-        "description": "Optional, defaults to `9735`. Listening port for the Lightning network"
-      }
-    ]
-  },
-  "LightningChannelValue": {
-    "data": [
-      {
-        "parameter": "type",
-        "type": "string",
-        "required": true,
-        "description": "`Exact` for a specific amount or `Max` for whole balance."
-      },
-      {
-        "parameter": "value",
-        "type": "object",
-        "required": false,
-        "description": "Optional. Required if type is `Exact`. The amount in BTC you want to open the channel with."
-      }
-    ]
-  },
-  "LightningChannelConfig_1": {
-    "data": [
-      {
-        "parameter": "forwarding_fee_proportional_millionths",
-        "type": "integer",
-        "required": false,
-        "description": "Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional_fee_in_millionths_sats."
-      },
-      {
-        "parameter": "forwarding_fee_base_msat",
-        "type": "integer",
-        "required": false,
-        "description": "Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional_fee_in_millionths_sats."
-      },
-      {
-        "parameter": "cltv_expiry_delta",
-        "type": "integer",
-        "required": false,
-        "description": "Blocks until [CheckLockTimeVerify (CLTV)](https://academy.bit2me.com/en/que-es-cltv-bitcoin/) expiry."
-      },
-      {
-        "parameter": "max_dust_htlc_exposure_msat",
-        "type": "integer",
-        "required": false,
-        "description": "Limit our total exposure to in-flight [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract) which are burned to fees as they are too small to claim on-chain."
-      },
-      {
-        "parameter": "force_close_avoidance_max_fee_sats",
-        "type": "integer",
-        "required": false,
-        "description": "The additional fee we're willing to pay to avoid waiting for the counterparty's locktime to reclaim funds."
-      }
-    ],
-    "variant": "compact"
-  },
-  "LightningClosedChannelsFilter_1": {
-    "data": [
-      {
-        "parameter": "channel_id",
-        "type": "string",
-        "required": false,
-        "description": "Unique string identifying a channel by its ID."
-      },
-      {
-        "parameter": "counterparty_node_id",
-        "type": "string",
-        "required": false,
-        "description": "A hexadecimal string identifying a counterparty node."
-      },
-      {
-        "parameter": "funding_tx",
-        "type": "string",
-        "required": false,
-        "description": "A transaction ID which added funds."
-      },
-      {
-        "parameter": "from_funding_value",
-        "type": "integer",
-        "required": false,
-        "description": "The minimum value of channel funding in satoshis."
-      },
-      {
-        "parameter": "to_funding_value",
-        "type": "integer",
-        "required": false,
-        "description": "The maximum value of channel funding in satoshis."
-      },
-      {
-        "parameter": "channel_type",
-        "type": "string",
-        "required": false,
-        "description": "`Inbound` or `Outbound`."
-      },
-      {
-        "parameter": "closing_tx",
-        "type": "integer",
-        "required": false,
-        "description": "A transaction ID which closed the channel."
-      },
-      {
-        "parameter": "closure_reason",
-        "type": "integer",
-        "required": false,
-        "description": "The reason a channel was closed."
-      },
-      {
-        "parameter": "claiming_tx",
-        "type": "integer",
-        "required": false,
-        "description": "The ID of the transaction that returned the remaining outbound funds when the channel was closed to our on-chain address."
-      },
-      {
-        "parameter": "from_claimed_balance",
-        "type": "integer",
-        "required": false,
-        "description": "The minimum balance of channel funds claimed in satoshis."
-      },
-      {
-        "parameter": "to_claimed_balance",
-        "type": "integer",
-        "required": false,
-        "description": "The maximum balance of channel funds claimed in satoshis."
-      },
-      {
-        "parameter": "channel_visibility",
-        "type": "integer",
-        "required": false,
-        "description": "`Public` or `Private`."
       }
     ]
   }

@@ -62,18 +62,17 @@
     "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
     "userpass": "RPC_UserP@SSW0RD"
   },
-  "LegacyEnableNative": {
-    "userpass": "RPC_UserP@SSW0RD",
+  "LegacyEnableBnb": {
+    "coin": "BUSD-BEP20",
     "method": "enable",
-    "coin": "TKL"
-  },
-  "LegacyEnableNativeWithParams": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL",
-    "mm2": 1,
-    "required_confirmations": 10,
-    "requires_notarization": true
+    "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+    "urls": [
+      "https://bsc1.cipig.net:18655",
+      "https://bsc2.cipig.net:18655",
+      "https://bsc3.cipig.net:18655"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyEnableEth": {
     "coin": "ETH",
@@ -116,16 +115,17 @@
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
-  "LegacyEnableBnb": {
-    "coin": "BUSD-BEP20",
+  "LegacyEnableNative": {
+    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable",
-    "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "urls": [
-      "https://bsc1.cipig.net:18655",
-      "https://bsc2.cipig.net:18655",
-      "https://bsc3.cipig.net:18655"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
+    "coin": "TKL"
+  },
+  "LegacyEnableNativeWithParams": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable",
+    "coin": "TKL",
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true
   }
 }

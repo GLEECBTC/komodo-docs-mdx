@@ -1,23 +1,4 @@
 {
-  "LegacyEnableEth": {
-    "success": [
-      {
-        "title": "Success",
-        "notes": "",
-        "json": {
-          "address": "0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94",
-          "balance": "12.00283000",
-          "locked_by_swaps": "0.00000000",
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "mature_confirmations": 0,
-          "result": "success"
-        }
-      }
-    ],
-    "error": [
-    ]
-  },
   "LegacyElectrumBch": {
     "success": [
       {
@@ -86,7 +67,7 @@
   "LegacyElectrumQtum": {
     "success": [
       {
-        "title": "Success", 
+        "title": "Success",
         "notes": "",
         "json": {
           "coin": "QTUM",
@@ -110,19 +91,18 @@
       }
     ]
   },
-  "LegacyEnableNative": {
+  "LegacyEnableBnb": {
     "success": [
       {
         "title": "Success",
         "notes": "",
         "json": {
-          "coin": "TKL",
-          "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-          "balance": "333",
+          "coin": "BUSD-BEP20",
+          "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+          "balance": "45",
           "required_confirmations": 1,
           "requires_notarization": false,
           "unspendable_balance": "0",
-          "mature_confirmations": 100,
           "result": "success"
         }
       }
@@ -130,39 +110,37 @@
     "error": [
       {
         "title": "Connection failed",
-        "notes": "Unable to connect to daemon",
+        "notes": "Unable to connect to BSC RPC",
         "json": {
-          "error": "Failed to connect to native daemon"
+          "error": "All BSC RPC servers unavailable"
+        }
+      },
+      {
+        "title": "Already enabled",
+        "notes": "The coin is already activated",
+        "json": {
+          "error": "lp_coins:1308] Coin BUSD-BEP20 is already activated"
         }
       }
     ]
   },
-  "LegacyEnableNativeWithParams": {
+  "LegacyEnableEth": {
     "success": [
       {
         "title": "Success",
         "notes": "",
         "json": {
-          "coin": "TKL",
-          "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-          "balance": "777",
-          "required_confirmations": 10,
-          "requires_notarization": true,
-          "unspendable_balance": "0",
-          "mature_confirmations": 100,
+          "address": "0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94",
+          "balance": "12.00283000",
+          "locked_by_swaps": "0.00000000",
+          "required_confirmations": 1,
+          "requires_notarization": false,
+          "mature_confirmations": 0,
           "result": "success"
         }
       }
     ],
-    "error": [
-      {
-        "title": "Connection failed",
-        "notes": "Unable to connect to daemon",
-        "json": {
-          "error": "Failed to connect to native daemon"
-        }
-      }
-    ]
+    "error": []
   },
   "LegacyEnableEthGasStation": {
     "success": [
@@ -222,7 +200,7 @@
         }
       },
       {
-        "title": "Already enabled", 
+        "title": "Already enabled",
         "notes": "The coin is already activated",
         "json": {
           "error": "lp_coins:1308] Coin NZDS-PLG20 is already activated"
@@ -230,18 +208,19 @@
       }
     ]
   },
-  "LegacyEnableBnb": {
+  "LegacyEnableNative": {
     "success": [
       {
         "title": "Success",
         "notes": "",
         "json": {
-          "coin": "BUSD-BEP20",
-          "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-          "balance": "45",
+          "coin": "TKL",
+          "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+          "balance": "333",
           "required_confirmations": 1,
           "requires_notarization": false,
           "unspendable_balance": "0",
+          "mature_confirmations": 100,
           "result": "success"
         }
       }
@@ -249,16 +228,36 @@
     "error": [
       {
         "title": "Connection failed",
-        "notes": "Unable to connect to BSC RPC",
+        "notes": "Unable to connect to daemon",
         "json": {
-          "error": "All BSC RPC servers unavailable"
+          "error": "Failed to connect to native daemon"
         }
-      },
+      }
+    ]
+  },
+  "LegacyEnableNativeWithParams": {
+    "success": [
       {
-        "title": "Already enabled",
-        "notes": "The coin is already activated", 
+        "title": "Success",
+        "notes": "",
         "json": {
-          "error": "lp_coins:1308] Coin BUSD-BEP20 is already activated"
+          "coin": "TKL",
+          "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+          "balance": "777",
+          "required_confirmations": 10,
+          "requires_notarization": true,
+          "unspendable_balance": "0",
+          "mature_confirmations": 100,
+          "result": "success"
+        }
+      }
+    ],
+    "error": [
+      {
+        "title": "Connection failed",
+        "notes": "Unable to connect to daemon",
+        "json": {
+          "error": "Failed to connect to native daemon"
         }
       }
     ]

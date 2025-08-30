@@ -61,17 +61,15 @@ services:
       - KDF_BASE_URL=http://kdf-native-hd:8779
       - WALLET_TYPE=hd
       - ENVIRONMENT=native_hd
-    entrypoint: ["/bin/sh", "-c"]
-    command: |
-      mkdir -p /var/newman/native-hd
-      newman run /postman/kdf_postman_collection.json \
-        --environment /postman/environments/kdf_native_hd_collection.json \
-        --reporters cli,json,junit \
-        --reporter-json-export /var/newman/native-hd/results.json \
-        --reporter-junit-export /var/newman/native-hd/results.xml \
-        --timeout 60000 \
-        --delay-request 1000 \
-        --bail folder
+    command: [
+      "run", "/postman/environments/kdf_native_hd_collection.json",
+      "--reporters", "cli,json,junit",
+      "--reporter-json-export", "/var/newman/results.json",
+      "--reporter-junit-export", "/var/newman/results.xml",
+      "--timeout", "60000",
+      "--delay-request", "1000",
+      "--bail", "folder"
+    ]
 
   # Newman test runner for Native Non-HD
   newman-native-nonhd:
@@ -89,17 +87,15 @@ services:
       - KDF_BASE_URL=http://kdf-native-nonhd:8778
       - WALLET_TYPE=iguana
       - ENVIRONMENT=native_iguana
-    entrypoint: ["/bin/sh", "-c"]
-    command: |
-      mkdir -p /var/newman/native-nonhd
-      newman run /postman/kdf_postman_collection.json \
-        --environment /postman/environments/kdf_native_iguana_collection.json \
-        --reporters cli,json,junit \
-        --reporter-json-export /var/newman/native-nonhd/results.json \
-        --reporter-junit-export /var/newman/native-nonhd/results.xml \
-        --timeout 60000 \
-        --delay-request 1000 \
-        --bail folder
+    command: [
+      "run", "/postman/environments/kdf_native_iguana_collection.json",
+      "--reporters", "cli,json,junit",
+      "--reporter-json-export", "/var/newman/results.json",
+      "--reporter-junit-export", "/var/newman/results.xml",
+      "--timeout", "60000",
+      "--delay-request", "1000",
+      "--bail", "folder"
+    ]
 
   # Response processor service
   response-processor:

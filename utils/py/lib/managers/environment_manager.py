@@ -305,7 +305,7 @@ class EnvironmentManager:
                     'electrum': ['TCP', 'SSL'],
                     'websocket': ['ws', 'wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-hd:8779',
                 'notes': 'Native environment with HD wallet support. Includes HD-specific parameters.',
                 'wallet_type': 'hd'
             },
@@ -316,7 +316,7 @@ class EnvironmentManager:
                     'electrum': ['TCP', 'SSL'],
                     'websocket': ['ws', 'wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-nonhd:8778',
                 'notes': 'Native environment with legacy Iguana wallet support.',
                 'wallet_type': 'iguana'
             },
@@ -327,7 +327,7 @@ class EnvironmentManager:
                     'electrum': ['WSS'],
                     'websocket': ['wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-hd:8779',
                 'notes': 'WASM environment with HD wallet support. WSS protocols only.',
                 'wallet_type': 'hd'
             },
@@ -338,7 +338,7 @@ class EnvironmentManager:
                     'electrum': ['WSS'],
                     'websocket': ['wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-nonhd:8778',
                 'notes': 'WASM environment with legacy Iguana wallet support. WSS protocols only.',
                 'wallet_type': 'iguana'
             },
@@ -349,7 +349,7 @@ class EnvironmentManager:
                     'electrum': ['TCP', 'SSL'],
                     'websocket': ['ws', 'wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-hd:8779',
                 'notes': 'Native environment with Trezor hardware wallet and HD wallet support',
                 'hardware': ['trezor'],
                 'wallet_type': 'hd'
@@ -361,7 +361,7 @@ class EnvironmentManager:
                     'electrum': ['WSS'],
                     'websocket': ['wss']
                 },
-                'base_url': 'http://127.0.0.1:7783',
+                'base_url': 'http://kdf-native-hd:8779',
                 'notes': 'WASM environment with Trezor hardware wallet and HD wallet support',
                 'hardware': ['trezor'],
                 'wallet_type': 'hd'

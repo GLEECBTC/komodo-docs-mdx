@@ -43,6 +43,113 @@
       }
     ]
   },
+  "MoralisNftDetails": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
+      },
+      {
+        "parameter": "block_number_minted",
+        "type": "integer",
+        "required": false,
+        "description": "The block height when the NFT was minted. May be `null`."
+      },
+      {
+        "parameter": "block_number",
+        "type": "integer",
+        "required": true,
+        "description": "The block height when the amount or owner changed."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. An NFT collection name."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "last_token_uri_sync",
+        "type": "string",
+        "required": true,
+        "description": "When the token_uri was last updated."
+      },
+      {
+        "parameter": "metadata",
+        "type": "string",
+        "required": false,
+        "description": "May be `null` or a JSON stringified object containing NFT metadata."
+      },
+      {
+        "parameter": "normalized_metadata",
+        "type": "object",
+        "required": false,
+        "description": "A JSON object containing NFT metadata."
+      },
+      {
+        "parameter": "possible_spam",
+        "type": "boolean",
+        "required": true,
+        "description": "Indicates if the NFT collection is flagged as spam."
+      },
+      {
+        "parameter": "symbol",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. The symbol of the NFT collection."
+      },
+      {
+        "parameter": "synced_at",
+        "type": "string",
+        "required": true,
+        "description": "When the NFT was last synced with the node."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The smart contract address of this NFT."
+      },
+      {
+        "parameter": "token_hash",
+        "type": "string",
+        "required": true,
+        "description": "A hash uniquely identifying this NFT's metadata."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The token ID of this NFT."
+      },
+      {
+        "parameter": "token_uri",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. A URI to the NFT metadata (Usually an IPFS link)."
+      },
+      {
+        "parameter": "possible_phishing",
+        "type": "boolean",
+        "required": true,
+        "description": "Indicates if the NFT is flagged as phishing."
+      }
+    ],
+    "variant": "compact"
+  },
   "NftFilter": {
     "data": [
       {
@@ -58,40 +165,6 @@
         "required": false,
         "default": "false",
         "description": "Optional, defaults to `false`. If `true`, only tokens which have param `possible_phishing:false` are included in the response."
-      }
-    ]
-  },
-  "NftInfoBasic": {
-    "data": [
-      {
-        "parameter": "amount",
-        "type": "string",
-        "required": true,
-        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
-      },
-      {
-        "parameter": "chain",
-        "type": "string",
-        "required": true,
-        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
-      },
-      {
-        "parameter": "contract_type",
-        "type": "string",
-        "required": true,
-        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
-      },
-      {
-        "parameter": "token_address",
-        "type": "string",
-        "required": true,
-        "description": "The address of the NFT contract."
-      },
-      {
-        "parameter": "token_id",
-        "type": "string",
-        "required": true,
-        "description": "The token ID of the NFT."
       }
     ]
   },
@@ -213,6 +286,40 @@
       }
     ],
     "variant": "compact"
+  },
+  "NftInfoBasic": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the NFT contract."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The token ID of the NFT."
+      }
+    ]
   },
   "NftMetadata": {
     "data": [
@@ -529,113 +636,6 @@
         "description": "If `true`, only transfers which have param `possible_phishing:false` are included in the response."
       }
     ]
-  },
-  "MoralisNftDetails": {
-    "data": [
-      {
-        "parameter": "amount",
-        "type": "string",
-        "required": true,
-        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
-      },
-      {
-        "parameter": "block_number_minted",
-        "type": "integer",
-        "required": false,
-        "description": "The block height when the NFT was minted. May be `null`."
-      },
-      {
-        "parameter": "block_number",
-        "type": "integer",
-        "required": true,
-        "description": "The block height when the amount or owner changed."
-      },
-      {
-        "parameter": "chain",
-        "type": "string",
-        "required": true,
-        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
-      },
-      {
-        "parameter": "name",
-        "type": "string",
-        "required": false,
-        "description": "May be `null`. An NFT collection name."
-      },
-      {
-        "parameter": "contract_type",
-        "type": "string",
-        "required": true,
-        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
-      },
-      {
-        "parameter": "last_token_uri_sync",
-        "type": "string",
-        "required": true,
-        "description": "When the token_uri was last updated."
-      },
-      {
-        "parameter": "metadata",
-        "type": "string",
-        "required": false,
-        "description": "May be `null` or a JSON stringified object containing NFT metadata."
-      },
-      {
-        "parameter": "normalized_metadata",
-        "type": "object",
-        "required": false,
-        "description": "A JSON object containing NFT metadata."
-      },
-      {
-        "parameter": "possible_spam",
-        "type": "boolean",
-        "required": true,
-        "description": "Indicates if the NFT collection is flagged as spam."
-      },
-      {
-        "parameter": "symbol",
-        "type": "string",
-        "required": false,
-        "description": "May be `null`. The symbol of the NFT collection."
-      },
-      {
-        "parameter": "synced_at",
-        "type": "string",
-        "required": true,
-        "description": "When the NFT was last synced with the node."
-      },
-      {
-        "parameter": "token_address",
-        "type": "string",
-        "required": true,
-        "description": "The smart contract address of this NFT."
-      },
-      {
-        "parameter": "token_hash",
-        "type": "string",
-        "required": true,
-        "description": "A hash uniquely identifying this NFT's metadata."
-      },
-      {
-        "parameter": "token_id",
-        "type": "string",
-        "required": true,
-        "description": "The token ID of this NFT."
-      },
-      {
-        "parameter": "token_uri",
-        "type": "string",
-        "required": false,
-        "description": "May be `null`. A URI to the NFT metadata (Usually an IPFS link)."
-      },
-      {
-        "parameter": "possible_phishing",
-        "type": "boolean",
-        "required": true,
-        "description": "Indicates if the NFT is flagged as phishing."
-      }
-    ],
-    "variant": "compact"
   },
   "TokenProtocol": {
     "data": [
