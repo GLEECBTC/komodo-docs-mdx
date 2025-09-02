@@ -24,6 +24,7 @@
 - Common response reference resolution
 - Collected response validation
 - Automatic alphabetical sorting of all JSON data file keys (requests, responses, tables, methods)
+- Empty template creation for missing response entries
 
 ## Usage
 
@@ -158,6 +159,7 @@ The unified manager integrates seamlessly with existing processes:
 - **Naming Conventions**: Checks PascalCase/camelCase patterns
 - **Common References**: Resolves and validates common response references
 - **Automatic Sorting**: Sorts all JSON data files alphabetically by keys for consistency (requests, responses, tables, methods)
+- **Empty Templates**: Creates `{"success": [], "error": []}` templates for requests missing response entries
 
 ### Request/Response Alignment
 - **Missing Responses**: Identifies requests without corresponding responses

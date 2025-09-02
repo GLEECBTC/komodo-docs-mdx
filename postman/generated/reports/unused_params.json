@@ -24,10 +24,7 @@
     "urls"
   ],
   "enable_bch_with_tokens": [
-    "address_format",
-    "required_confirmations",
-    "requires_notarization",
-    "utxo_merge_params"
+    "get_balances"
   ],
   "enable_erc20": [
     "activation_params.required_confirmations"

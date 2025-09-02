@@ -15,52 +15,19 @@
   "enable_tendermint_with_assets": [
     "EnableTendermintWithAssetsWalletConnect"
   ],
-  "task::enable_bch::cancel": [
-    "TaskEnableBchCancel"
-  ],
   "task::enable_bch::init": [
     "TaskEnableBchInit"
   ],
   "task::enable_bch::status": [
     "TaskEnableBchStatus"
   ],
-  "task::enable_bch::user_action": [
-    "TaskEnableBchUserActionPin"
-  ],
-  "task::enable_eth::cancel": [
-    "TaskEnableEthCancel"
-  ],
   "task::enable_eth::init": [
     "TaskEnableEthInitTrezor"
-  ],
-  "task::enable_eth::user_action": [
-    "TaskEnableEthUserActionPin"
-  ],
-  "task::enable_qtum::cancel": [
-    "TaskEnableQtumCancel"
   ],
   "task::enable_qtum::init": [
     "TaskEnableQtumInit"
   ],
   "task::enable_qtum::status": [
     "TaskEnableQtumStatus"
-  ],
-  "task::enable_qtum::user_action": [
-    "TaskEnableQtumUserActionPin"
-  ],
-  "task::enable_tendermint::cancel": [
-    "TaskEnableTendermintCancel"
-  ],
-  "task::enable_tendermint::user_action": [
-    "TaskEnableTendermintUserActionPin"
-  ],
-  "task::enable_utxo::init": [
-    "TaskEnableUtxoInit"
-  ],
-  "task::enable_utxo::user_action": [
-    "TaskEnableUtxoUserActionPin"
-  ],
-  "task::enable_z_coin::user_action": [
-    "TaskEnableZCoinUserActionPin"
   ]
 }

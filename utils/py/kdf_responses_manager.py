@@ -740,6 +740,9 @@ class UnifiedResponseManager:
         # Sort JSON data files alphabetically by keys
         sorted_files = self._sort_json_files()
         
+        # Add empty template entries for missing responses
+        templated_files = self._add_missing_response_templates()
+        
         validation_results = {
             "existing_files": {
                 "success": success,
@@ -747,7 +750,8 @@ class UnifiedResponseManager:
                 "warnings": [str(warning) for warning in warnings],
                 "error_count": len(errors),
                 "warning_count": len(warnings),
-                "sorted_files": sorted_files
+                "sorted_files": sorted_files,
+                "templated_files": templated_files
             }
         }
         
@@ -837,6 +841,75 @@ class UnifiedResponseManager:
                 }
         
         return sorted_files
+    
+    def _add_missing_response_templates(self) -> Dict[str, Any]:
+        """Add empty template entries for requests missing any responses."""
+        workspace_root = Path(__file__).parent.parent.parent
+        templated_files = {}
+        
+        # Load request data to identify all available request methods
+        request_files = [
+            (workspace_root / "src/data/requests/kdf/v2/coin_activation.json", 
+             workspace_root / "src/data/responses/kdf/v2/coin_activation.json"),
+            (workspace_root / "src/data/requests/kdf/legacy/coin_activation.json", 
+             workspace_root / "src/data/responses/kdf/legacy/coin_activation.json")
+        ]
+        
+        for request_file, response_file in request_files:
+            if not request_file.exists() or not response_file.exists():
+                continue
+                
+            try:
+                # Load request and response data
+                with open(request_file, 'r', encoding='utf-8') as f:
+                    request_data = json.load(f)
+                    
+                with open(response_file, 'r', encoding='utf-8') as f:
+                    response_data = json.load(f)
+                
+                # Find missing response entries
+                missing_entries = []
+                updated = False
+                
+                for request_key in request_data.keys():
+                    if request_key not in response_data:
+                        # Add empty template
+                        response_data[request_key] = {
+                            "success": [],
+                            "error": []
+                        }
+                        missing_entries.append(request_key)
+                        updated = True
+                        self.logger.info(f"Added empty template for missing response: {request_key}")
+                
+                # Save updated response file if changes were made
+                if updated:
+                    # Sort the data before saving
+                    sorted_keys = sorted(response_data.keys(), key=str.lower)
+                    sorted_response_data = {key: response_data[key] for key in sorted_keys}
+                    
+                    with open(response_file, 'w', encoding='utf-8') as f:
+                        json.dump(sorted_response_data, f, indent=2)
+                    
+                    templated_files[str(response_file.relative_to(workspace_root))] = {
+                        "action": "templated",
+                        "added_entries": missing_entries,
+                        "count": len(missing_entries)
+                    }
+                else:
+                    templated_files[str(response_file.relative_to(workspace_root))] = {
+                        "action": "complete",
+                        "added_entries": [],
+                        "count": 0
+                    }
+                    
+            except (json.JSONDecodeError, Exception) as e:
+                templated_files[str(response_file.relative_to(workspace_root))] = {
+                    "action": "error",
+                    "error": str(e)
+                }
+        
+        return templated_files
     
     def _validate_collected_responses(self) -> Dict[str, Any]:
         """Validate the format of collected responses."""
@@ -1365,6 +1438,24 @@ def main():
                             print(f"  ✅ {file_path}")
                 else:
                     print(f"📄 All {already_sorted_count} JSON file(s) already sorted")
+            
+            # Show file templating results
+            if "templated_files" in existing:
+                templated_files = existing["templated_files"]
+                templated_count = sum(1 for info in templated_files.values() if info.get("action") == "templated")
+                complete_count = sum(1 for info in templated_files.values() if info.get("action") == "complete")
+                total_added = sum(info.get("count", 0) for info in templated_files.values() if info.get("action") == "templated")
+                
+                if templated_count > 0:
+                    print(f"📋 Added {total_added} empty template(s) to {templated_count} response file(s)")
+                    for file_path, info in templated_files.items():
+                        if info.get("action") == "templated":
+                            entries = ", ".join(info.get("added_entries", [])[:3])  # Show first 3
+                            if len(info.get("added_entries", [])) > 3:
+                                entries += f" (+{len(info.get('added_entries', [])) - 3} more)"
+                            print(f"  ✅ {file_path}: {entries}")
+                else:
+                    print(f"📋 All {complete_count} response file(s) already have templates for all requests")
             
             if "collected_responses" in validation:
                 collected = validation["collected_responses"]

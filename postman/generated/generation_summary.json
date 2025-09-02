@@ -1,5 +1,5 @@
 {
-  "generation_timestamp": "2025-08-30T21:38:24.094278",
+  "generation_timestamp": "2025-09-02T20:58:13.235680",
   "generated_files": {
     "standard": {
       "file": "postman/generated/collections/kdf_comprehensive_collection.json",
@@ -33,11 +33,11 @@
   "reports": {
     "unused_params": {
       "file": "postman/generated/reports/unused_params.json",
-      "count": 79
+      "count": 76
     },
     "missing_responses": {
       "file": "postman/generated/reports/missing_responses.json",
-      "count": 24
+      "count": 13
     },
     "untranslated_keys": {
       "file": "postman/generated/reports/untranslated_keys.json",

@@ -355,7 +355,7 @@ class UnifiedPostmanGenerator:
                     self._extract_param_names(value[0], param_names, param_key)
     
     def check_response_exists(self, request_key: str, version: str) -> bool:
-        """Check if response file exists for the request."""
+        """Check if response file exists for the request and has actual content."""
         response_file = self.responses_dir / version / "coin_activation.json"
         if not response_file.exists():
             return False
@@ -371,7 +371,21 @@ class UnifiedPostmanGenerator:
         response_value = response_data[request_key]
         resolved_response = self.resolve_response_reference(response_value, self.common_responses)
         
-        return resolved_response is not None
+        if resolved_response is None:
+            return False
+        
+        # Check if response has actual content (not just empty templates)
+        if isinstance(resolved_response, dict):
+            # Check for success and error arrays
+            success_responses = resolved_response.get("success", [])
+            error_responses = resolved_response.get("error", [])
+            
+            # If both arrays are empty, consider this as missing response
+            if (isinstance(success_responses, list) and len(success_responses) == 0 and 
+                isinstance(error_responses, list) and len(error_responses) == 0):
+                return False
+        
+        return True
     
     def resolve_response_reference(self, response_value: Any, common_responses: Dict[str, Dict]) -> Any:
         """Resolve response references to common responses."""

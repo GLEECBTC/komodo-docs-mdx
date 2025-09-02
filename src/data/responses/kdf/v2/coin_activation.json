@@ -1,4 +1,12 @@
 {
+  "EnableBchWithTokensBalancesFalse": {
+    "success": [],
+    "error": []
+  },
+  "EnableBchWithTokensTxHistory": {
+    "success": [],
+    "error": []
+  },
   "EnableErc20Basic": {
     "success": [
       {
@@ -21,6 +29,26 @@
         }
       }
     ],
+    "error": []
+  },
+  "EnableEthWithTokensGasStation": {
+    "success": [],
+    "error": []
+  },
+  "EnableEthWithTokensMaticBalancesFalse": {
+    "success": [],
+    "error": []
+  },
+  "EnableEthWithTokensMaticNft": {
+    "success": [],
+    "error": []
+  },
+  "EnableEthWithTokensWalletConnect": {
+    "success": [],
+    "error": []
+  },
+  "EnableTendermintTokenBasic": {
+    "success": [],
     "error": []
   },
   "EnableTendermintWithAssetsBalancesFalse": {
@@ -72,6 +100,44 @@
     ],
     "error": []
   },
+  "EnableTendermintWithAssetsWalletConnect": {
+    "success": [],
+    "error": []
+  },
+  "TaskEnableBchCancel": {
+    "success": [
+      "CancelTaskId"
+    ],
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
+  },
+  "TaskEnableBchInit": {
+    "success": [],
+    "error": []
+  },
+  "TaskEnableBchStatus": {
+    "success": [],
+    "error": []
+  },
+  "TaskEnableBchUserActionPin": {
+    "success": ["UserActionSuccess"],
+    "error": []
+  },
+  "TaskEnableEthCancel": {
+    "success": [
+      "CancelTaskId"
+    ],
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
+  },
+  "TaskEnableEthInitTrezor": {
+    "success": [],
+    "error": []
+  },
   "TaskEnableEthStatus": {
     "success": [
       {
@@ -91,21 +157,48 @@
       "NoSuchTask"
     ]
   },
+  "TaskEnableEthUserActionPin": {
+    "success": ["UserActionSuccess"],
+    "error": []
+  },
+  "TaskEnableQtumCancel": {
+    "success": [
+      "CancelTaskId"
+    ],
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
+  },
+  "TaskEnableQtumInit": {
+    "success": [],
+    "error": []
+  },
+  "TaskEnableQtumStatus": {
+    "success": [],
+    "error": []
+  },
+  "TaskEnableQtumUserActionPin": {
+    "success": ["UserActionSuccess"],
+    "error": []
+  },
+  "TaskEnableTendermintCancel": {
+    "success": [
+      "CancelTaskId"
+    ],
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
+  },
   "TaskEnableTendermintInit": {
     "success": [
-      {
-        "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "task_id": 1
-          },
-          "id": null
-        }
-      }
+      "SuccessTaskId"
     ],
-    "error": []
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
   },
   "TaskEnableTendermintStatus": {
     "success": [
@@ -138,50 +231,27 @@
     ],
     "error": []
   },
-  "TaskEnableTendermintStatus_2": {
-    "success": [
-      {
-        "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "Ok",
-            "details": {
-              "ticker": "IRIS",
-              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-              "current_block": 31625318,
-              "balance": {
-                "spendable": "0",
-                "unspendable": "0"
-              },
-              "tokens_balances": {
-                "ATOM-IBC_IRIS": {
-                  "spendable": "0",
-                  "unspendable": "0"
-                }
-              }
-            }
-          },
-          "id": null
-        }
-      }
-    ],
+  "TaskEnableTendermintUserActionPin": {
+    "success": ["UserActionSuccess"],
     "error": []
   },
   "TaskEnableUtxoCancel": {
     "success": [
-      {
-        "title": "Success",
-        "notes": "Response collected automatically via Docker container (enhanced)",
-        "json": {
-          "mmrpc": "2.0",
-          "result": "success",
-          "id": null
-        }
-      }
+      "CancelTaskId"
     ],
-    "error": []
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
+  },
+  "TaskEnableUtxoInit": {
+    "success": [
+      "SuccessTaskId"
+    ],
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
   },
   "TaskEnableUtxoStatus": {
     "success": [
@@ -200,31 +270,36 @@
     ],
     "error": []
   },
+  "TaskEnableUtxoUserActionPin": {
+    "success": ["UserActionSuccess"],
+    "error": []
+  },
   "TaskEnableZCoinCancel": {
     "success": [
-      {
-        "title": "Success",
-        "notes": "Response collected automatically via Docker container (enhanced)",
-        "json": {
-          "mmrpc": "2.0",
-          "result": "success",
-          "id": null
-        }
-      }
+      "CancelTaskId"
     ],
-    "error": []
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
   },
   "TaskEnableZCoinInitBasic": {
     "success": [
       "SuccessTaskId"
     ],
-    "error": []
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
   },
   "TaskEnableZCoinInitWithSyncParams": {
     "success": [
       "SuccessTaskId"
     ],
-    "error": []
+    "error": [
+      "TaskFinished",
+      "NoSuchTask"
+    ]
   },
   "TaskEnableZCoinStatus": {
     "success": [
@@ -349,5 +424,9 @@
         }
       }
     ]
+  },
+  "TaskEnableZCoinUserActionPin": {
+    "success": ["UserActionSuccess"],
+    "error": []
   }
 }
