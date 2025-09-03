@@ -1,25 +1,25 @@
 {
-  "generation_timestamp": "2025-09-02T20:58:13.235680",
+  "generation_timestamp": "2025-09-03T19:28:18.443616",
   "generated_files": {
     "standard": {
       "file": "postman/generated/collections/kdf_comprehensive_collection.json",
-      "count": 31
+      "count": 26
     },
     "native_hd": {
       "file": "postman/generated/environments/kdf_native_hd_collection.json",
-      "count": 26
+      "count": 21
     },
     "native_iguana": {
       "file": "postman/generated/environments/kdf_native_iguana_collection.json",
-      "count": 30
+      "count": 25
     },
     "wasm_hd": {
       "file": "postman/generated/environments/kdf_wasm_hd_collection.json",
-      "count": 26
+      "count": 21
     },
     "wasm_iguana": {
       "file": "postman/generated/environments/kdf_wasm_iguana_collection.json",
-      "count": 26
+      "count": 21
     },
     "trezor_native_hd": {
       "file": "postman/generated/environments/kdf_trezor_native_hd_collection.json",
@@ -33,11 +33,11 @@
   "reports": {
     "unused_params": {
       "file": "postman/generated/reports/unused_params.json",
-      "count": 76
+      "count": 72
     },
     "missing_responses": {
       "file": "postman/generated/reports/missing_responses.json",
-      "count": 13
+      "count": 9
     },
     "untranslated_keys": {
       "file": "postman/generated/reports/untranslated_keys.json",

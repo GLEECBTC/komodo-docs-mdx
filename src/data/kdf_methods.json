@@ -48,6 +48,7 @@
     }
   },
   "enable_bch_with_tokens": {
+    "deprecated": true,
     "table": "EnableBchWithTokensArguments",
     "examples": {
       "EnableBchWithTokensTxHistory": "Enable Bch With Tokens Tx History",
@@ -134,6 +135,7 @@
     }
   },
   "task::enable_bch::cancel": {
+    "deprecated": true,
     "table": "TaskCancelArguments",
     "examples": {
       "TaskEnableBchCancel": "Cancel Bitcoin Cash Activation Task"
@@ -150,6 +152,7 @@
     }
   },
   "task::enable_bch::init": {
+    "deprecated": true,
     "table": "TaskEnableBchArguments",
     "examples": {
       "TaskEnableBchInit": "Initialize Bitcoin Cash"
@@ -175,6 +178,7 @@
     }
   },
   "task::enable_bch::status": {
+    "deprecated": true,
     "table": "TaskStatusArguments",
     "examples": {
       "TaskEnableBchStatus": "Check Bitcoin Cash Activation Task Status"
@@ -191,6 +195,7 @@
     }
   },
   "task::enable_bch::user_action": {
+    "deprecated": true,
     "table": "TaskUserActionArguments",
     "examples": {
       "TaskEnableBchUserActionPin": "Provide Trezor PIN"

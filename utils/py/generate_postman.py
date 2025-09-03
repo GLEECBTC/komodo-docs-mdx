@@ -166,6 +166,9 @@ class UnifiedPostmanGenerator:
     def get_translated_name(self, request_key: str) -> str:
         """Get translated name for request key, fallback to original."""
         for method, config in self.method_config.items():
+            # Skip deprecated methods
+            if config.get('deprecated', False):
+                continue
             examples = config.get("examples", {})
             if request_key in examples:
                 return examples[request_key]
@@ -704,8 +707,18 @@ pm.test("Capture task_id", function () {{
                 if not requests_data:
                     continue
                 
-                # Validate and collect reports
+                # Filter out deprecated methods and validate
+                filtered_requests_data = {}
                 for request_key, request_data in requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        method_config = self.method_config.get(method, {})
+                        if method_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                    filtered_requests_data[request_key] = request_data
+                
+                # Validate and collect reports
+                for request_key, request_data in filtered_requests_data.items():
                     method = request_data.get("method")
                     if method:
                         unused = self.validate_request_params(request_data, method, tables)
@@ -713,12 +726,15 @@ pm.test("Capture task_id", function () {{
                             self.unused_params[method] = list(unused)
                     
                     if not self.check_response_exists(request_key, version):
-                        if method not in self.missing_responses:
-                            self.missing_responses[method] = []
-                        self.missing_responses[method].append(request_key)
+                        # Skip deprecated methods from missing responses report
+                        method_config = self.method_config.get(method, {})
+                        if not method_config.get('deprecated', False):
+                            if method not in self.missing_responses:
+                                self.missing_responses[method] = []
+                            self.missing_responses[method].append(request_key)
                 
-                # Add to folder tree
-                file_tree = self.create_folder_structure(requests_data, version, filename, tables, "standard")
+                # Add to folder tree (using filtered data)
+                file_tree = self.create_folder_structure(filtered_requests_data, version, filename, tables, "standard")
                 
                 # Merge into main tree
                 for key, value in file_tree.items():
@@ -767,7 +783,18 @@ pm.test("Capture task_id", function () {{
         """Generate a Postman collection for a specific environment."""
         # Load and filter request data
         request_data = self.load_request_data('v2')
-        filtered_data = self.filter_protocols_for_environment(request_data, environment)
+        
+        # Filter out deprecated methods first
+        filtered_request_data = {}
+        for request_key, request_info in request_data.items():
+            method = request_info.get('method')
+            if method:
+                method_config = self.method_config.get(method, {})
+                if method_config.get('deprecated', False):
+                    continue  # Skip deprecated methods
+            filtered_request_data[request_key] = request_info
+        
+        filtered_data = self.filter_protocols_for_environment(filtered_request_data, environment)
         
         # Get environment configuration
         env_configs = self.env_manager.get_environment_specific_postman_configs()
@@ -933,6 +960,11 @@ pm.test("Capture task_id", function () {{
                 for request_key, request_data in requests_data.items():
                     method = request_data.get("method")
                     if method and method not in self.method_config:
+                        # Check if method exists in config but is deprecated
+                        existing_config = self.method_config.get(method, {})
+                        if existing_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                            
                         if method not in missing_methods:
                             missing_methods[method] = {
                                 "examples": {},

@@ -25,6 +25,7 @@
 - Collected response validation
 - Automatic alphabetical sorting of all JSON data file keys (requests, responses, tables, methods)
 - Empty template creation for missing response entries
+- Deprecated method exclusion from collection and processing
 
 ## Usage
 
@@ -160,6 +161,7 @@ The unified manager integrates seamlessly with existing processes:
 - **Common References**: Resolves and validates common response references
 - **Automatic Sorting**: Sorts all JSON data files alphabetically by keys for consistency (requests, responses, tables, methods)
 - **Empty Templates**: Creates `{"success": [], "error": []}` templates for requests missing response entries
+- **Deprecated Method Filtering**: Automatically excludes methods marked with `"deprecated": true` from processing
 
 ### Request/Response Alignment
 - **Missing Responses**: Identifies requests without corresponding responses
@@ -184,3 +186,19 @@ The unified manager integrates seamlessly with existing processes:
 - Status polling with 2-second intervals and 20-check limit
 - Automatic coin disabling to prevent conflicts
 - Efficient JSON structure comparison for consistency checking
+
+## Deprecated Method Handling
+
+Methods marked with `"deprecated": true` in `src/data/kdf_methods.json` are automatically excluded from:
+- Postman collection generation
+- Missing responses reports  
+- Response collection attempts
+- Template creation
+- All validation processes
+
+### Currently Deprecated Methods:
+- `enable_bch_with_tokens` - Legacy BCH token activation
+- `task::enable_bch::init` - BCH task initialization
+- `task::enable_bch::status` - BCH task status checking
+- `task::enable_bch::cancel` - BCH task cancellation
+- `task::enable_bch::user_action` - BCH task user interaction

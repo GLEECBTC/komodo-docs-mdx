@@ -121,10 +121,6 @@
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://node.komodo.earth:8080/ethereum",
-          "komodo_proxy": true
-        },
-        {
           "url": "https://eth.drpc.org",
           "ws_url": "wss://eth.drpc.org"
         }
@@ -136,15 +132,7 @@
           "required_confirmations": 4
         },
         {
-          "ticker": "BCH-ERC20",
-          "required_confirmations": 4
-        },
-        {
           "ticker": "MINDS-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "BUSD-ERC20",
           "required_confirmations": 4
         }
       ],
@@ -169,10 +157,6 @@
         "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
       },
       "nodes": [
-        {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
         {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"
@@ -214,10 +198,6 @@
       "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
       "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
       "nodes": [
-        {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
         {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"
@@ -264,10 +244,6 @@
         {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/ethereum",
-          "komodo_proxy": true
         },
         {
           "url": "https://ethereum-rpc.publicnode.com",
@@ -369,10 +345,6 @@
         },
         {
           "url": "https://cosmoshub.rpc.stakin-nodes.com/"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/cosmos",
-          "komodo_proxy": true
         }
       ],
       "tokens_params": []
@@ -483,10 +455,6 @@
         "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
       },
       "nodes": [
-        {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
         {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"

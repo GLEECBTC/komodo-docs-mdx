@@ -46,6 +46,21 @@ class EnvironmentManager:
         except json.JSONDecodeError as e:
             raise ValueError(f"Invalid JSON in KDF methods file: {e}")
     
+    def is_deprecated(self, method: str) -> bool:
+        """Check if a method is marked as deprecated.
+        
+        Args:
+            method: The KDF method name
+            
+        Returns:
+            True if the method is deprecated, False otherwise
+        """
+        if method not in self.methods_data:
+            return False
+        
+        method_data = self.methods_data[method]
+        return method_data.get('deprecated', False)
+    
     def get_supported_environments(self, method: str) -> List[str]:
         """Get list of environments where the method is supported.
         
@@ -424,8 +439,12 @@ class EnvironmentManager:
             'protocol_preferences': {}
         }
         
-        # Analyze each method
+        # Analyze each method (excluding deprecated ones)
         for method_name, method_data in self.methods_data.items():
+            # Skip deprecated methods
+            if method_data.get('deprecated', False):
+                continue
+                
             requirements = method_data.get('requirements', {})
             environments = requirements.get('environments', [])
             hardware = requirements.get('hardware', [])

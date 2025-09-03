@@ -568,8 +568,19 @@ class UnifiedResponseManager:
         
         self.logger.info(f"Found {len(missing_responses)} methods with missing responses")
         
-        # Process each method with missing responses
+        # Load method config to check for deprecated methods
+        workspace_root = Path(__file__).parent.parent.parent
+        kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+        kdf_methods = self.load_json_file(kdf_methods_file) or {}
+        
+        # Process each method with missing responses (excluding deprecated)
         for method_name, missing_response_names in missing_responses.items():
+            # Skip deprecated methods
+            method_config = kdf_methods.get(method_name, {})
+            if method_config.get('deprecated', False):
+                self.logger.info(f"Skipping deprecated method: {method_name}")
+                continue
+                
             self.logger.info(f"Processing method: {method_name}")
             
             # Check if this method needs a platform coin
@@ -867,12 +878,23 @@ class UnifiedResponseManager:
                 with open(response_file, 'r', encoding='utf-8') as f:
                     response_data = json.load(f)
                 
-                # Find missing response entries
+                # Load KDF methods to check for deprecated entries
+                kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+                kdf_methods = {}
+                if kdf_methods_file.exists():
+                    with open(kdf_methods_file, 'r', encoding='utf-8') as f:
+                        kdf_methods = json.load(f)
+                
+                # Find missing response entries (excluding deprecated methods)
                 missing_entries = []
                 updated = False
                 
                 for request_key in request_data.keys():
                     if request_key not in response_data:
+                        # Check if the method for this request is deprecated
+                        request_method = request_data[request_key].get('method')
+                        if request_method and kdf_methods.get(request_method, {}).get('deprecated', False):
+                            continue  # Skip deprecated methods
                         # Add empty template
                         response_data[request_key] = {
                             "success": [],
