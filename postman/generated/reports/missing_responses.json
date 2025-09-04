@@ -1,7 +1,5 @@
 {
   "enable_eth_with_tokens": [
-    "EnableEthWithTokensGasStation",
-    "EnableEthWithTokensMaticBalancesFalse",
     "EnableEthWithTokensMaticNft"
   ],
   "task::enable_qtum::init": [

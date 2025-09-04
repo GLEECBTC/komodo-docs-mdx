@@ -98,7 +98,8 @@
         "hd",
         "iguana"
       ]
-    }
+    },
+    "timeout": 300
   },
   "enable_tendermint_token": {
     "table": "EnableTendermintTokenArguments",

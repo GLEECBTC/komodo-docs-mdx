@@ -255,7 +255,8 @@ The system automatically tracks response times for all method calls across diffe
 ### Output Files
 - **`kdf_postman_responses.json`**: Complete response collection results and validation data
 - **`kdf_response_delays.json`**: Response timing data across KDF environments
-- **`missing_responses.json`**: Methods requiring response documentation
+- **`inconsistent_responses.json`**: Methods with inconsistent responses across environments
+- **`missing_responses.json`**: Methods requiring response documentation (auto-updated after collection)
 
 ### Delay Report Structure
 ```json
@@ -328,5 +329,113 @@ Method timeouts are configured in `src/data/kdf_methods.json` using the `timeout
   "task::enable_eth::init": {
     "timeout": 240
   }
+}
+```
+
+## Inconsistent Responses Tracking
+
+The system automatically detects and reports methods that produce inconsistent response structures or success/failure patterns across different KDF environments. This is crucial for identifying environment-specific behaviors and platform compatibility issues.
+
+### Inconsistent Response Report Structure
+```json
+{
+  "metadata": {
+    "generated_at": "2025-01-01 12:00:00 UTC",
+    "total_inconsistent_methods": 2,
+    "total_inconsistent_examples": 3,
+    "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors"
+  },
+  "inconsistent_responses": {
+    "method_name": {
+      "ExampleName": {
+        "instances": {
+          "native-hd": {
+            "result": {
+              "address": "0x123...",
+              "balance": "100"
+            }
+          },
+          "native-nonhd": {
+            "error": "HD wallet required"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Types of Inconsistencies Detected
+
+**1. Structure Differences**
+- Same successful response but different JSON structure
+- Field naming variations (e.g., `address` vs `addr`)
+- Nested vs flat response formats
+
+**2. Environment-Specific Success/Failure**
+- HD-only methods that fail on non-HD wallets
+- WASM vs Native compatibility issues
+- Platform-specific features
+
+**3. Behavioral Variations**
+- Different response data for same input
+- Varying error messages
+- Optional field presence/absence
+
+### Use Cases
+- **Platform Support**: Identify methods requiring specific environments
+- **Documentation**: Flag methods needing environment-specific examples
+- **Testing**: Focus QA efforts on inconsistent behaviors
+- **Development**: Highlight areas needing cross-platform consistency
+
+### Response File Population
+Even when responses are marked as inconsistent, the system now automatically:
+- **Uses native-hd response** as canonical when available and successful
+- **Populates response JSON files** for documentation purposes  
+- **Logs inconsistency** while preserving successful response data
+- **Enables auto-updates** based on successful responses regardless of structure consistency
+
+## Comprehensive Method Scanning
+
+The system now scans **ALL methods** on every run, not just missing ones. This ensures complete coverage and captures updates to existing responses that might occur in future KDF releases.
+
+### Scanning Scope
+- **All non-deprecated methods**: Every method in `kdf_methods.json` without `"deprecated": true`
+- **All request examples**: Every example for each method (39 total examples across 26 methods)
+- **Every execution**: Full scan regardless of current response file status
+- **Future-ready**: Automatically detects new response data or structural changes
+
+## Missing Responses Report Regeneration
+
+The system automatically regenerates the `missing_responses.json` report after response collection to ensure accuracy. This addresses the issue where responses collected during the current run were still marked as "missing" in the original report.
+
+### Process Flow
+1. **Initial Generation**: `generate_postman.py` creates initial `missing_responses.json` based on current response files
+2. **Response Collection**: `kdf_responses_manager.py` collects new responses and updates response files
+3. **Regeneration**: Missing responses report is automatically updated to reflect newly collected responses
+4. **Accurate Reporting**: Only truly missing responses remain in the final report
+
+### Benefits
+- **Real-time Accuracy**: Missing responses report reflects actual current state
+- **Reduced False Positives**: Successfully collected responses are immediately removed from missing list
+- **Workflow Efficiency**: No manual regeneration needed after response collection
+- **Documentation Consistency**: Response files and missing reports stay synchronized
+
+### Example Impact
+```json
+// Before collection:
+{
+  "enable_eth_with_tokens": [
+    "EnableEthWithTokensGasStation",     // ← False positive
+    "EnableEthWithTokensMaticBalancesFalse", // ← False positive  
+    "EnableEthWithTokensMaticNft"        // ← Genuinely missing
+  ]
+}
+
+// After collection & regeneration:
+{
+  "enable_eth_with_tokens": [
+    "EnableEthWithTokensMaticNft"        // ← Only genuinely missing entries remain
+  ]
 }
 ```

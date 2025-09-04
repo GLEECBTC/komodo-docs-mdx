@@ -32,11 +32,127 @@
     "error": []
   },
   "EnableEthWithTokensGasStation": {
-    "success": [],
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23287401,
+            "ticker": "ETH",
+            "wallet_balance": {
+              "wallet_type": "HD",
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "derivation_path": "m/44'/60'/0'/0/0",
+                      "chain": "External",
+                      "balance": {
+                        "ETH": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "APE-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MINDS-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "nfts_infos": {}
+          },
+          "id": null
+        }
+      }
+    ],
     "error": []
   },
   "EnableEthWithTokensMaticBalancesFalse": {
-    "success": [],
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 76029528,
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "wallet_type": "HD",
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "derivation_path": "m/44'/60'/0'/0/0",
+                      "chain": "External",
+                      "balance": {
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "nfts_infos": {}
+          },
+          "id": null
+        }
+      }
+    ],
     "error": []
   },
   "EnableEthWithTokensMaticNft": {
@@ -120,6 +236,99 @@
   },
   "EnableTendermintWithAssetsWalletConnect": {
     "success": [],
+    "error": []
+  },
+  "LegacyElectrumBch": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "result": "success",
+          "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
+          "balance": "0",
+          "unspendable_balance": "0",
+          "coin": "BCH",
+          "required_confirmations": 1,
+          "requires_notarization": false,
+          "mature_confirmations": 100
+        }
+      }
+    ],
+    "error": []
+  },
+  "LegacyElectrumKmd": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "result": "success",
+          "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+          "balance": "0",
+          "unspendable_balance": "0",
+          "coin": "KMD",
+          "required_confirmations": 10,
+          "requires_notarization": true,
+          "mature_confirmations": 100
+        }
+      }
+    ],
+    "error": []
+  },
+  "LegacyElectrumQtum": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "result": "success",
+          "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+          "balance": "0",
+          "unspendable_balance": "0",
+          "coin": "QTUM",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "mature_confirmations": 2000
+        }
+      }
+    ],
+    "error": []
+  },
+  "LegacyEnableBnb": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "result": "success",
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "unspendable_balance": "0",
+          "coin": "BUSD-BEP20",
+          "required_confirmations": 3,
+          "requires_notarization": false
+        }
+      }
+    ],
+    "error": []
+  },
+  "LegacyEnableMatic": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "result": "success",
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "unspendable_balance": "0",
+          "coin": "NZDS-PLG20",
+          "required_confirmations": 20,
+          "requires_notarization": false
+        }
+      }
+    ],
     "error": []
   },
   "TaskEnableBchCancel": {
@@ -237,6 +446,37 @@
               "ticker": "IRIS",
               "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
               "current_block": 31625315,
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
+  },
+  "TaskEnableTendermintStatus_2": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Ok",
+            "details": {
+              "ticker": "IRIS",
+              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+              "current_block": 31703447,
               "balance": {
                 "spendable": "0",
                 "unspendable": "0"
@@ -452,6 +692,32 @@
         }
       }
     ]
+  },
+  "TaskEnableZCoinStatusBasic": {
+    "success": [
+      {
+        "title": "Success",
+        "notes": "Response collected automatically via unified response manager",
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Error",
+            "details": {
+              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+              "error_type": "CoinCreationError",
+              "error_data": {
+                "ticker": "ZOMBIE",
+                "error": "ZCashParamsNotFound"
+              }
+            }
+          },
+          "id": null
+        }
+      }
+    ],
+    "error": []
   },
   "TaskEnableZCoinUserActionPin": {
     "success": [

@@ -113,6 +113,7 @@ class UnifiedResponseManager:
         self.platform_enabled: Dict[str, bool] = {}
         self.validator = KdfResponseValidator(self.logger)
         self.response_delays: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = {}
+        self.inconsistent_responses: Dict[str, Dict[str, Any]] = {}
         
     def setup_logging(self, log_level: str):
         """Setup logging configuration."""
@@ -333,6 +334,16 @@ class UnifiedResponseManager:
         self.response_delays[method_name][request_key][instance_name] = {
             "status_code": status_code,
             "delay": delay
+        }
+    
+    def _record_inconsistent_response(self, method_name: str, request_key: str, 
+                                     instance_responses: Dict[str, Any]) -> None:
+        """Record inconsistent response for analysis report."""
+        if method_name not in self.inconsistent_responses:
+            self.inconsistent_responses[method_name] = {}
+        
+        self.inconsistent_responses[method_name][request_key] = {
+            "instances": instance_responses
         }
     
     def get_response_structure(self, response: Dict[str, Any]) -> str:
@@ -607,7 +618,17 @@ class UnifiedResponseManager:
                 elif self.get_response_structure(response) != first_response_structure:
                     consistent_structure = False
         
-        auto_updatable = all_successful and consistent_structure and len(instance_responses) > 0
+        # Record inconsistent responses for analysis
+        if not consistent_structure and len(instance_responses) > 0:
+            successful_responses = {k: v for k, v in instance_responses.items() if "error" not in v}
+            if successful_responses:
+                self._record_inconsistent_response(method_name, response_name, instance_responses)
+                self.logger.warning(f"Inconsistent structure detected for {method_name}::{response_name}")
+        
+        # Auto-updatable if we have successful responses (even if inconsistent structure)
+        # This allows native-hd responses to be used for documentation
+        successful_responses = {k: v for k, v in instance_responses.items() if "error" not in v}
+        auto_updatable = len(successful_responses) > 0
         
         return CollectionResult(
             response_name=response_name,
@@ -619,14 +640,14 @@ class UnifiedResponseManager:
             notes=f"Method: {method_name}"
         )
     
-    def collect_task_lifecycle_method(self, method_name: str, missing_response_names: List[str], 
+    def collect_task_lifecycle_method(self, method_name: str, request_keys: List[str], 
                                     all_requests: Dict[str, Any], platform_coin: Optional[str] = None) -> List[CollectionResult]:
         """Collect responses for task-based methods (init/status/cancel lifecycle)."""
         results = []
         
         # Find the init request
         init_response_name = None
-        for response_name in missing_response_names:
+        for response_name in request_keys:
             if "Init" in response_name and response_name not in SKIP_METHODS:
                 init_response_name = response_name
                 break
@@ -701,7 +722,16 @@ class UnifiedResponseManager:
                     consistent_structure = False
                     break
             
-            auto_updatable = all_successful and consistent_structure and len(instances) > 0
+            # Record inconsistent responses for analysis
+            if not consistent_structure and len(instances) > 0:
+                successful_responses = {k: v for k, v in instances.items() if "error" not in v}
+                if successful_responses:
+                    self._record_inconsistent_response(method_name, response_name, instances)
+                    self.logger.warning(f"Inconsistent structure detected for {method_name}::{response_name}")
+            
+            # Auto-updatable if we have successful responses (even if inconsistent structure)
+            successful_responses = {k: v for k, v in instances.items() if "error" not in v}
+            auto_updatable = len(successful_responses) > 0
             
             results.append(CollectionResult(
                 response_name=response_name,
@@ -716,19 +746,11 @@ class UnifiedResponseManager:
         return results
     
     def collect_all_responses(self) -> Dict[str, Any]:
-        """Main method to collect all missing responses."""
-        self.logger.info("Starting comprehensive response collection")
+        """Main method to collect ALL responses, not just missing ones."""
+        self.logger.info("Starting comprehensive response collection for ALL methods")
         
-        # Load missing responses (relative to workspace root)
+        # Load ALL request data files 
         workspace_root = Path(__file__).parent.parent.parent
-        missing_responses_file = workspace_root / "postman/generated/reports/missing_responses.json"
-        missing_responses = self.load_json_file(missing_responses_file)
-        
-        if not missing_responses:
-            self.logger.error("No missing responses found or could not load file.")
-            return {}
-        
-        # Load request data files 
         v2_requests_file = workspace_root / "src/data/requests/kdf/v2/coin_activation.json"
         legacy_requests_file = workspace_root / "src/data/requests/kdf/legacy/coin_activation.json"
         
@@ -736,29 +758,37 @@ class UnifiedResponseManager:
         legacy_requests = self.load_json_file(legacy_requests_file)
         all_requests = {**v2_requests, **legacy_requests}
         
-        self.logger.info(f"Found {len(missing_responses)} methods with missing responses")
-        
         # Load method config to check for deprecated methods
-        workspace_root = Path(__file__).parent.parent.parent
         kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
         kdf_methods = self.load_json_file(kdf_methods_file) or {}
         
-        # Process each method with missing responses (excluding deprecated)
-        for method_name, missing_response_names in missing_responses.items():
-            # Skip deprecated methods
+        # Group requests by method to process all examples for each method
+        methods_with_requests = {}
+        for request_key, request_data in all_requests.items():
+            method_name = request_data.get("method", "unknown")
             method_config = kdf_methods.get(method_name, {})
+            
+            # Skip deprecated methods
             if method_config.get('deprecated', False):
-                self.logger.info(f"Skipping deprecated method: {method_name}")
+                self.logger.debug(f"Skipping deprecated method: {method_name}")
                 continue
                 
-            self.logger.info(f"Processing method: {method_name}")
+            if method_name not in methods_with_requests:
+                methods_with_requests[method_name] = []
+            methods_with_requests[method_name].append(request_key)
+        
+        self.logger.info(f"Found {len(methods_with_requests)} methods to process")
+        self.logger.info(f"Total request examples: {sum(len(requests) for requests in methods_with_requests.values())}")
+        
+        # Process each method (excluding deprecated)
+        for method_name, request_keys in methods_with_requests.items():
+            method_config = kdf_methods.get(method_name, {})
+            
+            self.logger.info(f"Processing method: {method_name} ({len(request_keys)} examples)")
             
             # Check for prerequisite methods
             prerequisite_methods = method_config.get('requirements', {}).get('prerequisite_methods', [])
             if prerequisite_methods:
-                self.logger.info(f"Method {method_name} requires prerequisite methods: {prerequisite_methods}")
-                
-                # Execute prerequisite methods first
                 for prereq_method in prerequisite_methods:
                     self.logger.info(f"Executing prerequisite method: {prereq_method}")
                     self._execute_prerequisite_method(prereq_method, all_requests, kdf_methods)
@@ -778,31 +808,39 @@ class UnifiedResponseManager:
             if "task::" in method_name and "::init" in method_name:
                 self.logger.info(f"Task-based method detected: {method_name}")
                 task_results = self.collect_task_lifecycle_method(
-                    method_name, missing_response_names, all_requests, platform_coin
+                    method_name, request_keys, all_requests, platform_coin
                 )
                 self.results.extend(task_results)
                 continue
             
             # Regular method processing (non-task)
-            for response_name in missing_response_names:
-                self.logger.info(f"Collecting response: {response_name}")
+            # Process each request example for this method
+            for request_key in request_keys:
+                self.logger.info(f"Collecting response: {request_key}")
                 
                 # Skip manual methods
-                if response_name in SKIP_METHODS:
-                    self.logger.info(f"Skipping {response_name} (manual method)")
+                if request_key in SKIP_METHODS:
+                    self.logger.info(f"Skipping {request_key} (manual method)")
                     continue
                 
                 # Find the request data
-                if response_name not in all_requests:
-                    self.logger.error(f"Request data not found for {response_name}")
+                if request_key not in all_requests:
+                    self.logger.error(f"Request data not found for {request_key}")
                     continue
                 
-                request_data = all_requests[response_name]
+                request_data = all_requests[request_key]
                 
-                result = self.collect_regular_method(
-                    response_name, request_data, method_name, platform_coin
-                )
-                self.results.append(result)
+                # Collect responses based on method type
+                if "::" in method_name and method_name.startswith("task::"):
+                    # Task lifecycle method
+                    task_results = self.collect_task_lifecycle_method(method_name, [request_key], all_requests, platform_coin)
+                    self.results.extend(task_results)
+                else:
+                    # Regular method
+                    result = self.collect_regular_method(
+                        request_key, request_data, method_name, platform_coin
+                    )
+                    self.results.append(result)
         
         return self.compile_results()
     
@@ -901,6 +939,104 @@ class UnifiedResponseManager:
             json.dump(delay_report, f, indent=2)
         
         self.logger.info(f"Response delay report saved to: {delay_file}")
+    
+    def save_inconsistent_responses_report(self, output_dir: Path) -> None:
+        """Save inconsistent responses report to separate file."""
+        inconsistent_file = output_dir / "inconsistent_responses.json"
+        
+        # Add metadata to the inconsistent responses report
+        inconsistent_report = {
+            "metadata": {
+                "generated_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+                "total_inconsistent_methods": len(self.inconsistent_responses),
+                "total_inconsistent_examples": sum(len(examples) for examples in self.inconsistent_responses.values()),
+                "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors"
+            },
+            "inconsistent_responses": self.inconsistent_responses
+        }
+        
+        with open(inconsistent_file, 'w') as f:
+            json.dump(inconsistent_report, f, indent=2)
+        
+        self.logger.info(f"Inconsistent responses report saved to: {inconsistent_file}")
+    
+    def regenerate_missing_responses_report(self, reports_dir: Path) -> None:
+        """Regenerate missing responses report after response collection."""
+        workspace_root = Path(__file__).parent.parent.parent
+        
+        # Import the postman generator for its response checking logic
+        sys.path.append(str(workspace_root / "utils/py"))
+        from generate_postman import UnifiedPostmanGenerator
+        
+        # Create a generator instance to use its response checking logic
+        generator = UnifiedPostmanGenerator(workspace_root)
+        
+        # Load all request data
+        v2_requests_file = workspace_root / "src/data/requests/kdf/v2/coin_activation.json"
+        legacy_requests_file = workspace_root / "src/data/requests/kdf/legacy/coin_activation.json"
+        
+        v2_requests = self.load_json_file(v2_requests_file) or {}
+        legacy_requests = self.load_json_file(legacy_requests_file) or {}
+        
+        # Load method config to check for deprecated methods
+        kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+        kdf_methods = self.load_json_file(kdf_methods_file) or {}
+        
+        # Check for missing responses
+        missing_responses = {}
+        
+        # Check v2 requests
+        for request_key, request_data in v2_requests.items():
+            method_name = request_data.get("method", "unknown")
+            method_config = kdf_methods.get(method_name, {})
+            
+            # Skip deprecated methods
+            if method_config.get('deprecated', False):
+                continue
+                
+            # Skip manual methods (WalletConnect, Trezor, Metamask, PIN)
+            if generator._is_manual_method(request_key):
+                continue
+                
+            # Check if response exists and has content
+            if not generator.check_response_exists(request_key, "v2"):
+                if method_name not in missing_responses:
+                    missing_responses[method_name] = []
+                missing_responses[method_name].append(request_key)
+        
+        # Check legacy requests  
+        for request_key, request_data in legacy_requests.items():
+            method_name = request_data.get("method", "unknown")
+            method_config = kdf_methods.get(method_name, {})
+            
+            # Skip deprecated methods
+            if method_config.get('deprecated', False):
+                continue
+                
+            # Skip manual methods
+            if generator._is_manual_method(request_key):
+                continue
+                
+            # Check if response exists and has content
+            if not generator.check_response_exists(request_key, "legacy"):
+                if method_name not in missing_responses:
+                    missing_responses[method_name] = []
+                missing_responses[method_name].append(request_key)
+        
+        # Sort the results
+        sorted_missing = {}
+        if missing_responses:
+            for method in sorted(missing_responses.keys()):
+                sorted_missing[method] = sorted(missing_responses[method])
+        
+        # Save regenerated missing responses report
+        missing_file = reports_dir / "missing_responses.json"
+        with open(missing_file, 'w') as f:
+            json.dump(sorted_missing, f, indent=2, sort_keys=True)
+        
+        self.logger.info(f"Missing responses report regenerated: {missing_file}")
+        self.logger.info(f"Total missing methods: {len(sorted_missing)}")
+        self.logger.info(f"Total missing examples: {sum(len(examples) for examples in sorted_missing.values())}")
     
     def update_response_files(self, auto_updatable_responses: Dict[str, Any]) -> int:
         """Update response files with successful responses."""
@@ -1655,11 +1791,18 @@ def main():
         reports_dir = workspace_root / "postman/generated/reports"
         manager.save_delay_report(reports_dir)
         
+        # Save inconsistent responses report
+        manager.save_inconsistent_responses_report(reports_dir)
+        
+        # Regenerate missing responses report after response collection
+        manager.regenerate_missing_responses_report(reports_dir)
+        
         # Print collection summary
         metadata = results.get("metadata", {})
         print(f"\n=== Collection Summary ===")
         print(f"Total responses collected: {metadata.get('total_responses_collected', 0)}")
         print(f"Auto-updatable responses: {metadata.get('auto_updatable_count', 0)}")
+        print(f"Inconsistent responses: {len(manager.inconsistent_responses)}")
         print(f"Manual review needed: {len(results.get('manual_review_needed', {}))}")
         print(f"Results saved to: {output_file}")
         

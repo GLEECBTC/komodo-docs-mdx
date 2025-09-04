@@ -1,0 +1,196 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-04 06:01:21 UTC",
+    "total_inconsistent_methods": 1,
+    "total_inconsistent_examples": 2,
+    "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors"
+  },
+  "inconsistent_responses": {
+    "enable_eth_with_tokens": {
+      "EnableEthWithTokensGasStation": {
+        "instances": {
+          "native-hd": {
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 23287803,
+              "ticker": "ETH",
+              "wallet_balance": {
+                "wallet_type": "HD",
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "derivation_path": "m/44'/60'/0'",
+                    "total_balance": {
+                      "ETH": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "APE-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "MINDS-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "addresses": [
+                      {
+                        "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                        "derivation_path": "m/44'/60'/0'/0/0",
+                        "chain": "External",
+                        "balance": {
+                          "MINDS-ERC20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "APE-ERC20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "ETH": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "nfts_infos": {}
+            },
+            "id": null
+          },
+          "native-nonhd": {
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 23287814,
+              "eth_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                  "balances": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                }
+              },
+              "erc20_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                  "balances": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "BAT-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              },
+              "nfts_infos": {}
+            },
+            "id": null
+          }
+        }
+      },
+      "EnableEthWithTokensMaticBalancesFalse": {
+        "instances": {
+          "native-hd": {
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 76031843,
+              "ticker": "MATIC",
+              "wallet_balance": {
+                "wallet_type": "HD",
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "derivation_path": "m/44'/60'/0'",
+                    "total_balance": {
+                      "MATIC": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "PGX-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "AAVE-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "addresses": [
+                      {
+                        "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                        "derivation_path": "m/44'/60'/0'/0/0",
+                        "chain": "External",
+                        "balance": {
+                          "AAVE-PLG20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "MATIC": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "PGX-PLG20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "nfts_infos": {}
+            },
+            "id": null
+          },
+          "native-nonhd": {
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 76031868,
+              "eth_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+                }
+              },
+              "erc20_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                  "tickers": [
+                    "PGX-PLG20",
+                    "AAVE-PLG20"
+                  ]
+                }
+              },
+              "nfts_infos": {}
+            },
+            "id": null
+          }
+        }
+      }
+    }
+  }
+}
