@@ -184,10 +184,10 @@ The unified manager integrates seamlessly with existing processes:
 
 ## Performance Considerations
 
-- Configurable request timeouts (30s default, 60s for platform coins)
-- Status polling with 2-second intervals and 20-check limit
-- Automatic coin disabling to prevent conflicts
-- Efficient JSON structure comparison for consistency checking
+- **Configurable timeouts**: 30s default, or custom timeout from `kdf_methods.json` (e.g., `enable_eth_with_tokens: 300s`)
+- **Status polling**: 2-second intervals with 20-check limit for task lifecycle
+- **Automatic coin disabling**: Prevents conflicts between collection attempts
+- **Efficient structure comparison**: Optimized for consistency checking
 
 ## Deprecated Method Handling
 
@@ -247,3 +247,86 @@ The system uses intelligent structure comparison to determine response consisten
 - **Address patterns**: Supports Cosmos (`iaa`, `cosmos`), Ethereum (`0x`), Bitcoin (`1`, `3`, `bc1`), and generic long addresses
 
 This ensures that responses with structurally identical data but different addresses/keys are correctly identified as having consistent structure for auto-updating.
+
+## Response Delay Tracking
+
+The system automatically tracks response times for all method calls across different KDF environments to identify performance characteristics and optimization opportunities.
+
+### Output Files
+- **`kdf_postman_responses.json`**: Complete response collection results and validation data
+- **`kdf_response_delays.json`**: Response timing data across KDF environments
+- **`missing_responses.json`**: Methods requiring response documentation
+
+### Delay Report Structure
+```json
+{
+  "metadata": {
+    "generated_at": "2025-01-01 12:00:00 UTC",
+    "total_methods": 5,
+    "total_requests": 12,
+    "description": "Response timing data for KDF methods across different environments"
+  },
+  "delays": {
+    "method_name": {
+      "exampleKey": {
+        "native_hd": {
+          "status_code": 200,
+          "delay": 24.8
+        },
+        "native_nonhd": {
+          "status_code": 200, 
+          "delay": 18.5
+        }
+      }
+    }
+  }
+}
+```
+
+### Status Codes
+- **200**: Successful response
+- **408**: Request timeout (exceeds method-specific timeout or 30s default)  
+- **503**: Connection failed/service unavailable
+- **500**: Internal server error or unexpected error
+
+### Performance Analysis Use Cases
+- **Performance comparison**: HD vs non-HD wallet performance
+- **Timeout optimization**: Identify methods needing longer timeouts
+- **Environment analysis**: Compare native vs WASM performance
+- **Bottleneck identification**: Find slowest operations for optimization
+
+## Timeout Configuration
+
+Method timeouts are configured in `src/data/kdf_methods.json` using the `timeout` field:
+
+```json
+{
+  "enable_eth_with_tokens": {
+    "table": "EnableEthWithTokensArguments",
+    "examples": { ... },
+    "requirements": { ... },
+    "timeout": 300
+  }
+}
+```
+
+### Timeout Behavior
+- **Default**: 30 seconds for all methods
+- **Custom**: Specify `"timeout": <seconds>` in method configuration
+- **Application**: Used for all HTTP requests to KDF instances for that method
+- **Inheritance**: Prerequisite methods use their own configured timeouts
+
+### Configuration Examples
+```json
+{
+  "enable_eth_with_tokens": {
+    "timeout": 300
+  },
+  "enable_tendermint_with_assets": {
+    "timeout": 180
+  },
+  "task::enable_eth::init": {
+    "timeout": 240
+  }
+}
+```

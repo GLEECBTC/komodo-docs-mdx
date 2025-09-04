@@ -112,6 +112,7 @@ class UnifiedResponseManager:
         self.results: List[CollectionResult] = []
         self.platform_enabled: Dict[str, bool] = {}
         self.validator = KdfResponseValidator(self.logger)
+        self.response_delays: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = {}
         
     def setup_logging(self, log_level: str):
         """Setup logging configuration."""
@@ -138,7 +139,12 @@ class UnifiedResponseManager:
     
     def send_request(self, instance: KDFInstance, request_data: Dict[str, Any], 
                     timeout: int = 30) -> Tuple[bool, Dict[str, Any]]:
-        """Send a request to a KDF instance."""
+        """Send a request to a KDF instance and track timing."""
+        import time
+        
+        start_time = time.time()
+        status_code = None
+        
         try:
             headers = {"Content-Type": "application/json"}
             
@@ -148,6 +154,8 @@ class UnifiedResponseManager:
                 headers=headers,
                 timeout=timeout
             )
+            
+            status_code = response.status_code
             
             if response.status_code == 200:
                 try:
@@ -161,11 +169,23 @@ class UnifiedResponseManager:
                 return False, {"error": f"HTTP {response.status_code}", "raw_response": response.text}
                 
         except requests.exceptions.Timeout:
+            status_code = 408  # Request Timeout
             return False, {"error": "Request timeout"}
         except requests.exceptions.ConnectionError:
+            status_code = 503  # Service Unavailable
             return False, {"error": "Connection failed"}
         except Exception as e:
+            status_code = 500  # Internal Server Error
             return False, {"error": f"Unexpected error: {str(e)}"}
+        finally:
+            # Calculate delay regardless of success/failure
+            end_time = time.time()
+            delay = round(end_time - start_time, 3)
+            
+            # Store timing information (will be used by calling methods)
+            if hasattr(self, '_current_timing_context'):
+                self._current_timing_context['delay'] = delay
+                self._current_timing_context['status_code'] = status_code or 500
     
     def disable_coin(self, instance: KDFInstance, ticker: str) -> bool:
         """Disable a coin if it's already enabled."""
@@ -287,6 +307,34 @@ class UnifiedResponseManager:
         
         return any(address_patterns)
     
+    def _get_method_timeout(self, method_name: str) -> int:
+        """Get appropriate timeout for a method based on its configuration in kdf_methods.json."""
+        # Check if method has specific timeout configured
+        workspace_root = Path(__file__).parent.parent.parent
+        kdf_methods = self.load_json_file(workspace_root / "src/data/kdf_methods.json")
+        
+        if method_name in kdf_methods:
+            method_config = kdf_methods[method_name]
+            if isinstance(method_config, dict) and "timeout" in method_config:
+                return method_config["timeout"]
+        
+        # Default timeout
+        return 30
+    
+    def _record_response_delay(self, method_name: str, request_key: str, instance_name: str, 
+                              status_code: int, delay: float) -> None:
+        """Record response delay information for performance tracking."""
+        if method_name not in self.response_delays:
+            self.response_delays[method_name] = {}
+        
+        if request_key not in self.response_delays[method_name]:
+            self.response_delays[method_name][request_key] = {}
+        
+        self.response_delays[method_name][request_key][instance_name] = {
+            "status_code": status_code,
+            "delay": delay
+        }
+    
     def get_response_structure(self, response: Dict[str, Any]) -> str:
         """Get a simplified structure representation of the response for comparison."""
         if not isinstance(response, dict):
@@ -326,7 +374,20 @@ class UnifiedResponseManager:
         
         # Step 1: Run init
         self.logger.info(f"Running {method_name}::init on {instance.name}")
+        self._current_timing_context = {}
         success, init_response = self.send_request(instance, init_request)
+        
+        # Record init timing (assuming init_request has a method for naming)
+        timing_info = getattr(self, '_current_timing_context', {})
+        if timing_info:
+            init_key = f"{method_name}_init"
+            self._record_response_delay(
+                method_name, 
+                init_key, 
+                instance.name,
+                timing_info.get('status_code', 500),
+                timing_info.get('delay', 0.0)
+            )
         lifecycle_responses["init"].append(init_response)
         
         if not success:
@@ -451,7 +512,21 @@ class UnifiedResponseManager:
             else:
                 modified_request = prereq_request_data
             
-            success, response = self.send_request(instance, modified_request)
+            # Set up timing context and send prerequisite request
+            self._current_timing_context = {}
+            timeout = self._get_method_timeout(prereq_method)
+            success, response = self.send_request(instance, modified_request, timeout)
+            
+            # Record timing information for prerequisite
+            timing_info = getattr(self, '_current_timing_context', {})
+            if timing_info:
+                self._record_response_delay(
+                    prereq_method, 
+                    prereq_request_key, 
+                    instance.name,
+                    timing_info.get('status_code', 500),
+                    timing_info.get('delay', 0.0)
+                )
             
             if success:
                 self.logger.info(f"Prerequisite {prereq_method} succeeded on {instance.name}")
@@ -494,7 +569,22 @@ class UnifiedResponseManager:
             else:
                 modified_request = request_data
             
-            success, response = self.send_request(instance, modified_request)
+            # Set up timing context and send request
+            self._current_timing_context = {}
+            timeout = self._get_method_timeout(method_name)
+            success, response = self.send_request(instance, modified_request, timeout)
+            
+            # Record timing information
+            timing_info = getattr(self, '_current_timing_context', {})
+            if timing_info:
+                self._record_response_delay(
+                    method_name, 
+                    response_name, 
+                    instance.name,
+                    timing_info.get('status_code', 500),
+                    timing_info.get('delay', 0.0)
+                )
+            
             instance_responses[instance.name] = response
             
             if not success:
@@ -791,6 +881,26 @@ class UnifiedResponseManager:
                 }
         
         return unified_results
+    
+    def save_delay_report(self, output_dir: Path) -> None:
+        """Save response delay report to separate file."""
+        delay_file = output_dir / "kdf_response_delays.json"
+        
+        # Add metadata to the delay report
+        delay_report = {
+            "metadata": {
+                "generated_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+                "total_methods": len(self.response_delays),
+                "total_requests": sum(len(examples) for examples in self.response_delays.values()),
+                "description": "Response timing data for KDF methods across different environments"
+            },
+            "delays": self.response_delays
+        }
+        
+        with open(delay_file, 'w') as f:
+            json.dump(delay_report, f, indent=2)
+        
+        self.logger.info(f"Response delay report saved to: {delay_file}")
     
     def update_response_files(self, auto_updatable_responses: Dict[str, Any]) -> int:
         """Update response files with successful responses."""
@@ -1540,6 +1650,10 @@ def main():
         # Save results (relative to workspace root)
         output_file = workspace_root / "postman/generated/reports/kdf_postman_responses.json"
         manager.save_results(results, output_file)
+        
+        # Save delay report
+        reports_dir = workspace_root / "postman/generated/reports"
+        manager.save_delay_report(reports_dir)
         
         # Print collection summary
         metadata = results.get("metadata", {})

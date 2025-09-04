@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-04 04:17:15 UTC",
+    "total_methods": 3,
+    "total_requests": 5,
+    "description": "Response timing data for KDF methods across different environments"
+  },
+  "delays": {
+    "enable_eth_with_tokens": {
+      "EnableEthWithTokensGasStation": {
+        "native-hd": {
+          "status_code": 200,
+          "delay": 129.097
+        },
+        "native-nonhd": {
+          "status_code": 200,
+          "delay": 1.168
+        }
+      },
+      "EnableEthWithTokensMaticBalancesFalse": {
+        "native-hd": {
+          "status_code": 200,
+          "delay": 130.784
+        },
+        "native-nonhd": {
+          "status_code": 200,
+          "delay": 1.499
+        }
+      },
+      "EnableEthWithTokensMaticNft": {
+        "native-hd": {
+          "status_code": 400,
+          "delay": 0.001
+        },
+        "native-nonhd": {
+          "status_code": 400,
+          "delay": 0.001
+        }
+      }
+    },
+    "task::enable_qtum::init": {
+      "task::enable_qtum::init_init": {
+        "native-hd": {
+          "status_code": 400,
+          "delay": 0.001
+        },
+        "native-nonhd": {
+          "status_code": 400,
+          "delay": 0.001
+        }
+      }
+    },
+    "task::enable_qtum::status": {
+      "TaskEnableQtumStatus": {
+        "native-hd": {
+          "status_code": 400,
+          "delay": 0.001
+        },
+        "native-nonhd": {
+          "status_code": 400,
+          "delay": 0.001
+        }
+      }
+    }
+  }
+}
