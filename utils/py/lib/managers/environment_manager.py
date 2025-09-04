@@ -61,6 +61,22 @@ class EnvironmentManager:
         method_data = self.methods_data[method]
         return method_data.get('deprecated', False)
     
+    def get_prerequisite_methods(self, method: str) -> List[str]:
+        """Get list of prerequisite methods for a method.
+        
+        Args:
+            method: The KDF method name
+            
+        Returns:
+            List of prerequisite method names
+        """
+        if method not in self.methods_data:
+            return []
+        
+        method_data = self.methods_data[method]
+        requirements = method_data.get('requirements', {})
+        return requirements.get('prerequisite_methods', [])
+    
     def get_supported_environments(self, method: str) -> List[str]:
         """Get list of environments where the method is supported.
         

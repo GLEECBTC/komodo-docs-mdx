@@ -268,17 +268,47 @@ class UnifiedResponseManager:
         
         return request_copy
     
+    def _is_address_key(self, key: str) -> bool:
+        """Check if a key looks like a cryptocurrency address."""
+        if not isinstance(key, str):
+            return False
+        
+        # Common address patterns
+        address_patterns = [
+            # Cosmos-based addresses (IRIS, ATOM, etc.)
+            key.startswith(("iaa", "cosmos", "terra", "osmo", "juno")),
+            # Ethereum addresses  
+            key.startswith("0x") and len(key) == 42,
+            # Bitcoin addresses
+            key.startswith(("1", "3", "bc1")),
+            # Other patterns
+            len(key) > 25 and key.isalnum()  # Generic long alphanumeric strings
+        ]
+        
+        return any(address_patterns)
+    
     def get_response_structure(self, response: Dict[str, Any]) -> str:
         """Get a simplified structure representation of the response for comparison."""
         if not isinstance(response, dict):
             return str(type(response).__name__)
             
-        def simplify_structure(obj):
+        def simplify_structure(obj, parent_key=""):
             if isinstance(obj, dict):
-                return {k: simplify_structure(v) for k, v in obj.items()}
+                result = {}
+                for k, v in obj.items():
+                    # Normalize address-specific fields that vary between wallet types
+                    if parent_key == "balances" and self._is_address_key(k):
+                        # This is likely an address key, normalize it
+                        result["<address>"] = simplify_structure(v, k)
+                    elif k in ["address", "pubkey", "derivation_path", "account_index"]:
+                        # These fields typically vary between instances, normalize them
+                        result[k] = "<normalized>"
+                    else:
+                        result[k] = simplify_structure(v, k)
+                return result
             elif isinstance(obj, list):
                 if len(obj) > 0:
-                    return [simplify_structure(obj[0])]
+                    return [simplify_structure(obj[0], parent_key)]
                 return []
             else:
                 return type(obj).__name__
@@ -379,6 +409,56 @@ class UnifiedResponseManager:
             self.logger.debug(f"Cancel failed on {instance.name}: {cancel_response.get('error', 'Unknown error')}")
         
         return lifecycle_responses
+    
+    def _execute_prerequisite_method(self, prereq_method: str, all_requests: Dict[str, Any], 
+                                   kdf_methods: Dict[str, Any]) -> None:
+        """Execute a prerequisite method before running the main method."""
+        # Find a suitable request example for the prerequisite method
+        prereq_config = kdf_methods.get(prereq_method, {})
+        prereq_examples = prereq_config.get('examples', {})
+        
+        if not prereq_examples:
+            self.logger.warning(f"No examples found for prerequisite method: {prereq_method}")
+            return
+        
+        # Use the first available example
+        prereq_request_key = next(iter(prereq_examples.keys()))
+        
+        if prereq_request_key not in all_requests:
+            self.logger.error(f"Request data not found for prerequisite: {prereq_request_key}")
+            return
+        
+        prereq_request_data = all_requests[prereq_request_key]
+        
+        # Execute the prerequisite method on all instances
+        for instance in KDF_INSTANCES:
+            self.logger.info(f"Executing prerequisite {prereq_method} on {instance.name}")
+            
+            # Get the ticker for disabling if needed
+            ticker = None
+            if "params" in prereq_request_data and "ticker" in prereq_request_data["params"]:
+                ticker = prereq_request_data["params"]["ticker"]
+            elif "coin" in prereq_request_data:
+                ticker = prereq_request_data["coin"]
+            
+            # Disable coin first if needed
+            if ticker:
+                self.disable_coin(instance, ticker)
+            
+            # Modify request for non-HD instances
+            if "nonhd" in instance.name:
+                modified_request = self.normalize_request_for_non_hd(prereq_request_data)
+            else:
+                modified_request = prereq_request_data
+            
+            success, response = self.send_request(instance, modified_request)
+            
+            if success:
+                self.logger.info(f"Prerequisite {prereq_method} succeeded on {instance.name}")
+                self.logger.debug(f"Prerequisite response: {json.dumps(response, indent=2)}")
+            else:
+                self.logger.warning(f"Prerequisite {prereq_method} failed on {instance.name}: {response.get('error', 'Unknown error')}")
+                self.logger.debug(f"Prerequisite error: {json.dumps(response, indent=2)}")
     
     def collect_regular_method(self, response_name: str, request_data: Dict[str, Any], 
                               method_name: str, platform_coin: Optional[str] = None) -> CollectionResult:
@@ -583,6 +663,16 @@ class UnifiedResponseManager:
                 
             self.logger.info(f"Processing method: {method_name}")
             
+            # Check for prerequisite methods
+            prerequisite_methods = method_config.get('requirements', {}).get('prerequisite_methods', [])
+            if prerequisite_methods:
+                self.logger.info(f"Method {method_name} requires prerequisite methods: {prerequisite_methods}")
+                
+                # Execute prerequisite methods first
+                for prereq_method in prerequisite_methods:
+                    self.logger.info(f"Executing prerequisite method: {prereq_method}")
+                    self._execute_prerequisite_method(prereq_method, all_requests, kdf_methods)
+            
             # Check if this method needs a platform coin
             platform_coin = PLATFORM_DEPENDENCIES.get(method_name)
             if platform_coin:
@@ -655,11 +745,22 @@ class UnifiedResponseManager:
             
             # Categorize for update processing
             if result.auto_updatable:
-                # Get canonical response (first successful one)
-                canonical_response = next(
-                    (resp for resp in result.instance_responses.values() if "error" not in resp),
-                    None
-                )
+                # Get canonical response (prefer native-hd, then first successful one)
+                canonical_response = None
+                
+                # First, try to get native-hd response if it's successful
+                if "native-hd" in result.instance_responses:
+                    hd_response = result.instance_responses["native-hd"]
+                    if "error" not in hd_response:
+                        canonical_response = hd_response
+                
+                # If native-hd not available or failed, get first successful response
+                if canonical_response is None:
+                    canonical_response = next(
+                        (resp for resp in result.instance_responses.values() if "error" not in resp),
+                        None
+                    )
+                
                 if canonical_response:
                     unified_results["auto_updatable"][result.response_name] = canonical_response
             else:
@@ -712,10 +813,23 @@ class UnifiedResponseManager:
         # Add successful responses
         updated_count = 0
         for response_name, response_data in auto_updatable_responses.items():
-            # Skip if already exists
+            # Skip if already exists with actual content (not just empty templates)
             if response_name in v2_responses:
-                self.logger.info(f"Skipping {response_name} (already exists)")
-                continue
+                existing_entry = v2_responses[response_name]
+                # Check if it's just an empty template (both success and error arrays are empty)
+                is_empty_template = (
+                    isinstance(existing_entry, dict) and
+                    existing_entry.get("success") == [] and
+                    existing_entry.get("error") == []
+                )
+                
+                if not is_empty_template:
+                    self.logger.info(f"Skipping {response_name} (already has content)")
+                    continue
+                else:
+                    self.logger.info(f"Updating {response_name} (was empty template)")
+            else:
+                self.logger.info(f"Adding new response: {response_name}")
                 
             # Create the response entry
             response_entry = {

@@ -1,49 +1,56 @@
 {
   "metadata": {
-    "collection_timestamp": "2025-08-30 13:50:50 UTC",
-    "total_responses_collected": 15,
-    "auto_updatable_count": 0,
+    "collection_timestamp": "2025-09-03 16:53:54 UTC",
+    "total_responses_collected": 6,
+    "auto_updatable_count": 1,
     "collection_summary": {
-      "regular_methods": 12,
-      "task_lifecycle_methods": 3
+      "regular_methods": 5,
+      "task_lifecycle_methods": 1
     }
   },
   "responses": {
-    "EnableBchWithTokensBalancesFalse": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: enable_bch_with_tokens"
-    },
-    "EnableBchWithTokensTxHistory": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: enable_bch_with_tokens"
-    },
     "EnableEthWithTokensGasStation": {
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "Request timeout"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23283901,
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "balances": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            },
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "balances": {
+                  "MINDS-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  },
+                  "APE-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                }
+              }
+            },
+            "nfts_infos": {}
+          },
+          "id": null
         }
       },
       "all_successful": false,
@@ -54,10 +61,35 @@
     "EnableEthWithTokensMaticBalancesFalse": {
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "Request timeout"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 76009677,
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "tickers": [
+                  "PGX-PLG20",
+                  "AAVE-PLG20"
+                ]
+              }
+            },
+            "nfts_infos": {}
+          },
+          "id": null
         }
       },
       "all_successful": false,
@@ -68,10 +100,12 @@
     "EnableEthWithTokensMaticNft": {
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: missing field `provider`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"missing field `provider`\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: missing field `provider`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"missing field `provider`\",\"id\":null}"
         }
       },
       "all_successful": false,
@@ -80,89 +114,48 @@
       "notes": "Method: enable_eth_with_tokens"
     },
     "EnableTendermintTokenBasic": {
-      "instances": {},
-      "all_successful": false,
+      "instances": {
+        "native-hd": {
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "IRIS"
+          },
+          "id": null
+        },
+        "native-nonhd": {
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "IRIS"
+          },
+          "id": null
+        }
+      },
+      "all_successful": true,
       "consistent_structure": true,
       "collection_method": "regular",
       "notes": "Method: enable_tendermint_token"
     },
-    "TaskEnableBchCancel": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: task::enable_bch::cancel"
-    },
-    "TaskEnableBchInit": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "task_lifecycle",
-      "notes": "Task method: task::enable_bch::init, Phase: base"
-    },
-    "TaskEnableBchStatus": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: task::enable_bch::status"
-    },
-    "TaskEnableEthCancel": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: task::enable_eth::cancel"
-    },
-    "TaskEnableQtumCancel": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: task::enable_qtum::cancel"
-    },
     "TaskEnableQtumInit": {
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
         }
       },
       "all_successful": false,
@@ -173,88 +166,81 @@
     "TaskEnableQtumStatus": {
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         }
       },
       "all_successful": false,
       "consistent_structure": true,
       "collection_method": "regular",
       "notes": "Method: task::enable_qtum::status"
-    },
-    "TaskEnableTendermintCancel": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "regular",
-      "notes": "Method: task::enable_tendermint::cancel"
-    },
-    "TaskEnableUtxoInit": {
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "all_successful": false,
-      "consistent_structure": true,
-      "collection_method": "task_lifecycle",
-      "notes": "Task method: task::enable_utxo::init, Phase: base"
     }
   },
-  "auto_updatable": {},
+  "auto_updatable": {
+    "EnableTendermintTokenBasic": {
+      "mmrpc": "2.0",
+      "result": {
+        "balances": {
+          "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
+            "spendable": "0",
+            "unspendable": "0"
+          }
+        },
+        "platform_coin": "IRIS"
+      },
+      "id": null
+    }
+  },
   "manual_review_needed": {
-    "EnableBchWithTokensBalancesFalse": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: enable_bch_with_tokens"
-    },
-    "EnableBchWithTokensTxHistory": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: enable_bch_with_tokens"
-    },
     "EnableEthWithTokensGasStation": {
       "reasons": [
         "contains_errors"
       ],
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "Request timeout"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23283901,
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "balances": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            },
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "balances": {
+                  "MINDS-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  },
+                  "APE-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                }
+              }
+            },
+            "nfts_infos": {}
+          },
+          "id": null
         }
       },
       "collection_method": "regular",
@@ -266,10 +252,35 @@
       ],
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "Request timeout"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 76009677,
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "tickers": [
+                  "PGX-PLG20",
+                  "AAVE-PLG20"
+                ]
+              }
+            },
+            "nfts_infos": {}
+          },
+          "id": null
         }
       },
       "collection_method": "regular",
@@ -281,97 +292,16 @@
       ],
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: missing field `provider`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"missing field `provider`\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: missing field `provider`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"missing field `provider`\",\"id\":null}"
         }
       },
       "collection_method": "regular",
       "notes": "Method: enable_eth_with_tokens"
-    },
-    "EnableTendermintTokenBasic": {
-      "reasons": [
-        "unknown"
-      ],
-      "instances": {},
-      "collection_method": "regular",
-      "notes": "Method: enable_tendermint_token"
-    },
-    "TaskEnableBchCancel": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: task::enable_bch::cancel"
-    },
-    "TaskEnableBchInit": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "task_lifecycle",
-      "notes": "Task method: task::enable_bch::init, Phase: base"
-    },
-    "TaskEnableBchStatus": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: task::enable_bch::status"
-    },
-    "TaskEnableEthCancel": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: task::enable_eth::cancel"
-    },
-    "TaskEnableQtumCancel": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: task::enable_qtum::cancel"
     },
     "TaskEnableQtumInit": {
       "reasons": [
@@ -379,10 +309,12 @@
       ],
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
         }
       },
       "collection_method": "task_lifecycle",
@@ -394,93 +326,63 @@
       ],
       "instances": {
         "native-hd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         },
         "native-nonhd": {
-          "error": "Connection failed"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         }
       },
       "collection_method": "regular",
       "notes": "Method: task::enable_qtum::status"
-    },
-    "TaskEnableTendermintCancel": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "regular",
-      "notes": "Method: task::enable_tendermint::cancel"
-    },
-    "TaskEnableUtxoInit": {
-      "reasons": [
-        "contains_errors"
-      ],
-      "instances": {
-        "native-hd": {
-          "error": "Connection failed"
-        },
-        "native-nonhd": {
-          "error": "Connection failed"
-        }
-      },
-      "collection_method": "task_lifecycle",
-      "notes": "Task method: task::enable_utxo::init, Phase: base"
     }
   },
   "validation": {
     "existing_files": {
-      "success": false,
-      "errors": [
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' should follow PascalCase/camelCase pattern"
-      ],
+      "success": true,
+      "errors": [],
       "warnings": [
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/legacy/coin_activation.json [LegacyEnableEth.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensBalancesFalse.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensBalancesFalse.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensTxHistory.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensTxHistory.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableErc20Basic.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensGasStation.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensGasStation.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticBalancesFalse.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticBalancesFalse.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticNft.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticNft.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintTokenBasic.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintTokenBasic.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsBalancesFalse.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsBalancesTrue.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintInit.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsWalletConnect.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsWalletConnect.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchStatus.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchStatus.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchUserActionPin.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthInitTrezor.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthInitTrezor.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthUserActionPin.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumInit.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumInit.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumUserActionPin.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus.error]: Empty error response list",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' contains underscores, consider camelCase",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoCancel.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintUserActionPin.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoStatus.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinCancel.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinInitBasic.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinInitWithSyncParams.error]: Empty error response list",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableTendermintWithAssetsWalletConnect]: Request 'EnableTendermintWithAssetsWalletConnect' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableZCoinUserActionPin]: Request 'TaskEnableZCoinUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableEthWithTokensMaticBalancesFalse]: Request 'EnableEthWithTokensMaticBalancesFalse' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableBchWithTokensTxHistory]: Request 'EnableBchWithTokensTxHistory' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableTendermintUserActionPin]: Request 'TaskEnableTendermintUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableBchStatus]: Request 'TaskEnableBchStatus' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableEthWithTokensWalletConnect]: Request 'EnableEthWithTokensWalletConnect' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableTendermintTokenBasic]: Request 'EnableTendermintTokenBasic' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableBchCancel]: Request 'TaskEnableBchCancel' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableBchInit]: Request 'TaskEnableBchInit' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableUtxoUserActionPin]: Request 'TaskEnableUtxoUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableQtumCancel]: Request 'TaskEnableQtumCancel' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableBchUserActionPin]: Request 'TaskEnableBchUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableQtumStatus]: Request 'TaskEnableQtumStatus' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableQtumInit]: Request 'TaskEnableQtumInit' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableEthInitTrezor]: Request 'TaskEnableEthInitTrezor' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableEthWithTokensMaticNft]: Request 'EnableEthWithTokensMaticNft' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableBchWithTokensBalancesFalse]: Request 'EnableBchWithTokensBalancesFalse' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableQtumUserActionPin]: Request 'TaskEnableQtumUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableEthCancel]: Request 'TaskEnableEthCancel' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableTendermintCancel]: Request 'TaskEnableTendermintCancel' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableEthUserActionPin]: Request 'TaskEnableEthUserActionPin' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/EnableEthWithTokensGasStation]: Request 'EnableEthWithTokensGasStation' exists but has no corresponding response data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/TaskEnableUtxoInit]: Request 'TaskEnableUtxoInit' exists but has no corresponding response data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableTendermintStatus_2]: Response 'TaskEnableTendermintStatus_2' exists but has no corresponding request data"
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoUserActionPin.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinUserActionPin.error]: Empty error response list"
       ],
-      "error_count": 1,
+      "error_count": 0,
       "warning_count": 38,
       "sorted_files": {
         "src/data/responses/kdf/v2/coin_activation.json": {
@@ -562,6 +464,18 @@
         "src/data/kdf_methods.json": {
           "action": "already_sorted",
           "keys_moved": []
+        }
+      },
+      "templated_files": {
+        "src/data/responses/kdf/v2/coin_activation.json": {
+          "action": "complete",
+          "added_entries": [],
+          "count": 0
+        },
+        "src/data/responses/kdf/legacy/coin_activation.json": {
+          "action": "complete",
+          "added_entries": [],
+          "count": 0
         }
       }
     },

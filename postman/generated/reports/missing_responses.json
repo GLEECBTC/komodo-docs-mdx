@@ -1,28 +1,8 @@
 {
-  "enable_bch_with_tokens": [
-    "EnableBchWithTokensBalancesFalse",
-    "EnableBchWithTokensTxHistory"
-  ],
   "enable_eth_with_tokens": [
     "EnableEthWithTokensGasStation",
     "EnableEthWithTokensMaticBalancesFalse",
-    "EnableEthWithTokensMaticNft",
-    "EnableEthWithTokensWalletConnect"
-  ],
-  "enable_tendermint_token": [
-    "EnableTendermintTokenBasic"
-  ],
-  "enable_tendermint_with_assets": [
-    "EnableTendermintWithAssetsWalletConnect"
-  ],
-  "task::enable_bch::init": [
-    "TaskEnableBchInit"
-  ],
-  "task::enable_bch::status": [
-    "TaskEnableBchStatus"
-  ],
-  "task::enable_eth::init": [
-    "TaskEnableEthInitTrezor"
+    "EnableEthWithTokensMaticNft"
   ],
   "task::enable_qtum::init": [
     "TaskEnableQtumInit"

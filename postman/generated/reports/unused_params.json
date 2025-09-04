@@ -23,9 +23,6 @@
     "tx_history",
     "urls"
   ],
-  "enable_bch_with_tokens": [
-    "get_balances"
-  ],
   "enable_erc20": [
     "activation_params.required_confirmations"
   ],
@@ -43,13 +40,6 @@
     "mm2",
     "required_confirmations",
     "requires_notarization"
-  ],
-  "task::enable_bch::init": [
-    "allow_slp_unsafe_conf",
-    "get_balances"
-  ],
-  "task::enable_bch::user_action": [
-    "user_action.passphrase"
   ],
   "task::enable_eth::init": [
     "gas_station_decimals",

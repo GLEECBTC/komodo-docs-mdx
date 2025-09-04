@@ -96,6 +96,18 @@ class UnifiedPostmanGenerator:
         common_responses = self.load_json_file(common_file)
         return common_responses if common_responses else {}
     
+    def _is_manual_method(self, request_key: str) -> bool:
+        """Check if a method requires manual intervention or external services."""
+        manual_patterns = [
+            "WalletConnect",  # Requires external wallet connection
+            "Trezor",         # Requires hardware wallet
+            "Metamask",       # Requires browser extension
+            "Pin",            # Requires user PIN entry
+            "UserAction"      # Requires user interaction
+        ]
+        
+        return any(pattern in request_key for pattern in manual_patterns)
+    
     def load_all_tables(self) -> Dict[str, Dict]:
         """Load all table files and combine them."""
         all_tables = {}
@@ -729,6 +741,9 @@ pm.test("Capture task_id", function () {{
                         # Skip deprecated methods from missing responses report
                         method_config = self.method_config.get(method, {})
                         if not method_config.get('deprecated', False):
+                            # Skip manual/external methods that can't be automated
+                            if self._is_manual_method(request_key):
+                                continue
                             if method not in self.missing_responses:
                                 self.missing_responses[method] = []
                             self.missing_responses[method].append(request_key)

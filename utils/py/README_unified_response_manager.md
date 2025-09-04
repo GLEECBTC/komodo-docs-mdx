@@ -26,6 +26,7 @@
 - Automatic alphabetical sorting of all JSON data file keys (requests, responses, tables, methods)
 - Empty template creation for missing response entries
 - Deprecated method exclusion from collection and processing
+- Prerequisite method execution for method dependencies
 
 ## Usage
 
@@ -172,6 +173,7 @@ The unified manager integrates seamlessly with existing processes:
 - **Format Checking**: Validates collected response structure
 - **API Version**: Checks mmrpc version compliance
 - **Error Detection**: Identifies malformed or incomplete responses
+- **Structure Consistency**: Normalizes address and wallet-specific fields for accurate comparison
 
 ## Logging and Monitoring
 
@@ -196,9 +198,52 @@ Methods marked with `"deprecated": true` in `src/data/kdf_methods.json` are auto
 - Template creation
 - All validation processes
 
+## Manual Method Exclusion
+
+Methods requiring external services or manual intervention are automatically excluded from missing response reports:
+
+### Excluded Method Types:
+- **WalletConnect**: Requires external wallet connection
+- **Trezor**: Requires hardware wallet interaction
+- **Metamask**: Requires browser extension
+- **PIN/UserAction**: Requires user input
+
+These methods are identified by keywords in their names and filtered out since they cannot be automated in a headless environment.
+
 ### Currently Deprecated Methods:
 - `enable_bch_with_tokens` - Legacy BCH token activation
 - `task::enable_bch::init` - BCH task initialization
 - `task::enable_bch::status` - BCH task status checking
 - `task::enable_bch::cancel` - BCH task cancellation
 - `task::enable_bch::user_action` - BCH task user interaction
+
+## Prerequisite Method Handling
+
+Some methods require other methods to be executed first. The system automatically handles these dependencies:
+
+### Method Dependencies:
+- `enable_tendermint_token` requires `enable_tendermint_with_assets` to be called first
+
+Dependencies are defined in `src/data/kdf_methods.json` using the `prerequisite_methods` array:
+```json
+{
+  "enable_tendermint_token": {
+    "requirements": {
+      "prerequisite_methods": ["enable_tendermint_with_assets"]
+    }
+  }
+}
+```
+
+The response manager automatically executes prerequisite methods before running the target method.
+
+## Smart Structure Comparison
+
+The system uses intelligent structure comparison to determine response consistency across different wallet types:
+
+### Normalized Fields:
+- **Address keys**: Different addresses (e.g., `iaa1hkg6...` vs `iaa1xt2ru7...`) are normalized to `<address>`
+- **Wallet-specific fields**: `address`, `pubkey`, `derivation_path`, `account_index` are normalized
+- **Address patterns**: Supports Cosmos (`iaa`, `cosmos`), Ethereum (`0x`), Bitcoin (`1`, `3`, `bc1`), and generic long addresses
+
+This ensures that responses with structurally identical data but different addresses/keys are correctly identified as having consistent structure for auto-updating.

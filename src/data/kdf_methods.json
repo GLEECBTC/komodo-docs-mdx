@@ -113,6 +113,9 @@
       "wallet_types": [
         "hd",
         "iguana"
+      ],
+      "prerequisite_methods": [
+        "enable_tendermint_with_assets"
       ]
     }
   },
