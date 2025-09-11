@@ -11,7 +11,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via Docker container (enhanced)",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -26,7 +25,8 @@
             "required_confirmations": 3
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -35,7 +35,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -88,7 +87,8 @@
             "nfts_infos": {}
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -97,7 +97,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -150,7 +149,8 @@
             "nfts_infos": {}
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -167,7 +167,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -180,7 +179,8 @@
             "platform_coin": "IRIS"
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -189,7 +189,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via Docker container",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -201,7 +200,8 @@
             ]
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -210,7 +210,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -229,7 +228,8 @@
             }
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -242,7 +242,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "result": "success",
           "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
@@ -252,7 +251,8 @@
           "required_confirmations": 1,
           "requires_notarization": false,
           "mature_confirmations": 100
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -261,7 +261,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "result": "success",
           "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
@@ -271,7 +270,8 @@
           "required_confirmations": 10,
           "requires_notarization": true,
           "mature_confirmations": 100
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -280,7 +280,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "result": "success",
           "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
@@ -290,7 +289,8 @@
           "required_confirmations": 3,
           "requires_notarization": false,
           "mature_confirmations": 2000
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -299,7 +299,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "result": "success",
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -308,7 +307,8 @@
           "coin": "BUSD-BEP20",
           "required_confirmations": 3,
           "requires_notarization": false
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -317,7 +317,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "result": "success",
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -326,7 +325,8 @@
           "coin": "NZDS-PLG20",
           "required_confirmations": 20,
           "requires_notarization": false
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -402,12 +402,16 @@
     ]
   },
   "TaskEnableQtumInit": {
-    "success": [],
+    "success": [
+      "SuccessTaskId"
+    ],
     "error": []
   },
   "TaskEnableQtumStatus": {
     "success": [],
-    "error": []
+    "error": [
+      "NoSuchTask"
+    ]
   },
   "TaskEnableQtumUserActionPin": {
     "success": [
@@ -437,7 +441,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -459,7 +462,8 @@
             }
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -468,7 +472,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -490,7 +493,8 @@
             }
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -523,7 +527,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via Docker container (enhanced)",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -531,7 +534,8 @@
             "details": "ActivatingCoin"
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
@@ -697,7 +701,6 @@
     "success": [
       {
         "title": "Success",
-        "notes": "Response collected automatically via unified response manager",
         "json": {
           "mmrpc": "2.0",
           "result": {
@@ -714,7 +717,8 @@
             }
           },
           "id": null
-        }
+        },
+        "generated": true
       }
     ],
     "error": []
