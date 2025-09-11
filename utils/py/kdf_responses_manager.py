@@ -202,12 +202,20 @@ class UnifiedResponseManager:
             self.logger.info(f"Successfully disabled {ticker} on {instance.name}")
             return True
         else:
-            error_msg = str(response.get("error", "")).lower()
+            # Safely handle response - ensure it's a dict before calling .get()
+            if isinstance(response, dict):
+                error_msg = str(response.get("error", "")).lower()
+                error_display = response.get('error', 'Unknown error')
+            else:
+                # If response is not a dict, treat it as the error message
+                error_msg = str(response).lower()
+                error_display = str(response)
+            
             if "not found" in error_msg or "not enabled" in error_msg:
                 self.logger.debug(f"{ticker} was not enabled on {instance.name}")
                 return True
             else:
-                self.logger.warning(f"Failed to disable {ticker} on {instance.name}: {response.get('error', 'Unknown error')}")
+                self.logger.warning(f"Failed to disable {ticker} on {instance.name}: {error_display}")
                 return False
     
     def enable_platform_coin(self, instance: KDFInstance, ticker: str) -> bool:
@@ -260,13 +268,24 @@ class UnifiedResponseManager:
             self.logger.debug(f"Platform coin {ticker} enable response: {json.dumps(response, indent=2)}")
             return True
         else:
-            error_msg = str(response.get("error", "")).lower()
+            # Safely handle response - ensure it's a dict before calling .get()
+            if isinstance(response, dict):
+                error_msg = str(response.get("error", "")).lower()
+                error_display = response.get('error', 'Unknown error')
+            else:
+                # If response is not a dict, treat it as the error message
+                error_msg = str(response).lower()
+                error_display = str(response)
+            
             if "already activated" in error_msg or "already enabled" in error_msg:
                 self.logger.info(f"Platform coin {ticker} already enabled on {instance.name}")
                 return True
             else:
-                self.logger.warning(f"Failed to enable platform coin {ticker} on {instance.name}: {response.get('error', 'Unknown error')}")
-                self.logger.debug(f"Platform coin {ticker} enable error: {json.dumps(response, indent=2)}")
+                self.logger.warning(f"Failed to enable platform coin {ticker} on {instance.name}: {error_display}")
+                if isinstance(response, dict):
+                    self.logger.debug(f"Platform coin {ticker} enable error: {json.dumps(response, indent=2)}")
+                else:
+                    self.logger.debug(f"Platform coin {ticker} enable error: {response}")
                 return False
     
     def normalize_request_for_non_hd(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -402,7 +421,8 @@ class UnifiedResponseManager:
         lifecycle_responses["init"].append(init_response)
         
         if not success:
-            self.logger.error(f"Init failed on {instance.name}: {init_response.get('error', 'Unknown error')}")
+            error_msg = init_response.get('error', 'Unknown error') if isinstance(init_response, dict) else str(init_response)
+            self.logger.error(f"Init failed on {instance.name}: {error_msg}")
             return lifecycle_responses
         
         # Extract task_id
@@ -437,7 +457,8 @@ class UnifiedResponseManager:
             lifecycle_responses["status"].append(status_response)
             
             if not success:
-                self.logger.warning(f"Status check {status_check_count} failed on {instance.name}: {status_response.get('error', 'Unknown error')}")
+                error_msg = status_response.get('error', 'Unknown error') if isinstance(status_response, dict) else str(status_response)
+                self.logger.warning(f"Status check {status_check_count} failed on {instance.name}: {error_msg}")
                 break
             
             # Check status
@@ -478,7 +499,8 @@ class UnifiedResponseManager:
         if success:
             self.logger.debug(f"Cancel successful on {instance.name}")
         else:
-            self.logger.debug(f"Cancel failed on {instance.name}: {cancel_response.get('error', 'Unknown error')}")
+            error_msg = cancel_response.get('error', 'Unknown error') if isinstance(cancel_response, dict) else str(cancel_response)
+            self.logger.debug(f"Cancel failed on {instance.name}: {error_msg}")
         
         return lifecycle_responses
     
@@ -543,8 +565,12 @@ class UnifiedResponseManager:
                 self.logger.info(f"Prerequisite {prereq_method} succeeded on {instance.name}")
                 self.logger.debug(f"Prerequisite response: {json.dumps(response, indent=2)}")
             else:
-                self.logger.warning(f"Prerequisite {prereq_method} failed on {instance.name}: {response.get('error', 'Unknown error')}")
-                self.logger.debug(f"Prerequisite error: {json.dumps(response, indent=2)}")
+                error_msg = response.get('error', 'Unknown error') if isinstance(response, dict) else str(response)
+                self.logger.warning(f"Prerequisite {prereq_method} failed on {instance.name}: {error_msg}")
+                if isinstance(response, dict):
+                    self.logger.debug(f"Prerequisite error: {json.dumps(response, indent=2)}")
+                else:
+                    self.logger.debug(f"Prerequisite error: {response}")
     
     def collect_regular_method(self, response_name: str, request_data: Dict[str, Any], 
                               method_name: str, platform_coin: Optional[str] = None) -> CollectionResult:
@@ -600,8 +626,12 @@ class UnifiedResponseManager:
             
             if not success:
                 all_successful = False
-                self.logger.warning(f"{instance.name}: FAILED - {response.get('error', 'Unknown error')}")
-                self.logger.debug(f"{instance.name}: Error response: {json.dumps(response, indent=2)}")
+                error_msg = response.get('error', 'Unknown error') if isinstance(response, dict) else str(response)
+                self.logger.warning(f"{instance.name}: FAILED - {error_msg}")
+                if isinstance(response, dict):
+                    self.logger.debug(f"{instance.name}: Error response: {json.dumps(response, indent=2)}")
+                else:
+                    self.logger.debug(f"{instance.name}: Error response: {response}")
             else:
                 self.logger.info(f"{instance.name}: SUCCESS")
                 self.logger.debug(f"{instance.name}: Success response: {json.dumps(response, indent=2)}")
@@ -1082,7 +1112,7 @@ class UnifiedResponseManager:
                 "success": [
                     {
                         "title": "Success",
-                        "notes": "Response collected automatically via unified response manager",
+                        "generated": True,
                         "json": response_data
                     }
                 ],
