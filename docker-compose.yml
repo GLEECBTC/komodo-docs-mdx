@@ -97,33 +97,7 @@ services:
       "--bail", "folder"
     ]
 
-  # Response processor service
-  response-processor:
-    build:
-      context: .
-      dockerfile: utils/docker/Dockerfile.processor
-    container_name: response-processor
-    depends_on:
-      - newman-native-hd
-      - newman-native-nonhd
-    volumes:
-      - ./test-reports:/input:ro
-      - ./postman/reports:/output:rw
-      - ./src/data/responses:/templates:ro
-    networks:
-      - kdf-network
-    environment:
-      - ENVIRONMENT_TYPES=native_hd,native_iguana
-    command:
-      - sh
-      - -c
-      - |
-        python /app/process_responses.py \
-          --input-dir /input \
-          --output-dir /output \
-          --template-dir /templates \
-          --timestamp $(date -u +%Y-%m-%dT%H:%M:%SZ)
-
+ 
 networks:
   kdf-network:
     driver: bridge
