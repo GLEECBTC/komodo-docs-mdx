@@ -95,7 +95,6 @@
         "wasm"
       ],
       "wallet_types": [
-        "hd",
         "iguana"
       ]
     },
