@@ -189,9 +189,11 @@
       "get_balances": false,
       "tx_history": false,
       "nft_req": {
-        "type": "Moralis",
-        "info": {
-          "url": "https://moralis-proxy.komodo.earth"
+        "provider": {
+          "type": "Moralis",
+          "info": {
+            "url": "https://moralis-proxy.komodo.earth"
+          }
         }
       },
       "gas_station_url": "https://gasstation-mainnet.matic.network/",
@@ -541,9 +543,7 @@
           }
         },
         "scan_policy": "scan_if_new_wallet",
-        "priv_key_policy": {
-          "type": "Trezor"
-        },
+        "priv_key_policy": "ContextPrivKey",
         "min_addresses_number": 3,
         "gap_limit": 20
       }
