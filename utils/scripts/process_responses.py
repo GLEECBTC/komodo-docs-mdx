@@ -138,6 +138,42 @@ def load_existing_responses(template_dir: str) -> Dict:
     return responses
 
 
+def cleanup_old_reports(output_dir: Path) -> None:
+    """Remove old report files, keeping only the 2 most recent of each type."""
+    import glob
+    import os
+    
+    if not output_dir.exists():
+        return
+    
+    # Define the report patterns to clean up
+    patterns = [
+        'postman_test_results_*.json',
+        'test_summary_*.json'
+    ]
+    
+    for pattern in patterns:
+        # Find all files matching this pattern
+        files = list(output_dir.glob(pattern))
+        
+        if len(files) <= 2:
+            continue  # Keep all if 2 or fewer
+        
+        # Sort by modification time (newest first)
+        files.sort(key=lambda f: f.stat().st_mtime, reverse=True)
+        
+        # Keep the 2 most recent, delete the rest
+        files_to_keep = files[:2]
+        files_to_delete = files[2:]
+        
+        for old_file in files_to_delete:
+            try:
+                old_file.unlink()
+                print(f"Removed old report: {old_file.name}")
+            except OSError as e:
+                print(f"Warning: Could not remove {old_file.name}: {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(description='Process Newman test results into KDF response format')
     parser.add_argument('--input-dir', required=True, help='Directory containing Newman reports')
@@ -180,6 +216,9 @@ def main():
     # Write the consolidated report
     output_path = Path(args.output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
+    
+    # Clean up old reports - keep only the 2 most recent of each type
+    cleanup_old_reports(output_path)
     
     report_filename = f"postman_test_results_{timestamp.replace(':', '-').replace('T', '_')}.json"
     output_file = output_path / report_filename
