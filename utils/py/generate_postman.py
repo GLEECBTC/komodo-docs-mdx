@@ -30,6 +30,7 @@ import logging
 sys.path.append(str(Path(__file__).parent / "lib"))
 
 from managers.environment_manager import EnvironmentManager
+from utils.json_utils import dump_sorted_json
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -927,8 +928,7 @@ pm.test("Capture task_id", function () {{
                 sorted_unused[method] = sorted(self.unused_params[method])
         
         unused_file = reports_dir / "unused_params.json"
-        with open(unused_file, 'w') as f:
-            json.dump(sorted_unused, f, indent=2, sort_keys=True)
+        dump_sorted_json(sorted_unused, unused_file)
         logger.info(f"Unused parameters report saved to {unused_file}")
         
         # Save missing responses report (always)
@@ -938,22 +938,19 @@ pm.test("Capture task_id", function () {{
                 sorted_missing[method] = sorted(self.missing_responses[method])
         
         missing_file = reports_dir / "missing_responses.json"
-        with open(missing_file, 'w') as f:
-            json.dump(sorted_missing, f, indent=2, sort_keys=True)
+        dump_sorted_json(sorted_missing, missing_file)
         logger.info(f"Missing responses report saved to {missing_file}")
         
         # Save untranslated keys report (always)
         untranslated_list = sorted(self.untranslated_keys) if self.untranslated_keys else []
         untranslated_file = reports_dir / "untranslated_keys.json"
-        with open(untranslated_file, 'w') as f:
-            json.dump(untranslated_list, f, indent=2)
+        dump_sorted_json(untranslated_list, untranslated_file)
         logger.info(f"Untranslated keys report saved to {untranslated_file}")
         
         # Save missing tables report (always)
         missing_tables_list = sorted(self.missing_tables) if self.missing_tables else []
         missing_tables_file = reports_dir / "missing_tables.json"
-        with open(missing_tables_file, 'w') as f:
-            json.dump(missing_tables_list, f, indent=2)
+        dump_sorted_json(missing_tables_list, missing_tables_file)
         logger.info(f"Missing tables report saved to {missing_tables_file}")
     
     # ===== SELF-REPAIR FUNCTIONALITY =====
@@ -1106,8 +1103,7 @@ pm.test("Capture task_id", function () {{
         # Sort the methods alphabetically for better organization
         sorted_config = dict(sorted(self.method_config.items()))
         
-        with open(config_file, 'w') as f:
-            json.dump(sorted_config, f, indent=2)
+        dump_sorted_json(sorted_config, config_file)
     
     # ===== MAIN GENERATION METHODS =====
     
@@ -1171,8 +1167,7 @@ pm.test("Capture task_id", function () {{
         standard_collection = self.generate_standard_collection()
         
         standard_file = standard_dir / "kdf_comprehensive_collection.json"
-        with open(standard_file, 'w') as f:
-            json.dump(standard_collection, f, indent=2)
+        dump_sorted_json(standard_collection, standard_file)
         
         # Count items in standard collection
         standard_count = self._count_collection_items(standard_collection)
@@ -1191,8 +1186,7 @@ pm.test("Capture task_id", function () {{
             env_collection = self.generate_environment_collection(environment)
             
             env_file = environments_dir / f"kdf_{environment}_collection.json"
-            with open(env_file, 'w') as f:
-                json.dump(env_collection, f, indent=2)
+            dump_sorted_json(env_collection, env_file)
             
             # Count items in environment collection
             env_count = self._count_collection_items(env_collection)
@@ -1244,8 +1238,7 @@ pm.test("Capture task_id", function () {{
         }
         
         summary_file = output_dir / "generation_summary.json"
-        with open(summary_file, 'w') as f:
-            json.dump(summary, f, indent=2)
+        dump_sorted_json(summary, summary_file)
         
         return generated_files
 
@@ -1375,8 +1368,7 @@ Examples:
             collections_dir.mkdir(parents=True, exist_ok=True)
             
             output_file = collections_dir / "kdf_comprehensive_collection.json"
-            with open(output_file, 'w') as f:
-                json.dump(collection, f, indent=2)
+            dump_sorted_json(collection, output_file)
             
             # Save reports
             reports_dir = output_dir / "reports"
@@ -1393,8 +1385,7 @@ Examples:
             environments_dir.mkdir(parents=True, exist_ok=True)
             
             output_file = environments_dir / f"kdf_{args.environment}_collection.json"
-            with open(output_file, 'w') as f:
-                json.dump(collection, f, indent=2)
+            dump_sorted_json(collection, output_file)
             
             print(f"✅ Environment collection generated: {output_file}")
     

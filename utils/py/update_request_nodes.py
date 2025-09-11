@@ -21,6 +21,10 @@ import random
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
+# Add lib path for utilities
+sys.path.append(str(Path(__file__).parent / "lib"))
+from utils.json_utils import dump_sorted_json
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -474,8 +478,7 @@ def process_request_file(input_file: Path, output_file: Optional[Path] = None) -
     
     # Write the updated data
     try:
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(request_data, f, indent=2, ensure_ascii=False)
+        dump_sorted_json(request_data, output_file, ensure_ascii=False)
         logger.info(f"Saved updated file: {output_file}")
     except Exception as e:
         logger.error(f"Failed to write output file {output_file}: {e}")

@@ -30,6 +30,10 @@ from typing import Dict, List, Any, Optional, Tuple, Set
 from dataclasses import dataclass
 from enum import Enum
 
+# Add lib path for utilities
+sys.path.append(str(Path(__file__).parent / "lib"))
+from utils.json_utils import dump_sorted_json
+
 
 # Configuration Classes
 @dataclass
@@ -965,8 +969,7 @@ class UnifiedResponseManager:
             "delays": self.response_delays
         }
         
-        with open(delay_file, 'w') as f:
-            json.dump(delay_report, f, indent=2)
+        dump_sorted_json(delay_report, delay_file)
         
         self.logger.info(f"Response delay report saved to: {delay_file}")
     
@@ -985,8 +988,7 @@ class UnifiedResponseManager:
             "inconsistent_responses": self.inconsistent_responses
         }
         
-        with open(inconsistent_file, 'w') as f:
-            json.dump(inconsistent_report, f, indent=2)
+        dump_sorted_json(inconsistent_report, inconsistent_file)
         
         self.logger.info(f"Inconsistent responses report saved to: {inconsistent_file}")
     
@@ -1061,8 +1063,7 @@ class UnifiedResponseManager:
         
         # Save regenerated missing responses report
         missing_file = reports_dir / "missing_responses.json"
-        with open(missing_file, 'w') as f:
-            json.dump(sorted_missing, f, indent=2, sort_keys=True)
+        dump_sorted_json(sorted_missing, missing_file)
         
         self.logger.info(f"Missing responses report regenerated: {missing_file}")
         self.logger.info(f"Total missing methods: {len(sorted_missing)}")
@@ -1125,8 +1126,7 @@ class UnifiedResponseManager:
         
         # Save updated file
         if updated_count > 0:
-            with open(v2_response_file, 'w') as f:
-                json.dump(v2_responses, f, indent=2)
+            dump_sorted_json(v2_responses, v2_response_file)
             self.logger.info(f"Updated {v2_response_file} with {updated_count} new responses")
         
         return updated_count
@@ -1221,8 +1221,7 @@ class UnifiedResponseManager:
                     sorted_data = {key: data[key] for key in sorted_keys}
                     
                     # Write sorted data back to file
-                    with open(file_path, 'w', encoding='utf-8') as f:
-                        json.dump(sorted_data, f, indent=2)
+                    dump_sorted_json(sorted_data, file_path)
                     
                     sorted_files[str(file_path.relative_to(workspace_root))] = {
                         "action": "sorted",
@@ -1300,8 +1299,7 @@ class UnifiedResponseManager:
                     sorted_keys = sorted(response_data.keys(), key=str.lower)
                     sorted_response_data = {key: response_data[key] for key in sorted_keys}
                     
-                    with open(response_file, 'w', encoding='utf-8') as f:
-                        json.dump(sorted_response_data, f, indent=2)
+                    dump_sorted_json(sorted_response_data, response_file)
                     
                     templated_files[str(response_file.relative_to(workspace_root))] = {
                         "action": "templated",
@@ -1359,8 +1357,7 @@ class UnifiedResponseManager:
         """Save results to output file."""
         output_file.parent.mkdir(parents=True, exist_ok=True)
         
-        with open(output_file, 'w') as f:
-            json.dump(results, f, indent=2)
+        dump_sorted_json(results, output_file)
         
         self.logger.info(f"Unified results saved to: {output_file}")
 
