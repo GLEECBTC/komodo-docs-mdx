@@ -1,11 +1,5 @@
 {
   "enable_eth_with_tokens": [
     "EnableEthWithTokensMaticNft"
-  ],
-  "task::enable_qtum::init": [
-    "TaskEnableQtumInit"
-  ],
-  "task::enable_qtum::status": [
-    "TaskEnableQtumStatus"
   ]
 }
