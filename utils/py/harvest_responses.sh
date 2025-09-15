@@ -30,6 +30,10 @@ docker compose up kdf-native-hd kdf-native-nonhd -d
 echo "⏳ Waiting for KDF services to be ready..."
 sleep 10
 
+# Clean slate - disable all enabled coins for fresh start
+echo "🧹 Preparing clean slate (disabling all enabled coins)..."
+python utils/py/clean_slate.py
+
 # Generate Postman collections
 echo "📋 Generating Postman collections..."
 python utils/py/generate_postman.py --all

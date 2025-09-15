@@ -61,6 +61,8 @@ class UnifiedPostmanGenerator:
         # Reports data
         self.unused_params = {}
         self.missing_responses = {}
+        self.missing_requests = {}
+        self.missing_methods = []
         self.untranslated_keys = []
         self.missing_tables = []
         
@@ -914,6 +916,40 @@ pm.test("Capture task_id", function () {{
     
     # ===== REPORTS =====
     
+    def detect_missing_requests_and_methods(self) -> None:
+        """Detect missing requests (responses without corresponding requests) and missing methods."""
+        # Load all response data
+        for version in ['v2', 'legacy']:
+            responses_file = self.responses_dir / version / "coin_activation.json"
+            requests_file = self.requests_dir / version / "coin_activation.json"
+            
+            if not responses_file.exists() or not requests_file.exists():
+                continue
+                
+            responses_data = self.load_json_file(responses_file) or {}
+            requests_data = self.load_json_file(requests_file) or {}
+            
+            # Find missing requests (responses without corresponding requests)
+            missing_requests_for_version = []
+            for response_key in responses_data.keys():
+                # Check if there's a corresponding request
+                if response_key not in requests_data:
+                    missing_requests_for_version.append(response_key)
+            
+            if missing_requests_for_version:
+                self.missing_requests[version] = sorted(missing_requests_for_version)
+            
+            # Find missing methods (requests without method definitions in kdf_methods.json)
+            for request_key, request_data in requests_data.items():
+                if isinstance(request_data, dict) and "method" in request_data:
+                    method_name = request_data["method"]
+                    if method_name not in self.method_config:
+                        if method_name not in self.missing_methods:
+                            self.missing_methods.append(method_name)
+        
+        # Sort missing methods
+        self.missing_methods = sorted(self.missing_methods)
+    
     def save_reports(self, reports_dir: Path) -> None:
         """Save validation reports with consistent alphabetical sorting.
         
@@ -952,6 +988,22 @@ pm.test("Capture task_id", function () {{
         missing_tables_file = reports_dir / "missing_tables.json"
         dump_sorted_json(missing_tables_list, missing_tables_file)
         logger.info(f"Missing tables report saved to {missing_tables_file}")
+        
+        # Save missing requests report (always)
+        sorted_missing_requests = {}
+        if self.missing_requests:
+            for version in sorted(self.missing_requests.keys()):
+                sorted_missing_requests[version] = sorted(self.missing_requests[version])
+        
+        missing_requests_file = reports_dir / "missing_requests.json"
+        dump_sorted_json(sorted_missing_requests, missing_requests_file)
+        logger.info(f"Missing requests report saved to {missing_requests_file}")
+        
+        # Save missing methods report (always)
+        missing_methods_list = sorted(self.missing_methods) if self.missing_methods else []
+        missing_methods_file = reports_dir / "missing_methods.json"
+        dump_sorted_json(missing_methods_list, missing_methods_file)
+        logger.info(f"Missing methods report saved to {missing_methods_file}")
     
     # ===== SELF-REPAIR FUNCTIONALITY =====
     
@@ -1196,6 +1248,9 @@ pm.test("Capture task_id", function () {{
             }
             logger.info(f"Environment collection saved to {env_file}")
         
+        # Detect missing requests and methods before saving reports
+        self.detect_missing_requests_and_methods()
+        
         # Save reports
         self.save_reports(reports_dir)
         
@@ -1228,6 +1283,21 @@ pm.test("Capture task_id", function () {{
         reports_data["missing_tables"] = {
             "file": str(missing_tables_file.relative_to(self.workspace_root)),
             "count": len(self.missing_tables) if self.missing_tables else 0
+        }
+        
+        # Missing requests (always)
+        missing_requests_file = reports_dir / "missing_requests.json"
+        missing_requests_count = sum(len(reqs) for reqs in self.missing_requests.values()) if self.missing_requests else 0
+        reports_data["missing_requests"] = {
+            "file": str(missing_requests_file.relative_to(self.workspace_root)),
+            "count": missing_requests_count
+        }
+        
+        # Missing methods (always)
+        missing_methods_file = reports_dir / "missing_methods.json"
+        reports_data["missing_methods"] = {
+            "file": str(missing_methods_file.relative_to(self.workspace_root)),
+            "count": len(self.missing_methods) if self.missing_methods else 0
         }
         
         # Generate summary
@@ -1369,6 +1439,9 @@ Examples:
             
             output_file = collections_dir / "kdf_comprehensive_collection.json"
             dump_sorted_json(collection, output_file)
+            
+            # Detect missing requests and methods before saving reports
+            generator.detect_missing_requests_and_methods()
             
             # Save reports
             reports_dir = output_dir / "reports"

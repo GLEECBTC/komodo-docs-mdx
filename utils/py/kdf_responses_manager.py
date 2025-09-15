@@ -142,6 +142,13 @@ class UnifiedResponseManager:
             self.logger.error(f"Error parsing JSON file {file_path}: {e}")
             return {}
     
+    def _filter_request_data(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Filter out metadata fields from request data before sending to API."""
+        # Remove documentation metadata fields that should not be sent to API
+        metadata_fields = {'tags', 'prerequisites'}
+        filtered_data = {k: v for k, v in request_data.items() if k not in metadata_fields}
+        return filtered_data
+    
     def send_request(self, instance: KDFInstance, request_data: Dict[str, Any], 
                     timeout: int = 30) -> Tuple[bool, Dict[str, Any]]:
         """Send a request to a KDF instance and track timing."""
@@ -153,9 +160,12 @@ class UnifiedResponseManager:
         try:
             headers = {"Content-Type": "application/json"}
             
+            # Filter out metadata fields before sending to API
+            filtered_request_data = self._filter_request_data(request_data)
+            
             response = requests.post(
                 instance.url,
-                json=request_data,
+                json=filtered_request_data,
                 headers=headers,
                 timeout=timeout
             )
@@ -467,20 +477,29 @@ class UnifiedResponseManager:
             
             # Check status
             if "result" in status_response:
-                status = status_response["result"].get("status")
-                details = status_response["result"].get("details", "")
+                result = status_response["result"]
                 
-                self.logger.debug(f"Status check {status_check_count} on {instance.name}: {status} - {details}")
-                
-                # Check if task is complete
-                if status == "Ok":
+                # Handle case where result is a dict with status info
+                if isinstance(result, dict) and "status" in result:
+                    status = result.get("status")
+                    details = result.get("details", "")
+                    
+                    self.logger.debug(f"Status check {status_check_count} on {instance.name}: {status} - {details}")
+                    
+                    # Check if task is complete
+                    if status == "Ok":
+                        self.logger.info(f"Task completed successfully on {instance.name}")
+                        break
+                    elif status == "Error":
+                        self.logger.warning(f"Task failed on {instance.name}: {details}")
+                        break
+                    elif status not in IN_PROGRESS_STATUSES and isinstance(details, str) and details not in IN_PROGRESS_STATUSES:
+                        self.logger.info(f"Task in unknown status on {instance.name}: {status}")
+                        break
+                else:
+                    # Handle case where result is the final response (task completed)
+                    self.logger.debug(f"Status check {status_check_count} on {instance.name}: Ok - {result}")
                     self.logger.info(f"Task completed successfully on {instance.name}")
-                    break
-                elif status == "Error":
-                    self.logger.warning(f"Task failed on {instance.name}: {details}")
-                    break
-                elif status not in IN_PROGRESS_STATUSES and isinstance(details, str) and details not in IN_PROGRESS_STATUSES:
-                    self.logger.info(f"Task in unknown status on {instance.name}: {status}")
                     break
             else:
                 self.logger.warning(f"Unexpected status response on {instance.name}: {status_response}")
@@ -700,27 +719,39 @@ class UnifiedResponseManager:
         task_lifecycle_responses = {}
         
         for instance in KDF_INSTANCES:
-            self.logger.info(f"Running task lifecycle for {method_name} on {instance.name}")
-            
-            # Check platform coin dependency
-            if platform_coin:
-                key = f"{instance.name}:{platform_coin}"
-                if not self.platform_enabled.get(key, False):
-                    self.logger.info(f"Skipping {method_name} on {instance.name} - Platform coin {platform_coin} not available")
-                    continue
-            
-            # Disable coin first if needed
-            if ticker:
-                self.disable_coin(instance, ticker)
-            
-            # Modify request for non-HD instances
-            if "nonhd" in instance.name:
-                modified_request = self.normalize_request_for_non_hd(init_request)
-            else:
-                modified_request = init_request
-            
-            # Run the complete task lifecycle
-            lifecycle = self.run_task_lifecycle(instance, modified_request, method_name)
+            try:
+                self.logger.info(f"Running task lifecycle for {method_name} on {instance.name}")
+                
+                # Check platform coin dependency
+                if platform_coin:
+                    key = f"{instance.name}:{platform_coin}"
+                    if not self.platform_enabled.get(key, False):
+                        self.logger.info(f"Skipping {method_name} on {instance.name} - Platform coin {platform_coin} not available")
+                        continue
+                
+                # Disable coin first if needed
+                if ticker:
+                    try:
+                        self.disable_coin(instance, ticker)
+                    except Exception as e:
+                        self.logger.error(f"Error disabling {ticker} on {instance.name}: {e}")
+                        self.logger.error(f"Exception type: {type(e)}")
+                        continue
+                
+                # Modify request for non-HD instances
+                if "nonhd" in instance.name:
+                    modified_request = self.normalize_request_for_non_hd(init_request)
+                else:
+                    modified_request = init_request
+                
+                # Run the complete task lifecycle
+                lifecycle = self.run_task_lifecycle(instance, modified_request, method_name)
+            except Exception as e:
+                self.logger.error(f"Task lifecycle error for {method_name} on {instance.name}: {e}")
+                self.logger.error(f"Exception type: {type(e)}")
+                import traceback
+                self.logger.error(f"Traceback: {traceback.format_exc()}")
+                continue
             
             # Store lifecycle responses for each phase
             for phase, responses in lifecycle.items():
@@ -1135,6 +1166,19 @@ class UnifiedResponseManager:
         """Validate existing response files and optionally collected responses."""
         self.logger.info("Starting response validation")
         
+        # Validate request metadata (tags and prerequisites)
+        try:
+            from validate_request_metadata import validate_request_metadata
+            request_metadata_summary = validate_request_metadata(
+                workspace_root=Path(__file__).parent.parent.parent,
+                silent=True
+            )
+            if request_metadata_summary['files_modified'] > 0:
+                self.logger.info(f"Fixed request metadata in {request_metadata_summary['files_modified']} files")
+        except Exception as e:
+            self.logger.warning(f"Request metadata validation failed: {e}")
+            request_metadata_summary = {"error": str(e)}
+        
         # Validate existing response files
         success, errors, warnings = self.validator.validate_all()
         
@@ -1153,7 +1197,8 @@ class UnifiedResponseManager:
                 "warning_count": len(warnings),
                 "sorted_files": sorted_files,
                 "templated_files": templated_files
-            }
+            },
+            "request_metadata": request_metadata_summary
         }
         
         # Optionally validate collected responses format
