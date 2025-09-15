@@ -425,11 +425,17 @@ class UnifiedPostmanGenerator:
     def generate_table_markdown(self, method: str, tables: Dict[str, Dict]) -> str:
         """Generate markdown table from table data for method."""
         if method not in self.method_config:
+            # Skip deprecated methods from missing_tables report
             if method not in self.missing_tables:
                 self.missing_tables.append(method)
             return ""
         
-        table_name = self.method_config[method].get("table")
+        # Skip deprecated methods from missing_tables report
+        method_config = self.method_config[method]
+        if method_config.get('deprecated', False):
+            return ""
+        
+        table_name = method_config.get("table")
         if not table_name or table_name not in tables:
             if method not in self.missing_tables:
                 self.missing_tables.append(method)
@@ -917,7 +923,16 @@ pm.test("Capture task_id", function () {{
     # ===== REPORTS =====
     
     def detect_missing_requests_and_methods(self) -> None:
-        """Detect missing requests (responses without corresponding requests) and missing methods."""
+        """Detect missing requests (responses without corresponding requests) and missing methods.
+        
+        Excludes deprecated methods from all missing reports.
+        """
+        # Get set of deprecated methods
+        deprecated_methods = set()
+        for method_name, method_config in self.method_config.items():
+            if method_config.get('deprecated', False):
+                deprecated_methods.add(method_name)
+        
         # Load all response data
         for version in ['v2', 'legacy']:
             responses_file = self.responses_dir / version / "coin_activation.json"
@@ -934,7 +949,27 @@ pm.test("Capture task_id", function () {{
             for response_key in responses_data.keys():
                 # Check if there's a corresponding request
                 if response_key not in requests_data:
-                    missing_requests_for_version.append(response_key)
+                    # Check if this response corresponds to a deprecated method
+                    is_deprecated = False
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods:
+                                # This is a deprecated method's response - skip it
+                                is_deprecated = True
+                                break
+                    
+                    # Also check if the response key itself suggests a deprecated method
+                    # by looking for the method name in existing requests
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods and method_name in response_key.lower():
+                                is_deprecated = True
+                                break
+                    
+                    if not is_deprecated:
+                        missing_requests_for_version.append(response_key)
             
             if missing_requests_for_version:
                 self.missing_requests[version] = sorted(missing_requests_for_version)
@@ -943,7 +978,8 @@ pm.test("Capture task_id", function () {{
             for request_key, request_data in requests_data.items():
                 if isinstance(request_data, dict) and "method" in request_data:
                     method_name = request_data["method"]
-                    if method_name not in self.method_config:
+                    # Skip deprecated methods
+                    if method_name not in deprecated_methods and method_name not in self.method_config:
                         if method_name not in self.missing_methods:
                             self.missing_methods.append(method_name)
         
