@@ -7,62 +7,28 @@ This script:
 2. Disables each coin to ensure a clean slate for testing
 """
 
-import json
-import requests
 import sys
 import logging
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import List
 
-# Add lib path for utilities
-sys.path.append(str(Path(__file__).parent / "lib"))
-from utils.json_utils import dump_sorted_json
+# Import from kdf_responses_manager to reuse existing functionality
+sys.path.append(str(Path(__file__).parent))
+from kdf_responses_manager import UnifiedResponseManager, KDFInstance, KDF_INSTANCES
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# KDF instances
-KDF_INSTANCES = [
-    {"name": "native-hd", "url": "http://localhost:7783", "userpass": "RPC_UserP@SSW0RD"},
-    {"name": "native-nonhd", "url": "http://localhost:7784", "userpass": "RPC_UserP@SSW0RD"},
-]
 
-
-def send_request(instance: Dict[str, str], request_data: Dict[str, Any]) -> tuple[bool, Any]:
-    """Send a request to KDF instance."""
-    try:
-        headers = {"Content-Type": "application/json"}
-        response = requests.post(
-            instance["url"],
-            json=request_data,
-            headers=headers,
-            timeout=30
-        )
-        
-        if response.status_code == 200:
-            try:
-                response_data = response.json()
-                if "error" in response_data:
-                    return False, response_data
-                return True, response_data
-            except json.JSONDecodeError:
-                return False, {"error": "Invalid JSON response", "raw_response": response.text}
-        else:
-            return False, {"error": f"HTTP {response.status_code}", "raw_response": response.text}
-            
-    except Exception as e:
-        return False, {"error": f"Request failed: {str(e)}"}
-
-
-def get_enabled_coins(instance: Dict[str, str]) -> List[str]:
-    """Get list of enabled coins."""
+def get_enabled_coins_from_instance(manager: UnifiedResponseManager, instance: KDFInstance) -> List[str]:
+    """Get list of enabled coins from a KDF instance."""
     request = {
-        "userpass": instance["userpass"],
+        "userpass": instance.userpass,
         "method": "get_enabled_coins"
     }
     
-    success, response = send_request(instance, request)
+    success, response = manager.send_request(instance, request)
     
     if success and "result" in response:
         tickers = []
@@ -88,56 +54,39 @@ def get_enabled_coins(instance: Dict[str, str]) -> List[str]:
             else:
                 tickers = list(result.keys())
         
-        logger.info(f"{instance['name']}: Found {len(tickers)} enabled coins: {tickers}")
+        logger.info(f"{instance.name}: Found {len(tickers)} enabled coins: {tickers}")
         return tickers
     else:
         error_msg = response.get("error", "Unknown error") if isinstance(response, dict) else str(response)
-        logger.warning(f"{instance['name']}: Failed to get enabled coins: {error_msg}")
+        logger.warning(f"{instance.name}: Failed to get enabled coins: {error_msg}")
         return []
-
-
-def disable_coin(instance: Dict[str, str], ticker: str) -> bool:
-    """Disable a specific coin."""
-    request = {
-        "userpass": instance["userpass"],
-        "method": "disable_coin",
-        "coin": ticker
-    }
-    
-    success, response = send_request(instance, request)
-    
-    if success:
-        logger.info(f"{instance['name']}: Successfully disabled {ticker}")
-        return True
-    else:
-        error_msg = response.get("error", "Unknown error") if isinstance(response, dict) else str(response)
-        logger.warning(f"{instance['name']}: Failed to disable {ticker}: {error_msg}")
-        return False
 
 
 def clean_slate():
     """Clean slate - disable all enabled coins on all instances."""
     logger.info("🧹 Starting clean slate process...")
     
+    # Create a manager instance to reuse existing functionality
+    manager = UnifiedResponseManager()
     total_disabled = 0
     
     for instance in KDF_INSTANCES:
-        logger.info(f"\n📋 Processing instance: {instance['name']}")
+        logger.info(f"\n📋 Processing instance: {instance.name}")
         
-        # Get enabled coins
-        enabled_coins = get_enabled_coins(instance)
+        # Get enabled coins using the manager
+        enabled_coins = get_enabled_coins_from_instance(manager, instance)
         
         if not enabled_coins:
-            logger.info(f"{instance['name']}: No coins to disable")
+            logger.info(f"{instance.name}: No coins to disable")
             continue
         
-        # Disable each coin
+        # Disable each coin using the manager's disable_coin method
         instance_disabled = 0
         for ticker in enabled_coins:
-            if disable_coin(instance, ticker):
+            if manager.disable_coin(instance, ticker):
                 instance_disabled += 1
         
-        logger.info(f"{instance['name']}: Disabled {instance_disabled}/{len(enabled_coins)} coins")
+        logger.info(f"{instance.name}: Disabled {instance_disabled}/{len(enabled_coins)} coins")
         total_disabled += instance_disabled
     
     logger.info(f"\n🎉 Clean slate complete! Disabled {total_disabled} coins total")
@@ -145,11 +94,11 @@ def clean_slate():
     # Verify clean state
     logger.info("\n🔍 Verifying clean state...")
     for instance in KDF_INSTANCES:
-        enabled_coins = get_enabled_coins(instance)
+        enabled_coins = get_enabled_coins_from_instance(manager, instance)
         if enabled_coins:
-            logger.warning(f"{instance['name']}: Still has {len(enabled_coins)} coins enabled: {enabled_coins}")
+            logger.warning(f"{instance.name}: Still has {len(enabled_coins)} coins enabled: {enabled_coins}")
         else:
-            logger.info(f"{instance['name']}: ✅ Clean slate confirmed")
+            logger.info(f"{instance.name}: ✅ Clean slate confirmed")
 
 
 if __name__ == "__main__":
