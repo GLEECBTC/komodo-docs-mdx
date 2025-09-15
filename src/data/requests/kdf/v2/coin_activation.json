@@ -1,204 +1,210 @@
 {
   "EnableBchWithTokensBalancesFalse": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_bch_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "BCH",
       "allow_slp_unsafe_conf": false,
       "bchd_urls": [
         "https://bchd.dragonhound.info"
       ],
+      "get_balances": false,
       "mode": {
         "rpc": "Electrum",
         "rpc_data": {
           "servers": [
             {
-              "url": "bch.electrum3.cipig.net:10055",
-              "protocol": "TCP"
+              "protocol": "SSL",
+              "url": "bch.electrum3.cipig.net:20055"
             },
             {
-              "url": "bch.electrum3.cipig.net:20055",
-              "protocol": "SSL"
+              "protocol": "TCP",
+              "url": "bch.electrum3.cipig.net:10055"
             },
             {
-              "url": "bch.electrum3.cipig.net:30055",
-              "protocol": "WSS"
+              "protocol": "WSS",
+              "url": "bch.electrum3.cipig.net:30055"
             }
           ]
         }
       },
-      "tx_history": true,
-      "get_balances": false,
       "slp_tokens_requests": [
         {
-          "ticker": "ASLP-SLP",
-          "required_confirmations": 4
+          "required_confirmations": 4,
+          "ticker": "ASLP-SLP"
         }
-      ]
-    }
+      ],
+      "ticker": "BCH",
+      "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableBchWithTokensTxHistory": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_bch_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "BCH",
-      "allow_slp_unsafe_conf": false,
-      "bchd_urls": [
-        "https://bchd.dragonhound.info"
-      ],
-      "mode": {
-        "rpc": "Electrum",
-        "rpc_data": {
-          "servers": [
-            {
-              "url": "bch.electrum3.cipig.net:10055",
-              "protocol": "TCP"
-            },
-            {
-              "url": "bch.electrum3.cipig.net:20055",
-              "protocol": "SSL"
-            },
-            {
-              "url": "bch.electrum3.cipig.net:30055",
-              "protocol": "WSS"
-            }
-          ]
-        }
-      },
-      "tx_history": true,
-      "slp_tokens_requests": [
-        {
-          "ticker": "ASLP-SLP",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false,
       "address_format": {
         "format": "cashaddress",
         "network": "bitcoincash"
       },
+      "allow_slp_unsafe_conf": false,
+      "bchd_urls": [
+        "https://bchd.dragonhound.info"
+      ],
+      "mode": {
+        "rpc": "Electrum",
+        "rpc_data": {
+          "servers": [
+            {
+              "protocol": "SSL",
+              "url": "bch.electrum3.cipig.net:20055"
+            },
+            {
+              "protocol": "TCP",
+              "url": "bch.electrum3.cipig.net:10055"
+            },
+            {
+              "protocol": "WSS",
+              "url": "bch.electrum3.cipig.net:30055"
+            }
+          ]
+        }
+      },
+      "required_confirmations": 5,
+      "requires_notarization": false,
+      "slp_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "ASLP-SLP"
+        }
+      ],
+      "ticker": "BCH",
+      "tx_history": true,
       "utxo_merge_params": {
-        "merge_at": 50,
         "check_every": 10,
-        "max_merge_at_once": 25
+        "max_merge_at_once": 25,
+        "merge_at": 50
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableErc20Basic": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_erc20",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "BAT-ERC20",
       "activation_params": {
         "required_confirmations": 3
-      }
-    }
+      },
+      "ticker": "BAT-ERC20"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableEthWithTokensGasStation": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_eth_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ETH",
-      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+      "erc20_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "APE-ERC20"
+        },
+        {
+          "required_confirmations": 4,
+          "ticker": "MINDS-ERC20"
+        }
+      ],
+      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
       "gas_station_decimals": 8,
       "gas_station_policy": {
         "policy": "MeanAverageFast"
       },
+      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
       "mm2": 1,
-      "priv_key_policy": {
-        "type": "ContextPrivKey"
-      },
-      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
       "nodes": [
-        {
-          "url": "https://eth3.cipig.net:18555",
-          "ws_url": "wss://eth3.cipig.net:38555"
-        },
         {
           "url": "https://eth.drpc.org",
           "ws_url": "wss://eth.drpc.org"
-        }
-      ],
-      "tx_history": true,
-      "erc20_tokens_requests": [
-        {
-          "ticker": "APE-ERC20",
-          "required_confirmations": 4
         },
         {
-          "ticker": "MINDS-ERC20",
-          "required_confirmations": 4
+          "url": "https://eth3.cipig.net:18555",
+          "ws_url": "wss://eth3.cipig.net:38555"
         }
       ],
+      "priv_key_policy": {
+        "type": "ContextPrivKey"
+      },
       "required_confirmations": 5,
-      "requires_notarization": false
-    }
+      "requires_notarization": false,
+      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+      "ticker": "ETH",
+      "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableEthWithTokensMaticBalancesFalse": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_eth_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "MATIC",
-      "get_balances": false,
-      "tx_history": false,
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "erc20_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "PGX-PLG20"
+        },
+        {
+          "required_confirmations": 4,
+          "ticker": "AAVE-PLG20"
+        }
+      ],
       "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "gas_station_url": "https://gasstation-mainnet.matic.network/",
+      "get_balances": false,
+      "nodes": [
+        {
+          "url": "https://pol3.cipig.net:18755",
+          "ws_url": "wss://pol3.cipig.net:38755"
+        },
+        {
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+        }
+      ],
+      "required_confirmations": 5,
+      "requires_notarization": false,
+      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
       "swap_v2_contracts": {
         "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
       },
-      "nodes": [
-        {
-          "url": "https://pol3.cipig.net:18755",
-          "ws_url": "wss://pol3.cipig.net:38755"
-        },
-        {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
+      "ticker": "MATIC",
+      "tx_history": false
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableEthWithTokensMaticNft": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_eth_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "MATIC",
+      "erc20_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "PGX-PLG20"
+        },
+        {
+          "required_confirmations": 4,
+          "ticker": "AAVE-PLG20"
+        }
+      ],
+      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "gas_station_url": "https://gasstation-mainnet.matic.network/",
       "get_balances": false,
-      "tx_history": false,
       "nft_req": {
         "provider": {
-          "type": "Moralis",
           "info": {
             "url": "https://moralis-proxy.komodo.earth"
-          }
+          },
+          "type": "Moralis"
         }
       },
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
       "nodes": [
         {
           "url": "https://pol3.cipig.net:18755",
@@ -209,39 +215,31 @@
           "ws_url": "wss://polygon-bor-rpc.publicnode.com"
         }
       ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
       "required_confirmations": 5,
-      "requires_notarization": false
-    }
+      "requires_notarization": false,
+      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "ticker": "MATIC",
+      "tx_history": false
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableEthWithTokensWalletConnect": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_eth_with_tokens",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ETH",
-      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+      "erc20_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "PEPE-ERC20"
+        }
+      ],
+      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
       "gas_station_decimals": 8,
       "gas_station_policy": {
         "policy": "MeanAverageFast"
       },
+      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
       "mm2": 1,
-      "rpc_mode": "Default",
-      "priv_key_policy": {
-        "type": "WalletConnect",
-        "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd"
-      },
-      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
       "nodes": [
         {
           "url": "https://eth3.cipig.net:18555",
@@ -252,121 +250,125 @@
           "ws_url": "wss://ethereum-rpc.publicnode.com"
         }
       ],
-      "tx_history": true,
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PEPE-ERC20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5
-    }
+      "priv_key_policy": {
+        "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd",
+        "type": "WalletConnect"
+      },
+      "required_confirmations": 5,
+      "rpc_mode": "Default",
+      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+      "ticker": "ETH",
+      "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableTendermintTokenBasic": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_tendermint_token",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ATOM-IBC_IRIS",
       "activation_params": {
         "required_confirmations": 3
-      }
-    }
+      },
+      "ticker": "ATOM-IBC_IRIS"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableTendermintWithAssetsBalancesFalse": {
     "method": "enable_tendermint_with_assets",
-    "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
+      "get_balances": false,
       "nodes": [
         {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
           "api_url": "https://iris-api.alpha.komodo.earth/",
           "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+          "url": "https://iris-rpc.alpha.komodo.earth/",
           "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
         },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
-      "tx_history": true,
-      "get_balances": false
-    }
+      "ticker": "IRIS",
+      "tokens_params": [
+        {
+          "ticker": "ATOM-IBC_IRIS"
+        }
+      ],
+      "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableTendermintWithAssetsBalancesTrue": {
     "method": "enable_tendermint_with_assets",
-    "userpass": "RPC_UserP@SSW0RD",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
+      "get_balances": true,
       "nodes": [
         {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
           "api_url": "https://iris-api.alpha.komodo.earth/",
           "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+          "url": "https://iris-rpc.alpha.komodo.earth/",
           "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
         },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
-      "get_balances": true
-    }
+      "ticker": "IRIS",
+      "tokens_params": [
+        {
+          "ticker": "ATOM-IBC_IRIS"
+        }
+      ]
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableTendermintWithAssetsWalletConnect": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_tendermint_with_assets",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ATOM",
-      "tx_history": true,
-      "get_balances": true,
       "activation_params": {
         "priv_key_policy": {
-          "type": "WalletConnect",
-          "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd"
+          "data": "3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd",
+          "type": "WalletConnect"
         }
       },
+      "get_balances": true,
       "nodes": [
         {
-          "url": "https://cosmos-rpc.alpha.komodo.earth/",
           "api_url": "https://cosmos-api.alpha.komodo.earth/",
           "grpc_url": "https://cosmos-grpc.alpha.komodo.earth/",
+          "url": "https://cosmos-rpc.alpha.komodo.earth/",
           "ws_url": "wss://cosmos-rpc.alpha.komodo.earth/websocket"
         },
         {
           "url": "https://cosmoshub.rpc.stakin-nodes.com/"
         }
       ],
-      "tokens_params": []
-    }
+      "ticker": "ATOM",
+      "tokens_params": [],
+      "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableBchCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_bch::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 3
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableBchInit": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_bch::init",
+    "mmrpc": "2.0",
     "params": {
-      "ticker": "BCH",
       "activation_params": {
+        "address_format": {
+          "format": "cashaddress",
+          "network": "bitcoincash"
+        },
         "bchd_urls": [
           "https://bchd.dragonhound.info"
         ],
@@ -375,87 +377,89 @@
           "rpc_data": {
             "servers": [
               {
-                "url": "bch.electrum3.cipig.net:10055",
-                "protocol": "TCP"
+                "protocol": "SSL",
+                "url": "bch.electrum3.cipig.net:20055"
               },
               {
-                "url": "bch.electrum3.cipig.net:20055",
-                "protocol": "SSL"
+                "protocol": "TCP",
+                "url": "bch.electrum3.cipig.net:10055"
               },
               {
-                "url": "bch.electrum3.cipig.net:30055",
-                "protocol": "WSS"
+                "protocol": "WSS",
+                "url": "bch.electrum3.cipig.net:30055"
               }
             ]
           }
         },
+        "required_confirmations": 5,
+        "requires_notarization": false,
         "slp_tokens_requests": [
           {
-            "ticker": "USDF"
+            "required_confirmations": 3,
+            "ticker": "ASLP-SLP"
           },
           {
-            "ticker": "ASLP-SLP",
-            "required_confirmations": 3
+            "ticker": "USDF"
           }
         ],
         "tx_history": true,
-        "required_confirmations": 5,
-        "requires_notarization": false,
-        "address_format": {
-          "format": "cashaddress",
-          "network": "bitcoincash"
-        },
         "utxo_merge_params": {
-          "merge_at": 50,
           "check_every": 10,
-          "max_merge_at_once": 25
+          "max_merge_at_once": 25,
+          "merge_at": 50
         }
-      }
-    }
+      },
+      "ticker": "BCH"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableBchStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_bch::status",
+    "mmrpc": "2.0",
     "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 0
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableBchUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_bch::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 0,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableEthCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_eth::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 3
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableEthInitTrezor": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_eth::init",
+    "mmrpc": "2.0",
     "params": {
-      "ticker": "MATIC",
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "erc20_tokens_requests": [
+        {
+          "required_confirmations": 4,
+          "ticker": "PGX-PLG20"
+        },
+        {
+          "required_confirmations": 4,
+          "ticker": "AAVE-PLG20"
+        }
+      ],
       "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "swap_v2_contracts": {
-        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
-      },
+      "gap_limit": 20,
+      "gas_station_url": "https://gasstation-mainnet.matic.network/",
+      "min_addresses_number": 3,
       "nodes": [
         {
           "url": "https://pol3.cipig.net:18755",
@@ -466,257 +470,251 @@
           "ws_url": "wss://polygon-bor-rpc.publicnode.com"
         }
       ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
       "path_to_address": {
         "account_id": 0,
-        "chain": "External",
-        "address_id": 1
+        "address_id": 1,
+        "chain": "External"
       },
-      "gap_limit": 20,
+      "required_confirmations": 5,
       "scan_policy": "scan_if_new_wallet",
-      "min_addresses_number": 3
-    }
+      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+      "swap_v2_contracts": {
+        "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+      },
+      "ticker": "MATIC"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableEthStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_eth::status",
+    "mmrpc": "2.0",
     "params": {
-      "task_id": 1,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 1
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableEthUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_eth::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 0,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableQtumCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_qtum::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 3
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableQtumInit": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_qtum::init",
+    "mmrpc": "2.0",
     "params": {
-      "ticker": "QTUM",
       "activation_params": {
+        "gap_limit": 20,
+        "min_addresses_number": 3,
         "mode": {
           "rpc": "Electrum",
           "rpc_data": {
             "servers": [
               {
-                "url": "qtum.electrum1.cipig.net:30050",
-                "protocol": "WSS"
+                "protocol": "TCP",
+                "url": "qtum.electrum3.cipig.net:10050"
               },
               {
-                "url": "qtum.electrum3.cipig.net:10050",
-                "protocol": "TCP"
+                "protocol": "WSS",
+                "url": "qtum.electrum1.cipig.net:30050"
               },
               {
-                "url": "qtum.electrum3.cipig.net:30050",
-                "protocol": "WSS"
+                "protocol": "WSS",
+                "url": "qtum.electrum3.cipig.net:30050"
               }
             ]
           }
         },
-        "scan_policy": "scan_if_new_wallet",
         "priv_key_policy": "ContextPrivKey",
-        "min_addresses_number": 3,
-        "gap_limit": 20
-      }
-    }
+        "scan_policy": "scan_if_new_wallet"
+      },
+      "ticker": "QTUM"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableQtumStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_qtum::status",
+    "mmrpc": "2.0",
     "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 0
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableQtumUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_qtum::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 0,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableTendermintCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_tendermint::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 3
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableTendermintInit": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_tendermint::init",
+    "mmrpc": "2.0",
     "params": {
-      "ticker": "IRIS",
-      "tokens_params": [
-        {
-          "ticker": "ATOM-IBC_IRIS"
-        }
-      ],
       "nodes": [
         {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
           "api_url": "https://iris-api.alpha.komodo.earth/",
           "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+          "url": "https://iris-rpc.alpha.komodo.earth/",
           "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
         },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
+      ],
+      "ticker": "IRIS",
+      "tokens_params": [
+        {
+          "ticker": "ATOM-IBC_IRIS"
+        }
       ]
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableTendermintStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_tendermint::status",
+    "mmrpc": "2.0",
     "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 0
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableTendermintUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_tendermint::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 0,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableUtxoCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_utxo::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 1
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableUtxoInit": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_utxo::init",
+    "mmrpc": "2.0",
     "params": {
-      "ticker": "KMD",
       "activation_params": {
+        "gap_limit": 20,
+        "min_addresses_number": 3,
         "mode": {
           "rpc": "Electrum",
           "rpc_data": {
             "servers": [
               {
-                "url": "kmd.electrum3.cipig.net:20001",
-                "protocol": "SSL"
+                "protocol": "SSL",
+                "url": "kmd.electrum3.cipig.net:20001"
               },
               {
-                "url": "kmd.electrum3.cipig.net:10001",
-                "protocol": "TCP"
+                "protocol": "TCP",
+                "url": "kmd.electrum3.cipig.net:10001"
               },
               {
-                "url": "kmd.electrum2.cipig.net:30001",
-                "protocol": "WSS"
+                "protocol": "WSS",
+                "url": "kmd.electrum2.cipig.net:30001"
               }
             ]
           }
         },
-        "scan_policy": "scan_if_new_wallet",
         "priv_key_policy": {
           "type": "Trezor"
         },
-        "min_addresses_number": 3,
-        "gap_limit": 20
-      }
-    }
+        "scan_policy": "scan_if_new_wallet"
+      },
+      "ticker": "KMD"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableUtxoStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_utxo::status",
+    "mmrpc": "2.0",
     "params": {
-      "task_id": 1,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 1
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableUtxoUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_utxo::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 1,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableZCoinCancel": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_z_coin::cancel",
     "mmrpc": "2.0",
     "params": {
       "task_id": 3
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableZCoinInitBasic": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_z_coin::init",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ZOMBIE",
       "activation_params": {
         "mode": {
           "rpc": "Light",
           "rpc_data": {
             "electrum_servers": [
               {
-                "url": "zombie.dragonhound.info:10133",
-                "protocol": "TCP"
+                "protocol": "SSL",
+                "url": "zombie.dragonhound.info:20133"
               },
               {
-                "url": "zombie.dragonhound.info:20133",
-                "protocol": "SSL"
+                "protocol": "TCP",
+                "url": "zombie.dragonhound.info:10133"
               },
               {
-                "url": "zombie.dragonhound.info:30059",
-                "protocol": "WSS"
+                "protocol": "WSS",
+                "url": "zombie.dragonhound.info:30059"
               }
             ],
             "light_wallet_d_servers": [
@@ -724,34 +722,34 @@
             ]
           }
         },
-        "zcash_params_path": "/home/username/path_to/.zcash-params",
         "scan_blocks_per_iteration": 100,
-        "scan_interval_ms": 200
-      }
-    }
+        "scan_interval_ms": 200,
+        "zcash_params_path": "/home/username/path_to/.zcash-params"
+      },
+      "ticker": "ZOMBIE"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableZCoinInitWithSyncParams": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_z_coin::init",
     "mmrpc": "2.0",
     "params": {
-      "ticker": "ZOMBIE",
       "activation_params": {
         "mode": {
           "rpc": "Light",
           "rpc_data": {
             "electrum_servers": [
               {
-                "url": "zombie.dragonhound.info:10133",
-                "protocol": "TCP"
+                "protocol": "SSL",
+                "url": "zombie.dragonhound.info:20133"
               },
               {
-                "url": "zombie.dragonhound.info:20133",
-                "protocol": "SSL"
+                "protocol": "TCP",
+                "url": "zombie.dragonhound.info:10133"
               },
               {
-                "url": "zombie.dragonhound.info:30059",
-                "protocol": "WSS"
+                "protocol": "WSS",
+                "url": "zombie.dragonhound.info:30059"
               }
             ],
             "light_wallet_d_servers": [
@@ -762,31 +760,33 @@
             }
           }
         },
-        "zcash_params_path": "/home/username/path_to/.zcash-params",
         "scan_blocks_per_iteration": 100,
-        "scan_interval_ms": 200
-      }
-    }
+        "scan_interval_ms": 200,
+        "zcash_params_path": "/home/username/path_to/.zcash-params"
+      },
+      "ticker": "ZOMBIE"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableZCoinStatus": {
-    "userpass": "RPC_UserP@SSW0RD",
     "method": "task::enable_z_coin::status",
     "mmrpc": "2.0",
     "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
+      "forget_if_finished": false,
+      "task_id": 0
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "TaskEnableZCoinUserActionPin": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
     "method": "task::enable_z_coin::user_action",
+    "mmrpc": "2.0",
     "params": {
       "task_id": 3,
       "user_action": {
         "action_type": "TrezorPin",
         "pin": "862743"
       }
-    }
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   }
 }

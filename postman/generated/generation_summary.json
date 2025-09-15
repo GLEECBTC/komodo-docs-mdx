@@ -1,51 +1,59 @@
 {
-  "generation_timestamp": "2025-09-04T13:57:25.690628",
   "generated_files": {
-    "standard": {
-      "file": "postman/generated/collections/kdf_comprehensive_collection.json",
-      "count": 26
-    },
     "native_hd": {
-      "file": "postman/generated/environments/kdf_native_hd_collection.json",
-      "count": 21
+      "count": 17,
+      "file": "postman/generated/environments/kdf_native_hd_collection.json"
     },
     "native_iguana": {
-      "file": "postman/generated/environments/kdf_native_iguana_collection.json",
-      "count": 25
+      "count": 25,
+      "file": "postman/generated/environments/kdf_native_iguana_collection.json"
     },
-    "wasm_hd": {
-      "file": "postman/generated/environments/kdf_wasm_hd_collection.json",
-      "count": 21
-    },
-    "wasm_iguana": {
-      "file": "postman/generated/environments/kdf_wasm_iguana_collection.json",
-      "count": 21
+    "standard": {
+      "count": 27,
+      "file": "postman/generated/collections/kdf_comprehensive_collection.json"
     },
     "trezor_native_hd": {
-      "file": "postman/generated/environments/kdf_trezor_native_hd_collection.json",
-      "count": 0
+      "count": 0,
+      "file": "postman/generated/environments/kdf_trezor_native_hd_collection.json"
     },
     "trezor_wasm_hd": {
-      "file": "postman/generated/environments/kdf_trezor_wasm_hd_collection.json",
-      "count": 0
+      "count": 0,
+      "file": "postman/generated/environments/kdf_trezor_wasm_hd_collection.json"
+    },
+    "wasm_hd": {
+      "count": 17,
+      "file": "postman/generated/environments/kdf_wasm_hd_collection.json"
+    },
+    "wasm_iguana": {
+      "count": 21,
+      "file": "postman/generated/environments/kdf_wasm_iguana_collection.json"
     }
   },
+  "generation_timestamp": "2025-09-15T17:17:21.691821",
   "reports": {
-    "unused_params": {
-      "file": "postman/generated/reports/unused_params.json",
-      "count": 72
+    "missing_methods": {
+      "count": 0,
+      "file": "postman/generated/reports/missing_methods.json"
+    },
+    "missing_requests": {
+      "count": 0,
+      "file": "postman/generated/reports/missing_requests.json"
     },
     "missing_responses": {
-      "file": "postman/generated/reports/missing_responses.json",
-      "count": 3
-    },
-    "untranslated_keys": {
-      "file": "postman/generated/reports/untranslated_keys.json",
-      "count": 0
+      "count": 2,
+      "file": "postman/generated/reports/missing_responses.json"
     },
     "missing_tables": {
-      "file": "postman/generated/reports/missing_tables.json",
-      "count": 0
+      "count": 1,
+      "file": "postman/generated/reports/missing_tables.json"
+    },
+    "untranslated_keys": {
+      "count": 1,
+      "file": "postman/generated/reports/untranslated_keys.json"
+    },
+    "unused_params": {
+      "count": 72,
+      "file": "postman/generated/reports/unused_params.json"
     }
   }
 }

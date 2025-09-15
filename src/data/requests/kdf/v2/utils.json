@@ -1,0 +1,12 @@
+{
+  "AddNodeToVersionStat": {
+    "method": "add_node_to_version_stat",
+    "mmrpc": "2.0",
+    "params": {
+      "address": "168.119.236.241",
+      "name": "seed1",
+      "peer_id": "12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+}

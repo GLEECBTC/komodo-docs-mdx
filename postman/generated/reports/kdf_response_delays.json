@@ -1,226 +1,222 @@
 {
-  "metadata": {
-    "generated_at": "2025-09-04 06:01:21 UTC",
-    "total_methods": 10,
-    "total_requests": 20,
-    "description": "Response timing data for KDF methods across different environments"
-  },
   "delays": {
-    "enable_erc20": {
-      "EnableErc20Basic": {
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 1.751
-        }
-      }
-    },
-    "enable_eth_with_tokens": {
-      "EnableEthWithTokensGasStation": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 131.145
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 4.226
-        }
-      },
-      "EnableEthWithTokensMaticBalancesFalse": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 53.761
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.35
-        }
-      },
-      "EnableEthWithTokensMaticNft": {
-        "native-hd": {
-          "status_code": 400,
-          "delay": 0.001
-        },
-        "native-nonhd": {
-          "status_code": 400,
-          "delay": 0.001
-        }
-      }
-    },
-    "enable_tendermint_with_assets": {
-      "EnableTendermintWithAssetsBalancesFalse": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 0.788
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.778
-        }
-      },
-      "EnableTendermintWithAssetsBalancesTrue": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 2.369
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 2.329
-        }
-      }
-    },
-    "enable_tendermint_token": {
-      "EnableTendermintTokenBasic": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 0.97
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.934
-        }
-      }
-    },
-    "task::enable_qtum::init": {
-      "task::enable_qtum::init_init": {
-        "native-hd": {
-          "status_code": 400,
-          "delay": 0.001
-        },
-        "native-nonhd": {
-          "status_code": 400,
-          "delay": 0.001
-        }
-      }
-    },
-    "task::enable_tendermint::init": {
-      "task::enable_tendermint::init_init": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 0.001
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.001
-        }
-      }
-    },
-    "task::enable_utxo::init": {
-      "task::enable_utxo::init_init": {
-        "native-hd": {
-          "status_code": 400,
-          "delay": 0.001
-        },
-        "native-nonhd": {
-          "status_code": 400,
-          "delay": 0.001
-        }
-      }
-    },
-    "task::enable_z_coin::init": {
-      "task::enable_z_coin::init_init": {
-        "native-hd": {
-          "status_code": 200,
-          "delay": 0.001
-        },
-        "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.001
-        }
-      }
-    },
     "electrum": {
       "LegacyElectrumBch": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.007
+          "delay": 0.009,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 200,
-          "delay": 2.724
+          "delay": 2.733,
+          "status_code": 200
         }
       },
       "LegacyElectrumKmd": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.005
+          "delay": 0.007,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 200,
-          "delay": 2.723
+          "delay": 2.733,
+          "status_code": 200
         }
       },
       "LegacyElectrumQtum": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.007
+          "delay": 0.005,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 200,
-          "delay": 3.734
+          "delay": 3.737,
+          "status_code": 200
         }
       }
     },
     "enable": {
       "LegacyEnableBnb": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 1.612
+          "delay": 1.585,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 200,
-          "delay": 3.026
+          "delay": 2.993,
+          "status_code": 200
         }
       },
       "LegacyEnableEth": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.003,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.002,
+          "status_code": 500
         }
       },
       "LegacyEnableEthGasStation": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.003,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.003,
+          "status_code": 500
         }
       },
       "LegacyEnableMatic": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.016
+          "delay": 0.016,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 200,
-          "delay": 0.523
+          "delay": 3.256,
+          "status_code": 200
         }
       },
       "LegacyEnableNative": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.007
+          "delay": 0.01,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.002,
+          "status_code": 500
         }
       },
       "LegacyEnableNativeWithParams": {
         "native-hd": {
-          "status_code": 500,
-          "delay": 0.007
+          "delay": 0.008,
+          "status_code": 500
         },
         "native-nonhd": {
-          "status_code": 500,
-          "delay": 0.001
+          "delay": 0.004,
+          "status_code": 500
+        }
+      }
+    },
+    "enable_erc20": {
+      "EnableErc20Basic": {
+        "native-nonhd": {
+          "delay": 0.902,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_eth_with_tokens": {
+      "EnableEthWithTokensGasStation": {
+        "native-hd": {
+          "delay": 129.647,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 2.246,
+          "status_code": 200
+        }
+      },
+      "EnableEthWithTokensMaticBalancesFalse": {
+        "native-hd": {
+          "delay": 38.893,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 1.879,
+          "status_code": 200
+        }
+      },
+      "EnableEthWithTokensMaticNft": {
+        "native-hd": {
+          "delay": 5.817,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 1.931,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_tendermint_token": {
+      "EnableTendermintTokenBasic": {
+        "native-hd": {
+          "delay": 0.863,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 1.291,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_tendermint_with_assets": {
+      "EnableTendermintWithAssetsBalancesFalse": {
+        "native-hd": {
+          "delay": 0.882,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.753,
+          "status_code": 200
+        }
+      },
+      "EnableTendermintWithAssetsBalancesTrue": {
+        "native-hd": {
+          "delay": 2.257,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 2.577,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_qtum::init": {
+      "task::enable_qtum::init_init": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_tendermint::init": {
+      "task::enable_tendermint::init_init": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_utxo::init": {
+      "task::enable_utxo::init_init": {
+        "native-hd": {
+          "delay": 0.018,
+          "status_code": 400
+        },
+        "native-nonhd": {
+          "delay": 0.003,
+          "status_code": 400
+        }
+      }
+    },
+    "task::enable_z_coin::init": {
+      "task::enable_z_coin::init_init": {
+        "native-hd": {
+          "delay": 0.002,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
         }
       }
     }
+  },
+  "metadata": {
+    "description": "Response timing data for KDF methods across different environments",
+    "generated_at": "2025-09-15 09:21:51 UTC",
+    "total_methods": 10,
+    "total_requests": 20
   }
 }

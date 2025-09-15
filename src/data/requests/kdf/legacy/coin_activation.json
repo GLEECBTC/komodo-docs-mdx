@@ -4,7 +4,6 @@
     "max_connected": 2,
     "method": "electrum",
     "min_connected": 1,
-    "prerequisites": [],
     "servers": [
       {
         "protocol": "SSL",
@@ -19,16 +18,12 @@
         "url": "bch.electrum3.cipig.net:30055"
       }
     ],
-    "tags": [
-      "legacy"
-    ],
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyElectrumKmd": {
     "coin": "KMD",
     "method": "electrum",
     "mm2": 1,
-    "prerequisites": [],
     "required_confirmations": 10,
     "requires_notarization": true,
     "servers": [
@@ -45,15 +40,11 @@
         "url": "kmd.electrum3.cipig.net:10001"
       }
     ],
-    "tags": [
-      "legacy"
-    ],
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyElectrumQtum": {
     "coin": "QTUM",
     "method": "electrum",
-    "prerequisites": [],
     "servers": [
       {
         "protocol": "SSL",
@@ -69,20 +60,13 @@
       }
     ],
     "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
-    "tags": [
-      "legacy"
-    ],
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyEnableBnb": {
     "coin": "BUSD-BEP20",
     "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
     "method": "enable",
-    "prerequisites": [],
     "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "tags": [
-      "legacy"
-    ],
     "urls": [
       "https://bsc1.cipig.net:18655",
       "https://bsc2.cipig.net:18655",
@@ -94,11 +78,7 @@
     "coin": "ETH",
     "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
     "method": "enable",
-    "prerequisites": [],
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "tags": [
-      "legacy"
-    ],
     "urls": [
       "https://eth3.cipig.net:18555",
       "https://ethereum-rpc.publicnode.com",
@@ -115,11 +95,7 @@
     },
     "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
     "method": "enable",
-    "prerequisites": [],
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "tags": [
-      "legacy"
-    ],
     "urls": [
       "https://0xrpc.io/eth",
       "https://eth.drpc.org",
@@ -131,11 +107,7 @@
     "coin": "NZDS-PLG20",
     "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
     "method": "enable",
-    "prerequisites": [],
     "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "tags": [
-      "legacy"
-    ],
     "urls": [
       "https://pol3.cipig.net:18755",
       "https://polygon.gateway.tenderly.co"
@@ -145,22 +117,14 @@
   "LegacyEnableNative": {
     "coin": "TKL",
     "method": "enable",
-    "prerequisites": [],
-    "tags": [
-      "legacy"
-    ],
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyEnableNativeWithParams": {
     "coin": "TKL",
     "method": "enable",
     "mm2": 1,
-    "prerequisites": [],
     "required_confirmations": 10,
     "requires_notarization": true,
-    "tags": [
-      "legacy"
-    ],
     "userpass": "RPC_UserP@SSW0RD"
   }
 }

@@ -1,777 +1,632 @@
 {
   "info": {
-    "name": "KDF API (WASM + Iguana)",
+    "_postman_id": "kdf-wasm_iguana-20250915",
     "description": "Komodo DeFi Framework API for WASM environments with Iguana wallets\n\nWASM environment with legacy Iguana wallet support. WSS protocols only.\n\nSupported Protocols:\n- electrum: WSS\n- websocket: wss",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_postman_id": "kdf-wasm_iguana-20250830"
+    "name": "KDF API (WASM + Iguana)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "item": [
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Enable Erc20 Basic (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_erc20\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"activation_params\": {\n      \"required_confirmations\": 3\n    },\n    \"ticker\": \"BAT-ERC20\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the ERC20 like token coin. |\n| `activation_params.required_confirmations` | integer (Default: `value in the coins file if not set`) | Confirmations to wait for steps in swap. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Eth With Tokens Gas Station (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"erc20_tokens_requests\": [\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"APE-ERC20\"\n      },\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"MINDS-ERC20\"\n      }\n    ],\n    \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\n    \"gas_station_decimals\": 8,\n    \"gas_station_policy\": {\n      \"policy\": \"MeanAverageFast\"\n    },\n    \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",\n    \"mm2\": 1,\n    \"nodes\": [\n      {\n        \"url\": \"https://eth.drpc.org\",\n        \"ws_url\": \"wss://eth.drpc.org\"\n      },\n      {\n        \"url\": \"https://eth3.cipig.net:18555\",\n        \"ws_url\": \"wss://eth3.cipig.net:38555\"\n      }\n    ],\n    \"priv_key_policy\": {\n      \"type\": \"ContextPrivKey\"\n    },\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false,\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",\n    \"ticker\": \"ETH\",\n    \"tx_history\": true\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Eth With Tokens Matic Balances False (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"erc20_tokens_requests\": [\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"PGX-PLG20\"\n      },\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"AAVE-PLG20\"\n      }\n    ],\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"get_balances\": false,\n    \"nodes\": [\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false,\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"swap_v2_contracts\": {\n      \"maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"nft_maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"taker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\"\n    },\n    \"ticker\": \"MATIC\",\n    \"tx_history\": false\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Eth With Tokens Matic Nft (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"erc20_tokens_requests\": [\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"PGX-PLG20\"\n      },\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"AAVE-PLG20\"\n      }\n    ],\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"get_balances\": false,\n    \"nft_req\": {\n      \"provider\": {\n        \"info\": {\n          \"url\": \"https://moralis-proxy.komodo.earth\"\n        },\n        \"type\": \"Moralis\"\n      }\n    },\n    \"nodes\": [\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false,\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"ticker\": \"MATIC\",\n    \"tx_history\": false\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Eth With Tokens Wallet Connect (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"erc20_tokens_requests\": [\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"PEPE-ERC20\"\n      }\n    ],\n    \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\n    \"gas_station_decimals\": 8,\n    \"gas_station_policy\": {\n      \"policy\": \"MeanAverageFast\"\n    },\n    \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",\n    \"mm2\": 1,\n    \"nodes\": [\n      {\n        \"url\": \"https://eth3.cipig.net:18555\",\n        \"ws_url\": \"wss://eth3.cipig.net:38555\"\n      },\n      {\n        \"url\": \"https://ethereum-rpc.publicnode.com\",\n        \"ws_url\": \"wss://ethereum-rpc.publicnode.com\"\n      }\n    ],\n    \"priv_key_policy\": {\n      \"data\": \"3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd\",\n      \"type\": \"WalletConnect\"\n    },\n    \"required_confirmations\": 5,\n    \"rpc_mode\": \"Default\",\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",\n    \"ticker\": \"ETH\",\n    \"tx_history\": true\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Tendermint Token Basic (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_tendermint_token\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"activation_params\": {\n      \"required_confirmations\": 3\n    },\n    \"ticker\": \"ATOM-IBC_IRIS\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the Tendermint asset. |\n| `activation_params.required_confirmations` | integer (Default: `value in the coins file if not set`) | Confirmations to wait for steps in swap. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Tendermint With Assets Balances False (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_tendermint_with_assets\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"get_balances\": false,\n    \"nodes\": [\n      {\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ],\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ],\n    \"tx_history\": true\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Tendermint With Assets Balances True (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_tendermint_with_assets\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"get_balances\": true,\n    \"nodes\": [\n      {\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ],\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ]\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Enable Tendermint With Assets Wallet Connect (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"enable_tendermint_with_assets\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"activation_params\": {\n      \"priv_key_policy\": {\n        \"data\": \"3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd\",\n        \"type\": \"WalletConnect\"\n      }\n    },\n    \"get_balances\": true,\n    \"nodes\": [\n      {\n        \"api_url\": \"https://cosmos-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://cosmos-grpc.alpha.komodo.earth/\",\n        \"url\": \"https://cosmos-rpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://cosmos-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://cosmoshub.rpc.stakin-nodes.com/\"\n      }\n    ],\n    \"ticker\": \"ATOM\",\n    \"tokens_params\": [],\n    \"tx_history\": true\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Legacy Enable"
+    },
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Cancel EVM Activation Task (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_eth::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableEth_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Check EVM Task Status (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_eth::status\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"forget_if_finished\": false,\n    \"task_id\": \"{{ TaskEnableEth_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "        pm.collectionVariables.set(\"TaskEnableEth_TaskId\", responseJson.result.task_id);",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.result && responseJson.result.task_id) {",
+                  "    }",
+                  "pm.test(\"Capture task_id\", function () {",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "name": "Initialize EVM coin (ETH, AVAX, etc.) with Trezor (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_eth::init\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"erc20_tokens_requests\": [\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"PGX-PLG20\"\n      },\n      {\n        \"required_confirmations\": 4,\n        \"ticker\": \"AAVE-PLG20\"\n      }\n    ],\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"nodes\": [\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"swap_v2_contracts\": {\n      \"maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"nft_maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"taker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\"\n    },\n    \"ticker\": \"MATIC\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_url` | string | A url for gas station api. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Non-HD only. encapsulates the request parameters for NFT activation, including NFT provider configuration. |\n| `min_addresses_number` | integer | HD wallets only. How many additional addreesses to generate at a minimum. |\n| `scan_policy` | string | HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework. |\n| `gap_limit` | integer | HD wallets only. The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning. |\n| `path_to_address` | object | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Task Enable ETH"
+    },
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Cancel Qtum Activation Task (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_qtum::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableQtum_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Check Qtum Activation Task Status (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_qtum::status\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"forget_if_finished\": false,\n    \"task_id\": \"{{ TaskEnableQtum_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "        pm.collectionVariables.set(\"TaskEnableQtum_TaskId\", responseJson.result.task_id);",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.result && responseJson.result.task_id) {",
+                  "    }",
+                  "pm.test(\"Capture task_id\", function () {",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "name": "Initialize Qtum (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_qtum::init\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"activation_params\": {\n      \"gap_limit\": 20,\n      \"min_addresses_number\": 3,\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"protocol\": \"TCP\",\n              \"url\": \"qtum.electrum3.cipig.net:10050\"\n            },\n            {\n              \"protocol\": \"WSS\",\n              \"url\": \"qtum.electrum1.cipig.net:30050\"\n            },\n            {\n              \"protocol\": \"WSS\",\n              \"url\": \"qtum.electrum3.cipig.net:30050\"\n            }\n          ]\n        }\n      },\n      \"priv_key_policy\": \"ContextPrivKey\",\n      \"scan_policy\": \"scan_if_new_wallet\"\n    },\n    \"ticker\": \"QTUM\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | The ticker of the coin you want to enable. |\n| `activation_params` | object (required) | An object containing the actvation parameters below. |\n| `.priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `.min_addresses_number` | integer (required) | How many additional addreesses to generate at a minimum. |\n| `.scan_policy` | string (required) | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework. |\n| `.gap_limit` | integer (required) | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning. |\n| `.mode` | object (required) | An object containing RPC type and data parameters as below. |\n| `..rpc` | string (required) | UTXO RPC mode. Options: `{ \"rpc\":\"Native\" }` if running a native blockchain node, or `\"rpc\":\"Electrum\"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers` |\n| `..rpc_data` | object (required) | An object containing electrum server information. |\n| `...servers` | list (required) | A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums)) |\n| `....url` | object (required) | The url and port of a coins electrum server |\n| `....ws_url` | object | Used to define electrum server url/port for websocket connections. |\n| `....protocol` | object (Default: ``TCP``) | Defines electrum server protocol as `TCP` or `SSL`. |\n| `....disable_cert_verification` | boolean | For `SSL` electrum connections, this will allow expired certificates. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Task Enable QTUM"
+    },
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Cancel Tendermint Activation Task (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_tendermint::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableTendermint_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Check Tendermint Activation Task Status (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_tendermint::status\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"forget_if_finished\": false,\n    \"task_id\": \"{{ TaskEnableTendermint_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "        pm.collectionVariables.set(\"TaskEnableTendermint_TaskId\", responseJson.result.task_id);",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.result && responseJson.result.task_id) {",
+                  "    }",
+                  "pm.test(\"Capture task_id\", function () {",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "name": "Initialize Tendermint Coin (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_tendermint::init\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"nodes\": [\n      {\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ],\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ]\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Task Enable TENDERMINT"
+    },
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Cancel UTXO Activation Task (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_utxo::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableUtxo_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [],
+          "name": "Check UTXO Task Status (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_utxo::status\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"forget_if_finished\": false,\n    \"task_id\": \"{{ TaskEnableUtxo_TaskId }}\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        },
+        {
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "        pm.collectionVariables.set(\"TaskEnableUtxo_TaskId\", responseJson.result.task_id);",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.result && responseJson.result.task_id) {",
+                  "    }",
+                  "pm.test(\"Capture task_id\", function () {",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "name": "Initialize UTXO Coin (Wasm Iguana)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"task::enable_utxo::init\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"activation_params\": {\n      \"gap_limit\": 20,\n      \"min_addresses_number\": 3,\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"protocol\": \"SSL\",\n              \"url\": \"kmd.electrum3.cipig.net:20001\"\n            },\n            {\n              \"protocol\": \"TCP\",\n              \"url\": \"kmd.electrum3.cipig.net:10001\"\n            },\n            {\n              \"protocol\": \"WSS\",\n              \"url\": \"kmd.electrum2.cipig.net:30001\"\n            }\n          ]\n        }\n      },\n      \"priv_key_policy\": {\n        \"type\": \"Trezor\"\n      },\n      \"scan_policy\": \"scan_if_new_wallet\"\n    },\n    \"ticker\": \"KMD\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `required_confirmations` | integer | Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |\n| `requires_notarization` | boolean (Default: `false`) | For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/) protected coins, a `true` value will wait for transactions to be notarised when doing swaps. Overrides value if set in `coins` file. |\n| `mode` | object | QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object. |\n| `zcash_params_path` | string | ZHTLC coins only. Path to folder containing [Zcash parameters](https://z.cash/learn/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |\n| `scan_blocks_per_iteration` | integer (Default: `1000`) | ZHTLC coins only. Sets the number of scanned blocks per iteration during `BuildingWalletDb` state. |\n| `scan_interval_ms` | integer (Default: `0`) | ZHTLC coins only. Sets the interval in milliseconds between iterations of `BuildingWalletDb` state. |\n| `tx_history` | boolean | Enable transaction history scanning. When active, the Komodo DeFi Framework API will collect transaction history data for local storage, and allow use of the [my_tx_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method. |\n| `min_addresses_number` | integer | HD wallets only. Number of addresses to generate. If not specified, addresses will be generated up to `path_to_address::address_index`. |\n| `scan_policy` | string (Default: `scan_if_new_wallet`) | HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi API and may take some time to complete. |\n| `gap_limit` | integer (Default: `20`) | HD wallets only. The max number of empty addresses in a row. Transactions sent to an address outside the `gap_limit`, will not be identified when scanning. |\n| `path_to_address` | object | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. |\n| `get_balances` | boolean (Default: `true`) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Task Enable UTXO"
+    }
+  ],
   "variable": [
     {
       "key": "base_url",
-      "value": "http://kdf-native-nonhd:8778",
-      "type": "string"
+      "type": "string",
+      "value": "http://kdf-native-nonhd:8778"
     },
     {
       "key": "userpass",
-      "value": "RPC_UserP@SSW0RD",
-      "type": "string"
-    }
-  ],
-  "item": [
-    {
-      "name": "Task Enable ETH",
-      "item": [
-        {
-          "name": "Initialize EVM coin (ETH, AVAX, etc.) with Trezor (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_eth::init\",\n  \"params\": {\n    \"ticker\": \"MATIC\",\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"swap_v2_contracts\": {\n      \"taker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"nft_maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\"\n    },\n    \"nodes\": [\n      {\n        \"url\": \"https://node.komodo.earth:8080/polygon\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"PGX-PLG20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"AAVE-PLG20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_url` | string | A url for gas station api. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Non-HD only. encapsulates the request parameters for NFT activation, including NFT provider configuration. |\n| `min_addresses_number` | integer | HD wallets only. How many additional addreesses to generate at a minimum. |\n| `scan_policy` | string | HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework. |\n| `gap_limit` | integer | HD wallets only. The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning. |\n| `path_to_address` | object | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Capture task_id\", function () {",
-                  "    const responseJson = pm.response.json();",
-                  "    if (responseJson.result && responseJson.result.task_id) {",
-                  "        pm.collectionVariables.set(\"TaskEnableEth_TaskId\", responseJson.result.task_id);",
-                  "    }",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Check EVM Task Status (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_eth::status\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableEth_TaskId }}\",\n    \"forget_if_finished\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Cancel EVM Activation Task (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"task::enable_eth::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableEth_TaskId }}\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
-    },
-    {
-      "name": "Legacy Enable",
-      "item": [
-        {
-          "name": "Enable Erc20 Basic (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_erc20\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"BAT-ERC20\",\n    \"activation_params\": {\n      \"required_confirmations\": 3\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the ERC20 like token coin. |\n| `activation_params.required_confirmations` | integer (Default: `value in the coins file if not set`) | Confirmations to wait for steps in swap. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Tendermint Token Basic (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_tendermint_token\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"ATOM-IBC_IRIS\",\n    \"activation_params\": {\n      \"required_confirmations\": 3\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the Tendermint asset. |\n| `activation_params.required_confirmations` | integer (Default: `value in the coins file if not set`) | Confirmations to wait for steps in swap. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Eth With Tokens Gas Station (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"ETH\",\n    \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",\n    \"gas_station_decimals\": 8,\n    \"gas_station_policy\": {\n      \"policy\": \"MeanAverageFast\"\n    },\n    \"mm2\": 1,\n    \"priv_key_policy\": {\n      \"type\": \"ContextPrivKey\"\n    },\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",\n    \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\n    \"nodes\": [\n      {\n        \"url\": \"https://eth3.cipig.net:18555\",\n        \"ws_url\": \"wss://eth3.cipig.net:38555\"\n      },\n      {\n        \"url\": \"https://node.komodo.earth:8080/ethereum\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://eth.drpc.org\",\n        \"ws_url\": \"wss://eth.drpc.org\"\n      }\n    ],\n    \"tx_history\": true,\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"APE-ERC20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"BCH-ERC20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"MINDS-ERC20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"BUSD-ERC20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Eth With Tokens Matic Balances False (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"MATIC\",\n    \"get_balances\": false,\n    \"tx_history\": false,\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"swap_v2_contracts\": {\n      \"maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"taker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n      \"nft_maker_swap_v2_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\"\n    },\n    \"nodes\": [\n      {\n        \"url\": \"https://node.komodo.earth:8080/polygon\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"PGX-PLG20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"AAVE-PLG20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Eth With Tokens Matic Nft (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"MATIC\",\n    \"get_balances\": false,\n    \"tx_history\": false,\n    \"nft_req\": {\n      \"type\": \"Moralis\",\n      \"info\": {\n        \"url\": \"https://moralis-proxy.komodo.earth\"\n      }\n    },\n    \"gas_station_url\": \"https://gasstation-mainnet.matic.network/\",\n    \"swap_contract_address\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"fallback_swap_contract\": \"0x9130b257D37A52E52F21054c4DA3450c72f595CE\",\n    \"nodes\": [\n      {\n        \"url\": \"https://node.komodo.earth:8080/polygon\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://pol3.cipig.net:18755\",\n        \"ws_url\": \"wss://pol3.cipig.net:38755\"\n      },\n      {\n        \"url\": \"https://polygon-bor-rpc.publicnode.com\",\n        \"ws_url\": \"wss://polygon-bor-rpc.publicnode.com\"\n      }\n    ],\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"PGX-PLG20\",\n        \"required_confirmations\": 4\n      },\n      {\n        \"ticker\": \"AAVE-PLG20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Eth With Tokens Wallet Connect (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_eth_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"ETH\",\n    \"gas_station_url\": \"https://ethgasstation.info/json/ethgasAPI.json\",\n    \"gas_station_decimals\": 8,\n    \"gas_station_policy\": {\n      \"policy\": \"MeanAverageFast\"\n    },\n    \"mm2\": 1,\n    \"rpc_mode\": \"Default\",\n    \"priv_key_policy\": {\n      \"type\": \"WalletConnect\",\n      \"data\": \"3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd\"\n    },\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\",\n    \"fallback_swap_contract\": \"0x8500AFc0bc5214728082163326C2FF0C73f4a871\",\n    \"nodes\": [\n      {\n        \"url\": \"https://eth3.cipig.net:18555\",\n        \"ws_url\": \"wss://eth3.cipig.net:38555\"\n      },\n      {\n        \"url\": \"https://node.komodo.earth:8080/ethereum\",\n        \"komodo_proxy\": true\n      },\n      {\n        \"url\": \"https://ethereum-rpc.publicnode.com\",\n        \"ws_url\": \"wss://ethereum-rpc.publicnode.com\"\n      }\n    ],\n    \"tx_history\": true,\n    \"erc20_tokens_requests\": [\n      {\n        \"ticker\": \"PEPE-ERC20\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `swap_contract_address` | string (required) | Address of etomic swap smart contract |\n| `fallback_swap_contract` | string (required) | Address of backup etomic swap smart contract. |\n| `nodes` | array of objects (required) | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects. |\n| `erc20_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `gas_station_decimals` | integer (Default: ``8``) | For ETH/ERC20 and other gas model chains. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |\n| `gas_station_policy.policy` | string (Default: ``\"MeanAverageFast\"``) | For ETH/ERC20 and other gas model chains. Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `rpc_mode` | string (Default: ``Default``) | Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`. |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `nft_req` | object | Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object. |\n| `swap_v2_contracts` | object | Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Tendermint With Assets Balances False (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"method\": \"enable_tendermint_with_assets\",\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ],\n    \"nodes\": [\n      {\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ],\n    \"tx_history\": true,\n    \"get_balances\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Tendermint With Assets Balances True (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"method\": \"enable_tendermint_with_assets\",\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ],\n    \"nodes\": [\n      {\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ],\n    \"get_balances\": true\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Tendermint With Assets Wallet Connect (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_tendermint_with_assets\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"ATOM\",\n    \"tx_history\": true,\n    \"get_balances\": true,\n    \"activation_params\": {\n      \"priv_key_policy\": {\n        \"type\": \"WalletConnect\",\n        \"data\": \"3569914dd09a5cc4ac92dedab354f06ff5db17ef616233a8ba562cbea51269fd\"\n      }\n    },\n    \"nodes\": [\n      {\n        \"url\": \"https://cosmos-rpc.alpha.komodo.earth/\",\n        \"api_url\": \"https://cosmos-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://cosmos-grpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://cosmos-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://cosmoshub.rpc.stakin-nodes.com/\"\n      },\n      {\n        \"url\": \"https://node.komodo.earth:8080/cosmos\",\n        \"komodo_proxy\": true\n      }\n    ],\n    \"tokens_params\": []\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `activation_params` | object | Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Bch With Tokens Tx History (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_bch_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"BCH\",\n    \"allow_slp_unsafe_conf\": false,\n    \"bchd_urls\": [\n      \"https://bchd.dragonhound.info\"\n    ],\n    \"mode\": {\n      \"rpc\": \"Electrum\",\n      \"rpc_data\": {\n        \"servers\": [\n          {\n            \"url\": \"bch.electrum3.cipig.net:30055\",\n            \"protocol\": \"WSS\"\n          }\n        ]\n      }\n    },\n    \"tx_history\": true,\n    \"slp_tokens_requests\": [\n      {\n        \"ticker\": \"ASLP-SLP\",\n        \"required_confirmations\": 4\n      }\n    ],\n    \"required_confirmations\": 5,\n    \"requires_notarization\": false,\n    \"address_format\": {\n      \"format\": \"cashaddress\",\n      \"network\": \"bitcoincash\"\n    },\n    \"utxo_merge_params\": {\n      \"merge_at\": 50,\n      \"check_every\": 10,\n      \"max_merge_at_once\": 25\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `BCH` or `tBCH` |\n| `bchd_urls` | array of strings (required) | A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/). |\n| `mode` | object (required) | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object. |\n| `tx_history` | boolean (Default: ``false``) | If `true`, spawns a background loop to store the local cache of address(es) transactions. |\n| `slp_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `address_format` | object | Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object. |\n| `allow_slp_unsafe_conf` | boolean (Default: ``false``) | If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `required_confirmations` | integer (Default: `value in the coins file, or `3` if not set`) | Confirmations to wait for steps in swap. |\n| `requires_notarization` | boolean (Default: ``true``) | Has no effect on BCH. |\n| `tx_history` | boolean (Default: ``true``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `utxo_merge_params` | object (required) | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Enable Bch With Tokens Balances False (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"enable_bch_with_tokens\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"ticker\": \"BCH\",\n    \"allow_slp_unsafe_conf\": false,\n    \"bchd_urls\": [\n      \"https://bchd.dragonhound.info\"\n    ],\n    \"mode\": {\n      \"rpc\": \"Electrum\",\n      \"rpc_data\": {\n        \"servers\": [\n          {\n            \"url\": \"bch.electrum3.cipig.net:30055\",\n            \"protocol\": \"WSS\"\n          }\n        ]\n      }\n    },\n    \"tx_history\": true,\n    \"get_balances\": false,\n    \"slp_tokens_requests\": [\n      {\n        \"ticker\": \"ASLP-SLP\",\n        \"required_confirmations\": 4\n      }\n    ]\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `BCH` or `tBCH` |\n| `bchd_urls` | array of strings (required) | A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/). |\n| `mode` | object (required) | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object. |\n| `tx_history` | boolean (Default: ``false``) | If `true`, spawns a background loop to store the local cache of address(es) transactions. |\n| `slp_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `address_format` | object | Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object. |\n| `allow_slp_unsafe_conf` | boolean (Default: ``false``) | If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `required_confirmations` | integer (Default: `value in the coins file, or `3` if not set`) | Confirmations to wait for steps in swap. |\n| `requires_notarization` | boolean (Default: ``true``) | Has no effect on BCH. |\n| `tx_history` | boolean (Default: ``true``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `utxo_merge_params` | object (required) | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
-    },
-    {
-      "name": "Task Enable QTUM",
-      "item": [
-        {
-          "name": "Initialize Qtum (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_qtum::init\",\n  \"params\": {\n    \"ticker\": \"QTUM\",\n    \"activation_params\": {\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"qtum.electrum1.cipig.net:30050\",\n              \"protocol\": \"WSS\"\n            },\n            {\n              \"url\": \"qtum.electrum3.cipig.net:10050\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"qtum.electrum3.cipig.net:30050\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"scan_policy\": \"scan_if_new_wallet\",\n      \"priv_key_policy\": {\n        \"type\": \"Trezor\"\n      },\n      \"min_addresses_number\": 3,\n      \"gap_limit\": 20\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | The ticker of the coin you want to enable. |\n| `activation_params` | object (required) | An object containing the actvation parameters below. |\n| `.priv_key_policy` | object (Default: ``{\"type\": \"ContextPrivKey\"}``) | A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. |\n| `.min_addresses_number` | integer (required) | How many additional addreesses to generate at a minimum. |\n| `.scan_policy` | string (required) | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework. |\n| `.gap_limit` | integer (required) | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning. |\n| `.mode` | object (required) | An object containing RPC type and data parameters as below. |\n| `..rpc` | string (required) | UTXO RPC mode. Options: `{ \"rpc\":\"Native\" }` if running a native blockchain node, or `\"rpc\":\"Electrum\"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers` |\n| `..rpc_data` | object (required) | An object containing electrum server information. |\n| `...servers` | list (required) | A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums)) |\n| `....url` | object (required) | The url and port of a coins electrum server |\n| `....ws_url` | object | Used to define electrum server url/port for websocket connections. |\n| `....protocol` | object (Default: ``TCP``) | Defines electrum server protocol as `TCP` or `SSL`. |\n| `....disable_cert_verification` | boolean | For `SSL` electrum connections, this will allow expired certificates. |\n\n\n"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Capture task_id\", function () {",
-                  "    const responseJson = pm.response.json();",
-                  "    if (responseJson.result && responseJson.result.task_id) {",
-                  "        pm.collectionVariables.set(\"TaskEnableQtum_TaskId\", responseJson.result.task_id);",
-                  "    }",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Check Qtum Activation Task Status (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_qtum::status\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableQtum_TaskId }}\",\n    \"forget_if_finished\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Cancel Qtum Activation Task (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"task::enable_qtum::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableQtum_TaskId }}\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
-    },
-    {
-      "name": "Task Enable UTXO",
-      "item": [
-        {
-          "name": "Initialize UTXO Coin (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_utxo::init\",\n  \"params\": {\n    \"ticker\": \"KMD\",\n    \"activation_params\": {\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"kmd.electrum3.cipig.net:20001\",\n              \"protocol\": \"SSL\"\n            },\n            {\n              \"url\": \"kmd.electrum3.cipig.net:10001\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"kmd.electrum2.cipig.net:30001\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"scan_policy\": \"scan_if_new_wallet\",\n      \"priv_key_policy\": {\n        \"type\": \"Trezor\"\n      },\n      \"min_addresses_number\": 3,\n      \"gap_limit\": 20\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `required_confirmations` | integer | Confirmations to wait for steps in swap. Defaults to value in the coins file if not set. |\n| `requires_notarization` | boolean (Default: `false`) | For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/) protected coins, a `true` value will wait for transactions to be notarised when doing swaps. Overrides value if set in `coins` file. |\n| `mode` | object | QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object. |\n| `zcash_params_path` | string | ZHTLC coins only. Path to folder containing [Zcash parameters](https://z.cash/learn/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603) |\n| `scan_blocks_per_iteration` | integer (Default: `1000`) | ZHTLC coins only. Sets the number of scanned blocks per iteration during `BuildingWalletDb` state. |\n| `scan_interval_ms` | integer (Default: `0`) | ZHTLC coins only. Sets the interval in milliseconds between iterations of `BuildingWalletDb` state. |\n| `tx_history` | boolean | Enable transaction history scanning. When active, the Komodo DeFi Framework API will collect transaction history data for local storage, and allow use of the [my_tx_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method. |\n| `min_addresses_number` | integer | HD wallets only. Number of addresses to generate. If not specified, addresses will be generated up to `path_to_address::address_index`. |\n| `scan_policy` | string (Default: `scan_if_new_wallet`) | HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi API and may take some time to complete. |\n| `gap_limit` | integer (Default: `20`) | HD wallets only. The max number of empty addresses in a row. Transactions sent to an address outside the `gap_limit`, will not be identified when scanning. |\n| `path_to_address` | object | HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. |\n| `get_balances` | boolean (Default: `true`) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n\n\n"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Capture task_id\", function () {",
-                  "    const responseJson = pm.response.json();",
-                  "    if (responseJson.result && responseJson.result.task_id) {",
-                  "        pm.collectionVariables.set(\"TaskEnableUtxo_TaskId\", responseJson.result.task_id);",
-                  "    }",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Check UTXO Task Status (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_utxo::status\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableUtxo_TaskId }}\",\n    \"forget_if_finished\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Cancel UTXO Activation Task (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"task::enable_utxo::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableUtxo_TaskId }}\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
-    },
-    {
-      "name": "Task Enable TENDERMINT",
-      "item": [
-        {
-          "name": "Initialize Tendermint Coin (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_tendermint::init\",\n  \"params\": {\n    \"ticker\": \"IRIS\",\n    \"tokens_params\": [\n      {\n        \"ticker\": \"ATOM-IBC_IRIS\"\n      }\n    ],\n    \"nodes\": [\n      {\n        \"url\": \"https://iris-rpc.alpha.komodo.earth/\",\n        \"api_url\": \"https://iris-api.alpha.komodo.earth/\",\n        \"grpc_url\": \"https://iris-grpc.alpha.komodo.earth/\",\n        \"ws_url\": \"wss://iris-rpc.alpha.komodo.earth/websocket\"\n      },\n      {\n        \"url\": \"https://rpc.irishub-1.irisnet.org\"\n      }\n    ]\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `ATOM`, `IRIS`, `OSMOSIS` |\n| `mm2` | integer | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1` |\n| `tokens_params` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `nodes` | array of objects (required) | A list of [CoinNode objects](/komodo-defi-framework/api/common_structures/activation/#coin-node). |\n| `priv_key_policy` | string (Default: ``ContextPrivKey``) | Value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm` |\n| `tx_history` | boolean (Default: ``false``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `required_confirmations` | integer (Default: ``3``) | When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap |\n| `requires_notarization` | boolean (Default: ``false``) | If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n\n\n"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Capture task_id\", function () {",
-                  "    const responseJson = pm.response.json();",
-                  "    if (responseJson.result && responseJson.result.task_id) {",
-                  "        pm.collectionVariables.set(\"TaskEnableTendermint_TaskId\", responseJson.result.task_id);",
-                  "    }",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Check Tendermint Activation Task Status (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_tendermint::status\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableTendermint_TaskId }}\",\n    \"forget_if_finished\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Cancel Tendermint Activation Task (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"task::enable_tendermint::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableTendermint_TaskId }}\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
-    },
-    {
-      "name": "Task Enable BCH",
-      "item": [
-        {
-          "name": "Initialize Bitcoin Cash (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_bch::init\",\n  \"params\": {\n    \"ticker\": \"BCH\",\n    \"activation_params\": {\n      \"bchd_urls\": [\n        \"https://bchd.dragonhound.info\"\n      ],\n      \"mode\": {\n        \"rpc\": \"Electrum\",\n        \"rpc_data\": {\n          \"servers\": [\n            {\n              \"url\": \"bch.electrum3.cipig.net:10055\",\n              \"protocol\": \"TCP\"\n            },\n            {\n              \"url\": \"bch.electrum3.cipig.net:20055\",\n              \"protocol\": \"SSL\"\n            },\n            {\n              \"url\": \"bch.electrum3.cipig.net:30055\",\n              \"protocol\": \"WSS\"\n            }\n          ]\n        }\n      },\n      \"slp_tokens_requests\": [\n        {\n          \"ticker\": \"USDF\"\n        },\n        {\n          \"ticker\": \"ASLP-SLP\",\n          \"required_confirmations\": 3\n        }\n      ],\n      \"tx_history\": true,\n      \"required_confirmations\": 5,\n      \"requires_notarization\": false,\n      \"address_format\": {\n        \"format\": \"cashaddress\",\n        \"network\": \"bitcoincash\"\n      },\n      \"utxo_merge_params\": {\n        \"merge_at\": 50,\n        \"check_every\": 10,\n        \"max_merge_at_once\": 25\n      }\n    }\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `ticker` | string (required) | Ticker of the platform protocol coin. Options: `BCH` or `tBCH` |\n| `bchd_urls` | array of strings (required) | A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/). |\n| `mode` | object (required) | A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object. |\n| `tx_history` | boolean (Default: ``false``) | If `true`, spawns a background loop to store the local cache of address(es) transactions. |\n| `slp_tokens_requests` | array of objects (required) | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects. |\n| `address_format` | object | Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object. |\n| `allow_slp_unsafe_conf` | boolean (Default: ``false``) | If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning. |\n| `get_balances` | boolean (Default: ``true``) | If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly. |\n| `required_confirmations` | integer (Default: `value in the coins file, or `3` if not set`) | Confirmations to wait for steps in swap. |\n| `requires_notarization` | boolean (Default: ``true``) | Has no effect on BCH. |\n| `tx_history` | boolean (Default: ``true``) | If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method |\n| `utxo_merge_params` | object (required) | A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses. |\n\n\n"
-          },
-          "response": [],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Capture task_id\", function () {",
-                  "    const responseJson = pm.response.json();",
-                  "    if (responseJson.result && responseJson.result.task_id) {",
-                  "        pm.collectionVariables.set(\"TaskEnableBch_TaskId\", responseJson.result.task_id);",
-                  "    }",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Check Bitcoin Cash Activation Task Status (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"mmrpc\": \"2.0\",\n  \"method\": \"task::enable_bch::status\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableBch_TaskId }}\",\n    \"forget_if_finished\": false\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the initialisation process. |\n| `forget_if_finished` | boolean (Default: ``true``) | If `false`, will return final response for completed tasks. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        },
-        {
-          "name": "Cancel Bitcoin Cash Activation Task (Wasm Iguana)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userpass\": \"{{ userpass }}\",\n  \"method\": \"task::enable_bch::cancel\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"task_id\": \"{{ TaskEnableBch_TaskId }}\"\n  }\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}",
-              "host": [
-                "{{base_url}}"
-              ]
-            },
-            "description": "## Request Parameters\n\n| Parameter | Type | Description |\n|-----------|------|-------------|\n| `task_id` | integer (required) | The identifying number returned when initiating the enabling process. |\n\n\n"
-          },
-          "response": [],
-          "event": []
-        }
-      ]
+      "type": "string",
+      "value": "RPC_UserP@SSW0RD"
     }
   ]
 }

@@ -1,49 +1,23 @@
 {
-  "metadata": {
-    "generated_at": "2025-09-04 06:01:21 UTC",
-    "total_inconsistent_methods": 1,
-    "total_inconsistent_examples": 2,
-    "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors"
-  },
   "inconsistent_responses": {
     "enable_eth_with_tokens": {
       "EnableEthWithTokensGasStation": {
         "instances": {
           "native-hd": {
+            "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 23287803,
+              "current_block": 23367529,
+              "nfts_infos": {},
               "ticker": "ETH",
               "wallet_balance": {
-                "wallet_type": "HD",
                 "accounts": [
                   {
                     "account_index": 0,
-                    "derivation_path": "m/44'/60'/0'",
-                    "total_balance": {
-                      "ETH": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      },
-                      "APE-ERC20": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      },
-                      "MINDS-ERC20": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      }
-                    },
                     "addresses": [
                       {
                         "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
-                        "derivation_path": "m/44'/60'/0'/0/0",
-                        "chain": "External",
                         "balance": {
-                          "MINDS-ERC20": {
-                            "spendable": "0",
-                            "unspendable": "0"
-                          },
                           "APE-ERC20": {
                             "spendable": "0",
                             "unspendable": "0"
@@ -51,39 +25,44 @@
                           "ETH": {
                             "spendable": "0",
                             "unspendable": "0"
+                          },
+                          "MINDS-ERC20": {
+                            "spendable": "0",
+                            "unspendable": "0"
                           }
-                        }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/60'/0'/0/0"
                       }
-                    ]
+                    ],
+                    "derivation_path": "m/44'/60'/0'",
+                    "total_balance": {
+                      "APE-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "ETH": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "MINDS-ERC20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
                   }
-                ]
-              },
-              "nfts_infos": {}
-            },
-            "id": null
+                ],
+                "wallet_type": "HD"
+              }
+            }
           },
           "native-nonhd": {
+            "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 23287814,
-              "eth_addresses_infos": {
-                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
-                  "derivation_method": {
-                    "type": "Iguana"
-                  },
-                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
-                  "balances": {
-                    "spendable": "0",
-                    "unspendable": "0"
-                  }
-                }
-              },
+              "current_block": 23367540,
               "erc20_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
-                  "derivation_method": {
-                    "type": "Iguana"
-                  },
-                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
                   "balances": {
                     "APE-ERC20": {
                       "spendable": "0",
@@ -97,47 +76,46 @@
                       "spendable": "0",
                       "unspendable": "0"
                     }
-                  }
+                  },
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+                }
+              },
+              "eth_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "balances": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  },
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
                 }
               },
               "nfts_infos": {}
-            },
-            "id": null
+            }
           }
         }
       },
       "EnableEthWithTokensMaticBalancesFalse": {
         "instances": {
           "native-hd": {
+            "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76031843,
+              "current_block": 76474022,
+              "nfts_infos": {},
               "ticker": "MATIC",
               "wallet_balance": {
-                "wallet_type": "HD",
                 "accounts": [
                   {
                     "account_index": 0,
-                    "derivation_path": "m/44'/60'/0'",
-                    "total_balance": {
-                      "MATIC": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      },
-                      "PGX-PLG20": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      },
-                      "AAVE-PLG20": {
-                        "spendable": "0",
-                        "unspendable": "0"
-                      }
-                    },
                     "addresses": [
                       {
                         "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
-                        "derivation_path": "m/44'/60'/0'/0/0",
-                        "chain": "External",
                         "balance": {
                           "AAVE-PLG20": {
                             "spendable": "0",
@@ -151,20 +129,49 @@
                             "spendable": "0",
                             "unspendable": "0"
                           }
-                        }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/60'/0'/0/0"
                       }
-                    ]
+                    ],
+                    "derivation_path": "m/44'/60'/0'",
+                    "total_balance": {
+                      "AAVE-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "MATIC": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "PGX-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
                   }
-                ]
-              },
-              "nfts_infos": {}
-            },
-            "id": null
+                ],
+                "wallet_type": "HD"
+              }
+            }
           },
           "native-nonhd": {
+            "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76031868,
+              "current_block": 76474041,
+              "erc20_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                  "tickers": [
+                    "AAVE-PLG20",
+                    "PGX-PLG20"
+                  ]
+                }
+              },
               "eth_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                   "derivation_method": {
@@ -173,6 +180,71 @@
                   "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
                 }
               },
+              "nfts_infos": {}
+            }
+          }
+        }
+      },
+      "EnableEthWithTokensMaticNft": {
+        "instances": {
+          "native-hd": {
+            "id": null,
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 76474043,
+              "nfts_infos": {},
+              "ticker": "MATIC",
+              "wallet_balance": {
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "addresses": [
+                      {
+                        "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                        "balance": {
+                          "AAVE-PLG20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "MATIC": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          },
+                          "PGX-PLG20": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/60'/0'/0/0"
+                      }
+                    ],
+                    "derivation_path": "m/44'/60'/0'",
+                    "total_balance": {
+                      "AAVE-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "MATIC": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      },
+                      "PGX-PLG20": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
+                  }
+                ],
+                "wallet_type": "HD"
+              }
+            }
+          },
+          "native-nonhd": {
+            "id": null,
+            "mmrpc": "2.0",
+            "result": {
+              "current_block": 76474045,
               "erc20_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                   "derivation_method": {
@@ -180,17 +252,30 @@
                   },
                   "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
                   "tickers": [
-                    "PGX-PLG20",
-                    "AAVE-PLG20"
+                    "AAVE-PLG20",
+                    "PGX-PLG20"
                   ]
                 }
               },
+              "eth_addresses_infos": {
+                "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                  "derivation_method": {
+                    "type": "Iguana"
+                  },
+                  "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+                }
+              },
               "nfts_infos": {}
-            },
-            "id": null
+            }
           }
         }
       }
     }
+  },
+  "metadata": {
+    "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors",
+    "generated_at": "2025-09-15 09:21:51 UTC",
+    "total_inconsistent_examples": 3,
+    "total_inconsistent_methods": 1
   }
 }

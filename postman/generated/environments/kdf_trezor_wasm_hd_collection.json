@@ -1,21 +1,21 @@
 {
   "info": {
-    "name": "KDF API (WASM + Trezor + HD)",
+    "_postman_id": "kdf-trezor_wasm_hd-20250915",
     "description": "Komodo DeFi Framework API for WASM with Trezor hardware wallet and HD support\n\nWASM environment with Trezor hardware wallet and HD wallet support\n\nSupported Protocols:\n- electrum: WSS\n- websocket: wss\n\nHardware Support: trezor",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_postman_id": "kdf-trezor_wasm_hd-20250830"
+    "name": "KDF API (WASM + Trezor + HD)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "item": [],
   "variable": [
     {
       "key": "base_url",
-      "value": "http://kdf-native-hd:8779",
-      "type": "string"
+      "type": "string",
+      "value": "http://kdf-native-hd:8779"
     },
     {
       "key": "userpass",
-      "value": "RPC_UserP@SSW0RD",
-      "type": "string"
+      "type": "string",
+      "value": "RPC_UserP@SSW0RD"
     }
-  ],
-  "item": []
+  ]
 }
