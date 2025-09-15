@@ -220,22 +220,85 @@ class UnifiedResponseManager:
             if isinstance(response, dict):
                 error_msg = str(response.get("error", "")).lower()
                 error_display = response.get('error', 'Unknown error')
+                
+                # Check for raw_response which might have the actual error
+                if "raw_response" in response:
+                    raw_response = response["raw_response"]
+                    if isinstance(raw_response, str):
+                        error_msg = raw_response.lower()
+                        error_display = raw_response
             else:
                 # If response is not a dict, treat it as the error message
                 error_msg = str(response).lower()
                 error_display = str(response)
             
-            if "not found" in error_msg or "not enabled" in error_msg:
+            # These are expected "success" cases - coin was already disabled
+            if any(phrase in error_msg for phrase in [
+                "not found", "not enabled", "is not activated", "not active",
+                "no such coin", "coin not found"
+            ]):
                 self.logger.debug(f"{ticker} was not enabled on {instance.name}")
                 return True
             else:
                 self.logger.warning(f"Failed to disable {ticker} on {instance.name}: {error_display}")
                 return False
     
+    def _ensure_coin_disabled(self, instance: KDFInstance, ticker: str) -> bool:
+        """Ensure a coin is disabled with enhanced retry logic."""
+        # First try standard disable
+        if self.disable_coin(instance, ticker):
+            return True
+        
+        # If that fails, try to get enabled coins and check if it's actually enabled
+        try:
+            get_enabled_request = {
+                "userpass": instance.userpass,
+                "method": "get_enabled_coins"
+            }
+            
+            success, response = self.send_request(instance, get_enabled_request)
+            
+            if success and "result" in response:
+                enabled_tickers = []
+                result = response["result"]
+                
+                # Extract tickers from the result
+                if isinstance(result, list):
+                    for coin in result:
+                        if isinstance(coin, dict) and "ticker" in coin:
+                            enabled_tickers.append(coin["ticker"])
+                        elif isinstance(coin, str):
+                            enabled_tickers.append(coin)
+                elif isinstance(result, dict):
+                    if "enabled_coins" in result:
+                        for coin in result["enabled_coins"]:
+                            if isinstance(coin, dict) and "ticker" in coin:
+                                enabled_tickers.append(coin["ticker"])
+                            elif isinstance(coin, str):
+                                enabled_tickers.append(coin)
+                    else:
+                        enabled_tickers = list(result.keys())
+                
+                # If the ticker is not in enabled coins, consider it successfully disabled
+                if ticker not in enabled_tickers:
+                    self.logger.debug(f"{ticker} confirmed not enabled on {instance.name}")
+                    return True
+                else:
+                    # Try to disable again
+                    self.logger.warning(f"{ticker} still appears enabled on {instance.name}, retrying disable")
+                    return self.disable_coin(instance, ticker)
+            
+        except Exception as e:
+            self.logger.warning(f"Error checking enabled coins on {instance.name}: {e}")
+        
+        # If all else fails, assume it's disabled (to prevent blocking the entire process)
+        self.logger.warning(f"Could not verify {ticker} disable status on {instance.name}, proceeding anyway")
+        return True
+    
     def enable_platform_coin(self, instance: KDFInstance, ticker: str) -> bool:
         """Try to enable a platform coin using basic enable method."""
         # First disable if already enabled
-        self.disable_coin(instance, ticker)
+        self._ensure_coin_disabled(instance, ticker)
         
         # Platform coin enable requests
         enable_requests = {
@@ -472,7 +535,7 @@ class UnifiedResponseManager:
             
             if not success:
                 error_msg = status_response.get('error', 'Unknown error') if isinstance(status_response, dict) else str(status_response)
-                self.logger.warning(f"Status check {status_check_count} failed on {instance.name}: {error_msg}")
+                self.logger.warning(f"[{method_name}] Status check {status_check_count} failed on {instance.name}: {error_msg}")
                 break
             
             # Check status
@@ -484,7 +547,7 @@ class UnifiedResponseManager:
                     status = result.get("status")
                     details = result.get("details", "")
                     
-                    self.logger.debug(f"Status check {status_check_count} on {instance.name}: {status} - {details}")
+                    self.logger.debug(f"[{method_name}] Status check {status_check_count} on {instance.name}: {status} - {details}")
                     
                     # Check if task is complete
                     if status == "Ok":
@@ -498,7 +561,7 @@ class UnifiedResponseManager:
                         break
                 else:
                     # Handle case where result is the final response (task completed)
-                    self.logger.debug(f"Status check {status_check_count} on {instance.name}: Ok - {result}")
+                    self.logger.debug(f"[{method_name}] Status check {status_check_count} on {instance.name}: Ok - {result}")
                     self.logger.info(f"Task completed successfully on {instance.name}")
                     break
             else:
@@ -560,7 +623,7 @@ class UnifiedResponseManager:
             
             # Disable coin first if needed
             if ticker:
-                self.disable_coin(instance, ticker)
+                self._ensure_coin_disabled(instance, ticker)
             
             # Modify request for non-HD instances
             if "nonhd" in instance.name:
@@ -621,7 +684,7 @@ class UnifiedResponseManager:
             
             # Disable coin first if needed
             if ticker:
-                self.disable_coin(instance, ticker)
+                self._ensure_coin_disabled(instance, ticker)
             
             # Modify request for non-HD instances
             if "nonhd" in instance.name:
@@ -732,7 +795,7 @@ class UnifiedResponseManager:
                 # Disable coin first if needed
                 if ticker:
                     try:
-                        self.disable_coin(instance, ticker)
+                        self._ensure_coin_disabled(instance, ticker)
                     except Exception as e:
                         self.logger.error(f"Error disabling {ticker} on {instance.name}: {e}")
                         self.logger.error(f"Exception type: {type(e)}")
