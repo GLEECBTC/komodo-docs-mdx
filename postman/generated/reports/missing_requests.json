@@ -1,0 +1,11 @@
+{
+  "v2": [
+    "LegacyElectrumBch",
+    "LegacyElectrumKmd",
+    "LegacyElectrumQtum",
+    "LegacyEnableBnb",
+    "LegacyEnableMatic",
+    "TaskEnableTendermintStatus_2",
+    "TaskEnableZCoinStatusBasic"
+  ]
+}
