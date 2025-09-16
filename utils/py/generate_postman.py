@@ -30,6 +30,7 @@ import logging
 sys.path.append(str(Path(__file__).parent / "lib"))
 
 from managers.environment_manager import EnvironmentManager
+from managers.table_manager import TableManager
 from utils.json_utils import dump_sorted_json
 
 # Setup logging
@@ -55,8 +56,9 @@ class UnifiedPostmanGenerator:
         self.responses_dir = self.workspace_root / "src" / "data" / "responses" / "kdf"
         self.tables_dir = self.workspace_root / "src" / "data" / "tables"
         
-        # Initialize environment manager
+        # Initialize managers
         self.env_manager = EnvironmentManager()
+        self.table_manager = TableManager(workspace_root=self.workspace_root, logger=logger)
         
         # Reports data
         self.unused_params = {}
@@ -64,7 +66,6 @@ class UnifiedPostmanGenerator:
         self.missing_requests = {}
         self.missing_methods = []
         self.untranslated_keys = []
-        self.missing_tables = []
         
         # Task ID variables for method groups
         self.task_variables = {}
@@ -113,26 +114,7 @@ class UnifiedPostmanGenerator:
     
     def load_all_tables(self) -> Dict[str, Dict]:
         """Load all table files and combine them."""
-        all_tables = {}
-        
-        # Load common structures
-        common_dir = self.tables_dir / "common-structures"
-        if common_dir.exists():
-            for table_file in common_dir.glob("*.json"):
-                tables = self.load_json_file(table_file)
-                if tables:
-                    all_tables.update(tables)
-        
-        # Load version-specific tables
-        for version_dir in ["legacy", "v2"]:
-            version_path = self.tables_dir / version_dir
-            if version_path.exists():
-                for table_file in version_path.glob("*.json"):
-                    tables = self.load_json_file(table_file)
-                    if tables:
-                        all_tables.update(tables)
-        
-        return all_tables
+        return self.table_manager.load_all_tables()
     
     def load_request_data(self, version: str = "v2") -> Dict[str, Any]:
         """Load request data from JSON files."""
@@ -328,49 +310,17 @@ class UnifiedPostmanGenerator:
             logger.warning(f"No method config found for method: {method}")
             return set()
         
-        table_name = self.method_config[method].get("table")
-        if not table_name or table_name not in tables:
-            logger.warning(f"Table {table_name} not found for method {method}")
-            return set()
+        validation_result = self.table_manager.validate_request_params(
+            request_data, method, self.method_config[method]
+        )
         
-        table_params = set()
-        for param_def in tables[table_name].get("data", []):
-            table_params.add(param_def["parameter"])
+        if validation_result:
+            if validation_result.unused_params:
+                logger.warning(f"Unused parameters in {method}: {validation_result.unused_params}")
+            return validation_result.unused_params
         
-        # Extract request parameters
-        request_params = set()
-        params_data = request_data.get("params", {})
-        
-        if "activation_params" in params_data:
-            # Add top-level params
-            for key in params_data.keys():
-                if key != "activation_params":
-                    request_params.add(key)
-            # Extract nested parameters
-            self._extract_param_names(params_data["activation_params"], request_params)
-        else:
-            self._extract_param_names(params_data, request_params)
-        
-        unused_params = table_params - request_params
-        if unused_params:
-            logger.warning(f"Unused parameters in {method}: {unused_params}")
-        
-        return unused_params
+        return set()
     
-    def _extract_param_names(self, data: Any, param_names: Set[str], prefix: str = "") -> None:
-        """Recursively extract parameter names from request data."""
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if key in ["userpass", "mmrpc", "method"]:
-                    continue
-                
-                param_key = f"{prefix}.{key}" if prefix else key
-                param_names.add(param_key)
-                
-                if isinstance(value, dict):
-                    self._extract_param_names(value, param_names, param_key)
-                elif isinstance(value, list) and value and isinstance(value[0], dict):
-                    self._extract_param_names(value[0], param_names, param_key)
     
     def check_response_exists(self, request_key: str, version: str) -> bool:
         """Check if response file exists for the request and has actual content."""
@@ -422,58 +372,17 @@ class UnifiedPostmanGenerator:
     
     # ===== TABLE GENERATION =====
     
+    def _track_missing_table(self, method: str, table_type: str) -> None:
+        """Track a missing table by type."""
+        self.table_manager.track_missing_table(method, table_type)
+
     def generate_table_markdown(self, method: str, tables: Dict[str, Dict]) -> str:
         """Generate markdown table from table data for method."""
         if method not in self.method_config:
-            # Skip deprecated methods from missing_tables report
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
+            # Method not defined - will be tracked in missing_methods.json
             return ""
         
-        # Skip deprecated methods from missing_tables report
-        method_config = self.method_config[method]
-        if method_config.get('deprecated', False):
-            return ""
-        
-        table_name = method_config.get("table")
-        if not table_name or table_name not in tables:
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
-            return ""
-        
-        table_data = tables[table_name].get("data", [])
-        if not table_data:
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
-            return ""
-        
-        # Generate markdown table
-        markdown = "## Request Parameters\n\n"
-        markdown += "| Parameter | Type | Description |\n"
-        markdown += "|-----------|------|-------------|\n"
-        
-        for param in table_data:
-            parameter = param.get("parameter", "")
-            param_type = param.get("type", "")
-            required = param.get("required", False)
-            default = param.get("default", "")
-            description = param.get("description", "")
-            
-            # Build the type column with required/default info
-            type_column = param_type
-            if required and default:
-                type_column += f" (required. Default: `{default}`)"
-            elif required:
-                type_column += " (required)"
-            elif default:
-                type_column += f" (Default: `{default}`)"
-            
-            # Escape markdown characters
-            description = description.replace("|", "\\|").replace("\n", " ")
-            
-            markdown += f"| `{parameter}` | {type_column} | {description} |\n"
-        
-        return markdown
+        return self.table_manager.generate_table_markdown(method, self.method_config[method])
     
     # ===== POSTMAN REQUEST CREATION =====
     
@@ -933,16 +842,25 @@ pm.test("Capture task_id", function () {{
             if method_config.get('deprecated', False):
                 deprecated_methods.add(method_name)
         
-        # Load all response data
+        # Load all request and response data from all files
         for version in ['v2', 'legacy']:
-            responses_file = self.responses_dir / version / "coin_activation.json"
-            requests_file = self.requests_dir / version / "coin_activation.json"
+            version_responses_dir = self.responses_dir / version
+            version_requests_dir = self.requests_dir / version
             
-            if not responses_file.exists() or not requests_file.exists():
+            if not version_responses_dir.exists() or not version_requests_dir.exists():
                 continue
-                
-            responses_data = self.load_json_file(responses_file) or {}
-            requests_data = self.load_json_file(requests_file) or {}
+            
+            # Collect all requests from all files in this version
+            requests_data = {}
+            for request_file in version_requests_dir.glob("*.json"):
+                request_data = self.load_json_file(request_file) or {}
+                requests_data.update(request_data)
+            
+            # Collect all responses from all files in this version    
+            responses_data = {}
+            for response_file in version_responses_dir.glob("*.json"):
+                response_data = self.load_json_file(response_file) or {}
+                responses_data.update(response_data)
             
             # Find missing requests (responses without corresponding requests)
             missing_requests_for_version = []
@@ -986,6 +904,16 @@ pm.test("Capture task_id", function () {{
         # Sort missing methods
         self.missing_methods = sorted(self.missing_methods)
     
+    def detect_missing_response_and_error_tables(self) -> None:
+        """Detect missing response and error tables for all methods."""
+        for method_name, method_config in self.method_config.items():
+            # Skip deprecated methods
+            if method_config.get('deprecated', False):
+                continue
+            
+            # Use TableManager to validate all table references
+            self.table_manager.validate_method_tables(method_name, method_config)
+    
     def save_reports(self, reports_dir: Path) -> None:
         """Save validation reports with consistent alphabetical sorting.
         
@@ -1019,11 +947,9 @@ pm.test("Capture task_id", function () {{
         dump_sorted_json(untranslated_list, untranslated_file)
         logger.info(f"Untranslated keys report saved to {untranslated_file}")
         
-        # Save missing tables report (always)
-        missing_tables_list = sorted(self.missing_tables) if self.missing_tables else []
+        # Save missing tables report (always) - now grouped by type
         missing_tables_file = reports_dir / "missing_tables.json"
-        dump_sorted_json(missing_tables_list, missing_tables_file)
-        logger.info(f"Missing tables report saved to {missing_tables_file}")
+        self.table_manager.save_missing_tables_report(missing_tables_file)
         
         # Save missing requests report (always)
         sorted_missing_requests = {}
@@ -1165,7 +1091,9 @@ pm.test("Capture task_id", function () {{
             requirements = self._infer_method_requirements(method, method_info["examples"])
             
             method_config = {
-                "table": table_name,
+                "request_table": table_name,
+                "response_table": "",
+                "errors_table": "",
                 "examples": method_info["examples"],
                 "requirements": requirements
             }
@@ -1287,6 +1215,9 @@ pm.test("Capture task_id", function () {{
         # Detect missing requests and methods before saving reports
         self.detect_missing_requests_and_methods()
         
+        # Detect missing response and error tables
+        self.detect_missing_response_and_error_tables()
+        
         # Save reports
         self.save_reports(reports_dir)
         
@@ -1314,11 +1245,24 @@ pm.test("Capture task_id", function () {{
             "count": len(self.untranslated_keys) if self.untranslated_keys else 0
         }
         
-        # Missing tables (always)
+        # Missing tables (always) - with breakdown by type
         missing_tables_file = reports_dir / "missing_tables.json"
+        missing_tables_report = self.table_manager.get_missing_tables_report()
+        missing_tables_count = sum(len(methods) for methods in missing_tables_report.values())
+        
+        # Create detailed breakdown
+        missing_tables_breakdown = {}
+        for table_type, methods in missing_tables_report.items():
+            # Convert missing_request_tables -> request_tables for cleaner naming
+            clean_type = table_type.replace("missing_", "")
+            missing_tables_breakdown[clean_type] = {
+                "count": len(methods)
+            }
+        
         reports_data["missing_tables"] = {
             "file": str(missing_tables_file.relative_to(self.workspace_root)),
-            "count": len(self.missing_tables) if self.missing_tables else 0
+            "total_count": missing_tables_count,
+            "breakdown": missing_tables_breakdown
         }
         
         # Missing requests (always)
@@ -1478,6 +1422,9 @@ Examples:
             
             # Detect missing requests and methods before saving reports
             generator.detect_missing_requests_and_methods()
+            
+            # Detect missing response and error tables
+            generator.detect_missing_response_and_error_tables()
             
             # Save reports
             reports_dir = output_dir / "reports"

@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "4d2ef192-8f10-4531-9174-ff3a9cd21d08",
+    "_postman_id": "e0941589-ee4f-4877-8f32-027c4ffed9a3",
     "description": "Comprehensive auto-generated Postman collection for KDF API",
     "name": "Komodo DeFi Framework API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -1369,7 +1369,7 @@
               "item": [
                 {
                   "event": [],
-                  "name": "AddNodeToVersionStat",
+                  "name": "Add Node To Version Stat",
                   "request": {
                     "body": {
                       "mode": "raw",

@@ -29,7 +29,7 @@
       "file": "postman/generated/environments/kdf_wasm_iguana_collection.json"
     }
   },
-  "generation_timestamp": "2025-09-15T17:17:21.691821",
+  "generation_timestamp": "2025-09-16T18:18:16.788075",
   "reports": {
     "missing_methods": {
       "count": 0,
@@ -44,11 +44,22 @@
       "file": "postman/generated/reports/missing_responses.json"
     },
     "missing_tables": {
-      "count": 1,
-      "file": "postman/generated/reports/missing_tables.json"
+      "breakdown": {
+        "error_tables": {
+          "count": 27
+        },
+        "request_tables": {
+          "count": 1
+        },
+        "response_tables": {
+          "count": 27
+        }
+      },
+      "file": "postman/generated/reports/missing_tables.json",
+      "total_count": 55
     },
     "untranslated_keys": {
-      "count": 1,
+      "count": 0,
       "file": "postman/generated/reports/untranslated_keys.json"
     },
     "unused_params": {
