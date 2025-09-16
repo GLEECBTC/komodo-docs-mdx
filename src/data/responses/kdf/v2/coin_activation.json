@@ -1,17 +1,19 @@
 {
   "EnableBchWithTokensBalancesFalse": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "EnableBchWithTokensTxHistory": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "EnableErc20Basic": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
             "balances": {
@@ -21,56 +23,39 @@
               }
             },
             "platform_coin": "ETH",
-            "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef",
-            "required_confirmations": 3
-          },
-          "id": null
+            "required_confirmations": 3,
+            "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "EnableEthWithTokensGasStation": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
             "current_block": 23287401,
+            "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
-              "wallet_type": "HD",
               "accounts": [
                 {
                   "account_index": 0,
-                  "derivation_path": "m/44'/60'/0'",
-                  "total_balance": {
-                    "APE-ERC20": {
-                      "spendable": "0",
-                      "unspendable": "0"
-                    },
-                    "MINDS-ERC20": {
-                      "spendable": "0",
-                      "unspendable": "0"
-                    },
-                    "ETH": {
-                      "spendable": "0",
-                      "unspendable": "0"
-                    }
-                  },
                   "addresses": [
                     {
                       "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
-                      "derivation_path": "m/44'/60'/0'/0/0",
-                      "chain": "External",
                       "balance": {
-                        "ETH": {
+                        "APE-ERC20": {
                           "spendable": "0",
                           "unspendable": "0"
                         },
-                        "APE-ERC20": {
+                        "ETH": {
                           "spendable": "0",
                           "unspendable": "0"
                         },
@@ -78,35 +63,73 @@
                           "spendable": "0",
                           "unspendable": "0"
                         }
-                      }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
                     }
-                  ]
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
                 }
-              ]
-            },
-            "nfts_infos": {}
-          },
-          "id": null
+              ],
+              "wallet_type": "HD"
+            }
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "EnableEthWithTokensMaticBalancesFalse": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
             "current_block": 76029528,
+            "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
-              "wallet_type": "HD",
               "accounts": [
                 {
                   "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
                   "derivation_path": "m/44'/60'/0'",
                   "total_balance": {
                     "AAVE-PLG20": {
@@ -121,18 +144,42 @@
                       "spendable": "0",
                       "unspendable": "0"
                     }
-                  },
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "EnableEthWithTokensMaticNft": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 76517714,
+            "nfts_infos": {},
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
                   "addresses": [
                     {
                       "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
-                      "derivation_path": "m/44'/60'/0'/0/0",
-                      "chain": "External",
                       "balance": {
-                        "MATIC": {
+                        "AAVE-PLG20": {
                           "spendable": "0",
                           "unspendable": "0"
                         },
-                        "AAVE-PLG20": {
+                        "MATIC": {
                           "spendable": "0",
                           "unspendable": "0"
                         },
@@ -140,34 +187,47 @@
                           "spendable": "0",
                           "unspendable": "0"
                         }
-                      }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
                     }
-                  ]
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
                 }
-              ]
-            },
-            "nfts_infos": {}
-          },
-          "id": null
+              ],
+              "wallet_type": "HD"
+            }
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
-  },
-  "EnableEthWithTokensMaticNft": {
-    "success": [],
-    "error": []
+    ]
   },
   "EnableEthWithTokensWalletConnect": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "EnableTendermintTokenBasic": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
             "balances": {
@@ -177,556 +237,983 @@
               }
             },
             "platform_coin": "IRIS"
-          },
-          "id": null
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "EnableTendermintWithAssetsBalancesFalse": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "ticker": "IRIS",
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
             "current_block": 31622007,
+            "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
             ]
-          },
-          "id": null
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "EnableTendermintWithAssetsBalancesTrue": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "ticker": "IRIS",
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 31625317,
             "balance": {
               "spendable": "0",
               "unspendable": "0"
             },
+            "current_block": 31625317,
+            "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
                 "spendable": "0",
                 "unspendable": "0"
               }
             }
-          },
-          "id": null
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "EnableTendermintWithAssetsWalletConnect": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "LegacyElectrumBch": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
-          "result": "success",
           "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
           "balance": "0",
-          "unspendable_balance": "0",
           "coin": "BCH",
+          "mature_confirmations": 100,
           "required_confirmations": 1,
           "requires_notarization": false,
-          "mature_confirmations": 100
+          "result": "success",
+          "unspendable_balance": "0"
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "LegacyElectrumKmd": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
-          "result": "success",
           "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
           "balance": "0",
-          "unspendable_balance": "0",
           "coin": "KMD",
+          "mature_confirmations": 100,
           "required_confirmations": 10,
           "requires_notarization": true,
-          "mature_confirmations": 100
+          "result": "success",
+          "unspendable_balance": "0"
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "LegacyElectrumQtum": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
-          "result": "success",
           "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
           "balance": "0",
-          "unspendable_balance": "0",
           "coin": "QTUM",
+          "mature_confirmations": 2000,
           "required_confirmations": 3,
           "requires_notarization": false,
-          "mature_confirmations": 2000
+          "result": "success",
+          "unspendable_balance": "0"
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "LegacyEnableBnb": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
-          "result": "success",
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
           "balance": "0",
-          "unspendable_balance": "0",
           "coin": "BUSD-BEP20",
           "required_confirmations": 3,
-          "requires_notarization": false
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
         },
-        "generated": true
+        "title": "Success"
+      }
+    ]
+  },
+  "LegacyEnableEthGasStation_native-hd": {
+    "error": [
+      {
+        "generated": true,
+        "json": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+        },
+        "title": "Error"
       }
     ],
-    "error": []
+    "success": []
+  },
+  "LegacyEnableEth_native-hd": {
+    "error": [
+      {
+        "generated": true,
+        "json": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+        },
+        "title": "Error"
+      }
+    ],
+    "success": []
   },
   "LegacyEnableMatic": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
-          "result": "success",
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
           "balance": "0",
-          "unspendable_balance": "0",
           "coin": "NZDS-PLG20",
           "required_confirmations": 20,
-          "requires_notarization": false
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "TaskEnableBchCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableBchInit": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "TaskEnableBchStatus": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "TaskEnableBchUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableEthCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableEthInitTrezor": {
-    "success": [],
-    "error": []
+    "error": [],
+    "success": []
   },
   "TaskEnableEthStatus": {
-    "success": [
-      {
-        "title": "InProgress - ActivatingCoin",
-        "notes": "",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "InProgress",
-            "details": "ActivatingCoin"
-          },
-          "id": null
-        }
-      }
-    ],
     "error": [
       "NoSuchTask"
+    ],
+    "success": [
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
+        },
+        "notes": "",
+        "title": "InProgress - ActivatingCoin"
+      }
     ]
   },
   "TaskEnableEthUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableQtumCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableQtumInit": {
+    "error": [],
     "success": [
       "SuccessTaskId"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableQtumStatus": {
-    "success": [],
     "error": [
       "NoSuchTask"
+    ],
+    "success": []
+  },
+  "TaskEnableQtumStatus_10": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_11": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_12": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_13": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_14": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_15": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_16": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_17": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_18": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_19": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_2": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_20": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_3": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_4": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_5": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_6": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_7": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_8": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TaskEnableQtumStatus_9": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
+        },
+        "title": "Success"
+      }
     ]
   },
   "TaskEnableQtumUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableTendermintCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableTendermintInit": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "SuccessTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableTendermintStatus": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "Ok",
             "details": {
-              "ticker": "IRIS",
               "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-              "current_block": 31625315,
               "balance": {
                 "spendable": "0",
                 "unspendable": "0"
               },
+              "current_block": 31625315,
+              "ticker": "IRIS",
               "tokens_balances": {
                 "ATOM-IBC_IRIS": {
                   "spendable": "0",
                   "unspendable": "0"
                 }
               }
-            }
-          },
-          "id": null
+            },
+            "status": "Ok"
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "TaskEnableTendermintStatus_2": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "Ok",
             "details": {
-              "ticker": "IRIS",
               "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-              "current_block": 31703447,
               "balance": {
                 "spendable": "0",
                 "unspendable": "0"
               },
+              "current_block": 31881684,
+              "ticker": "IRIS",
               "tokens_balances": {
                 "ATOM-IBC_IRIS": {
                   "spendable": "0",
                   "unspendable": "0"
                 }
               }
-            }
-          },
-          "id": null
+            },
+            "status": "Ok"
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "TaskEnableTendermintUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableUtxoCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableUtxoInit": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "SuccessTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableUtxoStatus": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "InProgress",
-            "details": "ActivatingCoin"
-          },
-          "id": null
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "TaskEnableUtxoUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
-    ],
-    "error": []
+    ]
   },
   "TaskEnableZCoinCancel": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "CancelTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableZCoinInitBasic": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "SuccessTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableZCoinInitWithSyncParams": {
+    "error": [
+      "NoSuchTask",
+      "TaskFinished"
+    ],
     "success": [
       "SuccessTaskId"
-    ],
-    "error": [
-      "TaskFinished",
-      "NoSuchTask"
     ]
   },
   "TaskEnableZCoinStatus": {
-    "success": [
+    "error": [
       {
-        "title": "ActivatingCoin - enabling has started",
-        "notes": "",
         "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "InProgress",
-            "details": "ActivatingCoin"
+          "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+          "error_data": {
+            "error": "ZCashParamsNotFound",
+            "ticker": "ZOMBIE"
           },
-          "id": null
-        }
+          "error_path": "lib.z_coin_activation.z_coin",
+          "error_trace": "lib:104] z_coin_activation:218] z_coin:1007]",
+          "error_type": "CoinCreationError"
+        },
+        "notes": "",
+        "title": "CoinCreationError - no Zcash Params"
+      },
+      "NoSuchTask",
+      {
+        "json": {
+          "error": "Error parsing request: invalid value: integer `-205`, expected u64",
+          "error_data": "invalid value: integer `-205`, expected u64",
+          "error_path": "dispatcher",
+          "error_trace": "dispatcher:109]",
+          "error_type": "InvalidRequest",
+          "id": 42,
+          "mmrpc": "2.0"
+        },
+        "notes": "",
+        "title": "InvalidRequest"
       },
       {
-        "title": "UpdatingBlocksCache",
-        "notes": "",
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "InProgress",
+            "details": {
+              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_data": {
+                "error": "ZCashParamsNotFound",
+                "ticker": "ZOMBIE"
+              },
+              "error_path": "lib.z_coin_activation.z_coin",
+              "error_trace": "lib:103] z_coin_activation:192] z_coin:761]",
+              "error_type": "CoinCreationError"
+            },
+            "status": "Error"
+          }
+        },
+        "notes": "",
+        "title": "No Zcash Params (alt format)"
+      }
+    ],
+    "success": [
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
+        },
+        "notes": "",
+        "title": "ActivatingCoin - enabling has started"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
             "details": {
               "UpdatingBlocksCache": {
                 "current_scanned_block": 265930,
                 "latest_block": 269656
               }
-            }
-          },
-          "id": null
-        }
+            },
+            "status": "InProgress"
+          }
+        },
+        "notes": "",
+        "title": "UpdatingBlocksCache"
       },
       {
-        "title": "BuildingWalletDb",
-        "notes": "",
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "InProgress",
             "details": {
               "BuildingWalletDb": {
                 "current_scanned_block": 265311,
                 "latest_block": 269656
               }
-            }
-          },
-          "id": null
-        }
+            },
+            "status": "InProgress"
+          }
+        },
+        "notes": "",
+        "title": "BuildingWalletDb"
       },
       {
-        "title": "Enabling complete",
-        "notes": "",
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "Ok",
             "details": {
-              "ticker": "ZOMBIE",
               "current_block": 269657,
+              "ticker": "ZOMBIE",
               "wallet_balance": {
-                "wallet_type": "Iguana",
                 "address": "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj",
                 "balance": {
                   "spendable": "29.99989008",
                   "unspendable": "0"
-                }
+                },
+                "wallet_type": "Iguana"
               }
-            }
-          },
-          "id": null
-        }
-      }
-    ],
-    "error": [
-      {
-        "title": "CoinCreationError - no Zcash Params",
-        "notes": "",
-        "json": {
-          "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
-          "error_path": "lib.z_coin_activation.z_coin",
-          "error_trace": "lib:104] z_coin_activation:218] z_coin:1007]",
-          "error_type": "CoinCreationError",
-          "error_data": {
-            "ticker": "ZOMBIE",
-            "error": "ZCashParamsNotFound"
+            },
+            "status": "Ok"
           }
-        }
-      },
-      "NoSuchTask",
-      {
-        "title": "InvalidRequest",
+        },
         "notes": "",
-        "json": {
-          "mmrpc": "2.0",
-          "error": "Error parsing request: invalid value: integer `-205`, expected u64",
-          "error_path": "dispatcher",
-          "error_trace": "dispatcher:109]",
-          "error_type": "InvalidRequest",
-          "error_data": "invalid value: integer `-205`, expected u64",
-          "id": 42
-        }
-      },
-      {
-        "title": "No Zcash Params (alt format)",
-        "notes": "",
-        "json": {
-          "mmrpc": "2.0",
-          "result": {
-            "status": "Error",
-            "details": {
-              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
-              "error_path": "lib.z_coin_activation.z_coin",
-              "error_trace": "lib:103] z_coin_activation:192] z_coin:761]",
-              "error_type": "CoinCreationError",
-              "error_data": {
-                "ticker": "ZOMBIE",
-                "error": "ZCashParamsNotFound"
-              }
-            }
-          },
-          "id": null
-        }
+        "title": "Enabling complete"
       }
     ]
   },
   "TaskEnableZCoinStatusBasic": {
+    "error": [],
     "success": [
       {
-        "title": "Success",
+        "generated": true,
         "json": {
+          "id": null,
           "mmrpc": "2.0",
           "result": {
-            "status": "Error",
             "details": {
               "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_data": {
+                "error": "ZCashParamsNotFound",
+                "ticker": "ZOMBIE"
+              },
               "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
               "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
-              "error_type": "CoinCreationError",
-              "error_data": {
-                "ticker": "ZOMBIE",
-                "error": "ZCashParamsNotFound"
-              }
-            }
-          },
-          "id": null
+              "error_type": "CoinCreationError"
+            },
+            "status": "Error"
+          }
         },
-        "generated": true
+        "title": "Success"
       }
-    ],
-    "error": []
+    ]
   },
   "TaskEnableZCoinUserActionPin": {
+    "error": [],
     "success": [
       "UserActionSuccess"
+    ]
+  },
+  "TestDirectError": {
+    "error": [
+      {
+        "generated": true,
+        "json": {
+          "error": "Invalid parameters",
+          "error_path": "test.path",
+          "error_type": "ValidationError",
+          "id": null,
+          "mmrpc": "2.0"
+        },
+        "title": "Error"
+      }
     ],
-    "error": []
+    "success": []
+  },
+  "TestErrorStatus": {
+    "error": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "error": "Test error message",
+              "error_type": "TestError"
+            },
+            "status": "Error"
+          }
+        },
+        "title": "Error"
+      }
+    ],
+    "success": []
+  },
+  "TestMethodError": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "error": "Invalid parameters",
+          "error_path": "test.path",
+          "error_type": "ValidationError",
+          "id": null,
+          "mmrpc": "2.0"
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TestMethodSuccess": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "TestSuccess": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "title": "Success"
+      }
+    ]
   }
 }

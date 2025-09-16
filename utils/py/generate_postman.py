@@ -117,13 +117,22 @@ class UnifiedPostmanGenerator:
         return self.table_manager.load_all_tables()
     
     def load_request_data(self, version: str = "v2") -> Dict[str, Any]:
-        """Load request data from JSON files."""
-        request_file = self.requests_dir / version / "coin_activation.json"
+        """Load ALL request data from JSON files in the specified version directory."""
+        request_dir = self.requests_dir / version
         
-        if not request_file.exists():
-            raise FileNotFoundError(f"Request file not found: {request_file}")
+        if not request_dir.exists():
+            raise FileNotFoundError(f"Request directory not found: {request_dir}")
         
-        return self.load_json_file(request_file) or {}
+        all_requests = {}
+        for request_file in request_dir.glob("*.json"):
+            file_data = self.load_json_file(request_file)
+            if file_data:
+                all_requests.update(file_data)
+        
+        if not all_requests:
+            raise FileNotFoundError(f"No valid request files found in: {request_dir}")
+        
+        return all_requests
     
     # ===== DATA PROCESSING UTILITIES =====
     
@@ -323,37 +332,42 @@ class UnifiedPostmanGenerator:
     
     
     def check_response_exists(self, request_key: str, version: str) -> bool:
-        """Check if response file exists for the request and has actual content."""
-        response_file = self.responses_dir / version / "coin_activation.json"
-        if not response_file.exists():
+        """Check if response exists for the request in ANY response file and has actual content."""
+        response_dir = self.responses_dir / version
+        if not response_dir.exists():
             return False
         
-        response_data = self.load_json_file(response_file)
-        if not response_data:
-            return False
-        
-        if request_key not in response_data:
-            return False
-        
-        # Resolve any common response references
-        response_value = response_data[request_key]
-        resolved_response = self.resolve_response_reference(response_value, self.common_responses)
-        
-        if resolved_response is None:
-            return False
-        
-        # Check if response has actual content (not just empty templates)
-        if isinstance(resolved_response, dict):
-            # Check for success and error arrays
-            success_responses = resolved_response.get("success", [])
-            error_responses = resolved_response.get("error", [])
+        # Check all response files in the version directory
+        for response_file in response_dir.glob("*.json"):
+            response_data = self.load_json_file(response_file)
+            if not response_data:
+                continue
             
-            # If both arrays are empty, consider this as missing response
-            if (isinstance(success_responses, list) and len(success_responses) == 0 and 
-                isinstance(error_responses, list) and len(error_responses) == 0):
-                return False
+            if request_key not in response_data:
+                continue
+            
+            # Resolve any common response references
+            response_value = response_data[request_key]
+            resolved_response = self.resolve_response_reference(response_value, self.common_responses)
+            
+            if resolved_response is None:
+                continue
+            
+            # Check if response has actual content (not just empty templates)
+            if isinstance(resolved_response, dict):
+                # Check for success and error arrays
+                success_responses = resolved_response.get("success", [])
+                error_responses = resolved_response.get("error", [])
+                
+                # If both arrays are empty, consider this as missing response
+                if (isinstance(success_responses, list) and len(success_responses) == 0 and 
+                    isinstance(error_responses, list) and len(error_responses) == 0):
+                    continue
+            
+            # Found a valid response
+            return True
         
-        return True
+        return False
     
     def resolve_response_reference(self, response_value: Any, common_responses: Dict[str, Dict]) -> Any:
         """Resolve response references to common responses."""

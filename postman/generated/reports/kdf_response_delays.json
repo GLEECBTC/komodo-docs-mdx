@@ -1,23 +1,35 @@
 {
   "delays": {
+    "add_node_to_version_stat": {
+      "AddNodeToVersionStat": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
     "electrum": {
       "LegacyElectrumBch": {
         "native-hd": {
-          "delay": 0.009,
+          "delay": 0.005,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 2.733,
+          "delay": 2.711,
           "status_code": 200
         }
       },
       "LegacyElectrumKmd": {
         "native-hd": {
-          "delay": 0.007,
+          "delay": 0.005,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 2.733,
+          "delay": 2.712,
           "status_code": 200
         }
       },
@@ -27,7 +39,7 @@
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 3.737,
+          "delay": 3.725,
           "status_code": 200
         }
       }
@@ -35,61 +47,61 @@
     "enable": {
       "LegacyEnableBnb": {
         "native-hd": {
-          "delay": 1.585,
+          "delay": 1.52,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 2.993,
+          "delay": 2.897,
           "status_code": 200
         }
       },
       "LegacyEnableEth": {
         "native-hd": {
-          "delay": 0.003,
+          "delay": 0.001,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 0.002,
+          "delay": 0.001,
           "status_code": 500
         }
       },
       "LegacyEnableEthGasStation": {
         "native-hd": {
-          "delay": 0.003,
+          "delay": 0.001,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 0.003,
+          "delay": 0.001,
           "status_code": 500
         }
       },
       "LegacyEnableMatic": {
         "native-hd": {
-          "delay": 0.016,
+          "delay": 0.01,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 3.256,
+          "delay": 0.544,
           "status_code": 200
         }
       },
       "LegacyEnableNative": {
         "native-hd": {
-          "delay": 0.01,
+          "delay": 0.005,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 0.002,
+          "delay": 0.001,
           "status_code": 500
         }
       },
       "LegacyEnableNativeWithParams": {
         "native-hd": {
-          "delay": 0.008,
+          "delay": 0.005,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 0.004,
+          "delay": 0.001,
           "status_code": 500
         }
       }
@@ -97,7 +109,7 @@
     "enable_erc20": {
       "EnableErc20Basic": {
         "native-nonhd": {
-          "delay": 0.902,
+          "delay": 2.904,
           "status_code": 200
         }
       }
@@ -105,31 +117,31 @@
     "enable_eth_with_tokens": {
       "EnableEthWithTokensGasStation": {
         "native-hd": {
-          "delay": 129.647,
+          "delay": 99.399,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 2.246,
+          "delay": 7.228,
           "status_code": 200
         }
       },
       "EnableEthWithTokensMaticBalancesFalse": {
         "native-hd": {
-          "delay": 38.893,
+          "delay": 33.024,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 1.879,
+          "delay": 2.356,
           "status_code": 200
         }
       },
       "EnableEthWithTokensMaticNft": {
         "native-hd": {
-          "delay": 5.817,
+          "delay": 2.84,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 1.931,
+          "delay": 1.935,
           "status_code": 200
         }
       }
@@ -137,11 +149,11 @@
     "enable_tendermint_token": {
       "EnableTendermintTokenBasic": {
         "native-hd": {
-          "delay": 0.863,
+          "delay": 0.751,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 1.291,
+          "delay": 0.869,
           "status_code": 200
         }
       }
@@ -149,21 +161,21 @@
     "enable_tendermint_with_assets": {
       "EnableTendermintWithAssetsBalancesFalse": {
         "native-hd": {
-          "delay": 0.882,
+          "delay": 0.747,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 0.753,
+          "delay": 0.74,
           "status_code": 200
         }
       },
       "EnableTendermintWithAssetsBalancesTrue": {
         "native-hd": {
-          "delay": 2.257,
+          "delay": 2.418,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 2.577,
+          "delay": 2.233,
           "status_code": 200
         }
       }
@@ -171,7 +183,11 @@
     "task::enable_qtum::init": {
       "task::enable_qtum::init_init": {
         "native-hd": {
-          "delay": 0.001,
+          "delay": 0.002,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.002,
           "status_code": 200
         }
       }
@@ -183,7 +199,7 @@
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 0.001,
+          "delay": 0.002,
           "status_code": 200
         }
       }
@@ -191,11 +207,11 @@
     "task::enable_utxo::init": {
       "task::enable_utxo::init_init": {
         "native-hd": {
-          "delay": 0.018,
+          "delay": 0.014,
           "status_code": 400
         },
         "native-nonhd": {
-          "delay": 0.003,
+          "delay": 0.001,
           "status_code": 400
         }
       }
@@ -203,7 +219,7 @@
     "task::enable_z_coin::init": {
       "task::enable_z_coin::init_init": {
         "native-hd": {
-          "delay": 0.002,
+          "delay": 0.001,
           "status_code": 200
         },
         "native-nonhd": {
@@ -215,8 +231,8 @@
   },
   "metadata": {
     "description": "Response timing data for KDF methods across different environments",
-    "generated_at": "2025-09-15 09:21:51 UTC",
-    "total_methods": 10,
-    "total_requests": 20
+    "generated_at": "2025-09-16 11:22:14 UTC",
+    "total_methods": 11,
+    "total_requests": 21
   }
 }

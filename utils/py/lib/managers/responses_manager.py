@@ -31,7 +31,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 # Add lib path for utilities
-sys.path.append(str(Path(__file__).parent / "lib"))
+sys.path.append(str(Path(__file__).parent.parent))
 from utils.json_utils import dump_sorted_json
 
 
@@ -113,6 +113,12 @@ class UnifiedResponseManager:
     def __init__(self):
         """Initialize the response manager."""
         self.setup_logging("DEBUG")
+        
+        # Set workspace root once - calculate from current file location
+        # File is at: utils/py/lib/managers/responses_manager.py
+        # Workspace root is 5 levels up: ../../../../../
+        self.workspace_root = Path(__file__).parent.parent.parent.parent.parent
+        
         self.results: List[CollectionResult] = []
         self.platform_enabled: Dict[str, bool] = {}
         self.validator = KdfResponseValidator(self.logger)
@@ -380,8 +386,14 @@ class UnifiedResponseManager:
                 
             # Change priv_key_policy from Trezor to ContextPrivKey for non-hardware methods
             if "priv_key_policy" in activation_params:
-                if activation_params["priv_key_policy"].get("type") == "Trezor":
-                    activation_params["priv_key_policy"] = {"type": "ContextPrivKey"}
+                priv_key_policy = activation_params["priv_key_policy"]
+                # Handle both string and dict formats
+                if isinstance(priv_key_policy, dict):
+                    if priv_key_policy.get("type") == "Trezor":
+                        activation_params["priv_key_policy"] = {"type": "ContextPrivKey"}
+                elif isinstance(priv_key_policy, str):
+                    if priv_key_policy == "Trezor":
+                        activation_params["priv_key_policy"] = {"type": "ContextPrivKey"}
         
         return request_copy
     
@@ -407,8 +419,7 @@ class UnifiedResponseManager:
     def _get_method_timeout(self, method_name: str) -> int:
         """Get appropriate timeout for a method based on its configuration in kdf_methods.json."""
         # Check if method has specific timeout configured
-        workspace_root = Path(__file__).parent.parent.parent
-        kdf_methods = self.load_json_file(workspace_root / "src/data/kdf_methods.json")
+        kdf_methods = self.load_json_file(self.workspace_root / "src/data/kdf_methods.json")
         
         if method_name in kdf_methods:
             method_config = kdf_methods[method_name]
@@ -878,16 +889,24 @@ class UnifiedResponseManager:
         self.logger.info("Starting comprehensive response collection for ALL methods")
         
         # Load ALL request data files 
-        workspace_root = Path(__file__).parent.parent.parent
-        v2_requests_file = workspace_root / "src/data/requests/kdf/v2/coin_activation.json"
-        legacy_requests_file = workspace_root / "src/data/requests/kdf/legacy/coin_activation.json"
+        all_requests = {}
         
-        v2_requests = self.load_json_file(v2_requests_file)
-        legacy_requests = self.load_json_file(legacy_requests_file)
-        all_requests = {**v2_requests, **legacy_requests}
+        # Load v2 request files
+        v2_requests_dir = self.workspace_root / "src/data/requests/kdf/v2"
+        for request_file in v2_requests_dir.glob("*.json"):
+            v2_requests = self.load_json_file(request_file)
+            all_requests.update(v2_requests)
+            self.logger.debug(f"Loaded {len(v2_requests)} requests from {request_file}")
+        
+        # Load legacy request files
+        legacy_requests_dir = self.workspace_root / "src/data/requests/kdf/legacy"
+        for request_file in legacy_requests_dir.glob("*.json"):
+            legacy_requests = self.load_json_file(request_file)
+            all_requests.update(legacy_requests)
+            self.logger.debug(f"Loaded {len(legacy_requests)} requests from {request_file}")
         
         # Load method config to check for deprecated methods
-        kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+        kdf_methods_file = self.workspace_root / "src/data/kdf_methods.json"
         kdf_methods = self.load_json_file(kdf_methods_file) or {}
         
         # Group requests by method to process all examples for each method
@@ -1088,31 +1107,37 @@ class UnifiedResponseManager:
     
     def regenerate_missing_responses_report(self, reports_dir: Path) -> None:
         """Regenerate missing responses report after response collection."""
-        workspace_root = Path(__file__).parent.parent.parent
-        
         # Import the postman generator for its response checking logic
-        sys.path.append(str(workspace_root / "utils/py"))
+        sys.path.append(str(self.workspace_root / "utils/py"))
         from generate_postman import UnifiedPostmanGenerator
         
         # Create a generator instance to use its response checking logic
-        generator = UnifiedPostmanGenerator(workspace_root)
+        generator = UnifiedPostmanGenerator(self.workspace_root)
         
         # Load all request data
-        v2_requests_file = workspace_root / "src/data/requests/kdf/v2/coin_activation.json"
-        legacy_requests_file = workspace_root / "src/data/requests/kdf/legacy/coin_activation.json"
+        all_requests = {}
         
-        v2_requests = self.load_json_file(v2_requests_file) or {}
-        legacy_requests = self.load_json_file(legacy_requests_file) or {}
+        # Load v2 request files
+        v2_requests_dir = self.workspace_root / "src/data/requests/kdf/v2"
+        for request_file in v2_requests_dir.glob("*.json"):
+            v2_requests = self.load_json_file(request_file) or {}
+            all_requests.update(v2_requests)
+        
+        # Load legacy request files
+        legacy_requests_dir = self.workspace_root / "src/data/requests/kdf/legacy"
+        for request_file in legacy_requests_dir.glob("*.json"):
+            legacy_requests = self.load_json_file(request_file) or {}
+            all_requests.update(legacy_requests)
         
         # Load method config to check for deprecated methods
-        kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+        kdf_methods_file = self.workspace_root / "src/data/kdf_methods.json"
         kdf_methods = self.load_json_file(kdf_methods_file) or {}
         
         # Check for missing responses
         missing_responses = {}
         
-        # Check v2 requests
-        for request_key, request_data in v2_requests.items():
+        # Check all requests
+        for request_key, request_data in all_requests.items():
             method_name = request_data.get("method", "unknown")
             method_config = kdf_methods.get(method_name, {})
             
@@ -1124,27 +1149,11 @@ class UnifiedResponseManager:
             if generator._is_manual_method(request_key):
                 continue
                 
-            # Check if response exists and has content
-            if not generator.check_response_exists(request_key, "v2"):
-                if method_name not in missing_responses:
-                    missing_responses[method_name] = []
-                missing_responses[method_name].append(request_key)
-        
-        # Check legacy requests  
-        for request_key, request_data in legacy_requests.items():
-            method_name = request_data.get("method", "unknown")
-            method_config = kdf_methods.get(method_name, {})
+            # Check if response exists and has content (try both v2 and legacy)
+            has_v2_response = generator.check_response_exists(request_key, "v2")
+            has_legacy_response = generator.check_response_exists(request_key, "legacy") 
             
-            # Skip deprecated methods
-            if method_config.get('deprecated', False):
-                continue
-                
-            # Skip manual methods
-            if generator._is_manual_method(request_key):
-                continue
-                
-            # Check if response exists and has content
-            if not generator.check_response_exists(request_key, "legacy"):
+            if not has_v2_response and not has_legacy_response:
                 if method_name not in missing_responses:
                     missing_responses[method_name] = []
                 missing_responses[method_name].append(request_key)
@@ -1164,29 +1173,83 @@ class UnifiedResponseManager:
         self.logger.info(f"Total missing examples: {sum(len(examples) for examples in sorted_missing.values())}")
     
     def update_response_files(self, auto_updatable_responses: Dict[str, Any]) -> int:
-        """Update response files with successful responses."""
+        """Update response files with successful responses across ALL response files."""
         if not auto_updatable_responses:
             self.logger.info("No new successful responses to update.")
             return 0
         
         self.logger.info("Updating response files")
         
-        # Load existing response files (relative to workspace root)
-        workspace_root = Path(__file__).parent.parent.parent
-        v2_response_file = workspace_root / "src/data/responses/kdf/v2/coin_activation.json"
+        # First, load all existing response files to find where each request should go
+        all_response_files = {}
+        request_to_file_mapping = {}
         
-        if v2_response_file.exists():
-            with open(v2_response_file, 'r') as f:
-                v2_responses = json.load(f)
-        else:
-            v2_responses = {}
+        # Discover all response files
+        response_dirs = [
+            self.workspace_root / "src/data/responses/kdf/v2",
+            self.workspace_root / "src/data/responses/kdf/legacy"
+        ]
         
-        # Add successful responses
+        for response_dir in response_dirs:
+            if not response_dir.exists():
+                continue
+            for response_file in response_dir.glob("*.json"):
+                if response_file.exists():
+                    response_data = self.load_json_file(response_file)
+                    if response_data:
+                        all_response_files[response_file] = response_data
+                        # Map each request to its file
+                        for request_name in response_data.keys():
+                            request_to_file_mapping[request_name] = response_file
+        
+        # Also check all request files to understand file structure
+        all_request_files = {}
+        request_dirs = [
+            self.workspace_root / "src/data/requests/kdf/v2",
+            self.workspace_root / "src/data/requests/kdf/legacy"
+        ]
+        
+        for request_dir in request_dirs:
+            if not request_dir.exists():
+                continue
+            for request_file in request_dir.glob("*.json"):
+                if request_file.exists():
+                    request_data = self.load_json_file(request_file)
+                    if request_data:
+                        # Map response file based on request file structure
+                        if "v2" in str(request_file):
+                            response_file = self.workspace_root / "src/data/responses/kdf/v2" / request_file.name
+                        else:
+                            response_file = self.workspace_root / "src/data/responses/kdf/legacy" / request_file.name
+                        
+                        if response_file not in all_response_files:
+                            all_response_files[response_file] = {}
+                        
+                        for request_name in request_data.keys():
+                            if request_name not in request_to_file_mapping:
+                                request_to_file_mapping[request_name] = response_file
+        
+        # Add successful responses to appropriate files
         updated_count = 0
+        files_to_save = set()
+        
         for response_name, response_data in auto_updatable_responses.items():
+            # Determine which file this response should go to
+            target_file = request_to_file_mapping.get(response_name)
+            if not target_file:
+                # Default to v2/coin_activation.json for unknown requests
+                target_file = self.workspace_root / "src/data/responses/kdf/v2/coin_activation.json"
+                self.logger.warning(f"No mapping found for {response_name}, defaulting to {target_file}")
+            
+            # Ensure the file exists in our tracking
+            if target_file not in all_response_files:
+                all_response_files[target_file] = {}
+            
+            response_file_data = all_response_files[target_file]
+            
             # Skip if already exists with actual content (not just empty templates)
-            if response_name in v2_responses:
-                existing_entry = v2_responses[response_name]
+            if response_name in response_file_data:
+                existing_entry = response_file_data[response_name]
                 # Check if it's just an empty template (both success and error arrays are empty)
                 is_empty_template = (
                     isinstance(existing_entry, dict) and
@@ -1195,35 +1258,85 @@ class UnifiedResponseManager:
                 )
                 
                 if not is_empty_template:
-                    self.logger.info(f"Skipping {response_name} (already has content)")
+                    self.logger.info(f"Skipping {response_name} (already has content in {target_file.name})")
                     continue
                 else:
-                    self.logger.info(f"Updating {response_name} (was empty template)")
+                    self.logger.info(f"Updating {response_name} (was empty template in {target_file.name})")
             else:
-                self.logger.info(f"Adding new response: {response_name}")
+                self.logger.info(f"Adding new response: {response_name} to {target_file.name}")
                 
-            # Create the response entry
-            response_entry = {
-                "success": [
-                    {
-                        "title": "Success",
-                        "generated": True,
-                        "json": response_data
-                    }
-                ],
-                "error": []
-            }
+            # Determine if this is an error or success response
+            is_error_response = self._is_error_response(response_data)
             
-            v2_responses[response_name] = response_entry
+            if is_error_response:
+                response_entry = {
+                    "success": [],
+                    "error": [
+                        {
+                            "title": "Error",
+                            "generated": True,
+                            "json": response_data
+                        }
+                    ]
+                }
+            else:
+                response_entry = {
+                    "success": [
+                        {
+                            "title": "Success",
+                            "generated": True,
+                            "json": response_data
+                        }
+                    ],
+                    "error": []
+                }
+            
+            response_file_data[response_name] = response_entry
             updated_count += 1
-            self.logger.info(f"Added: {response_name}")
+            files_to_save.add(target_file)
+            self.logger.info(f"Added: {response_name} to {target_file.name}")
         
-        # Save updated file
+        # Save all updated files
+        for file_path in files_to_save:
+            # Ensure directory exists
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+            dump_sorted_json(all_response_files[file_path], file_path)
+            self.logger.info(f"Updated {file_path.relative_to(self.workspace_root)}")
+        
         if updated_count > 0:
-            dump_sorted_json(v2_responses, v2_response_file)
-            self.logger.info(f"Updated {v2_response_file} with {updated_count} new responses")
+            self.logger.info(f"Updated {len(files_to_save)} response files with {updated_count} new responses")
         
         return updated_count
+    
+    def _is_error_response(self, response_data: Dict[str, Any]) -> bool:
+        """Determine if a response represents an error or success."""
+        # Check for direct error field (HTTP error responses)
+        if 'error' in response_data:
+            return True
+        
+        # Check for mmrpc error responses
+        if response_data.get('mmrpc') == '2.0':
+            # Check for error field at root level
+            if 'error' in response_data:
+                return True
+            
+            # Check for error status in result
+            result = response_data.get('result', {})
+            if isinstance(result, dict):
+                # Check for explicit error status
+                if result.get('status') == 'Error':
+                    return True
+                # Check for error details
+                if 'error' in result or 'error_type' in result:
+                    return True
+        
+        # Check for HTTP error status codes in raw responses
+        if isinstance(response_data, dict):
+            raw_response = response_data.get('raw_response', '')
+            if isinstance(raw_response, str) and 'error' in raw_response.lower():
+                return True
+        
+        return False
     
     def validate_responses(self, validate_collected_responses: bool = False) -> Dict[str, Any]:
         """Validate existing response files and optionally collected responses."""
@@ -1231,9 +1344,10 @@ class UnifiedResponseManager:
         
         # Validate request metadata (tags and prerequisites)
         try:
+            sys.path.append(str(self.workspace_root / "utils/py"))
             from validate_request_metadata import validate_request_metadata
             request_metadata_summary = validate_request_metadata(
-                workspace_root=Path(__file__).parent.parent.parent,
+                workspace_root=self.workspace_root,
                 silent=True
             )
             if request_metadata_summary['files_modified'] > 0:
@@ -1273,37 +1387,44 @@ class UnifiedResponseManager:
     
     def _sort_json_files(self) -> Dict[str, Any]:
         """Sort JSON data files alphabetically by keys and save them."""
-        workspace_root = Path(__file__).parent.parent.parent
         sorted_files = {}
         
-        # Define all JSON files to sort
-        files_to_sort = [
-            # Response files
-            workspace_root / "src/data/responses/kdf/v2/coin_activation.json",
-            workspace_root / "src/data/responses/kdf/legacy/coin_activation.json", 
-            workspace_root / "src/data/responses/kdf/common.json",
-            # Request files
-            workspace_root / "src/data/requests/kdf/v2/coin_activation.json",
-            workspace_root / "src/data/requests/kdf/legacy/coin_activation.json",
-            # Table files (common structures)
-            workspace_root / "src/data/tables/common-structures/activation.json",
-            workspace_root / "src/data/tables/common-structures/common.json",
-            workspace_root / "src/data/tables/common-structures/lightning.json",
-            workspace_root / "src/data/tables/common-structures/maker-events.json",
-            workspace_root / "src/data/tables/common-structures/nfts.json",
-            workspace_root / "src/data/tables/common-structures/orders.json",
-            workspace_root / "src/data/tables/common-structures/swaps.json",
-            workspace_root / "src/data/tables/common-structures/taker-events.json",
-            workspace_root / "src/data/tables/common-structures/wallet.json",
-            # Table files (legacy and v2)
-            workspace_root / "src/data/tables/legacy/coin_activation.json",
-            workspace_root / "src/data/tables/v2/coin_activation.json",
-            workspace_root / "src/data/tables/v2/streaming.json",
-            workspace_root / "src/data/tables/v2/utils.json",
-            workspace_root / "src/data/tables/v2/wallet.json",
-            # KDF methods file
-            workspace_root / "src/data/kdf_methods.json"
+        # Dynamically discover all JSON files to sort
+        files_to_sort = []
+        
+        # Response files
+        response_dirs = [
+            self.workspace_root / "src/data/responses/kdf/v2",
+            self.workspace_root / "src/data/responses/kdf/legacy",
+            self.workspace_root / "src/data/responses/kdf"  # For common.json
         ]
+        for response_dir in response_dirs:
+            if response_dir.exists():
+                files_to_sort.extend(response_dir.glob("*.json"))
+        
+        # Request files
+        request_dirs = [
+            self.workspace_root / "src/data/requests/kdf/v2",
+            self.workspace_root / "src/data/requests/kdf/legacy"
+        ]
+        for request_dir in request_dirs:
+            if request_dir.exists():
+                files_to_sort.extend(request_dir.glob("*.json"))
+        
+        # Table files
+        table_dirs = [
+            self.workspace_root / "src/data/tables/common-structures",
+            self.workspace_root / "src/data/tables/legacy",
+            self.workspace_root / "src/data/tables/v2"
+        ]
+        for table_dir in table_dirs:
+            if table_dir.exists():
+                files_to_sort.extend(table_dir.glob("*.json"))
+        
+        # KDF methods file
+        kdf_methods_file = self.workspace_root / "src/data/kdf_methods.json"
+        if kdf_methods_file.exists():
+            files_to_sort.append(kdf_methods_file)
         
         for file_path in files_to_sort:
             if not file_path.exists():
@@ -1331,19 +1452,19 @@ class UnifiedResponseManager:
                     # Write sorted data back to file
                     dump_sorted_json(sorted_data, file_path)
                     
-                    sorted_files[str(file_path.relative_to(workspace_root))] = {
+                    sorted_files[str(file_path.relative_to(self.workspace_root))] = {
                         "action": "sorted",
                         "keys_moved": [key for key in keys if keys.index(key) != sorted_keys.index(key)]
                     }
                 else:
                     # File already sorted
-                    sorted_files[str(file_path.relative_to(workspace_root))] = {
+                    sorted_files[str(file_path.relative_to(self.workspace_root))] = {
                         "action": "already_sorted",
                         "keys_moved": []
                     }
                     
             except (json.JSONDecodeError, Exception) as e:
-                sorted_files[str(file_path.relative_to(workspace_root))] = {
+                sorted_files[str(file_path.relative_to(self.workspace_root))] = {
                     "action": "error",
                     "error": str(e)
                 }
@@ -1352,16 +1473,26 @@ class UnifiedResponseManager:
     
     def _add_missing_response_templates(self) -> Dict[str, Any]:
         """Add empty template entries for requests missing any responses."""
-        workspace_root = Path(__file__).parent.parent.parent
         templated_files = {}
         
-        # Load request data to identify all available request methods
-        request_files = [
-            (workspace_root / "src/data/requests/kdf/v2/coin_activation.json", 
-             workspace_root / "src/data/responses/kdf/v2/coin_activation.json"),
-            (workspace_root / "src/data/requests/kdf/legacy/coin_activation.json", 
-             workspace_root / "src/data/responses/kdf/legacy/coin_activation.json")
-        ]
+        # Dynamically discover request/response file pairs
+        request_files = []
+        
+        # V2 request/response pairs
+        v2_requests_dir = self.workspace_root / "src/data/requests/kdf/v2"
+        v2_responses_dir = self.workspace_root / "src/data/responses/kdf/v2"
+        if v2_requests_dir.exists() and v2_responses_dir.exists():
+            for request_file in v2_requests_dir.glob("*.json"):
+                response_file = v2_responses_dir / request_file.name
+                request_files.append((request_file, response_file))
+        
+        # Legacy request/response pairs
+        legacy_requests_dir = self.workspace_root / "src/data/requests/kdf/legacy"
+        legacy_responses_dir = self.workspace_root / "src/data/responses/kdf/legacy"
+        if legacy_requests_dir.exists() and legacy_responses_dir.exists():
+            for request_file in legacy_requests_dir.glob("*.json"):
+                response_file = legacy_responses_dir / request_file.name
+                request_files.append((request_file, response_file))
         
         for request_file, response_file in request_files:
             if not request_file.exists() or not response_file.exists():
@@ -1376,7 +1507,7 @@ class UnifiedResponseManager:
                     response_data = json.load(f)
                 
                 # Load KDF methods to check for deprecated entries
-                kdf_methods_file = workspace_root / "src/data/kdf_methods.json"
+                kdf_methods_file = self.workspace_root / "src/data/kdf_methods.json"
                 kdf_methods = {}
                 if kdf_methods_file.exists():
                     with open(kdf_methods_file, 'r', encoding='utf-8') as f:
@@ -1409,20 +1540,20 @@ class UnifiedResponseManager:
                     
                     dump_sorted_json(sorted_response_data, response_file)
                     
-                    templated_files[str(response_file.relative_to(workspace_root))] = {
+                    templated_files[str(response_file.relative_to(self.workspace_root))] = {
                         "action": "templated",
                         "added_entries": missing_entries,
                         "count": len(missing_entries)
                     }
                 else:
-                    templated_files[str(response_file.relative_to(workspace_root))] = {
+                    templated_files[str(response_file.relative_to(self.workspace_root))] = {
                         "action": "complete",
                         "added_entries": [],
                         "count": 0
                     }
                     
             except (json.JSONDecodeError, Exception) as e:
-                templated_files[str(response_file.relative_to(workspace_root))] = {
+                templated_files[str(response_file.relative_to(self.workspace_root))] = {
                     "action": "error",
                     "error": str(e)
                 }
@@ -1480,6 +1611,9 @@ class KdfResponseValidator:
         self.fixes_applied: List[str] = []
         self.common_responses: Dict[str, Dict] = {}
         
+        # Set workspace root once
+        self.workspace_root = Path(__file__).parent.parent.parent.parent.parent
+        
         # Valid response types
         self.valid_response_types = {'success', 'error'}
         
@@ -1488,8 +1622,7 @@ class KdfResponseValidator:
 
     def validate_all(self) -> Tuple[bool, List[ValidationError], List[ValidationError]]:
         """Validate all KDF response files."""
-        workspace_root = Path(__file__).parent.parent.parent
-        base_path = workspace_root / 'src/data/responses/kdf'
+        base_path = self.workspace_root / 'src/data/responses/kdf'
         
         if not base_path.exists():
             self.errors.append(ValidationError(
@@ -1801,19 +1934,17 @@ class KdfResponseValidator:
 
     def _validate_request_response_alignment(self):
         """Validate that requests have corresponding responses and vice versa."""
-        workspace_root = Path(__file__).parent.parent.parent
-        
         # Load request data
         requests_by_version = {}
         for version in ['legacy', 'v2']:
-            requests_path = workspace_root / f'src/data/requests/kdf/{version}'
+            requests_path = self.workspace_root / f'src/data/requests/kdf/{version}'
             if requests_path.exists():
                 requests_by_version[version] = self._load_request_keys(requests_path)
 
         # Load response data  
         responses_by_version = {}
         for version in ['legacy', 'v2']:
-            responses_path = workspace_root / f'src/data/responses/kdf/{version}'
+            responses_path = self.workspace_root / f'src/data/responses/kdf/{version}'
             if responses_path.exists():
                 responses_by_version[version] = self._load_response_keys(responses_path)
 
@@ -1900,8 +2031,7 @@ def main():
         manager = UnifiedResponseManager()
         
         # Load missing responses data (relative to workspace root)
-        workspace_root = Path(__file__).parent.parent.parent
-        missing_responses_file = workspace_root / "postman/generated/reports/missing_responses.json"
+        missing_responses_file = manager.workspace_root / "postman/generated/reports/missing_responses.json"
         if not missing_responses_file.exists():
             print(f"Error: Missing responses file not found: {missing_responses_file}")
             print("Run the Postman collection generator first to create this file.")
@@ -1919,11 +2049,11 @@ def main():
         results["validation"] = validation_results
         
         # Save results (relative to workspace root)
-        output_file = workspace_root / "postman/generated/reports/kdf_postman_responses.json"
+        output_file = manager.workspace_root / "postman/generated/reports/kdf_postman_responses.json"
         manager.save_results(results, output_file)
         
         # Save delay report
-        reports_dir = workspace_root / "postman/generated/reports"
+        reports_dir = manager.workspace_root / "postman/generated/reports"
         manager.save_delay_report(reports_dir)
         
         # Save inconsistent responses report

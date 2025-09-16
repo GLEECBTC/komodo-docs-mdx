@@ -40,7 +40,7 @@ python utils/py/generate_postman.py --all
 
 # Run comprehensive response collection
 echo "🔍 Collecting responses from all methods..."
-python utils/py/kdf_responses_manager.py
+cd utils/py && python lib/managers/responses_manager.py && cd ../..
 
 # Clean up old reports in postman/reports/ (if they exist)
 echo "🧹 Cleaning up old Newman reports..."

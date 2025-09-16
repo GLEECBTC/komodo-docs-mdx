@@ -37,10 +37,10 @@
 source utils/py/.venv/bin/activate
 
 # Run with default settings (enhanced mode)
-python utils/py/kdf_responses_manager.py
+python -m lib.managers.responses_manager
 
 # Run with automatic file updates
-python utils/py/kdf_responses_manager.py --update-files
+python -m lib.managers.responses_manager --update-files
 
 ### Command Line Options
 
@@ -411,7 +411,7 @@ The system automatically regenerates the `missing_responses.json` report after r
 
 ### Process Flow
 1. **Initial Generation**: `generate_postman.py` creates initial `missing_responses.json` based on current response files
-2. **Response Collection**: `kdf_responses_manager.py` collects new responses and updates response files
+2. **Response Collection**: `lib/managers/responses_manager.py` collects new responses and updates response files
 3. **Regeneration**: Missing responses report is automatically updated to reflect newly collected responses
 4. **Accurate Reporting**: Only truly missing responses remain in the final report
 

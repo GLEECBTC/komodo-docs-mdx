@@ -7,7 +7,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 23367529,
+              "current_block": 23375276,
               "nfts_infos": {},
               "ticker": "ETH",
               "wallet_balance": {
@@ -60,7 +60,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 23367540,
+              "current_block": 23375284,
               "erc20_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                   "balances": {
@@ -106,7 +106,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76474022,
+              "current_block": 76517849,
               "nfts_infos": {},
               "ticker": "MATIC",
               "wallet_balance": {
@@ -159,7 +159,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76474041,
+              "current_block": 76517865,
               "erc20_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                   "derivation_method": {
@@ -191,7 +191,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76474043,
+              "current_block": 76517866,
               "nfts_infos": {},
               "ticker": "MATIC",
               "wallet_balance": {
@@ -244,7 +244,7 @@
             "id": null,
             "mmrpc": "2.0",
             "result": {
-              "current_block": 76474045,
+              "current_block": 76517867,
               "erc20_addresses_infos": {
                 "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                   "derivation_method": {
@@ -270,12 +270,47 @@
           }
         }
       }
+    },
+    "task::enable_qtum::init": {
+      "TaskEnableQtumStatus_3": {
+        "instances": {
+          "native-hd": {
+            "id": null,
+            "mmrpc": "2.0",
+            "result": {
+              "details": "RequestingWalletBalance",
+              "status": "InProgress"
+            }
+          },
+          "native-nonhd": {
+            "id": null,
+            "mmrpc": "2.0",
+            "result": {
+              "details": {
+                "current_block": 5165519,
+                "ticker": "QTUM",
+                "wallet_balance": {
+                  "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+                  "balance": {
+                    "QTUM": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "wallet_type": "Iguana"
+                }
+              },
+              "status": "Ok"
+            }
+          }
+        }
+      }
     }
   },
   "metadata": {
     "description": "Methods with inconsistent responses across KDF environments - useful for identifying environment-specific behaviors",
-    "generated_at": "2025-09-15 09:21:51 UTC",
-    "total_inconsistent_examples": 3,
-    "total_inconsistent_methods": 1
+    "generated_at": "2025-09-16 11:22:14 UTC",
+    "total_inconsistent_examples": 4,
+    "total_inconsistent_methods": 2
   }
 }

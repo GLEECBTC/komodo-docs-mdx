@@ -137,7 +137,6 @@ Any request key detected in the param tables or responses json files, but not se
     "LegacyElectrumQtum",
     "LegacyEnableBnb",
     "LegacyEnableMatic",
-    "TaskEnableTendermintStatus_2",
     "TaskEnableZCoinStatusBasic"
   ]
 }

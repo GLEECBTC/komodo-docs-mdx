@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "kdf-native_hd-20250915",
+    "_postman_id": "kdf-native_hd-20250916",
     "description": "Komodo DeFi Framework API for Native environments with HD wallets\n\nNative environment with HD wallet support. Includes HD-specific parameters.\n\nSupported Protocols:\n- electrum: TCP, SSL\n- websocket: ws, wss",
     "name": "KDF API (Native + HD)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -135,6 +135,36 @@
         }
       ],
       "name": "Legacy Enable"
+    },
+    {
+      "item": [
+        {
+          "event": [],
+          "name": "Add Node To Version Stat (Native Hd)",
+          "request": {
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"add_node_to_version_stat\",\n  \"mmrpc\": \"2.0\",\n  \"params\": {\n    \"address\": \"168.119.236.241\",\n    \"name\": \"seed1\",\n    \"peer_id\": \"12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P\"\n  },\n  \"userpass\": \"{{ userpass }}\"\n}"
+            },
+            "description": "\n\n",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "url": {
+              "host": [
+                "{{base_url}}"
+              ],
+              "raw": "{{base_url}}"
+            }
+          },
+          "response": []
+        }
+      ],
+      "name": "Other Methods"
     },
     {
       "item": [

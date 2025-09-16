@@ -12,9 +12,9 @@ import logging
 from pathlib import Path
 from typing import List
 
-# Import from kdf_responses_manager to reuse existing functionality
-sys.path.append(str(Path(__file__).parent))
-from kdf_responses_manager import UnifiedResponseManager, KDFInstance, KDF_INSTANCES
+# Import from responses_manager to reuse existing functionality
+sys.path.append(str(Path(__file__).parent / "lib"))
+from managers.responses_manager import UnifiedResponseManager, KDFInstance, KDF_INSTANCES
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

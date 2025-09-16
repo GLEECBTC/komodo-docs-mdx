@@ -120,11 +120,29 @@ def load_existing_responses(template_dir: str) -> Dict:
     """Load existing response templates."""
     responses = {}
     
-    template_paths = [
-        os.path.join(template_dir, "kdf", "v2", "coin_activation.json"),
-        os.path.join(template_dir, "kdf", "legacy", "coin_activation.json"),
-        os.path.join(template_dir, "kdf", "common.json")
-    ]
+    # Dynamically discover all template files
+    template_paths = []
+    
+    # Add v2 templates
+    v2_template_dir = os.path.join(template_dir, "kdf", "v2")
+    if os.path.exists(v2_template_dir):
+        template_paths.extend([
+            os.path.join(v2_template_dir, f) for f in os.listdir(v2_template_dir) 
+            if f.endswith('.json')
+        ])
+    
+    # Add legacy templates
+    legacy_template_dir = os.path.join(template_dir, "kdf", "legacy")
+    if os.path.exists(legacy_template_dir):
+        template_paths.extend([
+            os.path.join(legacy_template_dir, f) for f in os.listdir(legacy_template_dir) 
+            if f.endswith('.json')
+        ])
+    
+    # Add common templates
+    common_template_file = os.path.join(template_dir, "kdf", "common.json")
+    if os.path.exists(common_template_file):
+        template_paths.append(common_template_file)
     
     for path in template_paths:
         if os.path.exists(path):

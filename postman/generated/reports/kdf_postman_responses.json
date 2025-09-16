@@ -1,5 +1,10 @@
 {
   "auto_updatable": {
+    "AddNodeToVersionStat": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
     "EnableErc20Basic": {
       "id": null,
       "mmrpc": "2.0",
@@ -19,7 +24,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 23367529,
+        "current_block": 23375276,
         "nfts_infos": {},
         "ticker": "ETH",
         "wallet_balance": {
@@ -72,7 +77,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76474022,
+        "current_block": 76517849,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -125,7 +130,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76474043,
+        "current_block": 76517866,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -192,7 +197,7 @@
       "mmrpc": "2.0",
       "result": {
         "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-        "current_block": 31865947,
+        "current_block": 31881729,
         "ticker": "IRIS",
         "tokens_tickers": [
           "ATOM-IBC_IRIS"
@@ -208,7 +213,7 @@
           "spendable": "0",
           "unspendable": "0"
         },
-        "current_block": 31865947,
+        "current_block": 31881729,
         "ticker": "IRIS",
         "tokens_balances": {
           "ATOM-IBC_IRIS": {
@@ -463,7 +468,7 @@
             "spendable": "0",
             "unspendable": "0"
           },
-          "current_block": 31865955,
+          "current_block": 31881738,
           "ticker": "IRIS",
           "tokens_balances": {
             "ATOM-IBC_IRIS": {
@@ -578,7 +583,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":0,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
         }
       },
       "notes": "Task method: task::enable_tendermint::init, Phase: base",
@@ -612,7 +617,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
         }
       },
       "notes": "Task method: task::enable_z_coin::init, Phase: base",
@@ -622,15 +627,33 @@
     }
   },
   "metadata": {
-    "auto_updatable_count": 39,
+    "auto_updatable_count": 40,
     "collection_summary": {
-      "regular_methods": 16,
+      "regular_methods": 17,
       "task_lifecycle_methods": 30
     },
-    "collection_timestamp": "2025-09-15 09:21:51 UTC",
-    "total_responses_collected": 46
+    "collection_timestamp": "2025-09-16 11:22:14 UTC",
+    "total_responses_collected": 47
   },
   "responses": {
+    "AddNodeToVersionStat": {
+      "all_successful": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: add_node_to_version_stat"
+    },
     "EnableErc20Basic": {
       "all_successful": false,
       "collection_method": "regular",
@@ -663,7 +686,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23367529,
+            "current_block": 23375276,
             "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
@@ -716,7 +739,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23367540,
+            "current_block": 23375284,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "balances": {
@@ -766,7 +789,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76474022,
+            "current_block": 76517849,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -819,7 +842,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76474041,
+            "current_block": 76517865,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -855,7 +878,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76474043,
+            "current_block": 76517866,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -908,7 +931,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76474045,
+            "current_block": 76517867,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -979,7 +1002,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 31865947,
+            "current_block": 31881729,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -991,7 +1014,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-            "current_block": 31865947,
+            "current_block": 31881729,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -1015,7 +1038,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31865947,
+            "current_block": 31881729,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1034,7 +1057,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31865948,
+            "current_block": 31881730,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1220,7 +1243,7 @@
       "notes": "Method: enable"
     },
     "TaskEnableQtumCancel": {
-      "all_successful": true,
+      "all_successful": false,
       "collection_method": "task_lifecycle",
       "consistent_structure": true,
       "instances": {
@@ -1228,6 +1251,10 @@
           "id": null,
           "mmrpc": "2.0",
           "result": "success"
+        },
+        "native-nonhd": {
+          "error": "HTTP 409",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":0,\"id\":null}"
         }
       },
       "notes": "Task method: task::enable_qtum::init, Phase: base"
@@ -1243,6 +1270,13 @@
           "result": {
             "task_id": 0
           }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 0
+          }
         }
       },
       "notes": "Task method: task::enable_qtum::init, Phase: base"
@@ -1253,6 +1287,14 @@
       "consistent_structure": true,
       "instances": {
         "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
+        },
+        "native-nonhd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
@@ -1435,6 +1477,14 @@
             "details": "RequestingWalletBalance",
             "status": "InProgress"
           }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "RequestingWalletBalance",
+            "status": "InProgress"
+          }
         }
       },
       "notes": "Task method: task::enable_qtum::init, Phase: 2"
@@ -1458,7 +1508,7 @@
     "TaskEnableQtumStatus_3": {
       "all_successful": true,
       "collection_method": "task_lifecycle",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "id": null,
@@ -1466,6 +1516,27 @@
           "result": {
             "details": "RequestingWalletBalance",
             "status": "InProgress"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 5165519,
+              "ticker": "QTUM",
+              "wallet_balance": {
+                "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+                "balance": {
+                  "QTUM": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                },
+                "wallet_type": "Iguana"
+              }
+            },
+            "status": "Ok"
           }
         }
       },
@@ -1578,7 +1649,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":0,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
         }
       },
       "notes": "Task method: task::enable_tendermint::init, Phase: base"
@@ -1599,7 +1670,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 0
+            "task_id": 1
           }
         }
       },
@@ -1644,7 +1715,7 @@
                 "spendable": "0",
                 "unspendable": "0"
               },
-              "current_block": 31865955,
+              "current_block": 31881738,
               "ticker": "IRIS",
               "tokens_balances": {
                 "ATOM-IBC_IRIS": {
@@ -1666,7 +1737,7 @@
                 "spendable": "0",
                 "unspendable": "0"
               },
-              "current_block": 31865956,
+              "current_block": 31881738,
               "ticker": "IRIS",
               "tokens_balances": {
                 "ATOM-IBC_IRIS": {
@@ -1708,7 +1779,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
         }
       },
       "notes": "Task method: task::enable_z_coin::init, Phase: base"
@@ -1729,7 +1800,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 1
+            "task_id": 2
           }
         }
       },
@@ -1786,8 +1857,29 @@
       "warnings": []
     },
     "existing_files": {
-      "error_count": 1,
+      "error_count": 22,
       "errors": [
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd]: Request key 'LegacyEnableEth_native-hd' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd]: Request key 'LegacyEnableEthGasStation_native-hd' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10]: Request key 'TaskEnableQtumStatus_10' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11]: Request key 'TaskEnableQtumStatus_11' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12]: Request key 'TaskEnableQtumStatus_12' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13]: Request key 'TaskEnableQtumStatus_13' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14]: Request key 'TaskEnableQtumStatus_14' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15]: Request key 'TaskEnableQtumStatus_15' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16]: Request key 'TaskEnableQtumStatus_16' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17]: Request key 'TaskEnableQtumStatus_17' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18]: Request key 'TaskEnableQtumStatus_18' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19]: Request key 'TaskEnableQtumStatus_19' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20]: Request key 'TaskEnableQtumStatus_20' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2]: Request key 'TaskEnableQtumStatus_2' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3]: Request key 'TaskEnableQtumStatus_3' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4]: Request key 'TaskEnableQtumStatus_4' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5]: Request key 'TaskEnableQtumStatus_5' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6]: Request key 'TaskEnableQtumStatus_6' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7]: Request key 'TaskEnableQtumStatus_7' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8]: Request key 'TaskEnableQtumStatus_8' should follow PascalCase/camelCase pattern",
+        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9]: Request key 'TaskEnableQtumStatus_9' should follow PascalCase/camelCase pattern",
         "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' should follow PascalCase/camelCase pattern"
       ],
       "sorted_files": {
@@ -1803,6 +1895,10 @@
           "action": "already_sorted",
           "keys_moved": []
         },
+        "src/data/requests/kdf/v2/utils.json": {
+          "action": "already_sorted",
+          "keys_moved": []
+        },
         "src/data/responses/kdf/common.json": {
           "action": "already_sorted",
           "keys_moved": []
@@ -1812,6 +1908,13 @@
           "keys_moved": []
         },
         "src/data/responses/kdf/v2/coin_activation.json": {
+          "action": "sorted",
+          "keys_moved": [
+            "LegacyEnableEth_native-hd",
+            "LegacyEnableEthGasStation_native-hd"
+          ]
+        },
+        "src/data/responses/kdf/v2/utils.json": {
           "action": "already_sorted",
           "keys_moved": []
         },
@@ -1883,9 +1986,14 @@
           "action": "complete",
           "added_entries": [],
           "count": 0
+        },
+        "src/data/responses/kdf/v2/utils.json": {
+          "action": "complete",
+          "added_entries": [],
+          "count": 0
         }
       },
-      "warning_count": 49,
+      "warning_count": 121,
       "warnings": [
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/legacy/coin_activation.json [LegacyEnableEth.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensBalancesFalse.error]: Empty error response list",
@@ -1896,7 +2004,6 @@
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensGasStation.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticBalancesFalse.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticNft.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticNft.success]: Empty success response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.success]: Empty success response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintTokenBasic.error]: Empty error response list",
@@ -1908,6 +2015,8 @@
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyElectrumKmd.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyElectrumQtum.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableBnb.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd.success]: Empty success response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableMatic.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.success]: Empty success response list",
@@ -1919,6 +2028,25 @@
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthUserActionPin.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumInit.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumUserActionPin.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2.error]: Empty error response list",
@@ -1927,15 +2055,67 @@
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoUserActionPin.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinStatusBasic.error]: Empty error response list",
         "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinUserActionPin.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestDirectError.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestErrorStatus.success]: Empty success response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestMethodError.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestMethodSuccess.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestSuccess.error]: Empty error response list",
+        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/utils.json [AddNodeToVersionStat.error]: Empty error response list",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd]: Request key 'LegacyEnableEth_native-hd' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd]: Request key 'LegacyEnableEthGasStation_native-hd' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10]: Request key 'TaskEnableQtumStatus_10' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11]: Request key 'TaskEnableQtumStatus_11' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12]: Request key 'TaskEnableQtumStatus_12' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13]: Request key 'TaskEnableQtumStatus_13' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14]: Request key 'TaskEnableQtumStatus_14' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15]: Request key 'TaskEnableQtumStatus_15' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16]: Request key 'TaskEnableQtumStatus_16' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17]: Request key 'TaskEnableQtumStatus_17' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18]: Request key 'TaskEnableQtumStatus_18' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19]: Request key 'TaskEnableQtumStatus_19' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20]: Request key 'TaskEnableQtumStatus_20' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2]: Request key 'TaskEnableQtumStatus_2' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3]: Request key 'TaskEnableQtumStatus_3' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4]: Request key 'TaskEnableQtumStatus_4' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5]: Request key 'TaskEnableQtumStatus_5' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6]: Request key 'TaskEnableQtumStatus_6' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7]: Request key 'TaskEnableQtumStatus_7' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8]: Request key 'TaskEnableQtumStatus_8' contains underscores, consider camelCase",
+        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9]: Request key 'TaskEnableQtumStatus_9' contains underscores, consider camelCase",
         "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' contains underscores, consider camelCase",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumBch]: Response 'LegacyElectrumBch' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumKmd]: Response 'LegacyElectrumKmd' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumQtum]: Response 'LegacyElectrumQtum' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableBnb]: Response 'LegacyEnableBnb' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableEth_native-hd]: Response 'LegacyEnableEth_native-hd' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableEthGasStation_native-hd]: Response 'LegacyEnableEthGasStation_native-hd' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableMatic]: Response 'LegacyEnableMatic' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_10]: Response 'TaskEnableQtumStatus_10' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_11]: Response 'TaskEnableQtumStatus_11' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_12]: Response 'TaskEnableQtumStatus_12' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_13]: Response 'TaskEnableQtumStatus_13' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_14]: Response 'TaskEnableQtumStatus_14' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_15]: Response 'TaskEnableQtumStatus_15' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_16]: Response 'TaskEnableQtumStatus_16' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_17]: Response 'TaskEnableQtumStatus_17' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_18]: Response 'TaskEnableQtumStatus_18' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_19]: Response 'TaskEnableQtumStatus_19' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_20]: Response 'TaskEnableQtumStatus_20' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_2]: Response 'TaskEnableQtumStatus_2' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_3]: Response 'TaskEnableQtumStatus_3' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_4]: Response 'TaskEnableQtumStatus_4' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_5]: Response 'TaskEnableQtumStatus_5' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_6]: Response 'TaskEnableQtumStatus_6' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_7]: Response 'TaskEnableQtumStatus_7' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_8]: Response 'TaskEnableQtumStatus_8' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_9]: Response 'TaskEnableQtumStatus_9' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableTendermintStatus_2]: Response 'TaskEnableTendermintStatus_2' exists but has no corresponding request data",
         "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableZCoinStatusBasic]: Response 'TaskEnableZCoinStatusBasic' exists but has no corresponding request data",
-        "[MISSING_RESPONSE] src/data/responses/kdf/v2/ [v2/AddNodeToVersionStat]: Request 'AddNodeToVersionStat' exists but has no corresponding response data"
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestDirectError]: Response 'TestDirectError' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestErrorStatus]: Response 'TestErrorStatus' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestMethodError]: Response 'TestMethodError' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestMethodSuccess]: Response 'TestMethodSuccess' exists but has no corresponding request data",
+        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestSuccess]: Response 'TestSuccess' exists but has no corresponding request data"
       ]
     },
     "request_metadata": {
