@@ -1,11 +1,11 @@
 {
   "add_node_to_version_stat": {
-    "errors_table": "",
+    "errors_table": "AddNodeToVersionStatErrors",
     "examples": {
       "AddNodeToVersionStat": "Add Node To Version Stat"
     },
     "prerequisites": [],
-    "request_table": "",
+    "request_table": "AddNodeToVersionStatRequest",
     "requirements": {
       "environments": [
         "native",
@@ -16,7 +16,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "AddNodeToVersionStatResponse",
     "tags": [
       "v2"
     ]
