@@ -34,6 +34,19 @@ from enum import Enum
 sys.path.append(str(Path(__file__).parent.parent))
 from utils.json_utils import dump_sorted_json
 
+# Import the new activation system
+try:
+    # Try relative import first (when used as module)
+    from .activation_manager import ActivationManager
+    from .coins_config_manager import CoinsConfigManager
+except ImportError:
+    # Fall back to absolute import (when run directly)
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent))
+    from activation_manager import ActivationManager
+    from coins_config_manager import CoinsConfigManager
+
 
 # Configuration Classes
 @dataclass
@@ -124,6 +137,23 @@ class UnifiedResponseManager:
         self.validator = KdfResponseValidator(self.logger)
         self.response_delays: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = {}
         self.inconsistent_responses: Dict[str, Dict[str, Any]] = {}
+        
+        # Initialize coins config and activation managers for each instance
+        self.coins_config = CoinsConfigManager(self.workspace_root)
+        self.activation_managers: Dict[str, ActivationManager] = {}
+        
+        for instance in KDF_INSTANCES:
+            self.activation_managers[instance.name] = ActivationManager(
+                rpc_func=lambda method, params, inst=instance: self.send_request(inst, {
+                    "userpass": inst.userpass,
+                    "mmrpc": "2.0",
+                    "method": method,
+                    "params": params,
+                    "id": 0
+                })[1],
+                userpass=instance.userpass,
+                workspace_root=self.workspace_root
+            )
         
     def setup_logging(self, log_level: str):
         """Setup logging configuration."""
@@ -249,10 +279,94 @@ class UnifiedResponseManager:
                 self.logger.warning(f"Failed to disable {ticker} on {instance.name}: {error_display}")
                 return False
     
+    def _extract_ticker_from_request(self, request_data: Dict[str, Any]) -> Optional[str]:
+        """Extract ticker/coin from request data."""
+        # Look for ticker in params
+        if "params" in request_data:
+            params = request_data["params"]
+            if isinstance(params, dict):
+                if "ticker" in params:
+                    return params["ticker"]
+                elif "coin" in params:
+                    return params["coin"]
+        
+        # Look for ticker at root level
+        if "ticker" in request_data:
+            return request_data["ticker"]
+        elif "coin" in request_data:
+            return request_data["coin"]
+        
+        return None
+    
+    def _ensure_coin_activated(self, instance: KDFInstance, ticker: str) -> bool:
+        """Ensure a coin is activated before making requests that need it.
+        
+        Args:
+            instance: The KDF instance to activate the coin on
+            ticker: The coin ticker to activate
+            
+        Returns:
+            True if coin is activated successfully, False otherwise
+        """
+        if not ticker:
+            return True  # No ticker to activate
+        
+        ticker_upper = str(ticker).upper()
+        
+        # Skip platform coins that are handled separately
+        if ticker_upper in ["ETH", "IRIS"]:
+            return True
+        
+        # Get the activation manager for this instance
+        activation_manager = self.activation_managers.get(instance.name)
+        if not activation_manager:
+            self.logger.error(f"No activation manager found for instance {instance.name}")
+            return False
+        
+        # Check if coin is already enabled
+        if activation_manager.is_coin_enabled(ticker_upper):
+            self.logger.debug(f"Coin {ticker_upper} is already enabled on {instance.name}")
+            return True
+        
+        try:
+            # Determine if this is a token
+            is_token, parent_coin = self.coins_config.is_token(ticker_upper)
+            enable_hd = "hd" in instance.name.lower()
+            
+            if is_token:
+                self.logger.info(f"Activating token {ticker_upper} on {instance.name}")
+                result = activation_manager.activate_token(
+                    ticker_upper, 
+                    enable_hd=enable_hd
+                )
+            else:
+                self.logger.info(f"Activating coin {ticker_upper} on {instance.name}")
+                result = activation_manager.activate_coin(
+                    ticker_upper, 
+                    enable_hd=enable_hd,
+                    wait_for_completion=True
+                )
+            
+            if result.success:
+                self.logger.info(f"Successfully activated {ticker_upper} on {instance.name}")
+                return True
+            else:
+                self.logger.warning(f"Failed to activate {ticker_upper} on {instance.name}: {result.error}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error activating {ticker_upper} on {instance.name}: {e}")
+            return False
+
     def _ensure_coin_disabled(self, instance: KDFInstance, ticker: str) -> bool:
         """Ensure a coin is disabled with enhanced retry logic."""
+        self.logger.debug(f"🛑 Attempting to disable {ticker} on {instance.name}")
+        
         # First try standard disable
-        if self.disable_coin(instance, ticker):
+        disable_result = self.disable_coin(instance, ticker)
+        self.logger.debug(f"🛑 Standard disable {ticker} on {instance.name}: {'✅ SUCCESS' if disable_result else '❌ FAILED'}")
+        
+        if disable_result:
             return True
         
         # If that fails, try to get enabled coins and check if it's actually enabled
@@ -300,6 +414,43 @@ class UnifiedResponseManager:
         # If all else fails, assume it's disabled (to prevent blocking the entire process)
         self.logger.warning(f"Could not verify {ticker} disable status on {instance.name}, proceeding anyway")
         return True
+    
+    def _verify_coin_disabled(self, instance: KDFInstance, ticker: str) -> bool:
+        """Verify that a coin is actually disabled by checking get_enabled_coins."""
+        try:
+            get_enabled_request = {
+                "userpass": instance.userpass,
+                "method": "get_enabled_coins"
+            }
+            
+            success, response = self.send_request(instance, get_enabled_request, timeout=10)
+            
+            if success and "result" in response:
+                enabled_tickers = []
+                result = response["result"]
+                
+                # Extract tickers from the result
+                if isinstance(result, list):
+                    for coin in result:
+                        if isinstance(coin, dict) and "ticker" in coin:
+                            enabled_tickers.append(coin["ticker"].upper())
+                        elif isinstance(coin, str):
+                            enabled_tickers.append(coin.upper())
+                
+                # Check if ticker is still enabled
+                if ticker.upper() in enabled_tickers:
+                    self.logger.warning(f"⚠️ {ticker} still appears enabled on {instance.name} after disable - waiting longer")
+                    import time
+                    time.sleep(2.0)  # Additional wait
+                    return False
+                else:
+                    self.logger.debug(f"✅ Verified {ticker} is disabled on {instance.name}")
+                    return True
+            
+        except Exception as e:
+            self.logger.debug(f"Error verifying {ticker} disable status on {instance.name}: {e}")
+        
+        return True  # Assume success to not block workflow
     
     def enable_platform_coin(self, instance: KDFInstance, ticker: str) -> bool:
         """Try to enable a platform coin using basic enable method."""
@@ -677,12 +828,8 @@ class UnifiedResponseManager:
         consistent_structure = True
         first_response_structure = None
         
-        # Get the ticker for disabling if needed
-        ticker = None
-        if "params" in request_data and "ticker" in request_data["params"]:
-            ticker = request_data["params"]["ticker"]
-        elif "coin" in request_data:
-            ticker = request_data["coin"]
+        # Extract ticker from request data
+        ticker = self._extract_ticker_from_request(request_data)
         
         for instance in KDF_INSTANCES:
             # Check if platform coin is required and enabled
@@ -693,9 +840,65 @@ class UnifiedResponseManager:
                     all_successful = False
                     continue
             
-            # Disable coin first if needed
+            # Ensure coin is activated if needed
             if ticker:
-                self._ensure_coin_disabled(instance, ticker)
+                # For coin activation methods, always disable first to prevent "already initialized" errors
+                method_name = request_data.get("method", "")
+                is_activation_method = any(activation_term in method_name.lower() for activation_term in [
+                    "enable", "activate", "init", "electrum"
+                ])
+                
+                if is_activation_method:
+                    # For activation methods, disable first to ensure clean state
+                    self.logger.debug(f"🔄 Pre-disabling {ticker} on {instance.name} before activation method {method_name}")
+                    disable_success = self._ensure_coin_disabled(instance, ticker)
+                    self.logger.debug(f"🔄 Pre-disable {ticker} on {instance.name}: {'✅ SUCCESS' if disable_success else '❌ FAILED'}")
+                    
+                    # Extended delay and verification to ensure disable completes properly
+                    import time
+                    
+                    # ETH and complex coins need much longer delays
+                    if ticker.upper() == "ETH":
+                        self.logger.debug(f"⏰ Using ULTRA extended delay for ETH (most complex coin)")
+                        time.sleep(5.0)  # Ultra-long delay for ETH
+                        
+                        # For ETH, try multiple disable attempts with verification
+                        for retry in range(3):
+                            if not self._verify_coin_disabled(instance, ticker):
+                                self.logger.debug(f"🔄 ETH ultra-retry disable attempt {retry + 1}")
+                                self._ensure_coin_disabled(instance, ticker)
+                                time.sleep(3.0)  # Extra long between retries
+                            else:
+                                self.logger.debug(f"✅ ETH verified disabled after {retry + 1} attempts")
+                                break
+                        else:
+                            self.logger.warning(f"⚠️ ETH still showing as enabled after all attempts - proceeding anyway")
+                            
+                    elif ticker.upper() in ["MATIC", "BNB"]:
+                        self.logger.debug(f"⏰ Using extended delay for complex coin {ticker}")
+                        time.sleep(3.0)  # Much longer delay for complex coins
+                        
+                        # For other complex coins, try additional disable attempts
+                        for retry in range(2):
+                            if not self._verify_coin_disabled(instance, ticker):
+                                self.logger.debug(f"🔄 {ticker} retry disable attempt {retry + 1}")
+                                self._ensure_coin_disabled(instance, ticker)
+                                time.sleep(2.0)
+                            else:
+                                break
+                    else:
+                        time.sleep(1.0)  # Standard delay for other coins
+                        self._verify_coin_disabled(instance, ticker)
+                else:
+                    # For other methods, ensure coin is activated
+                    if not self._ensure_coin_activated(instance, ticker):
+                        self.logger.warning(f"Skipping {response_name} on {instance.name} - Could not activate {ticker}")
+                        all_successful = False
+                        instance_responses[instance.name] = {
+                            "error": f"Failed to activate coin {ticker}",
+                            "error_type": "CoinActivationFailed"
+                        }
+                        continue
             
             # Modify request for non-HD instances
             if "nonhd" in instance.name:
@@ -785,10 +988,8 @@ class UnifiedResponseManager:
         
         init_request = all_requests[init_response_name]
         
-        # Get the ticker for disabling if needed
-        ticker = None
-        if "params" in init_request and "ticker" in init_request["params"]:
-            ticker = init_request["params"]["ticker"]
+        # Extract ticker from init request
+        ticker = self._extract_ticker_from_request(init_request)
         
         task_lifecycle_responses = {}
         
@@ -803,7 +1004,7 @@ class UnifiedResponseManager:
                         self.logger.info(f"Skipping {method_name} on {instance.name} - Platform coin {platform_coin} not available")
                         continue
                 
-                # Disable coin first if needed
+                # For task lifecycle methods, disable coin first (these are usually activation methods)
                 if ticker:
                     try:
                         self._ensure_coin_disabled(instance, ticker)
@@ -1174,10 +1375,6 @@ class UnifiedResponseManager:
     
     def update_response_files(self, auto_updatable_responses: Dict[str, Any]) -> int:
         """Update response files with successful responses across ALL response files."""
-        if not auto_updatable_responses:
-            self.logger.info("No new successful responses to update.")
-            return 0
-        
         self.logger.info("Updating response files")
         
         # First, load all existing response files to find where each request should go
@@ -1224,10 +1421,40 @@ class UnifiedResponseManager:
                         
                         if response_file not in all_response_files:
                             all_response_files[response_file] = {}
+                            # Create the missing response file on disk if it doesn't exist
+                            if not response_file.exists():
+                                self.logger.info(f"Creating missing response file: {response_file.relative_to(self.workspace_root)}")
+                                response_file.parent.mkdir(parents=True, exist_ok=True)
+                                
+                                # Create empty response templates for all requests in this file
+                                empty_response_structure = {}
+                                for request_name in request_data.keys():
+                                    empty_response_structure[request_name] = {
+                                        "error": [],
+                                        "success": []
+                                    }
+                                
+                                dump_sorted_json(empty_response_structure, response_file)
+                                all_response_files[response_file] = empty_response_structure
                         
                         for request_name in request_data.keys():
                             if request_name not in request_to_file_mapping:
                                 request_to_file_mapping[request_name] = response_file
+        
+        # Ensure all discovered response files are created on disk (even if empty)
+        for response_file, response_data in all_response_files.items():
+            if not response_file.exists():
+                self.logger.info(f"Creating missing response file: {response_file.relative_to(self.workspace_root)}")
+                response_file.parent.mkdir(parents=True, exist_ok=True)
+                # If response_data is empty, it means we created it from request file discovery
+                if not response_data:
+                    self.logger.debug(f"Response file {response_file.name} has no existing structure, will be populated when responses are added")
+                dump_sorted_json(response_data, response_file)
+        
+        # If no responses to add, return early after ensuring files exist
+        if not auto_updatable_responses:
+            self.logger.info("No new successful responses to update.")
+            return 0
         
         # Add successful responses to appropriate files
         updated_count = 0
@@ -1350,8 +1577,8 @@ class UnifiedResponseManager:
                 workspace_root=self.workspace_root,
                 silent=True
             )
-            if request_metadata_summary['files_modified'] > 0:
-                self.logger.info(f"Fixed request metadata in {request_metadata_summary['files_modified']} files")
+            if request_metadata_summary.get('methods_modified', False):
+                self.logger.info(f"Fixed request metadata for {request_metadata_summary.get('fix_count', 0)} methods")
         except Exception as e:
             self.logger.warning(f"Request metadata validation failed: {e}")
             request_metadata_summary = {"error": str(e)}
