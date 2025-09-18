@@ -49,6 +49,7 @@ class ActivationResult:
     response: Dict[str, Any]
     task_id: Optional[str] = None
     error: Optional[str] = None
+    already_enabled: bool = False
 
 
 class ActivationRequestBuilder:
@@ -600,7 +601,7 @@ class ActivationManager:
                     if isinstance(result, dict):
                         task_id = result.get("task_id")
                 
-                if task_id:
+                if task_id is not None:
                     status_method = self._status_method_for_init(activation_request.method)
                     if status_method:
                         ACTIVATION_STATE[ticker_upper].update({

@@ -38,9 +38,10 @@ python utils/py/clean_slate.py
 echo "📋 Generating Postman collections..."
 python utils/py/generate_postman.py --all
 
-# Run comprehensive response collection
+# Run comprehensive response collection (includes address collection)
 echo "🔍 Collecting responses from all methods..."
 cd utils/py && python lib/managers/responses_manager.py && cd ../..
+echo "🏦 Address collection integrated into response harvesting"
 
 # Clean up old reports in postman/reports/ (if they exist)
 echo "🧹 Cleaning up old Newman reports..."

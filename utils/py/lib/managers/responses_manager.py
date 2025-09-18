@@ -65,6 +65,7 @@ class CollectionResult:
     auto_updatable: bool
     collection_method: str
     notes: str = ""
+    original_request: Optional[Dict[str, Any]] = None
 
 
 # CollectionMode enum removed - all functionality is always enabled
@@ -136,6 +137,9 @@ class UnifiedResponseManager:
         self.platform_enabled: Dict[str, bool] = {}
         self.validator = KdfResponseValidator(self.logger)
         self.response_delays: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = {}
+        
+        # Address/balance collection during response harvesting
+        self.collected_addresses: Dict[str, Dict[str, Dict[str, str]]] = {}
         self.inconsistent_responses: Dict[str, Dict[str, Any]] = {}
         
         # Initialize coins config and activation managers for each instance
@@ -213,6 +217,11 @@ class UnifiedResponseManager:
                     response_data = response.json()
                     if "error" in response_data:
                         return False, response_data
+                    
+                    # Extract addresses/balances from successful responses
+                    method_name = filtered_request_data.get("method", "")
+                    self._extract_addresses_from_response(instance.name, method_name, response_data, filtered_request_data)
+                    
                     return True, response_data
                 except json.JSONDecodeError:
                     return False, {"error": "Invalid JSON response", "raw_response": response.text}
@@ -298,7 +307,7 @@ class UnifiedResponseManager:
         
         return None
     
-    def _ensure_coin_activated(self, instance: KDFInstance, ticker: str) -> bool:
+    def _ensure_coin_activated(self, instance: KDFInstance, ticker: str):
         """Ensure a coin is activated before making requests that need it.
         
         Args:
@@ -306,27 +315,37 @@ class UnifiedResponseManager:
             ticker: The coin ticker to activate
             
         Returns:
-            True if coin is activated successfully, False otherwise
+            ActivationResult object with success status and detailed error information
         """
+        # Import ActivationResult for return type (handle both relative and absolute imports)
+        try:
+            from .activation_manager import ActivationResult
+        except ImportError:
+            import sys
+            from pathlib import Path
+            sys.path.append(str(Path(__file__).parent))
+            from activation_manager import ActivationResult
+        
         if not ticker:
-            return True  # No ticker to activate
+            return ActivationResult(success=True, response={}, already_enabled=True)  # No ticker to activate
         
         ticker_upper = str(ticker).upper()
         
         # Skip platform coins that are handled separately
         if ticker_upper in ["ETH", "IRIS"]:
-            return True
+            return ActivationResult(success=True, response={}, already_enabled=True)
         
         # Get the activation manager for this instance
         activation_manager = self.activation_managers.get(instance.name)
         if not activation_manager:
-            self.logger.error(f"No activation manager found for instance {instance.name}")
-            return False
+            error_msg = f"No activation manager found for instance {instance.name}"
+            self.logger.error(error_msg)
+            return ActivationResult(success=False, response={}, error=error_msg)
         
         # Check if coin is already enabled
         if activation_manager.is_coin_enabled(ticker_upper):
             self.logger.debug(f"Coin {ticker_upper} is already enabled on {instance.name}")
-            return True
+            return ActivationResult(success=True, response={}, already_enabled=True)
         
         try:
             # Determine if this is a token
@@ -349,14 +368,15 @@ class UnifiedResponseManager:
             
             if result.success:
                 self.logger.info(f"Successfully activated {ticker_upper} on {instance.name}")
-                return True
+                return result
             else:
                 self.logger.warning(f"Failed to activate {ticker_upper} on {instance.name}: {result.error}")
-                return False
+                return result
                 
         except Exception as e:
-            self.logger.error(f"Error activating {ticker_upper} on {instance.name}: {e}")
-            return False
+            error_msg = f"Error activating {ticker_upper} on {instance.name}: {e}"
+            self.logger.error(error_msg)
+            return ActivationResult(success=False, response={}, error=error_msg)
 
     def _ensure_coin_disabled(self, instance: KDFInstance, ticker: str) -> bool:
         """Ensure a coin is disabled with enhanced retry logic."""
@@ -891,13 +911,30 @@ class UnifiedResponseManager:
                         self._verify_coin_disabled(instance, ticker)
                 else:
                     # For other methods, ensure coin is activated
-                    if not self._ensure_coin_activated(instance, ticker):
+                    activation_result = self._ensure_coin_activated(instance, ticker)
+                    if not activation_result.success:
                         self.logger.warning(f"Skipping {response_name} on {instance.name} - Could not activate {ticker}")
                         all_successful = False
-                        instance_responses[instance.name] = {
+                        
+                        # Build detailed error response with activation failure information
+                        error_response = {
                             "error": f"Failed to activate coin {ticker}",
                             "error_type": "CoinActivationFailed"
                         }
+                        
+                        # Add the detailed activation error
+                        if activation_result.error:
+                            error_response["activation_error"] = activation_result.error
+                        
+                        # Add the full activation response for debugging
+                        if activation_result.response:
+                            error_response["activation_response"] = activation_result.response
+                        
+                        # Add any additional task information if available
+                        if hasattr(activation_result, 'task_id') and activation_result.task_id:
+                            error_response["task_id"] = activation_result.task_id
+                        
+                        instance_responses[instance.name] = error_response
                         continue
             
             # Modify request for non-HD instances
@@ -967,7 +1004,8 @@ class UnifiedResponseManager:
             consistent_structure=consistent_structure,
             auto_updatable=auto_updatable,
             collection_method="regular",
-            notes=f"Method: {method_name}"
+            notes=f"Method: {method_name}",
+            original_request=request_data
         )
     
     def collect_task_lifecycle_method(self, method_name: str, request_keys: List[str], 
@@ -1085,9 +1123,57 @@ class UnifiedResponseManager:
         
         return results
     
+    def _ensure_response_files_exist(self):
+        """Ensure all response files exist by scanning request files and creating missing response files."""
+        self.logger.info("🔧 Ensuring all response files exist...")
+        
+        # Check all request files and create corresponding response files if missing
+        request_dirs = [
+            self.workspace_root / "src/data/requests/kdf/v2",
+            self.workspace_root / "src/data/requests/kdf/legacy"
+        ]
+        
+        files_created = 0
+        for request_dir in request_dirs:
+            if not request_dir.exists():
+                continue
+                
+            for request_file in request_dir.glob("*.json"):
+                # Determine corresponding response file
+                if "v2" in str(request_file):
+                    response_file = self.workspace_root / "src/data/responses/kdf/v2" / request_file.name
+                else:
+                    response_file = self.workspace_root / "src/data/responses/kdf/legacy" / request_file.name
+                
+                if not response_file.exists():
+                    self.logger.info(f"📁 Creating missing response file: {response_file.relative_to(self.workspace_root)}")
+                    response_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    # Load request data to create empty templates
+                    request_data = self.load_json_file(request_file)
+                    if request_data:
+                        empty_response_structure = {}
+                        for request_name in request_data.keys():
+                            empty_response_structure[request_name] = {
+                                "error": [],
+                                "success": []
+                            }
+                        
+                        dump_sorted_json(empty_response_structure, response_file)
+                        files_created += 1
+                        self.logger.info(f"✅ Created {response_file.name} with {len(empty_response_structure)} method templates")
+        
+        if files_created > 0:
+            self.logger.info(f"🎯 Created {files_created} missing response files")
+        else:
+            self.logger.debug("📋 All response files already exist")
+
     def collect_all_responses(self) -> Dict[str, Any]:
         """Main method to collect ALL responses, not just missing ones."""
         self.logger.info("Starting comprehensive response collection for ALL methods")
+        
+        # FIRST: Ensure all response files exist (create if missing)
+        self._ensure_response_files_exist()
         
         # Load ALL request data files 
         all_requests = {}
@@ -1211,13 +1297,19 @@ class UnifiedResponseManager:
         
         for result in self.results:
             # Add to main responses
-            unified_results["responses"][result.response_name] = {
+            response_entry = {
                 "instances": result.instance_responses,
                 "all_successful": result.all_successful,
                 "consistent_structure": result.consistent_structure,
                 "collection_method": result.collection_method,
                 "notes": result.notes
             }
+            
+            # Add original request for manual verification
+            if hasattr(result, 'original_request') and result.original_request:
+                response_entry["request"] = result.original_request
+                
+            unified_results["responses"][result.response_name] = response_entry
             
             # Categorize for update processing
             if result.auto_updatable:
@@ -1259,12 +1351,25 @@ class UnifiedResponseManager:
                 if not reasons:
                     reasons.append("unknown")
                 
-                unified_results["manual_review_needed"][result.response_name] = {
+                # Create detailed entry for manual review
+                manual_review_entry = {
                     "reasons": reasons,
                     "instances": result.instance_responses,
                     "collection_method": result.collection_method,
                     "notes": result.notes
                 }
+                
+                # Add original request body for debugging/validation
+                if hasattr(result, 'original_request') and result.original_request:
+                    manual_review_entry["request"] = result.original_request
+                
+                unified_results["manual_review_needed"][result.response_name] = manual_review_entry
+        
+        # Reprocess all collected responses to extract any missed addresses
+        self._reprocess_collected_responses_for_addresses()
+        
+        # Save collected addresses/balances from the harvesting process
+        self.save_collected_addresses()
         
         return unified_results
     
@@ -1826,6 +1931,437 @@ class UnifiedResponseManager:
         dump_sorted_json(results, output_file)
         
         self.logger.info(f"Unified results saved to: {output_file}")
+
+    def _extract_addresses_from_response(self, instance_name: str, method_name: str, response_data: Dict[str, Any], request_data: Dict[str, Any] = None):
+        """Extract address and balance information from method responses."""
+        if not isinstance(response_data, dict):
+            return
+            
+        # Initialize instance if not exists
+        if instance_name not in self.collected_addresses:
+            self.collected_addresses[instance_name] = {}
+            
+        try:
+            # Handle legacy electrum/enable responses with direct address/balance fields
+            if "address" in response_data and "coin" in response_data:
+                coin = response_data["coin"]
+                address = response_data["address"]
+                balance = response_data.get("balance", "0")
+                unspendable = response_data.get("unspendable_balance", "0")
+                
+                if coin not in self.collected_addresses[instance_name]:
+                    self.collected_addresses[instance_name][coin] = {}
+                    
+                balance_str = balance
+                if unspendable and unspendable != "0":
+                    balance_str += f" (unspendable: {unspendable})"
+                    
+                self.collected_addresses[instance_name][coin][address] = balance_str
+                self.logger.debug(f"Collected address from legacy response: {instance_name}/{coin}/{address}")
+                
+            # Handle account_balance responses (HD wallets)
+            elif "task::account_balance::status" in method_name and "result" in response_data:
+                result = response_data["result"]
+                if isinstance(result, dict) and result.get("status") == "Ok" and "details" in result:
+                    details = result["details"]
+                    if "addresses" in details:
+                        # Extract coin from the balance data
+                        for addr_info in details["addresses"]:
+                            address = addr_info.get("address")
+                            balance_info = addr_info.get("balance", {})
+                            
+                            if address and balance_info:
+                                for coin, coin_balance in balance_info.items():
+                                    if coin not in self.collected_addresses[instance_name]:
+                                        self.collected_addresses[instance_name][coin] = {}
+                                        
+                                    spendable = coin_balance.get("spendable", "0")
+                                    unspendable = coin_balance.get("unspendable", "0")
+                                    
+                                    balance_str = spendable
+                                    if unspendable and unspendable != "0":
+                                        balance_str += f" (unspendable: {unspendable})"
+                                        
+                                    self.collected_addresses[instance_name][coin][address] = balance_str
+                                    self.logger.debug(f"Collected address from account_balance: {instance_name}/{coin}/{address}")
+                                    
+            # Handle get_enabled_coins responses (legacy - includes addresses)
+            elif method_name == "get_enabled_coins" and isinstance(response_data, list):
+                for coin_info in response_data:
+                    if isinstance(coin_info, dict) and "ticker" in coin_info and "address" in coin_info:
+                        coin = coin_info["ticker"]
+                        address = coin_info["address"]
+                        
+                        if coin not in self.collected_addresses[instance_name]:
+                            self.collected_addresses[instance_name][coin] = {}
+                            
+                        # For get_enabled_coins, we don't have balance info, so mark as "enabled"
+                        self.collected_addresses[instance_name][coin][address] = "enabled"
+                        self.logger.debug(f"Collected address from get_enabled_coins: {instance_name}/{coin}/{address}")
+                        
+            # Handle coin activation responses with address info
+            elif "result" in response_data and isinstance(response_data["result"], dict):
+                result = response_data["result"]
+                
+                # Handle various activation response formats
+                self._extract_from_activation_response(instance_name, method_name, result, request_data)
+                        
+        except Exception as e:
+            self.logger.debug(f"Error extracting addresses from {method_name} response: {e}")
+
+    def _extract_from_activation_response(self, instance_name: str, method_name: str, result: Dict[str, Any], request_data: Dict[str, Any] = None):
+        """Extract addresses from various coin activation response formats."""
+        try:
+            # Handle task completion responses (e.g., task::enable_utxo::status, task::enable_tendermint::status)
+            if result.get("status") == "Ok" and "details" in result:
+                details = result["details"]
+                
+                # HD wallet format with wallet_balance (e.g., QTUM, BCH HD)
+                if "wallet_balance" in details and "ticker" in details:
+                    ticker = details["ticker"]
+                    wallet_balance = details["wallet_balance"]
+                    
+                    if isinstance(wallet_balance, dict):
+                        # HD wallet with accounts
+                        if "accounts" in wallet_balance:
+                            for account in wallet_balance["accounts"]:
+                                if "addresses" in account:
+                                    for addr_info in account["addresses"]:
+                                        address = addr_info.get("address")
+                                        balance_info = addr_info.get("balance", {})
+                                        
+                                        if address and balance_info:
+                                            for coin, coin_balance in balance_info.items():
+                                                if coin not in self.collected_addresses[instance_name]:
+                                                    self.collected_addresses[instance_name][coin] = {}
+                                                    
+                                                spendable = coin_balance.get("spendable", "0")
+                                                unspendable = coin_balance.get("unspendable", "0")
+                                                
+                                                balance_str = spendable
+                                                if unspendable and unspendable != "0":
+                                                    balance_str += f" (unspendable: {unspendable})"
+                                                    
+                                                self.collected_addresses[instance_name][coin][address] = balance_str
+                                                self.logger.debug(f"Collected address from HD task: {instance_name}/{coin}/{address}")
+                        
+                        # Iguana wallet format (e.g., native-nonhd QTUM)
+                        elif "address" in wallet_balance and "balance" in wallet_balance:
+                            address = wallet_balance["address"]
+                            balance_info = wallet_balance["balance"]
+                            
+                            if address and balance_info:
+                                for coin, coin_balance in balance_info.items():
+                                    if coin not in self.collected_addresses[instance_name]:
+                                        self.collected_addresses[instance_name][coin] = {}
+                                        
+                                    spendable = coin_balance.get("spendable", "0")
+                                    unspendable = coin_balance.get("unspendable", "0")
+                                    
+                                    balance_str = spendable
+                                    if unspendable and unspendable != "0":
+                                        balance_str += f" (unspendable: {unspendable})"
+                                        
+                                    self.collected_addresses[instance_name][coin][address] = balance_str
+                                    self.logger.debug(f"Collected address from Iguana task: {instance_name}/{coin}/{address}")
+                
+                # Tendermint format (single address with balance and tokens)
+                elif "address" in details and "ticker" in details:
+                    ticker = details["ticker"]
+                    address = details["address"]
+                    
+                    if ticker not in self.collected_addresses[instance_name]:
+                        self.collected_addresses[instance_name][ticker] = {}
+                    
+                    # Main coin balance
+                    if "balance" in details:
+                        balance = details["balance"]
+                        spendable = balance.get("spendable", "0")
+                        unspendable = balance.get("unspendable", "0")
+                        
+                        balance_str = spendable
+                        if unspendable and unspendable != "0":
+                            balance_str += f" (unspendable: {unspendable})"
+                            
+                        self.collected_addresses[instance_name][ticker][address] = balance_str
+                        self.logger.debug(f"Collected address from Tendermint task: {instance_name}/{ticker}/{address}")
+                    
+                    # Token balances
+                    if "tokens_balances" in details:
+                        for token_name, token_balance in details["tokens_balances"].items():
+                            if token_name not in self.collected_addresses[instance_name]:
+                                self.collected_addresses[instance_name][token_name] = {}
+                                
+                            spendable = token_balance.get("spendable", "0")
+                            unspendable = token_balance.get("unspendable", "0")
+                            
+                            balance_str = spendable
+                            if unspendable and unspendable != "0":
+                                balance_str += f" (unspendable: {unspendable})"
+                                
+                            self.collected_addresses[instance_name][token_name][address] = balance_str
+                            self.logger.debug(f"Collected token address from Tendermint task: {instance_name}/{token_name}/{address}")
+            
+            # Handle direct activation responses
+            # Tendermint format with direct address/balance
+            if "address" in result and "ticker" in result:
+                ticker = result["ticker"]
+                address = result["address"]
+                
+                if ticker not in self.collected_addresses[instance_name]:
+                    self.collected_addresses[instance_name][ticker] = {}
+                
+                # Main coin balance
+                if "balance" in result:
+                    balance = result["balance"]
+                    spendable = balance.get("spendable", "0")
+                    unspendable = balance.get("unspendable", "0")
+                    
+                    balance_str = spendable
+                    if unspendable and unspendable != "0":
+                        balance_str += f" (unspendable: {unspendable})"
+                        
+                    self.collected_addresses[instance_name][ticker][address] = balance_str
+                    self.logger.debug(f"Collected address from Tendermint direct: {instance_name}/{ticker}/{address}")
+                
+                # Token balances
+                if "tokens_balances" in result:
+                    for token_name, token_balance in result["tokens_balances"].items():
+                        if token_name not in self.collected_addresses[instance_name]:
+                            self.collected_addresses[instance_name][token_name] = {}
+                            
+                        spendable = token_balance.get("spendable", "0")
+                        unspendable = token_balance.get("unspendable", "0")
+                        
+                        balance_str = spendable
+                        if unspendable and unspendable != "0":
+                            balance_str += f" (unspendable: {unspendable})"
+                            
+                        self.collected_addresses[instance_name][token_name][address] = balance_str
+                        self.logger.debug(f"Collected token address from Tendermint direct: {instance_name}/{token_name}/{address}")
+            
+            # Handle HD ETH/Polygon wallet responses
+            if "wallet_balance" in result:
+                wallet_balance = result["wallet_balance"]
+                if isinstance(wallet_balance, dict) and "accounts" in wallet_balance:
+                    for account in wallet_balance["accounts"]:
+                        if "addresses" in account:
+                            for addr_info in account["addresses"]:
+                                address = addr_info.get("address")
+                                balance_info = addr_info.get("balance", {})
+                                
+                                if address and balance_info:
+                                    for coin, coin_balance in balance_info.items():
+                                        if coin not in self.collected_addresses[instance_name]:
+                                            self.collected_addresses[instance_name][coin] = {}
+                                            
+                                        spendable = coin_balance.get("spendable", "0")
+                                        unspendable = coin_balance.get("unspendable", "0")
+                                        
+                                        balance_str = spendable
+                                        if unspendable and unspendable != "0":
+                                            balance_str += f" (unspendable: {unspendable})"
+                                            
+                                        self.collected_addresses[instance_name][coin][address] = balance_str
+                                        self.logger.debug(f"Collected address from HD wallet: {instance_name}/{coin}/{address}")
+            
+            # Handle ETH/Polygon non-HD responses (erc20_addresses_infos, eth_addresses_infos)
+            for key in result:
+                if key.endswith("_addresses_infos"):
+                    addresses_info = result[key]
+                    if isinstance(addresses_info, dict):
+                        for address, addr_data in addresses_info.items():
+                            if "balances" in addr_data:
+                                balances = addr_data["balances"]
+                                
+                                # Handle different balance formats
+                                if isinstance(balances, dict):
+                                    # Platform coin format: {"spendable": "0", "unspendable": "0"}
+                                    if "spendable" in balances:
+                                        # Extract coin from the key name (e.g., bch_addresses_infos -> BCH)
+                                        coin = key.replace("_addresses_infos", "").upper()
+                                        if coin == "ERC20":
+                                            continue  # Skip, will be handled in token section
+                                        
+                                        if coin not in self.collected_addresses[instance_name]:
+                                            self.collected_addresses[instance_name][coin] = {}
+                                            
+                                        spendable = balances.get("spendable", "0")
+                                        unspendable = balances.get("unspendable", "0")
+                                        
+                                        balance_str = spendable
+                                        if unspendable and unspendable != "0":
+                                            balance_str += f" (unspendable: {unspendable})"
+                                            
+                                        self.collected_addresses[instance_name][coin][address] = balance_str
+                                        self.logger.debug(f"Collected address from platform coin: {instance_name}/{coin}/{address}")
+                                    
+                                    # Token format: {"TOKEN-NAME": {"spendable": "0", "unspendable": "0"}}
+                                    else:
+                                        for token_name, token_balance in balances.items():
+                                            if isinstance(token_balance, dict) and "spendable" in token_balance:
+                                                if token_name not in self.collected_addresses[instance_name]:
+                                                    self.collected_addresses[instance_name][token_name] = {}
+                                                    
+                                                spendable = token_balance.get("spendable", "0")
+                                                unspendable = token_balance.get("unspendable", "0")
+                                                
+                                                balance_str = spendable
+                                                if unspendable and unspendable != "0":
+                                                    balance_str += f" (unspendable: {unspendable})"
+                                                    
+                                                self.collected_addresses[instance_name][token_name][address] = balance_str
+                                                self.logger.debug(f"Collected token address: {instance_name}/{token_name}/{address}")
+            
+            # Handle token activation responses (enable_erc20, enable_tendermint_token)
+            if "balances" in result and isinstance(result["balances"], dict):
+                for address, balance_info in result["balances"].items():
+                    # For tokens, try to extract the platform coin from the result
+                    platform_coin = result.get("platform_coin", "UNKNOWN")
+                    
+                    # Assume the response contains the token we just activated
+                    if "spendable" in balance_info:
+                        # Extract token name from request data first, then fallback
+                        token_name = self._extract_ticker_from_request_data(request_data) if request_data else None
+                        if not token_name:
+                            token_name = "TOKEN"  # Final fallback
+                        
+                        if token_name not in self.collected_addresses[instance_name]:
+                            self.collected_addresses[instance_name][token_name] = {}
+                            
+                        spendable = balance_info.get("spendable", "0")
+                        unspendable = balance_info.get("unspendable", "0")
+                        
+                        balance_str = spendable
+                        if unspendable and unspendable != "0":
+                            balance_str += f" (unspendable: {unspendable})"
+                            
+                        self.collected_addresses[instance_name][token_name][address] = balance_str
+                        self.logger.debug(f"Collected token address from activation: {instance_name}/{token_name}/{address}")
+                                                
+        except Exception as e:
+            self.logger.debug(f"Error extracting from activation response: {e}")
+
+    def _extract_ticker_from_request_data(self, request_data: Dict[str, Any]) -> Optional[str]:
+        """Extract ticker from request data for token activation methods."""
+        if not request_data:
+            return None
+            
+        # Check common ticker locations in request
+        if "ticker" in request_data:
+            return request_data["ticker"]
+            
+        # Check in params
+        params = request_data.get("params", {})
+        if isinstance(params, dict):
+            if "ticker" in params:
+                return params["ticker"]
+            if "coin" in params:
+                return params["coin"]
+            
+        # Check direct coin field
+        if "coin" in request_data:
+            return request_data["coin"]
+            
+        return None
+
+    def _reprocess_collected_responses_for_addresses(self):
+        """Reprocess all collected responses to extract any addresses we may have missed during collection."""
+        self.logger.info("🔄 Reprocessing collected responses to extract any missed addresses...")
+        
+        addresses_found = 0
+        for result in self.results:
+            if hasattr(result, 'instance_responses') and result.instance_responses:
+                for instance_name, response_data in result.instance_responses.items():
+                    # Skip error responses
+                    if isinstance(response_data, dict) and "error" not in response_data:
+                        initial_count = sum(len(addresses) for addresses in self.collected_addresses.get(instance_name, {}).values())
+                        
+                        # Extract addresses from this response
+                        method_name = "reprocess"  # Generic method name for reprocessing
+                        self._extract_addresses_from_response(instance_name, method_name, response_data, None)
+                        
+                        final_count = sum(len(addresses) for addresses in self.collected_addresses.get(instance_name, {}).values())
+                        addresses_found += (final_count - initial_count)
+        
+        if addresses_found > 0:
+            self.logger.info(f"🎯 Reprocessing found {addresses_found} additional addresses from existing responses")
+        else:
+            self.logger.debug("📋 No additional addresses found during reprocessing")
+
+    def save_collected_addresses(self):
+        """Save the collected addresses to test_addresses.json."""
+        output_file = self.workspace_root / "postman/generated/reports/test_addresses.json"
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        dump_sorted_json(self.collected_addresses, output_file)
+        
+        # Log summary
+        total_instances = len(self.collected_addresses)
+        total_coins = sum(len(instance_data) for instance_data in self.collected_addresses.values())
+        total_addresses = sum(
+            len(coin_data) for instance_data in self.collected_addresses.values()
+            for coin_data in instance_data.values()
+        )
+        
+        self.logger.info(f"🏦 Collected addresses saved to: {output_file.relative_to(self.workspace_root)}")
+        self.logger.info(f"   Instances: {total_instances}, Coins: {total_coins}, Addresses: {total_addresses}")
+
+    def collect_test_addresses(self) -> Dict[str, Any]:
+        """Collect addresses and balances from all instances for testing purposes."""
+        self.logger.info("🏦 Collecting test addresses and balances...")
+        
+        try:
+            # Import TestAddressesCollector lazily to avoid circular imports
+            try:
+                from .test_addresses_collector import TestAddressesCollector
+            except ImportError:
+                import sys
+                from pathlib import Path
+                sys.path.append(str(Path(__file__).parent))
+                from test_addresses_collector import TestAddressesCollector
+            
+            # Create test addresses collector
+            collector = TestAddressesCollector(self.workspace_root)
+            
+            # Use the KDF instances from this manager
+            addresses_data = collector.collect_all_addresses(KDF_INSTANCES)
+            
+            # Save the report
+            output_file = self.workspace_root / "postman/generated/reports/test_addresses.json"
+            collector.save_test_addresses_report(addresses_data, output_file)
+            
+            # Return summary info
+            total_instances = len(addresses_data)
+            total_coins = sum(len(instance_data) for instance_data in addresses_data.values())
+            total_addresses = sum(
+                len(coin_data) for instance_data in addresses_data.values() 
+                for coin_data in instance_data.values()
+            )
+            
+            summary = {
+                "total_instances": total_instances,
+                "total_coins": total_coins,
+                "total_addresses": total_addresses,
+                "report_file": str(output_file.relative_to(self.workspace_root)),
+                "addresses_data": addresses_data
+            }
+            
+            self.logger.info(f"🏦 Test addresses collection completed:")
+            self.logger.info(f"   Instances: {total_instances}")
+            self.logger.info(f"   Coins: {total_coins}")
+            self.logger.info(f"   Addresses: {total_addresses}")
+            
+            return summary
+            
+        except Exception as e:
+            self.logger.error(f"Error collecting test addresses: {e}")
+            return {
+                "error": str(e),
+                "total_instances": 0,
+                "total_coins": 0,
+                "total_addresses": 0
+            }
 
 
 class KdfResponseValidator:
