@@ -9,7 +9,8 @@ COPY . .
 
 # Build KDF in release mode
 ENV KDF_BUILD_TAG=docker-build
-RUN cargo build --release
+ENV KDF_BRANCH=${KDF_BRANCH:-dev}
+RUN git checkout $KDF_BRANCH && cargo build --release
 
 # Runtime stage
 FROM docker.io/debian:stable-slim
