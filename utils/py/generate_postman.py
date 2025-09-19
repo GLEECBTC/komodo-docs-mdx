@@ -70,8 +70,8 @@ class UnifiedPostmanGenerator:
         # Task ID variables for method groups
         self.task_variables = {}
         
-        # Load configurations
-        self.method_config = self.load_method_config()
+        # Load configurations (keep v2 and legacy separate)
+        self.method_config_v2, self.method_config_legacy = self.load_method_configs()
         self.common_responses = self.load_common_responses()
     
     # ===== COMMON UTILITIES =====
@@ -88,11 +88,27 @@ class UnifiedPostmanGenerator:
             logger.error(f"Invalid JSON in {file_path}: {e}")
             return None
     
-    def load_method_config(self) -> Dict[str, Dict]:
-        """Load method configuration from kdf_methods.json."""
-        config_file = self.workspace_root / "src" / "data" / "kdf_methods.json"
-        config = self.load_json_file(config_file)
-        return config if config else {}
+    def load_method_configs(self) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
+        """Load method configurations separately for v2 and legacy without merging."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+
+        v2_cfg = self.load_json_file(v2_file) or {}
+        legacy_cfg = self.load_json_file(legacy_file) or {}
+
+        # No fallback to old single file; expect split files
+
+        return v2_cfg, legacy_cfg
+
+    def get_method_config(self, method: str, version: Optional[str] = None) -> Dict:
+        """Get method config for a method name, optionally constrained by version."""
+        if version == 'legacy':
+            return self.method_config_legacy.get(method, {})
+        if version == 'v2':
+            return self.method_config_v2.get(method, {})
+        # Fallback search order: v2 then legacy
+        return self.method_config_v2.get(method, self.method_config_legacy.get(method, {}))
     
     def load_common_responses(self) -> Dict[str, Dict]:
         """Load common responses from common.json."""
@@ -100,7 +116,7 @@ class UnifiedPostmanGenerator:
         common_responses = self.load_json_file(common_file)
         return common_responses if common_responses else {}
     
-    def _is_manual_method(self, request_key: str) -> bool:
+    def _is_manual_example(self, request_key: str) -> bool:
         """Check if a method requires manual intervention or external services."""
         manual_patterns = [
             "WalletConnect",  # Requires external wallet connection
@@ -169,15 +185,24 @@ class UnifiedPostmanGenerator:
                 return f"Task{method_part}_TaskId"
         return "DefaultTask_TaskId"
     
-    def get_translated_name(self, request_key: str) -> str:
+    def get_translated_name(self, request_key: str, version: Optional[str] = None) -> str:
         """Get translated name for request key, fallback to original."""
-        for method, config in self.method_config.items():
-            # Skip deprecated methods
-            if config.get('deprecated', False):
-                continue
-            examples = config.get("examples", {})
-            if request_key in examples:
-                return examples[request_key]
+        # Search version-specific config first
+        search_spaces: List[Dict[str, Dict]] = []
+        if version == 'v2':
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+        elif version == 'legacy':
+            search_spaces = [self.method_config_legacy, self.method_config_v2]
+        else:
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+
+        for space in search_spaces:
+            for method, config in space.items():
+                if config.get('deprecated', False):
+                    continue
+                examples = config.get("examples", {})
+                if request_key in examples:
+                    return examples[request_key]
         
         if request_key not in self.untranslated_keys:
             self.untranslated_keys.append(request_key)
@@ -313,14 +338,15 @@ class UnifiedPostmanGenerator:
     
     # ===== VALIDATION =====
     
-    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict]) -> Set[str]:
+    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> Set[str]:
         """Validate request parameters against table definitions and return unused params."""
-        if method not in self.method_config:
-            logger.warning(f"No method config found for method: {method}")
+        method_cfg = self.get_method_config(method, version)
+        if not method_cfg:
+            logger.warning(f"No method config found for method: {method} (version={version})")
             return set()
         
         validation_result = self.table_manager.validate_request_params(
-            request_data, method, self.method_config[method]
+            request_data, method, method_cfg
         )
         
         if validation_result:
@@ -390,13 +416,13 @@ class UnifiedPostmanGenerator:
         """Track a missing table by type."""
         self.table_manager.track_missing_table(method, table_type)
 
-    def generate_table_markdown(self, method: str, tables: Dict[str, Dict]) -> str:
+    def generate_table_markdown(self, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> str:
         """Generate markdown table from table data for method."""
-        if method not in self.method_config:
+        if not self.get_method_config(method, version):
             # Method not defined - will be tracked in missing_methods.json
             return ""
         
-        return self.table_manager.generate_table_markdown(method, self.method_config[method])
+        return self.table_manager.generate_table_markdown(method, self.get_method_config(method, version))
     
     # ===== POSTMAN REQUEST CREATION =====
     
@@ -411,7 +437,7 @@ class UnifiedPostmanGenerator:
         if method_examples and len(method_examples) > 1:
             translated_name = method
         else:
-            translated_name = self.get_translated_name(request_key)
+            translated_name = self.get_translated_name(request_key, version)
         
         # Add environment suffix for environment-specific collections
         if environment and environment != "standard":
@@ -431,7 +457,7 @@ class UnifiedPostmanGenerator:
             processed_data = self.replace_task_id(processed_data, task_var_name)
         
         # Generate description with table markdown
-        description = self.generate_table_markdown(method, tables)
+        description = self.generate_table_markdown(method, tables, version)
         
         # Add environment-specific description notes
         if environment:
@@ -656,7 +682,7 @@ pm.test("Capture task_id", function () {{
                 for request_key, request_data in requests_data.items():
                     method = request_data.get("method")
                     if method:
-                        method_config = self.method_config.get(method, {})
+                        method_config = self.get_method_config(method, version)
                         if method_config.get('deprecated', False):
                             continue  # Skip deprecated methods
                     filtered_requests_data[request_key] = request_data
@@ -665,16 +691,16 @@ pm.test("Capture task_id", function () {{
                 for request_key, request_data in filtered_requests_data.items():
                     method = request_data.get("method")
                     if method:
-                        unused = self.validate_request_params(request_data, method, tables)
+                        unused = self.validate_request_params(request_data, method, tables, version)
                         if unused:
                             self.unused_params[method] = list(unused)
                     
                     if not self.check_response_exists(request_key, version):
                         # Skip deprecated methods from missing responses report
-                        method_config = self.method_config.get(method, {})
+                        method_config = self.get_method_config(method, version)
                         if not method_config.get('deprecated', False):
                             # Skip manual/external methods that can't be automated
-                            if self._is_manual_method(request_key):
+                            if self._is_manual_example(request_key):
                                 continue
                             if method not in self.missing_responses:
                                 self.missing_responses[method] = []
@@ -736,7 +762,7 @@ pm.test("Capture task_id", function () {{
         for request_key, request_info in request_data.items():
             method = request_info.get('method')
             if method:
-                method_config = self.method_config.get(method, {})
+                method_config = self.get_method_config(method, 'v2')
                 if method_config.get('deprecated', False):
                     continue  # Skip deprecated methods
             filtered_request_data[request_key] = request_info
@@ -852,9 +878,10 @@ pm.test("Capture task_id", function () {{
         """
         # Get set of deprecated methods
         deprecated_methods = set()
-        for method_name, method_config in self.method_config.items():
-            if method_config.get('deprecated', False):
-                deprecated_methods.add(method_name)
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
+                if method_config.get('deprecated', False):
+                    deprecated_methods.add(method_name)
         
         # Load all request and response data from all files
         for version in ['v2', 'legacy']:
@@ -906,12 +933,12 @@ pm.test("Capture task_id", function () {{
             if missing_requests_for_version:
                 self.missing_requests[version] = sorted(missing_requests_for_version)
             
-            # Find missing methods (requests without method definitions in kdf_methods.json)
+            # Find missing methods (requests without method definitions in version-specific config)
             for request_key, request_data in requests_data.items():
                 if isinstance(request_data, dict) and "method" in request_data:
                     method_name = request_data["method"]
                     # Skip deprecated methods
-                    if method_name not in deprecated_methods and method_name not in self.method_config:
+                    if method_name not in deprecated_methods and not self.get_method_config(method_name, version):
                         if method_name not in self.missing_methods:
                             self.missing_methods.append(method_name)
         
@@ -920,13 +947,14 @@ pm.test("Capture task_id", function () {{
     
     def detect_missing_response_and_error_tables(self) -> None:
         """Detect missing response and error tables for all methods."""
-        for method_name, method_config in self.method_config.items():
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
             # Skip deprecated methods
-            if method_config.get('deprecated', False):
-                continue
+                if method_config.get('deprecated', False):
+                    continue
             
-            # Use TableManager to validate all table references
-            self.table_manager.validate_method_tables(method_name, method_config)
+                # Use TableManager to validate all table references
+                self.table_manager.validate_method_tables(method_name, method_config)
     
     def save_reports(self, reports_dir: Path) -> None:
         """Save validation reports with consistent alphabetical sorting.
@@ -999,9 +1027,9 @@ pm.test("Capture task_id", function () {{
                 
                 for request_key, request_data in requests_data.items():
                     method = request_data.get("method")
-                    if method and method not in self.method_config:
-                        # Check if method exists in config but is deprecated
-                        existing_config = self.method_config.get(method, {})
+                    if method and not self.get_method_config(method, version_dir.name):
+                        # Check if method exists in either config but is deprecated
+                        existing_config = self.get_method_config(method)
                         if existing_config.get('deprecated', False):
                             continue  # Skip deprecated methods
                             
@@ -1127,13 +1155,12 @@ pm.test("Capture task_id", function () {{
         return repair_plan
     
     def _save_method_config(self):
-        """Save the updated method configuration back to file."""
-        config_file = self.workspace_root / "src" / "data" / "kdf_methods.json"
-        
-        # Sort the methods alphabetically for better organization
-        sorted_config = dict(sorted(self.method_config.items()))
-        
-        dump_sorted_json(sorted_config, config_file)
+        """Save the updated method configurations back to their respective files."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+        dump_sorted_json(dict(sorted(self.method_config_legacy.items())), legacy_file)
+        dump_sorted_json(dict(sorted(self.method_config_v2.items())), v2_file)
     
     # ===== MAIN GENERATION METHODS =====
     
@@ -1300,6 +1327,20 @@ pm.test("Capture task_id", function () {{
             "generated_files": generated_files,
             "reports": reports_data
         }
+        # Attempt to include KDF version if accessible
+        try:
+            import requests  # type: ignore
+            # Try default local instance
+            resp = requests.post("http://127.0.0.1:7783", json={"mmrpc": "2.0", "method": "version", "userpass": "RPC_UserP@SSW0RD"}, timeout=3)
+            if resp.status_code == 200:
+                data = resp.json()
+                if isinstance(data, dict):
+                    if isinstance(data.get("result"), dict) and data["result"].get("version"):
+                        summary["kdf_version"] = str(data["result"]["version"]) 
+                    elif isinstance(data.get("result"), str):
+                        summary["kdf_version"] = data["result"]
+        except Exception:
+            pass
         
         summary_file = output_dir / "generation_summary.json"
         dump_sorted_json(summary, summary_file)
@@ -1384,7 +1425,7 @@ Examples:
     
     # Configure logging
     if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.INFO)
     
     try:
         generator = UnifiedPostmanGenerator(args.workspace)

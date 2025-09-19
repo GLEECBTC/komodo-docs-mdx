@@ -71,7 +71,7 @@ class CoinsConfigManager:
                 if time.time() - cache_time < self._cache_duration:
                     self._coins_config = cache_data.get('data', {})
                     self._last_fetch_time = cache_time
-                    self.logger.debug(f"Loaded coins config from cache ({len(self._coins_config)} coins)")
+                    self.logger.info(f"Loaded coins config from cache ({len(self._coins_config)} coins)")
                     return
                     
             except Exception as e:
@@ -94,7 +94,7 @@ class CoinsConfigManager:
             with open(cache_file, 'w', encoding='utf-8') as f:
                 json.dump(cache_data, f, indent=2)
                 
-            self.logger.debug(f"Saved coins config to cache")
+            self.logger.info(f"Saved coins config to cache")
             
         except Exception as e:
             self.logger.warning(f"Failed to save coins config to cache: {e}")

@@ -1,0 +1,86 @@
+{
+  "electrum": {
+    "errors_table": "",
+    "examples": {
+      "LegacyElectrumBch": "Electrum Bch",
+      "LegacyElectrumKmd": "Electrum Kmd",
+      "LegacyElectrumQtum": "Electrum Qtum"
+    },
+    "prerequisites": [],
+    "request_table": "ElectrumArguments",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "",
+    "sequence": 25,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "version": {
+    "errors_table": "",
+    "examples": {
+      "LegacyVersion": "Version"
+    },
+    "prerequisites": [],
+    "request_table": "NoParams",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "VersionResponse",
+    "sequence": 25,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "enable": {
+    "errors_table": "",
+    "examples": {
+      "LegacyEnableBnb": "Enable BNB Token (Legacy)",
+      "LegacyEnableEth": "Enable Ethereum Token (Legacy)",
+      "LegacyEnableEthGasStation": "Enable Ethereum Token (Legacy) with Gas Station",
+      "LegacyEnableMatic": "Enable Matic Token (Legacy)",
+      "LegacyEnableNative": "Enable UTXO coin with local blockchain data",
+      "LegacyEnableNativeWithParams": "Enable UTXO coin with local blockchain data with basic parameters"
+    },
+    "prerequisites": [],
+    "request_table": "EnableArguments",
+    "requirements": {
+      "conditional_params": {
+        "hd_only": [
+          "gap_limit",
+          "min_addresses_number",
+          "path_to_address",
+          "scan_policy"
+        ],
+        "non_hd_only": []
+      },
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "",
+    "sequence": 25,
+    "tags": [
+      "legacy"
+    ]
+  }
+}

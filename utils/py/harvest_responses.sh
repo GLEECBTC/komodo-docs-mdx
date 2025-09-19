@@ -22,6 +22,9 @@ fi
 echo "📦 Activating Python virtual environment..."
 source utils/py/.venv/bin/activate
 
+# Set KDF branch
+export KDF_BRANCH="dev"
+
 # Start KDF Docker services
 echo "🐳 Starting KDF Docker services..."
 docker compose up kdf-native-hd kdf-native-nonhd -d
@@ -39,9 +42,9 @@ echo "📋 Generating Postman collections..."
 python utils/py/generate_postman.py --all
 
 # Run comprehensive response collection (includes address collection)
-echo "🔍 Collecting responses from all methods..."
-cd utils/py && python lib/managers/responses_manager.py && cd ../..
-echo "🏦 Address collection integrated into response harvesting"
+echo "🔍 Collecting responses with sequence-based processing..."
+cd utils/py && python lib/managers/sequence_responses_manager.py --update-files && cd ../..
+echo "🏦 Address collection integrated into sequence-based response harvesting"
 
 # Clean up old reports in postman/reports/ (if they exist)
 echo "🧹 Cleaning up old Newman reports..."

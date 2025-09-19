@@ -12,16 +12,16 @@ import logging
 from pathlib import Path
 from typing import List
 
-# Import from responses_manager to reuse existing functionality
+# Import from kdf_responses_manager to reuse existing functionality
 sys.path.append(str(Path(__file__).parent / "lib"))
-from managers.responses_manager import UnifiedResponseManager, KDFInstance, KDF_INSTANCES
+from managers.kdf_responses_manager import KdfResponseManager, KDFInstance, KDF_INSTANCES
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
-def get_enabled_coins_from_instance(manager: UnifiedResponseManager, instance: KDFInstance) -> List[str]:
+def get_enabled_coins_from_instance(manager: KdfResponseManager, instance: KDFInstance) -> List[str]:
     """Get list of enabled coins from a KDF instance."""
     request = {
         "userpass": instance.userpass,
@@ -67,7 +67,7 @@ def clean_slate():
     logger.info("🧹 Starting clean slate process...")
     
     # Create a manager instance to reuse existing functionality
-    manager = UnifiedResponseManager()
+    manager = KdfResponseManager()
     total_disabled = 0
     
     for instance in KDF_INSTANCES:

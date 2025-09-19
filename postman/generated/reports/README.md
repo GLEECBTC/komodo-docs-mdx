@@ -44,7 +44,7 @@ This directory contains validation reports generated during the Postman collecti
 **Structure**: Array of method names missing table definitions.
 
 **How to Fix**:
-- Add method configuration to `src/data/kdf_methods.json` with table reference
+- Add method configuration to `src/data/kdf_methods_v2.json` or `src/data/kdf_methods_legacy.json` with table reference
 - Create parameter tables in `src/data/tables/` directories:
   - Common structures: `src/data/tables/common-structures/`
   - V2 methods: `src/data/tables/v2/`
@@ -52,7 +52,7 @@ This directory contains validation reports generated during the Postman collecti
 
 **Example Fix**:
 ```json
-// In src/data/kdf_methods.json
+// In src/data/kdf_methods_v2.json
 {
   "enable_erc20": {
     "table": "EnableErc20Request",
@@ -84,12 +84,12 @@ This directory contains validation reports generated during the Postman collecti
 **Structure**: Array of untranslated request keys.
 
 **How to Fix**:
-- Add translations to the `examples` section in `src/data/kdf_methods.json`
+- Add translations to the `examples` section in `src/data/kdf_methods_v2.json` or `src/data/kdf_methods_legacy.json`
 - Use descriptive, user-friendly names that explain what the example demonstrates
 
 **Example Fix**:
 ```json
-// In src/data/kdf_methods.json
+// In src/data/kdf_methods_v2.json
 {
   "task::enable_utxo::init": {
     "table": "TaskEnableUtxoInitRequest",
@@ -176,7 +176,7 @@ Update table definitions to indicate optional parameters:
 - **Legacy Methods**: `src/data/tables/legacy/*.json`
 
 ### Method Configuration
-- **All Methods**: `src/data/kdf_methods.json`
+- **All Methods**: `src/data/kdf_methods_v2.json` and `src/data/kdf_methods_legacy.json`
 
 ## Workflow for Fixing Issues
 

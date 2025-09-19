@@ -1,1 +1,15 @@
-{}
+{
+  "consolidate_utxos": [
+    "ConsolidateUtxos"
+  ],
+  "version": [
+    "LegacyVersion"
+  ],
+  "withdraw": [
+    "WithdrawMarty",
+    "WithdrawMartyAccountId",
+    "WithdrawMartyDerivationPath",
+    "WithdrawMartyFixedFee",
+    "WithdrawMartyPerKbyte"
+  ]
+}

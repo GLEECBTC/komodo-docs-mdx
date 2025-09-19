@@ -20,12 +20,15 @@ from dataclasses import dataclass
 try:
     # Try relative import first (when used as module)
     from .coins_config_manager import CoinsConfigManager, CoinProtocolInfo
+    from ..models.kdf_method import extract_ticker_from_request
 except ImportError:
     # Fall back to absolute import (when run directly)
     import sys
     from pathlib import Path
     sys.path.append(str(Path(__file__).parent))
     from coins_config_manager import CoinsConfigManager, CoinProtocolInfo
+    sys.path.append(str(Path(__file__).parent.parent))
+    from models.kdf_method import extract_ticker_from_request
 
 logger = logging.getLogger(__name__)
 
@@ -93,8 +96,210 @@ class ActivationRequestBuilder:
             else:
                 selected_servers.extend(random.sample(regular_servers, remaining_slots))
         
-        self.logger.debug(f"Selected {len(selected_servers)} servers from {len(servers)} available")
+        self.logger.info(f"Selected {len(selected_servers)} servers from {len(servers)} available")
         return selected_servers
+
+    # Public wrappers for reuse outside activation requests
+    def select_preferred_servers(self, servers: List[Dict[str, Any]], max_count: int = 3) -> List[Dict[str, Any]]:
+        """Public helper to select preferred servers (cipig/komodo prioritized)."""
+        return self._select_preferred_servers(servers, max_count)
+
+    def select_preferred_urls(self, urls: List[str], max_count: int = 3) -> List[str]:
+        """Select up to max_count URLs, preferring cipig/komodo domains."""
+        if len(urls) <= max_count:
+            return urls
+        priority_urls: List[str] = []
+        regular_urls: List[str] = []
+        for url in urls:
+            if isinstance(url, str) and ("cipig" in url.lower() or "komodo" in url.lower()):
+                priority_urls.append(url)
+            else:
+                regular_urls.append(url)
+        selected: List[str] = []
+        if priority_urls:
+            if len(priority_urls) <= max_count:
+                selected.extend(priority_urls)
+            else:
+                selected.extend(random.sample(priority_urls, max_count))
+        remaining = max_count - len(selected)
+        if remaining > 0 and regular_urls:
+            if len(regular_urls) <= remaining:
+                selected.extend(regular_urls)
+            else:
+                selected.extend(random.sample(regular_urls, remaining))
+        return selected
+
+    # -------- Generic request node update helpers (for CLI/tools reuse) --------
+
+    def update_tendermint_nodes_in_request(self, request_data: Dict[str, Any], protocol_info: CoinProtocolInfo, ticker: str) -> bool:
+        if not protocol_info.rpc_urls:
+            self.logger.warning(f"No rpc_urls found for Tendermint ticker '{ticker}' in coins configuration")
+            return False
+        selected_rpc_urls = self.select_preferred_servers(protocol_info.rpc_urls, max_count=3)
+        new_nodes: List[Dict[str, Any]] = []
+        for rpc_url in selected_rpc_urls:
+            node: Dict[str, Any] = {"url": rpc_url.get("url")}
+            for field in ['api_url', 'grpc_url', 'ws_url', 'komodo_proxy']:
+                if rpc_url.get(field):
+                    node[field] = rpc_url.get(field)
+            if node.get("url"):
+                new_nodes.append(node)
+        if 'params' in request_data and isinstance(request_data['params'], dict):
+            params = request_data['params']
+            if 'nodes' in params:
+                old_nodes = params['nodes']
+                params['nodes'] = new_nodes
+                self.logger.info(f"Updated Tendermint nodes for '{ticker}': {len(old_nodes)} -> {len(new_nodes)} nodes")
+                return True
+        if 'nodes' in request_data:
+            old_nodes = request_data['nodes']
+            request_data['nodes'] = new_nodes
+            self.logger.info(f"Updated Tendermint nodes for '{ticker}': {len(old_nodes)} -> {len(new_nodes)} nodes")
+            return True
+        return False
+
+    def update_utxo_electrum_in_request(self, request_data: Dict[str, Any], protocol_info: CoinProtocolInfo, ticker: str) -> bool:
+        if not protocol_info.electrum:
+            self.logger.warning(f"No electrum servers found for UTXO ticker '{ticker}' in coins configuration")
+            return False
+        selected = self.select_preferred_servers(protocol_info.electrum, max_count=3)
+        new_servers: List[Dict[str, Any]] = []
+        for e in selected:
+            server: Dict[str, Any] = {"url": e.get("url")}
+            if e.get('protocol'):
+                server['protocol'] = e.get('protocol')
+            for field in ['ws_url', 'disable_cert_verification']:
+                if e.get(field) is not None:
+                    server[field] = e.get(field)
+            new_servers.append(server)
+        if 'params' in request_data and isinstance(request_data['params'], dict):
+            params = request_data['params']
+            if 'activation_params' in params and 'mode' in params['activation_params']:
+                mode = params['activation_params']['mode']
+                if 'rpc_data' in mode and 'servers' in mode['rpc_data']:
+                    old = mode['rpc_data']['servers']
+                    mode['rpc_data']['servers'] = new_servers
+                    self.logger.info(f"Updated UTXO electrum servers for '{ticker}': {len(old)} -> {len(new_servers)} servers")
+                    return True
+            if 'mode' in params and 'rpc_data' in params['mode'] and 'servers' in params['mode']['rpc_data']:
+                old = params['mode']['rpc_data']['servers']
+                params['mode']['rpc_data']['servers'] = new_servers
+                self.logger.info(f"Updated UTXO electrum servers for '{ticker}': {len(old)} -> {len(new_servers)} servers")
+                return True
+        else:
+            if request_data.get('method') == 'electrum' and 'servers' in request_data:
+                old = request_data['servers']
+                request_data['servers'] = new_servers
+                self.logger.info(f"Updated UTXO electrum servers for '{ticker}': {len(old)} -> {len(new_servers)} servers")
+                return True
+            if request_data.get('method') == 'enable' and 'urls' in request_data:
+                old = request_data['urls']
+                request_data['urls'] = [s['url'] for s in new_servers]
+                self.logger.info(f"Updated UTXO electrum urls for '{ticker}': {len(old)} -> {len(new_servers)} servers")
+                return True
+        return False
+
+    def update_zhtlc_in_request(self, request_data: Dict[str, Any], protocol_info: CoinProtocolInfo, ticker: str) -> bool:
+        updated = False
+        # light_wallet_d_servers
+        light_servers: List[str] = []
+        try:
+            if hasattr(protocol_info, 'light_wallet_d_servers') and protocol_info.light_wallet_d_servers:
+                light_servers = self.select_preferred_urls(protocol_info.light_wallet_d_servers, max_count=3)
+        except Exception:
+            pass
+        if light_servers:
+            if 'params' in request_data and isinstance(request_data['params'], dict):
+                params = request_data['params']
+                if 'activation_params' in params and 'mode' in params['activation_params']:
+                    mode = params['activation_params']['mode']
+                    if 'rpc_data' in mode and 'light_wallet_d_servers' in mode['rpc_data']:
+                        old = mode['rpc_data']['light_wallet_d_servers']
+                        mode['rpc_data']['light_wallet_d_servers'] = light_servers
+                        self.logger.info(f"Updated ZHTLC light_wallet_d_servers for '{ticker}': {len(old)} -> {len(light_servers)} servers")
+                        updated = True
+                elif 'mode' in params and 'rpc_data' in params['mode'] and 'light_wallet_d_servers' in params['mode']['rpc_data']:
+                    old = params['mode']['rpc_data']['light_wallet_d_servers']
+                    params['mode']['rpc_data']['light_wallet_d_servers'] = light_servers
+                    self.logger.info(f"Updated ZHTLC light_wallet_d_servers for '{ticker}': {len(old)} -> {len(light_servers)} servers")
+                    updated = True
+        # electrum_servers
+        if protocol_info.electrum:
+            selected = self.select_preferred_servers(protocol_info.electrum, max_count=3)
+            new_electrum: List[Dict[str, Any]] = []
+            for e in selected:
+                server: Dict[str, Any] = {"url": e.get("url")}
+                if e.get('protocol'):
+                    server['protocol'] = e.get('protocol')
+                if e.get('ws_url'):
+                    server['ws_url'] = e.get('ws_url')
+                new_electrum.append(server)
+            if 'params' in request_data and isinstance(request_data['params'], dict):
+                params = request_data['params']
+                if 'activation_params' in params and 'mode' in params['activation_params']:
+                    mode = params['activation_params']['mode']
+                    if 'rpc_data' in mode and 'electrum_servers' in mode['rpc_data']:
+                        old = mode['rpc_data']['electrum_servers']
+                        mode['rpc_data']['electrum_servers'] = new_electrum
+                        self.logger.info(f"Updated ZHTLC electrum_servers for '{ticker}': {len(old)} -> {len(new_electrum)} servers")
+                        updated = True
+                elif 'mode' in params and 'rpc_data' in params['mode'] and 'electrum_servers' in params['mode']['rpc_data']:
+                    old = params['mode']['rpc_data']['electrum_servers']
+                    params['mode']['rpc_data']['electrum_servers'] = new_electrum
+                    self.logger.info(f"Updated ZHTLC electrum_servers for '{ticker}': {len(old)} -> {len(new_electrum)} servers")
+                    updated = True
+        return updated
+
+    def update_eth_nodes_in_request(self, request_data: Dict[str, Any], protocol_info: CoinProtocolInfo, ticker: str) -> bool:
+        if not protocol_info.nodes:
+            self.logger.warning(f"No nodes found for ETH ticker '{ticker}' in coins configuration")
+            return False
+        selected = self.select_preferred_servers(protocol_info.nodes, max_count=3)
+        new_nodes: List[Dict[str, Any]] = []
+        for n in selected:
+            node: Dict[str, Any] = {"url": n.get("url")}
+            for field in ['ws_url', 'komodo_proxy']:
+                if n.get(field):
+                    node[field] = n.get(field)
+            new_nodes.append(node)
+        if 'params' in request_data and isinstance(request_data['params'], dict):
+            params = request_data['params']
+            if 'nodes' in params:
+                old = params['nodes']
+                params['nodes'] = new_nodes
+                self.logger.info(f"Updated ETH nodes for '{ticker}': {len(old)} -> {len(new_nodes)} nodes")
+                return True
+        if 'nodes' in request_data:
+            old = request_data['nodes']
+            request_data['nodes'] = new_nodes
+            self.logger.info(f"Updated ETH nodes for '{ticker}': {len(old)} -> {len(new_nodes)} nodes")
+            return True
+        if request_data.get('method') == 'enable' and 'urls' in request_data:
+            old_urls = request_data['urls']
+            request_data['urls'] = [i['url'] for i in new_nodes]
+            self.logger.info(f"Updated ETH urls for '{ticker}': {len(old_urls)} -> {len(new_nodes)} nodes")
+            return True
+        return False
+
+    def update_nodes_in_request(self, request_data: Dict[str, Any], request_name: str = "Unknown") -> bool:
+        ticker = extract_ticker_from_request(request_data)
+        if not ticker:
+            self.logger.info(f"No ticker found in request '{request_name}'")
+            return False
+        ticker_upper = str(ticker).upper()
+        protocol_info = self.coins_config.get_protocol_info(ticker_upper)
+        protocol = protocol_info.protocol_type or 'UNKNOWN'
+        self.logger.info(f"Detected protocol '{protocol}' for ticker '{ticker_upper}' via CoinsConfigManager")
+        if protocol == 'TENDERMINT':
+            return self.update_tendermint_nodes_in_request(request_data, protocol_info, ticker_upper)
+        if protocol == 'UTXO':
+            return self.update_utxo_electrum_in_request(request_data, protocol_info, ticker_upper)
+        if protocol == 'ZHTLC':
+            return self.update_zhtlc_in_request(request_data, protocol_info, ticker_upper)
+        if protocol == 'ETH':
+            return self.update_eth_nodes_in_request(request_data, protocol_info, ticker_upper)
+        self.logger.warning(f"Unknown or unsupported protocol '{protocol}' for ticker '{ticker_upper}'")
+        return False
 
 
     def _normalize_eth_nodes(self, nodes: Optional[List[Any]]) -> List[Dict[str, str]]:
@@ -491,7 +696,7 @@ class ActivationManager:
                         return
                         
             except Exception as e:
-                self.logger.debug(f"Polling error for {ticker}: {e}")
+                self.logger.info(f"Polling error for {ticker}: {e}")
                 # Continue polling on transient errors
                 
             poll_count += 1
@@ -596,8 +801,13 @@ class ActivationManager:
             # Handle task-based methods
             if activation_request.is_task:
                 task_id = None
-                if isinstance(response, dict):
-                    result = response.get("result")
+                # Extract response dict from tuple if needed
+                response_dict = response
+                if isinstance(response, tuple) and len(response) >= 2:
+                    response_dict = response[1]
+                
+                if isinstance(response_dict, dict):
+                    result = response_dict.get("result")
                     if isinstance(result, dict):
                         task_id = result.get("task_id")
                 

@@ -442,7 +442,7 @@ The generator reads from the following data sources in the workspace:
 - `src/data/requests/kdf/` - Request examples organized by API version
 - `src/data/responses/kdf/` - Response examples and common response templates  
 - `src/data/tables/` - Parameter documentation tables
-- `src/data/kdf_methods.json` - Method configuration and translations
+- `src/data/kdf_methods_v2.json` and `src/data/kdf_methods_legacy.json` - Method configuration and translations (split by version)
 
 ## Environment-Specific Adaptations
 

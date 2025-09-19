@@ -26,21 +26,38 @@ class KdfMethodsMetadataValidator:
     def __init__(self, workspace_root: Path = None):
         """Initialize the validator."""
         self.workspace_root = workspace_root or Path(__file__).parent.parent.parent
-        self.kdf_methods_file = self.workspace_root / "src/data/kdf_methods.json"
+        # Support new split files; operate on both without merging on disk
+        self.kdf_methods_dir = self.workspace_root / "src/data"
+        self.v2_file = self.kdf_methods_dir / "kdf_methods_v2.json"
+        self.legacy_file = self.kdf_methods_dir / "kdf_methods_legacy.json"
         self.kdf_methods = self._load_kdf_methods()
         self.fixes_applied = []
         self.errors = []
         self.warnings = []
     
     def _load_kdf_methods(self) -> Dict[str, Any]:
-        """Load KDF methods configuration."""
+        """Load KDF methods configuration from both v2 and legacy files."""
+        methods: Dict[str, Any] = {}
         try:
-            if self.kdf_methods_file.exists():
-                with open(self.kdf_methods_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            else:
-                self.warnings.append(f"KDF methods file not found: {self.kdf_methods_file}")
-                return {}
+            if self.legacy_file.exists():
+                with open(self.legacy_file, 'r', encoding='utf-8') as f:
+                    legacy_cfg = json.load(f)
+                    for name, cfg in legacy_cfg.items():
+                        if name in methods:
+                            methods[f"legacy::{name}"] = cfg
+                        else:
+                            methods[name] = cfg
+            if self.v2_file.exists():
+                with open(self.v2_file, 'r', encoding='utf-8') as f:
+                    v2_cfg = json.load(f)
+                    for name, cfg in v2_cfg.items():
+                        if name in methods:
+                            methods[f"v2::{name}"] = cfg
+                        else:
+                            methods[name] = cfg
+            if not methods:
+                self.warnings.append("No kdf_methods_v2.json or kdf_methods_legacy.json found; nothing to validate")
+            return methods
         except Exception as e:
             self.errors.append(f"Error loading KDF methods: {e}")
             return {}
@@ -121,8 +138,18 @@ class KdfMethodsMetadataValidator:
         
         # Save the file if it was modified
         if methods_modified:
-            dump_sorted_json(self.kdf_methods, self.kdf_methods_file)
-            print(f"✅ Fixed {self.kdf_methods_file}")
+            # Split and save back to their respective files based on tags
+            v2_methods: Dict[str, Any] = {}
+            legacy_methods: Dict[str, Any] = {}
+            for name, cfg in self.kdf_methods.items():
+                tags = (cfg or {}).get('tags', [])
+                if 'legacy' in tags and 'v2' not in tags:
+                    legacy_methods[name] = cfg
+                else:
+                    v2_methods[name] = cfg
+            dump_sorted_json(v2_methods, self.v2_file)
+            dump_sorted_json(legacy_methods, self.legacy_file)
+            print(f"✅ Fixed {self.v2_file} and {self.legacy_file}")
         
         return methods_modified
     

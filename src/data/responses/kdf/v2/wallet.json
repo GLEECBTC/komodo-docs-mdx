@@ -1,0 +1,64 @@
+{
+  "ConsolidateUtxos": {
+    "error": [],
+    "success": []
+  },
+  "FetchUtxos": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "addresses": [
+              {
+                "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/2",
+                "utxos": [
+                  {
+                    "txid": "7ec96b2d0abac2edaafaa434f20106ac64a689d6d774fcdd69997c2ead59d66e",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              },
+              {
+                "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/1",
+                "utxos": [
+                  {
+                    "txid": "31896165d0f4dbf2dbfaff409af976634ac16fab69440ace7652a1fcd5bc9af1",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              },
+              {
+                "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/0",
+                "utxos": [
+                  {
+                    "txid": "29d5bcb128f0de67fdd9f5c5afee8cef7b48e05b07822ec56aa3874b8f408a37",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              }
+            ],
+            "total_count": 3
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawMartyAccountId": {
+    "error": [],
+    "success": []
+  }
+}

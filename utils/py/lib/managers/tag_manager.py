@@ -36,16 +36,47 @@ class TagManager:
         self.kdf_methods_path = Path(kdf_methods_path)
         self.requests_base_path = Path(requests_base_path)
         self.kdf_methods = {}
+        # Track which file each method came from for saving
+        self._method_source: Dict[str, Path] = {}
         self.request_data = {}
         
         self._load_data()
     
     def _load_data(self) -> None:
-        """Load KDF methods and request data from files."""
+        """Load KDF methods and request data from files.
+        
+        Supports either a single file path or a directory containing
+        kdf_methods_v2.json and kdf_methods_legacy.json. Methods are
+        preserved from both files without merging on disk; in-memory we
+        combine for analysis while tracking the source file for each method.
+        """
         try:
-            # Load KDF methods
-            with open(self.kdf_methods_path, 'r') as f:
-                self.kdf_methods = json.load(f)
+            methods: Dict[str, Any] = {}
+            if self.kdf_methods_path.is_dir():
+                v2_file = self.kdf_methods_path / "kdf_methods_v2.json"
+                legacy_file = self.kdf_methods_path / "kdf_methods_legacy.json"
+                if legacy_file.exists():
+                    with open(legacy_file, 'r') as f:
+                        legacy_methods = json.load(f)
+                        methods.update(legacy_methods)
+                        for m in legacy_methods.keys():
+                            self._method_source[m] = legacy_file
+                if v2_file.exists():
+                    with open(v2_file, 'r') as f:
+                        v2_methods = json.load(f)
+                        # v2 methods are distinct; if overlaps, track v2 as the source
+                        methods.update(v2_methods)
+                        for m in v2_methods.keys():
+                            self._method_source[m] = v2_file
+                if not methods:
+                    raise FileNotFoundError(f"No methods files found in {self.kdf_methods_path}")
+            else:
+                with open(self.kdf_methods_path, 'r') as f:
+                    methods = json.load(f)
+                    for m in methods.keys():
+                        self._method_source[m] = self.kdf_methods_path
+            
+            self.kdf_methods = methods
             logger.info(f"Loaded {len(self.kdf_methods)} KDF methods")
             
             # Load request data from all request files
@@ -68,7 +99,7 @@ class TagManager:
                     file_data = json.load(f)
                     # Merge all request examples into a single dict
                     self.request_data.update(file_data)
-                    logger.debug(f"Loaded {len(file_data)} requests from {request_file}")
+                    logger.info(f"Loaded {len(file_data)} requests from {request_file}")
             except Exception as e:
                 logger.warning(f"Error loading request file {request_file}: {e}")
         
@@ -358,23 +389,56 @@ class TagManager:
             updated_methods: The updated methods data
         """
         try:
-            # Create backup
-            backup_path = self.kdf_methods_path.with_suffix('.json.backup')
-            with open(backup_path, 'w') as f:
-                json.dump(self.kdf_methods, f, indent=2)
-            logger.info(f"Created backup at {backup_path}")
-            
-            # Save updated data
-            with open(self.kdf_methods_path, 'w') as f:
-                json.dump(updated_methods, f, indent=2)
-            logger.info(f"Updated KDF methods file: {self.kdf_methods_path}")
-            
-            # Update internal data
-            self.kdf_methods = updated_methods
-            
+            if self.kdf_methods_path.is_dir():
+                v2_file = self.kdf_methods_path / "kdf_methods_v2.json"
+                legacy_file = self.kdf_methods_path / "kdf_methods_legacy.json"
+                # Split by original source; default to v2 if unknown
+                v2_methods: Dict[str, Any] = {}
+                legacy_methods: Dict[str, Any] = {}
+                for name, data in updated_methods.items():
+                    src = self._method_source.get(name)
+                    if src and src == legacy_file:
+                        legacy_methods[name] = data
+                    else:
+                        v2_methods[name] = data
+                # Backups
+                if legacy_file.exists():
+                    with open(legacy_file.with_suffix('.json.backup'), 'w') as f:
+                        json.dump(self._read_json_safe(legacy_file), f, indent=2)
+                    logger.info(f"Created backup at {legacy_file.with_suffix('.json.backup')}")
+                if v2_file.exists():
+                    with open(v2_file.with_suffix('.json.backup'), 'w') as f:
+                        json.dump(self._read_json_safe(v2_file), f, indent=2)
+                    logger.info(f"Created backup at {v2_file.with_suffix('.json.backup')}")
+                # Save
+                with open(legacy_file, 'w') as f:
+                    json.dump(legacy_methods, f, indent=2)
+                logger.info(f"Updated KDF methods file: {legacy_file}")
+                with open(v2_file, 'w') as f:
+                    json.dump(v2_methods, f, indent=2)
+                logger.info(f"Updated KDF methods file: {v2_file}")
+                # Update internal data
+                self.kdf_methods = {**legacy_methods, **v2_methods}
+            else:
+                # Single file mode (backward compatibility)
+                backup_path = self.kdf_methods_path.with_suffix('.json.backup')
+                with open(backup_path, 'w') as f:
+                    json.dump(self.kdf_methods, f, indent=2)
+                logger.info(f"Created backup at {backup_path}")
+                with open(self.kdf_methods_path, 'w') as f:
+                    json.dump(updated_methods, f, indent=2)
+                logger.info(f"Updated KDF methods file: {self.kdf_methods_path}")
+                self.kdf_methods = updated_methods
         except Exception as e:
             logger.error(f"Error saving updated methods: {e}")
             raise
+
+    def _read_json_safe(self, file_path: Path) -> Dict[str, Any]:
+        try:
+            with open(file_path, 'r') as f:
+                return json.load(f)
+        except Exception:
+            return {}
     
     def get_tag_statistics(self) -> Dict[str, Any]:
         """
@@ -452,7 +516,7 @@ def main():
     args = parser.parse_args()
     
     # Setup logging
-    log_level = logging.DEBUG if args.verbose else logging.INFO
+    log_level = logging.INFO if args.verbose else logging.DEBUG
     logging.basicConfig(level=log_level, format='%(levelname)s: %(message)s')
     
     # Initialize TagManager

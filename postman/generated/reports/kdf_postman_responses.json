@@ -24,7 +24,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 23375276,
+        "current_block": 23394769,
         "nfts_infos": {},
         "ticker": "ETH",
         "wallet_balance": {
@@ -77,7 +77,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76517849,
+        "current_block": 76627476,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -130,7 +130,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76517866,
+        "current_block": 76627494,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -179,25 +179,12 @@
         }
       }
     },
-    "EnableTendermintTokenBasic": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "balances": {
-          "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
-            "spendable": "0",
-            "unspendable": "0"
-          }
-        },
-        "platform_coin": "IRIS"
-      }
-    },
     "EnableTendermintWithAssetsBalancesFalse": {
       "id": null,
       "mmrpc": "2.0",
       "result": {
         "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-        "current_block": 31881729,
+        "current_block": 31921273,
         "ticker": "IRIS",
         "tokens_tickers": [
           "ATOM-IBC_IRIS"
@@ -213,7 +200,7 @@
           "spendable": "0",
           "unspendable": "0"
         },
-        "current_block": 31881729,
+        "current_block": 31921273,
         "ticker": "IRIS",
         "tokens_balances": {
           "ATOM-IBC_IRIS": {
@@ -221,6 +208,51 @@
             "unspendable": "0"
           }
         }
+      }
+    },
+    "FetchUtxos": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "addresses": [
+          {
+            "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+            "count": 1,
+            "derivation_path": "m/44'/141'/0'/0/0",
+            "utxos": [
+              {
+                "txid": "29d5bcb128f0de67fdd9f5c5afee8cef7b48e05b07822ec56aa3874b8f408a37",
+                "value": "7.62",
+                "vout": 0
+              }
+            ]
+          },
+          {
+            "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+            "count": 1,
+            "derivation_path": "m/44'/141'/0'/0/2",
+            "utxos": [
+              {
+                "txid": "7ec96b2d0abac2edaafaa434f20106ac64a689d6d774fcdd69997c2ead59d66e",
+                "value": "7.62",
+                "vout": 0
+              }
+            ]
+          },
+          {
+            "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+            "count": 1,
+            "derivation_path": "m/44'/141'/0'/0/1",
+            "utxos": [
+              {
+                "txid": "31896165d0f4dbf2dbfaff409af976634ac16fab69440ace7652a1fcd5bc9af1",
+                "value": "7.62",
+                "vout": 0
+              }
+            ]
+          }
+        ],
+        "total_count": 3
       }
     },
     "LegacyElectrumBch": {
@@ -262,6 +294,24 @@
       "result": "success",
       "unspendable_balance": "0"
     },
+    "LegacyEnableEth": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "ETH",
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyEnableEthGasStation": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "ETH",
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
     "LegacyEnableMatic": {
       "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
       "balance": "0",
@@ -271,10 +321,9 @@
       "result": "success",
       "unspendable_balance": "0"
     },
-    "TaskEnableQtumCancel": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": "success"
+    "LegacyVersion": {
+      "datetime": "2025-09-17T07:24:42.097797132+00:00",
+      "result": "2.5.1-beta_docker-build"
     },
     "TaskEnableQtumInit": {
       "id": null,
@@ -287,160 +336,61 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "details": "ActivatingCoin",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_10": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_11": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_12": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_13": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_14": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_15": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_16": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_17": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_18": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_19": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_2": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_20": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_3": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_4": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_5": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_6": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_7": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_8": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableQtumStatus_9": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "RequestingWalletBalance",
-        "status": "InProgress"
+        "details": {
+          "current_block": 5172864,
+          "ticker": "QTUM",
+          "wallet_balance": {
+            "accounts": [
+              {
+                "account_index": 0,
+                "addresses": [
+                  {
+                    "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/1"
+                  },
+                  {
+                    "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/0"
+                  },
+                  {
+                    "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/2"
+                  }
+                ],
+                "derivation_path": "m/44'/2301'/0'",
+                "total_balance": {
+                  "QTUM": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                }
+              }
+            ],
+            "wallet_type": "HD"
+          }
+        },
+        "status": "Ok"
       }
     },
     "TaskEnableTendermintInit": {
@@ -450,95 +400,143 @@
         "task_id": 1
       }
     },
-    "TaskEnableTendermintStatus": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": "ActivatingCoin",
-        "status": "InProgress"
-      }
-    },
-    "TaskEnableTendermintStatus_2": {
-      "id": null,
-      "mmrpc": "2.0",
-      "result": {
-        "details": {
-          "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-          "balance": {
-            "spendable": "0",
-            "unspendable": "0"
-          },
-          "current_block": 31881738,
-          "ticker": "IRIS",
-          "tokens_balances": {
-            "ATOM-IBC_IRIS": {
-              "spendable": "0",
-              "unspendable": "0"
-            }
-          }
-        },
-        "status": "Ok"
-      }
-    },
-    "TaskEnableZCoinInitBasic": {
+    "TaskEnableUtxoInit": {
       "id": null,
       "mmrpc": "2.0",
       "result": {
         "task_id": 2
       }
     },
-    "TaskEnableZCoinStatusBasic": {
+    "TaskEnableZCoinInitBasic": {
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "details": {
-          "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
-          "error_data": {
-            "error": "ZCashParamsNotFound",
-            "ticker": "ZOMBIE"
-          },
-          "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
-          "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
-          "error_type": "CoinCreationError"
+        "task_id": 3
+      }
+    },
+    "TaskEnableZCoinInitWithSyncParams": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 4
+      }
+    },
+    "WithdrawMartyAccountId": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "block_height": 0,
+        "coin": "MARTY",
+        "fee_details": {
+          "amount": "0.00000245",
+          "coin": "MARTY",
+          "type": "Utxo"
         },
-        "status": "Error"
+        "from": [
+          "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+        ],
+        "internal_id": "",
+        "memo": null,
+        "my_balance_change": "-0.01000245",
+        "received_by_me": "7.60999755",
+        "spent_by_me": "7.62",
+        "timestamp": 1758256761,
+        "to": [
+          "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        ],
+        "total_amount": "7.62",
+        "transaction_type": "StandardTransfer",
+        "tx_hash": "3f173b9ed2f161c082b98dd50fbb5eae9a2c11403bff344a40f11ab2fb0c80a0",
+        "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a47304402205d78a9bc07c7cb15e2a21aa26f09c7d13fb637d4877230bad547894abef1411e02205db09c47202a0b4ed1bda3a5a13933680322124b7de41411d27aeef7459f4dab01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac79decc68000000000000000000000000000000"
+      }
+    },
+    "WithdrawMartyDerivationPath": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "block_height": 0,
+        "coin": "MARTY",
+        "fee_details": {
+          "amount": "0.00000245",
+          "coin": "MARTY",
+          "type": "Utxo"
+        },
+        "from": [
+          "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        ],
+        "internal_id": "",
+        "memo": null,
+        "my_balance_change": "-0.00000245",
+        "received_by_me": "7.61999755",
+        "spent_by_me": "7.62",
+        "timestamp": 1758256762,
+        "to": [
+          "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        ],
+        "total_amount": "7.62",
+        "transaction_type": "StandardTransfer",
+        "tx_hash": "9e37e42d8386fcbd512d2ba41769a2812d28bca4ced07ff71956e427c9d5db4e",
+        "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a473044022002b1d179d3a65de081256c5fc3f73b41c38c687166de76bea3953701268d43410220593784f0f3c2f9019053ba0aa604c110e1f1a1bd65409ee1db0b676f2da307e5012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac7adecc68000000000000000000000000000000"
       }
     }
   },
   "manual_review_needed": {
-    "LegacyEnableEth": {
+    "ConsolidateUtxos": {
       "collection_method": "regular",
       "instances": {
         "native-hd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
         }
       },
-      "notes": "Method: enable",
+      "notes": "Method: consolidate_utxos",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "method": "consolidate_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY",
+          "merge_conditions": {
+            "max_merge_at_once": 2,
+            "merge_at": 2
+          }
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "LegacyEnableEthGasStation": {
+    "EnableTendermintTokenBasic": {
       "collection_method": "regular",
       "instances": {
         "native-hd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         },
         "native-nonhd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         }
       },
-      "notes": "Method: enable",
+      "notes": "Method: enable_tendermint_token",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "method": "enable_tendermint_token",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "required_confirmations": 3
+          },
+          "ticker": "ATOM-IBC_IRIS"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableNative": {
       "collection_method": "regular",
@@ -555,7 +553,12 @@
       "notes": "Method: enable",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableNativeWithParams": {
       "collection_method": "regular",
@@ -572,68 +575,348 @@
       "notes": "Method: enable",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableEthCancel": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_eth::cancel",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_eth::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableEthStatus": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_eth::status",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_eth::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableQtumCancel": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_qtum::cancel",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_qtum::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableTendermintCancel": {
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "instances": {
         "native-hd": {
-          "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         },
         "native-nonhd": {
-          "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_tendermint::init, Phase: base",
+      "notes": "Method: task::enable_tendermint::cancel",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "method": "task::enable_tendermint::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "TaskEnableUtxoInit": {
-      "collection_method": "task_lifecycle",
+    "TaskEnableTendermintStatus": {
+      "collection_method": "regular",
       "instances": {
         "native-hd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         },
         "native-nonhd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_utxo::init, Phase: base",
+      "notes": "Method: task::enable_tendermint::status",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "method": "task::enable_tendermint::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 0
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "TaskEnableZCoinCancelBasic": {
-      "collection_method": "task_lifecycle",
+    "TaskEnableUtxoCancel": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_utxo::cancel",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_utxo::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableUtxoStatus": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_utxo::status",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_utxo::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinCancel": {
+      "collection_method": "regular",
       "instances": {
         "native-hd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":3,\"id\":null}"
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":3,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_z_coin::init, Phase: base",
+      "notes": "Method: task::enable_z_coin::cancel",
       "reasons": [
         "contains_errors"
-      ]
+      ],
+      "request": {
+        "method": "task::enable_z_coin::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinStatus": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_z_coin::status",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_z_coin::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 0
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMarty": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "0.1",
+          "broadcast": true,
+          "coin": "MARTY",
+          "to": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyFixedFee": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "0.1",
+            "type": "UtxoFixed"
+          },
+          "to": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyPerKbyte": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "1",
+            "type": "UtxoPerKbyte"
+          },
+          "to": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     }
   },
   "metadata": {
-    "auto_updatable_count": 40,
+    "auto_updatable_count": 24,
     "collection_summary": {
-      "regular_methods": 17,
-      "task_lifecycle_methods": 30
+      "regular_methods": 40
     },
-    "collection_timestamp": "2025-09-16 11:22:14 UTC",
-    "total_responses_collected": 47
+    "collection_timestamp": "2025-09-19 04:39:30 UTC",
+    "total_responses_collected": 40
   },
   "responses": {
     "AddNodeToVersionStat": {
@@ -652,13 +935,55 @@
           "result": "success"
         }
       },
-      "notes": "Method: add_node_to_version_stat"
+      "notes": "Method: add_node_to_version_stat",
+      "request": {
+        "method": "add_node_to_version_stat",
+        "mmrpc": "2.0",
+        "params": {
+          "address": "168.119.236.241",
+          "name": "seed1",
+          "peer_id": "12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "EnableErc20Basic": {
+    "ConsolidateUtxos": {
       "all_successful": false,
       "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+        }
+      },
+      "notes": "Method: consolidate_utxos",
+      "request": {
+        "method": "consolidate_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY",
+          "merge_conditions": {
+            "max_merge_at_once": 2,
+            "merge_at": 2
+          }
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableErc20Basic": {
+      "all_successful": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Expected 'SingleAddress' derivation method\",\"error_path\":\"token.erc20_token_activation.lp_coins\",\"error_trace\":\"token:156] erc20_token_activation:170] lp_coins:4603]\",\"error_type\":\"UnexpectedDerivationMethod\",\"error_data\":\"ExpectedSingleAddress\",\"id\":null}"
+        },
         "native-nonhd": {
           "id": null,
           "mmrpc": "2.0",
@@ -675,7 +1000,18 @@
           }
         }
       },
-      "notes": "Method: enable_erc20"
+      "notes": "Method: enable_erc20",
+      "request": {
+        "method": "enable_erc20",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "required_confirmations": 3
+          },
+          "ticker": "BAT-ERC20"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableEthWithTokensGasStation": {
       "all_successful": true,
@@ -686,7 +1022,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23375276,
+            "current_block": 23394769,
             "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
@@ -739,7 +1075,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23375284,
+            "current_block": 23394780,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "balances": {
@@ -778,7 +1114,49 @@
           }
         }
       },
-      "notes": "Method: enable_eth_with_tokens"
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "APE-ERC20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "MINDS-ERC20"
+            }
+          ],
+          "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+          "gas_station_decimals": 8,
+          "gas_station_policy": {
+            "policy": "MeanAverageFast"
+          },
+          "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+          "mm2": 1,
+          "nodes": [
+            {
+              "url": "https://eth.drpc.org",
+              "ws_url": "wss://eth.drpc.org"
+            },
+            {
+              "url": "https://eth3.cipig.net:18555",
+              "ws_url": "wss://eth3.cipig.net:38555"
+            }
+          ],
+          "priv_key_policy": {
+            "type": "ContextPrivKey"
+          },
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+          "ticker": "ETH",
+          "tx_history": true
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableEthWithTokensMaticBalancesFalse": {
       "all_successful": true,
@@ -789,7 +1167,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76517849,
+            "current_block": 76627476,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -842,7 +1220,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76517865,
+            "current_block": 76627493,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -867,7 +1245,47 @@
           }
         }
       },
-      "notes": "Method: enable_eth_with_tokens"
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "PGX-PLG20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "AAVE-PLG20"
+            }
+          ],
+          "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "gas_station_url": "https://gasstation-mainnet.matic.network/",
+          "get_balances": false,
+          "nodes": [
+            {
+              "url": "https://pol3.cipig.net:18755",
+              "ws_url": "wss://pol3.cipig.net:38755"
+            },
+            {
+              "url": "https://polygon-bor-rpc.publicnode.com",
+              "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+            }
+          ],
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "swap_v2_contracts": {
+            "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+            "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+            "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+          },
+          "ticker": "MATIC",
+          "tx_history": false
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableEthWithTokensMaticNft": {
       "all_successful": true,
@@ -878,7 +1296,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76517866,
+            "current_block": 76627494,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -931,7 +1349,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76517867,
+            "current_block": 76627497,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -956,7 +1374,50 @@
           }
         }
       },
-      "notes": "Method: enable_eth_with_tokens"
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "PGX-PLG20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "AAVE-PLG20"
+            }
+          ],
+          "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "gas_station_url": "https://gasstation-mainnet.matic.network/",
+          "get_balances": false,
+          "nft_req": {
+            "provider": {
+              "info": {
+                "url": "https://moralis-proxy.komodo.earth"
+              },
+              "type": "Moralis"
+            }
+          },
+          "nodes": [
+            {
+              "url": "https://pol3.cipig.net:18755",
+              "ws_url": "wss://pol3.cipig.net:38755"
+            },
+            {
+              "url": "https://polygon-bor-rpc.publicnode.com",
+              "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+            }
+          ],
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "ticker": "MATIC",
+          "tx_history": false
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableTendermintTokenBasic": {
       "all_successful": true,
@@ -964,33 +1425,26 @@
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "balances": {
-              "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
-                "spendable": "0",
-                "unspendable": "0"
-              }
-            },
-            "platform_coin": "IRIS"
-          }
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         },
         "native-nonhd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "balances": {
-              "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749": {
-                "spendable": "0",
-                "unspendable": "0"
-              }
-            },
-            "platform_coin": "IRIS"
-          }
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         }
       },
-      "notes": "Method: enable_tendermint_token"
+      "notes": "Method: enable_tendermint_token",
+      "request": {
+        "method": "enable_tendermint_token",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "required_confirmations": 3
+          },
+          "ticker": "ATOM-IBC_IRIS"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableTendermintWithAssetsBalancesFalse": {
       "all_successful": true,
@@ -1002,7 +1456,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 31881729,
+            "current_block": 31921273,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -1014,7 +1468,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-            "current_block": 31881729,
+            "current_block": 31921273,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -1022,7 +1476,33 @@
           }
         }
       },
-      "notes": "Method: enable_tendermint_with_assets"
+      "notes": "Method: enable_tendermint_with_assets",
+      "request": {
+        "method": "enable_tendermint_with_assets",
+        "mmrpc": "2.0",
+        "params": {
+          "get_balances": false,
+          "nodes": [
+            {
+              "api_url": "https://iris-api.alpha.komodo.earth/",
+              "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+              "url": "https://iris-rpc.alpha.komodo.earth/",
+              "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
+            },
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ],
+          "tx_history": true
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "EnableTendermintWithAssetsBalancesTrue": {
       "all_successful": true,
@@ -1038,7 +1518,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31881729,
+            "current_block": 31921273,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1057,7 +1537,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31881730,
+            "current_block": 31921274,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1068,12 +1548,102 @@
           }
         }
       },
-      "notes": "Method: enable_tendermint_with_assets"
+      "notes": "Method: enable_tendermint_with_assets",
+      "request": {
+        "method": "enable_tendermint_with_assets",
+        "mmrpc": "2.0",
+        "params": {
+          "get_balances": true,
+          "nodes": [
+            {
+              "api_url": "https://iris-api.alpha.komodo.earth/",
+              "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+              "url": "https://iris-rpc.alpha.komodo.earth/",
+              "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
+            },
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ]
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "LegacyElectrumBch": {
+    "FetchUtxos": {
       "all_successful": false,
       "collection_method": "regular",
       "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "addresses": [
+              {
+                "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/0",
+                "utxos": [
+                  {
+                    "txid": "29d5bcb128f0de67fdd9f5c5afee8cef7b48e05b07822ec56aa3874b8f408a37",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              },
+              {
+                "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/2",
+                "utxos": [
+                  {
+                    "txid": "7ec96b2d0abac2edaafaa434f20106ac64a689d6d774fcdd69997c2ead59d66e",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              },
+              {
+                "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                "count": 1,
+                "derivation_path": "m/44'/141'/0'/0/1",
+                "utxos": [
+                  {
+                    "txid": "31896165d0f4dbf2dbfaff409af976634ac16fab69440ace7652a1fcd5bc9af1",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              }
+            ],
+            "total_count": 3
+          }
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"fetch_utxos.lp_coins\",\"error_trace\":\"fetch_utxos:75] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+        }
+      },
+      "notes": "Method: fetch_utxos",
+      "request": {
+        "method": "fetch_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyElectrumBch": {
+      "all_successful": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
@@ -1090,12 +1660,33 @@
           "unspendable_balance": "0"
         }
       },
-      "notes": "Method: electrum"
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "BCH",
+        "max_connected": 2,
+        "method": "electrum",
+        "min_connected": 1,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "bch.electrum3.cipig.net:20055"
+          },
+          {
+            "protocol": "TCP",
+            "url": "bch.electrum3.cipig.net:10055"
+          },
+          {
+            "protocol": "WSS",
+            "url": "bch.electrum3.cipig.net:30055"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyElectrumKmd": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
@@ -1112,12 +1703,34 @@
           "unspendable_balance": "0"
         }
       },
-      "notes": "Method: electrum"
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "KMD",
+        "method": "electrum",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "kmd.electrum1.cipig.net:20001"
+          },
+          {
+            "protocol": "SSL",
+            "url": "kmd.electrum3.cipig.net:20001"
+          },
+          {
+            "protocol": "TCP",
+            "url": "kmd.electrum3.cipig.net:10001"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyElectrumQtum": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
@@ -1134,12 +1747,32 @@
           "unspendable_balance": "0"
         }
       },
-      "notes": "Method: electrum"
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "QTUM",
+        "method": "electrum",
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "qtum.electrum1.cipig.net:20050"
+          },
+          {
+            "protocol": "SSL",
+            "url": "qtum.electrum2.cipig.net:20050"
+          },
+          {
+            "protocol": "TCP",
+            "url": "qtum.electrum2.cipig.net:10050"
+          }
+        ],
+        "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableBnb": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
@@ -1155,44 +1788,95 @@
           "unspendable_balance": "0"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "BUSD-BEP20",
+        "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+        "method": "enable",
+        "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+        "urls": [
+          "https://bsc1.cipig.net:18655",
+          "https://bsc2.cipig.net:18655",
+          "https://bsc3.cipig.net:18655"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableEth": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "ETH",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "ETH",
+        "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+        "method": "enable",
+        "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+        "urls": [
+          "https://eth3.cipig.net:18555",
+          "https://ethereum-rpc.publicnode.com",
+          "https://mainnet.gateway.tenderly.co"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableEthGasStation": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
-          "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5100] Coin ETH already initialized\"}"
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "ETH",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "ETH",
+        "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+        "gas_station_decimals": 8,
+        "gas_station_policy": {
+          "policy": "MeanAverageFast"
+        },
+        "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+        "method": "enable",
+        "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+        "urls": [
+          "https://0xrpc.io/eth",
+          "https://eth.drpc.org",
+          "https://eth3.cipig.net:18555"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableMatic": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
-      "consistent_structure": true,
+      "consistent_structure": false,
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
@@ -1208,10 +1892,21 @@
           "unspendable_balance": "0"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "NZDS-PLG20",
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "method": "enable",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "urls": [
+          "https://pol3.cipig.net:18755",
+          "https://polygon.gateway.tenderly.co"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableNative": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
@@ -1224,10 +1919,15 @@
           "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "LegacyEnableNativeWithParams": {
-      "all_successful": false,
+      "all_successful": true,
       "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
@@ -1240,28 +1940,111 @@
           "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
-      "notes": "Method: enable"
+      "notes": "Method: enable",
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyVersion": {
+      "all_successful": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "datetime": "2025-09-17T07:24:42.097797132+00:00",
+          "result": "2.5.1-beta_docker-build"
+        },
+        "native-nonhd": {
+          "datetime": "2025-09-17T07:24:42.097797132+00:00",
+          "result": "2.5.1-beta_docker-build"
+        }
+      },
+      "notes": "Method: version",
+      "request": {
+        "method": "version"
+      }
+    },
+    "TaskEnableEthCancel": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_eth::cancel",
+      "request": {
+        "method": "task::enable_eth::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableEthStatus": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_eth::status",
+      "request": {
+        "method": "task::enable_eth::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableQtumCancel": {
       "all_successful": false,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": "success"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         },
         "native-nonhd": {
-          "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":0,\"id\":null}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_qtum::init, Phase: base"
+      "notes": "Method: task::enable_qtum::cancel",
+      "request": {
+        "method": "task::enable_qtum::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableQtumInit": {
       "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
@@ -1279,243 +2062,102 @@
           }
         }
       },
-      "notes": "Task method: task::enable_qtum::init, Phase: base"
+      "notes": "Method: task::enable_qtum::init",
+      "request": {
+        "method": "task::enable_qtum::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Electrum",
+              "rpc_data": {
+                "servers": [
+                  {
+                    "protocol": "TCP",
+                    "url": "qtum.electrum3.cipig.net:10050"
+                  },
+                  {
+                    "protocol": "WSS",
+                    "url": "qtum.electrum1.cipig.net:30050"
+                  },
+                  {
+                    "protocol": "WSS",
+                    "url": "qtum.electrum3.cipig.net:30050"
+                  }
+                ]
+              }
+            },
+            "priv_key_policy": "ContextPrivKey"
+          },
+          "ticker": "QTUM"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableQtumStatus": {
       "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "ActivatingCoin",
-            "status": "InProgress"
-          }
-        },
-        "native-nonhd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "ActivatingCoin",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: base"
-    },
-    "TaskEnableQtumStatus_10": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 10"
-    },
-    "TaskEnableQtumStatus_11": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 11"
-    },
-    "TaskEnableQtumStatus_12": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 12"
-    },
-    "TaskEnableQtumStatus_13": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 13"
-    },
-    "TaskEnableQtumStatus_14": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 14"
-    },
-    "TaskEnableQtumStatus_15": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 15"
-    },
-    "TaskEnableQtumStatus_16": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 16"
-    },
-    "TaskEnableQtumStatus_17": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 17"
-    },
-    "TaskEnableQtumStatus_18": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 18"
-    },
-    "TaskEnableQtumStatus_19": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 19"
-    },
-    "TaskEnableQtumStatus_2": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        },
-        "native-nonhd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 2"
-    },
-    "TaskEnableQtumStatus_20": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 20"
-    },
-    "TaskEnableQtumStatus_3": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": false,
       "instances": {
         "native-hd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
+            "details": {
+              "current_block": 5172864,
+              "ticker": "QTUM",
+              "wallet_balance": {
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "addresses": [
+                      {
+                        "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/1"
+                      },
+                      {
+                        "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/0"
+                      },
+                      {
+                        "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/2"
+                      }
+                    ],
+                    "derivation_path": "m/44'/2301'/0'",
+                    "total_balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
+                  }
+                ],
+                "wallet_type": "HD"
+              }
+            },
+            "status": "Ok"
           }
         },
         "native-nonhd": {
@@ -1523,7 +2165,7 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 5165519,
+              "current_block": 5172864,
               "ticker": "QTUM",
               "wallet_balance": {
                 "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
@@ -1540,123 +2182,44 @@
           }
         }
       },
-      "notes": "Task method: task::enable_qtum::init, Phase: 3"
-    },
-    "TaskEnableQtumStatus_4": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 4"
-    },
-    "TaskEnableQtumStatus_5": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 5"
-    },
-    "TaskEnableQtumStatus_6": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 6"
-    },
-    "TaskEnableQtumStatus_7": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 7"
-    },
-    "TaskEnableQtumStatus_8": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 8"
-    },
-    "TaskEnableQtumStatus_9": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
-      "consistent_structure": true,
-      "instances": {
-        "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "RequestingWalletBalance",
-            "status": "InProgress"
-          }
-        }
-      },
-      "notes": "Task method: task::enable_qtum::init, Phase: 9"
+      "notes": "Method: task::enable_qtum::status",
+      "request": {
+        "method": "task::enable_qtum::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 0
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableTendermintCancel": {
       "all_successful": false,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         },
         "native-nonhd": {
-          "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":1,\"id\":null}"
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '3'\",\"error_path\":\"platform_coin_with_tokens.manager\",\"error_trace\":\"platform_coin_with_tokens:669] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":3,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_tendermint::init, Phase: base"
+      "notes": "Method: task::enable_tendermint::cancel",
+      "request": {
+        "method": "task::enable_tendermint::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableTendermintInit": {
       "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
@@ -1674,179 +2237,529 @@
           }
         }
       },
-      "notes": "Task method: task::enable_tendermint::init, Phase: base"
+      "notes": "Method: task::enable_tendermint::init",
+      "request": {
+        "method": "task::enable_tendermint::init",
+        "mmrpc": "2.0",
+        "params": {
+          "nodes": [
+            {
+              "api_url": "https://iris-api.alpha.komodo.earth/",
+              "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
+              "url": "https://iris-rpc.alpha.komodo.earth/",
+              "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
+            },
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ]
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableTendermintStatus": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "all_successful": false,
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "ActivatingCoin",
-            "status": "InProgress"
-          }
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         },
         "native-nonhd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": "ActivatingCoin",
-            "status": "InProgress"
-          }
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"platform_coin_with_tokens\",\"error_trace\":\"platform_coin_with_tokens:631]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_tendermint::init, Phase: base"
+      "notes": "Method: task::enable_tendermint::status",
+      "request": {
+        "method": "task::enable_tendermint::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 0
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "TaskEnableTendermintStatus_2": {
-      "all_successful": true,
-      "collection_method": "task_lifecycle",
+    "TaskEnableUtxoCancel": {
+      "all_successful": false,
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": {
-              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-              "balance": {
-                "spendable": "0",
-                "unspendable": "0"
-              },
-              "current_block": 31881738,
-              "ticker": "IRIS",
-              "tokens_balances": {
-                "ATOM-IBC_IRIS": {
-                  "spendable": "0",
-                  "unspendable": "0"
-                }
-              }
-            },
-            "status": "Ok"
-          }
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
         },
         "native-nonhd": {
-          "id": null,
-          "mmrpc": "2.0",
-          "result": {
-            "details": {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "balance": {
-                "spendable": "0",
-                "unspendable": "0"
-              },
-              "current_block": 31881738,
-              "ticker": "IRIS",
-              "tokens_balances": {
-                "ATOM-IBC_IRIS": {
-                  "spendable": "0",
-                  "unspendable": "0"
-                }
-              }
-            },
-            "status": "Ok"
-          }
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:163]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_tendermint::init, Phase: 2"
+      "notes": "Method: task::enable_utxo::cancel",
+      "request": {
+        "method": "task::enable_utxo::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableUtxoInit": {
-      "all_successful": false,
-      "collection_method": "task_lifecycle",
+      "all_successful": true,
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 2
+          }
         },
         "native-nonhd": {
-          "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Error parsing request: unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"error_path\":\"dispatcher\",\"error_trace\":\"dispatcher:142]\",\"error_type\":\"InvalidRequest\",\"error_data\":\"unknown variant `type`, expected one of `ContextPrivKey`, `Trezor`, `WalletConnect`\",\"id\":null}"
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 2
+          }
         }
       },
-      "notes": "Task method: task::enable_utxo::init, Phase: base"
+      "notes": "Method: task::enable_utxo::init",
+      "request": {
+        "method": "task::enable_utxo::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Electrum",
+              "rpc_data": {
+                "servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "kmd.electrum3.cipig.net:20001"
+                  },
+                  {
+                    "protocol": "TCP",
+                    "url": "kmd.electrum3.cipig.net:10001"
+                  },
+                  {
+                    "protocol": "WSS",
+                    "url": "kmd.electrum2.cipig.net:30001"
+                  }
+                ]
+              }
+            },
+            "priv_key_policy": "ContextPrivKey"
+          },
+          "ticker": "KMD"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "TaskEnableZCoinCancelBasic": {
+    "TaskEnableUtxoStatus": {
       "all_successful": false,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '1'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":1,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_utxo::status",
+      "request": {
+        "method": "task::enable_utxo::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinCancel": {
+      "all_successful": false,
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":3,\"id\":null}"
         },
         "native-nonhd": {
           "error": "HTTP 409",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":2,\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":3,\"id\":null}"
         }
       },
-      "notes": "Task method: task::enable_z_coin::init, Phase: base"
+      "notes": "Method: task::enable_z_coin::cancel",
+      "request": {
+        "method": "task::enable_z_coin::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
     "TaskEnableZCoinInitBasic": {
       "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 2
+            "task_id": 3
           }
         },
         "native-nonhd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 2
+            "task_id": 3
           }
         }
       },
-      "notes": "Task method: task::enable_z_coin::init, Phase: base"
+      "notes": "Method: task::enable_z_coin::init",
+      "request": {
+        "method": "task::enable_z_coin::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Light",
+              "rpc_data": {
+                "electrum_servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "zombie.dragonhound.info:20133"
+                  },
+                  {
+                    "protocol": "TCP",
+                    "url": "zombie.dragonhound.info:10133"
+                  },
+                  {
+                    "protocol": "WSS",
+                    "url": "zombie.dragonhound.info:30059"
+                  }
+                ],
+                "light_wallet_d_servers": [
+                  "https://zombie.dragonhound.info:1443"
+                ]
+              }
+            },
+            "scan_blocks_per_iteration": 100,
+            "scan_interval_ms": 200,
+            "zcash_params_path": "/home/username/path_to/.zcash-params"
+          },
+          "ticker": "ZOMBIE"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     },
-    "TaskEnableZCoinStatusBasic": {
+    "TaskEnableZCoinInitWithSyncParams": {
       "all_successful": true,
-      "collection_method": "task_lifecycle",
+      "collection_method": "regular",
       "consistent_structure": true,
       "instances": {
         "native-hd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "details": {
-              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
-              "error_data": {
-                "error": "ZCashParamsNotFound",
-                "ticker": "ZOMBIE"
-              },
-              "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
-              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
-              "error_type": "CoinCreationError"
-            },
-            "status": "Error"
+            "task_id": 4
           }
         },
         "native-nonhd": {
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "details": {
-              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
-              "error_data": {
-                "error": "ZCashParamsNotFound",
-                "ticker": "ZOMBIE"
-              },
-              "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
-              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
-              "error_type": "CoinCreationError"
-            },
-            "status": "Error"
+            "task_id": 4
           }
         }
       },
-      "notes": "Task method: task::enable_z_coin::init, Phase: base"
+      "notes": "Method: task::enable_z_coin::init",
+      "request": {
+        "method": "task::enable_z_coin::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Light",
+              "rpc_data": {
+                "electrum_servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "zombie.dragonhound.info:20133"
+                  },
+                  {
+                    "protocol": "TCP",
+                    "url": "zombie.dragonhound.info:10133"
+                  },
+                  {
+                    "protocol": "WSS",
+                    "url": "zombie.dragonhound.info:30059"
+                  }
+                ],
+                "light_wallet_d_servers": [
+                  "https://zombie.dragonhound.info:1443"
+                ],
+                "sync_params": {
+                  "height": 2528700
+                }
+              }
+            },
+            "scan_blocks_per_iteration": 100,
+            "scan_interval_ms": 200,
+            "zcash_params_path": "/home/username/path_to/.zcash-params"
+          },
+          "ticker": "ZOMBIE"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinStatus": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such task '0'\",\"error_path\":\"init_standalone_coin\",\"error_trace\":\"init_standalone_coin:139]\",\"error_type\":\"NoSuchTask\",\"error_data\":0,\"id\":null}"
+        }
+      },
+      "notes": "Method: task::enable_z_coin::status",
+      "request": {
+        "method": "task::enable_z_coin::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 0
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMarty": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "0.1",
+          "broadcast": true,
+          "coin": "MARTY",
+          "to": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyAccountId": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.01000245",
+            "received_by_me": "7.60999755",
+            "spent_by_me": "7.62",
+            "timestamp": 1758256761,
+            "to": [
+              "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "3f173b9ed2f161c082b98dd50fbb5eae9a2c11403bff344a40f11ab2fb0c80a0",
+            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a47304402205d78a9bc07c7cb15e2a21aa26f09c7d13fb637d4877230bad547894abef1411e02205db09c47202a0b4ed1bda3a5a13933680322124b7de41411d27aeef7459f4dab01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac79decc68000000000000000000000000000000"
+          }
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 0.01,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "account_id": 0,
+            "address_id": 1,
+            "chain": "External"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyDerivationPath": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.00000245",
+            "received_by_me": "7.61999755",
+            "spent_by_me": "7.62",
+            "timestamp": 1758256762,
+            "to": [
+              "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "9e37e42d8386fcbd512d2ba41769a2812d28bca4ced07ff71956e427c9d5db4e",
+            "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a473044022002b1d179d3a65de081256c5fc3f73b41c38c687166de76bea3953701268d43410220593784f0f3c2f9019053ba0aa604c110e1f1a1bd65409ee1db0b676f2da307e5012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac7adecc68000000000000000000000000000000"
+          }
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 1.025,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/2"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyFixedFee": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "0.1",
+            "type": "UtxoFixed"
+          },
+          "to": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyPerKbyte": {
+      "all_successful": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Request should contain a 'from' address/account\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3522]\",\"error_type\":\"FromAddressNotFound\",\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "1",
+            "type": "UtxoPerKbyte"
+          },
+          "to": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
     }
   },
   "validation": {
@@ -1857,269 +2770,13 @@
       "warnings": []
     },
     "existing_files": {
-      "error_count": 22,
-      "errors": [
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd]: Request key 'LegacyEnableEth_native-hd' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd]: Request key 'LegacyEnableEthGasStation_native-hd' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10]: Request key 'TaskEnableQtumStatus_10' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11]: Request key 'TaskEnableQtumStatus_11' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12]: Request key 'TaskEnableQtumStatus_12' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13]: Request key 'TaskEnableQtumStatus_13' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14]: Request key 'TaskEnableQtumStatus_14' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15]: Request key 'TaskEnableQtumStatus_15' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16]: Request key 'TaskEnableQtumStatus_16' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17]: Request key 'TaskEnableQtumStatus_17' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18]: Request key 'TaskEnableQtumStatus_18' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19]: Request key 'TaskEnableQtumStatus_19' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20]: Request key 'TaskEnableQtumStatus_20' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2]: Request key 'TaskEnableQtumStatus_2' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3]: Request key 'TaskEnableQtumStatus_3' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4]: Request key 'TaskEnableQtumStatus_4' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5]: Request key 'TaskEnableQtumStatus_5' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6]: Request key 'TaskEnableQtumStatus_6' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7]: Request key 'TaskEnableQtumStatus_7' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8]: Request key 'TaskEnableQtumStatus_8' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9]: Request key 'TaskEnableQtumStatus_9' should follow PascalCase/camelCase pattern",
-        "[INVALID_KEY_FORMAT] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' should follow PascalCase/camelCase pattern"
-      ],
-      "sorted_files": {
-        "src/data/kdf_methods.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/requests/kdf/legacy/coin_activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/requests/kdf/v2/coin_activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/requests/kdf/v2/utils.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/responses/kdf/common.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/responses/kdf/legacy/coin_activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/responses/kdf/v2/coin_activation.json": {
-          "action": "sorted",
-          "keys_moved": [
-            "LegacyEnableEth_native-hd",
-            "LegacyEnableEthGasStation_native-hd"
-          ]
-        },
-        "src/data/responses/kdf/v2/utils.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/common.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/lightning.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/maker-events.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/nfts.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/orders.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/swaps.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/taker-events.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/common-structures/wallet.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/legacy/coin_activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/v2/coin_activation.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/v2/streaming.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/v2/utils.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        },
-        "src/data/tables/v2/wallet.json": {
-          "action": "already_sorted",
-          "keys_moved": []
-        }
-      },
-      "success": false,
-      "templated_files": {
-        "src/data/responses/kdf/legacy/coin_activation.json": {
-          "action": "complete",
-          "added_entries": [],
-          "count": 0
-        },
-        "src/data/responses/kdf/v2/coin_activation.json": {
-          "action": "complete",
-          "added_entries": [],
-          "count": 0
-        },
-        "src/data/responses/kdf/v2/utils.json": {
-          "action": "complete",
-          "added_entries": [],
-          "count": 0
-        }
-      },
-      "warning_count": 121,
-      "warnings": [
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/legacy/coin_activation.json [LegacyEnableEth.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensBalancesFalse.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensBalancesFalse.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensTxHistory.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableBchWithTokensTxHistory.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableErc20Basic.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensGasStation.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticBalancesFalse.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensMaticNft.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableEthWithTokensWalletConnect.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintTokenBasic.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsBalancesFalse.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsBalancesTrue.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsWalletConnect.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [EnableTendermintWithAssetsWalletConnect.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyElectrumBch.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyElectrumKmd.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyElectrumQtum.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableBnb.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableMatic.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchInit.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchStatus.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchStatus.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableBchUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthInitTrezor.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthInitTrezor.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableEthUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumInit.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoStatus.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableUtxoUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinStatusBasic.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableZCoinUserActionPin.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestDirectError.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestErrorStatus.success]: Empty success response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestMethodError.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestMethodSuccess.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TestSuccess.error]: Empty error response list",
-        "[EMPTY_RESPONSE_LIST] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/utils.json [AddNodeToVersionStat.error]: Empty error response list",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEth_native-hd]: Request key 'LegacyEnableEth_native-hd' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [LegacyEnableEthGasStation_native-hd]: Request key 'LegacyEnableEthGasStation_native-hd' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_10]: Request key 'TaskEnableQtumStatus_10' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_11]: Request key 'TaskEnableQtumStatus_11' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_12]: Request key 'TaskEnableQtumStatus_12' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_13]: Request key 'TaskEnableQtumStatus_13' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_14]: Request key 'TaskEnableQtumStatus_14' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_15]: Request key 'TaskEnableQtumStatus_15' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_16]: Request key 'TaskEnableQtumStatus_16' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_17]: Request key 'TaskEnableQtumStatus_17' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_18]: Request key 'TaskEnableQtumStatus_18' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_19]: Request key 'TaskEnableQtumStatus_19' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_20]: Request key 'TaskEnableQtumStatus_20' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_2]: Request key 'TaskEnableQtumStatus_2' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_3]: Request key 'TaskEnableQtumStatus_3' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_4]: Request key 'TaskEnableQtumStatus_4' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_5]: Request key 'TaskEnableQtumStatus_5' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_6]: Request key 'TaskEnableQtumStatus_6' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_7]: Request key 'TaskEnableQtumStatus_7' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_8]: Request key 'TaskEnableQtumStatus_8' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableQtumStatus_9]: Request key 'TaskEnableQtumStatus_9' contains underscores, consider camelCase",
-        "[KEY_STYLE_WARNING] /home/smk/GITHUB/KP/komodo-docs-mdx/src/data/responses/kdf/v2/coin_activation.json [TaskEnableTendermintStatus_2]: Request key 'TaskEnableTendermintStatus_2' contains underscores, consider camelCase",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumBch]: Response 'LegacyElectrumBch' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumKmd]: Response 'LegacyElectrumKmd' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyElectrumQtum]: Response 'LegacyElectrumQtum' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableBnb]: Response 'LegacyEnableBnb' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableEth_native-hd]: Response 'LegacyEnableEth_native-hd' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableEthGasStation_native-hd]: Response 'LegacyEnableEthGasStation_native-hd' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/LegacyEnableMatic]: Response 'LegacyEnableMatic' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_10]: Response 'TaskEnableQtumStatus_10' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_11]: Response 'TaskEnableQtumStatus_11' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_12]: Response 'TaskEnableQtumStatus_12' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_13]: Response 'TaskEnableQtumStatus_13' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_14]: Response 'TaskEnableQtumStatus_14' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_15]: Response 'TaskEnableQtumStatus_15' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_16]: Response 'TaskEnableQtumStatus_16' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_17]: Response 'TaskEnableQtumStatus_17' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_18]: Response 'TaskEnableQtumStatus_18' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_19]: Response 'TaskEnableQtumStatus_19' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_20]: Response 'TaskEnableQtumStatus_20' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_2]: Response 'TaskEnableQtumStatus_2' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_3]: Response 'TaskEnableQtumStatus_3' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_4]: Response 'TaskEnableQtumStatus_4' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_5]: Response 'TaskEnableQtumStatus_5' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_6]: Response 'TaskEnableQtumStatus_6' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_7]: Response 'TaskEnableQtumStatus_7' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_8]: Response 'TaskEnableQtumStatus_8' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableQtumStatus_9]: Response 'TaskEnableQtumStatus_9' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableTendermintStatus_2]: Response 'TaskEnableTendermintStatus_2' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TaskEnableZCoinStatusBasic]: Response 'TaskEnableZCoinStatusBasic' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestDirectError]: Response 'TestDirectError' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestErrorStatus]: Response 'TestErrorStatus' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestMethodError]: Response 'TestMethodError' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestMethodSuccess]: Response 'TestMethodSuccess' exists but has no corresponding request data",
-        "[MISSING_REQUEST] src/data/requests/kdf/v2/ [v2/TestSuccess]: Response 'TestSuccess' exists but has no corresponding request data"
-      ]
-    },
-    "request_metadata": {
-      "error": "'files_modified'"
+      "error_count": 0,
+      "errors": [],
+      "sorted_files": {},
+      "success": true,
+      "templated_files": {},
+      "warning_count": 0,
+      "warnings": []
     }
   }
 }

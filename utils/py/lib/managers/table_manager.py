@@ -102,7 +102,7 @@ class TableManager:
                 tables = self.load_json_file(table_file)
                 if tables:
                     all_tables.update(tables)
-                    self.logger.debug(f"Loaded {len(tables)} tables from {table_file}")
+                    self.logger.info(f"Loaded {len(tables)} tables from {table_file}")
         
         # Load version-specific tables
         for version_dir in ["legacy", "v2"]:
@@ -112,7 +112,7 @@ class TableManager:
                     tables = self.load_json_file(table_file)
                     if tables:
                         all_tables.update(tables)
-                        self.logger.debug(f"Loaded {len(tables)} tables from {table_file}")
+                        self.logger.info(f"Loaded {len(tables)} tables from {table_file}")
         
         self._tables_cache = all_tables
         self.logger.info(f"Loaded {len(all_tables)} total table definitions")
@@ -189,7 +189,7 @@ class TableManager:
         if category_key in self.missing_tables:
             if method_name not in self.missing_tables[category_key]:
                 self.missing_tables[category_key].append(method_name)
-                self.logger.debug(f"Tracked missing {table_type} table for {method_name}")
+                self.logger.info(f"Tracked missing {table_type} table for {method_name}")
     
     def validate_method_tables(self, method_name: str, method_config: Dict[str, Any]) -> List[TableReference]:
         """Validate all table references for a method.

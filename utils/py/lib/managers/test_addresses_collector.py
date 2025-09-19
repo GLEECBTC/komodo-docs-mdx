@@ -14,14 +14,14 @@ import logging
 def _get_kdf_classes():
     """Lazy import of KDF classes to avoid circular imports."""
     try:
-        from .responses_manager import KDFInstance, UnifiedResponseManager
-        return KDFInstance, UnifiedResponseManager
+        from .kdf_responses_manager import KDFInstance, KdfResponseManager
+        return KDFInstance, KdfResponseManager
     except ImportError:
         import sys
         from pathlib import Path
         sys.path.append(str(Path(__file__).parent))
-        from responses_manager import KDFInstance, UnifiedResponseManager
-        return KDFInstance, UnifiedResponseManager
+        from kdf_responses_manager import KDFInstance, KdfResponseManager
+        return KDFInstance, KdfResponseManager
 
 # Import utilities
 try:
@@ -52,8 +52,8 @@ class TestAddressesCollector:
         self.logger = logging.getLogger(__name__)
         
         # Initialize response manager to get send_request capability (lazy import)
-        KDFInstance, UnifiedResponseManager = _get_kdf_classes()
-        self.response_manager = UnifiedResponseManager()
+        KDFInstance, KdfResponseManager = _get_kdf_classes()
+        self.response_manager = KdfResponseManager()
         self.KDFInstance = KDFInstance
         
     def send_request(self, instance, request_data: Dict[str, Any], timeout: int = 30) -> Tuple[bool, Dict[str, Any]]:
@@ -127,11 +127,11 @@ class TestAddressesCollector:
                     unspendable_balance=response.get("unspendable_balance", "0")
                 )
             else:
-                self.logger.debug(f"{instance.name}: my_balance failed for {coin}: {response}")
+                self.logger.info(f"{instance.name}: my_balance failed for {coin}: {response}")
                 return None
                 
         except Exception as e:
-            self.logger.debug(f"{instance.name}: Error getting legacy balance for {coin}: {e}")
+            self.logger.info(f"{instance.name}: Error getting legacy balance for {coin}: {e}")
             return None
     
     def get_balance_hd(self, instance, coin: str) -> List[AddressBalance]:
@@ -151,12 +151,12 @@ class TestAddressesCollector:
             success, response = self.send_request(instance, init_request)
             
             if not success or "result" not in response:
-                self.logger.debug(f"{instance.name}: account_balance init failed for {coin}: {response}")
+                self.logger.info(f"{instance.name}: account_balance init failed for {coin}: {response}")
                 return []
             
             task_id = response["result"].get("task_id")
             if task_id is None:
-                self.logger.debug(f"{instance.name}: No task_id returned for {coin} account balance")
+                self.logger.info(f"{instance.name}: No task_id returned for {coin} account balance")
                 return []
             
             # Poll for status
@@ -202,17 +202,17 @@ class TestAddressesCollector:
                         continue
                     else:
                         # Failed or other status
-                        self.logger.debug(f"{instance.name}: account_balance failed for {coin} with status: {status}")
+                        self.logger.info(f"{instance.name}: account_balance failed for {coin} with status: {status}")
                         return []
                 else:
-                    self.logger.debug(f"{instance.name}: account_balance status check failed for {coin}: {response}")
+                    self.logger.info(f"{instance.name}: account_balance status check failed for {coin}: {response}")
                     return []
             
-            self.logger.debug(f"{instance.name}: account_balance timed out for {coin}")
+            self.logger.info(f"{instance.name}: account_balance timed out for {coin}")
             return []
             
         except Exception as e:
-            self.logger.debug(f"{instance.name}: Error getting HD balance for {coin}: {e}")
+            self.logger.info(f"{instance.name}: Error getting HD balance for {coin}: {e}")
             return []
     
     def get_coin_addresses_and_balances(self, instance, coin: str) -> List[AddressBalance]:
@@ -225,17 +225,17 @@ class TestAddressesCollector:
             hd_addresses = self.get_balance_hd(instance, coin)
             if hd_addresses:
                 addresses.extend(hd_addresses)
-                self.logger.debug(f"{instance.name}: Got {len(hd_addresses)} HD addresses for {coin}")
+                self.logger.info(f"{instance.name}: Got {len(hd_addresses)} HD addresses for {coin}")
             else:
-                self.logger.debug(f"{instance.name}: No HD addresses found for {coin}")
+                self.logger.info(f"{instance.name}: No HD addresses found for {coin}")
         else:
             # Non-HD wallet - use legacy method
             legacy_balance = self.get_balance_legacy(instance, coin)
             if legacy_balance:
                 addresses.append(legacy_balance)
-                self.logger.debug(f"{instance.name}: Got legacy balance for {coin}")
+                self.logger.info(f"{instance.name}: Got legacy balance for {coin}")
             else:
-                self.logger.debug(f"{instance.name}: No legacy balance found for {coin}")
+                self.logger.info(f"{instance.name}: No legacy balance found for {coin}")
         
         return addresses
     
@@ -273,7 +273,7 @@ class TestAddressesCollector:
             
             # Get addresses and balances for each coin
             for coin in enabled_coins:
-                self.logger.debug(f"{instance.name}: Getting addresses for {coin}")
+                self.logger.info(f"{instance.name}: Getting addresses for {coin}")
                 addresses = self.get_coin_addresses_and_balances(instance, coin)
                 
                 if addresses:
@@ -290,7 +290,7 @@ class TestAddressesCollector:
                         instance_addresses[coin] = coin_addresses
                         self.logger.info(f"{instance.name}: {coin} - {len(coin_addresses)} addresses")
                 else:
-                    self.logger.debug(f"{instance.name}: No addresses found for {coin}")
+                    self.logger.info(f"{instance.name}: No addresses found for {coin}")
             
             all_addresses[instance.name] = instance_addresses
             self.logger.info(f"{instance.name}: Found addresses for {len(instance_addresses)} coins")
@@ -337,8 +337,8 @@ def main():
     
     # Import KDF instances  
     sys.path.append(str(workspace_root / "utils/py/lib/managers"))
-    KDFInstance, UnifiedResponseManager = _get_kdf_classes()
-    from responses_manager import KDF_INSTANCES
+    KDFInstance, KdfResponseManager = _get_kdf_classes()
+    from kdf_responses_manager import KDF_INSTANCES
     
     # Create collector and collect addresses
     collector = TestAddressesCollector(workspace_root)

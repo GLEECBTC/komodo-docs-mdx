@@ -8,9 +8,13 @@ including hardware requirements, protocol preferences, and example filtering.
 
 import json
 import os
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple, Any
 
+# Add lib path to import models without package context
+sys.path.append(str(Path(__file__).parent.parent))
+from models.kdf_method import KdfMethod
 
 class EnvironmentManager:
     """Manages environment-specific requirements for KDF methods."""
@@ -31,20 +35,51 @@ class EnvironmentManager:
             # .parent -> utils/
             # .parent -> workspace root
             script_dir = Path(__file__).parent.parent.parent.parent.parent
-            kdf_methods_path = script_dir / "src" / "data" / "kdf_methods.json"
+            # Prefer merged view by loading both files; store directory path
+            kdf_methods_path = script_dir / "src" / "data"
         
         self.kdf_methods_path = Path(kdf_methods_path)
+        # Load split files separately to avoid merging conflicts
+        self.methods_v2: Dict[str, Any] = {}
+        self.methods_legacy: Dict[str, Any] = {}
         self.methods_data = self._load_methods_data()
     
     def _load_methods_data(self) -> Dict[str, Any]:
-        """Load and parse the KDF methods data."""
-        try:
-            with open(self.kdf_methods_path, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"KDF methods file not found: {self.kdf_methods_path}")
-        except json.JSONDecodeError as e:
-            raise ValueError(f"Invalid JSON in KDF methods file: {e}")
+        """Load and parse the KDF methods data from v2 and legacy files."""
+        base = self.kdf_methods_path
+        if base.is_dir():
+            v2_file = base / "kdf_methods_v2.json"
+            legacy_file = base / "kdf_methods_legacy.json"
+            merged: Dict[str, Any] = {}
+            try:
+                with open(legacy_file, 'r') as f:
+                    self.methods_legacy = json.load(f)
+            except Exception:
+                self.methods_legacy = {}
+            try:
+                with open(v2_file, 'r') as f:
+                    self.methods_v2 = json.load(f)
+            except Exception:
+                self.methods_v2 = {}
+            # Build a non-destructive combined view but do not rely on it for version-specific lookups
+            merged.update(self.methods_legacy)
+            merged.update(self.methods_v2)
+            return merged
+        else:
+            # Backward compatibility if provided a file path
+            with open(base, 'r') as f:
+                data = json.load(f)
+                # Assume v2 if single file
+                self.methods_v2 = data
+                return data
+
+    def _get_method_data(self, method: str) -> Dict[str, Any]:
+        """Select method data from the appropriate version without merging.
+        Heuristic: methods containing '::' are v2, others are legacy.
+        """
+        if '::' in method:
+            return self.methods_v2.get(method, {})
+        return self.methods_legacy.get(method, {})
     
     def is_deprecated(self, method: str) -> bool:
         """Check if a method is marked as deprecated.
@@ -73,9 +108,9 @@ class EnvironmentManager:
         if method not in self.methods_data:
             return []
         
-        method_data = self.methods_data[method]
-        requirements = method_data.get('requirements', {})
-        return requirements.get('prerequisite_methods', [])
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.get_prerequisite_methods()
     
     def get_supported_environments(self, method: str) -> List[str]:
         """Get list of environments where the method is supported.
@@ -89,8 +124,9 @@ class EnvironmentManager:
         if method not in self.methods_data:
             return []
         
-        requirements = self.methods_data[method].get('requirements', {})
-        return requirements.get('environments', [])
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.supported_environments
     
     def is_environment_supported(self, method: str, environment: str) -> bool:
         """Check if a method is supported in a specific environment.
@@ -102,7 +138,9 @@ class EnvironmentManager:
         Returns:
             True if the method supports the environment
         """
-        return environment in self.get_supported_environments(method)
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.supports_environment(environment)
     
     def get_hardware_requirements(self, method: str) -> List[str]:
         """Get hardware requirements for a method.
@@ -116,8 +154,9 @@ class EnvironmentManager:
         if method not in self.methods_data:
             return []
         
-        requirements = self.methods_data[method].get('requirements', {})
-        return requirements.get('hardware', [])
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.required_hardware
     
     def requires_hardware(self, method: str, hardware_type: str = None) -> bool:
         """Check if a method requires specific hardware.
@@ -130,12 +169,9 @@ class EnvironmentManager:
         Returns:
             True if the method requires the specified hardware (or any hardware)
         """
-        hardware_reqs = self.get_hardware_requirements(method)
-        
-        if hardware_type is None:
-            return len(hardware_reqs) > 0
-        
-        return hardware_type in hardware_reqs
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.requires_hardware(hardware_type)
     
     def get_protocol_preferences(self, method: str, environment: str) -> Dict[str, List[str]]:
         """Get protocol preferences for a method in a specific environment.
@@ -148,18 +184,9 @@ class EnvironmentManager:
             Dictionary mapping protocol types to preferred options
             Example: {'electrum': ['WSS'], 'websocket': ['wss']}
         """
-        if method not in self.methods_data:
-            return {}
-        
-        requirements = self.methods_data[method].get('requirements', {})
-        protocols = requirements.get('protocols', {})
-        
-        result = {}
-        for protocol_type, env_prefs in protocols.items():
-            if environment in env_prefs:
-                result[protocol_type] = env_prefs[environment]
-        
-        return result
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.get_protocol_preferences(environment)
     
     def get_supported_wallet_types(self, method: str) -> List[str]:
         """Get list of wallet types where the method is supported.
@@ -173,8 +200,9 @@ class EnvironmentManager:
         if method not in self.methods_data:
             return []
         
-        requirements = self.methods_data[method].get('requirements', {})
-        return requirements.get('wallet_types', [])
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.supported_wallet_types
     
     def is_wallet_type_supported(self, method: str, wallet_type: str) -> bool:
         """Check if a method is supported with a specific wallet type.
@@ -186,7 +214,9 @@ class EnvironmentManager:
         Returns:
             True if the method supports the wallet type
         """
-        return wallet_type in self.get_supported_wallet_types(method)
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.supports_wallet_type(wallet_type)
     
     def get_conditional_params(self, method: str, wallet_type: str = None) -> List[str]:
         """Get parameters that are conditional based on wallet type.
@@ -198,22 +228,9 @@ class EnvironmentManager:
         Returns:
             List of parameter names that apply to the wallet type
         """
-        if method not in self.methods_data:
-            return []
-        
-        requirements = self.methods_data[method].get('requirements', {})
-        conditional_params = requirements.get('conditional_params', {})
-        
-        if wallet_type == 'hd':
-            return conditional_params.get('hd_only', [])
-        elif wallet_type == 'iguana':
-            return conditional_params.get('non_hd_only', [])
-        else:
-            # Return all conditional params if no specific type requested
-            all_params = []
-            all_params.extend(conditional_params.get('hd_only', []))
-            all_params.extend(conditional_params.get('non_hd_only', []))
-            return all_params
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.get_conditional_params_for_wallet(wallet_type)
 
     def get_filtered_examples(self, method: str, environment: str = None, 
                             hardware: str = None, wallet_type: str = None) -> Dict[str, str]:
@@ -230,53 +247,9 @@ class EnvironmentManager:
         """
         if method not in self.methods_data:
             return {}
-        
-        method_data = self.methods_data[method]
-        all_examples = method_data.get('examples', {})
-        
-        # If no filtering requested, return all examples
-        if environment is None and hardware is None and wallet_type is None:
-            return all_examples
-        
-        # Check method-level requirements
-        method_requirements = method_data.get('requirements', {})
-        
-        # Filter by environment
-        if environment is not None:
-            supported_envs = method_requirements.get('environments', [])
-            if environment not in supported_envs:
-                return {}  # Method not supported in this environment
-        
-        # Filter by wallet type
-        if wallet_type is not None:
-            supported_wallet_types = method_requirements.get('wallet_types', [])
-            if wallet_type not in supported_wallet_types:
-                return {}  # Method not supported with this wallet type
-        
-        # Filter by hardware
-        if hardware is not None:
-            required_hardware = method_requirements.get('hardware', [])
-            if hardware not in required_hardware and len(required_hardware) > 0:
-                return {}  # Method doesn't require this hardware
-        
-        # Check example-specific requirements
-        example_requirements = method_requirements.get('example_requirements', {})
-        filtered_examples = {}
-        
-        for example_key, description in all_examples.items():
-            example_reqs = example_requirements.get(example_key, {})
-            
-            # Check hardware requirement for this specific example
-            if hardware is not None:
-                example_hardware = example_reqs.get('hardware', [])
-                if len(example_hardware) > 0 and hardware not in example_hardware:
-                    continue  # This example requires different hardware
-            
-            # Apply "x_only" pattern detection
-            if self._matches_pattern_requirements(example_key, environment, hardware, wallet_type):
-                filtered_examples[example_key] = description
-        
-        return filtered_examples
+        method_data = self._get_method_data(method) or self.methods_data.get(method, {})
+        km = KdfMethod.from_config(method, method_data)
+        return km.filter_examples(environment, hardware, wallet_type)
     
     def _matches_pattern_requirements(self, example_key: str, environment: str = None, 
                                     hardware: str = None, wallet_type: str = None) -> bool:

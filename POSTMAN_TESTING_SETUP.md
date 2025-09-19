@@ -28,7 +28,7 @@ This testing infrastructure provides:
 ./utils/scripts/test_setup.sh all
 
 # Test with main branch
-KDF_BRANCH=main ./utils/scripts/test_setup.sh all
+KDF_BRANCH=dev ./utils/scripts/test_setup.sh all
 
 # Test specific feature branch
 KDF_BRANCH=feature/new-api ./utils/scripts/test_setup.sh all
@@ -38,7 +38,7 @@ KDF_BRANCH=feature/new-api ./utils/scripts/test_setup.sh all
 
 ```bash
 # Set the KDF branch (optional, defaults to 'dev')
-export KDF_BRANCH=main
+export KDF_BRANCH=dev
 
 # Start all services
 docker compose up --build
@@ -307,7 +307,7 @@ services:
 ### Build Script Issues
 ```bash
 # Enable debug mode
-DEBUG=1 KDF_BRANCH=main ./utils/docker/build-kdf.sh
+DEBUG=1 KDF_BRANCH=dev ./utils/docker/build-kdf.sh
 
 # Manual verification
 ls -la /tmp/kdf-build/.docker/

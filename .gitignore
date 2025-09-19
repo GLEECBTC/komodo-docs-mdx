@@ -41,3 +41,4 @@ links-to-manually-check
 MM2.json
 utils/docker/kdf-config/coins
 tmp/*
+utils/py/tmp/coins_config_cache.json

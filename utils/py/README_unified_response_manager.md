@@ -184,14 +184,14 @@ The unified manager integrates seamlessly with existing processes:
 
 ## Performance Considerations
 
-- **Configurable timeouts**: 30s default, or custom timeout from `kdf_methods.json` (e.g., `enable_eth_with_tokens: 300s`)
+- **Configurable timeouts**: 30s default, or custom timeout from `kdf_methods_v2.json`/`kdf_methods_legacy.json` (e.g., `enable_eth_with_tokens: 300s`)
 - **Status polling**: 2-second intervals with 20-check limit for task lifecycle
 - **Automatic coin disabling**: Prevents conflicts between collection attempts
 - **Efficient structure comparison**: Optimized for consistency checking
 
 ## Deprecated Method Handling
 
-Methods marked with `"deprecated": true` in `src/data/kdf_methods.json` are automatically excluded from:
+Methods marked with `"deprecated": true` in `src/data/kdf_methods_v2.json` and `src/data/kdf_methods_legacy.json` are automatically excluded from:
 - Postman collection generation
 - Missing responses reports  
 - Response collection attempts
@@ -224,7 +224,7 @@ Some methods require other methods to be executed first. The system automaticall
 ### Method Dependencies:
 - `enable_tendermint_token` requires `enable_tendermint_with_assets` to be called first
 
-Dependencies are defined in `src/data/kdf_methods.json` using the `prerequisite_methods` array:
+Dependencies are defined in `src/data/kdf_methods_v2.json`/`kdf_methods_legacy.json` using the `prerequisite_methods` array:
 ```json
 {
   "enable_tendermint_token": {
@@ -298,7 +298,7 @@ The system automatically tracks response times for all method calls across diffe
 
 ## Timeout Configuration
 
-Method timeouts are configured in `src/data/kdf_methods.json` using the `timeout` field:
+Method timeouts are configured in `src/data/kdf_methods_v2.json`/`kdf_methods_legacy.json` using the `timeout` field:
 
 ```json
 {
@@ -400,7 +400,7 @@ Even when responses are marked as inconsistent, the system now automatically:
 The system now scans **ALL methods** on every run, not just missing ones. This ensures complete coverage and captures updates to existing responses that might occur in future KDF releases.
 
 ### Scanning Scope
-- **All non-deprecated methods**: Every method in `kdf_methods.json` without `"deprecated": true`
+- **All non-deprecated methods**: Every method in `kdf_methods_v2.json` and `kdf_methods_legacy.json` without `"deprecated": true`
 - **All request examples**: Every example for each method (39 total examples across 26 methods)
 - **Every execution**: Full scan regardless of current response file status
 - **Future-ready**: Automatically detects new response data or structural changes

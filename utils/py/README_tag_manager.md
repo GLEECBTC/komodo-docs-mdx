@@ -43,7 +43,7 @@ from lib.managers.tag_manager import TagManager
 
 # Initialize
 tag_manager = TagManager(
-    kdf_methods_path="src/data/kdf_methods.json",
+    kdf_methods_path="src/data",  # will read kdf_methods_v2.json and kdf_methods_legacy.json
     requests_base_path="src/data/requests/kdf"
 )
 
@@ -64,7 +64,7 @@ changes = tag_manager.apply_derived_tags(dry_run=False)
 
 ### Data Sources
 
-- **KDF Methods**: `src/data/kdf_methods.json` - Contains method definitions, requirements, and existing tags
+- **KDF Methods**: `src/data/kdf_methods_v2.json` and `src/data/kdf_methods_legacy.json` - Method definitions split by version
 - **Request Examples**: `src/data/requests/kdf/` - Contains actual request examples referenced by methods
 
 ### Tag Detection Logic

@@ -188,7 +188,7 @@ main() {
             echo "Examples:"
             echo "  $0 clean                    # Safe cleanup of only KDF resources"
             echo "  $0 deep-clean               # System-wide cleanup (with confirmation)"
-            echo "  KDF_BRANCH=main $0 all      # Test main branch"
+            echo "  KDF_BRANCH=dev $0 all       # Test dev branch"
             exit 1
             ;;
     esac

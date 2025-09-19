@@ -657,9 +657,7 @@
             ]
           }
         },
-        "priv_key_policy": {
-          "type": "Trezor"
-        },
+        "priv_key_policy": "ContextPrivKey",
         "scan_policy": "scan_if_new_wallet"
       },
       "ticker": "KMD"

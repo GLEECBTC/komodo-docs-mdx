@@ -17,19 +17,18 @@
       ]
     },
     "response_table": "AddNodeToVersionStatResponse",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
   },
-  "electrum": {
-    "errors_table": "",
+  "consolidate_utxos": {
+    "errors_table": "ConsolidateUtxosErrors",
     "examples": {
-      "LegacyElectrumBch": "Electrum Bch",
-      "LegacyElectrumKmd": "Electrum Kmd",
-      "LegacyElectrumQtum": "Electrum Qtum"
+      "ConsolidateUtxos": "Consolidate Utxos"
     },
     "prerequisites": [],
-    "request_table": "ElectrumArguments",
+    "request_table": "ConsolidateUtxosRequest",
     "requirements": {
       "environments": [
         "native",
@@ -40,45 +39,10 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "ConsolidateUtxosResponse",
+    "sequence": 200,
     "tags": [
-      "legacy"
-    ]
-  },
-  "enable": {
-    "errors_table": "",
-    "examples": {
-      "LegacyEnableBnb": "Enable BNB Token (Legacy)",
-      "LegacyEnableEth": "Enable Ethereum Token (Legacy)",
-      "LegacyEnableEthGasStation": "Enable Ethereum Token (Legacy) with Gas Station",
-      "LegacyEnableMatic": "Enable Matic Token (Legacy)",
-      "LegacyEnableNative": "Enable UTXO coin with local blockchain data",
-      "LegacyEnableNativeWithParams": "Enable UTXO coin with local blockchain data with basic parameters"
-    },
-    "prerequisites": [],
-    "request_table": "EnableArguments",
-    "requirements": {
-      "conditional_params": {
-        "hd_only": [
-          "gap_limit",
-          "min_addresses_number",
-          "path_to_address",
-          "scan_policy"
-        ],
-        "non_hd_only": []
-      },
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "tags": [
-      "legacy"
+      "v2"
     ]
   },
   "enable_bch_with_tokens": {
@@ -101,6 +65,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "deprecated",
       "v2"
@@ -124,6 +89,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -148,6 +114,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ],
@@ -174,6 +141,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -198,6 +166,30 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
+    "tags": [
+      "v2"
+    ]
+  },
+  "fetch_utxos": {
+    "errors_table": "FetchUtxosErrors",
+    "examples": {
+      "FetchUtxos": "Fetch Utxos"
+    },
+    "prerequisites": [],
+    "request_table": "FetchUtxosRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "FetchUtxosResponse",
+    "sequence": 50,
     "tags": [
       "v2"
     ]
@@ -221,6 +213,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "deprecated",
       "v2"
@@ -254,6 +247,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "deprecated",
       "v2"
@@ -278,6 +272,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "deprecated",
       "v2"
@@ -305,6 +300,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "deprecated",
       "v2"
@@ -328,6 +324,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
@@ -362,6 +359,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -384,6 +382,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -409,6 +408,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -431,6 +431,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
@@ -462,6 +463,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -484,6 +486,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -509,6 +512,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -531,6 +535,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
@@ -562,6 +567,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -584,6 +590,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -609,6 +616,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -631,6 +639,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
@@ -662,6 +671,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -684,6 +694,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -716,6 +727,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -736,6 +748,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
@@ -759,6 +772,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
     "tags": [
       "v2"
     ]
@@ -779,6 +793,7 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
     "tags": [
       "v2"
     ]
@@ -802,6 +817,34 @@
       ]
     },
     "response_table": "",
+    "sequence": 100,
+    "tags": [
+      "v2"
+    ]
+  },
+  "withdraw": {
+    "errors_table": "",
+    "examples": {
+      "WithdrawMarty": "Withdraw Marty",
+      "WithdrawMartyAccountId": "Withdraw Marty Account Id",
+      "WithdrawMartyDerivationPath": "Withdraw Marty Derivation Path",
+      "WithdrawMartyFixedFee": "Withdraw Marty Fixed Fee",
+      "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte"
+    },
+    "prerequisites": [],
+    "request_table": "",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "",
+    "sequence": 50,
     "tags": [
       "v2"
     ]

@@ -20,7 +20,7 @@ from managers.tag_manager import TagManager
 
 def setup_logging(verbose: bool = False) -> None:
     """Setup logging configuration."""
-    log_level = logging.DEBUG if verbose else logging.INFO
+    log_level = logging.INFO if verbose else logging.DEBUG
     logging.basicConfig(
         level=log_level,
         format='%(levelname)s: %(message)s'
@@ -32,7 +32,8 @@ def get_default_paths() -> tuple[Path, Path]:
     script_dir = Path(__file__).parent
     project_root = script_dir.parent.parent
     
-    kdf_methods_path = project_root / "src" / "data" / "kdf_methods.json"
+    # Default to v2 file; tool can still accept overrides via --kdf-methods
+    kdf_methods_path = project_root / "src" / "data" / "kdf_methods_v2.json"
     requests_base_path = project_root / "src" / "data" / "requests" / "kdf"
     
     return kdf_methods_path, requests_base_path
@@ -173,7 +174,7 @@ Examples:
         "--kdf-methods",
         default=default_kdf_methods,
         type=Path,
-        help=f"Path to kdf_methods.json (default: {default_kdf_methods})"
+        help=f"Path to kdf methods directory or file (default: {default_kdf_methods})"
     )
     parser.add_argument(
         "--requests-base",
