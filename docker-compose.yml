@@ -2,8 +2,11 @@ services:
   # Native KDF with HD wallet support
   kdf-native-hd:
     build:
-      context: tmp/kdf-build
-      dockerfile: ../../utils/docker/Dockerfile.kdf_native
+      context: .
+      dockerfile: utils/docker/Dockerfile.kdf_native
+      args:
+        KDF_BRANCH: ${KDF_BRANCH:-dev}
+        KDF_BUILD_COMMIT: ${KDF_BUILD_COMMIT:-unknown}
     container_name: kdf-native-hd
     ports:
       - "7783:8779"  # External:Internal port mapping (8779 is configured in MM2.json)
@@ -25,8 +28,11 @@ services:
   # Native KDF with non-HD wallet support
   kdf-native-nonhd:
     build:
-      context: tmp/kdf-build
-      dockerfile: ../../utils/docker/Dockerfile.kdf_native
+      context: .
+      dockerfile: utils/docker/Dockerfile.kdf_native
+      args:
+        KDF_BRANCH: ${KDF_BRANCH:-dev}
+        KDF_BUILD_COMMIT: ${KDF_BUILD_COMMIT:-unknown}
     container_name: kdf-native-nonhd
     ports:
       - "7784:8778"  # External:Internal port mapping (8778 is configured in MM2.json)

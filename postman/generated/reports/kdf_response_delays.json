@@ -15,7 +15,7 @@
     "consolidate_utxos": {
       "ConsolidateUtxos": {
         "native-hd": {
-          "delay": 0.372,
+          "delay": 0.394,
           "status_code": 400
         },
         "native-nonhd": {
@@ -27,21 +27,21 @@
     "electrum": {
       "LegacyElectrumBch": {
         "native-hd": {
-          "delay": 0.022,
+          "delay": 0.03,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 2.822,
+          "delay": 2.761,
           "status_code": 200
         }
       },
       "LegacyElectrumKmd": {
         "native-hd": {
-          "delay": 0.006,
+          "delay": 0.005,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 2.716,
+          "delay": 2.751,
           "status_code": 200
         }
       },
@@ -51,7 +51,7 @@
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 3.848,
+          "delay": 4.026,
           "status_code": 200
         }
       }
@@ -59,21 +59,21 @@
     "enable": {
       "LegacyEnableBnb": {
         "native-hd": {
-          "delay": 1.897,
+          "delay": 1.786,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 3.312,
+          "delay": 3.062,
           "status_code": 200
         }
       },
       "LegacyEnableEth": {
         "native-hd": {
-          "delay": 0.01,
+          "delay": 0.011,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 1.497,
+          "delay": 0.704,
           "status_code": 200
         }
       },
@@ -83,17 +83,17 @@
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 1.52,
+          "delay": 3.959,
           "status_code": 200
         }
       },
       "LegacyEnableMatic": {
         "native-hd": {
-          "delay": 0.01,
+          "delay": 0.011,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 0.509,
+          "delay": 0.717,
           "status_code": 200
         }
       },
@@ -121,11 +121,11 @@
     "enable_erc20": {
       "EnableErc20Basic": {
         "native-hd": {
-          "delay": 1.631,
+          "delay": 1.745,
           "status_code": 500
         },
         "native-nonhd": {
-          "delay": 3.249,
+          "delay": 3.063,
           "status_code": 200
         }
       }
@@ -133,31 +133,31 @@
     "enable_eth_with_tokens": {
       "EnableEthWithTokensGasStation": {
         "native-hd": {
-          "delay": 127.437,
+          "delay": 122.675,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 8.448,
+          "delay": 8.395,
           "status_code": 200
         }
       },
       "EnableEthWithTokensMaticBalancesFalse": {
         "native-hd": {
-          "delay": 33.368,
+          "delay": 32.438,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 1.893,
+          "delay": 1.814,
           "status_code": 200
         }
       },
       "EnableEthWithTokensMaticNft": {
         "native-hd": {
-          "delay": 3.954,
+          "delay": 3.764,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 2.612,
+          "delay": 3.66,
           "status_code": 200
         }
       }
@@ -177,21 +177,21 @@
     "enable_tendermint_with_assets": {
       "EnableTendermintWithAssetsBalancesFalse": {
         "native-hd": {
-          "delay": 2.922,
+          "delay": 2.966,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 3.168,
+          "delay": 3.021,
           "status_code": 200
         }
       },
       "EnableTendermintWithAssetsBalancesTrue": {
         "native-hd": {
-          "delay": 2.781,
+          "delay": 3.125,
           "status_code": 200
         },
         "native-nonhd": {
-          "delay": 2.741,
+          "delay": 2.374,
           "status_code": 200
         }
       }
@@ -199,7 +199,7 @@
     "fetch_utxos": {
       "FetchUtxos": {
         "native-hd": {
-          "delay": 0.382,
+          "delay": 0.369,
           "status_code": 200
         },
         "native-nonhd": {
@@ -223,7 +223,7 @@
     "task::enable_eth::status": {
       "TaskEnableEthStatus": {
         "native-hd": {
-          "delay": 0.001,
+          "delay": 0.002,
           "status_code": 400
         },
         "native-nonhd": {
@@ -235,7 +235,7 @@
     "task::enable_qtum::cancel": {
       "TaskEnableQtumCancel": {
         "native-hd": {
-          "delay": 0.001,
+          "delay": 0.002,
           "status_code": 404
         },
         "native-nonhd": {
@@ -295,7 +295,7 @@
     "task::enable_tendermint::status": {
       "TaskEnableTendermintStatus": {
         "native-hd": {
-          "delay": 0.002,
+          "delay": 0.001,
           "status_code": 400
         },
         "native-nonhd": {
@@ -411,7 +411,7 @@
       },
       "WithdrawMartyAccountId": {
         "native-hd": {
-          "delay": 0.376,
+          "delay": 0.364,
           "status_code": 200
         },
         "native-nonhd": {
@@ -453,7 +453,7 @@
   },
   "metadata": {
     "description": "Response timing data for KDF methods across different environments",
-    "generated_at": "2025-09-19 04:39:30 UTC",
+    "generated_at": "2025-09-19 08:53:31 UTC",
     "total_methods": 25,
     "total_requests": 40
   }

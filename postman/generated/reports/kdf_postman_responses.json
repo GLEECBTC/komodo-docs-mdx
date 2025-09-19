@@ -24,7 +24,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 23394769,
+        "current_block": 23396034,
         "nfts_infos": {},
         "ticker": "ETH",
         "wallet_balance": {
@@ -77,7 +77,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76627476,
+        "current_block": 76634649,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -130,7 +130,7 @@
       "id": null,
       "mmrpc": "2.0",
       "result": {
-        "current_block": 76627494,
+        "current_block": 76634666,
         "nfts_infos": {},
         "ticker": "MATIC",
         "wallet_balance": {
@@ -184,7 +184,7 @@
       "mmrpc": "2.0",
       "result": {
         "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-        "current_block": 31921273,
+        "current_block": 31923825,
         "ticker": "IRIS",
         "tokens_tickers": [
           "ATOM-IBC_IRIS"
@@ -200,7 +200,7 @@
           "spendable": "0",
           "unspendable": "0"
         },
-        "current_block": 31921273,
+        "current_block": 31923826,
         "ticker": "IRIS",
         "tokens_balances": {
           "ATOM-IBC_IRIS": {
@@ -322,8 +322,8 @@
       "unspendable_balance": "0"
     },
     "LegacyVersion": {
-      "datetime": "2025-09-17T07:24:42.097797132+00:00",
-      "result": "2.5.1-beta_docker-build"
+      "datetime": "2025-09-19T08:42:42.719348125+00:00",
+      "result": "2.5.1-beta_dev-d6e2324"
     },
     "TaskEnableQtumInit": {
       "id": null,
@@ -337,7 +337,7 @@
       "mmrpc": "2.0",
       "result": {
         "details": {
-          "current_block": 5172864,
+          "current_block": 5173337,
           "ticker": "QTUM",
           "wallet_balance": {
             "accounts": [
@@ -440,14 +440,14 @@
         "my_balance_change": "-0.01000245",
         "received_by_me": "7.60999755",
         "spent_by_me": "7.62",
-        "timestamp": 1758256761,
+        "timestamp": 1758272002,
         "to": [
           "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
         ],
         "total_amount": "7.62",
         "transaction_type": "StandardTransfer",
-        "tx_hash": "3f173b9ed2f161c082b98dd50fbb5eae9a2c11403bff344a40f11ab2fb0c80a0",
-        "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a47304402205d78a9bc07c7cb15e2a21aa26f09c7d13fb637d4877230bad547894abef1411e02205db09c47202a0b4ed1bda3a5a13933680322124b7de41411d27aeef7459f4dab01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac79decc68000000000000000000000000000000"
+        "tx_hash": "8e78639517a31f96d002efba55a640bb9a74f6e8c686a861e6a90e4a29994a51",
+        "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a4730440220501e53495e2c909bee19f4bf4b8df691d7a844fe505d81bd69b04cef2cceed020220100a6df51d31456e7e05be106f8c51f3e2e660e9ea63eee96f0371dfed6cd6fa01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac021acd68000000000000000000000000000000"
       }
     },
     "WithdrawMartyDerivationPath": {
@@ -469,14 +469,14 @@
         "my_balance_change": "-0.00000245",
         "received_by_me": "7.61999755",
         "spent_by_me": "7.62",
-        "timestamp": 1758256762,
+        "timestamp": 1758272003,
         "to": [
           "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
         ],
         "total_amount": "7.62",
         "transaction_type": "StandardTransfer",
-        "tx_hash": "9e37e42d8386fcbd512d2ba41769a2812d28bca4ced07ff71956e427c9d5db4e",
-        "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a473044022002b1d179d3a65de081256c5fc3f73b41c38c687166de76bea3953701268d43410220593784f0f3c2f9019053ba0aa604c110e1f1a1bd65409ee1db0b676f2da307e5012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac7adecc68000000000000000000000000000000"
+        "tx_hash": "00169f12a82649382449d474f943ab9656d237b63983011817992ba9d391e1fa",
+        "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a47304402207a9069e538f0c6f06784654c0f19bf1575326a8e51d316e2a1ec1381b712c25a02201c4181296aa8d8eae43a10a86f1edcaa4548e73cc63cbd8bf201c9a7ae2a4103012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac031acd68000000000000000000000000000000"
       }
     }
   },
@@ -490,7 +490,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
         }
       },
       "notes": "Method: consolidate_utxos",
@@ -515,11 +515,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:139] lp_coins:5365]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         },
         "native-nonhd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:139] lp_coins:5365]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         }
       },
       "notes": "Method: enable_tendermint_token",
@@ -543,11 +543,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         },
         "native-nonhd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
       "notes": "Method: enable",
@@ -565,11 +565,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         },
         "native-nonhd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
       "notes": "Method: enable",
@@ -823,7 +823,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -852,7 +852,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -885,7 +885,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -915,7 +915,7 @@
     "collection_summary": {
       "regular_methods": 40
     },
-    "collection_timestamp": "2025-09-19 04:39:30 UTC",
+    "collection_timestamp": "2025-09-19 08:53:31 UTC",
     "total_responses_collected": 40
   },
   "responses": {
@@ -958,7 +958,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"consolidate_utxos.lp_coins\",\"error_trace\":\"consolidate_utxos:88] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
         }
       },
       "notes": "Method: consolidate_utxos",
@@ -982,7 +982,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Expected 'SingleAddress' derivation method\",\"error_path\":\"token.erc20_token_activation.lp_coins\",\"error_trace\":\"token:156] erc20_token_activation:170] lp_coins:4603]\",\"error_type\":\"UnexpectedDerivationMethod\",\"error_data\":\"ExpectedSingleAddress\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Expected 'SingleAddress' derivation method\",\"error_path\":\"token.erc20_token_activation.lp_coins\",\"error_trace\":\"token:157] erc20_token_activation:170] lp_coins:4658]\",\"error_type\":\"UnexpectedDerivationMethod\",\"error_data\":\"ExpectedSingleAddress\",\"id\":null}"
         },
         "native-nonhd": {
           "id": null,
@@ -1022,7 +1022,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23394769,
+            "current_block": 23396034,
             "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
@@ -1075,7 +1075,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23394780,
+            "current_block": 23396044,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "balances": {
@@ -1167,7 +1167,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76627476,
+            "current_block": 76634649,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -1220,7 +1220,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76627493,
+            "current_block": 76634664,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -1296,7 +1296,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76627494,
+            "current_block": 76634666,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -1349,7 +1349,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 76627497,
+            "current_block": 76634669,
             "erc20_addresses_infos": {
               "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
                 "derivation_method": {
@@ -1426,11 +1426,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:139] lp_coins:5365]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         },
         "native-nonhd": {
           "error": "HTTP 400",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:138] lp_coins:5294]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Platform coin IRIS is not activated\",\"error_path\":\"token.lp_coins\",\"error_trace\":\"token:139] lp_coins:5365]\",\"error_type\":\"PlatformCoinIsNotActivated\",\"error_data\":\"IRIS\",\"id\":null}"
         }
       },
       "notes": "Method: enable_tendermint_token",
@@ -1456,7 +1456,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 31921273,
+            "current_block": 31923825,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -1468,7 +1468,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-            "current_block": 31921273,
+            "current_block": 31923826,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -1518,7 +1518,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31921273,
+            "current_block": 31923826,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1537,7 +1537,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 31921274,
+            "current_block": 31923827,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -1627,7 +1627,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"fetch_utxos.lp_coins\",\"error_trace\":\"fetch_utxos:75] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"fetch_utxos.lp_coins\",\"error_trace\":\"fetch_utxos:75] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
         }
       },
       "notes": "Method: fetch_utxos",
@@ -1647,7 +1647,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4603] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
         },
         "native-nonhd": {
           "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
@@ -1690,7 +1690,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4603] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
         },
         "native-nonhd": {
           "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
@@ -1734,7 +1734,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4603] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
         },
         "native-nonhd": {
           "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
@@ -1776,7 +1776,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -1809,7 +1809,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -1842,7 +1842,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -1880,7 +1880,7 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4745] lp_coins:4603] Expected 'SingleAddress' derivation method\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
         },
         "native-nonhd": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -1912,11 +1912,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         },
         "native-nonhd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
       "notes": "Method: enable",
@@ -1933,11 +1933,11 @@
       "instances": {
         "native-hd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         },
         "native-nonhd": {
           "error": "HTTP 500",
-          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5116] utxo_standard:91] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
         }
       },
       "notes": "Method: enable",
@@ -1956,12 +1956,12 @@
       "consistent_structure": true,
       "instances": {
         "native-hd": {
-          "datetime": "2025-09-17T07:24:42.097797132+00:00",
-          "result": "2.5.1-beta_docker-build"
+          "datetime": "2025-09-19T08:42:42.719348125+00:00",
+          "result": "2.5.1-beta_dev-d6e2324"
         },
         "native-nonhd": {
-          "datetime": "2025-09-17T07:24:42.097797132+00:00",
-          "result": "2.5.1-beta_docker-build"
+          "datetime": "2025-09-19T08:42:42.719348125+00:00",
+          "result": "2.5.1-beta_dev-d6e2324"
         }
       },
       "notes": "Method: version",
@@ -2104,7 +2104,7 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 5172864,
+              "current_block": 5173337,
               "ticker": "QTUM",
               "wallet_balance": {
                 "accounts": [
@@ -2165,7 +2165,7 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 5172864,
+              "current_block": 5173337,
               "ticker": "QTUM",
               "wallet_balance": {
                 "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
@@ -2566,7 +2566,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -2607,19 +2607,19 @@
             "my_balance_change": "-0.01000245",
             "received_by_me": "7.60999755",
             "spent_by_me": "7.62",
-            "timestamp": 1758256761,
+            "timestamp": 1758272002,
             "to": [
               "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
             ],
             "total_amount": "7.62",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "3f173b9ed2f161c082b98dd50fbb5eae9a2c11403bff344a40f11ab2fb0c80a0",
-            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a47304402205d78a9bc07c7cb15e2a21aa26f09c7d13fb637d4877230bad547894abef1411e02205db09c47202a0b4ed1bda3a5a13933680322124b7de41411d27aeef7459f4dab01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac79decc68000000000000000000000000000000"
+            "tx_hash": "8e78639517a31f96d002efba55a640bb9a74f6e8c686a861e6a90e4a29994a51",
+            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a4730440220501e53495e2c909bee19f4bf4b8df691d7a844fe505d81bd69b04cef2cceed020220100a6df51d31456e7e05be106f8c51f3e2e660e9ea63eee96f0371dfed6cd6fa01210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac021acd68000000000000000000000000000000"
           }
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -2665,19 +2665,19 @@
             "my_balance_change": "-0.00000245",
             "received_by_me": "7.61999755",
             "spent_by_me": "7.62",
-            "timestamp": 1758256762,
+            "timestamp": 1758272003,
             "to": [
               "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
             ],
             "total_amount": "7.62",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "9e37e42d8386fcbd512d2ba41769a2812d28bca4ced07ff71956e427c9d5db4e",
-            "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a473044022002b1d179d3a65de081256c5fc3f73b41c38c687166de76bea3953701268d43410220593784f0f3c2f9019053ba0aa604c110e1f1a1bd65409ee1db0b676f2da307e5012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac7adecc68000000000000000000000000000000"
+            "tx_hash": "00169f12a82649382449d474f943ab9656d237b63983011817992ba9d391e1fa",
+            "tx_hex": "0400008085202f89016ed659ad2e7c9969ddfc74d7d689a664ac0601f234a4faaaedc2ba0a2d6bc97e000000006a47304402207a9069e538f0c6f06784654c0f19bf1575326a8e51d316e2a1ec1381b712c25a02201c4181296aa8d8eae43a10a86f1edcaa4548e73cc63cbd8bf201c9a7ae2a4103012103590aea72d914d3d57338f0f83aa8e474c527d82de62682646554c8b858adb449ffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac031acd68000000000000000000000000000000"
           }
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -2708,7 +2708,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",
@@ -2740,7 +2740,7 @@
         },
         "native-nonhd": {
           "error": "HTTP 404",
-          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5367] lp_coins:5294]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
         }
       },
       "notes": "Method: withdraw",

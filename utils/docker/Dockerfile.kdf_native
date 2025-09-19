@@ -1,24 +1,40 @@
 # Multi-stage build for KDF
 FROM rust:1.75 as builder
 
-# Install protobuf compiler
-RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/apt/lists/*
+# Install required tools (protobuf compiler and git for cloning)
+RUN apt-get update && apt-get install -y protobuf-compiler git ca-certificates && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY . .
 
+# Build arguments and env metadata
 ARG KDF_BRANCH=dev
 ARG KDF_BUILD_COMMIT=unknown
 ENV KDF_BRANCH=$KDF_BRANCH
 ENV KDF_BUILD_COMMIT=$KDF_BUILD_COMMIT
 ENV KDF_BUILD_TAG="${KDF_BRANCH}-${KDF_BUILD_COMMIT}"
 
-RUN cargo build --release
+# Clone the KDF repository at the specified branch
+RUN git clone --depth 1 --branch "$KDF_BRANCH" https://github.com/KomodoPlatform/komodo-defi-framework.git .
+
+# Optionally checkout a specific commit if provided
+RUN if [ "$KDF_BUILD_COMMIT" != "unknown" ] && [ -n "$KDF_BUILD_COMMIT" ]; then \
+      git fetch --unshallow || true; \
+      git checkout "$KDF_BUILD_COMMIT"; \
+    fi
+
+RUN set -eux; \
+    if [ "$KDF_BUILD_COMMIT" = "unknown" ] || [ -z "$KDF_BUILD_COMMIT" ]; then \
+      KDF_BUILD_COMMIT=$(git rev-parse --short=7 HEAD); \
+    fi; \
+    KDF_BUILD_TAG="${KDF_BRANCH}-${KDF_BUILD_COMMIT}"; \
+    printf "KDF_BRANCH=%s\nKDF_BUILD_COMMIT=%s\nKDF_BUILD_TAG=%s\n" "$KDF_BRANCH" "$KDF_BUILD_COMMIT" "$KDF_BUILD_TAG" > /app/.kdf_build_info; \
+    cargo build --release
 
 # Runtime stage
 FROM docker.io/debian:stable-slim
 RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 WORKDIR /kdf
 COPY --from=builder /app/target/release/kdf /usr/local/bin/kdf
+COPY --from=builder /app/.kdf_build_info /usr/local/share/kdf_build_info
 EXPOSE 7783
 CMD ["kdf"]
