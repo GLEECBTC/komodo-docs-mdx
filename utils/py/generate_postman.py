@@ -290,19 +290,35 @@ class UnifiedPostmanGenerator:
             )
     
     def _filter_electrum_servers(self, servers: List[Dict], environment: str) -> List[Dict]:
-        """Filter electrum servers based on environment protocol preferences."""
-        if environment == 'wasm':
-            # WASM only supports WSS
-            return [s for s in servers if s.get('protocol') == 'WSS']
-        elif environment == 'native':
-            # Native prefers TCP and SSL, but can use WSS
-            preferred_order = ['TCP', 'SSL', 'WSS']
-            sorted_servers = []
-            for protocol in preferred_order:
-                sorted_servers.extend([s for s in servers if s.get('protocol') == protocol])
-            return sorted_servers[:3]  # Limit to 3 servers
-        else:
-            return servers
+        """Filter electrum servers: exclude WSS, favor cipig and SSL, cap at 3."""
+        if not isinstance(servers, list):
+            return []
+        # Normalize protocol casing and exclude WSS
+        candidates: List[Dict] = []
+        for s in servers:
+            if not isinstance(s, dict):
+                continue
+            proto = str(s.get('protocol') or s.get('proto') or '').upper()
+            if proto == 'WSS':
+                continue
+            candidates.append(s)
+        # Partition by protocol
+        ssl_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'SSL']
+        tcp_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'TCP']
+        other_list = [s for s in candidates if s not in ssl_list and s not in tcp_list]
+        # Prioritize cipig within each group
+        def prioritize_cipig(lst: List[Dict]) -> List[Dict]:
+            cipig = []
+            rest = []
+            for item in lst:
+                url = str(item.get('url', '')).lower()
+                if 'cipig' in url:
+                    cipig.append(item)
+                else:
+                    rest.append(item)
+            return cipig + rest
+        ordered = prioritize_cipig(ssl_list) + prioritize_cipig(tcp_list) + prioritize_cipig(other_list)
+        return ordered[:3]
     
     def _update_websocket_urls(self, params: Dict[str, Any], environment: str):
         """Update WebSocket URLs for environment."""

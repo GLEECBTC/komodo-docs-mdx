@@ -23,7 +23,7 @@ from typing import Dict, List, Any, Optional
 sys.path.append(str(Path(__file__).parent / "lib"))
 from utils.json_utils import dump_sorted_json
 sys.path.append(str(Path(__file__).parent / "lib" / "managers"))
-from coins_config_manager import CoinsConfigManager
+from coins_config_manager import CoinsConfigManager, CoinProtocolInfo
 from activation_manager import ActivationRequestBuilder
 sys.path.append(str(Path(__file__).parent / "lib" / "models"))
 from kdf_method import extract_method_from_request, extract_ticker_from_request

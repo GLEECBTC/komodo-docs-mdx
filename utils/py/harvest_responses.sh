@@ -22,6 +22,10 @@ fi
 echo "📦 Activating Python virtual environment..."
 source utils/py/.venv/bin/activate
 
+# Sync request examples with latest coins config servers
+echo "🔄 Syncing request examples with latest coin servers..."
+python utils/py/batch_update_nodes.py --directory src/data/requests/kdf
+
 # Set KDF branch
 export KDF_BRANCH="dev"
 

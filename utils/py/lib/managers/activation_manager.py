@@ -162,7 +162,8 @@ class ActivationRequestBuilder:
         if not protocol_info.electrum:
             self.logger.warning(f"No electrum servers found for UTXO ticker '{ticker}' in coins configuration")
             return False
-        selected = self.select_preferred_servers(protocol_info.electrum, max_count=3)
+        # Exclude WSS, prefer SSL over TCP, prioritize cipig domains, cap at 3
+        selected = self._filter_electrum_servers(protocol_info.electrum)
         new_servers: List[Dict[str, Any]] = []
         for e in selected:
             server: Dict[str, Any] = {"url": e.get("url")}
@@ -225,7 +226,8 @@ class ActivationRequestBuilder:
                     updated = True
         # electrum_servers
         if protocol_info.electrum:
-            selected = self.select_preferred_servers(protocol_info.electrum, max_count=3)
+            # Exclude WSS, prefer SSL over TCP, prioritize cipig domains, cap at 3
+            selected = self._filter_electrum_servers(protocol_info.electrum)
             new_electrum: List[Dict[str, Any]] = []
             for e in selected:
                 server: Dict[str, Any] = {"url": e.get("url")}
@@ -345,7 +347,7 @@ class ActivationRequestBuilder:
         return nodes
     
     def _filter_electrum_servers(self, servers: Optional[List[Any]]) -> List[Dict[str, Any]]:
-        """Filter and limit electrum servers: drop WSS, prefer SSL over TCP, cap at 3."""
+        """Filter and limit electrum servers: drop WSS, prefer SSL over TCP, prioritize cipig, cap at 3."""
         if not isinstance(servers, list):
             return []
         
@@ -370,7 +372,20 @@ class ActivationRequestBuilder:
             else:
                 other_list.append(s)
         
-        ordered = ssl_list + tcp_list + other_list
+        def prioritize_cipig(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            cipig: List[Dict[str, Any]] = []
+            rest: List[Dict[str, Any]] = []
+            for item in items:
+                url_val = str(item.get("url", "")).lower()
+                if "cipig" in url_val:
+                    cipig.append(item)
+                else:
+                    rest.append(item)
+            return cipig + rest
+        
+        ssl_ordered = prioritize_cipig(ssl_list)
+        tcp_ordered = prioritize_cipig(tcp_list)
+        ordered = ssl_ordered + tcp_ordered + prioritize_cipig(other_list)
         return ordered[:3]
 
 

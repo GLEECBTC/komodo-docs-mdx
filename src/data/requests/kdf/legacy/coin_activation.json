@@ -10,12 +10,12 @@
         "url": "bch.electrum3.cipig.net:20055"
       },
       {
-        "protocol": "TCP",
-        "url": "bch.electrum3.cipig.net:10055"
+        "protocol": "SSL",
+        "url": "bch.imaginary.cash:50002"
       },
       {
-        "protocol": "WSS",
-        "url": "bch.electrum3.cipig.net:30055"
+        "protocol": "SSL",
+        "url": "bch.soul-dev.com:50002"
       }
     ],
     "userpass": "RPC_UserP@SSW0RD"
@@ -33,11 +33,11 @@
       },
       {
         "protocol": "SSL",
-        "url": "kmd.electrum3.cipig.net:20001"
+        "url": "kmd.electrum2.cipig.net:20001"
       },
       {
-        "protocol": "TCP",
-        "url": "kmd.electrum3.cipig.net:10001"
+        "protocol": "SSL",
+        "url": "kmd.electrum3.cipig.net:20001"
       }
     ],
     "userpass": "RPC_UserP@SSW0RD"
@@ -55,8 +55,8 @@
         "url": "qtum.electrum2.cipig.net:20050"
       },
       {
-        "protocol": "TCP",
-        "url": "qtum.electrum2.cipig.net:10050"
+        "protocol": "SSL",
+        "url": "qtum.electrum3.cipig.net:20050"
       }
     ],
     "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
@@ -80,9 +80,9 @@
     "method": "enable",
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
+      "https://0xrpc.io/eth",
       "https://eth3.cipig.net:18555",
-      "https://ethereum-rpc.publicnode.com",
-      "https://mainnet.gateway.tenderly.co"
+      "https://ethereum-rpc.publicnode.com"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -98,8 +98,8 @@
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
       "https://0xrpc.io/eth",
-      "https://eth.drpc.org",
-      "https://eth3.cipig.net:18555"
+      "https://eth3.cipig.net:18555",
+      "https://mainnet.gateway.tenderly.co"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -109,6 +109,7 @@
     "method": "enable",
     "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
     "urls": [
+      "https://node.komodo.earth:8080/polygon",
       "https://pol3.cipig.net:18755",
       "https://polygon.gateway.tenderly.co"
     ],
