@@ -7,10 +7,13 @@ RUN apt-get update && apt-get install -y protobuf-compiler && rm -rf /var/lib/ap
 WORKDIR /app
 COPY . .
 
-# Build KDF in release mode
-ENV KDF_BUILD_TAG=docker-build
-ENV KDF_BRANCH=${KDF_BRANCH:-dev}
-RUN git checkout $KDF_BRANCH && cargo build --release
+ARG KDF_BRANCH=dev
+ARG KDF_BUILD_COMMIT=unknown
+ENV KDF_BRANCH=$KDF_BRANCH
+ENV KDF_BUILD_COMMIT=$KDF_BUILD_COMMIT
+ENV KDF_BUILD_TAG="${KDF_BRANCH}-${KDF_BUILD_COMMIT}"
+
+RUN cargo build --release
 
 # Runtime stage
 FROM docker.io/debian:stable-slim

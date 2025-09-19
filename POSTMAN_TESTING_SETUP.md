@@ -21,19 +21,6 @@ This testing infrastructure provides:
 - Docker and Docker Compose
 - Git (for cloning)
 
-### Run Tests Locally
-
-```bash
-# Test with default dev branch
-./utils/scripts/test_setup.sh all
-
-# Test with main branch
-KDF_BRANCH=dev ./utils/scripts/test_setup.sh all
-
-# Test specific feature branch
-KDF_BRANCH=feature/new-api ./utils/scripts/test_setup.sh all
-```
-
 ### Manual Docker Compose
 
 ```bash
@@ -57,25 +44,7 @@ docker compose up --build kdf-native-hd
    - **KDF Branch**: Any valid branch/tag/commit from KDF repository
 
 ## 📁 File Structure
-
-```
-├── docker-compose.yml                          # Main orchestration
-├── .github/workflows/postman-kdf-tests.yml     # CI/CD workflow
-├── postman/
-│   ├── generated/                              # Auto-generated collections
-│   └── reports/                                # Test result reports
-├── utils/
-│   ├── docker/
-│   │   ├── build-kdf.sh                        # Official KDF Docker build script
-│   │   ├── Dockerfile.processor                # Response processor
-│   │   ├── kdf-config*/                        # Environment configs
-│   │   └── kdf-db*/                            # Database volumes
-│   └── scripts/
-│       ├── test_setup.sh                       # Local test script
-│       ├── process_responses.py                # Response processor
-│       └── validate_postman.py                 # Collection validator
-└── src/data/responses/kdf/                     # Response templates
-```
+TBA
 
 ## 🏗️ Architecture
 

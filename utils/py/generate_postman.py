@@ -1327,18 +1327,22 @@ pm.test("Capture task_id", function () {{
             "generated_files": generated_files,
             "reports": reports_data
         }
-        # Attempt to include KDF version if accessible
+        # Attempt to include KDF version extracted from response report (no extra requests)
         try:
-            import requests  # type: ignore
-            # Try default local instance
-            resp = requests.post("http://127.0.0.1:7783", json={"mmrpc": "2.0", "method": "version", "userpass": "RPC_UserP@SSW0RD"}, timeout=3)
-            if resp.status_code == 200:
-                data = resp.json()
-                if isinstance(data, dict):
-                    if isinstance(data.get("result"), dict) and data["result"].get("version"):
-                        summary["kdf_version"] = str(data["result"]["version"]) 
-                    elif isinstance(data.get("result"), str):
-                        summary["kdf_version"] = data["result"]
+            report_path = self.workspace_root / "postman/generated/reports/kdf_postman_responses.json"
+            if report_path.exists():
+                with open(report_path, 'r', encoding='utf-8') as f:
+                    report = json.load(f)
+                # Look for LegacyVersion
+                if isinstance(report, dict):
+                    if "LegacyVersion" in report and isinstance(report["LegacyVersion"], dict):
+                        ver = report["LegacyVersion"].get("result")
+                        if isinstance(ver, str):
+                            summary["kdf_version"] = ver
+                    elif isinstance(report.get("responses"), dict):
+                        lv = report["responses"].get("LegacyVersion")
+                        if isinstance(lv, dict) and isinstance(lv.get("result"), str):
+                            summary["kdf_version"] = lv["result"]
         except Exception:
             pass
         

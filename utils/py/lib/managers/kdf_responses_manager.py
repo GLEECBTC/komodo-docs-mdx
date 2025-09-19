@@ -118,20 +118,14 @@ class KdfResponseManager:
         """Fetch KDF version from a running instance using the version RPC."""
         for instance in KDF_INSTANCES:
             try:
-                req = {"userpass": instance.userpass, "mmrpc": "2.0", "method": "version"}
-                success, resp = self.send_request(instance, req, timeout=10)
+                # version is a legacy (v1) method only
+                req_v1 = {"userpass": instance.userpass, "method": "version"}
+                success, resp = self.send_request(instance, req_v1, timeout=10)
                 if success and isinstance(resp, dict):
-                    # Try common fields
-                    if "result" in resp and isinstance(resp["result"], (str, dict)):
-                        if isinstance(resp["result"], str):
-                            self.last_kdf_version = resp["result"]
-                            return self.last_kdf_version
-                        elif isinstance(resp["result"], dict):
-                            ver = resp["result"].get("version") or resp["result"].get("commit") or resp["result"].get("tag")
-                            if ver:
-                                self.last_kdf_version = str(ver)
-                                return self.last_kdf_version
-                    # Fallback: search any string value
+                    # Common legacy formats
+                    if "result" in resp and isinstance(resp["result"], str):
+                        self.last_kdf_version = resp["result"]
+                        return self.last_kdf_version
                     for v in resp.values():
                         if isinstance(v, str) and any(ch.isdigit() for ch in v):
                             self.last_kdf_version = v
@@ -139,6 +133,60 @@ class KdfResponseManager:
             except Exception:
                 continue
         return self.last_kdf_version
+
+    def get_kdf_version_from_report(self) -> Optional[str]:
+        """Extract KDF version from postman/generated/reports/kdf_postman_responses.json.
+
+        Returns the version string if found, otherwise None.
+        """
+        try:
+            report_path = self.workspace_root / "postman/generated/reports/kdf_postman_responses.json"
+            if not report_path.exists():
+                return None
+            with open(report_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+            # Direct top-level LegacyVersion pattern
+            if isinstance(data, dict) and "LegacyVersion" in data:
+                lv = data.get("LegacyVersion")
+                if isinstance(lv, dict):
+                    ver = lv.get("result")
+                    if isinstance(ver, str):
+                        self.last_kdf_version = ver
+                        return ver
+
+            # Unified responses format: search in responses -> LegacyVersion
+            responses = data.get("responses") if isinstance(data, dict) else None
+            if isinstance(responses, dict) and "LegacyVersion" in responses:
+                lv_entry = responses.get("LegacyVersion")
+                # Try common fields
+                if isinstance(lv_entry, dict):
+                    # direct result
+                    if isinstance(lv_entry.get("result"), str):
+                        self.last_kdf_version = lv_entry["result"]
+                        return self.last_kdf_version
+                    # scan nested values for a plausible version string
+                    def scan(obj):
+                        if isinstance(obj, str) and any(ch.isdigit() for ch in obj):
+                            return obj
+                        if isinstance(obj, dict):
+                            for v in obj.values():
+                                s = scan(v)
+                                if s:
+                                    return s
+                        if isinstance(obj, list):
+                            for v in obj:
+                                s = scan(v)
+                                if s:
+                                    return s
+                        return None
+                    found = scan(lv_entry)
+                    if found:
+                        self.last_kdf_version = found
+                        return found
+            return None
+        except Exception:
+            return None
 
     def _init_activation_managers(self) -> Dict[str, ActivationManager]:
         """Initialize activation managers for each KDF instance."""

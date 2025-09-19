@@ -272,8 +272,8 @@ class SequenceResponseManager(KdfResponseManager):
         wallet_output_file = self.workspace_root / "postman/generated/reports/test_addresses.json"
         self.wallet_manager.save_test_addresses_report(wallet_output_file)
         
-        # Fetch and log KDF version
-        kdf_version = self.get_kdf_version()
+        # Fetch and log KDF version (prefer report extraction, no extra RPC)
+        kdf_version = self.get_kdf_version_from_report() or self.get_kdf_version()
         if kdf_version:
             self.logger.info(f"Completed collecting responses from KDF version {kdf_version}")
         else:
