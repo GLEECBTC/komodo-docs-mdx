@@ -56,7 +56,7 @@ class TestAddressesCollector:
         self.response_manager = KdfResponseManager()
         self.KDFInstance = KDFInstance
         
-    def send_request(self, instance, request_data: Dict[str, Any], timeout: int = 30) -> Tuple[bool, Dict[str, Any]]:
+    def send_request(self, instance, request_data: Dict[str, Any], timeout: int = 30) -> Tuple[Any, Dict[str, Any]]:
         """Send request using the response manager."""
         return self.response_manager.send_request(instance, request_data, timeout)
     
@@ -78,9 +78,9 @@ class TestAddressesCollector:
                     "method": "get_enabled_coins"
                 }
             
-            success, response = self.send_request(instance, request)
+            outcome, response = self.send_request(instance, request)
             
-            if success and "result" in response:
+            if getattr(outcome, 'name', str(outcome)) == "SUCCESS" and "result" in response:
                 enabled_coins = []
                 result = response["result"]
                 
@@ -118,9 +118,9 @@ class TestAddressesCollector:
                 "coin": coin
             }
             
-            success, response = self.send_request(instance, request)
+            outcome, response = self.send_request(instance, request)
             
-            if success and "address" in response:
+            if getattr(outcome, 'name', str(outcome)) == "SUCCESS" and "address" in response:
                 return AddressBalance(
                     address=response["address"],
                     balance=response.get("balance", "0"),
@@ -148,9 +148,9 @@ class TestAddressesCollector:
                 }
             }
             
-            success, response = self.send_request(instance, init_request)
+            outcome, response = self.send_request(instance, init_request)
             
-            if not success or "result" not in response:
+            if getattr(outcome, 'name', str(outcome)) != "SUCCESS" or "result" not in response:
                 self.logger.info(f"{instance.name}: account_balance init failed for {coin}: {response}")
                 return []
             
@@ -173,9 +173,9 @@ class TestAddressesCollector:
                     }
                 }
                 
-                success, response = self.send_request(instance, status_request)
+                outcome, response = self.send_request(instance, status_request)
                 
-                if success and "result" in response:
+                if getattr(outcome, 'name', str(outcome)) == "SUCCESS" and "result" in response:
                     result = response["result"]
                     status = result.get("status")
                     

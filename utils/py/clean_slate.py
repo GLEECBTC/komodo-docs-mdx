@@ -28,9 +28,9 @@ def get_enabled_coins_from_instance(manager: KdfResponseManager, instance: KDFIn
         "method": "get_enabled_coins"
     }
     
-    success, response = manager.send_request(instance, request)
+    outcome, response = manager.send_request(instance, request)
     
-    if success and "result" in response:
+    if outcome.name == "SUCCESS" and "result" in response:
         tickers = []
         result = response["result"]
         

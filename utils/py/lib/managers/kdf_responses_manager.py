@@ -16,6 +16,7 @@ import logging
 import sys
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
+from enum import Enum
 from dataclasses import dataclass
 
 # Add lib path for utilities
@@ -50,12 +51,18 @@ class CollectionResult:
     """Result of collecting responses for a method."""
     response_name: str
     instance_responses: Dict[str, Any]
-    all_successful: bool
+    all_passed: bool
     consistent_structure: bool
     auto_updatable: bool
     collection_method: str
     notes: str = ""
     original_request: Optional[Dict[str, Any]] = None
+
+
+class Outcome(Enum):
+    SUCCESS = "success"
+    EXPECTED_ERROR = "expected_error"
+    FAILURE = "failure"
 
 
 # Configuration
@@ -104,6 +111,9 @@ class KdfResponseManager:
         self.response_delays: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = {}
         self.inconsistent_responses: Dict[str, Dict[str, Any]] = {}
         self.last_kdf_version: Optional[str] = None
+        self.expected_error_responses: Dict[str, Dict[str, Dict[str, Any]]] = {}
+        self._current_request_key: Optional[str] = None
+        self._current_method_name: Optional[str] = None
         
     def setup_logging(self):
         """Setup logging configuration."""
@@ -120,8 +130,8 @@ class KdfResponseManager:
             try:
                 # version is a legacy (v1) method only
                 req_v1 = {"userpass": instance.userpass, "method": "version"}
-                success, resp = self.send_request(instance, req_v1, timeout=10)
-                if success and isinstance(resp, dict):
+                outcome, resp = self.send_request(instance, req_v1, timeout=10)
+                if outcome == Outcome.SUCCESS and isinstance(resp, dict):
                     # Common legacy formats
                     if "result" in resp and isinstance(resp["result"], str):
                         self.last_kdf_version = resp["result"]
@@ -208,15 +218,15 @@ class KdfResponseManager:
             "params": params,
             "id": 0
         }
-        success, response = self.send_request(instance, request_data)
+        _outcome, response = self.send_request(instance, request_data)
         return response  # ActivationManager expects just the response dict
     
     def send_request(self, instance: KDFInstance, request_data: Dict[str, Any], 
-                    timeout: int = 30) -> Tuple[bool, Dict[str, Any]]:
-        """Send a request to a KDF instance."""
+                    timeout: int = 30) -> Tuple[Outcome, Dict[str, Any]]:
+        """Send a request to a KDF instance with tri-state outcome."""
         start_time = time.time()
         status_code = None
-        success = False
+        outcome: Outcome = Outcome.FAILURE
         
         try:
             headers = {"Content-Type": "application/json"}
@@ -238,7 +248,7 @@ class KdfResponseManager:
                 try:
                     response_data = response.json()
                     if "error" not in response_data:
-                        success = True
+                        outcome = Outcome.SUCCESS
                         # Extract addresses/balances from successful responses
                         self.wallet_manager.extract_addresses_from_response(
                             instance.name, method_name, response_data, filtered_request_data
@@ -267,32 +277,29 @@ class KdfResponseManager:
                 self._current_timing_context['delay'] = delay
                 self._current_timing_context['status_code'] = status_code or 500
 
-            if not success:
-                if "UnexpectedDerivationMethod" in str(data) or "SingleAddress" in str(data):
-                    # This is expected for some methods
-                    self.logger.info(f"{instance.name}: [{method_name}] UnexpectedDerivationMethod error (method not compatible with wallet type)")
-                    success = True
-                elif "PlatformCoinIsNotActivated" in str(data):
-                    # This should not happen. All activation requests relating to a token should be checked to confirm its parent coin 
-                    # is enabled first, and if not, it should be enabled.
-                    self.logger.info(f"{instance.name}: [{method_name}] PlatformCoinIsNotActivated error (coin not enabled!!)")
-                    success = True
-                elif "NoSuchCoin" in str(data):
-                    # This should not happen. All non-activation requests relating to a coin/token should be checked to confirm it is enabled first, and if not, it should be enabled.
-                    self.logger.error(f"{instance.name}: [{method_name}] NoSuchCoin error (coin not enabled!!)")
-                elif "Error parsing the native wallet configuration" in str(data):
-                    # This is expected for some methods
-                    self.logger.info(f"{instance.name}: [{method_name}] Error parsing the native wallet configuration error (no native daemons active for testing yet)")
-                    success = True
+            if outcome != Outcome.SUCCESS:
+                # Classify expected errors
+                text = str(data)
+                is_expected = (
+                    "UnexpectedDerivationMethod" in text or
+                    "SingleAddress" in text or
+                    "PlatformCoinIsNotActivated" in text or
+                    "Error parsing the native wallet configuration" in text or
+                    ("FromAddressNotFound" in text and instance.name.endswith("-hd"))
+                )
+                if is_expected:
+                    outcome = Outcome.EXPECTED_ERROR
+                    self._record_expected_error(method_name, instance.name, status_code or 500, data, filtered_request_data)
+                    self.logger.info(f"{instance.name}: [{method_name}] EXPECTED_ERROR - {data.get('error', '')}")
                 else:
-                    self.logger.warning(f"{instance.name}: [{method_name}] FAILED - [{status_code}] {data['error']}")
+                    self.logger.warning(f"{instance.name}: [{method_name}] FAILED - [{status_code}] {data.get('error', '')}")
                     self.logger.warning(f"{instance.name}: [{method_name}] Request - {request_data}")
                     self.logger.warning(f"{instance.name}: [{method_name}] filtered_request_data - {filtered_request_data}")
                     self.logger.warning(f"{instance.name}: [{method_name}] is params in filtered_request_data - {'params' in filtered_request_data}")
                     self.logger.warning(f"{instance.name}: [{method_name}] Response - {data}")
             else:
                 self.logger.info(f"{instance.name}: [{method_name}] SUCCESS")
-        return success, data
+        return outcome, data
 
 
     def _filter_request_data(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -393,9 +400,9 @@ class KdfResponseManager:
                     "method": "get_enabled_coins"
                 }
             
-            success, response = self.send_request(instance, request)
+            outcome, response = self.send_request(instance, request)
             
-            if success and "result" in response:
+            if outcome == Outcome.SUCCESS and "result" in response:
                 result = response["result"]
                 ticker_upper = ticker.upper()
                 
@@ -431,9 +438,9 @@ class KdfResponseManager:
             "coin": ticker
         }
         
-        success, response = self.send_request(instance, disable_request)
+        outcome, response = self.send_request(instance, disable_request)
         
-        if success:
+        if outcome == Outcome.SUCCESS:
             self.logger.info(f"Successfully disabled {ticker} on {instance.name}")
             return True
         else:
@@ -470,7 +477,7 @@ class KdfResponseManager:
                               method_name: str) -> CollectionResult:
         """Collect responses for regular (non-task) methods."""
         instance_responses = {}
-        all_successful = True
+        all_passed = True
         consistent_structure = True
         first_response_structure = None
         
@@ -498,7 +505,7 @@ class KdfResponseManager:
                     activation_result = self._ensure_coin_activated(instance, ticker)
                     if not activation_result["success"]:
                         self.logger.warning(f"Skipping {response_name} on {instance.name} - Could not activate {ticker}")
-                        all_successful = False
+                        all_passed = False
                         
                         error_response = {
                             "error": f"Failed to activate coin {ticker}",
@@ -522,7 +529,10 @@ class KdfResponseManager:
             # Set up timing context and send request
             self._current_timing_context = {}
             timeout = self._get_method_timeout(method_name)
-            success, response = self.send_request(instance, modified_request, timeout)
+            # Set request context for reporting
+            self._current_request_key = response_name
+            self._current_method_name = method_name
+            outcome, response = self.send_request(instance, modified_request, timeout)
             
             # Record timing information
             timing_info = getattr(self, '_current_timing_context', {})
@@ -535,8 +545,8 @@ class KdfResponseManager:
             
             instance_responses[instance.name] = response
             
-            if not success:
-                all_successful = False
+            if outcome != Outcome.SUCCESS or outcome != Outcome.EXPECTED_ERROR:
+                all_passed = False
             else:
                 if first_response_structure is None:
                     first_response_structure = self._get_response_structure(response)
@@ -550,7 +560,7 @@ class KdfResponseManager:
         return CollectionResult(
             response_name=response_name,
             instance_responses=instance_responses,
-            all_successful=all_successful,
+            all_passed=all_passed,
             consistent_structure=consistent_structure,
             auto_updatable=auto_updatable,
             collection_method="regular",
@@ -698,7 +708,7 @@ class KdfResponseManager:
             # Add to main responses
             response_entry = {
                 "instances": result.instance_responses,
-                "all_successful": result.all_successful,
+                "all_passed": result.all_passed,
                 "consistent_structure": result.consistent_structure,
                 "collection_method": result.collection_method,
                 "notes": result.notes
@@ -758,7 +768,10 @@ class KdfResponseManager:
         # Save wallet addresses
         wallet_output_file = self.workspace_root / "postman/generated/reports/test_addresses.json"
         self.wallet_manager.save_test_addresses_report(wallet_output_file)
-        
+        # Save expected error report
+        reports_dir = self.workspace_root / "postman/generated/reports"
+        self.save_expected_error_responses_report(reports_dir)
+
         return unified_results
     
     def validate_responses(self, validate_collected_responses: bool = False) -> Dict[str, Any]:
@@ -828,6 +841,21 @@ class KdfResponseManager:
         
         dump_sorted_json(inconsistent_report, inconsistent_file)
         self.logger.info(f"Inconsistent responses report saved to: {inconsistent_file}")
+
+    def save_expected_error_responses_report(self, output_dir: Path) -> None:
+        """Save expected error responses report to separate file."""
+        expected_file = output_dir / "expected_error_responses.json"
+        report = {
+            "metadata": {
+                "generated_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()),
+                "total_methods": len(self.expected_error_responses),
+                "total_examples": sum(len(ex) for ex in self.expected_error_responses.values()),
+                "description": "Requests that returned expected, acceptable error responses"
+            },
+            "expected_errors": self.expected_error_responses
+        }
+        dump_sorted_json(report, expected_file)
+        self.logger.info(f"Expected error responses report saved to: {expected_file}")
     
     def regenerate_missing_responses_report(self, reports_dir: Path) -> None:
         """Regenerate missing responses report after response collection."""
