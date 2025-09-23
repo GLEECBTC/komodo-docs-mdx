@@ -46,7 +46,8 @@
         "parameter": "config",
         "type": "object",
         "required": false,
-        "description": "EVM only. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+        "description": "EVM only. A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.",
+        "substructure": "common.StreamingConfig"
       }
     ]
   },
@@ -191,7 +192,8 @@
         "parameter": "config",
         "type": "object",
         "required": false,
-        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.",
+        "substructure": "common.StreamingConfig"
       }
     ]
   },
@@ -234,7 +236,8 @@
         "parameter": "config",
         "type": "object",
         "required": false,
-        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object."
+        "description": "A standard [StreamingConfig](/komodo-defi-framework/api/common_structures/#streaming-config) object.",
+        "substructure": "common.StreamingConfig"
       }
     ]
   },

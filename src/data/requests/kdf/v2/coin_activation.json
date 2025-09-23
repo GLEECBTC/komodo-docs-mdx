@@ -121,16 +121,16 @@
       "mm2": 1,
       "nodes": [
         {
+          "url": "https://0xrpc.io/eth",
+          "ws_url": "wss://0xrpc.io/eth"
+        },
+        {
           "url": "https://eth.drpc.org",
           "ws_url": "wss://eth.drpc.org"
         },
         {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
-        },
-        {
-          "url": "https://ethereum-rpc.publicnode.com",
-          "ws_url": "wss://ethereum-rpc.publicnode.com"
         }
       ],
       "priv_key_policy": {
@@ -254,8 +254,8 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://0xrpc.io/eth",
-          "ws_url": "wss://0xrpc.io/eth"
+          "url": "https://eth.drpc.org",
+          "ws_url": "wss://eth.drpc.org"
         },
         {
           "url": "https://eth3.cipig.net:18555",
@@ -294,6 +294,7 @@
     "mmrpc": "2.0",
     "params": {
       "get_balances": false,
+      "mm2": 1,
       "nodes": [
         {
           "url": "https://rpc.irishub-1.irisnet.org"
@@ -319,6 +320,8 @@
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
+      "required_confirmations": 3,
+      "requires_notarization": false,
       "ticker": "IRIS",
       "tokens_params": [
         {

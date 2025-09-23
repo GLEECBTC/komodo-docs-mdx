@@ -671,7 +671,8 @@
         "parameter": "payment_type",
         "type": "object",
         "required": false,
-        "description": "A standard [LightningPaymentType](/komodo-defi-framework/api/common_structures/lightning/#lightning-payment-type) object."
+        "description": "A standard [LightningPaymentType](/komodo-defi-framework/api/common_structures/lightning/#lightning-payment-type) object.",
+        "substructure": "lightning.LightningPaymentType"
       },
       {
         "parameter": "description",

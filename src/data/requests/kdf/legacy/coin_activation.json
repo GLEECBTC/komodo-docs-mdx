@@ -132,7 +132,7 @@
     "method": "enable",
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
-      "https://eth.drpc.org",
+      "https://0xrpc.io/eth",
       "https://eth3.cipig.net:18555",
       "https://ethereum-rpc.publicnode.com"
     ],
@@ -149,9 +149,9 @@
     "method": "enable",
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
-      "https://0xrpc.io/eth",
       "https://eth.drpc.org",
-      "https://eth3.cipig.net:18555"
+      "https://eth3.cipig.net:18555",
+      "https://ethereum-rpc.publicnode.com"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -163,7 +163,7 @@
     "urls": [
       "https://node.komodo.earth:8080/polygon",
       "https://pol3.cipig.net:18755",
-      "https://polygon-bor-rpc.publicnode.com"
+      "https://polygon.drpc.org"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },

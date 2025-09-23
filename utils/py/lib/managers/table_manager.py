@@ -40,6 +40,9 @@ class ValidationResult:
     unused_params: Set[str]
     missing_params: Set[str]
     valid_params: Set[str]
+    request_params: Set[str]
+    table_params: Set[str]
+    dot_params: Set[str]
 
 
 class TableManager:
@@ -247,10 +250,25 @@ class TableManager:
         tables = self.load_all_tables()
         table_data = tables[table_ref.table_name]
         
-        # Extract table parameters
-        table_params = set()
+        # Extract table parameters and expand substructures for object params
+        table_params: Set[str] = set()
+        dot_params_from_table: Set[str] = set()
         for param_def in table_data.get("data", []):
-            table_params.add(param_def["parameter"])
+            param_name = param_def.get("parameter")
+            if not isinstance(param_name, str):
+                continue
+            table_params.add(param_name)
+            if "." in param_name:
+                dot_params_from_table.add(param_name)
+            # Expand common-structure subparams if declared/inferable and type is object
+            if str(param_def.get("type", "")).lower() == "object":
+                parent = param_name
+                substruct_path = param_def.get("substructure") or self._infer_substructure_from_description(param_def.get("description", ""))
+                if substruct_path:
+                    for child in self._load_common_structure_params(substruct_path):
+                        dotted = f"{parent}.{child}"
+                        table_params.add(dotted)
+                        dot_params_from_table.add(dotted)
         
         # Extract request parameters
         request_params = set()
@@ -263,8 +281,8 @@ class TableManager:
                 for key in params_data.keys():
                     if key != "activation_params":
                         request_params.add(key)
-                # Extract nested parameters
-                self._extract_param_names(params_data["activation_params"], request_params)
+                # Extract nested parameters with proper prefix so dotted names are captured
+                self._extract_param_names(params_data["activation_params"], request_params, prefix="activation_params")
             else:
                 self._extract_param_names(params_data, request_params)
         else:
@@ -277,18 +295,97 @@ class TableManager:
                     legacy_params[k] = v
             self._extract_param_names(legacy_params, request_params)
         
-        # Calculate validation results
-        unused_params = table_params - request_params
+        # Normalize: ensure parent keys are counted when nested keys are present
+        # e.g., if 'activation_params.priv_key_policy' exists, include 'activation_params'
+        parent_keys: Set[str] = set()
+        for param in list(request_params):
+            if '.' in param:
+                parts = param.split('.')
+                for i in range(1, len(parts)):
+                    parent_keys.add('.'.join(parts[:i]))
+        if parent_keys:
+            request_params.update(parent_keys)
+
+        # Build a set of leaf names from request params for matching non-dotted table params
+        request_leaf_names: Set[str] = set()
+        for param in request_params:
+            leaf = param.split('.')[-1]
+            request_leaf_names.add(leaf)
+
+        # Calculate validation results with refined rules:
+        # - Non-dotted table params are considered used if present directly OR as a leaf under any dotted path
+        # - Dotted table params are considered used if any request path ends with the dotted param (suffix match)
+        valid_params: Set[str] = set()
+        for tp in table_params:
+            if '.' in tp:
+                # consider parent dotted param used if any request key is nested under it
+                if any(rp == tp or rp.startswith(f"{tp}.") for rp in request_params):
+                    valid_params.add(tp)
+            else:
+                if tp in request_params or tp in request_leaf_names:
+                    valid_params.add(tp)
+
+        unused_params = table_params - valid_params
         missing_params = request_params - table_params
-        valid_params = table_params & request_params
         
         return ValidationResult(
             method=method_name,
             table_name=table_ref.table_name,
             unused_params=unused_params,
             missing_params=missing_params,
-            valid_params=valid_params
+            valid_params=valid_params,
+            request_params=request_params,
+            table_params=table_params,
+            dot_params=dot_params_from_table
         )
+
+    def _infer_substructure_from_description(self, description: str) -> Optional[str]:
+        """Infer substructure path from markdown link in description.
+        Example: ...(/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy)... -> wallet.PrivKeyPolicy
+        """
+        if not isinstance(description, str):
+            return None
+        if "/common_structures/" not in description:
+            return None
+        try:
+            # Extract segment like common_structures/<file>/#<anchor>
+            start = description.index("/common_structures/") + len("/common_structures/")
+            tail = description[start:]
+            # file segment up to next '/'
+            file_seg = tail.split('/', 1)[0]
+            # anchor after '#'
+            anchor = None
+            if '#"' in tail:
+                anchor = tail.split('#"', 1)[1].split('"', 1)[0]
+            elif '#' in tail:
+                anchor = tail.split('#', 1)[1].split(')', 1)[0]
+            if not file_seg or not anchor:
+                return None
+            # Convert kebab/underscore to PascalCase
+            parts = [p for p in anchor.replace('_', '-').split('-') if p]
+            table_name = ''.join(p.capitalize() for p in parts)
+            return f"{file_seg}.{table_name}"
+        except Exception:
+            return None
+
+    def _load_common_structure_params(self, substructure: str) -> List[str]:
+        """Load parameter names from a common-structure table given a path like 'wallet.PrivKeyPolicy'."""
+        try:
+            if not isinstance(substructure, str) or '.' not in substructure:
+                return []
+            _, table_name = substructure.split('.', 1)
+            tables = self.load_all_tables()
+            table = tables.get(table_name)
+            if not isinstance(table, dict):
+                return []
+            data = table.get("data", [])
+            names: List[str] = []
+            for item in data:
+                if isinstance(item, dict) and isinstance(item.get("parameter"), str):
+                    names.append(item["parameter"])
+            return names
+        except Exception:
+            return []
     
     def _extract_param_names(self, data: Any, param_names: Set[str], prefix: str = "") -> None:
         """Recursively extract parameter names from nested data structure.

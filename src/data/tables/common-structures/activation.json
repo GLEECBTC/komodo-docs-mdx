@@ -11,7 +11,8 @@
         "parameter": "rpc_data",
         "type": "object",
         "required": false,
-        "description": "`Electrum` or `Light` mode only. A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object."
+        "description": "`Electrum` or `Light` mode only. A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object.",
+        "substructure": "activation.ActivationRpcData"
       }
     ]
   },
@@ -34,7 +35,8 @@
         "parameter": "mode",
         "type": "object",
         "required": false,
-        "description": "QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+        "description": "QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       },
       {
         "parameter": "zcash_params_path",
@@ -86,7 +88,8 @@
         "parameter": "path_to_address",
         "type": "object",
         "required": false,
-        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object."
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.",
+        "substructure": "wallet.AddressPath"
       },
       {
         "parameter": "get_balances",
@@ -134,13 +137,15 @@
         "parameter": "balances",
         "type": "object",
         "required": false,
-        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`"
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`",
+        "substructure": "wallet.BalanceInfo"
       },
       {
         "parameter": "derivation_method",
         "type": "object",
         "required": true,
-        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object"
+        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object",
+        "substructure": "wallet.DerivationMethod"
       },
       {
         "parameter": "pubkey",
@@ -185,7 +190,8 @@
         "parameter": "protocol_data",
         "type": "object",
         "required": true,
-        "description": "A standard [CoinProtocolData](/komodo-defi-framework/api/common_structures/activation/#coin-protocol-data) object."
+        "description": "A standard [CoinProtocolData](/komodo-defi-framework/api/common_structures/activation/#coin-protocol-data) object.",
+        "substructure": "activation.CoinProtocolData"
       }
     ]
   },
@@ -207,7 +213,8 @@
         "parameter": "confirmation_targets",
         "type": "object",
         "required": true,
-        "description": "A standard [ConfirmationTargets](/komodo-defi-framework/api/common_structures/lightning/#confirmation-targets) object."
+        "description": "A standard [ConfirmationTargets](/komodo-defi-framework/api/common_structures/lightning/#confirmation-targets) object.",
+        "substructure": "lightning.ConfirmationTargets"
       }
     ]
   },
@@ -257,6 +264,28 @@
         "type": "integer",
         "required": true,
         "description": "The maximum nouber of UTXOs to inlude as inputs for a merge transaction. Note that more input UTXOs means a larger transaction and greater fees, and that each blockchain has a limit to the maximum size of a transaction."
+      }
+    ]
+  },
+  "SwapV2Contracts": {
+    "data": [
+      {
+        "parameter": "maker_swap_v2_contract",
+        "type": "string",
+        "required": true,
+        "description": "Address of the Maker Swap V2 smart contract."
+      },
+      {
+        "parameter": "taker_swap_v2_contract",
+        "type": "string",
+        "required": true,
+        "description": "Address of the Taker Swap V2 smart contract."
+      },
+      {
+        "parameter": "nft_maker_swap_v2_contract",
+        "type": "string",
+        "required": true,
+        "description": "Address of the NFT Maker Swap V2 smart contract."
       }
     ]
   }

@@ -62,6 +62,7 @@ class UnifiedPostmanGenerator:
         
         # Reports data
         self.unused_params = {}
+        self.unused_params_detailed = {}
         self.missing_responses = {}
         self.missing_requests = {}
         self.missing_methods = []
@@ -715,12 +716,14 @@ pm.test("Capture task_id", function () {{
                             if method not in method_param_usage:
                                 method_param_usage[method] = {
                                     "table_params": set(table_params_this),
-                                    "used_params_union": set(validation.valid_params)
+                                    "used_params_union": set(validation.valid_params),
+                                    "request_params_union": set(validation.request_params)
                                 }
                             else:
                                 # Ensure table params are consistent; if not, take union to be safe
                                 method_param_usage[method]["table_params"].update(table_params_this)
                                 method_param_usage[method]["used_params_union"].update(validation.valid_params)
+                                method_param_usage[method]["request_params_union"].update(validation.request_params)
                     
                 # After scanning all examples in this file, compute overall unused per method
                 for method, usage in method_param_usage.items():
@@ -729,6 +732,20 @@ pm.test("Capture task_id", function () {{
                         # Merge with any existing entries from previous files
                         existing = set(self.unused_params.get(method, []))
                         self.unused_params[method] = sorted(existing.union(overall_unused))
+
+                        # Build detailed entries (with context and common-structures hints)
+                        detailed_list = self.unused_params_detailed.get(method, [])
+                        detailed_list.extend(self._build_unused_param_details(method, overall_unused, version, usage))
+                        # De-duplicate by parameter name
+                        seen = set()
+                        deduped = []
+                        for item in detailed_list:
+                            key = item.get("parameter")
+                            if key in seen:
+                                continue
+                            seen.add(key)
+                            deduped.append(item)
+                        self.unused_params_detailed[method] = deduped
 
                 # Continue with missing responses detection per example
                 for request_key, request_data in filtered_requests_data.items():
@@ -996,6 +1013,61 @@ pm.test("Capture task_id", function () {{
                 # Use TableManager to validate all table references
                 self.table_manager.validate_method_tables(method_name, method_config)
     
+    def _build_unused_param_details(self, method: str, unused_params: Set[str], version: str, usage: Dict[str, Set[str]]) -> List[Dict[str, Any]]:
+        """Create detailed entries for unused parameters including context and nested matches.
+        Also extracts a hint to common-structures from parameter description when available.
+        """
+        details: List[Dict[str, Any]] = []
+        try:
+            method_cfg = self.get_method_config(method, version)
+            # Resolve request table and its data
+            tmp_cfg = dict(method_cfg)
+            tmp_cfg["method_name"] = method
+            table_ref = self.table_manager.get_table_reference(tmp_cfg, 'request')
+            tables = self.table_manager.load_all_tables()
+            table_data = tables.get(table_ref.table_name, {}).get("data", [])
+            # Map param -> definition
+            param_to_def: Dict[str, Dict[str, Any]] = {p.get("parameter"): p for p in table_data if isinstance(p, dict)}
+            request_params_union = usage.get("request_params_union", set())
+            for param in sorted(unused_params):
+                param_def = param_to_def.get(param, {})
+                description = param_def.get("description") if isinstance(param_def, dict) else None
+                context = param_def.get("context") if isinstance(param_def, dict) else None
+                # nested matches present in examples (keep dotted forms)
+                nested_matches = sorted([rp for rp in request_params_union if rp.endswith(f".{param}") or rp.startswith(f"{param}.")])
+                # extract common-structures path hint from description
+                common_struct_ref = None
+                if isinstance(description, str) and "/common_structures/" in description:
+                    try:
+                        idx = description.index("/common_structures/")
+                        tail = description[idx:]
+                        # end at first space, newline, or closing paren
+                        for sep in [" ", "\n", ")", "`"]:
+                            cut = tail.find(sep)
+                            if cut > 0:
+                                tail = tail[:cut]
+                                break
+                        common_struct_ref = tail
+                    except Exception:
+                        common_struct_ref = None
+                details.append({
+                    "parameter": param,
+                    "method": method,
+                    "version": version,
+                    "request_table": table_ref.table_name,
+                    "context": context,
+                    "nested_matches_in_examples": nested_matches,
+                    "common_structures_ref": common_struct_ref
+                })
+        except Exception:
+            for p in sorted(unused_params):
+                details.append({
+                    "parameter": p,
+                    "method": method,
+                    "version": version
+                })
+        return details
+    
     def save_reports(self, reports_dir: Path) -> None:
         """Save validation reports with consistent alphabetical sorting.
         
@@ -1012,6 +1084,11 @@ pm.test("Capture task_id", function () {{
         unused_file = reports_dir / "unused_params.json"
         dump_sorted_json(sorted_unused, unused_file)
         logger.info(f"Unused parameters report saved to {unused_file}")
+
+        # Save detailed unused parameters report (always)
+        detailed_file = reports_dir / "unused_params_detailed.json"
+        dump_sorted_json(self.unused_params_detailed or {}, detailed_file)
+        logger.info(f"Detailed unused parameters report saved to {detailed_file}")
         
         # Save missing responses report (always)
         sorted_missing = {}

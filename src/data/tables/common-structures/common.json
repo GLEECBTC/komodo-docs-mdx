@@ -77,13 +77,15 @@
         "parameter": "rational",
         "type": "object",
         "required": true,
-        "description": "A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+        "description": "A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.",
+        "substructure": "common.RationalValue"
       },
       {
         "parameter": "fraction",
         "type": "object",
         "required": true,
-        "description": "A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+        "description": "A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.",
+        "substructure": "common.FractionalValue"
       }
     ]
   },
@@ -175,7 +177,8 @@
         "parameter": "additional_info",
         "type": "object",
         "required": true,
-        "description": "A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only."
+        "description": "A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only.",
+        "substructure": "common.SyncStatusExtended"
       }
     ]
   },
@@ -253,7 +256,8 @@
         "parameter": "namespaces",
         "type": "object",
         "required": true,
-        "description": "Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)."
+        "description": "Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection).",
+        "substructure": "common.WcConnNs"
       },
       {
         "parameter": "expiry",

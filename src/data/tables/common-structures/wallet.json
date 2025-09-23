@@ -23,7 +23,8 @@
         "parameter": "balance",
         "type": "object",
         "required": true,
-        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.",
+        "substructure": "wallet.BalanceInfo"
       }
     ]
   },
@@ -91,13 +92,15 @@
         "parameter": "balances",
         "type": "object",
         "required": false,
-        "description": "A standard [balanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`"
+        "description": "A standard [balanceInfos](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`",
+        "substructure": "wallet.BalanceInfo"
       },
       {
         "parameter": "derivation_method",
         "type": "object",
         "required": true,
-        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object"
+        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object",
+        "substructure": "wallet.DerivationMethod"
       },
       {
         "parameter": "pubkey",
@@ -502,7 +505,8 @@
         "parameter": "balance",
         "type": "object",
         "required": true,
-        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.",
+        "substructure": "wallet.BalanceInfo"
       },
       {
         "parameter": "chain",
@@ -601,6 +605,22 @@
       }
     ]
   },
+  "AddressFormat": {
+    "data": [
+      {
+        "parameter": "format",
+        "type": "string (enum)",
+        "required": true,
+        "description": "address format to which the input address should be converted. Possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins; `contract` or `wallet` for QTUM/QRC20"
+      },
+      {
+        "parameter": "network",
+        "type": "string (enum)",
+        "required": false,
+        "description": "Optional. Network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest"
+      }
+    ]
+  },
   "RawTxInfo": {
     "data": [
       {
@@ -637,7 +657,8 @@
         "parameter": "pay_for_gas",
         "type": "object",
         "required": false,
-        "description": "ETH/EVM only. Used for EIP-1559 fee policy config. A standard [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas) object."
+        "description": "ETH/EVM only. Used for EIP-1559 fee policy config. A standard [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas) object.",
+        "substructure": "wallet.PayForGas"
       }
     ]
   },
@@ -777,7 +798,8 @@
         "parameter": "total_balance",
         "type": "object",
         "required": true,
-        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object.",
+        "substructure": "wallet.BalanceInfo"
       },
       {
         "parameter": "addresses",
@@ -799,7 +821,8 @@
         "parameter": "accounts",
         "type": "object",
         "required": true,
-        "description": "A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object."
+        "description": "A standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object.",
+        "substructure": "wallet.WalletAccountInfo"
       }
     ]
   },

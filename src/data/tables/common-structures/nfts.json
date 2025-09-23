@@ -282,7 +282,8 @@
         "parameter": "uri_meta",
         "type": "object",
         "required": true,
-        "description": "A standard [NftMetadata](/komodo-defi-framework/api/common_structures/nfts/#nft-metadata) object."
+        "description": "A standard [NftMetadata](/komodo-defi-framework/api/common_structures/nfts/#nft-metadata) object.",
+        "substructure": "nfts.NftMetadata"
       }
     ],
     "variant": "compact"
@@ -404,7 +405,8 @@
         "parameter": "info",
         "type": "object",
         "required": true,
-        "description": "Additional information about the provider"
+        "description": "Additional information about the provider",
+        "substructure": "nfts.NftProviderInfo"
       },
       {
         "parameter": "info.url",
@@ -582,7 +584,8 @@
         "parameter": "fee_details",
         "type": "object",
         "required": false,
-        "description": "A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object."
+        "description": "A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.",
+        "substructure": "wallet.FeeInfo"
       },
       {
         "parameter": "confirmations",

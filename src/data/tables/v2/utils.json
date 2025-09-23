@@ -268,7 +268,8 @@
         "parameter": "protocol",
         "type": "object",
         "required": true,
-        "description": "A standard [TokenProtocol](/komodo-defi-framework/api/common_structures/nfts/#token-protocol) object."
+        "description": "A standard [TokenProtocol](/komodo-defi-framework/api/common_structures/nfts/#token-protocol) object.",
+        "substructure": "nfts.TokenProtocol"
       }
     ]
   },
@@ -426,9 +427,10 @@
       },
       {
         "parameter": "address",
-        "type": "string",
+        "type": "object",
         "required": false,
-        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`."
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object. The path to the address for signing the message. If not provided, the `account_id`, `chain`, and `address_id` will default to `0`.",
+        "substructure": "wallet.AddressPath"
       }
     ]
   },

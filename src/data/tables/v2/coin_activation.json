@@ -17,7 +17,8 @@
         "parameter": "mode",
         "type": "object",
         "required": true,
-        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       },
       {
         "parameter": "tx_history",
@@ -36,7 +37,8 @@
         "parameter": "address_format",
         "type": "object",
         "required": false,
-        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
+        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.",
+        "substructure": "wallet.AddressFormat"
       },
       {
         "parameter": "allow_slp_unsafe_conf",
@@ -77,7 +79,8 @@
         "parameter": "utxo_merge_params",
         "type": "object",
         "required": true,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },
@@ -93,13 +96,15 @@
         "parameter": "bch_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "slp_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       }
     ]
   },
@@ -184,7 +189,8 @@
         "type": "object",
         "required": false,
         "default": "`{\"type\": \"ContextPrivKey\"}`",
-        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object."
+        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object.",
+        "substructure": "wallet.PrivKeyPolicy"
       },
       {
         "parameter": "required_confirmations",
@@ -218,13 +224,15 @@
         "parameter": "nft_req",
         "type": "object",
         "required": false,
-        "description": "Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object."
+        "description": "Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.",
+        "substructure": "nfts.NftProvider"
       },
       {
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swapv2contracts) object.",
+        "substructure": "activation.SwapV2Contracts"
       }
     ]
   },
@@ -240,19 +248,22 @@
         "parameter": "eth_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "erc20_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "nfts_infos",
         "type": "list",
         "required": true,
-        "description": "A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects."
+        "description": "A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects.",
+        "substructure": "nfts.NftInfoBasic"
       }
     ]
   },
@@ -335,10 +346,12 @@
         "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
       },
       {
-        "parameter": "activation_params",
+        "parameter": "activation_params.priv_key_policy",
         "type": "object",
         "required": false,
-        "description": "Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection."
+        "context": ["Metamask", "Keplr", "WalletConnect"],
+        "description": "Only used with Metamask, Keplr or WalletConnect activations. A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object.",
+        "substructure": "wallet.PrivKeyPolicy"
       }
     ]
   },
@@ -450,7 +463,8 @@
         "parameter": "mode",
         "type": "object",
         "required": true,
-        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       },
       {
         "parameter": "tx_history",
@@ -469,7 +483,8 @@
         "parameter": "address_format",
         "type": "object",
         "required": false,
-        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
+        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.",
+        "substructure": "wallet.AddressFormat"
       },
       {
         "parameter": "allow_slp_unsafe_conf",
@@ -510,7 +525,8 @@
         "parameter": "utxo_merge_params",
         "type": "object",
         "required": true,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },
@@ -618,7 +634,8 @@
         "parameter": "nft_req",
         "type": "object",
         "required": false,
-        "description": "Non-HD only. encapsulates the request parameters for NFT activation, including NFT provider configuration."
+        "description": "Non-HD only. Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.",
+        "substructure": "nfts.NftProvider"
       },
       {
         "parameter": "min_addresses_number",
@@ -642,13 +659,15 @@
         "parameter": "path_to_address",
         "type": "object",
         "required": false,
-        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object."
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.",
+        "substructure": "wallet.AddressPath"
       },
       {
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swapv2contracts) object.",
+        "substructure": "activation.SwapV2Contracts"
       }
     ]
   },
@@ -664,81 +683,15 @@
         "parameter": "activation_params",
         "type": "object",
         "required": true,
-        "description": "An object containing the actvation parameters below."
+        "description": "An object containing the activation parameters below. A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) object.",
+        "substructure": "activation.ActivationParams"
       },
       {
-        "parameter": ".priv_key_policy",
-        "type": "object",
-        "required": false,
-        "default": "`{\"type\": \"ContextPrivKey\"}`",
-        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object."
-      },
-      {
-        "parameter": ".min_addresses_number",
-        "type": "integer",
-        "required": true,
-        "description": "How many additional addreesses to generate at a minimum."
-      },
-      {
-        "parameter": ".scan_policy",
-        "type": "string",
-        "required": true,
-        "description": "Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework."
-      },
-      {
-        "parameter": ".gap_limit",
-        "type": "integer",
-        "required": true,
-        "description": "The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning."
-      },
-      {
-        "parameter": ".mode",
+        "parameter": "activation_params.mode",
         "type": "object",
         "required": true,
-        "description": "An object containing RPC type and data parameters as below."
-      },
-      {
-        "parameter": "..rpc",
-        "type": "string",
-        "required": true,
-        "description": "UTXO RPC mode. Options: `{ \"rpc\":\"Native\" }` if running a native blockchain node, or `\"rpc\":\"Electrum\"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers`"
-      },
-      {
-        "parameter": "..rpc_data",
-        "type": "object",
-        "required": true,
-        "description": "An object containing electrum server information."
-      },
-      {
-        "parameter": "...servers",
-        "type": "list",
-        "required": true,
-        "description": "A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums))"
-      },
-      {
-        "parameter": "....url",
-        "type": "object",
-        "required": true,
-        "description": "The url and port of a coins electrum server"
-      },
-      {
-        "parameter": "....ws_url",
-        "type": "object",
-        "required": false,
-        "description": "Used to define electrum server url/port for websocket connections."
-      },
-      {
-        "parameter": "....protocol",
-        "type": "object",
-        "required": false,
-        "default": "`TCP`",
-        "description": "Defines electrum server protocol as `TCP` or `SSL`."
-      },
-      {
-        "parameter": "....disable_cert_verification",
-        "type": "boolean",
-        "required": false,
-        "description": "For `SSL` electrum connections, this will allow expired certificates."
+        "description": "Activation mode configuration. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       }
     ]
   },

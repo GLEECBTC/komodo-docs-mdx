@@ -160,7 +160,8 @@
         "parameter": "data",
         "type": "object",
         "required": false,
-        "description": "Optional. additional data the cancel condition; present with `Pair` and `Coin` types"
+        "description": "Optional. additional data the cancel condition; present with `Pair` and `Coin` types",
+        "substructure": "orders.CancelByData"
       },
       {
         "parameter": "data.base",
