@@ -254,17 +254,28 @@ class TableManager:
         
         # Extract request parameters
         request_params = set()
-        params_data = request_data.get("params", {})
+        params_data = request_data.get("params")
         
-        if "activation_params" in params_data:
-            # Add top-level params
-            for key in params_data.keys():
-                if key != "activation_params":
-                    request_params.add(key)
-            # Extract nested parameters
-            self._extract_param_names(params_data["activation_params"], request_params)
+        # If explicit params object exists, use it (v2 structure)
+        if isinstance(params_data, dict):
+            if "activation_params" in params_data:
+                # Add top-level params
+                for key in params_data.keys():
+                    if key != "activation_params":
+                        request_params.add(key)
+                # Extract nested parameters
+                self._extract_param_names(params_data["activation_params"], request_params)
+            else:
+                self._extract_param_names(params_data, request_params)
         else:
-            self._extract_param_names(params_data, request_params)
+            # Legacy structure: parameters are at the top level of request_data
+            # Exclude non-parameter control fields
+            excluded_keys = {"method", "userpass"}
+            legacy_params: Dict[str, Any] = {}
+            for k, v in request_data.items():
+                if k not in excluded_keys:
+                    legacy_params[k] = v
+            self._extract_param_names(legacy_params, request_params)
         
         # Calculate validation results
         unused_params = table_params - request_params

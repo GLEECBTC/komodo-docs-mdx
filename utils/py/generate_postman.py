@@ -354,8 +354,8 @@ class UnifiedPostmanGenerator:
     
     # ===== VALIDATION =====
     
-    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> Set[str]:
-        """Validate request parameters against table definitions and return unused params."""
+    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict], version: Optional[str] = None):
+        """Validate request parameters against table definitions and return full validation result."""
         method_cfg = self.get_method_config(method, version)
         if not method_cfg:
             logger.warning(f"No method config found for method: {method} (version={version})")
@@ -368,9 +368,9 @@ class UnifiedPostmanGenerator:
         if validation_result:
             if validation_result.unused_params:
                 logger.warning(f"Unused parameters in {method}: {validation_result.unused_params}")
-            return validation_result.unused_params
+            return validation_result
         
-        return set()
+        return None
     
     
     def check_response_exists(self, request_key: str, version: str) -> bool:
@@ -704,23 +704,47 @@ pm.test("Capture task_id", function () {{
                     filtered_requests_data[request_key] = request_data
                 
                 # Validate and collect reports
+                # Accumulate per-method used/table parameters across all examples
+                method_param_usage: Dict[str, Dict[str, Set[str]]] = {}
                 for request_key, request_data in filtered_requests_data.items():
                     method = request_data.get("method")
                     if method:
-                        unused = self.validate_request_params(request_data, method, tables, version)
-                        if unused:
-                            self.unused_params[method] = list(unused)
+                        validation = self.validate_request_params(request_data, method, tables, version)
+                        if validation:
+                            table_params_this = set(validation.valid_params) | set(validation.unused_params)
+                            if method not in method_param_usage:
+                                method_param_usage[method] = {
+                                    "table_params": set(table_params_this),
+                                    "used_params_union": set(validation.valid_params)
+                                }
+                            else:
+                                # Ensure table params are consistent; if not, take union to be safe
+                                method_param_usage[method]["table_params"].update(table_params_this)
+                                method_param_usage[method]["used_params_union"].update(validation.valid_params)
                     
-                    if not self.check_response_exists(request_key, version):
-                        # Skip deprecated methods from missing responses report
-                        method_config = self.get_method_config(method, version)
-                        if not method_config.get('deprecated', False):
-                            # Skip manual/external methods that can't be automated
-                            if self._is_manual_example(request_key):
-                                continue
-                            if method not in self.missing_responses:
-                                self.missing_responses[method] = []
-                            self.missing_responses[method].append(request_key)
+                # After scanning all examples in this file, compute overall unused per method
+                for method, usage in method_param_usage.items():
+                    overall_unused = usage["table_params"] - usage["used_params_union"]
+                    if overall_unused:
+                        # Merge with any existing entries from previous files
+                        existing = set(self.unused_params.get(method, []))
+                        self.unused_params[method] = sorted(existing.union(overall_unused))
+
+                # Continue with missing responses detection per example
+                for request_key, request_data in filtered_requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        # Missing responses check
+                        if not self.check_response_exists(request_key, version):
+                            # Skip deprecated methods from missing responses report
+                            method_config = self.get_method_config(method, version)
+                            if not method_config.get('deprecated', False):
+                                # Skip manual/external methods that can't be automated
+                                if self._is_manual_example(request_key):
+                                    continue
+                                if method not in self.missing_responses:
+                                    self.missing_responses[method] = []
+                                self.missing_responses[method].append(request_key)
                 
                 # Add to folder tree (using filtered data)
                 file_tree = self.create_folder_structure(filtered_requests_data, version, filename, tables, "standard")
