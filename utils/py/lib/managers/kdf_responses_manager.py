@@ -633,8 +633,9 @@ class KdfResponseManager:
         """Detect and record inconsistencies across environments for a single example.
 
         Inconsistencies include:
-        - Mixed outcomes across instances (success vs expected_error vs failure)
-        - Inconsistent structure among successful/expected responses
+        - Presence of failures in any instance
+        - Inconsistent structure among successful responses only
+        Expected errors alone should NOT trigger inclusion.
         """
         try:
             request_key = response_name
@@ -646,11 +647,21 @@ class KdfResponseManager:
                 )
 
             reasons: List[str] = []
-            if len(set(categories.values())) > 1:
+
+            # Include if any failure is present (unexpected)
+            has_failure = any(outcome == "failure" for outcome in categories.values())
+            if has_failure:
                 reasons.append("mixed_outcomes")
-            if not consistent_structure:
+
+            # Structure inconsistency: compare ONLY successful responses
+            success_structures: List[str] = []
+            for instance_name, resp in instance_responses.items():
+                if categories.get(instance_name) == "success" and isinstance(resp, dict):
+                    success_structures.append(self._get_response_structure(resp))
+            if len(success_structures) >= 2 and len(set(success_structures)) > 1:
                 reasons.append("inconsistent_structure")
 
+            # Do NOT include if the only differences are success vs expected_error
             if reasons:
                 if response_name not in self.inconsistent_responses:
                     self.inconsistent_responses[response_name] = {}
