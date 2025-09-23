@@ -205,24 +205,38 @@ class KdfResponseManager:
             managers[instance.name] = ActivationManager(
                 rpc_func=lambda method, params, inst=instance: self._send_activation_request(inst, method, params),
                 userpass=instance.userpass,
-                workspace_root=self.workspace_root
+                workspace_root=self.workspace_root,
+                instance_name=instance.name
             )
         return managers
     
     def _send_activation_request(self, instance: KDFInstance, method: str, params: Dict[str, Any]) -> Dict[str, Any]:
-        """Send activation request for ActivationManager."""
-        request_data = {
-            "userpass": instance.userpass,
-            "mmrpc": "2.0",
-            "method": method,
-            "params": params,
-            "id": 0
-        }
+        """Send activation request for ActivationManager.
+
+        Uses v2 (mmrpc 2.0) for task:: methods; for legacy methods like 'electrum'/'enable',
+        send v1-style payload by merging params at root.
+        """
+        # Determine if this is a v2 task method
+        is_v2 = isinstance(method, str) and ("task::" in method or method.startswith("enable_"))
+        if is_v2:
+            request_data = {
+                "userpass": instance.userpass,
+                "mmrpc": "2.0",
+                "method": method,
+                "params": params,
+                "id": 0
+            }
+        else:
+            # Legacy v1 activation call: merge params into root
+            request_data = {"userpass": instance.userpass, "method": method}
+            # Merge only dict params at root level
+            if isinstance(params, dict):
+                request_data.update(params)
         _outcome, response = self.send_request(instance, request_data)
         return response  # ActivationManager expects just the response dict
     
     def send_request(self, instance: KDFInstance, request_data: Dict[str, Any], 
-                    timeout: int = 30) -> Tuple[Outcome, Dict[str, Any]]:
+                    timeout: int = 30, allow_retry: bool = True) -> Tuple[Outcome, Dict[str, Any]]:
         """Send a request to a KDF instance with tri-state outcome."""
         start_time = time.time()
         status_code = None
@@ -278,12 +292,59 @@ class KdfResponseManager:
                 self._current_timing_context['status_code'] = status_code or 500
 
             if outcome != Outcome.SUCCESS:
-                # Classify expected errors
-                text = str(data)
+                # Prefer raw body for matching; fallback to stringified dict
+                raw_body = data.get("raw_response") if isinstance(data, dict) else None
+                text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+
+                # Auto-activation + retry wiring
+                try:
+                    # Extract ticker from original request
+                    ticker_for_request = self._extract_ticker_from_request(filtered_request_data)
+                    ticker_upper = str(ticker_for_request).upper() if ticker_for_request else None
+
+                    # Helper to try activation then retry once
+                    def _retry_after_activation(activate_ticker: Optional[str], *, force_platform: bool = False, force_reenable: bool = False) -> Tuple[Outcome, Dict[str, Any]]:
+                        if not activate_ticker:
+                            return outcome, data
+                        act_result = self._ensure_coin_activated(
+                            instance, activate_ticker,
+                            force_enable_platform=force_platform,
+                            force_reenable=force_reenable
+                        )
+                        if act_result.get("success"):
+                            time.sleep(0.5)
+                            return self.send_request(instance, request_data, timeout, allow_retry=False)
+                        return Outcome.FAILURE, {"error": f"Activation failed for {activate_ticker}", "activation_error": act_result.get("error"), "activation_response": act_result.get("response")}
+
+                    # Parent platform not activated: activate parent and retry
+                    if allow_retry and "PlatformCoinIsNotActivated" in text:
+                        parent_coin = None
+                        if ticker_upper:
+                            is_token, parent = self.coins_config.is_token(ticker_upper)
+                            parent_coin = parent if is_token else None
+                        if not parent_coin and isinstance(raw_body, str):
+                            try:
+                                body_json = json.loads(raw_body)
+                                parent_coin = str(body_json.get("error_data") or body_json.get("error", {}).get("error_data")).upper()
+                            except Exception:
+                                parent_coin = None
+                        if parent_coin:
+                            outcome, data = _retry_after_activation(parent_coin, force_platform=True)
+                            raw_body = data.get("raw_response") if isinstance(data, dict) else None
+                            text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+
+                    # NoSuchCoin for a known coin: activate coin and retry
+                    if allow_retry and "NoSuchCoin" in text and ticker_upper and self.coins_config.get_coin_config(ticker_upper):
+                        # Re-enable if already enabled but server reports 404
+                        outcome, data = _retry_after_activation(ticker_upper, force_reenable=True)
+                        raw_body = data.get("raw_response") if isinstance(data, dict) else None
+                        text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+                except Exception as e:
+                    self.logger.warning(f"Retry wiring failed for {method_name} on {instance.name}: {e}")
+
                 is_expected = (
                     "UnexpectedDerivationMethod" in text or
                     "SingleAddress" in text or
-                    "PlatformCoinIsNotActivated" in text or
                     "Error parsing the native wallet configuration" in text or
                     ("FromAddressNotFound" in text and instance.name.endswith("-hd"))
                 )
@@ -330,15 +391,21 @@ class KdfResponseManager:
         
         return None
     
-    def _ensure_coin_activated(self, instance: KDFInstance, ticker: str):
-        """Ensure a coin is activated using the ActivationManager."""
+    def _ensure_coin_activated(self, instance: KDFInstance, ticker: str,
+                               force_enable_platform: bool = False,
+                               force_reenable: bool = False):
+        """Ensure a coin is activated using the ActivationManager.
+
+        force_enable_platform: when True, allows enabling platform coins like ETH/IRIS
+        force_reenable: when True and coin appears enabled, disable then activate again
+        """
         if not ticker:
             return {"success": True, "already_enabled": True}
         
         ticker_upper = str(ticker).upper()
         
-        # Skip platform coins that are handled separately
-        if ticker_upper in ["ETH", "IRIS"]:
+        # Skip platform coins unless forced from retry logic
+        if not force_enable_platform and ticker_upper in ["ETH", "IRIS"]:
             return {"success": True, "already_enabled": True}
         
         # Get the activation manager for this instance
@@ -350,8 +417,12 @@ class KdfResponseManager:
         
         # Check if coin is already enabled
         if activation_manager.is_coin_enabled(ticker_upper):
-            self.logger.info(f"Coin {ticker_upper} is already enabled on {instance.name}")
-            return {"success": True, "already_enabled": True}
+            if force_reenable:
+                self.logger.info(f"🔄 Re-enabling {ticker_upper} on {instance.name} due to prior error")
+                self.disable_coin(instance, ticker_upper)
+            else:
+                self.logger.info(f"Coin {ticker_upper} is already enabled on {instance.name}")
+                return {"success": True, "already_enabled": True}
         
         try:
             # Determine if this is a token
@@ -994,7 +1065,6 @@ class KdfResponseManager:
                     is_expected = (
                         "UnexpectedDerivationMethod" in text or
                         "SingleAddress" in text or
-                        "PlatformCoinIsNotActivated" in text or
                         "Error parsing the native wallet configuration" in text or
                         ("FromAddressNotFound" in text and instance_name.endswith("-hd"))
                     )

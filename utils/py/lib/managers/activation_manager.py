@@ -631,7 +631,8 @@ class ActivationManager:
     """Manages coin and token activation with intelligent protocol detection."""
 
     def __init__(self, rpc_func: Callable[[str, Dict[str, Any]], Dict[str, Any]], 
-                 userpass: str, workspace_root: Optional[Path] = None):
+                 userpass: str, workspace_root: Optional[Path] = None,
+                 instance_name: str = "default"):
         """Initialize the activation manager.
         
         Args:
@@ -642,10 +643,15 @@ class ActivationManager:
         self.rpc_func = rpc_func
         self.userpass = userpass
         self.logger = logger
+        self.instance_name = instance_name
         
         # Initialize config and request builder
         self.coins_config = CoinsConfigManager(workspace_root)
         self.request_builder = ActivationRequestBuilder(self.coins_config, userpass)
+
+    def _state_key(self, ticker: str) -> str:
+        """Namespaced activation state key per instance."""
+        return f"{self.instance_name}:{str(ticker).upper()}"
 
     @staticmethod
     def _status_method_for_init(method: str) -> Optional[str]:
@@ -660,7 +666,7 @@ class ActivationManager:
 
     def _poll_task(self, ticker: str, status_method: str, task_id: Any) -> None:
         """Poll task status until completion or failure."""
-        key = str(ticker).upper()
+        key = self._state_key(ticker)
         max_polls = 40  # 200 seconds at 5 second intervals
         poll_count = 0
         
@@ -728,7 +734,7 @@ class ActivationManager:
     def is_coin_enabled(self, ticker: str) -> bool:
         """Check if a coin is currently enabled."""
         ticker_upper = str(ticker).upper()
-        state = ACTIVATION_STATE.get(ticker_upper, {})
+        state = ACTIVATION_STATE.get(self._state_key(ticker_upper), {})
         return state.get("status") == "enabled"
 
     def activate_coin(self, ticker: str, enable_hd: bool = True, 
@@ -744,13 +750,14 @@ class ActivationManager:
             ActivationResult with success status and response
         """
         ticker_upper = str(ticker).upper()
+        key = self._state_key(ticker_upper)
         
         # Check if already enabled
         if self.is_coin_enabled(ticker_upper):
             self.logger.info(f"Coin {ticker_upper} is already enabled")
             return ActivationResult(
                 success=True,
-                response=ACTIVATION_STATE[ticker_upper].get("result", {}),
+                response=ACTIVATION_STATE.get(key, {}).get("result", {}),
                 error=None
             )
         
@@ -763,7 +770,7 @@ class ActivationManager:
                     enabled_tickers = [coin.get("ticker", "").upper() for coin in enabled_coins if isinstance(coin, dict)]
                     if ticker_upper in enabled_tickers:
                         self.logger.info(f"Coin {ticker_upper} is already enabled")
-                        ACTIVATION_STATE[ticker_upper] = {
+                        ACTIVATION_STATE[key] = {
                             "status": "enabled",
                             "last_started": time.time(),
                             "result": {"status": "already_enabled"}
@@ -778,7 +785,7 @@ class ActivationManager:
             activation_request = self.request_builder.build_activation_request(ticker_upper, enable_hd)
             
             # Update state
-            ACTIVATION_STATE[ticker_upper] = {
+            ACTIVATION_STATE[key] = {
                 "status": "in_progress", 
                 "last_started": time.time(),
                 "method": activation_request.method
@@ -801,7 +808,7 @@ class ActivationManager:
                 raw_response = response.get("raw_response", "")
                 if "CoinIsAlreadyActivated" in raw_response or "is activated already" in raw_response:
                     self.logger.info(f"Coin {ticker_upper} is already activated")
-                    ACTIVATION_STATE[ticker_upper] = {
+                    ACTIVATION_STATE[key] = {
                         "status": "enabled",
                         "last_started": time.time(),
                         "result": {"status": "already_enabled"}
@@ -829,7 +836,7 @@ class ActivationManager:
                 if task_id is not None:
                     status_method = self._status_method_for_init(activation_request.method)
                     if status_method:
-                        ACTIVATION_STATE[ticker_upper].update({
+                        ACTIVATION_STATE[key].update({
                             "task_id": task_id, 
                             "status_method": status_method
                         })
@@ -846,7 +853,7 @@ class ActivationManager:
                         if wait_for_completion:
                             poll_thread.join(timeout=300)  # 5 minute timeout
                             
-                            final_state = ACTIVATION_STATE.get(ticker_upper, {})
+                            final_state = ACTIVATION_STATE.get(key, {})
                             final_status = final_state.get("status")
                             
                             if final_status == "enabled":
@@ -873,7 +880,7 @@ class ActivationManager:
                             )
                     else:
                         self.logger.error(f"No status method available for {activation_request.method}")
-                        ACTIVATION_STATE[ticker_upper].update({
+                        ACTIVATION_STATE[key].update({
                             "status": "failed", 
                             "error": "No status method available"
                         })
@@ -884,7 +891,7 @@ class ActivationManager:
                         )
                 else:
                     self.logger.warning(f"No task ID returned from {ticker_upper} activation request")
-                    ACTIVATION_STATE[ticker_upper].update({
+                    ACTIVATION_STATE[key].update({
                         "status": "failed", 
                         "error": "No task ID returned"
                     })
@@ -896,14 +903,14 @@ class ActivationManager:
             else:
                 # Non-task method - immediate response
                 if isinstance(response, dict) and response.get("result"):
-                    ACTIVATION_STATE[ticker_upper].update({
+                    ACTIVATION_STATE[key].update({
                         "status": "enabled", 
                         "result": response, 
                         "completed_at": time.time()
                     })
                     return ActivationResult(success=True, response=response)
                 else:
-                    ACTIVATION_STATE[ticker_upper].update({
+                    ACTIVATION_STATE[key].update({
                         "status": "failed", 
                         "result": response
                     })
@@ -916,7 +923,7 @@ class ActivationManager:
         except Exception as e:
             error_msg = f"Failed to activate {ticker_upper}: {str(e)}"
             self.logger.error(error_msg)
-            ACTIVATION_STATE[ticker_upper] = {
+            ACTIVATION_STATE[key] = {
                 "status": "failed", 
                 "error": error_msg,
                 "failed_at": time.time()
@@ -936,13 +943,14 @@ class ActivationManager:
             ActivationResult with success status and response
         """
         ticker_upper = str(ticker).upper()
+        key = self._state_key(ticker_upper)
         
         # Check if already enabled
         if self.is_coin_enabled(ticker_upper):
             self.logger.info(f"Token {ticker_upper} is already enabled")
             return ActivationResult(
                 success=True,
-                response=ACTIVATION_STATE[ticker_upper].get("result", {}),
+                response=ACTIVATION_STATE.get(key, {}).get("result", {}),
                 error=None
             )
         
@@ -963,7 +971,7 @@ class ActivationManager:
                 self.logger.info(f"Parent coin {parent_coin} is enabled, proceeding with token {ticker_upper}")
             
             # Activate the token
-            ACTIVATION_STATE[ticker_upper] = {
+            ACTIVATION_STATE[key] = {
                 "status": "in_progress", 
                 "last_started": time.time(),
                 "parent": parent_coin,
@@ -973,7 +981,7 @@ class ActivationManager:
             response = self.rpc_func(token_request.method, token_request.params) or {}
             
             if isinstance(response, dict) and response.get("result"):
-                ACTIVATION_STATE[ticker_upper].update({
+                ACTIVATION_STATE[key].update({
                     "status": "enabled", 
                     "result": response, 
                     "completed_at": time.time()
@@ -981,7 +989,7 @@ class ActivationManager:
                 self.logger.info(f"Token {ticker_upper} activated successfully")
                 return ActivationResult(success=True, response=response)
             else:
-                ACTIVATION_STATE[ticker_upper].update({
+                ACTIVATION_STATE[key].update({
                     "status": "failed", 
                     "result": response
                 })
@@ -994,7 +1002,7 @@ class ActivationManager:
         except Exception as e:
             error_msg = f"Failed to activate token {ticker_upper}: {str(e)}"
             self.logger.error(error_msg)
-            ACTIVATION_STATE[ticker_upper] = {
+            ACTIVATION_STATE[key] = {
                 "status": "failed", 
                 "error": error_msg,
                 "failed_at": time.time()
@@ -1004,5 +1012,5 @@ class ActivationManager:
     def get_activation_status(self, ticker: str) -> Dict[str, Any]:
         """Get current activation status for a ticker."""
         ticker_upper = str(ticker).upper()
-        return ACTIVATION_STATE.get(ticker_upper, {"status": "not_started"})
+        return ACTIVATION_STATE.get(self._state_key(ticker_upper), {"status": "not_started"})
 
