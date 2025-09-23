@@ -15,14 +15,14 @@ from dataclasses import dataclass
 
 # Import existing components
 try:
-    from .kdf_responses_manager import KdfResponseManager, KDFInstance, KDF_INSTANCES, CollectionResult
+    from .kdf_responses_manager import KdfResponseManager, KDFInstance, KDF_INSTANCES, CollectionResult, Outcome
     from ..models.kdf_method import KdfMethod, KdfExample, MethodRequestQueue, KdfMethodsLoader, MethodStatus
     from ..utils.json_utils import dump_sorted_json
 except ImportError:
     # Fall back to absolute imports
     import sys
     sys.path.append(str(Path(__file__).parent.parent))
-    from managers.kdf_responses_manager import KdfResponseManager, KDFInstance, KDF_INSTANCES, CollectionResult
+    from managers.kdf_responses_manager import KdfResponseManager, KDFInstance, KDF_INSTANCES, CollectionResult, Outcome
     from models.kdf_method import KdfMethod, KdfExample, MethodRequestQueue, KdfMethodsLoader, MethodStatus
     from utils.json_utils import dump_sorted_json
 
@@ -162,7 +162,7 @@ class SequenceResponseManager(KdfResponseManager):
                 result = self.collect_regular_method(example_name, example.request_data, method.name)
                 
                 # Update example with results
-                if result.all_successful:
+                if result.all_passed:
                     example.response_data = result.instance_responses
                     example.collected = True
                     examples_successful += 1

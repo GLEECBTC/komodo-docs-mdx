@@ -289,7 +289,11 @@ class KdfResponseManager:
                 )
                 if is_expected:
                     outcome = Outcome.EXPECTED_ERROR
-                    self._record_expected_error(method_name, instance.name, status_code or 500, data, filtered_request_data)
+                    try:
+                        self._record_expected_error(method_name, instance.name, status_code or 500, data, filtered_request_data)
+                    except AttributeError:
+                        # If a subclass doesn't have recorder yet (e.g., older Sequence manager), safely ignore
+                        pass
                     self.logger.info(f"{instance.name}: [{method_name}] EXPECTED_ERROR - {data.get('error', '')}")
                 else:
                     self.logger.warning(f"{instance.name}: [{method_name}] FAILED - [{status_code}] {data.get('error', '')}")
@@ -545,7 +549,7 @@ class KdfResponseManager:
             
             instance_responses[instance.name] = response
             
-            if outcome != Outcome.SUCCESS or outcome != Outcome.EXPECTED_ERROR:
+            if not (outcome == Outcome.SUCCESS or outcome == Outcome.EXPECTED_ERROR):
                 all_passed = False
             else:
                 if first_response_structure is None:
@@ -557,6 +561,14 @@ class KdfResponseManager:
         successful_responses = {k: v for k, v in instance_responses.items() if "error" not in v}
         auto_updatable = len(successful_responses) > 0
         
+        # Record inconsistencies if any (mixed outcomes or structure differences)
+        self._maybe_record_inconsistency(
+            response_name=response_name,
+            method_name=method_name,
+            instance_responses=instance_responses,
+            consistent_structure=consistent_structure,
+        )
+
         return CollectionResult(
             response_name=response_name,
             instance_responses=instance_responses,
@@ -567,6 +579,89 @@ class KdfResponseManager:
             notes=f"Method: {method_name}",
             original_request=request_data
         )
+
+    def _record_expected_error(self, method_name: str, instance_name: str, status_code: int,
+                               response_data: Dict[str, Any], request_data: Dict[str, Any]) -> None:
+        """Record an expected error for reporting.
+
+        Stores expected errors grouped by method -> example(request_key) -> instance.
+        """
+        try:
+            request_key = self._current_request_key or method_name
+            if method_name not in self.expected_error_responses:
+                self.expected_error_responses[method_name] = {}
+            if request_key not in self.expected_error_responses[method_name]:
+                self.expected_error_responses[method_name][request_key] = {}
+
+            # Extract a concise error summary
+            error_entry: Dict[str, Any] = {
+                "status_code": status_code,
+            }
+            if isinstance(response_data, dict):
+                # Copy common error fields if present
+                for key in ["error", "error_type", "error_path", "error_trace", "raw_response"]:
+                    if key in response_data:
+                        error_entry[key] = response_data[key]
+            # Store minimal request context for debugging
+            error_entry["request"] = {
+                "method": method_name,
+                "request_key": request_key,
+            }
+
+            self.expected_error_responses[method_name][request_key][instance_name] = error_entry
+        except Exception as e:
+            # Do not let reporting failures affect collection flow
+            self.logger.warning(f"Failed to record expected error for {method_name} on {instance_name}: {e}")
+
+    def _classify_instance_outcome(self, instance_name: str, method_name: str, request_key: str,
+                                   response: Dict[str, Any]) -> str:
+        """Classify outcome for a single instance as 'success', 'expected_error', or 'failure'."""
+        if isinstance(response, dict) and "error" not in response:
+            return "success"
+
+        # Check if this response was recorded as expected
+        method_map = self.expected_error_responses.get(method_name, {})
+        example_map = method_map.get(request_key, {})
+        if instance_name in example_map:
+            return "expected_error"
+
+        return "failure"
+
+    def _maybe_record_inconsistency(self, response_name: str, method_name: str,
+                                    instance_responses: Dict[str, Any],
+                                    consistent_structure: bool) -> None:
+        """Detect and record inconsistencies across environments for a single example.
+
+        Inconsistencies include:
+        - Mixed outcomes across instances (success vs expected_error vs failure)
+        - Inconsistent structure among successful/expected responses
+        """
+        try:
+            request_key = response_name
+            # Build outcome categories per instance
+            categories: Dict[str, str] = {}
+            for instance_name, resp in instance_responses.items():
+                categories[instance_name] = self._classify_instance_outcome(
+                    instance_name, method_name, request_key, resp if isinstance(resp, dict) else {}
+                )
+
+            reasons: List[str] = []
+            if len(set(categories.values())) > 1:
+                reasons.append("mixed_outcomes")
+            if not consistent_structure:
+                reasons.append("inconsistent_structure")
+
+            if reasons:
+                if response_name not in self.inconsistent_responses:
+                    self.inconsistent_responses[response_name] = {}
+                self.inconsistent_responses[response_name] = {
+                    "method": method_name,
+                    "reasons": reasons,
+                    "outcomes": categories,
+                    "instances": instance_responses,
+                }
+        except Exception as e:
+            self.logger.warning(f"Failed to evaluate inconsistency for {response_name}: {e}")
     
     def _get_method_timeout(self, method_name: str) -> int:
         """Get appropriate timeout for a method."""
@@ -856,6 +951,80 @@ class KdfResponseManager:
         }
         dump_sorted_json(report, expected_file)
         self.logger.info(f"Expected error responses report saved to: {expected_file}")
+
+    def rebuild_reports_from_unified(self, unified_report_path: Path, output_dir: Path) -> None:
+        """Rebuild expected_error_responses.json and inconsistent_responses.json from an existing unified report.
+
+        This is useful when we want to re-derive these reports without re-running collection.
+        """
+        try:
+            with open(unified_report_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except Exception as e:
+            self.logger.error(f"Failed to load unified report: {e}")
+            return
+
+        responses = data.get("responses", {}) if isinstance(data, dict) else {}
+        self.expected_error_responses = {}
+        self.inconsistent_responses = {}
+
+        for response_name, entry in responses.items():
+            if not isinstance(entry, dict):
+                continue
+            method_name = entry.get("notes", "").replace("Method: ", "") or entry.get("method", "")
+            instance_responses = entry.get("instances", {})
+
+            # Rebuild expected errors by scanning error responses that match the classifier
+            for instance_name, resp in instance_responses.items():
+                if not isinstance(resp, dict):
+                    continue
+                if "error" in resp:
+                    text = json.dumps(resp)
+                    is_expected = (
+                        "UnexpectedDerivationMethod" in text or
+                        "SingleAddress" in text or
+                        "PlatformCoinIsNotActivated" in text or
+                        "Error parsing the native wallet configuration" in text or
+                        ("FromAddressNotFound" in text and instance_name.endswith("-hd"))
+                    )
+                    if is_expected:
+                        if method_name not in self.expected_error_responses:
+                            self.expected_error_responses[method_name] = {}
+                        if response_name not in self.expected_error_responses[method_name]:
+                            self.expected_error_responses[method_name][response_name] = {}
+                        self.expected_error_responses[method_name][response_name][instance_name] = {
+                            "status_code": None,
+                            "error": resp.get("error"),
+                            "error_type": resp.get("error_type"),
+                            "error_path": resp.get("error_path"),
+                            "error_trace": resp.get("error_trace"),
+                            "raw_response": resp.get("raw_response")
+                        }
+
+            # Rebuild inconsistency entries based on mixed outcomes and structure flag
+            consistent_structure = bool(entry.get("consistent_structure", True))
+            # Determine categories
+            categories = {}
+            for instance_name, resp in instance_responses.items():
+                categories[instance_name] = self._classify_instance_outcome(
+                    instance_name, method_name, response_name, resp if isinstance(resp, dict) else {}
+                )
+            reasons = []
+            if len(set(categories.values())) > 1:
+                reasons.append("mixed_outcomes")
+            if not consistent_structure:
+                reasons.append("inconsistent_structure")
+            if reasons:
+                self.inconsistent_responses[response_name] = {
+                    "method": method_name,
+                    "reasons": reasons,
+                    "outcomes": categories,
+                    "instances": instance_responses,
+                }
+
+        # Save the rebuilt reports
+        self.save_expected_error_responses_report(output_dir)
+        self.save_inconsistent_responses_report(output_dir)
     
     def regenerate_missing_responses_report(self, reports_dir: Path) -> None:
         """Regenerate missing responses report after response collection."""
