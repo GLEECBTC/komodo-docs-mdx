@@ -129,8 +129,8 @@
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://mainnet.gateway.tenderly.co",
-          "ws_url": "wss://mainnet.gateway.tenderly.co"
+          "url": "https://ethereum-rpc.publicnode.com",
+          "ws_url": "wss://ethereum-rpc.publicnode.com"
         }
       ],
       "priv_key_policy": {
@@ -262,8 +262,8 @@
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://mainnet.gateway.tenderly.co",
-          "ws_url": "wss://mainnet.gateway.tenderly.co"
+          "url": "https://ethereum-rpc.publicnode.com",
+          "ws_url": "wss://ethereum-rpc.publicnode.com"
         }
       ],
       "priv_key_policy": {

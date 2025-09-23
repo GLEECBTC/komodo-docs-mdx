@@ -26,6 +26,10 @@ source utils/py/.venv/bin/activate
 echo "🔄 Syncing request examples with latest coin servers..."
 python utils/py/batch_update_nodes.py --directory src/data/requests/kdf
 
+# Sync method examples into kdf_methods files
+echo "🔁 Syncing method examples from requests into kdf_methods..."
+python utils/py/generate_postman.py --sync-examples --output-dir postman/generated
+
 # Set KDF branch
 export KDF_BRANCH="dev"
 

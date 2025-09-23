@@ -1049,6 +1049,76 @@ pm.test("Capture task_id", function () {{
         dump_sorted_json(missing_methods_list, missing_methods_file)
         logger.info(f"Missing methods report saved to {missing_methods_file}")
     
+    # ===== EXAMPLE SYNC =====
+    
+    def _collect_examples_from_requests(self) -> Dict[str, Dict[str, Set[str]]]:
+        """Collect request example keys per method, grouped by version.
+        
+        Returns:
+            { 'legacy': { method: {example_keys...} }, 'v2': { ... } }
+        """
+        collected: Dict[str, Dict[str, Set[str]]] = { 'legacy': {}, 'v2': {} }
+        # Iterate version dirs under requests
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            version = version_dir.name
+            if version not in collected:
+                collected[version] = {}
+            for json_file in version_dir.glob("*.json"):
+                reqs = self.load_json_file(json_file) or {}
+                for request_key, request_data in reqs.items():
+                    if not isinstance(request_data, dict):
+                        continue
+                    method = request_data.get("method")
+                    if not method:
+                        continue
+                    collected[version].setdefault(method, set()).add(request_key)
+        return collected
+    
+    def sync_examples_from_requests(self, dry_run: bool = False) -> Dict[str, Any]:
+        """Sync missing example keys into kdf_methods files based on request files.
+        
+        - Adds only missing examples; does not remove existing ones
+        - Uses inferred human-readable names for new examples
+        
+        Returns summary stats.
+        """
+        collected = self._collect_examples_from_requests()
+        added_count = 0
+        per_method_added: Dict[str, int] = {}
+        
+        # Helper to update a config dict
+        def update_config(config: Dict[str, Dict], version: str):
+            nonlocal added_count
+            for method, example_keys in collected.get(version, {}).items():
+                method_cfg = config.get(method)
+                if not method_cfg:
+                    # Skip methods not defined in this version config
+                    continue
+                examples: Dict[str, str] = method_cfg.get("examples", {}) or {}
+                new_this_method = 0
+                for ex_key in sorted(example_keys):
+                    if ex_key not in examples:
+                        examples[ex_key] = self._infer_example_name(ex_key, method)
+                        new_this_method += 1
+                if new_this_method:
+                    method_cfg["examples"] = dict(sorted(examples.items()))
+                    per_method_added[method] = per_method_added.get(method, 0) + new_this_method
+                    added_count += new_this_method
+        
+        update_config(self.method_config_legacy, 'legacy')
+        update_config(self.method_config_v2, 'v2')
+        
+        if not dry_run and added_count:
+            self._save_method_config()
+        
+        return {
+            "added_examples": added_count,
+            "per_method": dict(sorted(per_method_added.items())),
+            "dry_run": dry_run
+        }
+    
     # ===== SELF-REPAIR FUNCTIONALITY =====
     
     def discover_missing_methods(self) -> Dict[str, Dict]:
@@ -1444,6 +1514,11 @@ Examples:
         action='store_true',
         help="Show what would be repaired without making changes"
     )
+    mode_group.add_argument(
+        '--sync-examples',
+        action='store_true',
+        help="Sync missing request examples into kdf_methods files"
+    )
     
     # Optional arguments
     parser.add_argument(
@@ -1543,6 +1618,11 @@ Examples:
             dump_sorted_json(collection, output_file)
             
             print(f"✅ Environment collection generated: {output_file}")
+        elif args.sync_examples:
+            print("🔄 Syncing missing request examples into kdf_methods files...")
+            summary = generator.sync_examples_from_requests(dry_run=False)
+            print(json.dumps(summary, indent=2))
+            print("✅ Sync complete.")
     
     except Exception as e:
         print(f"❌ Error: {e}")

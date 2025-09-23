@@ -3,7 +3,9 @@
     "errors_table": "",
     "examples": {
       "LegacyElectrumBch": "Electrum Bch",
+      "LegacyElectrumDoc": "Electrum Doc",
       "LegacyElectrumKmd": "Electrum Kmd",
+      "LegacyElectrumMarty": "Electrum Marty",
       "LegacyElectrumQtum": "Electrum Qtum"
     },
     "prerequisites": [],
@@ -18,29 +20,6 @@
       ]
     },
     "response_table": "",
-    "sequence": 25,
-    "tags": [
-      "legacy"
-    ]
-  },
-  "version": {
-    "errors_table": "",
-    "examples": {
-      "LegacyVersion": "Version"
-    },
-    "prerequisites": [],
-    "request_table": "NoParams",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "VersionResponse",
     "sequence": 25,
     "tags": [
       "legacy"
@@ -78,6 +57,29 @@
       ]
     },
     "response_table": "",
+    "sequence": 25,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "version": {
+    "errors_table": "",
+    "examples": {
+      "LegacyVersion": "Version"
+    },
+    "prerequisites": [],
+    "request_table": "NoParams",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "VersionResponse",
     "sequence": 25,
     "tags": [
       "legacy"

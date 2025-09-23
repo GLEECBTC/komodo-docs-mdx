@@ -20,6 +20,33 @@
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
+  "LegacyElectrumDoc": {
+    "coin": "DOC",
+    "method": "electrum",
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true,
+    "servers": [
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum1.cipig.net:20020"
+      },
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum2.cipig.net:20020"
+      },
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum3.cipig.net:20020"
+      }
+    ],
+    "userpass": "RPC_UserP@SSW0RD",
+    "utxo_merge_params": {
+      "check_every": 10,
+      "max_merge_at_once": 100,
+      "merge_at": 50
+    }
+  },
   "LegacyElectrumKmd": {
     "coin": "KMD",
     "method": "electrum",
@@ -42,8 +69,33 @@
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
+  "LegacyElectrumMarty": {
+    "coin": "MARTY",
+    "max_connected": 2,
+    "method": "electrum",
+    "min_connected": 1,
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true,
+    "servers": [
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum1.cipig.net:20021"
+      },
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum2.cipig.net:20021"
+      },
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum3.cipig.net:20021"
+      }
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
   "LegacyElectrumQtum": {
     "coin": "QTUM",
+    "fallback_swap_contract": "0x2f754733acd6d753731c00fee32cb484551cc15d",
     "method": "electrum",
     "servers": [
       {
@@ -80,7 +132,7 @@
     "method": "enable",
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
-      "https://0xrpc.io/eth",
+      "https://eth.drpc.org",
       "https://eth3.cipig.net:18555",
       "https://ethereum-rpc.publicnode.com"
     ],
@@ -98,8 +150,8 @@
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
       "https://0xrpc.io/eth",
-      "https://eth3.cipig.net:18555",
-      "https://mainnet.gateway.tenderly.co"
+      "https://eth.drpc.org",
+      "https://eth3.cipig.net:18555"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -111,7 +163,7 @@
     "urls": [
       "https://node.komodo.earth:8080/polygon",
       "https://pol3.cipig.net:18755",
-      "https://polygon.gateway.tenderly.co"
+      "https://polygon-bor-rpc.publicnode.com"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
