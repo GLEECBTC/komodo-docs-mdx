@@ -446,8 +446,9 @@ class ActivationRequestBuilder:
         """Build Tendermint-like coin activation request."""
         params = {
             "ticker": ticker,
-            "tx_history": True,
+            "tx_history": False,
             "get_balances": True,
+            "tokens_params": []
         }
         
         # Add nodes from rpc_urls or nodes
@@ -456,13 +457,7 @@ class ActivationRequestBuilder:
             selected_nodes = self._select_preferred_servers(nodes, max_count=3)
             if selected_nodes:
                 params["nodes"] = selected_nodes
-        
-        # Add chain-specific parameters
-        if protocol_info.chain_id:
-            params["chain_id"] = protocol_info.chain_id
-        if protocol_info.denom:
-            params["denom"] = protocol_info.denom
-        
+                
         return ActivationRequest(
             method="task::enable_tendermint::init",
             params=params,
