@@ -342,20 +342,15 @@ class KdfResponseManager:
                 except Exception as e:
                     self.logger.warning(f"Retry wiring failed for {method_name} on {instance.name}: {e}")
 
-                is_expected = (
-                    "UnexpectedDerivationMethod" in text or
-                    "SingleAddress" in text or
-                    "Error parsing the native wallet configuration" in text or
-                    ("FromAddressNotFound" in text and instance.name.endswith("-hd"))
-                )
-                if is_expected:
+                expected_error = self._is_expected_error(text, instance, method_name)
+                if expected_error:
                     outcome = Outcome.EXPECTED_ERROR
                     try:
                         self._record_expected_error(method_name, instance.name, status_code or 500, data, filtered_request_data)
                     except AttributeError:
                         # If a subclass doesn't have recorder yet (e.g., older Sequence manager), safely ignore
                         pass
-                    self.logger.info(f"{instance.name}: [{method_name}] EXPECTED_ERROR - {data.get('error', '')}")
+                    self.logger.info(f"{instance.name}: [{method_name}] EXPECTED_ERROR - [{data.get('error', '')}] {expected_error}")
                 else:
                     self.logger.warning(f"{instance.name}: [{method_name}] FAILED - [{status_code}] {data.get('error', '')}")
                     self.logger.warning(f"{instance.name}: [{method_name}] Request - {request_data}")
@@ -366,6 +361,30 @@ class KdfResponseManager:
                 self.logger.info(f"{instance.name}: [{method_name}] SUCCESS")
         return outcome, data
 
+    def _is_expected_error(self, text: str, instance: KDFInstance, method_name: str) -> bool:
+        """Check if the response is an expected error."""
+        expected_error = None
+        if instance.name.endswith("-nonhd"):
+            if "not supported if the coin is initialized with an Iguana private key" in text:
+                return "Iguana not supported"
+
+        elif instance.name.endswith("-hd"):
+            # TODO: Use example name to tag where HD/nonHD param set
+            if method_name == "withdraw" and "Request should contain a 'from' address/account" in text:
+                return "HD withdraw request without 'from' address/account"
+            if "is deprecated for HD wallets" in text:
+                return "HD wallet is deprecated"
+
+        if "Error parsing the native wallet configuration" in text:
+            return "Native wallet configuration error (no local blockchain data"
+        for i in [
+            "UnexpectedDerivationMethod",
+            "SingleAddress",
+            ]:
+            if i in text:
+                return i
+        return None
+        
 
     def _filter_request_data(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
         """Filter out metadata fields from request data before sending to API."""
@@ -1062,13 +1081,7 @@ class KdfResponseManager:
                     continue
                 if "error" in resp:
                     text = json.dumps(resp)
-                    is_expected = (
-                        "UnexpectedDerivationMethod" in text or
-                        "SingleAddress" in text or
-                        "Error parsing the native wallet configuration" in text or
-                        ("FromAddressNotFound" in text and instance_name.endswith("-hd"))
-                    )
-                    if is_expected:
+                    if self._is_expected_error(text, instance_name, method_name) is not None:
                         if method_name not in self.expected_error_responses:
                             self.expected_error_responses[method_name] = {}
                         if response_name not in self.expected_error_responses[method_name]:
