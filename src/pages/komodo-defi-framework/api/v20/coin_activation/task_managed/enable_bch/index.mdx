@@ -28,19 +28,7 @@ Use this method for task managed activation of BCH and SLP tokens. Refer to the 
 
 <CodeGroup title="task::enable_bch::init" tag="POST" label="task::enable_bch::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchInit" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 1
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableBchInit" />
 
 ## task::enable\_bch::status {{label : 'task::enable_bch::status', tag : 'API-v2'}}
 
@@ -79,49 +67,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 | ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                  |
 | wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the activation request. |
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": {
-          "status": "Ok",
-          "details": {
-              "ticker": "BCH",
-              "current_block": 895348,
-              "wallet_balance": {
-                  "wallet_type": "HD",
-                  "accounts": [
-                      {
-                          "account_index": 0,
-                          "derivation_path": "m/44'/145'/0'",
-                          "total_balance": {
-                              "BCH": {
-                                  "spendable": "0",
-                                  "unspendable": "0"
-                              }
-                          },
-                          "addresses": [
-                              {
-                                  "address": "bitcoincash:qq6qvc33strtjwnfktdqswwvxuhrhs2ussavvhv3a0",
-                                  "derivation_path": "m/44'/145'/0'/0/0",
-                                  "chain": "External",
-                                  "balance": {
-                                      "BCH": {
-                                          "spendable": "0",
-                                          "unspendable": "0"
-                                      }
-                                  }
-                              }
-                          ]
-                      }
-                  ]
-              }
-          }
-      },
-      "id": null
-  }  
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableBchStatus" />
 
 #### Response (ready, successful, Iguana mode)
 
@@ -138,18 +84,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Response (in progress)
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": "RequestingWalletBalance"
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableBchStatus" />
 
 #### Response (ready, error)
 
@@ -196,17 +131,7 @@ If the `task::enable_bch::status` returns `UserActionRequired`, we need to use t
 
 <CodeGroup title="task::enable_bch::user_action" tag="POST" label="task::enable_bch::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchUserActionPin" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableBchUserActionPin" />
 
 ## task::enable\_bch::cancel {{label : 'task::enable_bch::cancel', tag : 'API-v2'}}
 
@@ -231,44 +156,4 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CodeGroup title="task::enable_bch::cancel" tag="POST" label="task::enable_bch::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableBchCancel" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  #### Response (success - already finished)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "Task is finished already",
-    "error_path": "init_standalone_coin.manager",
-    "error_trace": "init_standalone_coin:144] manager:101]",
-    "error_type": "TaskFinished",
-    "error_data": 0,
-    "id": null
-  }
-  ```
-
-  #### Response (error - no such task)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "No such task '1'",
-    "error_path": "init_standalone_coin",
-    "error_trace": "init_standalone_coin:119]",
-    "error_type": "NoSuchTask",
-    "error_data": 1,
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableBchCancel" />

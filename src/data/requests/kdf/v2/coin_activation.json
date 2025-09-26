@@ -121,16 +121,16 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://0xrpc.io/eth",
-          "ws_url": "wss://0xrpc.io/eth"
-        },
-        {
           "url": "https://eth.drpc.org",
           "ws_url": "wss://eth.drpc.org"
         },
         {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
+        },
+        {
+          "url": "https://ethereum-rpc.publicnode.com",
+          "ws_url": "wss://ethereum-rpc.publicnode.com"
         }
       ],
       "priv_key_policy": {
@@ -254,16 +254,16 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://eth.drpc.org",
-          "ws_url": "wss://eth.drpc.org"
+          "url": "https://0xrpc.io/eth",
+          "ws_url": "wss://0xrpc.io/eth"
         },
         {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://ethereum-rpc.publicnode.com",
-          "ws_url": "wss://ethereum-rpc.publicnode.com"
+          "url": "https://mainnet.gateway.tenderly.co",
+          "ws_url": "wss://mainnet.gateway.tenderly.co"
         }
       ],
       "priv_key_policy": {

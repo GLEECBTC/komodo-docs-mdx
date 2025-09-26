@@ -31,45 +31,7 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 <CodeGroup title="" tag="POST" label="enable_bch_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableBchWithTokensTxHistory" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"current_block": 1480481,
-  		"bch_addresses_infos": {
-  			"bitcoincash:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5qx64fztj": {
-  				"derivation_method": {
-  					"type": "Iguana"
-  				},
-  				"pubkey": "036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202c",
-  				"balances": {
-  					"spendable": "0.11398301",
-  					"unspendable": "0.00001"
-  				}
-  			}
-  		},
-  		"slp_addresses_infos": {
-  			"simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v": {
-  				"derivation_method": {
-  					"type": "Iguana"
-  				},
-  				"pubkey": "036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202c",
-  				"balances": {
-  					"ASLP": {
-  						"spendable": "5.2974",
-  						"unspendable": "0"
-  					}
-  				}
-  			}
-  		}
-  	},
-  	"id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.EnableBchWithTokensTxHistory" />
 
 #### Request with `get_balances` set to false
 
@@ -77,52 +39,11 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 #### Response
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"current_block": 791267,
-  		"bch_addresses_infos": {
-  			"bitcoincash:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5qx64fztj": {
-  				"derivation_method": {
-  					"type": "Iguana"
-  				},
-  				"pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2"
-  			}
-  		},
-  		"slp_addresses_infos": {
-  			"simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v": {
-  				"derivation_method": {
-  					"type": "Iguana"
-  				},
-  				"pubkey": "03d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
-  				"tickers": ["ASLP-SLP"]
-  			}
-  		}
-  	},
-  	"id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.EnableBchWithTokensBalancesFalse" />
 
-<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
-  ### Error Types
+### Error Types
 
-  | Structure                  | Type   | Description                                                                         |
-  | -------------------------- | ------ | ----------------------------------------------------------------------------------- |
-  | CoinProtocolParseError     | string | Parsing the protocol of the platform coin you are trying to activate failed         |
-  | InternalError              | string | The request was failed due to an Komodo DeFi Framework API internal error           |
-  | PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin                        |
-  | PlatformConfigIsNotFound   | string | Config of the platform coin you are trying to activate is not found                 |
-  | PlatformIsAlreadyActivated | string | The platform coin you are trying to activate is already activated                   |
-  | PrivKeyNotAllowed          | string | The privkey is not allowed                                                          |
-  | TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                         |
-  | TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                 |
-  | Transport                  | string | The request was failed due to a network error                                       |
-  | UnexpectedDerivationMethod | string | The derivation method used is unexpected                                            |
-  | UnexpectedPlatformProtocol | string | Unexpected platform protocol found for the platform coin you are trying to activate |
-  | UnexpectedTokenProtocol    | string | Unexpected protocol is found in the config of the token you are trying to activate  |
+<CompactTable source="v2/coin_activation.EnableBchWithTokensErrorTypes" />
 
   #### PlatformIsAlreadyActivated Error
 
@@ -246,4 +167,3 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
       "id": null
   }
   ```
-</CollapsibleSection>

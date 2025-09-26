@@ -19,18 +19,6 @@
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
-  "WithdrawMarty": {
-    "id": 0,
-    "method": "withdraw",
-    "mmrpc": "2.0",
-    "params": {
-      "amount": "0.1",
-      "broadcast": true,
-      "coin": "MARTY",
-      "to": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
-    },
-    "userpass": "RPC_UserP@SSW0RD"
-  },
   "WithdrawMartyAccountId": {
     "id": 0,
     "method": "withdraw",
@@ -57,7 +45,7 @@
       "broadcast": true,
       "coin": "MARTY",
       "from": {
-        "derivation_path": "m/44'/141'/0'/0/2"
+        "derivation_path": "m/44'/141'/0'/0/0"
       },
       "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
     },
@@ -75,7 +63,22 @@
         "amount": "0.1",
         "type": "UtxoFixed"
       },
+      "from": {
+        "derivation_path": "m/44'/141'/0'/0/0"
+      },
       "to": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "WithdrawMartyNonHD": {
+    "id": 0,
+    "method": "withdraw",
+    "mmrpc": "2.0",
+    "params": {
+      "amount": "0.1",
+      "broadcast": true,
+      "coin": "MARTY",
+      "to": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -90,6 +93,9 @@
       "fee": {
         "amount": "1",
         "type": "UtxoPerKbyte"
+      },
+      "from": {
+        "derivation_path": "m/44'/141'/0'/0/0"
       },
       "to": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
     },

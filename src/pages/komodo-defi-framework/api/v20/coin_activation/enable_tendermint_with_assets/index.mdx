@@ -19,77 +19,19 @@ Use this method to activate Tendermint coins (COSMOS/IRIS/OSMOSIS) and IBC asset
 
 <CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsBalancesFalse" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"ticker": "IRIS",
-  		"address": "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k",
-  		"current_block": 19769628,
-  		"tokens_tickers": ["ATOM-IBC_IRIS"]
-  	},
-  	"id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.EnableTendermintWithAssetsBalancesFalse" />
 
 #### Request with token activation and `get_balances` as `true`
 
 <CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsBalancesTrue" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-  	"mmrpc": "2.0",
-  	"result": {
-  		"ticker": "IRIS",
-  		"address": "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k",
-  		"current_block": 19769638,
-  		"balance": {
-  			"spendable": "44.147264",
-  			"unspendable": "0"
-  		},
-  		"tokens_balances": {
-  			"ATOM-IBC_IRIS": {
-  				"spendable": "0.028306",
-  				"unspendable": "0"
-  			}
-  		}
-  	},
-  	"id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.EnableTendermintWithAssetsBalancesTrue" />
 
 #### Request for Metamask / WalletConnect activation
 
 <CodeGroup title="" tag="POST" label="enable_tendermint_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableTendermintWithAssetsWalletConnect" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "ticker": "ATOM",
-        "address": "cosmos16drqvl3u8sukfsu4lm3qsk28jr3fahjaswsac8",
-        "current_block": 22148347,
-        "balance": {
-            "spendable": "1.003381",
-            "unspendable": "0"
-        },
-        "tokens_balances": {}
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.EnableTendermintWithAssetsWalletConnect" />
 
 <CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
   ### Error Types

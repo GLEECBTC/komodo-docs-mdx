@@ -41,19 +41,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 <CodeGroup title="task::enable_eth::init" tag="POST" label="task::enable_eth::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthInitTrezor" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 1
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthInitTrezor" />
 
 ## task::enable\_eth::status {{label : 'task::enable_eth::status', tag : 'API-v2'}}
 
@@ -76,119 +64,11 @@ The response will return the following:
 
 <CompactTable source="v2/coin_activation.TaskStatusResponseReady" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-    {
-    "mmrpc": "2.0",
-    "result": {
-        "status": "Ok",
-        "details": {
-            "current_block": 70970530,
-            "ticker": "MATIC",
-            "wallet_balance": {
-                "wallet_type": "HD",
-                "accounts": [
-                    {
-                        "account_index": 0,
-                        "derivation_path": "m/44'/60'/0'",
-                        "total_balance": {
-                            "AAVE-PLG20": {
-                                "spendable": "0.0275928341263563",
-                                "unspendable": "0"
-                            },
-                            "PGX-PLG20": {
-                                "spendable": "237.729414631067",
-                                "unspendable": "0"
-                            },
-                            "MATIC": {
-                                "spendable": "66.36490013618242918",
-                                "unspendable": "0"
-                            }
-                        },
-                        "addresses": [
-                            {
-                                "address": "0xC11b6070c84A1E6Fc62B2A2aCf70831545d5eDD4",
-                                "derivation_path": "m/44'/60'/0'/0/0",
-                                "chain": "External",
-                                "balance": {
-                                    "PGX-PLG20": {
-                                        "spendable": "237.729414631067",
-                                        "unspendable": "0"
-                                    },
-                                    "AAVE-PLG20": {
-                                        "spendable": "0.0275928341263563",
-                                        "unspendable": "0"
-                                    },
-                                    "MATIC": {
-                                        "spendable": "65.36490013618242918",
-                                        "unspendable": "0"
-                                    }
-                                }
-                            },
-                            {
-                                "address": "0x1751bd0510fDAE2A4a81Ab8A3e70E59E4760eAB6",
-                                "derivation_path": "m/44'/60'/0'/0/1",
-                                "chain": "External",
-                                "balance": {
-                                    "AAVE-PLG20": {
-                                        "spendable": "0",
-                                        "unspendable": "0"
-                                    },
-                                    "PGX-PLG20": {
-                                        "spendable": "0",
-                                        "unspendable": "0"
-                                    },
-                                    "MATIC": {
-                                        "spendable": "1",
-                                        "unspendable": "0"
-                                    }
-                                }
-                            },
-                            {
-                                "address": "0xffCF6033C31ed4beBC72f77be45d97cd8a8BABB4",
-                                "derivation_path": "m/44'/60'/0'/0/2",
-                                "chain": "External",
-                                "balance": {
-                                    "MATIC": {
-                                        "spendable": "0",
-                                        "unspendable": "0"
-                                    },
-                                    "AAVE-PLG20": {
-                                        "spendable": "0",
-                                        "unspendable": "0"
-                                    },
-                                    "PGX-PLG20": {
-                                        "spendable": "0",
-                                        "unspendable": "0"
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "nfts_infos": {}
-        }
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthStatus" />
 
 #### Response (in progress)
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": "RequestingWalletBalance"
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthStatus" />
 
 #### Response (ready, error)
 
@@ -228,17 +108,7 @@ If the `task::enable_eth::status` returns `UserActionRequired`, we need to use t
 
 <CodeGroup title="task::enable_eth::user_action" tag="POST" label="task::enable_eth::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthUserActionPin" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthUserActionPin" />
 
 ## task::enable\_eth::cancel {{label : 'task::enable_eth::cancel', tag : 'API-v2'}}
 
@@ -254,44 +124,6 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CodeGroup title="task::enable_eth::cancel" tag="POST" label="task::enable_eth::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableEthCancel" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthCancel" />
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  #### Response (success - already finished)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "Task is finished already",
-    "error_path": "init_standalone_coin.manager",
-    "error_trace": "init_standalone_coin:144] manager:101]",
-    "error_type": "TaskFinished",
-    "error_data": 0,
-    "id": null
-  }
-  ```
-
-  #### Response (error - no such task)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "No such task '1'",
-    "error_path": "init_standalone_coin",
-    "error_trace": "init_standalone_coin:119]",
-    "error_type": "NoSuchTask",
-    "error_data": 1,
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableEthCancel" />

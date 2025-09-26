@@ -395,6 +395,115 @@
       }
     ]
   },
+  "EnableEthWithTokensErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin you are trying to activate is already activated"
+      },
+      {
+        "parameter": "PlatformConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the platform coin you are trying to activate is not found"
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Parsing the protocol of the platform coin you are trying to activate failed"
+      },
+      {
+        "parameter": "UnexpectedPlatformProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected platform protocol found for the platform coin you are trying to activate"
+      },
+      {
+        "parameter": "TokenConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the token you are trying to activate is not found"
+      },
+      {
+        "parameter": "TokenProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Parsing the protocol of the token you are trying to activate failed"
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "The request failed due to a network error (e.g., node unresponsive)"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or uses an unsupported configuration for the current build"
+      }
+    ]
+  },
+  "EnableErc20ErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformCoinIsNotActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin is not activated"
+      },
+      {
+        "parameter": "TokenIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The token is already activated"
+      },
+      {
+        "parameter": "TokenConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Token config is not found in coins file"
+      }
+    ]
+  },
+  
+  "EnableBchWithTokensErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin is already activated"
+      },
+      {
+        "parameter": "PlatformConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the platform coin is not found"
+      },
+      {
+        "parameter": "UnexpectedPlatformProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected platform protocol found for the platform coin"
+      },
+      {
+        "parameter": "UnexpectedTokenProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected protocol found in the token config"
+      },
+      {
+        "parameter": "PlatformCoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "There was an error when trying to activate the platform coin"
+      }
+    ]
+  },
   "TaskCancelArguments": {
     "data": [
       {

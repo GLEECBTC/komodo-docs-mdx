@@ -825,7 +825,7 @@
   "withdraw": {
     "errors_table": "",
     "examples": {
-      "WithdrawMarty": "Withdraw Marty",
+      "WithdrawMartyNonHD": "Withdraw Marty (Non HD)",
       "WithdrawMartyAccountId": "Withdraw Marty Account Id",
       "WithdrawMartyDerivationPath": "Withdraw Marty Derivation Path",
       "WithdrawMartyFixedFee": "Withdraw Marty Fixed Fee",
