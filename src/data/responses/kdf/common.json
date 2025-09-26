@@ -1,15 +1,57 @@
 {
-    "NoSuchTask":{
-        "title": "NoSuchTask",
-        "notes": "You'll see this if the task number does not exist, or the task has already completed.",
-        "json": {
-            "mmrpc": "2.0",
-            "error": "No such task '1'",
-            "error_path": "init_standalone_coin",
-            "error_trace": "init_standalone_coin:119]",
-            "error_type": "NoSuchTask",
-            "error_data": 1,
-            "id": null
-        }
+  "CancelTaskId": {
+    "title": "Success",
+    "notes": "The task has been cancelled successfully.",
+    "json": {
+      "mmrpc": "2.0",
+      "result": "success",
+      "id": null
     }
+  },
+  "NoSuchTask": {
+    "title": "NoSuchTask",
+    "notes": "You'll see this if the task number does not exist, or the task has already completed.",
+    "json": {
+      "mmrpc": "2.0",
+      "error": "No such task '1'",
+      "error_path": "init_standalone_coin",
+      "error_trace": "init_standalone_coin:119]",
+      "error_type": "NoSuchTask",
+      "error_data": 1,
+      "id": null
+    }
+  },
+  "SuccessTaskId": {
+    "title": "Success",
+    "notes": "The task has been initiated successfully.",
+    "json": {
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 0
+      },
+      "id": null
+    }
+  },
+  "TaskFinished": {
+    "title": "NoSuchTask",
+    "notes": "You'll see this if the task has already completed.",
+    "json": {
+      "mmrpc": "2.0",
+      "error": "Task is finished already",
+      "error_path": "init_standalone_coin.manager",
+      "error_trace": "init_standalone_coin:165] manager:138]",
+      "error_type": "TaskFinished",
+      "error_data": 0,
+      "id": null
+    }
+  },
+  "UserActionSuccess": {
+    "title": "Success",
+    "notes": "The request was successful.",
+    "json": {
+      "mmrpc": "2.0",
+      "result": "success",
+      "id": null
+    }
+  }
 }

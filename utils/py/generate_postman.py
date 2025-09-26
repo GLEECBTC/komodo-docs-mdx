@@ -30,6 +30,8 @@ import logging
 sys.path.append(str(Path(__file__).parent / "lib"))
 
 from managers.environment_manager import EnvironmentManager
+from managers.table_manager import TableManager
+from utils.json_utils import dump_sorted_json
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -54,20 +56,23 @@ class UnifiedPostmanGenerator:
         self.responses_dir = self.workspace_root / "src" / "data" / "responses" / "kdf"
         self.tables_dir = self.workspace_root / "src" / "data" / "tables"
         
-        # Initialize environment manager
+        # Initialize managers
         self.env_manager = EnvironmentManager()
+        self.table_manager = TableManager(workspace_root=self.workspace_root, logger=logger)
         
         # Reports data
         self.unused_params = {}
+        self.unused_params_detailed = {}
         self.missing_responses = {}
+        self.missing_requests = {}
+        self.missing_methods = []
         self.untranslated_keys = []
-        self.missing_tables = []
         
         # Task ID variables for method groups
         self.task_variables = {}
         
-        # Load configurations
-        self.method_config = self.load_method_config()
+        # Load configurations (keep v2 and legacy separate)
+        self.method_config_v2, self.method_config_legacy = self.load_method_configs()
         self.common_responses = self.load_common_responses()
     
     # ===== COMMON UTILITIES =====
@@ -84,11 +89,27 @@ class UnifiedPostmanGenerator:
             logger.error(f"Invalid JSON in {file_path}: {e}")
             return None
     
-    def load_method_config(self) -> Dict[str, Dict]:
-        """Load method configuration from kdf_methods.json."""
-        config_file = self.workspace_root / "src" / "data" / "kdf_methods.json"
-        config = self.load_json_file(config_file)
-        return config if config else {}
+    def load_method_configs(self) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
+        """Load method configurations separately for v2 and legacy without merging."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+
+        v2_cfg = self.load_json_file(v2_file) or {}
+        legacy_cfg = self.load_json_file(legacy_file) or {}
+
+        # No fallback to old single file; expect split files
+
+        return v2_cfg, legacy_cfg
+
+    def get_method_config(self, method: str, version: Optional[str] = None) -> Dict:
+        """Get method config for a method name, optionally constrained by version."""
+        if version == 'legacy':
+            return self.method_config_legacy.get(method, {})
+        if version == 'v2':
+            return self.method_config_v2.get(method, {})
+        # Fallback search order: v2 then legacy
+        return self.method_config_v2.get(method, self.method_config_legacy.get(method, {}))
     
     def load_common_responses(self) -> Dict[str, Dict]:
         """Load common responses from common.json."""
@@ -96,37 +117,39 @@ class UnifiedPostmanGenerator:
         common_responses = self.load_json_file(common_file)
         return common_responses if common_responses else {}
     
+    def _is_manual_example(self, request_key: str) -> bool:
+        """Check if a method requires manual intervention or external services."""
+        manual_patterns = [
+            "WalletConnect",  # Requires external wallet connection
+            "Trezor",         # Requires hardware wallet
+            "Metamask",       # Requires browser extension
+            "Pin",            # Requires user PIN entry
+            "UserAction"      # Requires user interaction
+        ]
+        
+        return any(pattern in request_key for pattern in manual_patterns)
+    
     def load_all_tables(self) -> Dict[str, Dict]:
         """Load all table files and combine them."""
-        all_tables = {}
-        
-        # Load common structures
-        common_dir = self.tables_dir / "common-structures"
-        if common_dir.exists():
-            for table_file in common_dir.glob("*.json"):
-                tables = self.load_json_file(table_file)
-                if tables:
-                    all_tables.update(tables)
-        
-        # Load version-specific tables
-        for version_dir in ["legacy", "v2"]:
-            version_path = self.tables_dir / version_dir
-            if version_path.exists():
-                for table_file in version_path.glob("*.json"):
-                    tables = self.load_json_file(table_file)
-                    if tables:
-                        all_tables.update(tables)
-        
-        return all_tables
+        return self.table_manager.load_all_tables()
     
     def load_request_data(self, version: str = "v2") -> Dict[str, Any]:
-        """Load request data from JSON files."""
-        request_file = self.requests_dir / version / "coin_activation.json"
+        """Load ALL request data from JSON files in the specified version directory."""
+        request_dir = self.requests_dir / version
         
-        if not request_file.exists():
-            raise FileNotFoundError(f"Request file not found: {request_file}")
+        if not request_dir.exists():
+            raise FileNotFoundError(f"Request directory not found: {request_dir}")
         
-        return self.load_json_file(request_file) or {}
+        all_requests = {}
+        for request_file in request_dir.glob("*.json"):
+            file_data = self.load_json_file(request_file)
+            if file_data:
+                all_requests.update(file_data)
+        
+        if not all_requests:
+            raise FileNotFoundError(f"No valid request files found in: {request_dir}")
+        
+        return all_requests
     
     # ===== DATA PROCESSING UTILITIES =====
     
@@ -163,12 +186,24 @@ class UnifiedPostmanGenerator:
                 return f"Task{method_part}_TaskId"
         return "DefaultTask_TaskId"
     
-    def get_translated_name(self, request_key: str) -> str:
+    def get_translated_name(self, request_key: str, version: Optional[str] = None) -> str:
         """Get translated name for request key, fallback to original."""
-        for method, config in self.method_config.items():
-            examples = config.get("examples", {})
-            if request_key in examples:
-                return examples[request_key]
+        # Search version-specific config first
+        search_spaces: List[Dict[str, Dict]] = []
+        if version == 'v2':
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+        elif version == 'legacy':
+            search_spaces = [self.method_config_legacy, self.method_config_v2]
+        else:
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+
+        for space in search_spaces:
+            for method, config in space.items():
+                if config.get('deprecated', False):
+                    continue
+                examples = config.get("examples", {})
+                if request_key in examples:
+                    return examples[request_key]
         
         if request_key not in self.untranslated_keys:
             self.untranslated_keys.append(request_key)
@@ -256,19 +291,35 @@ class UnifiedPostmanGenerator:
             )
     
     def _filter_electrum_servers(self, servers: List[Dict], environment: str) -> List[Dict]:
-        """Filter electrum servers based on environment protocol preferences."""
-        if environment == 'wasm':
-            # WASM only supports WSS
-            return [s for s in servers if s.get('protocol') == 'WSS']
-        elif environment == 'native':
-            # Native prefers TCP and SSL, but can use WSS
-            preferred_order = ['TCP', 'SSL', 'WSS']
-            sorted_servers = []
-            for protocol in preferred_order:
-                sorted_servers.extend([s for s in servers if s.get('protocol') == protocol])
-            return sorted_servers[:3]  # Limit to 3 servers
-        else:
-            return servers
+        """Filter electrum servers: exclude WSS, favor cipig and SSL, cap at 3."""
+        if not isinstance(servers, list):
+            return []
+        # Normalize protocol casing and exclude WSS
+        candidates: List[Dict] = []
+        for s in servers:
+            if not isinstance(s, dict):
+                continue
+            proto = str(s.get('protocol') or s.get('proto') or '').upper()
+            if proto == 'WSS':
+                continue
+            candidates.append(s)
+        # Partition by protocol
+        ssl_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'SSL']
+        tcp_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'TCP']
+        other_list = [s for s in candidates if s not in ssl_list and s not in tcp_list]
+        # Prioritize cipig within each group
+        def prioritize_cipig(lst: List[Dict]) -> List[Dict]:
+            cipig = []
+            rest = []
+            for item in lst:
+                url = str(item.get('url', '')).lower()
+                if 'cipig' in url:
+                    cipig.append(item)
+                else:
+                    rest.append(item)
+            return cipig + rest
+        ordered = prioritize_cipig(ssl_list) + prioritize_cipig(tcp_list) + prioritize_cipig(other_list)
+        return ordered[:3]
     
     def _update_websocket_urls(self, params: Dict[str, Any], environment: str):
         """Update WebSocket URLs for environment."""
@@ -304,74 +355,62 @@ class UnifiedPostmanGenerator:
     
     # ===== VALIDATION =====
     
-    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict]) -> Set[str]:
-        """Validate request parameters against table definitions and return unused params."""
-        if method not in self.method_config:
-            logger.warning(f"No method config found for method: {method}")
+    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict], version: Optional[str] = None):
+        """Validate request parameters against table definitions and return full validation result."""
+        method_cfg = self.get_method_config(method, version)
+        if not method_cfg:
+            logger.warning(f"No method config found for method: {method} (version={version})")
             return set()
         
-        table_name = self.method_config[method].get("table")
-        if not table_name or table_name not in tables:
-            logger.warning(f"Table {table_name} not found for method {method}")
-            return set()
+        validation_result = self.table_manager.validate_request_params(
+            request_data, method, method_cfg
+        )
         
-        table_params = set()
-        for param_def in tables[table_name].get("data", []):
-            table_params.add(param_def["parameter"])
+        if validation_result:
+            if validation_result.unused_params:
+                logger.warning(f"Unused parameters in {method}: {validation_result.unused_params}")
+            return validation_result
         
-        # Extract request parameters
-        request_params = set()
-        params_data = request_data.get("params", {})
-        
-        if "activation_params" in params_data:
-            # Add top-level params
-            for key in params_data.keys():
-                if key != "activation_params":
-                    request_params.add(key)
-            # Extract nested parameters
-            self._extract_param_names(params_data["activation_params"], request_params)
-        else:
-            self._extract_param_names(params_data, request_params)
-        
-        unused_params = table_params - request_params
-        if unused_params:
-            logger.warning(f"Unused parameters in {method}: {unused_params}")
-        
-        return unused_params
+        return None
     
-    def _extract_param_names(self, data: Any, param_names: Set[str], prefix: str = "") -> None:
-        """Recursively extract parameter names from request data."""
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if key in ["userpass", "mmrpc", "method"]:
-                    continue
-                
-                param_key = f"{prefix}.{key}" if prefix else key
-                param_names.add(param_key)
-                
-                if isinstance(value, dict):
-                    self._extract_param_names(value, param_names, param_key)
-                elif isinstance(value, list) and value and isinstance(value[0], dict):
-                    self._extract_param_names(value[0], param_names, param_key)
     
     def check_response_exists(self, request_key: str, version: str) -> bool:
-        """Check if response file exists for the request."""
-        response_file = self.responses_dir / version / "coin_activation.json"
-        if not response_file.exists():
+        """Check if response exists for the request in ANY response file and has actual content."""
+        response_dir = self.responses_dir / version
+        if not response_dir.exists():
             return False
         
-        response_data = self.load_json_file(response_file)
-        if not response_data:
-            return False
+        # Check all response files in the version directory
+        for response_file in response_dir.glob("*.json"):
+            response_data = self.load_json_file(response_file)
+            if not response_data:
+                continue
+            
+            if request_key not in response_data:
+                continue
+            
+            # Resolve any common response references
+            response_value = response_data[request_key]
+            resolved_response = self.resolve_response_reference(response_value, self.common_responses)
+            
+            if resolved_response is None:
+                continue
+            
+            # Check if response has actual content (not just empty templates)
+            if isinstance(resolved_response, dict):
+                # Check for success and error arrays
+                success_responses = resolved_response.get("success", [])
+                error_responses = resolved_response.get("error", [])
+                
+                # If both arrays are empty, consider this as missing response
+                if (isinstance(success_responses, list) and len(success_responses) == 0 and 
+                    isinstance(error_responses, list) and len(error_responses) == 0):
+                    continue
+            
+            # Found a valid response
+            return True
         
-        if request_key not in response_data:
-            return False
-        
-        # Resolve any common response references
-        response_value = response_data[request_key]
-        resolved_response = self.resolve_response_reference(response_value, self.common_responses)
-        
-        return resolved_response is not None
+        return False
     
     def resolve_response_reference(self, response_value: Any, common_responses: Dict[str, Dict]) -> Any:
         """Resolve response references to common responses."""
@@ -390,52 +429,17 @@ class UnifiedPostmanGenerator:
     
     # ===== TABLE GENERATION =====
     
-    def generate_table_markdown(self, method: str, tables: Dict[str, Dict]) -> str:
+    def _track_missing_table(self, method: str, table_type: str) -> None:
+        """Track a missing table by type."""
+        self.table_manager.track_missing_table(method, table_type)
+
+    def generate_table_markdown(self, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> str:
         """Generate markdown table from table data for method."""
-        if method not in self.method_config:
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
+        if not self.get_method_config(method, version):
+            # Method not defined - will be tracked in missing_methods.json
             return ""
         
-        table_name = self.method_config[method].get("table")
-        if not table_name or table_name not in tables:
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
-            return ""
-        
-        table_data = tables[table_name].get("data", [])
-        if not table_data:
-            if method not in self.missing_tables:
-                self.missing_tables.append(method)
-            return ""
-        
-        # Generate markdown table
-        markdown = "## Request Parameters\n\n"
-        markdown += "| Parameter | Type | Description |\n"
-        markdown += "|-----------|------|-------------|\n"
-        
-        for param in table_data:
-            parameter = param.get("parameter", "")
-            param_type = param.get("type", "")
-            required = param.get("required", False)
-            default = param.get("default", "")
-            description = param.get("description", "")
-            
-            # Build the type column with required/default info
-            type_column = param_type
-            if required and default:
-                type_column += f" (required. Default: `{default}`)"
-            elif required:
-                type_column += " (required)"
-            elif default:
-                type_column += f" (Default: `{default}`)"
-            
-            # Escape markdown characters
-            description = description.replace("|", "\\|").replace("\n", " ")
-            
-            markdown += f"| `{parameter}` | {type_column} | {description} |\n"
-        
-        return markdown
+        return self.table_manager.generate_table_markdown(method, self.get_method_config(method, version))
     
     # ===== POSTMAN REQUEST CREATION =====
     
@@ -450,7 +454,7 @@ class UnifiedPostmanGenerator:
         if method_examples and len(method_examples) > 1:
             translated_name = method
         else:
-            translated_name = self.get_translated_name(request_key)
+            translated_name = self.get_translated_name(request_key, version)
         
         # Add environment suffix for environment-specific collections
         if environment and environment != "standard":
@@ -470,7 +474,7 @@ class UnifiedPostmanGenerator:
             processed_data = self.replace_task_id(processed_data, task_var_name)
         
         # Generate description with table markdown
-        description = self.generate_table_markdown(method, tables)
+        description = self.generate_table_markdown(method, tables, version)
         
         # Add environment-specific description notes
         if environment:
@@ -690,21 +694,77 @@ pm.test("Capture task_id", function () {{
                 if not requests_data:
                     continue
                 
-                # Validate and collect reports
+                # Filter out deprecated methods and validate
+                filtered_requests_data = {}
                 for request_key, request_data in requests_data.items():
                     method = request_data.get("method")
                     if method:
-                        unused = self.validate_request_params(request_data, method, tables)
-                        if unused:
-                            self.unused_params[method] = list(unused)
-                    
-                    if not self.check_response_exists(request_key, version):
-                        if method not in self.missing_responses:
-                            self.missing_responses[method] = []
-                        self.missing_responses[method].append(request_key)
+                        method_config = self.get_method_config(method, version)
+                        if method_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                    filtered_requests_data[request_key] = request_data
                 
-                # Add to folder tree
-                file_tree = self.create_folder_structure(requests_data, version, filename, tables, "standard")
+                # Validate and collect reports
+                # Accumulate per-method used/table parameters across all examples
+                method_param_usage: Dict[str, Dict[str, Set[str]]] = {}
+                for request_key, request_data in filtered_requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        validation = self.validate_request_params(request_data, method, tables, version)
+                        if validation:
+                            table_params_this = set(validation.valid_params) | set(validation.unused_params)
+                            if method not in method_param_usage:
+                                method_param_usage[method] = {
+                                    "table_params": set(table_params_this),
+                                    "used_params_union": set(validation.valid_params),
+                                    "request_params_union": set(validation.request_params)
+                                }
+                            else:
+                                # Ensure table params are consistent; if not, take union to be safe
+                                method_param_usage[method]["table_params"].update(table_params_this)
+                                method_param_usage[method]["used_params_union"].update(validation.valid_params)
+                                method_param_usage[method]["request_params_union"].update(validation.request_params)
+                    
+                # After scanning all examples in this file, compute overall unused per method
+                for method, usage in method_param_usage.items():
+                    overall_unused = usage["table_params"] - usage["used_params_union"]
+                    if overall_unused:
+                        # Merge with any existing entries from previous files
+                        existing = set(self.unused_params.get(method, []))
+                        self.unused_params[method] = sorted(existing.union(overall_unused))
+
+                        # Build detailed entries (with context and common-structures hints)
+                        detailed_list = self.unused_params_detailed.get(method, [])
+                        detailed_list.extend(self._build_unused_param_details(method, overall_unused, version, usage))
+                        # De-duplicate by parameter name
+                        seen = set()
+                        deduped = []
+                        for item in detailed_list:
+                            key = item.get("parameter")
+                            if key in seen:
+                                continue
+                            seen.add(key)
+                            deduped.append(item)
+                        self.unused_params_detailed[method] = deduped
+
+                # Continue with missing responses detection per example
+                for request_key, request_data in filtered_requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        # Missing responses check
+                        if not self.check_response_exists(request_key, version):
+                            # Skip deprecated methods from missing responses report
+                            method_config = self.get_method_config(method, version)
+                            if not method_config.get('deprecated', False):
+                                # Skip manual/external methods that can't be automated
+                                if self._is_manual_example(request_key):
+                                    continue
+                                if method not in self.missing_responses:
+                                    self.missing_responses[method] = []
+                                self.missing_responses[method].append(request_key)
+                
+                # Add to folder tree (using filtered data)
+                file_tree = self.create_folder_structure(filtered_requests_data, version, filename, tables, "standard")
                 
                 # Merge into main tree
                 for key, value in file_tree.items():
@@ -753,7 +813,18 @@ pm.test("Capture task_id", function () {{
         """Generate a Postman collection for a specific environment."""
         # Load and filter request data
         request_data = self.load_request_data('v2')
-        filtered_data = self.filter_protocols_for_environment(request_data, environment)
+        
+        # Filter out deprecated methods first
+        filtered_request_data = {}
+        for request_key, request_info in request_data.items():
+            method = request_info.get('method')
+            if method:
+                method_config = self.get_method_config(method, 'v2')
+                if method_config.get('deprecated', False):
+                    continue  # Skip deprecated methods
+            filtered_request_data[request_key] = request_info
+        
+        filtered_data = self.filter_protocols_for_environment(filtered_request_data, environment)
         
         # Get environment configuration
         env_configs = self.env_manager.get_environment_specific_postman_configs()
@@ -857,6 +928,146 @@ pm.test("Capture task_id", function () {{
     
     # ===== REPORTS =====
     
+    def detect_missing_requests_and_methods(self) -> None:
+        """Detect missing requests (responses without corresponding requests) and missing methods.
+        
+        Excludes deprecated methods from all missing reports.
+        """
+        # Get set of deprecated methods
+        deprecated_methods = set()
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
+                if method_config.get('deprecated', False):
+                    deprecated_methods.add(method_name)
+        
+        # Load all request and response data from all files
+        for version in ['v2', 'legacy']:
+            version_responses_dir = self.responses_dir / version
+            version_requests_dir = self.requests_dir / version
+            
+            if not version_responses_dir.exists() or not version_requests_dir.exists():
+                continue
+            
+            # Collect all requests from all files in this version
+            requests_data = {}
+            for request_file in version_requests_dir.glob("*.json"):
+                request_data = self.load_json_file(request_file) or {}
+                requests_data.update(request_data)
+            
+            # Collect all responses from all files in this version    
+            responses_data = {}
+            for response_file in version_responses_dir.glob("*.json"):
+                response_data = self.load_json_file(response_file) or {}
+                responses_data.update(response_data)
+            
+            # Find missing requests (responses without corresponding requests)
+            missing_requests_for_version = []
+            for response_key in responses_data.keys():
+                # Check if there's a corresponding request
+                if response_key not in requests_data:
+                    # Check if this response corresponds to a deprecated method
+                    is_deprecated = False
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods:
+                                # This is a deprecated method's response - skip it
+                                is_deprecated = True
+                                break
+                    
+                    # Also check if the response key itself suggests a deprecated method
+                    # by looking for the method name in existing requests
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods and method_name in response_key.lower():
+                                is_deprecated = True
+                                break
+                    
+                    if not is_deprecated:
+                        missing_requests_for_version.append(response_key)
+            
+            if missing_requests_for_version:
+                self.missing_requests[version] = sorted(missing_requests_for_version)
+            
+            # Find missing methods (requests without method definitions in version-specific config)
+            for request_key, request_data in requests_data.items():
+                if isinstance(request_data, dict) and "method" in request_data:
+                    method_name = request_data["method"]
+                    # Skip deprecated methods
+                    if method_name not in deprecated_methods and not self.get_method_config(method_name, version):
+                        if method_name not in self.missing_methods:
+                            self.missing_methods.append(method_name)
+        
+        # Sort missing methods
+        self.missing_methods = sorted(self.missing_methods)
+    
+    def detect_missing_response_and_error_tables(self) -> None:
+        """Detect missing response and error tables for all methods."""
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
+            # Skip deprecated methods
+                if method_config.get('deprecated', False):
+                    continue
+            
+                # Use TableManager to validate all table references
+                self.table_manager.validate_method_tables(method_name, method_config)
+    
+    def _build_unused_param_details(self, method: str, unused_params: Set[str], version: str, usage: Dict[str, Set[str]]) -> List[Dict[str, Any]]:
+        """Create detailed entries for unused parameters including context and nested matches.
+        Also extracts a hint to common-structures from parameter description when available.
+        """
+        details: List[Dict[str, Any]] = []
+        try:
+            method_cfg = self.get_method_config(method, version)
+            # Resolve request table and its data
+            tmp_cfg = dict(method_cfg)
+            tmp_cfg["method_name"] = method
+            table_ref = self.table_manager.get_table_reference(tmp_cfg, 'request')
+            tables = self.table_manager.load_all_tables()
+            table_data = tables.get(table_ref.table_name, {}).get("data", [])
+            # Map param -> definition
+            param_to_def: Dict[str, Dict[str, Any]] = {p.get("parameter"): p for p in table_data if isinstance(p, dict)}
+            request_params_union = usage.get("request_params_union", set())
+            for param in sorted(unused_params):
+                param_def = param_to_def.get(param, {})
+                description = param_def.get("description") if isinstance(param_def, dict) else None
+                context = param_def.get("context") if isinstance(param_def, dict) else None
+                # nested matches present in examples (keep dotted forms)
+                nested_matches = sorted([rp for rp in request_params_union if rp.endswith(f".{param}") or rp.startswith(f"{param}.")])
+                # extract common-structures path hint from description
+                common_struct_ref = None
+                if isinstance(description, str) and "/common_structures/" in description:
+                    try:
+                        idx = description.index("/common_structures/")
+                        tail = description[idx:]
+                        # end at first space, newline, or closing paren
+                        for sep in [" ", "\n", ")", "`"]:
+                            cut = tail.find(sep)
+                            if cut > 0:
+                                tail = tail[:cut]
+                                break
+                        common_struct_ref = tail
+                    except Exception:
+                        common_struct_ref = None
+                details.append({
+                    "parameter": param,
+                    "method": method,
+                    "version": version,
+                    "request_table": table_ref.table_name,
+                    "context": context,
+                    "nested_matches_in_examples": nested_matches,
+                    "common_structures_ref": common_struct_ref
+                })
+        except Exception:
+            for p in sorted(unused_params):
+                details.append({
+                    "parameter": p,
+                    "method": method,
+                    "version": version
+                })
+        return details
+    
     def save_reports(self, reports_dir: Path) -> None:
         """Save validation reports with consistent alphabetical sorting.
         
@@ -871,9 +1082,13 @@ pm.test("Capture task_id", function () {{
                 sorted_unused[method] = sorted(self.unused_params[method])
         
         unused_file = reports_dir / "unused_params.json"
-        with open(unused_file, 'w') as f:
-            json.dump(sorted_unused, f, indent=2, sort_keys=True)
+        dump_sorted_json(sorted_unused, unused_file)
         logger.info(f"Unused parameters report saved to {unused_file}")
+
+        # Save detailed unused parameters report (always)
+        detailed_file = reports_dir / "unused_params_detailed.json"
+        dump_sorted_json(self.unused_params_detailed or {}, detailed_file)
+        logger.info(f"Detailed unused parameters report saved to {detailed_file}")
         
         # Save missing responses report (always)
         sorted_missing = {}
@@ -882,23 +1097,104 @@ pm.test("Capture task_id", function () {{
                 sorted_missing[method] = sorted(self.missing_responses[method])
         
         missing_file = reports_dir / "missing_responses.json"
-        with open(missing_file, 'w') as f:
-            json.dump(sorted_missing, f, indent=2, sort_keys=True)
+        dump_sorted_json(sorted_missing, missing_file)
         logger.info(f"Missing responses report saved to {missing_file}")
         
         # Save untranslated keys report (always)
         untranslated_list = sorted(self.untranslated_keys) if self.untranslated_keys else []
         untranslated_file = reports_dir / "untranslated_keys.json"
-        with open(untranslated_file, 'w') as f:
-            json.dump(untranslated_list, f, indent=2)
+        dump_sorted_json(untranslated_list, untranslated_file)
         logger.info(f"Untranslated keys report saved to {untranslated_file}")
         
-        # Save missing tables report (always)
-        missing_tables_list = sorted(self.missing_tables) if self.missing_tables else []
+        # Save missing tables report (always) - now grouped by type
         missing_tables_file = reports_dir / "missing_tables.json"
-        with open(missing_tables_file, 'w') as f:
-            json.dump(missing_tables_list, f, indent=2)
-        logger.info(f"Missing tables report saved to {missing_tables_file}")
+        self.table_manager.save_missing_tables_report(missing_tables_file)
+        
+        # Save missing requests report (always)
+        sorted_missing_requests = {}
+        if self.missing_requests:
+            for version in sorted(self.missing_requests.keys()):
+                sorted_missing_requests[version] = sorted(self.missing_requests[version])
+        
+        missing_requests_file = reports_dir / "missing_requests.json"
+        dump_sorted_json(sorted_missing_requests, missing_requests_file)
+        logger.info(f"Missing requests report saved to {missing_requests_file}")
+        
+        # Save missing methods report (always)
+        missing_methods_list = sorted(self.missing_methods) if self.missing_methods else []
+        missing_methods_file = reports_dir / "missing_methods.json"
+        dump_sorted_json(missing_methods_list, missing_methods_file)
+        logger.info(f"Missing methods report saved to {missing_methods_file}")
+    
+    # ===== EXAMPLE SYNC =====
+    
+    def _collect_examples_from_requests(self) -> Dict[str, Dict[str, Set[str]]]:
+        """Collect request example keys per method, grouped by version.
+        
+        Returns:
+            { 'legacy': { method: {example_keys...} }, 'v2': { ... } }
+        """
+        collected: Dict[str, Dict[str, Set[str]]] = { 'legacy': {}, 'v2': {} }
+        # Iterate version dirs under requests
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            version = version_dir.name
+            if version not in collected:
+                collected[version] = {}
+            for json_file in version_dir.glob("*.json"):
+                reqs = self.load_json_file(json_file) or {}
+                for request_key, request_data in reqs.items():
+                    if not isinstance(request_data, dict):
+                        continue
+                    method = request_data.get("method")
+                    if not method:
+                        continue
+                    collected[version].setdefault(method, set()).add(request_key)
+        return collected
+    
+    def sync_examples_from_requests(self, dry_run: bool = False) -> Dict[str, Any]:
+        """Sync missing example keys into kdf_methods files based on request files.
+        
+        - Adds only missing examples; does not remove existing ones
+        - Uses inferred human-readable names for new examples
+        
+        Returns summary stats.
+        """
+        collected = self._collect_examples_from_requests()
+        added_count = 0
+        per_method_added: Dict[str, int] = {}
+        
+        # Helper to update a config dict
+        def update_config(config: Dict[str, Dict], version: str):
+            nonlocal added_count
+            for method, example_keys in collected.get(version, {}).items():
+                method_cfg = config.get(method)
+                if not method_cfg:
+                    # Skip methods not defined in this version config
+                    continue
+                examples: Dict[str, str] = method_cfg.get("examples", {}) or {}
+                new_this_method = 0
+                for ex_key in sorted(example_keys):
+                    if ex_key not in examples:
+                        examples[ex_key] = self._infer_example_name(ex_key, method)
+                        new_this_method += 1
+                if new_this_method:
+                    method_cfg["examples"] = dict(sorted(examples.items()))
+                    per_method_added[method] = per_method_added.get(method, 0) + new_this_method
+                    added_count += new_this_method
+        
+        update_config(self.method_config_legacy, 'legacy')
+        update_config(self.method_config_v2, 'v2')
+        
+        if not dry_run and added_count:
+            self._save_method_config()
+        
+        return {
+            "added_examples": added_count,
+            "per_method": dict(sorted(per_method_added.items())),
+            "dry_run": dry_run
+        }
     
     # ===== SELF-REPAIR FUNCTIONALITY =====
     
@@ -918,7 +1214,12 @@ pm.test("Capture task_id", function () {{
                 
                 for request_key, request_data in requests_data.items():
                     method = request_data.get("method")
-                    if method and method not in self.method_config:
+                    if method and not self.get_method_config(method, version_dir.name):
+                        # Check if method exists in either config but is deprecated
+                        existing_config = self.get_method_config(method)
+                        if existing_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                            
                         if method not in missing_methods:
                             missing_methods[method] = {
                                 "examples": {},
@@ -1019,7 +1320,9 @@ pm.test("Capture task_id", function () {{
             requirements = self._infer_method_requirements(method, method_info["examples"])
             
             method_config = {
-                "table": table_name,
+                "request_table": table_name,
+                "response_table": "",
+                "errors_table": "",
                 "examples": method_info["examples"],
                 "requirements": requirements
             }
@@ -1039,14 +1342,12 @@ pm.test("Capture task_id", function () {{
         return repair_plan
     
     def _save_method_config(self):
-        """Save the updated method configuration back to file."""
-        config_file = self.workspace_root / "src" / "data" / "kdf_methods.json"
-        
-        # Sort the methods alphabetically for better organization
-        sorted_config = dict(sorted(self.method_config.items()))
-        
-        with open(config_file, 'w') as f:
-            json.dump(sorted_config, f, indent=2)
+        """Save the updated method configurations back to their respective files."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+        dump_sorted_json(dict(sorted(self.method_config_legacy.items())), legacy_file)
+        dump_sorted_json(dict(sorted(self.method_config_v2.items())), v2_file)
     
     # ===== MAIN GENERATION METHODS =====
     
@@ -1110,8 +1411,7 @@ pm.test("Capture task_id", function () {{
         standard_collection = self.generate_standard_collection()
         
         standard_file = standard_dir / "kdf_comprehensive_collection.json"
-        with open(standard_file, 'w') as f:
-            json.dump(standard_collection, f, indent=2)
+        dump_sorted_json(standard_collection, standard_file)
         
         # Count items in standard collection
         standard_count = self._count_collection_items(standard_collection)
@@ -1130,8 +1430,7 @@ pm.test("Capture task_id", function () {{
             env_collection = self.generate_environment_collection(environment)
             
             env_file = environments_dir / f"kdf_{environment}_collection.json"
-            with open(env_file, 'w') as f:
-                json.dump(env_collection, f, indent=2)
+            dump_sorted_json(env_collection, env_file)
             
             # Count items in environment collection
             env_count = self._count_collection_items(env_collection)
@@ -1140,6 +1439,12 @@ pm.test("Capture task_id", function () {{
                 "count": env_count
             }
             logger.info(f"Environment collection saved to {env_file}")
+        
+        # Detect missing requests and methods before saving reports
+        self.detect_missing_requests_and_methods()
+        
+        # Detect missing response and error tables
+        self.detect_missing_response_and_error_tables()
         
         # Save reports
         self.save_reports(reports_dir)
@@ -1168,11 +1473,39 @@ pm.test("Capture task_id", function () {{
             "count": len(self.untranslated_keys) if self.untranslated_keys else 0
         }
         
-        # Missing tables (always)
+        # Missing tables (always) - with breakdown by type
         missing_tables_file = reports_dir / "missing_tables.json"
+        missing_tables_report = self.table_manager.get_missing_tables_report()
+        missing_tables_count = sum(len(methods) for methods in missing_tables_report.values())
+        
+        # Create detailed breakdown
+        missing_tables_breakdown = {}
+        for table_type, methods in missing_tables_report.items():
+            # Convert missing_request_tables -> request_tables for cleaner naming
+            clean_type = table_type.replace("missing_", "")
+            missing_tables_breakdown[clean_type] = {
+                "count": len(methods)
+            }
+        
         reports_data["missing_tables"] = {
             "file": str(missing_tables_file.relative_to(self.workspace_root)),
-            "count": len(self.missing_tables) if self.missing_tables else 0
+            "total_count": missing_tables_count,
+            "breakdown": missing_tables_breakdown
+        }
+        
+        # Missing requests (always)
+        missing_requests_file = reports_dir / "missing_requests.json"
+        missing_requests_count = sum(len(reqs) for reqs in self.missing_requests.values()) if self.missing_requests else 0
+        reports_data["missing_requests"] = {
+            "file": str(missing_requests_file.relative_to(self.workspace_root)),
+            "count": missing_requests_count
+        }
+        
+        # Missing methods (always)
+        missing_methods_file = reports_dir / "missing_methods.json"
+        reports_data["missing_methods"] = {
+            "file": str(missing_methods_file.relative_to(self.workspace_root)),
+            "count": len(self.missing_methods) if self.missing_methods else 0
         }
         
         # Generate summary
@@ -1181,10 +1514,27 @@ pm.test("Capture task_id", function () {{
             "generated_files": generated_files,
             "reports": reports_data
         }
+        # Attempt to include KDF version extracted from response report (no extra requests)
+        try:
+            report_path = self.workspace_root / "postman/generated/reports/kdf_postman_responses.json"
+            if report_path.exists():
+                with open(report_path, 'r', encoding='utf-8') as f:
+                    report = json.load(f)
+                # Look for LegacyVersion
+                if isinstance(report, dict):
+                    if "LegacyVersion" in report and isinstance(report["LegacyVersion"], dict):
+                        ver = report["LegacyVersion"].get("result")
+                        if isinstance(ver, str):
+                            summary["kdf_version"] = ver
+                    elif isinstance(report.get("responses"), dict):
+                        lv = report["responses"].get("LegacyVersion")
+                        if isinstance(lv, dict) and isinstance(lv.get("result"), str):
+                            summary["kdf_version"] = lv["result"]
+        except Exception:
+            pass
         
         summary_file = output_dir / "generation_summary.json"
-        with open(summary_file, 'w') as f:
-            json.dump(summary, f, indent=2)
+        dump_sorted_json(summary, summary_file)
         
         return generated_files
 
@@ -1241,6 +1591,11 @@ Examples:
         action='store_true',
         help="Show what would be repaired without making changes"
     )
+    mode_group.add_argument(
+        '--sync-examples',
+        action='store_true',
+        help="Sync missing request examples into kdf_methods files"
+    )
     
     # Optional arguments
     parser.add_argument(
@@ -1266,7 +1621,7 @@ Examples:
     
     # Configure logging
     if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.INFO)
     
     try:
         generator = UnifiedPostmanGenerator(args.workspace)
@@ -1314,8 +1669,13 @@ Examples:
             collections_dir.mkdir(parents=True, exist_ok=True)
             
             output_file = collections_dir / "kdf_comprehensive_collection.json"
-            with open(output_file, 'w') as f:
-                json.dump(collection, f, indent=2)
+            dump_sorted_json(collection, output_file)
+            
+            # Detect missing requests and methods before saving reports
+            generator.detect_missing_requests_and_methods()
+            
+            # Detect missing response and error tables
+            generator.detect_missing_response_and_error_tables()
             
             # Save reports
             reports_dir = output_dir / "reports"
@@ -1332,10 +1692,14 @@ Examples:
             environments_dir.mkdir(parents=True, exist_ok=True)
             
             output_file = environments_dir / f"kdf_{args.environment}_collection.json"
-            with open(output_file, 'w') as f:
-                json.dump(collection, f, indent=2)
+            dump_sorted_json(collection, output_file)
             
             print(f"✅ Environment collection generated: {output_file}")
+        elif args.sync_examples:
+            print("🔄 Syncing missing request examples into kdf_methods files...")
+            summary = generator.sync_examples_from_requests(dry_run=False)
+            print(json.dumps(summary, indent=2))
+            print("✅ Sync complete.")
     
     except Exception as e:
         print(f"❌ Error: {e}")

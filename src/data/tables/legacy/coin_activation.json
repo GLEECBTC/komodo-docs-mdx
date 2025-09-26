@@ -11,7 +11,8 @@
         "parameter": "servers",
         "type": "list of objects",
         "required": true,
-        "description": "A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects."
+        "description": "A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects.",
+        "substructure": "activation.ActivationServers"
       },
       {
         "parameter": "mm2",
@@ -62,7 +63,8 @@
         "parameter": "utxo_merge_params",
         "type": "object",
         "required": false,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },

@@ -57,6 +57,22 @@ def get_method_slug(method):
         return ""
     return slugify_for_api_table(method)
 
+def get_method_link(method_file, doc_path, file_slugs) -> dict:
+    with open(method_file, 'r') as f:
+        for line in f.readlines():
+            method = get_method_name(line)
+            if method and method.strip():
+                method_slug = slugify_for_api_table(method)
+                if method_slug not in file_slugs:
+                    method_slug = file_slugs[0]
+                return {
+                    "link": f"[{method}]({doc_path}/#{method_slug})",
+                    "method": method,
+                    "doc_url": doc_path
+                }
+    return {}
+
+
 def gen_api_methods_table():
     slugs = json.loads(open(f'{root_path}/filepathSlugs.json', 'r').read())
     komodefi_files = glob.glob(f'{root_path}/src/pages/komodo-defi-framework/**/index.mdx', recursive = True)
@@ -75,22 +91,22 @@ def gen_api_methods_table():
         file_slugs = slugs[file.replace(f'{root_path}/', '')]
         with open(file, 'r') as f:
 
-            for line in f.readlines():
-                doc_path = file.replace(f'{root_path}/src/pages', '').replace('/index.mdx', '')
-                doc_split = doc_path.split('/')
-                if len(doc_split) > 3:
-                    section = doc_split[3]
-                    if section in methods_dict:
-                        method = get_method_name(line)
-                        method_slug = slugify_for_api_table(method)
-                        if method_slug not in file_slugs:
-                            method_slug = file_slugs[0]
-                        methods_dict[section].append({
-                            "link": f"[{method}]({doc_path}/#{method_slug})",
-                            "method": method,
-                            "doc_url": doc_path
-                        })
-                        file_methods_list.append(method)
+            doc_path = file.replace(f'{root_path}/src/pages', '').replace('/index.mdx', '')
+            doc_split = doc_path.split('/')
+            if len(doc_split) > 3:
+                section = doc_split[3]
+            else:
+                logger.error(f"###### No section found in {file}!")
+                continue
+            if section not in methods_dict:
+                logger.error(f"###### {section} section not found in methods_dict!")
+                continue
+            method_link = get_method_link(file, doc_path, file_slugs)
+            if "link" not in method_link:
+                logger.error(f"###### No method link found in {file}!")
+                continue
+            methods_dict[section].append(method_link)
+            file_methods_list.append(method_link["method"])
                         
 
         # print(f"###### Methods in {file}: {file_methods_list}")
@@ -117,6 +133,7 @@ def gen_api_methods_table():
                                 v20 = j["link"]
                             if i == "v20-dev":
                                 v20_dev = j["link"]
+
                 legacy = escape_underscores(legacy)
                 v20 = escape_underscores(v20)
                 v20_dev = escape_underscores(v20_dev)

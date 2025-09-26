@@ -1,57 +1,141 @@
 {
-  "RequestParameters": {
+  "ConsolidateUtxosErrors": {
     "data": [
       {
-        "parameter": "wallet_name",
-        "type": "string",
-        "required": true,
-        "description": "The name of the wallet to delete."
+        "description": "The request is malformed or missing required parameters.",
+        "parameter": "InvalidRequest",
+        "required": false,
+        "type": "string"
       },
       {
-        "parameter": "password",
-        "type": "string",
+        "description": "The requested merge failed. See `error_data` for more details.",
+        "parameter": "MergeError",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "The selected coin was not found or is not activated yet.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "ConsolidateUtxosRequest": {
+    "data": [
+      {
+        "description": "The coin to consolidate utxos for.",
+        "parameter": "coin",
         "required": true,
-        "description": "The password of the wallet."
+        "type": "string"
+      },
+      {
+        "description": "The conditions to merge utxos.",
+        "parameter": "merge_conditions",
+        "required": true,
+        "type": "object"
+      }
+    ]
+  },
+  "ConsolidateUtxosResponse": {
+    "data": [
+      {
+        "description": "The outcome of the request.",
+        "parameter": "result",
+        "required": true,
+        "type": "string"
       }
     ]
   },
   "ErrorTypes": {
     "data": [
       {
-        "parameter": "InvalidRequest",
-        "type": "string",
-        "required": false,
-        "description": "The request is malformed or missing required parameters."
-      },
-      {
-        "parameter": "WalletNotFound",
-        "type": "string",
-        "required": false,
-        "description": "The specified `wallet_name` was not found."
-      },
-      {
-        "parameter": "InvalidPassword",
-        "type": "string",
-        "required": false,
-        "description": "The provided `password` is incorrect."
-      },
-      {
-        "parameter": "CannotDeleteActiveWallet",
-        "type": "string",
-        "required": false,
-        "description": "An attempt was made to delete the currently active wallet."
-      },
-      {
+        "description": "A storage-related error occurred while accessing wallet data.",
         "parameter": "WalletsStorageError",
-        "type": "string",
         "required": false,
-        "description": "A storage-related error occurred while accessing wallet data."
+        "type": "string"
       },
       {
-        "parameter": "InternalError",
-        "type": "string",
+        "description": "An attempt was made to delete the currently active wallet.",
+        "parameter": "CannotDeleteActiveWallet",
         "required": false,
-        "description": "An internal server error occurred."
+        "type": "string"
+      },
+      {
+        "description": "An internal server error occurred.",
+        "parameter": "InternalError",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "The provided `password` is incorrect.",
+        "parameter": "InvalidPassword",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "The request is malformed or missing required parameters.",
+        "parameter": "InvalidRequest",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "The specified `wallet_name` was not found.",
+        "parameter": "WalletNotFound",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "FetchUtxosErrors": {
+    "data": [
+      {
+        "description": "The request is malformed or missing required parameters.",
+        "parameter": "InvalidRequest",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "The selected coin was not found or is not activated yet.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "FetchUtxosRequest": {
+    "data": [
+      {
+        "description": "The coin to fetch utxos for.",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "FetchUtxosResponse": {
+    "data": [
+      {
+        "description": "The outcome of the request.",
+        "parameter": "result",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "RequestParameters": {
+    "data": [
+      {
+        "description": "The name of the wallet to delete.",
+        "parameter": "wallet_name",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "The password of the wallet.",
+        "parameter": "password",
+        "required": true,
+        "type": "string"
       }
     ]
   }

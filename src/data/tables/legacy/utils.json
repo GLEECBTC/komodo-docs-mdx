@@ -1,0 +1,17 @@
+{
+  "VersionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The Komodo DeFi Framework API version"
+      },
+      {
+        "parameter": "datetime",
+        "type": "string",
+        "description": "A formatted datetime string"
+      }
+    ]
+  }
+}

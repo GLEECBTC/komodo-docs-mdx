@@ -3826,8 +3826,6 @@
     "add-node-to-version-stat-2",
     "request-parameters",
     "response-parameters",
-    "examples",
-    "response-success",
     "error-types",
     "error-responses",
     "database-error-unique-constraint-peer-id",

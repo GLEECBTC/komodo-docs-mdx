@@ -1,4 +1,112 @@
 {
+  "MakerPaymentDataSendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentRefunded": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentRefundFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentSent": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentTransactionFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentWaitConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentWaitRefundStarted": {
+    "data": [
+      {
+        "parameter": "wait_until",
+        "type": "number (UTC timestamp)",
+        "required": true,
+        "description": "the timestamp at which a refund will occur"
+      }
+    ]
+  },
+  "Negotiated": {
+    "data": [
+      {
+        "parameter": "taker_payment_locktime",
+        "type": "number (UTC timestamp in seconds)",
+        "required": true,
+        "description": "the taker payment is locked until this timestamp"
+      },
+      {
+        "parameter": "taker_pubkey",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "a persistent secp256k1 public key of taker node"
+      }
+    ]
+  },
+  "NegotiateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
   "Started": {
     "data": [
       {
@@ -122,32 +230,6 @@
       }
     ]
   },
-  "Negotiated": {
-    "data": [
-      {
-        "parameter": "taker_payment_locktime",
-        "type": "number (UTC timestamp in seconds)",
-        "required": true,
-        "description": "the taker payment is locked until this timestamp"
-      },
-      {
-        "parameter": "taker_pubkey",
-        "type": "string (hexadecimal)",
-        "required": true,
-        "description": "a persistent secp256k1 public key of taker node"
-      }
-    ]
-  },
-  "NegotiateFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
   "TakerFeeValidated": {
     "data": [
       {
@@ -174,52 +256,6 @@
       }
     ]
   },
-  "MakerPaymentTransactionFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentSent": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
-  "MakerPaymentDataSendFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentWaitConfirmFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
   "TakerPaymentReceived": {
     "data": [
       {
@@ -236,17 +272,7 @@
       }
     ]
   },
-  "TakerPaymentValidateFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "TakerPaymentWaitConfirmFailed": {
+  "TakerPaymentSpendConfirmFailed": {
     "data": [
       {
         "parameter": "error",
@@ -282,7 +308,7 @@
       }
     ]
   },
-  "TakerPaymentSpendConfirmFailed": {
+  "TakerPaymentValidateFailed": {
     "data": [
       {
         "parameter": "error",
@@ -292,39 +318,13 @@
       }
     ]
   },
-  "MakerPaymentWaitRefundStarted": {
-    "data": [
-      {
-        "parameter": "wait_until",
-        "type": "number (UTC timestamp)",
-        "required": true,
-        "description": "the timestamp at which a refund will occur"
-      }
-    ]
-  },
-  "MakerPaymentRefundFailed": {
+  "TakerPaymentWaitConfirmFailed": {
     "data": [
       {
         "parameter": "error",
         "type": "string",
         "required": true,
         "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentRefunded": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
       }
     ]
   }

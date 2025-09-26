@@ -13,7 +13,7 @@ The main Postman collection file containing all API requests organized by versio
 - ✅ Task ID variable management for method groups
 - ✅ Pre-request and test scripts for task ID capture
 - ✅ Proper request formatting with headers and JSON bodies
-- ✅ Translated request names using kdf_methods.json
+- ✅ Translated request names using kdf_methods_v2.json / kdf_methods_legacy.json
 - ✅ Multiple examples per method (variants) in response section
 - ✅ Parameter documentation tables from @tables/ files
 

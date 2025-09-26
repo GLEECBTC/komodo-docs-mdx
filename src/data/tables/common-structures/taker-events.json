@@ -1,4 +1,134 @@
 {
+  "MakerPaymentReceived": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentSpendConfirmed": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentSpendConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentSpendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentSpent": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentSpentByWatcher": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentValidateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentWaitConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "Negotiated": {
+    "data": [
+      {
+        "parameter": "maker_payment_locktime",
+        "type": "number (UTC timestamp in seconds)",
+        "required": true,
+        "description": "the maker payment is locked until this timestamp"
+      },
+      {
+        "parameter": "maker_pubkey",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "a persistent secp256k1 public key of maker node"
+      }
+    ]
+  },
+  "NegotiateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
   "Started": {
     "data": [
       {
@@ -71,7 +201,7 @@
         "parameter": "uuid",
         "type": "string",
         "required": true,
-        "description": "the swap uuid" 
+        "description": "the swap uuid"
       },
       {
         "parameter": "started_at",
@@ -104,23 +234,7 @@
       }
     ]
   },
-  "Negotiated": {
-    "data": [
-      {
-        "parameter": "maker_payment_locktime",
-        "type": "number (UTC timestamp in seconds)",
-        "required": true,
-        "description": "the maker payment is locked until this timestamp"
-      },
-      {
-        "parameter": "maker_pubkey",
-        "type": "string (hexadecimal)",
-        "required": true,
-        "description": "a persistent secp256k1 public key of maker node"
-      }
-    ]
-  },
-  "NegotiateFailed": {
+  "TakerFeeSendFailed": {
     "data": [
       {
         "parameter": "error",
@@ -146,7 +260,7 @@
       }
     ]
   },
-  "TakerFeeSendFailed": {
+  "TakerPaymentDataSendFailed": {
     "data": [
       {
         "parameter": "error",
@@ -156,17 +270,7 @@
       }
     ]
   },
-  "MakerPaymentValidateFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentReceived": {
+  "TakerPaymentRefunded": {
     "data": [
       {
         "parameter": "tx_hash",
@@ -182,7 +286,23 @@
       }
     ]
   },
-  "MakerPaymentWaitConfirmFailed": {
+  "TakerPaymentRefundedByWatcher": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "TakerPaymentRefundFailed": {
     "data": [
       {
         "parameter": "error",
@@ -193,6 +313,22 @@
     ]
   },
   "TakerPaymentSent": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "TakerPaymentSpent": {
     "data": [
       {
         "parameter": "tx_hash",
@@ -228,32 +364,6 @@
       }
     ]
   },
-  "TakerPaymentDataSendFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "TakerPaymentSpent": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
   "TakerPaymentWaitForSpendFailed": {
     "data": [
       {
@@ -264,74 +374,6 @@
       }
     ]
   },
-  "MakerPaymentSpendFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentSpent": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
-  "MakerPaymentSpendConfirmed": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
-  "MakerPaymentSpendConfirmFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "MakerPaymentSpentByWatcher": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
   "TakerPaymentWaitRefundStarted": {
     "data": [
       {
@@ -339,48 +381,6 @@
         "type": "number (UTC timestamp)",
         "required": true,
         "description": "the timestamp at which a refund will occur"
-      }
-    ]
-  },
-  "TakerPaymentRefundedByWatcher": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
-      }
-    ]
-  },
-  "TakerPaymentRefundFailed": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "error description with stack trace"
-      }
-    ]
-  },
-  "TakerPaymentRefunded": {
-    "data": [
-      {
-        "parameter": "tx_hash",
-        "type": "string",
-        "required": true,
-        "description": "the hash of the transaction"
-      },
-      {
-        "parameter": "tx_hex",
-        "type": "string",
-        "required": true,
-        "description": "transaction bytes in hexadecimal format"
       }
     ]
   }
