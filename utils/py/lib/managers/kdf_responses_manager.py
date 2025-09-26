@@ -45,6 +45,24 @@ class KDFInstance:
     url: str
     userpass: str
 
+@dataclass
+class TaskInstance:
+    """KDF task methods instance."""
+    task_name: str
+    init_request: Dict[str, Any]
+    task_id: Optional[int] = None
+    init_response: Optional[Dict[str, Any]] = None
+    status_request: Optional[Dict[str, Any]] = None
+    status_responses: Optional[List[Dict[str, Any]]] = None
+    user_action_request: Optional[Dict[str, Any]]
+    user_action_responses: Optional[Dict[str, Any]] = None
+    status_request: Optional[Dict[str, Any]] = None
+    status_responses: Optional[List[Dict[str, Any]]] = None
+    user_action_request: Optional[Dict[str, Any]] = None
+    user_action_responses: Optional[Dict[str, Any]] = None
+    cancel_request: Optional[Dict[str, Any]] = None
+    cancel_response: Optional[Dict[str, Any]] = None
+
 
 @dataclass
 class CollectionResult:
@@ -115,6 +133,9 @@ class KdfResponseManager:
         self._current_request_key: Optional[str] = None
         self._current_method_name: Optional[str] = None
         
+        # Task tracking: registry and report path
+        self.task_registry: Dict[str, TaskInstance] = {}
+        self.task_report_path: Path = self.workspace_root / "postman/generated/reports/method_tasks.json"
     def setup_logging(self):
         """Setup logging configuration."""
         logging.basicConfig(
@@ -247,8 +268,26 @@ class KdfResponseManager:
             
             # Filter out metadata fields before sending to API
             filtered_request_data = self._filter_request_data(request_data)
+            rpc_version = filtered_request_data.get("mmrpc", "1.0")
             method_name = filtered_request_data.get("method", "")
+            # Ensure task status doesn't clear completed tasks
+            try:
+                if isinstance(method_name, str) and method_name.endswith("::status"):
+                    params = filtered_request_data.setdefault("params", {})
+                    if isinstance(params, dict) and "forget_if_finished" not in params:
+                        params["forget_if_finished"] = False
+            except Exception:
+                pass
             
+            # Pre-flight: ensure tasks exist for ::status/::cancel and override task_id from registry
+            try:
+                if isinstance(method_name, str) and method_name.endswith("::status"):
+                    filtered_request_data = self._ensure_task_for_status(instance, filtered_request_data, timeout)
+                    # Re-evaluate method_name in case of mutation
+                    method_name = filtered_request_data.get("method", method_name)
+            except Exception as e:
+                self.logger.warning(f"Status preflight failed for {method_name} on {instance.name}: {e}")
+
             response = requests.post(
                 instance.url,
                 json=filtered_request_data,
@@ -268,6 +307,11 @@ class KdfResponseManager:
                             instance.name, method_name, response_data, filtered_request_data
                         )
                     data = response_data
+                    # Task tracking: register/update task lifecycle on success
+                    try:
+                        self._maybe_track_task_success(instance, filtered_request_data, response_data)
+                    except Exception:
+                        pass
                 except json.JSONDecodeError:
                     data = {"error": "Invalid JSON response", "raw_response": response.text}
             else:
@@ -339,6 +383,65 @@ class KdfResponseManager:
                         outcome, data = _retry_after_activation(ticker_upper, force_reenable=True)
                         raw_body = data.get("raw_response") if isinstance(data, dict) else None
                         text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+
+                    # Handle cancel flows missing task id: run init -> sleep -> cancel
+                    if allow_retry and "NoSuchTask" in text and isinstance(method_name, str) and method_name.endswith("::cancel"):
+                        try:
+                            init_method = method_name.replace("::cancel", "::init")
+                            # Try to find example params for the init method
+                            init_params = self._find_example_params_for_method(init_method) or {}
+                            # If we can determine the ticker, disable it first to ensure a fresh task
+                            ticker_for_init = None
+                            if isinstance(init_params, dict):
+                                ticker_for_init = init_params.get("ticker") or init_params.get("coin")
+                                if isinstance(ticker_for_init, str) and ticker_for_init:
+                                    try:
+                                        self.disable_coin(instance, str(ticker_for_init).upper())
+                                        time.sleep(0.5)
+                                    except Exception:
+                                        pass
+                            # Proactively ensure coin is disabled before running ::init
+                            if isinstance(ticker_for_init, str) and ticker_for_init:
+                                try:
+                                    ticker_upper_for_init = str(ticker_for_init).upper()
+                                    # Attempt disable if enabled (up to 2 tries with short waits)
+                                    for _ in range(2):
+                                        if self._is_coin_enabled(instance, ticker_upper_for_init):
+                                            self.disable_coin(instance, ticker_upper_for_init)
+                                            time.sleep(0.5)
+                                        else:
+                                            break
+                                except Exception:
+                                    pass
+
+                            init_request = {
+                                "userpass": instance.userpass,
+                                "mmrpc": "2.0",
+                                "method": init_method,
+                                "params": init_params,
+                                "id": 0
+                            }
+                            # Fire init to get a fresh task id
+                            init_outcome, init_resp = self.send_request(instance, init_request, timeout, allow_retry=False)
+                            task_id = None
+                            if isinstance(init_resp, dict):
+                                result = init_resp.get("result")
+                                if isinstance(result, dict):
+                                    task_id = result.get("task_id")
+                            if task_id is not None:
+                                time.sleep(0.5)
+                                cancel_request = {
+                                    "userpass": instance.userpass,
+                                    "mmrpc": "2.0",
+                                    "method": method_name,
+                                    "params": {"task_id": task_id},
+                                    "id": 0
+                                }
+                                outcome, data = self.send_request(instance, cancel_request, timeout, allow_retry=False)
+                                raw_body = data.get("raw_response") if isinstance(data, dict) else None
+                                text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+                        except Exception as e:
+                            self.logger.warning(f"Cancel retry wiring failed for {method_name} on {instance.name}: {e}")
                 except Exception as e:
                     self.logger.warning(f"Retry wiring failed for {method_name} on {instance.name}: {e}")
 
@@ -350,16 +453,181 @@ class KdfResponseManager:
                     except AttributeError:
                         # If a subclass doesn't have recorder yet (e.g., older Sequence manager), safely ignore
                         pass
-                    self.logger.info(f"{instance.name}: [{method_name}] EXPECTED_ERROR - [{data.get('error', '')}] {expected_error}")
+                    self.logger.info(f"{instance.name}: [{method_name} {rpc_version}] EXPECTED_ERROR - [{data.get('error', '')}] {expected_error}")
                 else:
-                    self.logger.warning(f"{instance.name}: [{method_name}] FAILED - [{status_code}] {data.get('error', '')}")
-                    self.logger.warning(f"{instance.name}: [{method_name}] Request - {request_data}")
-                    self.logger.warning(f"{instance.name}: [{method_name}] filtered_request_data - {filtered_request_data}")
-                    self.logger.warning(f"{instance.name}: [{method_name}] is params in filtered_request_data - {'params' in filtered_request_data}")
-                    self.logger.warning(f"{instance.name}: [{method_name}] Response - {data}")
-            else:
-                self.logger.info(f"{instance.name}: [{method_name}] SUCCESS")
+                    self.logger.warning(f"{instance.name}: [{method_name} {rpc_version}] FAILED - [{status_code}] {data.get('error', '')}")
+                    self.logger.warning(f"{instance.name}: [{method_name} {rpc_version}] Request - {request_data}")
+                    self.logger.warning(f"{instance.name}: [{method_name} {rpc_version}] filtered_request_data - {filtered_request_data}")
+                    self.logger.warning(f"{instance.name}: [{method_name} {rpc_version}] is params in filtered_request_data - {'params' in filtered_request_data}")
+                    self.logger.warning(f"{instance.name}: [{method_name} {rpc_version}] Response - {data}")
+            elif method_name != "get_enabled_coins":
+                self.logger.info(f"{instance.name}: [{method_name} {rpc_version}] SUCCESS")
         return outcome, data
+
+    # ----- Task tracking helpers -----
+    def _base_task_name(self, method_name: str) -> str:
+        try:
+            if not isinstance(method_name, str):
+                return ""
+            if method_name.startswith("task::"):
+                parts = method_name.split("::")
+                if len(parts) >= 2:
+                    return "::".join(parts[:2])
+            return method_name
+        except Exception:
+            return ""
+
+    def _make_task_key(self, instance_name: str, base_task_name: str, task_id: Any) -> str:
+        return f"{instance_name}:{base_task_name}:{task_id}"
+
+    def _find_active_task_for_base(self, instance_name: str, base_task_name: str) -> Optional[TaskInstance]:
+        for key, ti in getattr(self, "task_registry", {}).items():
+            try:
+                if not isinstance(ti, TaskInstance):
+                    continue
+                if key.startswith(f"{instance_name}:{base_task_name}:"):
+                    if not getattr(ti, "completed", False):
+                        return ti
+            except Exception:
+                continue
+        return None
+
+    def _maybe_track_task_success(self, instance: KDFInstance, request: Dict[str, Any], response: Dict[str, Any]) -> None:
+        try:
+            method_name = request.get("method", "")
+            if not isinstance(method_name, str):
+                return
+            # Register new task on ::init
+            if method_name.endswith("::init"):
+                result = response.get("result") if isinstance(response, dict) else None
+                task_id = result.get("task_id") if isinstance(result, dict) else None
+                if task_id is not None:
+                    base_name = self._base_task_name(method_name)
+                    key = self._make_task_key(instance.name, base_name, task_id)
+                    ti = TaskInstance(task_name=base_name, init_request=request, task_id=task_id, init_response=response)
+                    setattr(ti, "created_at", time.time())
+                    setattr(ti, "completed", False)
+                    if not hasattr(self, "task_registry"):
+                        self.task_registry = {}
+                    self.task_registry[key] = ti
+            # Update task on ::status
+            elif method_name.endswith("::status"):
+                params = request.get("params", {}) if isinstance(request, dict) else {}
+                task_id = params.get("task_id") if isinstance(params, dict) else None
+                if task_id is not None:
+                    base_name = self._base_task_name(method_name)
+                    key = self._make_task_key(instance.name, base_name, task_id)
+                    ti = getattr(self, "task_registry", {}).get(key)
+                    if ti:
+                        if getattr(ti, "status_responses", None) is None:
+                            ti.status_responses = []
+                        try:
+                            ti.status_responses.append(response)
+                        except Exception:
+                            pass
+                        result = response.get("result") if isinstance(response, dict) else None
+                        status_val = result.get("status") if isinstance(result, dict) else None
+                        if status_val == "Ok":
+                            setattr(ti, "completed", True)
+                            setattr(ti, "completed_at", time.time())
+            # Update task on ::cancel
+            elif method_name.endswith("::cancel"):
+                params = request.get("params", {}) if isinstance(request, dict) else {}
+                task_id = params.get("task_id") if isinstance(params, dict) else None
+                if task_id is not None:
+                    base_name = self._base_task_name(method_name)
+                    key = self._make_task_key(instance.name, base_name, task_id)
+                    ti = getattr(self, "task_registry", {}).get(key)
+                    if ti:
+                        ti.cancel_request = request
+                        ti.cancel_response = response
+        except Exception:
+            pass
+
+    def _ensure_task_for_status(self, instance: KDFInstance, request: Dict[str, Any], timeout: int) -> Dict[str, Any]:
+        """Ensure there is a valid task before querying ::status.
+        - If task_id missing or unknown, try to start one via matching ::init using example params.
+        - Wait 0.3s after init before returning.
+        - Override request.params.task_id with a known active id if found.
+        """
+        if not isinstance(request, dict):
+            return request
+        method_name = request.get("method", "")
+        if not (isinstance(method_name, str) and method_name.endswith("::status")):
+            return request
+        params = request.setdefault("params", {}) if isinstance(request, dict) else {}
+        task_id = params.get("task_id") if isinstance(params, dict) else None
+        base_name = self._base_task_name(method_name)
+        chosen = self._find_active_task_for_base(instance.name, base_name)
+        # Use task from registry if available
+        if chosen and isinstance(params, dict):
+            params["task_id"] = chosen.task_id
+            created_at = getattr(chosen, "created_at", None)
+            if isinstance(created_at, (int, float)):
+                elapsed = time.time() - created_at
+                if elapsed < 0.3:
+                    time.sleep(round(0.3 - elapsed, 3))
+            return request
+        # Otherwise, attempt to start a fresh task via ::init (based on examples)
+        init_method = method_name.replace("::status", "::init")
+        init_params = self._find_example_params_for_method(init_method) or {}
+        # Best-effort: disable coin ahead of init if we can find ticker
+        try:
+            ticker_for_init = None
+            if isinstance(init_params, dict):
+                ticker_for_init = init_params.get("ticker") or init_params.get("coin")
+            if isinstance(ticker_for_init, str) and ticker_for_init:
+                ticker_upper = str(ticker_for_init).upper()
+                for _ in range(2):
+                    if self._is_coin_enabled(instance, ticker_upper):
+                        self.disable_coin(instance, ticker_upper)
+                        time.sleep(0.5)
+                    else:
+                        break
+        except Exception:
+            pass
+        init_request = {
+            "userpass": instance.userpass,
+            "mmrpc": "2.0",
+            "method": init_method,
+            "params": init_params,
+            "id": 0
+        }
+        _outcome, init_resp = self.send_request(instance, init_request, timeout, allow_retry=False)
+        new_task_id = None
+        if isinstance(init_resp, dict):
+            result = init_resp.get("result")
+            if isinstance(result, dict):
+                new_task_id = result.get("task_id")
+        if new_task_id is not None and isinstance(params, dict):
+            time.sleep(0.3)
+            params["task_id"] = new_task_id
+        return request
+
+    def _find_example_params_for_method(self, method_name: str) -> Optional[Dict[str, Any]]:
+        """Find example params for a given method by scanning request definition files."""
+        try:
+            # Prefer v2 requests
+            v2_requests_dir = self.workspace_root / "src/data/requests/kdf/v2"
+            legacy_requests_dir = self.workspace_root / "src/data/requests/kdf/legacy"
+            for req_dir in [v2_requests_dir, legacy_requests_dir]:
+                if not req_dir.exists():
+                    continue
+                for request_file in req_dir.glob("*.json"):
+                    try:
+                        requests_data = self.load_json_file(request_file) or {}
+                        if isinstance(requests_data, dict):
+                            for _key, req in requests_data.items():
+                                if not isinstance(req, dict):
+                                    continue
+                                if req.get("method") == method_name:
+                                    params = req.get("params")
+                                    return params if isinstance(params, dict) else {}
+                    except Exception:
+                        continue
+        except Exception:
+            return None
+        return None
 
     def _is_expected_error(self, text: str, instance: KDFInstance, method_name: str) -> bool:
         """Check if the response is an expected error."""
@@ -883,6 +1151,31 @@ class KdfResponseManager:
         output_file.parent.mkdir(parents=True, exist_ok=True)
         dump_sorted_json(results, output_file)
         self.logger.info(f"Results saved to: {output_file}")
+        # Also persist method_tasks.json from registry
+        try:
+            tasks_serialized: Dict[str, Any] = {}
+            for key, ti in getattr(self, "task_registry", {}).items():
+                try:
+                    entry = {
+                        "task_name": ti.task_name,
+                        "task_id": ti.task_id,
+                        "created_at": getattr(ti, "created_at", None),
+                        "completed": getattr(ti, "completed", False),
+                        "completed_at": getattr(ti, "completed_at", None),
+                        "init_request": ti.init_request,
+                        "init_response": ti.init_response,
+                        "status_responses": ti.status_responses,
+                        "cancel_request": ti.cancel_request,
+                        "cancel_response": ti.cancel_response,
+                    }
+                    tasks_serialized[key] = entry
+                except Exception:
+                    continue
+            self.task_report_path.parent.mkdir(parents=True, exist_ok=True)
+            dump_sorted_json(tasks_serialized, self.task_report_path)
+            self.logger.info(f"Task report saved to: {self.task_report_path}")
+        except Exception as e:
+            self.logger.warning(f"Failed to save task report: {e}")
     
     def compile_results(self) -> Dict[str, Any]:
         """Compile all results into a unified format."""
