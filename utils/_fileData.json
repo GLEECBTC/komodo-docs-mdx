@@ -2788,15 +2788,19 @@
     }
   },
   "/komodo-defi-framework/api/common_structures/activation": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -2806,47 +2810,59 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/enums": {
-    "dateModified": "2025-08-05T09:09:26.000Z",
-    "contributors": [
-      {
-        "name": "\"smk762\"",
-        "email": "smk@komodoplatform.com"
-      }
-    ],
-    "dateCreated": "2025-07-30T18:22:01.000Z",
-    "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
-    }
-  },
-  "/komodo-defi-framework/api/common_structures/error_types": {
-    "dateModified": "2025-08-05T09:09:26.000Z",
-    "contributors": [
-      {
-        "name": "\"smk762\"",
-        "email": "smk@komodoplatform.com"
-      }
-    ],
-    "dateCreated": "2025-07-30T18:22:01.000Z",
-    "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
-    }
-  },
-  "/komodo-defi-framework/api/common_structures": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      }
+    ],
+    "dateCreated": "2025-07-30T18:22:01.000Z",
+    "lastContributor": {
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
+    }
+  },
+  "/komodo-defi-framework/api/common_structures/error_types": {
+    "dateModified": "2025-08-22T10:42:34.000Z",
+    "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
+      }
+    ],
+    "dateCreated": "2025-07-30T18:22:01.000Z",
+    "lastContributor": {
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
+    }
+  },
+  "/komodo-defi-framework/api/common_structures": {
+    "dateModified": "2025-08-22T10:42:34.000Z",
+    "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"harsenyan3\"",
@@ -2856,37 +2872,45 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/lightning": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/nfts": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"Hayk Arsenyan Hovhannisyan\"",
@@ -2896,30 +2920,38 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/orders": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/rational_number_note": {
-    "dateModified": "2025-08-05T09:09:26.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -2927,74 +2959,90 @@
     ],
     "dateCreated": "2025-07-30T18:22:01.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/swaps": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/swaps/maker_events": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/swaps/taker_events": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/common_structures/wallet": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"Documentation Bot\"",
@@ -3004,15 +3052,19 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api": {
-    "dateModified": "2025-08-07T01:34:20.000Z",
+    "dateModified": "2025-09-28T19:20:07.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
         "email": "21151592+gcharang@users.noreply.github.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -3033,10 +3085,6 @@
       {
         "name": "\"dimxy\"",
         "email": "dimxy@komodoplatform.com"
-      },
-      {
-        "name": "\"gcharang\"",
-        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"harsenyan3\"",
@@ -3262,15 +3310,15 @@
     }
   },
   "/komodo-defi-framework/api/legacy/coin_activation": {
-    "dateModified": "2025-08-05T14:42:32.000Z",
+    "dateModified": "2025-08-22T08:35:33.000Z",
     "contributors": [
-      {
-        "name": "\"smk762\"",
-        "email": "smk@komodoplatform.com"
-      },
       {
         "name": "\"gcharang\"",
         "email": "21151592+gcharang@users.noreply.github.com"
+      },
+      {
+        "name": "\"smk762\"",
+        "email": "smk@komodoplatform.com"
       },
       {
         "name": "\"Hayk Arsenyan Hovhannisyan\"",
@@ -3295,8 +3343,8 @@
     ],
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "21151592+gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/legacy/coins_needed_for_kick_start": {
@@ -4276,8 +4324,12 @@
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/enable_bch_with_tokens": {
-    "dateModified": "2025-06-13T05:31:18.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4301,16 +4353,20 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/enable_bch_with_tokens"
     ]
   },
   "/komodo-defi-framework/api/v20/coin_activation/enable_erc20": {
-    "dateModified": "2024-11-25T06:53:05.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4326,16 +4382,20 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/enable_erc20"
     ]
   },
   "/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens": {
-    "dateModified": "2025-06-13T05:31:18.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4355,16 +4415,20 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/enable_eth_with_tokens"
     ]
   },
   "/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_token": {
-    "dateModified": "2024-11-25T06:53:05.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4376,16 +4440,20 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/enable_tendermint_token"
     ]
   },
   "/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets": {
-    "dateModified": "2025-06-13T05:31:18.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4405,8 +4473,8 @@
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/enable_tendermint_with_assets"
@@ -4434,8 +4502,12 @@
     ]
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch": {
-    "dateModified": "2025-08-05T14:42:32.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4443,13 +4515,17 @@
     ],
     "dateCreated": "2025-05-05T06:19:42.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth": {
-    "dateModified": "2025-08-05T14:42:32.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4457,13 +4533,17 @@
     ],
     "dateCreated": "2025-05-05T06:19:42.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum": {
-    "dateModified": "2025-06-13T04:52:12.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4471,13 +4551,17 @@
     ],
     "dateCreated": "2025-05-05T06:19:42.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint": {
-    "dateModified": "2025-05-05T07:43:43.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4485,12 +4569,12 @@
     ],
     "dateCreated": "2025-05-05T06:19:42.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo": {
-    "dateModified": "2025-08-05T14:42:32.000Z",
+    "dateModified": "2025-08-07T09:54:17.000Z",
     "contributors": [
       {
         "name": "\"smk762\"",
@@ -4504,8 +4588,12 @@
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin": {
-    "dateModified": "2025-06-04T08:10:12.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
+      {
+        "name": "\"gcharang\"",
+        "email": "gcharang@users.noreply.github.com"
+      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
@@ -4513,8 +4601,8 @@
     ],
     "dateCreated": "2025-05-05T06:19:42.000Z",
     "lastContributor": {
-      "name": "\"smk762\"",
-      "email": "smk@komodoplatform.com"
+      "name": "\"gcharang\"",
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/coin_activation/task_managed": {
@@ -4825,75 +4913,91 @@
     ]
   },
   "/komodo-defi-framework/api/v20/streaming/balance_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-29T08:09:41.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/disable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-29T08:09:41.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/fee_estimator": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-30T06:19:59.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/heartbeat_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-29T08:09:41.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming": {
@@ -4911,93 +5015,113 @@
     }
   },
   "/komodo-defi-framework/api/v20/streaming/network_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-29T08:09:41.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/order_status_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-30T09:36:57.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/orderbook_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-30T09:52:19.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/swap_status_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-30T08:01:25.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/streaming/tx_history_enable": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-04-30T12:14:35.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/swaps_and_orders/active_swaps": {
@@ -5257,15 +5381,19 @@
     ]
   },
   "/komodo-defi-framework/api/v20/utils/add_node_to_version_stat": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -5279,22 +5407,26 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/add_node_to_version_stat"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/change_mnemonic_password": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -5304,79 +5436,95 @@
     "dateCreated": "2025-03-10T05:52:25.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/get_current_mtp": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-11-19T10:07:38.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/get_enabled_coins": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/get_enabled_coins"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/get_mnemonic": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/get_mnemonic"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/get_public_key": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -5390,22 +5538,26 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/get_public_key"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/get_public_key_hash": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -5415,46 +5567,54 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/get_public_key_hash"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/get_shared_db_id": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/get_token_info": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-11-19T10:07:10.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils": {
@@ -5501,15 +5661,19 @@
     ]
   },
   "/komodo-defi-framework/api/v20/utils/message_signing/sign_message": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"Andrew Delaney\"",
@@ -5519,19 +5683,23 @@
     "dateCreated": "2025-05-31T11:48:01.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/message_signing/verify_message": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"Andrew Delaney\"",
@@ -5541,37 +5709,45 @@
     "dateCreated": "2025-05-31T11:48:01.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/peer_connection_healthcheck": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2024-11-19T10:07:38.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/remove_node_from_version_stat": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
@@ -5581,40 +5757,48 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/remove_node_from_version_stat"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/send_asked_data": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/start_version_stat_collection": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
@@ -5624,22 +5808,26 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/start_version_stat_collection"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/stop_version_stat_collection": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
@@ -5649,28 +5837,32 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/stop_version_stat_collection"
     ]
   },
   "/komodo-defi-framework/api/v20/utils/task_connect_metamask/cancel": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_connect_metamask": {
@@ -5688,57 +5880,69 @@
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_connect_metamask/init": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_connect_metamask/status": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_init_trezor/cancel": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_init_trezor": {
@@ -5767,87 +5971,103 @@
     ]
   },
   "/komodo-defi-framework/api/v20/utils/task_init_trezor/init": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_init_trezor/status": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-07T09:54:57.000Z",
     "contributors": [
-      {
-        "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
-      },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
-      "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "name": "\"smk762\"",
+      "email": "smk@komodoplatform.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/trezor_connection_status": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/utils/update_version_stat_collection": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
@@ -5857,28 +6077,32 @@
     "dateCreated": "2024-11-25T06:53:05.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     },
     "previousPaths": [
       "/komodo-defi-framework/api/v20/update_version_stat_collection"
     ]
   },
   "/komodo-defi-framework/api/v20/wallet/delete_wallet": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-06-23T12:14:48.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/v20/wallet/fee_management/get_eth_estimated_fee_per_gas": {
@@ -6587,7 +6811,7 @@
     }
   },
   "/komodo-defi-framework": {
-    "dateModified": "2024-04-11T16:31:02.000Z",
+    "dateModified": "2025-09-28T19:23:50.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
@@ -6701,21 +6925,25 @@
     }
   },
   "/komodo-defi-framework/setup/telegram-alerts": {
-    "dateModified": "2025-08-07T00:31:57.000Z",
+    "dateModified": "2025-08-22T10:42:34.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
         "email": "smk@komodoplatform.com"
+      },
+      {
+        "name": "\"gcharang\"",
+        "email": "21151592+gcharang@users.noreply.github.com"
       }
     ],
     "dateCreated": "2025-08-05T14:42:32.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/tutorials/additional-information": {
