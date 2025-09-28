@@ -3056,15 +3056,15 @@
     }
   },
   "/komodo-defi-framework/api": {
-    "dateModified": "2025-09-28T19:20:07.000Z",
+    "dateModified": "2025-09-28T19:43:08.000Z",
     "contributors": [
       {
         "name": "\"gcharang\"",
-        "email": "21151592+gcharang@users.noreply.github.com"
+        "email": "gcharang@users.noreply.github.com"
       },
       {
         "name": "\"gcharang\"",
-        "email": "gcharang@users.noreply.github.com"
+        "email": "21151592+gcharang@users.noreply.github.com"
       },
       {
         "name": "\"smk762\"",
@@ -3110,7 +3110,7 @@
     "dateCreated": "2024-03-08T07:31:21.000Z",
     "lastContributor": {
       "name": "\"gcharang\"",
-      "email": "21151592+gcharang@users.noreply.github.com"
+      "email": "gcharang@users.noreply.github.com"
     }
   },
   "/komodo-defi-framework/api/legacy/active_swaps": {
