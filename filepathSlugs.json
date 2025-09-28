@@ -4612,11 +4612,16 @@
   ],
   "src/pages/komodo-defi-framework/index.mdx": [
     "introduction-to-komodo-de-fi-framework",
-    "about-the-komodo-de-fi-framework-section",
-    "conceptual-overview",
-    "about-komodo-de-fi-framework-setup",
-    "about-komodo-de-fi-framework-tutorials",
-    "about-komodo-de-fi-framework"
+    "what-is-komodo-de-fi-framework",
+    "quick-start",
+    "documentation-structure",
+    "setup",
+    "tutorials",
+    "api-reference",
+    "changelog",
+    "learning-path-for-application-developers",
+    "get-help",
+    "next-steps"
   ],
   "src/pages/komodo-defi-framework/setup/configure-mm2-json/index.mdx": [
     "komodo-de-fi-api-configuration",
