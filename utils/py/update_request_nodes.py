@@ -134,6 +134,11 @@ def process_request_file(input_file: Path, output_file: Optional[Path] = None) -
     if isinstance(request_data, dict):
         for key, request_obj in request_data.items():
             if isinstance(request_obj, dict):
+                # Set transient __wasm flag based on request key naming
+                if isinstance(key, str) and "wasm" in key.lower():
+                    request_obj["__wasm"] = True
+                    if isinstance(request_obj.get("params"), dict):
+                        request_obj["params"]["__wasm"] = True
                 if update_nodes_in_request(request_obj, coins_config, key):
                     updates_made += 1
                     method = extract_method_from_request(request_obj)
@@ -141,6 +146,10 @@ def process_request_file(input_file: Path, output_file: Optional[Path] = None) -
                         logger.info(f"Updated request object '{key}' (method: {method})")
                     else:
                         logger.info(f"Updated request object: {key}")
+                # Remove transient __wasm flags before saving
+                request_obj.pop("__wasm", None)
+                if isinstance(request_obj.get("params"), dict):
+                    request_obj["params"].pop("__wasm", None)
     elif isinstance(request_data, list):
         # Handle array of requests
         for i, request_obj in enumerate(request_data):

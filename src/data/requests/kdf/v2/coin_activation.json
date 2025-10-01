@@ -121,16 +121,16 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://eth.drpc.org",
-          "ws_url": "wss://eth.drpc.org"
-        },
-        {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
           "url": "https://ethereum-rpc.publicnode.com",
           "ws_url": "wss://ethereum-rpc.publicnode.com"
+        },
+        {
+          "url": "https://mainnet.gateway.tenderly.co",
+          "ws_url": "wss://mainnet.gateway.tenderly.co"
         }
       ],
       "priv_key_policy": {
@@ -258,12 +258,12 @@
           "ws_url": "wss://0xrpc.io/eth"
         },
         {
-          "url": "https://eth3.cipig.net:18555",
-          "ws_url": "wss://eth3.cipig.net:38555"
+          "url": "https://eth.drpc.org",
+          "ws_url": "wss://eth.drpc.org"
         },
         {
-          "url": "https://mainnet.gateway.tenderly.co",
-          "ws_url": "wss://mainnet.gateway.tenderly.co"
+          "url": "https://eth3.cipig.net:18555",
+          "ws_url": "wss://eth3.cipig.net:38555"
         }
       ],
       "priv_key_policy": {
@@ -717,13 +717,38 @@
               }
             ],
             "light_wallet_d_servers": [
-              "https://zombie.dragonhound.info:1443"
+              "https://zombie.dragonhound.info:9447"
             ]
           }
         },
         "scan_blocks_per_iteration": 100,
         "scan_interval_ms": 200,
         "zcash_params_path": "/home/username/path_to/.zcash-params"
+      },
+      "ticker": "ZOMBIE"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "TaskEnableZCoinInitWasm": {
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "protocol": "WSS",
+                "url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "https://zombie.dragonhound.info:19447"
+            ]
+          }
+        },
+        "tx_history": true
       },
       "ticker": "ZOMBIE"
     },
@@ -748,7 +773,7 @@
               }
             ],
             "light_wallet_d_servers": [
-              "https://zombie.dragonhound.info:1443"
+              "https://zombie.dragonhound.info:9447"
             ],
             "sync_params": {
               "height": 2528700

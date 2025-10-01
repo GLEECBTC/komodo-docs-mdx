@@ -758,6 +758,7 @@
     "examples": {
       "TaskEnableZCoinInit": "Initialize Z-coin",
       "TaskEnableZCoinInitBasic": "Initialize Z-coin with basic params",
+      "TaskEnableZCoinInitWasm": "Enable Z Coin Initialization Wasm",
       "TaskEnableZCoinInitWithSyncParams": "Initialize Z-coin with sync params"
     },
     "prerequisites": [],
@@ -825,10 +826,10 @@
   "withdraw": {
     "errors_table": "",
     "examples": {
-      "WithdrawMartyNonHD": "Withdraw Marty (Non HD)",
       "WithdrawMartyAccountId": "Withdraw Marty Account Id",
       "WithdrawMartyDerivationPath": "Withdraw Marty Derivation Path",
       "WithdrawMartyFixedFee": "Withdraw Marty Fixed Fee",
+      "WithdrawMartyNonHD": "Withdraw Marty (Non HD)",
       "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte"
     },
     "prerequisites": [],

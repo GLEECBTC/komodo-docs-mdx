@@ -162,8 +162,9 @@ class ActivationRequestBuilder:
         if not protocol_info.electrum:
             self.logger.warning(f"No electrum servers found for UTXO ticker '{ticker}' in coins configuration")
             return False
-        # Exclude WSS, prefer SSL over TCP, prioritize cipig domains, cap at 3
-        selected = self._filter_electrum_servers(protocol_info.electrum)
+        # Wasm requests should use WSS servers; others prefer SSL then TCP
+        prefer_wss = self._is_wasm_mode(request_data)
+        selected = self._filter_electrum_servers_with_mode(protocol_info.electrum, prefer_wss=prefer_wss)
         new_servers: List[Dict[str, Any]] = []
         for e in selected:
             server: Dict[str, Any] = {"url": e.get("url")}
@@ -202,11 +203,17 @@ class ActivationRequestBuilder:
 
     def update_zhtlc_in_request(self, request_data: Dict[str, Any], protocol_info: CoinProtocolInfo, ticker: str) -> bool:
         updated = False
+        # Detect Wasm vs non-Wasm
+        prefer_wss = self._is_wasm_mode(request_data)
         # light_wallet_d_servers
         light_servers: List[str] = []
         try:
-            if hasattr(protocol_info, 'light_wallet_d_servers') and protocol_info.light_wallet_d_servers:
-                light_servers = self.select_preferred_urls(protocol_info.light_wallet_d_servers, max_count=3)
+            coin_config = self.coins_config.get_coin_config(ticker)
+            if coin_config:
+                lw_key = 'light_wallet_d_servers_wss' if prefer_wss else 'light_wallet_d_servers'
+                lw_servers = coin_config.get(lw_key) or []
+                if isinstance(lw_servers, list) and lw_servers:
+                    light_servers = self.select_preferred_urls(lw_servers, max_count=3)
         except Exception:
             pass
         if light_servers:
@@ -226,8 +233,8 @@ class ActivationRequestBuilder:
                     updated = True
         # electrum_servers
         if protocol_info.electrum:
-            # Exclude WSS, prefer SSL over TCP, prioritize cipig domains, cap at 3
-            selected = self._filter_electrum_servers(protocol_info.electrum)
+            # Wasm requests should use WSS servers; others prefer SSL then TCP
+            selected = self._filter_electrum_servers_with_mode(protocol_info.electrum, prefer_wss=prefer_wss)
             new_electrum: List[Dict[str, Any]] = []
             for e in selected:
                 server: Dict[str, Any] = {"url": e.get("url")}
@@ -346,6 +353,72 @@ class ActivationRequestBuilder:
         
         return nodes
     
+    def _is_wasm_mode(self, request_data: Dict[str, Any]) -> bool:
+        """Detect whether the incoming request should be treated as Wasm.
+        
+        The updater script sets a transient flag `__wasm` on request objects whose
+        names include "Wasm". We rely exclusively on that flag here.
+        """
+        try:
+            if request_data.get("__wasm") is True:
+                return True
+            params = request_data.get("params", {})
+            if isinstance(params, dict) and params.get("__wasm") is True:
+                return True
+        except Exception:
+            pass
+        return False
+
+    def _filter_electrum_servers_with_mode(self, servers: Optional[List[Any]], prefer_wss: bool) -> List[Dict[str, Any]]:
+        """Filter electrum servers based on whether WSS is preferred (Wasm) or not.
+        
+        - When prefer_wss is True: include only WSS servers, prioritize cipig/komodo, cap at 3.
+        - When prefer_wss is False: exclude WSS, prefer SSL then TCP, prioritize cipig/komodo, cap at 3.
+        """
+        if not isinstance(servers, list):
+            return []
+        
+        wss_list: List[Dict[str, Any]] = []
+        ssl_list: List[Dict[str, Any]] = []
+        tcp_list: List[Dict[str, Any]] = []
+        other_list: List[Dict[str, Any]] = []
+        
+        for s in servers:
+            if not isinstance(s, dict):
+                continue
+            url = s.get("url")
+            proto_val = s.get("protocol") or s.get("proto") or ""
+            proto = str(proto_val).upper()
+            if not url:
+                continue
+            if proto == "WSS":
+                wss_list.append(s)
+            elif proto == "SSL":
+                ssl_list.append(s)
+            elif proto == "TCP":
+                tcp_list.append(s)
+            else:
+                other_list.append(s)
+        
+        def prioritize_cipig(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            cipig: List[Dict[str, Any]] = []
+            rest: List[Dict[str, Any]] = []
+            for item in items:
+                url_val = str(item.get("url", "")).lower()
+                if "cipig" in url_val or "komodo" in url_val:
+                    cipig.append(item)
+                else:
+                    rest.append(item)
+            return cipig + rest
+        
+        if prefer_wss:
+            return prioritize_cipig(wss_list)[:3]
+        
+        ssl_ordered = prioritize_cipig(ssl_list)
+        tcp_ordered = prioritize_cipig(tcp_list)
+        ordered = ssl_ordered + tcp_ordered + prioritize_cipig(other_list)
+        return ordered[:3]
+
     def _filter_electrum_servers(self, servers: Optional[List[Any]]) -> List[Dict[str, Any]]:
         """Filter and limit electrum servers: drop WSS, prefer SSL over TCP, prioritize cipig, cap at 3."""
         if not isinstance(servers, list):

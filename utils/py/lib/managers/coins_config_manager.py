@@ -211,7 +211,7 @@ class CoinsConfigManager:
         if not protocol_type:
             if config.get("rpc_urls"):
                 protocol_type = "TENDERMINT"
-            elif config.get("light_wallet_d_servers"):
+            elif config.get("light_wallet_d_servers") or config.get("light_wallet_d_servers_wss"):
                 protocol_type = "ZHTLC"
             elif config.get("electrum"):
                 protocol_type = "UTXO"
