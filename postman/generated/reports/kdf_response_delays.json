@@ -1,0 +1,490 @@
+{
+  "delays": {
+    "add_node_to_version_stat": {
+      "AddNodeToVersionStat": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.015,
+          "status_code": 200
+        }
+      }
+    },
+    "consolidate_utxos": {
+      "ConsolidateUtxos": {
+        "native-hd": {
+          "delay": 0.294,
+          "status_code": 400
+        },
+        "native-nonhd": {
+          "delay": 0.29,
+          "status_code": 400
+        }
+      }
+    },
+    "electrum": {
+      "LegacyElectrumBch": {
+        "native-hd": {
+          "delay": 0.031,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 1.373,
+          "status_code": 200
+        }
+      },
+      "LegacyElectrumDoc": {
+        "native-hd": {
+          "delay": 0.005,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 2.593,
+          "status_code": 200
+        }
+      },
+      "LegacyElectrumKmd": {
+        "native-hd": {
+          "delay": 0.006,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 2.642,
+          "status_code": 200
+        }
+      },
+      "LegacyElectrumMarty": {
+        "native-hd": {
+          "delay": 0.005,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 2.669,
+          "status_code": 200
+        }
+      },
+      "LegacyElectrumQtum": {
+        "native-hd": {
+          "delay": 0.005,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 3.665,
+          "status_code": 200
+        }
+      }
+    },
+    "enable": {
+      "LegacyEnableBnb": {
+        "native-hd": {
+          "delay": 1.752,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 2.417,
+          "status_code": 200
+        }
+      },
+      "LegacyEnableEth": {
+        "native-hd": {
+          "delay": 0.012,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 2.089,
+          "status_code": 200
+        }
+      },
+      "LegacyEnableEthGasStation": {
+        "native-hd": {
+          "delay": 0.01,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 1.831,
+          "status_code": 200
+        }
+      },
+      "LegacyEnableMatic": {
+        "native-hd": {
+          "delay": 0.01,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 7.146,
+          "status_code": 200
+        }
+      },
+      "LegacyEnableNative": {
+        "native-hd": {
+          "delay": 0.013,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 500
+        }
+      },
+      "LegacyEnableNativeWithParams": {
+        "native-hd": {
+          "delay": 0.005,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 500
+        }
+      }
+    },
+    "enable_erc20": {
+      "EnableErc20Basic": {
+        "native-hd": {
+          "delay": 0.578,
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "delay": 4.257,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_eth_with_tokens": {
+      "EnableEthWithTokensGasStation": {
+        "native-hd": {
+          "delay": 38.313,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 13.358,
+          "status_code": 200
+        }
+      },
+      "EnableEthWithTokensMaticBalancesFalse": {
+        "native-hd": {
+          "delay": 26.843,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.093,
+          "status_code": 200
+        }
+      },
+      "EnableEthWithTokensMaticNft": {
+        "native-hd": {
+          "delay": 3.004,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 1.929,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_tendermint_token": {
+      "EnableTendermintTokenBasic": {
+        "native-hd": {
+          "delay": 0.776,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.75,
+          "status_code": 200
+        }
+      }
+    },
+    "enable_tendermint_with_assets": {
+      "EnableTendermintWithAssetsBalancesFalse": {
+        "native-hd": {
+          "delay": 0.971,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.754,
+          "status_code": 200
+        }
+      },
+      "EnableTendermintWithAssetsBalancesTrue": {
+        "native-hd": {
+          "delay": 2.252,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 2.753,
+          "status_code": 200
+        }
+      }
+    },
+    "fetch_utxos": {
+      "FetchUtxos": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 404
+        },
+        "native-nonhd": {
+          "delay": 0.291,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_eth::cancel": {
+      "TaskEnableEthCancel": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_eth::status": {
+      "TaskEnableEthStatus": {
+        "native-hd": {
+          "delay": 1.308,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 1.307,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_qtum::cancel": {
+      "TaskEnableQtumCancel": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_qtum::init": {
+      "TaskEnableQtumInit": {
+        "native-hd": {
+          "delay": 0.009,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.002,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_qtum::status": {
+      "TaskEnableQtumStatus": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_tendermint::cancel": {
+      "TaskEnableTendermintCancel": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_tendermint::init": {
+      "TaskEnableTendermintInit": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_tendermint::status": {
+      "TaskEnableTendermintStatus": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_utxo::cancel": {
+      "TaskEnableUtxoCancel": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_utxo::init": {
+      "TaskEnableUtxoInit": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_utxo::status": {
+      "TaskEnableUtxoStatus": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_z_coin::cancel": {
+      "TaskEnableZCoinCancel": {
+        "native-hd": {
+          "delay": 0.002,
+          "status_code": 409
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 409
+        }
+      }
+    },
+    "task::enable_z_coin::init": {
+      "TaskEnableZCoinInitBasic": {
+        "native-hd": {
+          "delay": 0.009,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      },
+      "TaskEnableZCoinInitWasm": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      },
+      "TaskEnableZCoinInitWithSyncParams": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "task::enable_z_coin::status": {
+      "TaskEnableZCoinStatus": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "version": {
+      "LegacyVersion": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 200
+        }
+      }
+    },
+    "withdraw": {
+      "WithdrawMartyAccountId": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 404
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyDerivationPath": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 404
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyFixedFee": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 404
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyNonHD": {
+        "native-hd": {
+          "delay": 0.001,
+          "status_code": 404
+        },
+        "native-nonhd": {
+          "delay": 0.301,
+          "status_code": 200
+        }
+      },
+      "WithdrawMartyPerKbyte": {
+        "native-hd": {
+          "delay": 0.328,
+          "status_code": 200
+        },
+        "native-nonhd": {
+          "delay": 0.001,
+          "status_code": 400
+        }
+      }
+    }
+  },
+  "metadata": {
+    "description": "Response timing data for KDF methods across different environments",
+    "generated_at": "2025-10-01 06:00:19 UTC",
+    "total_methods": 25,
+    "total_requests": 43
+  }
+}

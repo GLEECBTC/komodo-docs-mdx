@@ -1,0 +1,1884 @@
+{
+  "native-hd:task::enable_eth:8": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298397.2485645,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_eth::init",
+      "mmrpc": "2.0",
+      "params": {
+        "erc20_tokens_requests": [
+          {
+            "required_confirmations": 4,
+            "ticker": "PGX-PLG20"
+          },
+          {
+            "required_confirmations": 4,
+            "ticker": "AAVE-PLG20"
+          }
+        ],
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "gap_limit": 20,
+        "gas_station_url": "https://gasstation-mainnet.matic.network/",
+        "min_addresses_number": 3,
+        "nodes": [
+          {
+            "url": "https://polygon-bor-rpc.publicnode.com",
+            "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          },
+          {
+            "url": "https://polygon.drpc.org",
+            "ws_url": "wss://polygon.drpc.org"
+          },
+          {
+            "url": "https://polygon.gateway.tenderly.co",
+            "ws_url": "wss://polygon.gateway.tenderly.co"
+          }
+        ],
+        "path_to_address": {
+          "account_id": 0,
+          "address_id": 1,
+          "chain": "External"
+        },
+        "required_confirmations": 5,
+        "scan_policy": "scan_if_new_wallet",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "swap_v2_contracts": {
+          "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+        },
+        "ticker": "MATIC"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 8
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "ActivatingCoin",
+          "status": "InProgress"
+        }
+      }
+    ],
+    "task_id": 8,
+    "task_name": "task::enable_eth"
+  },
+  "native-hd:task::enable_eth:9": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_eth::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 9
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298402.8868046,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_eth::init",
+      "mmrpc": "2.0",
+      "params": {
+        "erc20_tokens_requests": [
+          {
+            "required_confirmations": 4,
+            "ticker": "PGX-PLG20"
+          },
+          {
+            "required_confirmations": 4,
+            "ticker": "AAVE-PLG20"
+          }
+        ],
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "gap_limit": 20,
+        "gas_station_url": "https://gasstation-mainnet.matic.network/",
+        "min_addresses_number": 3,
+        "nodes": [
+          {
+            "url": "https://polygon-bor-rpc.publicnode.com",
+            "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          },
+          {
+            "url": "https://polygon.drpc.org",
+            "ws_url": "wss://polygon.drpc.org"
+          },
+          {
+            "url": "https://polygon.gateway.tenderly.co",
+            "ws_url": "wss://polygon.gateway.tenderly.co"
+          }
+        ],
+        "path_to_address": {
+          "account_id": 0,
+          "address_id": 1,
+          "chain": "External"
+        },
+        "required_confirmations": 5,
+        "scan_policy": "scan_if_new_wallet",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "swap_v2_contracts": {
+          "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+        },
+        "ticker": "MATIC"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 9
+      }
+    },
+    "status_responses": null,
+    "task_id": 9,
+    "task_name": "task::enable_eth"
+  },
+  "native-hd:task::enable_qtum:1": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298399.3590028,
+    "created_at": 1759298336.7064557,
+    "init_request": {
+      "method": "task::enable_qtum::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum1.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum2.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum3.cipig.net:20050"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey"
+        },
+        "ticker": "QTUM"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 1
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "current_block": 5205414,
+            "ticker": "QTUM",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                      "balance": {
+                        "QTUM": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/2301'/0'/0/1"
+                    },
+                    {
+                      "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                      "balance": {
+                        "QTUM": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/2301'/0'/0/0"
+                    },
+                    {
+                      "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                      "balance": {
+                        "QTUM": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/2301'/0'/0/2"
+                    }
+                  ],
+                  "derivation_path": "m/44'/2301'/0'",
+                  "total_balance": {
+                    "QTUM": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 1,
+    "task_name": "task::enable_qtum"
+  },
+  "native-hd:task::enable_qtum:10": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_qtum::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 10
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298406.404283,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_qtum::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "gap_limit": 20,
+          "min_addresses_number": 3,
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum1.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum2.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum3.cipig.net:20050"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey",
+          "scan_policy": "scan_if_new_wallet"
+        },
+        "ticker": "QTUM"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 10
+      }
+    },
+    "status_responses": null,
+    "task_id": 10,
+    "task_name": "task::enable_qtum"
+  },
+  "native-hd:task::enable_tendermint:0": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298316.6220577,
+    "created_at": 1759298311.3192759,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "get_balances": true,
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [],
+        "tx_history": false
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 0
+      }
+    },
+    "status_responses": [
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "ActivatingCoin",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096166,
+            "ticker": "IRIS",
+            "tokens_balances": {}
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 0,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-hd:task::enable_tendermint:11": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 11
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298409.9214709,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [
+          {
+            "ticker": "ATOM-IBC_IRIS"
+          }
+        ]
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 11
+      }
+    },
+    "status_responses": null,
+    "task_id": 11,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-hd:task::enable_tendermint:2": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298399.8617327,
+    "created_at": 1759298339.215855,
+    "init_request": {
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [
+          {
+            "ticker": "ATOM-IBC_IRIS"
+          }
+        ]
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 2
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096170,
+            "ticker": "IRIS",
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 2,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-hd:task::enable_utxo:12": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_utxo::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 12
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298413.4386206,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_utxo::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "gap_limit": 20,
+          "min_addresses_number": 3,
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum1.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum2.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum3.cipig.net:20001"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey",
+          "scan_policy": "scan_if_new_wallet"
+        },
+        "ticker": "KMD"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 12
+      }
+    },
+    "status_responses": null,
+    "task_id": 12,
+    "task_name": "task::enable_utxo"
+  },
+  "native-hd:task::enable_utxo:3": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298389.2740743,
+    "created_at": 1759298340.72201,
+    "init_request": {
+      "method": "task::enable_utxo::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum1.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum2.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum3.cipig.net:20001"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey"
+        },
+        "ticker": "KMD"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 3
+      }
+    },
+    "status_responses": [
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "RequestingWalletBalance",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "current_block": 4635222,
+            "ticker": "KMD",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                      "balance": {
+                        "KMD": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/0"
+                    },
+                    {
+                      "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                      "balance": {
+                        "KMD": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/2"
+                    },
+                    {
+                      "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                      "balance": {
+                        "KMD": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/1"
+                    }
+                  ],
+                  "derivation_path": "m/44'/141'/0'",
+                  "total_balance": {
+                    "KMD": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 3,
+    "task_name": "task::enable_utxo"
+  },
+  "native-hd:task::enable_utxo:7": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298400.3648062,
+    "created_at": 1759298344.252773,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_utxo::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "gap_limit": 20,
+          "min_addresses_number": 3,
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "contact": [
+                    {
+                      "email": "cipi@komodoplatform.com"
+                    },
+                    {
+                      "discord": "cipi#4502"
+                    }
+                  ],
+                  "protocol": "SSL",
+                  "url": "marty.electrum1.cipig.net:20021"
+                },
+                {
+                  "contact": [
+                    {
+                      "email": "cipi@komodoplatform.com"
+                    },
+                    {
+                      "discord": "cipi#4502"
+                    }
+                  ],
+                  "protocol": "SSL",
+                  "url": "marty.electrum2.cipig.net:20021"
+                },
+                {
+                  "contact": [
+                    {
+                      "email": "cipi@komodoplatform.com"
+                    },
+                    {
+                      "discord": "cipi#4502"
+                    }
+                  ],
+                  "protocol": "SSL",
+                  "url": "marty.electrum3.cipig.net:20021"
+                }
+              ]
+            }
+          },
+          "path_to_address": {
+            "account_id": 0,
+            "address_id": 0,
+            "chain": "External"
+          },
+          "priv_key_policy": "ContextPrivKey",
+          "scan_policy": "scan_if_new_wallet"
+        },
+        "get_balances": true,
+        "ticker": "MARTY",
+        "tx_history": true
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 7
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "current_block": 1213324,
+            "ticker": "MARTY",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                      "balance": {
+                        "MARTY": {
+                          "spendable": "7.62",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/0"
+                    },
+                    {
+                      "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                      "balance": {
+                        "MARTY": {
+                          "spendable": "7.62",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/2"
+                    },
+                    {
+                      "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                      "balance": {
+                        "MARTY": {
+                          "spendable": "7.62",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/141'/0'/0/1"
+                    }
+                  ],
+                  "derivation_path": "m/44'/141'/0'",
+                  "total_balance": {
+                    "MARTY": {
+                      "spendable": "22.86",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 7,
+    "task_name": "task::enable_utxo"
+  },
+  "native-hd:task::enable_z_coin:13": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298415.9519649,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ]
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 13
+      }
+    },
+    "status_responses": null,
+    "task_id": 13,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-hd:task::enable_z_coin:4": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298342.2361429,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ]
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 4
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+            "error_data": {
+              "error": "ZCashParamsNotFound",
+              "ticker": "ZOMBIE"
+            },
+            "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+            "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+            "error_type": "CoinCreationError"
+          },
+          "status": "Error"
+        }
+      }
+    ],
+    "task_id": 4,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-hd:task::enable_z_coin:5": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298342.7409523,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "WSS",
+                  "url": "zombie.dragonhound.info:30059"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:19447"
+              ]
+            }
+          },
+          "tx_history": true
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 5
+      }
+    },
+    "status_responses": null,
+    "task_id": 5,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-hd:task::enable_z_coin:6": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298343.2454996,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ],
+              "sync_params": {
+                "height": 2528700
+              }
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 6
+      }
+    },
+    "status_responses": null,
+    "task_id": 6,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-nonhd:task::enable_eth:7": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298398.5556695,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_eth::init",
+      "mmrpc": "2.0",
+      "params": {
+        "erc20_tokens_requests": [
+          {
+            "required_confirmations": 4,
+            "ticker": "PGX-PLG20"
+          },
+          {
+            "required_confirmations": 4,
+            "ticker": "AAVE-PLG20"
+          }
+        ],
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "gap_limit": 20,
+        "gas_station_url": "https://gasstation-mainnet.matic.network/",
+        "min_addresses_number": 3,
+        "nodes": [
+          {
+            "url": "https://polygon-bor-rpc.publicnode.com",
+            "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          },
+          {
+            "url": "https://polygon.drpc.org",
+            "ws_url": "wss://polygon.drpc.org"
+          },
+          {
+            "url": "https://polygon.gateway.tenderly.co",
+            "ws_url": "wss://polygon.gateway.tenderly.co"
+          }
+        ],
+        "path_to_address": {
+          "account_id": 0,
+          "address_id": 1,
+          "chain": "External"
+        },
+        "required_confirmations": 5,
+        "scan_policy": "scan_if_new_wallet",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "swap_v2_contracts": {
+          "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+        },
+        "ticker": "MATIC"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 7
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "ActivatingCoin",
+          "status": "InProgress"
+        }
+      }
+    ],
+    "task_id": 7,
+    "task_name": "task::enable_eth"
+  },
+  "native-nonhd:task::enable_eth:8": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_eth::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 8
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298404.8971431,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_eth::init",
+      "mmrpc": "2.0",
+      "params": {
+        "erc20_tokens_requests": [
+          {
+            "required_confirmations": 4,
+            "ticker": "PGX-PLG20"
+          },
+          {
+            "required_confirmations": 4,
+            "ticker": "AAVE-PLG20"
+          }
+        ],
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "gap_limit": 20,
+        "gas_station_url": "https://gasstation-mainnet.matic.network/",
+        "min_addresses_number": 3,
+        "nodes": [
+          {
+            "url": "https://polygon-bor-rpc.publicnode.com",
+            "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          },
+          {
+            "url": "https://polygon.drpc.org",
+            "ws_url": "wss://polygon.drpc.org"
+          },
+          {
+            "url": "https://polygon.gateway.tenderly.co",
+            "ws_url": "wss://polygon.gateway.tenderly.co"
+          }
+        ],
+        "path_to_address": {
+          "account_id": 0,
+          "address_id": 1,
+          "chain": "External"
+        },
+        "required_confirmations": 5,
+        "scan_policy": "scan_if_new_wallet",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "swap_v2_contracts": {
+          "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+        },
+        "ticker": "MATIC"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 8
+      }
+    },
+    "status_responses": null,
+    "task_id": 8,
+    "task_name": "task::enable_eth"
+  },
+  "native-nonhd:task::enable_qtum:1": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298399.3600035,
+    "created_at": 1759298337.7115204,
+    "init_request": {
+      "method": "task::enable_qtum::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum1.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum2.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum3.cipig.net:20050"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey"
+        },
+        "ticker": "QTUM"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 1
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "current_block": 5205414,
+            "ticker": "QTUM",
+            "wallet_balance": {
+              "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+              "balance": {
+                "QTUM": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              },
+              "wallet_type": "Iguana"
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 1,
+    "task_name": "task::enable_qtum"
+  },
+  "native-nonhd:task::enable_qtum:9": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_qtum::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 9
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298407.4107676,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_qtum::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "gap_limit": 20,
+          "min_addresses_number": 3,
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum1.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum2.cipig.net:20050"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "qtum.electrum3.cipig.net:20050"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey",
+          "scan_policy": "scan_if_new_wallet"
+        },
+        "ticker": "QTUM"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 9
+      }
+    },
+    "status_responses": null,
+    "task_id": 9,
+    "task_name": "task::enable_qtum"
+  },
+  "native-nonhd:task::enable_tendermint:0": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298323.20437,
+    "created_at": 1759298317.9016917,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "get_balances": true,
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [],
+        "tx_history": false
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 0
+      }
+    },
+    "status_responses": [
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": "ActivatingCoin",
+          "status": "InProgress"
+        }
+      },
+      {
+        "id": 0,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096167,
+            "ticker": "IRIS",
+            "tokens_balances": {}
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 0,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-nonhd:task::enable_tendermint:10": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 10
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298411.931365,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [
+          {
+            "ticker": "ATOM-IBC_IRIS"
+          }
+        ]
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 10
+      }
+    },
+    "status_responses": null,
+    "task_id": 10,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-nonhd:task::enable_tendermint:2": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298399.862844,
+    "created_at": 1759298340.2194448,
+    "init_request": {
+      "method": "task::enable_tendermint::init",
+      "mmrpc": "2.0",
+      "params": {
+        "nodes": [
+          {
+            "url": "https://rpc.irishub-1.irisnet.org"
+          }
+        ],
+        "ticker": "IRIS",
+        "tokens_params": [
+          {
+            "ticker": "ATOM-IBC_IRIS"
+          }
+        ]
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 2
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096171,
+            "ticker": "IRIS",
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 2,
+    "task_name": "task::enable_tendermint"
+  },
+  "native-nonhd:task::enable_utxo:11": {
+    "cancel_request": {
+      "id": 0,
+      "method": "task::enable_utxo::cancel",
+      "mmrpc": "2.0",
+      "params": {
+        "task_id": 11
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "cancel_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298414.4445724,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_utxo::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "gap_limit": 20,
+          "min_addresses_number": 3,
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum1.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum2.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum3.cipig.net:20001"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey",
+          "scan_policy": "scan_if_new_wallet"
+        },
+        "ticker": "KMD"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 11
+      }
+    },
+    "status_responses": null,
+    "task_id": 11,
+    "task_name": "task::enable_utxo"
+  },
+  "native-nonhd:task::enable_utxo:3": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": true,
+    "completed_at": 1759298400.3658912,
+    "created_at": 1759298341.7251396,
+    "init_request": {
+      "method": "task::enable_utxo::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Electrum",
+            "rpc_data": {
+              "servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum1.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum2.cipig.net:20001"
+                },
+                {
+                  "protocol": "SSL",
+                  "url": "kmd.electrum3.cipig.net:20001"
+                }
+              ]
+            }
+          },
+          "priv_key_policy": "ContextPrivKey"
+        },
+        "ticker": "KMD"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 3
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "current_block": 4635222,
+            "ticker": "KMD",
+            "wallet_balance": {
+              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+              "balance": {
+                "KMD": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              },
+              "wallet_type": "Iguana"
+            }
+          },
+          "status": "Ok"
+        }
+      }
+    ],
+    "task_id": 3,
+    "task_name": "task::enable_utxo"
+  },
+  "native-nonhd:task::enable_z_coin:12": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298416.9585323,
+    "init_request": {
+      "id": 0,
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ]
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 12
+      }
+    },
+    "status_responses": null,
+    "task_id": 12,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-nonhd:task::enable_z_coin:4": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298342.2386076,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ]
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 4
+      }
+    },
+    "status_responses": [
+      {
+        "id": null,
+        "mmrpc": "2.0",
+        "result": {
+          "details": {
+            "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+            "error_data": {
+              "error": "ZCashParamsNotFound",
+              "ticker": "ZOMBIE"
+            },
+            "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+            "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+            "error_type": "CoinCreationError"
+          },
+          "status": "Error"
+        }
+      }
+    ],
+    "task_id": 4,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-nonhd:task::enable_z_coin:5": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298342.7427483,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "WSS",
+                  "url": "zombie.dragonhound.info:30059"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:19447"
+              ]
+            }
+          },
+          "tx_history": true
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 5
+      }
+    },
+    "status_responses": null,
+    "task_id": 5,
+    "task_name": "task::enable_z_coin"
+  },
+  "native-nonhd:task::enable_z_coin:6": {
+    "cancel_request": null,
+    "cancel_response": null,
+    "completed": false,
+    "completed_at": null,
+    "created_at": 1759298343.2476397,
+    "init_request": {
+      "method": "task::enable_z_coin::init",
+      "mmrpc": "2.0",
+      "params": {
+        "activation_params": {
+          "mode": {
+            "rpc": "Light",
+            "rpc_data": {
+              "electrum_servers": [
+                {
+                  "protocol": "SSL",
+                  "url": "zombie.dragonhound.info:20133"
+                },
+                {
+                  "protocol": "TCP",
+                  "url": "zombie.dragonhound.info:10133"
+                }
+              ],
+              "light_wallet_d_servers": [
+                "https://zombie.dragonhound.info:9447"
+              ],
+              "sync_params": {
+                "height": 2528700
+              }
+            }
+          },
+          "scan_blocks_per_iteration": 100,
+          "scan_interval_ms": 200,
+          "zcash_params_path": "/home/username/path_to/.zcash-params"
+        },
+        "ticker": "ZOMBIE"
+      },
+      "userpass": "RPC_UserP@SSW0RD"
+    },
+    "init_response": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 6
+      }
+    },
+    "status_responses": null,
+    "task_id": 6,
+    "task_name": "task::enable_z_coin"
+  }
+}

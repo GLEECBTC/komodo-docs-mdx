@@ -1,0 +1,2984 @@
+{
+  "auto_updatable": {
+    "AddNodeToVersionStat": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "EnableErc20Basic": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "balances": {
+          "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+            "spendable": "0",
+            "unspendable": "0"
+          }
+        },
+        "platform_coin": "ETH",
+        "required_confirmations": 3,
+        "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+      }
+    },
+    "EnableEthWithTokensGasStation": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "current_block": 23481014,
+        "nfts_infos": {},
+        "ticker": "ETH",
+        "wallet_balance": {
+          "accounts": [
+            {
+              "account_index": 0,
+              "addresses": [
+                {
+                  "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                  "balance": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "chain": "External",
+                  "derivation_path": "m/44'/60'/0'/0/0"
+                }
+              ],
+              "derivation_path": "m/44'/60'/0'",
+              "total_balance": {
+                "APE-ERC20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "ETH": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "MINDS-ERC20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          ],
+          "wallet_type": "HD"
+        }
+      }
+    },
+    "EnableEthWithTokensMaticBalancesFalse": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "current_block": 77116134,
+        "nfts_infos": {},
+        "ticker": "MATIC",
+        "wallet_balance": {
+          "accounts": [
+            {
+              "account_index": 0,
+              "addresses": [
+                {
+                  "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                  "balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "chain": "External",
+                  "derivation_path": "m/44'/60'/0'/0/0"
+                }
+              ],
+              "derivation_path": "m/44'/60'/0'",
+              "total_balance": {
+                "AAVE-PLG20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "MATIC": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "PGX-PLG20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          ],
+          "wallet_type": "HD"
+        }
+      }
+    },
+    "EnableEthWithTokensMaticNft": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "current_block": 77116149,
+        "nfts_infos": {},
+        "ticker": "MATIC",
+        "wallet_balance": {
+          "accounts": [
+            {
+              "account_index": 0,
+              "addresses": [
+                {
+                  "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                  "balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  },
+                  "chain": "External",
+                  "derivation_path": "m/44'/60'/0'/0/0"
+                }
+              ],
+              "derivation_path": "m/44'/60'/0'",
+              "total_balance": {
+                "AAVE-PLG20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "MATIC": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "PGX-PLG20": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            }
+          ],
+          "wallet_type": "HD"
+        }
+      }
+    },
+    "EnableTendermintTokenBasic": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "balances": {
+          "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
+            "spendable": "0",
+            "unspendable": "0"
+          }
+        },
+        "platform_coin": "IRIS"
+      }
+    },
+    "EnableTendermintWithAssetsBalancesFalse": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+        "current_block": 32096168,
+        "ticker": "IRIS",
+        "tokens_tickers": [
+          "ATOM-IBC_IRIS"
+        ]
+      }
+    },
+    "EnableTendermintWithAssetsBalancesTrue": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+        "balance": {
+          "spendable": "0",
+          "unspendable": "0"
+        },
+        "current_block": 32096169,
+        "ticker": "IRIS",
+        "tokens_balances": {
+          "ATOM-IBC_IRIS": {
+            "spendable": "0",
+            "unspendable": "0"
+          }
+        }
+      }
+    },
+    "FetchUtxos": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "addresses": [
+          {
+            "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+            "count": 1,
+            "utxos": [
+              {
+                "txid": "15734e22b9e3f3eae1be74ec8971de0e19245770b0e78cb5490494d7f17d16c9",
+                "value": "7.62",
+                "vout": 0
+              }
+            ]
+          }
+        ],
+        "total_count": 1
+      }
+    },
+    "LegacyElectrumBch": {
+      "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
+      "balance": "0",
+      "coin": "BCH",
+      "mature_confirmations": 100,
+      "required_confirmations": 1,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyElectrumDoc": {
+      "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+      "balance": "7.62",
+      "coin": "DOC",
+      "mature_confirmations": 100,
+      "required_confirmations": 10,
+      "requires_notarization": true,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyElectrumKmd": {
+      "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+      "balance": "0",
+      "coin": "KMD",
+      "mature_confirmations": 100,
+      "required_confirmations": 10,
+      "requires_notarization": true,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyElectrumMarty": {
+      "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+      "balance": "7.62",
+      "coin": "MARTY",
+      "mature_confirmations": 100,
+      "required_confirmations": 10,
+      "requires_notarization": true,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyElectrumQtum": {
+      "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+      "balance": "0",
+      "coin": "QTUM",
+      "mature_confirmations": 2000,
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyEnableBnb": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "BUSD-BEP20",
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyEnableEth": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "ETH",
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyEnableEthGasStation": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "ETH",
+      "required_confirmations": 3,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyEnableMatic": {
+      "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+      "balance": "0",
+      "coin": "NZDS-PLG20",
+      "required_confirmations": 20,
+      "requires_notarization": false,
+      "result": "success",
+      "unspendable_balance": "0"
+    },
+    "LegacyVersion": {
+      "datetime": "2025-09-19T08:42:42.719348125+00:00",
+      "result": "2.5.1-beta_dev-d6e2324"
+    },
+    "TaskEnableEthCancel": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "TaskEnableEthStatus": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "details": "ActivatingCoin",
+        "status": "InProgress"
+      }
+    },
+    "TaskEnableQtumCancel": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "TaskEnableQtumInit": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 1
+      }
+    },
+    "TaskEnableQtumStatus": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "details": {
+          "current_block": 5205414,
+          "ticker": "QTUM",
+          "wallet_balance": {
+            "accounts": [
+              {
+                "account_index": 0,
+                "addresses": [
+                  {
+                    "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/1"
+                  },
+                  {
+                    "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/0"
+                  },
+                  {
+                    "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                    "balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/2301'/0'/0/2"
+                  }
+                ],
+                "derivation_path": "m/44'/2301'/0'",
+                "total_balance": {
+                  "QTUM": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                }
+              }
+            ],
+            "wallet_type": "HD"
+          }
+        },
+        "status": "Ok"
+      }
+    },
+    "TaskEnableTendermintCancel": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "TaskEnableTendermintInit": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 2
+      }
+    },
+    "TaskEnableTendermintStatus": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "details": {
+          "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+          "balance": {
+            "spendable": "0",
+            "unspendable": "0"
+          },
+          "current_block": 32096170,
+          "ticker": "IRIS",
+          "tokens_balances": {
+            "ATOM-IBC_IRIS": {
+              "spendable": "0",
+              "unspendable": "0"
+            }
+          }
+        },
+        "status": "Ok"
+      }
+    },
+    "TaskEnableUtxoCancel": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": "success"
+    },
+    "TaskEnableUtxoInit": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 3
+      }
+    },
+    "TaskEnableUtxoStatus": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "details": {
+          "current_block": 1213324,
+          "ticker": "MARTY",
+          "wallet_balance": {
+            "accounts": [
+              {
+                "account_index": 0,
+                "addresses": [
+                  {
+                    "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                    "balance": {
+                      "MARTY": {
+                        "spendable": "7.62",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/141'/0'/0/0"
+                  },
+                  {
+                    "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                    "balance": {
+                      "MARTY": {
+                        "spendable": "7.62",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/141'/0'/0/2"
+                  },
+                  {
+                    "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                    "balance": {
+                      "MARTY": {
+                        "spendable": "7.62",
+                        "unspendable": "0"
+                      }
+                    },
+                    "chain": "External",
+                    "derivation_path": "m/44'/141'/0'/0/1"
+                  }
+                ],
+                "derivation_path": "m/44'/141'/0'",
+                "total_balance": {
+                  "MARTY": {
+                    "spendable": "22.86",
+                    "unspendable": "0"
+                  }
+                }
+              }
+            ],
+            "wallet_type": "HD"
+          }
+        },
+        "status": "Ok"
+      }
+    },
+    "TaskEnableZCoinInitBasic": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 4
+      }
+    },
+    "TaskEnableZCoinInitWasm": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 5
+      }
+    },
+    "TaskEnableZCoinInitWithSyncParams": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "task_id": 6
+      }
+    },
+    "TaskEnableZCoinStatus": {
+      "id": null,
+      "mmrpc": "2.0",
+      "result": {
+        "details": {
+          "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+          "error_data": {
+            "error": "ZCashParamsNotFound",
+            "ticker": "ZOMBIE"
+          },
+          "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+          "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+          "error_type": "CoinCreationError"
+        },
+        "status": "Error"
+      }
+    },
+    "WithdrawMartyNonHD": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "block_height": 0,
+        "coin": "MARTY",
+        "fee_details": {
+          "amount": "0.00000245",
+          "coin": "MARTY",
+          "type": "Utxo"
+        },
+        "from": [
+          "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+        ],
+        "internal_id": "",
+        "memo": null,
+        "my_balance_change": "-0.00000245",
+        "received_by_me": "7.61999755",
+        "spent_by_me": "7.62",
+        "timestamp": 1759298394,
+        "to": [
+          "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+        ],
+        "total_amount": "7.62",
+        "transaction_type": "StandardTransfer",
+        "tx_hash": "79829c4eed0445044f0b0900b9d289b6a49b9004d39f26c5964de87a3a577347",
+        "tx_hex": "0400008085202f8901c9167df1d7940449b58ce7b0705724190ede7189ec74bee1eaf3e3b9224e7315000000006a47304402207616d6b25e8ca325d480baa936ad3bf1bb7aab1c86d784340066dd11cf70d64b022067f8a99ebad95e92f419c7ae8e82c18fba8a7ab6f2e7947bc8818b582b98399501210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0280969800000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac0b9bd22c000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac5ac3dc68000000000000000000000000000000"
+      }
+    },
+    "WithdrawMartyPerKbyte": {
+      "id": 0,
+      "mmrpc": "2.0",
+      "result": {
+        "block_height": 0,
+        "coin": "MARTY",
+        "fee_details": {
+          "amount": "0.245",
+          "coin": "MARTY",
+          "type": "Utxo"
+        },
+        "from": [
+          "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+        ],
+        "internal_id": "",
+        "memo": null,
+        "my_balance_change": "-0.245",
+        "received_by_me": "7.375",
+        "spent_by_me": "7.62",
+        "timestamp": 1759298395,
+        "to": [
+          "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+        ],
+        "total_amount": "7.62",
+        "transaction_type": "StandardTransfer",
+        "tx_hash": "b65006eb6ae799c3b72235d4e0f8df26e14f35d48a598cbb5abc2b16dd166542",
+        "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a4730440220470e1062f5b77e1b25898b0f77f5ea58ea02dbde025ee1f3336b2a749fe9113602200c263aa97cc23dbe90e236e4aeed3597f96be4bd5de54248376e429a7bdce95a0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac607aff25000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac5bc3dc68000000000000000000000000000000"
+      }
+    }
+  },
+  "manual_review_needed": {
+    "ConsolidateUtxos": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
+        }
+      },
+      "notes": "Method: consolidate_utxos",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "consolidate_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY",
+          "merge_conditions": {
+            "max_merge_at_once": 2,
+            "merge_at": 2
+          }
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableNative": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        }
+      },
+      "notes": "Method: enable",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableNativeWithParams": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        }
+      },
+      "notes": "Method: enable",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinCancel": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 409",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":13,\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 409",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":12,\"id\":0}"
+        }
+      },
+      "notes": "Method: task::enable_z_coin::cancel",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "method": "task::enable_z_coin::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyAccountId": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 0.01,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "account_id": 0,
+            "address_id": 1,
+            "chain": "External"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyDerivationPath": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 1.025,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/0"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyFixedFee": {
+      "collection_method": "regular",
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "reasons": [
+        "contains_errors"
+      ],
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "0.1",
+            "type": "UtxoFixed"
+          },
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/0"
+          },
+          "to": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    }
+  },
+  "metadata": {
+    "auto_updatable_count": 36,
+    "collection_summary": {
+      "regular_methods": 43
+    },
+    "collection_timestamp": "2025-10-01 06:00:19 UTC",
+    "total_responses_collected": 43
+  },
+  "responses": {
+    "AddNodeToVersionStat": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: add_node_to_version_stat",
+      "request": {
+        "method": "add_node_to_version_stat",
+        "mmrpc": "2.0",
+        "params": {
+          "address": "168.119.236.241",
+          "name": "seed1",
+          "peer_id": "12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "ConsolidateUtxos": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"error_path\":\"consolidate_utxos.utxo_arc_builder\",\"error_trace\":\"consolidate_utxos:112] utxo_arc_builder:179]\",\"error_type\":\"BadMergeConditions\",\"error_data\":\"Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=2\",\"id\":null}"
+        }
+      },
+      "notes": "Method: consolidate_utxos",
+      "request": {
+        "method": "consolidate_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY",
+          "merge_conditions": {
+            "max_merge_at_once": 2,
+            "merge_at": 2
+          }
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableErc20Basic": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Expected 'SingleAddress' derivation method\",\"error_path\":\"token.erc20_token_activation.lp_coins\",\"error_trace\":\"token:157] erc20_token_activation:170] lp_coins:4658]\",\"error_type\":\"UnexpectedDerivationMethod\",\"error_data\":\"ExpectedSingleAddress\",\"id\":null}"
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "ETH",
+            "required_confirmations": 3,
+            "token_contract_address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+          }
+        }
+      },
+      "notes": "Method: enable_erc20",
+      "request": {
+        "method": "enable_erc20",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "required_confirmations": 3
+          },
+          "ticker": "BAT-ERC20"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableEthWithTokensGasStation": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23481014,
+            "nfts_infos": {},
+            "ticker": "ETH",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "APE-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "ETH": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MINDS-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23481017,
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "balances": {
+                  "APE-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  },
+                  "BAT-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  },
+                  "MINDS-ERC20": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                },
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "balances": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                },
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "nfts_infos": {}
+          }
+        }
+      },
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "APE-ERC20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "MINDS-ERC20"
+            }
+          ],
+          "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+          "gas_station_decimals": 8,
+          "gas_station_policy": {
+            "policy": "MeanAverageFast"
+          },
+          "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+          "mm2": 1,
+          "nodes": [
+            {
+              "url": "https://eth3.cipig.net:18555",
+              "ws_url": "wss://eth3.cipig.net:38555"
+            },
+            {
+              "url": "https://ethereum-rpc.publicnode.com",
+              "ws_url": "wss://ethereum-rpc.publicnode.com"
+            },
+            {
+              "url": "https://mainnet.gateway.tenderly.co",
+              "ws_url": "wss://mainnet.gateway.tenderly.co"
+            }
+          ],
+          "priv_key_policy": {
+            "type": "ContextPrivKey"
+          },
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+          "ticker": "ETH",
+          "tx_history": true
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableEthWithTokensMaticBalancesFalse": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 77116134,
+            "nfts_infos": {},
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 77116149,
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "tickers": [
+                  "AAVE-PLG20",
+                  "PGX-PLG20"
+                ]
+              }
+            },
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "nfts_infos": {}
+          }
+        }
+      },
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "PGX-PLG20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "AAVE-PLG20"
+            }
+          ],
+          "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "gas_station_url": "https://gasstation-mainnet.matic.network/",
+          "get_balances": false,
+          "nodes": [
+            {
+              "url": "https://polygon-bor-rpc.publicnode.com",
+              "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+            },
+            {
+              "url": "https://polygon.drpc.org",
+              "ws_url": "wss://polygon.drpc.org"
+            },
+            {
+              "url": "https://polygon.gateway.tenderly.co",
+              "ws_url": "wss://polygon.gateway.tenderly.co"
+            }
+          ],
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "swap_v2_contracts": {
+            "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+            "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+            "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
+          },
+          "ticker": "MATIC",
+          "tx_history": false
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableEthWithTokensMaticNft": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 77116149,
+            "nfts_infos": {},
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 77116150,
+            "erc20_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf",
+                "tickers": [
+                  "AAVE-PLG20",
+                  "PGX-PLG20"
+                ]
+              }
+            },
+            "eth_addresses_infos": {
+              "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375": {
+                "derivation_method": {
+                  "type": "Iguana"
+                },
+                "pubkey": "0488533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+              }
+            },
+            "nfts_infos": {}
+          }
+        }
+      },
+      "notes": "Method: enable_eth_with_tokens",
+      "request": {
+        "method": "enable_eth_with_tokens",
+        "mmrpc": "2.0",
+        "params": {
+          "erc20_tokens_requests": [
+            {
+              "required_confirmations": 4,
+              "ticker": "PGX-PLG20"
+            },
+            {
+              "required_confirmations": 4,
+              "ticker": "AAVE-PLG20"
+            }
+          ],
+          "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "gas_station_url": "https://gasstation-mainnet.matic.network/",
+          "get_balances": false,
+          "nft_req": {
+            "provider": {
+              "info": {
+                "url": "https://moralis-proxy.komodo.earth"
+              },
+              "type": "Moralis"
+            }
+          },
+          "nodes": [
+            {
+              "url": "https://polygon-bor-rpc.publicnode.com",
+              "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+            },
+            {
+              "url": "https://polygon.drpc.org",
+              "ws_url": "wss://polygon.drpc.org"
+            },
+            {
+              "url": "https://polygon.gateway.tenderly.co",
+              "ws_url": "wss://polygon.gateway.tenderly.co"
+            }
+          ],
+          "required_confirmations": 5,
+          "requires_notarization": false,
+          "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+          "ticker": "MATIC",
+          "tx_history": false
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableTendermintTokenBasic": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "IRIS"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "balances": {
+              "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            },
+            "platform_coin": "IRIS"
+          }
+        }
+      },
+      "notes": "Method: enable_tendermint_token",
+      "request": {
+        "method": "enable_tendermint_token",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "required_confirmations": 3
+          },
+          "ticker": "ATOM-IBC_IRIS"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableTendermintWithAssetsBalancesFalse": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "current_block": 32096168,
+            "ticker": "IRIS",
+            "tokens_tickers": [
+              "ATOM-IBC_IRIS"
+            ]
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+            "current_block": 32096169,
+            "ticker": "IRIS",
+            "tokens_tickers": [
+              "ATOM-IBC_IRIS"
+            ]
+          }
+        }
+      },
+      "notes": "Method: enable_tendermint_with_assets",
+      "request": {
+        "method": "enable_tendermint_with_assets",
+        "mmrpc": "2.0",
+        "params": {
+          "get_balances": false,
+          "mm2": 1,
+          "nodes": [
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ],
+          "tx_history": true
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "EnableTendermintWithAssetsBalancesTrue": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096169,
+            "ticker": "IRIS",
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32096170,
+            "ticker": "IRIS",
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          }
+        }
+      },
+      "notes": "Method: enable_tendermint_with_assets",
+      "request": {
+        "method": "enable_tendermint_with_assets",
+        "mmrpc": "2.0",
+        "params": {
+          "get_balances": true,
+          "nodes": [
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ]
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "FetchUtxos": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"NoSuchCoin\",\"error_path\":\"fetch_utxos.lp_coins\",\"error_trace\":\"fetch_utxos:75] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"id\":null}"
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "addresses": [
+              {
+                "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+                "count": 1,
+                "utxos": [
+                  {
+                    "txid": "15734e22b9e3f3eae1be74ec8971de0e19245770b0e78cb5490494d7f17d16c9",
+                    "value": "7.62",
+                    "vout": 0
+                  }
+                ]
+              }
+            ],
+            "total_count": 1
+          }
+        }
+      },
+      "notes": "Method: fetch_utxos",
+      "request": {
+        "method": "fetch_utxos",
+        "mmrpc": "2.0",
+        "params": {
+          "coin": "MARTY"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyElectrumBch": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+        },
+        "native-nonhd": {
+          "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
+          "balance": "0",
+          "coin": "BCH",
+          "mature_confirmations": 100,
+          "required_confirmations": 1,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "BCH",
+        "max_connected": 2,
+        "method": "electrum",
+        "min_connected": 1,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "bch.electrum3.cipig.net:20055"
+          },
+          {
+            "protocol": "SSL",
+            "url": "bch.imaginary.cash:50002"
+          },
+          {
+            "protocol": "SSL",
+            "url": "bch.soul-dev.com:50002"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyElectrumDoc": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+        },
+        "native-nonhd": {
+          "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+          "balance": "7.62",
+          "coin": "DOC",
+          "mature_confirmations": 100,
+          "required_confirmations": 10,
+          "requires_notarization": true,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "DOC",
+        "method": "electrum",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "doc.electrum1.cipig.net:20020"
+          },
+          {
+            "protocol": "SSL",
+            "url": "doc.electrum2.cipig.net:20020"
+          },
+          {
+            "protocol": "SSL",
+            "url": "doc.electrum3.cipig.net:20020"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD",
+        "utxo_merge_params": {
+          "check_every": 10,
+          "max_merge_at_once": 100,
+          "merge_at": 50
+        }
+      }
+    },
+    "LegacyElectrumKmd": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+        },
+        "native-nonhd": {
+          "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+          "balance": "0",
+          "coin": "KMD",
+          "mature_confirmations": 100,
+          "required_confirmations": 10,
+          "requires_notarization": true,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "KMD",
+        "method": "electrum",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "kmd.electrum1.cipig.net:20001"
+          },
+          {
+            "protocol": "SSL",
+            "url": "kmd.electrum2.cipig.net:20001"
+          },
+          {
+            "protocol": "SSL",
+            "url": "kmd.electrum3.cipig.net:20001"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyElectrumMarty": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+        },
+        "native-nonhd": {
+          "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+          "balance": "7.62",
+          "coin": "MARTY",
+          "mature_confirmations": 100,
+          "required_confirmations": 10,
+          "requires_notarization": true,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "MARTY",
+        "max_connected": 2,
+        "method": "electrum",
+        "min_connected": 1,
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "marty.electrum1.cipig.net:20021"
+          },
+          {
+            "protocol": "SSL",
+            "url": "marty.electrum2.cipig.net:20021"
+          },
+          {
+            "protocol": "SSL",
+            "url": "marty.electrum3.cipig.net:20021"
+          }
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyElectrumQtum": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}"
+        },
+        "native-nonhd": {
+          "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+          "balance": "0",
+          "coin": "QTUM",
+          "mature_confirmations": 2000,
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: electrum",
+      "request": {
+        "coin": "QTUM",
+        "fallback_swap_contract": "0x2f754733acd6d753731c00fee32cb484551cc15d",
+        "method": "electrum",
+        "servers": [
+          {
+            "protocol": "SSL",
+            "url": "qtum.electrum1.cipig.net:20050"
+          },
+          {
+            "protocol": "SSL",
+            "url": "qtum.electrum2.cipig.net:20050"
+          },
+          {
+            "protocol": "SSL",
+            "url": "qtum.electrum3.cipig.net:20050"
+          }
+        ],
+        "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableBnb": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
+        },
+        "native-nonhd": {
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "BUSD-BEP20",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "BUSD-BEP20",
+        "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+        "method": "enable",
+        "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
+        "urls": [
+          "https://bsc1.cipig.net:18655",
+          "https://bsc2.cipig.net:18655",
+          "https://bsc3.cipig.net:18655"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableEth": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
+        },
+        "native-nonhd": {
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "ETH",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "ETH",
+        "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+        "method": "enable",
+        "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+        "urls": [
+          "https://0xrpc.io/eth",
+          "https://eth3.cipig.net:18555",
+          "https://ethereum-rpc.publicnode.com"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableEthGasStation": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
+        },
+        "native-nonhd": {
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "ETH",
+          "required_confirmations": 3,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "ETH",
+        "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+        "gas_station_decimals": 8,
+        "gas_station_policy": {
+          "policy": "MeanAverageFast"
+        },
+        "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+        "method": "enable",
+        "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+        "urls": [
+          "https://eth.drpc.org",
+          "https://eth3.cipig.net:18555",
+          "https://mainnet.gateway.tenderly.co"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableMatic": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}"
+        },
+        "native-nonhd": {
+          "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+          "balance": "0",
+          "coin": "NZDS-PLG20",
+          "required_confirmations": 20,
+          "requires_notarization": false,
+          "result": "success",
+          "unspendable_balance": "0"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "NZDS-PLG20",
+        "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "method": "enable",
+        "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+        "urls": [
+          "https://node.komodo.earth:8080/polygon",
+          "https://pol3.cipig.net:18755",
+          "https://polygon.drpc.org"
+        ],
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableNative": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyEnableNativeWithParams": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}"
+        }
+      },
+      "notes": "Method: enable",
+      "request": {
+        "coin": "TKL",
+        "method": "enable",
+        "mm2": 1,
+        "required_confirmations": 10,
+        "requires_notarization": true,
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "LegacyVersion": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "datetime": "2025-09-19T08:42:42.719348125+00:00",
+          "result": "2.5.1-beta_dev-d6e2324"
+        },
+        "native-nonhd": {
+          "datetime": "2025-09-19T08:42:42.719348125+00:00",
+          "result": "2.5.1-beta_dev-d6e2324"
+        }
+      },
+      "notes": "Method: version",
+      "request": {
+        "method": "version"
+      }
+    },
+    "TaskEnableEthCancel": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: task::enable_eth::cancel",
+      "request": {
+        "method": "task::enable_eth::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableEthStatus": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": "ActivatingCoin",
+            "status": "InProgress"
+          }
+        }
+      },
+      "notes": "Method: task::enable_eth::status",
+      "request": {
+        "method": "task::enable_eth::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 7
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableQtumCancel": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: task::enable_qtum::cancel",
+      "request": {
+        "method": "task::enable_qtum::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableQtumInit": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 1
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 1
+          }
+        }
+      },
+      "notes": "Method: task::enable_qtum::init",
+      "request": {
+        "method": "task::enable_qtum::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Electrum",
+              "rpc_data": {
+                "servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "qtum.electrum1.cipig.net:20050"
+                  },
+                  {
+                    "protocol": "SSL",
+                    "url": "qtum.electrum2.cipig.net:20050"
+                  },
+                  {
+                    "protocol": "SSL",
+                    "url": "qtum.electrum3.cipig.net:20050"
+                  }
+                ]
+              }
+            },
+            "priv_key_policy": "ContextPrivKey"
+          },
+          "ticker": "QTUM"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableQtumStatus": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 5205414,
+              "ticker": "QTUM",
+              "wallet_balance": {
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "addresses": [
+                      {
+                        "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/1"
+                      },
+                      {
+                        "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/0"
+                      },
+                      {
+                        "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/2"
+                      }
+                    ],
+                    "derivation_path": "m/44'/2301'/0'",
+                    "total_balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
+                  }
+                ],
+                "wallet_type": "HD"
+              }
+            },
+            "status": "Ok"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 5205414,
+              "ticker": "QTUM",
+              "wallet_balance": {
+                "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
+                "balance": {
+                  "QTUM": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                },
+                "wallet_type": "Iguana"
+              }
+            },
+            "status": "Ok"
+          }
+        }
+      },
+      "notes": "Method: task::enable_qtum::status",
+      "request": {
+        "method": "task::enable_qtum::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableTendermintCancel": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: task::enable_tendermint::cancel",
+      "request": {
+        "method": "task::enable_tendermint::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableTendermintInit": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 2
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 2
+          }
+        }
+      },
+      "notes": "Method: task::enable_tendermint::init",
+      "request": {
+        "method": "task::enable_tendermint::init",
+        "mmrpc": "2.0",
+        "params": {
+          "nodes": [
+            {
+              "url": "https://rpc.irishub-1.irisnet.org"
+            }
+          ],
+          "ticker": "IRIS",
+          "tokens_params": [
+            {
+              "ticker": "ATOM-IBC_IRIS"
+            }
+          ]
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableTendermintStatus": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "current_block": 32096170,
+              "ticker": "IRIS",
+              "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            },
+            "status": "Ok"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "current_block": 32096171,
+              "ticker": "IRIS",
+              "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                  "spendable": "0",
+                  "unspendable": "0"
+                }
+              }
+            },
+            "status": "Ok"
+          }
+        }
+      },
+      "notes": "Method: task::enable_tendermint::status",
+      "request": {
+        "method": "task::enable_tendermint::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 2
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableUtxoCancel": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "native-nonhd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": "success"
+        }
+      },
+      "notes": "Method: task::enable_utxo::cancel",
+      "request": {
+        "method": "task::enable_utxo::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 1
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableUtxoInit": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 3
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 3
+          }
+        }
+      },
+      "notes": "Method: task::enable_utxo::init",
+      "request": {
+        "method": "task::enable_utxo::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Electrum",
+              "rpc_data": {
+                "servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "kmd.electrum1.cipig.net:20001"
+                  },
+                  {
+                    "protocol": "SSL",
+                    "url": "kmd.electrum2.cipig.net:20001"
+                  },
+                  {
+                    "protocol": "SSL",
+                    "url": "kmd.electrum3.cipig.net:20001"
+                  }
+                ]
+              }
+            },
+            "priv_key_policy": "ContextPrivKey"
+          },
+          "ticker": "KMD"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableUtxoStatus": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 1213324,
+              "ticker": "MARTY",
+              "wallet_balance": {
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "addresses": [
+                      {
+                        "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                        "balance": {
+                          "MARTY": {
+                            "spendable": "7.62",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/141'/0'/0/0"
+                      },
+                      {
+                        "address": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi",
+                        "balance": {
+                          "MARTY": {
+                            "spendable": "7.62",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/141'/0'/0/2"
+                      },
+                      {
+                        "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                        "balance": {
+                          "MARTY": {
+                            "spendable": "7.62",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/141'/0'/0/1"
+                      }
+                    ],
+                    "derivation_path": "m/44'/141'/0'",
+                    "total_balance": {
+                      "MARTY": {
+                        "spendable": "22.86",
+                        "unspendable": "0"
+                      }
+                    }
+                  }
+                ],
+                "wallet_type": "HD"
+              }
+            },
+            "status": "Ok"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 4635222,
+              "ticker": "KMD",
+              "wallet_balance": {
+                "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+                "balance": {
+                  "KMD": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                  }
+                },
+                "wallet_type": "Iguana"
+              }
+            },
+            "status": "Ok"
+          }
+        }
+      },
+      "notes": "Method: task::enable_utxo::status",
+      "request": {
+        "method": "task::enable_utxo::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinCancel": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 409",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":13,\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 409",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Task is finished already\",\"error_path\":\"init_standalone_coin.manager\",\"error_trace\":\"init_standalone_coin:167] manager:144]\",\"error_type\":\"TaskFinished\",\"error_data\":12,\"id\":0}"
+        }
+      },
+      "notes": "Method: task::enable_z_coin::cancel",
+      "request": {
+        "method": "task::enable_z_coin::cancel",
+        "mmrpc": "2.0",
+        "params": {
+          "task_id": 3
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinInitBasic": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 4
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 4
+          }
+        }
+      },
+      "notes": "Method: task::enable_z_coin::init",
+      "request": {
+        "method": "task::enable_z_coin::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Light",
+              "rpc_data": {
+                "electrum_servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "zombie.dragonhound.info:20133"
+                  },
+                  {
+                    "protocol": "TCP",
+                    "url": "zombie.dragonhound.info:10133"
+                  }
+                ],
+                "light_wallet_d_servers": [
+                  "https://zombie.dragonhound.info:9447"
+                ]
+              }
+            },
+            "scan_blocks_per_iteration": 100,
+            "scan_interval_ms": 200,
+            "zcash_params_path": "/home/username/path_to/.zcash-params"
+          },
+          "ticker": "ZOMBIE"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinInitWasm": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 5
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 5
+          }
+        }
+      },
+      "notes": "Method: task::enable_z_coin::init",
+      "request": {
+        "method": "task::enable_z_coin::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Light",
+              "rpc_data": {
+                "electrum_servers": [
+                  {
+                    "protocol": "WSS",
+                    "url": "zombie.dragonhound.info:30059"
+                  }
+                ],
+                "light_wallet_d_servers": [
+                  "https://zombie.dragonhound.info:19447"
+                ]
+              }
+            },
+            "tx_history": true
+          },
+          "ticker": "ZOMBIE"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinInitWithSyncParams": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 6
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 6
+          }
+        }
+      },
+      "notes": "Method: task::enable_z_coin::init",
+      "request": {
+        "method": "task::enable_z_coin::init",
+        "mmrpc": "2.0",
+        "params": {
+          "activation_params": {
+            "mode": {
+              "rpc": "Light",
+              "rpc_data": {
+                "electrum_servers": [
+                  {
+                    "protocol": "SSL",
+                    "url": "zombie.dragonhound.info:20133"
+                  },
+                  {
+                    "protocol": "TCP",
+                    "url": "zombie.dragonhound.info:10133"
+                  }
+                ],
+                "light_wallet_d_servers": [
+                  "https://zombie.dragonhound.info:9447"
+                ],
+                "sync_params": {
+                  "height": 2528700
+                }
+              }
+            },
+            "scan_blocks_per_iteration": 100,
+            "scan_interval_ms": 200,
+            "zcash_params_path": "/home/username/path_to/.zcash-params"
+          },
+          "ticker": "ZOMBIE"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "TaskEnableZCoinStatus": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_data": {
+                "error": "ZCashParamsNotFound",
+                "ticker": "ZOMBIE"
+              },
+              "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+              "error_type": "CoinCreationError"
+            },
+            "status": "Error"
+          }
+        },
+        "native-nonhd": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+              "error_data": {
+                "error": "ZCashParamsNotFound",
+                "ticker": "ZOMBIE"
+              },
+              "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
+              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+              "error_type": "CoinCreationError"
+            },
+            "status": "Error"
+          }
+        }
+      },
+      "notes": "Method: task::enable_z_coin::status",
+      "request": {
+        "method": "task::enable_z_coin::status",
+        "mmrpc": "2.0",
+        "params": {
+          "forget_if_finished": false,
+          "task_id": 4
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyAccountId": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 0.01,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "account_id": 0,
+            "address_id": 1,
+            "chain": "External"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyDerivationPath": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": 1.025,
+          "broadcast": true,
+          "coin": "MARTY",
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/0"
+          },
+          "to": "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyFixedFee": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "0.1",
+            "type": "UtxoFixed"
+          },
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/0"
+          },
+          "to": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyNonHD": {
+      "all_passed": false,
+      "collection_method": "regular",
+      "consistent_structure": true,
+      "instances": {
+        "native-hd": {
+          "error": "HTTP 404",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"No such coin MARTY\",\"error_path\":\"lp_coins\",\"error_trace\":\"lp_coins:5438] lp_coins:5365]\",\"error_type\":\"NoSuchCoin\",\"error_data\":{\"coin\":\"MARTY\"},\"id\":0}"
+        },
+        "native-nonhd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.00000245",
+            "received_by_me": "7.61999755",
+            "spent_by_me": "7.62",
+            "timestamp": 1759298394,
+            "to": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "79829c4eed0445044f0b0900b9d289b6a49b9004d39f26c5964de87a3a577347",
+            "tx_hex": "0400008085202f8901c9167df1d7940449b58ce7b0705724190ede7189ec74bee1eaf3e3b9224e7315000000006a47304402207616d6b25e8ca325d480baa936ad3bf1bb7aab1c86d784340066dd11cf70d64b022067f8a99ebad95e92f419c7ae8e82c18fba8a7ab6f2e7947bc8818b582b98399501210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0280969800000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac0b9bd22c000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac5ac3dc68000000000000000000000000000000"
+          }
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "0.1",
+          "broadcast": true,
+          "coin": "MARTY",
+          "to": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    },
+    "WithdrawMartyPerKbyte": {
+      "all_passed": true,
+      "collection_method": "regular",
+      "consistent_structure": false,
+      "instances": {
+        "native-hd": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.245",
+            "received_by_me": "7.375",
+            "spent_by_me": "7.62",
+            "timestamp": 1759298395,
+            "to": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "b65006eb6ae799c3b72235d4e0f8df26e14f35d48a598cbb5abc2b16dd166542",
+            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a4730440220470e1062f5b77e1b25898b0f77f5ea58ea02dbde025ee1f3336b2a749fe9113602200c263aa97cc23dbe90e236e4aeed3597f96be4bd5de54248376e429a7bdce95a0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac607aff25000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac5bc3dc68000000000000000000000000000000"
+          }
+        },
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}"
+        }
+      },
+      "notes": "Method: withdraw",
+      "request": {
+        "id": 0,
+        "method": "withdraw",
+        "mmrpc": "2.0",
+        "params": {
+          "amount": "1.0",
+          "broadcast": true,
+          "coin": "MARTY",
+          "fee": {
+            "amount": "1",
+            "type": "UtxoPerKbyte"
+          },
+          "from": {
+            "derivation_path": "m/44'/141'/0'/0/0"
+          },
+          "to": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+        },
+        "userpass": "RPC_UserP@SSW0RD"
+      }
+    }
+  },
+  "validation": {
+    "collected_responses": {
+      "error_count": 0,
+      "errors": [],
+      "warning_count": 0,
+      "warnings": []
+    },
+    "existing_files": {
+      "error_count": 0,
+      "errors": [],
+      "sorted_files": {},
+      "success": true,
+      "templated_files": {},
+      "warning_count": 0,
+      "warnings": []
+    }
+  }
+}

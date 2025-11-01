@@ -1,0 +1,236 @@
+{
+  "expected_errors": {
+    "electrum": {
+      "LegacyElectrumBch": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}",
+          "request": {
+            "method": "electrum",
+            "request_key": "LegacyElectrumBch"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyElectrumDoc": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}",
+          "request": {
+            "method": "electrum",
+            "request_key": "LegacyElectrumDoc"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyElectrumKmd": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}",
+          "request": {
+            "method": "electrum",
+            "request_key": "LegacyElectrumKmd"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyElectrumMarty": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}",
+          "request": {
+            "method": "electrum",
+            "request_key": "LegacyElectrumMarty"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyElectrumQtum": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:152] Deactivated coin due to error in balance querying: Ok(Err(utxo_common:3098] lp_coins:4658] UnexpectedDerivationMethod(ExpectedSingleAddress)))\"}",
+          "request": {
+            "method": "electrum",
+            "request_key": "LegacyElectrumQtum"
+          },
+          "status_code": 500
+        }
+      }
+    },
+    "enable": {
+      "LegacyEnableBnb": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableBnb"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyEnableEth": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableEth"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyEnableEthGasStation": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableEthGasStation"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyEnableMatic": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:173] eth:4740] lp_coins:4658] Expected 'SingleAddress' derivation method\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableMatic"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyEnableNative": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableNative"
+          },
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableNative"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyEnableNativeWithParams": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableNativeWithParams"
+          },
+          "status_code": 500
+        },
+        "native-nonhd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: legacy:172] lp_coins:5183] utxo_standard:94] utxo_coin_builder:754] utxo_coin_builder:936] Error parsing the native wallet configuration '/root/.komodo/TOKEL/TOKEL.conf': No such file or directory (os error 2)\"}",
+          "request": {
+            "method": "enable",
+            "request_key": "LegacyEnableNativeWithParams"
+          },
+          "status_code": 500
+        }
+      }
+    },
+    "enable_erc20": {
+      "EnableErc20Basic": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Expected 'SingleAddress' derivation method\",\"error_path\":\"token.erc20_token_activation.lp_coins\",\"error_trace\":\"token:157] erc20_token_activation:170] lp_coins:4658]\",\"error_type\":\"UnexpectedDerivationMethod\",\"error_data\":\"ExpectedSingleAddress\",\"id\":null}",
+          "request": {
+            "method": "enable_erc20",
+            "request_key": "EnableErc20Basic"
+          },
+          "status_code": 500
+        }
+      }
+    },
+    "get_enabled_coins": {
+      "EnableTendermintTokenBasic": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: lp_coins:5734] lp_coins:5737] eth:2460] 'my_address' is deprecated for HD wallets\"}",
+          "request": {
+            "method": "get_enabled_coins",
+            "request_key": "EnableTendermintTokenBasic"
+          },
+          "status_code": 500
+        }
+      },
+      "LegacyVersion": {
+        "native-hd": {
+          "error": "HTTP 500",
+          "raw_response": "{\"error\":\"rpc:198] RPC call failed: lp_coins:5734] lp_coins:5737] eth:2460] 'my_address' is deprecated for HD wallets\"}",
+          "request": {
+            "method": "get_enabled_coins",
+            "request_key": "LegacyVersion"
+          },
+          "status_code": 500
+        }
+      }
+    },
+    "withdraw": {
+      "WithdrawMartyAccountId": {
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}",
+          "request": {
+            "method": "withdraw",
+            "request_key": "WithdrawMartyAccountId"
+          },
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyDerivationPath": {
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}",
+          "request": {
+            "method": "withdraw",
+            "request_key": "WithdrawMartyDerivationPath"
+          },
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyFixedFee": {
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}",
+          "request": {
+            "method": "withdraw",
+            "request_key": "WithdrawMartyFixedFee"
+          },
+          "status_code": 400
+        }
+      },
+      "WithdrawMartyPerKbyte": {
+        "native-nonhd": {
+          "error": "HTTP 400",
+          "raw_response": "{\"mmrpc\":\"2.0\",\"error\":\"Unexpected 'from' address: 'from' is not supported if the coin is initialized with an Iguana private key\",\"error_path\":\"utxo_common\",\"error_trace\":\"utxo_common:3538]\",\"error_type\":\"UnexpectedFromAddress\",\"error_data\":\"'from' is not supported if the coin is initialized with an Iguana private key\",\"id\":0}",
+          "request": {
+            "method": "withdraw",
+            "request_key": "WithdrawMartyPerKbyte"
+          },
+          "status_code": 400
+        }
+      }
+    }
+  },
+  "metadata": {
+    "description": "Requests that returned expected, acceptable error responses",
+    "generated_at": "2025-10-01 06:00:19 UTC",
+    "total_examples": 18,
+    "total_methods": 5
+  }
+}

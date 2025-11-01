@@ -1,0 +1,14 @@
+{
+  "addresses_collected": 30,
+  "completed_methods": 27,
+  "completion_rate": 75.0,
+  "environments": 2,
+  "failed_methods": 4,
+  "kdf_version": null,
+  "prerequisite_cycles": 32,
+  "skipped_methods": 8,
+  "success_rate": 63.1578947368421,
+  "successful_examples": 36,
+  "total_examples": 57,
+  "total_methods": 36
+}

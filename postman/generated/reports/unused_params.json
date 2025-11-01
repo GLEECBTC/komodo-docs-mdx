@@ -1,0 +1,76 @@
+{
+  "enable": [
+    "tx_history"
+  ],
+  "enable_eth_with_tokens": [
+    "nft_req.info",
+    "nft_req.info.komodo_proxy",
+    "nft_req.info.url",
+    "nft_req.type"
+  ],
+  "task::enable_eth::init": [
+    "gas_station_decimals",
+    "gas_station_policy.policy",
+    "get_balances",
+    "mm2",
+    "nft_req",
+    "nft_req.info",
+    "nft_req.info.komodo_proxy",
+    "nft_req.info.url",
+    "nft_req.type",
+    "path_to_address.derivation_path",
+    "priv_key_policy",
+    "requires_notarization",
+    "rpc_mode",
+    "tx_history"
+  ],
+  "task::enable_eth::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_qtum::init": [
+    "activation_params.get_balances",
+    "activation_params.path_to_address",
+    "activation_params.required_confirmations",
+    "activation_params.requires_notarization",
+    "activation_params.scan_blocks_per_iteration",
+    "activation_params.scan_interval_ms",
+    "activation_params.tx_history",
+    "activation_params.zcash_params_path"
+  ],
+  "task::enable_qtum::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_tendermint::init": [
+    "get_balances",
+    "mm2",
+    "priv_key_policy",
+    "required_confirmations",
+    "requires_notarization",
+    "tx_history"
+  ],
+  "task::enable_tendermint::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_utxo::init": [
+    "get_balances",
+    "mode.rpc",
+    "mode.rpc_data",
+    "path_to_address",
+    "path_to_address.account_id",
+    "path_to_address.address_id",
+    "path_to_address.chain",
+    "path_to_address.derivation_path",
+    "required_confirmations",
+    "requires_notarization",
+    "scan_blocks_per_iteration",
+    "scan_interval_ms",
+    "tx_history",
+    "zcash_params_path"
+  ],
+  "task::enable_utxo::user_action": [
+    "user_action.passphrase"
+  ],
+  "task::enable_z_coin::user_action": [
+    "user_action.passphrase"
+  ]
+}

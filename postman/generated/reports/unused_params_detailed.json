@@ -1,0 +1,496 @@
+{
+  "enable": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "enable",
+      "nested_matches_in_examples": [],
+      "parameter": "tx_history",
+      "request_table": "EnableArguments",
+      "version": "legacy"
+    }
+  ],
+  "enable_eth_with_tokens": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "enable_eth_with_tokens",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info",
+      "request_table": "EnableEthWithTokensArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "enable_eth_with_tokens",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info.komodo_proxy",
+      "request_table": "EnableEthWithTokensArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "enable_eth_with_tokens",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info.url",
+      "request_table": "EnableEthWithTokensArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "enable_eth_with_tokens",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.type",
+      "request_table": "EnableEthWithTokensArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_eth::init": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "gas_station_decimals",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "gas_station_policy.policy",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "get_balances",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "mm2",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": "/common_structures/nfts/#nft-provider)",
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info.komodo_proxy",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.info.url",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "nft_req.type",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address.derivation_path",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "priv_key_policy",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "requires_notarization",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "rpc_mode",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::init",
+      "nested_matches_in_examples": [],
+      "parameter": "tx_history",
+      "request_table": "TaskEnableEthArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_eth::user_action": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_eth::user_action",
+      "nested_matches_in_examples": [],
+      "parameter": "user_action.passphrase",
+      "request_table": "TaskUserActionArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_qtum::init": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.get_balances",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.path_to_address",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.required_confirmations",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.requires_notarization",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.scan_blocks_per_iteration",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.scan_interval_ms",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.tx_history",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::init",
+      "nested_matches_in_examples": [],
+      "parameter": "activation_params.zcash_params_path",
+      "request_table": "TaskEnableQtumArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_qtum::user_action": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_qtum::user_action",
+      "nested_matches_in_examples": [],
+      "parameter": "user_action.passphrase",
+      "request_table": "TaskUserActionArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_tendermint::init": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "get_balances",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "mm2",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "priv_key_policy",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "required_confirmations",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "requires_notarization",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::init",
+      "nested_matches_in_examples": [],
+      "parameter": "tx_history",
+      "request_table": "TaskEnableTendermintArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_tendermint::user_action": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_tendermint::user_action",
+      "nested_matches_in_examples": [],
+      "parameter": "user_action.passphrase",
+      "request_table": "TaskUserActionArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_utxo::init": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "get_balances",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [
+        "activation_params.mode.rpc"
+      ],
+      "parameter": "mode.rpc",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [
+        "activation_params.mode.rpc_data"
+      ],
+      "parameter": "mode.rpc_data",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": "/common_structures/wallet/#address-path)",
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address.account_id",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address.address_id",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address.chain",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "path_to_address.derivation_path",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "required_confirmations",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "requires_notarization",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "scan_blocks_per_iteration",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "scan_interval_ms",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "tx_history",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    },
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::init",
+      "nested_matches_in_examples": [],
+      "parameter": "zcash_params_path",
+      "request_table": "ActivationParams",
+      "version": "v2"
+    }
+  ],
+  "task::enable_utxo::user_action": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_utxo::user_action",
+      "nested_matches_in_examples": [],
+      "parameter": "user_action.passphrase",
+      "request_table": "TaskUserActionArguments",
+      "version": "v2"
+    }
+  ],
+  "task::enable_z_coin::user_action": [
+    {
+      "common_structures_ref": null,
+      "context": null,
+      "method": "task::enable_z_coin::user_action",
+      "nested_matches_in_examples": [],
+      "parameter": "user_action.passphrase",
+      "request_table": "TaskUserActionArguments",
+      "version": "v2"
+    }
+  ]
+}
