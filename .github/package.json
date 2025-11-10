@@ -4,7 +4,8 @@
   "description": "Dependencies for docs sync workflow",
   "main": "scripts/sync-docs-issues.js",
   "scripts": {
-    "sync": "node scripts/sync-docs-issues.js"
+    "sync": "node scripts/sync-docs-issues.js",
+    "auto-pr": "node scripts/auto-pr-from-issues.js"
   },
   "dependencies": {
     "@octokit/core": "^5.0.0",
