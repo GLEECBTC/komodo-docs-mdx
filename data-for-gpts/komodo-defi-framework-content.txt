@@ -5517,7 +5517,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 
 | Legacy                                                                                                                          | v2.0 (release)                                                                                                                                                    | v2.0 (dev)                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [](/komodo-defi-framework/api/legacy/my_recent_swaps/#my-recent-swaps)                                                          | [](/komodo-defi-framework/api/v20/wallet/get_private_keys/#get-private-keys)                                                                                      | [](/komodo-defi-framework/api/v20-dev/wc_delete_session/#wc-delete-session)                                                                                                   |
+| [](/komodo-defi-framework/api/legacy/coin_activation/#coin-activation)                                                          | [](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/#enable-tendermint-with-assets)                                                   | [](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_create/#1inch-v6-0-classic-swap-create)                                                                      |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_create](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_create/#1inch-v6-0-classic-swap-create)                                   |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_liquidity\_sources](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_liquidity_sources/#1inch-v6-0-classic-swap-liquidity-sources) |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_quote](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_quote/#1inch-v6-0-classic-swap-quote)                                      |
@@ -5536,6 +5536,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [clear\_nft\_db](/komodo-defi-framework/api/v20/non_fungible_tokens/clear_nft_db/#clear-nft-db)                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [close\_channel](/komodo-defi-framework/api/v20/lightning/channels/#close-channel)                                                                                |                                                                                                                                                                               |
 | [coins\_needed\_for\_kick\_start](/komodo-defi-framework/api/legacy/coins_needed_for_kick_start/#coins-needed-for-kick-start)   |                                                                                                                                                                   |                                                                                                                                                                               |
+| [consolidate\_utxos](/komodo-defi-framework/api/legacy/consolidate_utxos/#consolidate-utxos)                                    |                                                                                                                                                                   |                                                                                                                                                                               |
 | [convert\_utxo\_address](/komodo-defi-framework/api/legacy/convert_utxo_address/#convert-utxo-address)                          |                                                                                                                                                                   |                                                                                                                                                                               |
 | [convertaddress](/komodo-defi-framework/api/legacy/convertaddress/#convertaddress)                                              |                                                                                                                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [delete\_wallet](/komodo-defi-framework/api/v20/wallet/delete_wallet/#delete-wallet)                                                                              |                                                                                                                                                                               |
@@ -5633,12 +5634,12 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 | [stop](/komodo-defi-framework/api/legacy/stop/#stop)                                                                            |                                                                                                                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [stop\_simple\_market\_maker\_bot](/komodo-defi-framework/api/v20/swaps_and_orders/stop_simple_market_maker_bot/#stop-simple-market-maker-bot)                    |                                                                                                                                                                               |
 |                                                                                                                                 | [stop\_version\_stat\_collection](/komodo-defi-framework/api/v20/utils/stop_version_stat_collection/#stop-version-stat-collection)                                |                                                                                                                                                                               |
-|                                                                                                                                 | [stream](/komodo-defi-framework/api/v20/streaming/swap_status_enable/#enable-swap-status-streaming)                                                               |                                                                                                                                                                               |
+|                                                                                                                                 | [stream](/komodo-defi-framework/api/v20/streaming/network_enable/#enable-network-streaming)                                                                       |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/#disable-streaming)                                                                            |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/#enable-heartbeat-streaming)                                                |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::orderbook::enable](/komodo-defi-framework/api/v20/streaming/orderbook_enable/#orderbook-streaming)                                                       |                                                                                                                                                                               |
 |                                                                                                                                 | [swap\_status\_enable](/komodo-defi-framework/api/v20/streaming/swap_status_enable/#enable-swap-status-streaming)                                                 |                                                                                                                                                                               |
-|                                                                                                                                 | [task](/komodo-defi-framework/api/v20/wallet/task_managed/scan_for_new_addresses/#task-scan-for-new-addresses)                                                    |                                                                                                                                                                               |
+|                                                                                                                                 | [task](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                                           |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                        |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::init](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                          |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::status](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                        |                                                                                                                                                                               |
@@ -7139,6 +7140,156 @@ If the Komodo DeFi Framework API is stopped while making a swap/having the activ
 ```json
 { "result": [] }
 ```
+export const title = "Komodo DeFi Framework Method: Consolidate UTXOs";
+export const description = "The consolidate_utxos method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin to optimize transaction efficiency and reduce wallet fragmentation.";
+
+# consolidate\_utxos
+
+**consolidate\_utxos coin merge\_conditions**
+
+The `consolidate_utxos` method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin. This operation helps optimize transaction efficiency by reducing wallet fragmentation and lowering the number of UTXOs, which can improve transaction creation speed and reduce fees.
+
+This method is specifically designed for UTXO-based coins (Bitcoin, Litecoin, KMD, etc.) and will not work with account-based coins like Ethereum or ERC-20 tokens.
+
+## Arguments
+
+| Structure                              | Type    | Description                                                                                |
+| -------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| coin                                   | string  | The name of the UTXO-based coin to consolidate                                             |
+| merge\_conditions                      | object  | Optional. Configuration object for consolidation behavior                                  |
+| merge\_conditions.merge\_at            | integer | Optional. Minimum number of lone UTXOs that triggers automatic consolidation. Default: 100 |
+| merge\_conditions.max\_merge\_at\_once | integer | Optional. Maximum number of UTXOs to merge in a single transaction. Default: 50            |
+
+## Response
+
+| Structure           | Type             | Description                                                                |
+| ------------------- | ---------------- | -------------------------------------------------------------------------- |
+| tx\_hash            | string           | The hash of the consolidation transaction                                  |
+| tx\_hex             | string           | The raw transaction hex that can be broadcast using `send_raw_transaction` |
+| from                | array of strings | Source addresses (UTXOs) that were consolidated                            |
+| to                  | array of strings | Destination address where consolidated funds were sent                     |
+| total\_amount       | string (numeric) | Total amount consolidated                                                  |
+| spent\_by\_me       | string (numeric) | Total amount spent including fees                                          |
+| received\_by\_me    | string (numeric) | Amount received after consolidation                                        |
+| my\_balance\_change | string (numeric) | Net balance change (typically negative due to transaction fees)            |
+| fee\_details        | object           | Fee information for the consolidation transaction                          |
+| coin                | string           | The coin that was consolidated                                             |
+| utxos\_merged       | integer          | Number of UTXOs that were successfully merged                              |
+
+#### 📌 Examples
+
+#### Basic UTXO Consolidation
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "consolidate_utxos",
+  "coin": "KMD"
+}
+```
+
+#### Response (success)
+
+```json
+{
+  "tx_hash": "7e0e1b0c8a2f1d9e3c4b5a6789012345678901234567890123456789abcdef01",
+  "tx_hex": "0400008085202f890312345...abcdef",
+  "from": [
+    "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ",
+    "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ",
+    "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ"
+  ],
+  "to": [
+    "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ"
+  ],
+  "total_amount": "15.75",
+  "spent_by_me": "15.75001",
+  "received_by_me": "15.74999",
+  "my_balance_change": "-0.00001",
+  "fee_details": {
+    "type": "Utxo",
+    "amount": "0.00001"
+  },
+  "coin": "KMD",
+  "utxos_merged": 25
+}
+```
+
+#### UTXO Consolidation with Custom Merge Conditions
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "consolidate_utxos",
+  "coin": "BTC",
+  "merge_conditions": {
+    "merge_at": 50,
+    "max_merge_at_once": 25
+  }
+}
+```
+
+#### Response (success)
+
+```json
+{
+  "tx_hash": "8f1f2e3d4c5b6a7890123456789012345678901234567890123456789abcdef02",
+  "tx_hex": "0100000012345...abcdef",
+  "from": [
+    "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+    "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+  ],
+  "to": [
+    "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+  ],
+  "total_amount": "0.5",
+  "spent_by_me": "0.50001",
+  "received_by_me": "0.49999",
+  "my_balance_change": "-0.00001",
+  "fee_details": {
+    "type": "Utxo",
+    "amount": "0.00001"
+  },
+  "coin": "BTC",
+  "utxos_merged": 25
+}
+```
+
+#### Response (error - coin not activated)
+
+```json
+{
+  "error": "rpc:174] dispatcher_legacy:155] lp_coins:1668] Coin BTC is not activated"
+}
+```
+
+#### Response (error - insufficient UTXOs to consolidate)
+
+```json
+{
+  "error": "Not enough UTXOs to consolidate. Current UTXO count: 5, minimum required: 50"
+}
+```
+
+#### Response (error - non-UTXO coin)
+
+```json
+{
+  "error": "UTXO consolidation is not supported for ETH. This method only works with UTXO-based coins."
+}
+```
+
+## Additional Notes
+
+*   **Transaction Broadcasting**: The `consolidate_utxos` method only creates the consolidation transaction. You must use the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to broadcast the transaction to the network.
+
+*   **Fee Optimization**: Consolidating UTXOs can reduce future transaction fees by minimizing the number of inputs required for subsequent transactions.
+
+*   **Timing Considerations**: It's generally best to consolidate UTXOs during periods of low network congestion to minimize transaction fees.
+
+*   **Privacy Impact**: Consolidation transactions can link multiple addresses/UTXOs together, which may impact privacy. Consider this when deciding whether to consolidate.
+
+*   **Automatic Triggering**: If you don't specify `merge_conditions`, the default behavior will trigger consolidation when you have 100 or more UTXOs, merging up to 50 at once.
 export const title = "Komodo DeFi Framework Method: Convert utxo Address";
 export const description = "The convert_utxo_address method takes a UTXO address as input, and returns the equivalent address for another UTXO coin.";
 
@@ -31584,6 +31735,44 @@ export const description =
   "Find the Changelogs of various versions of Komodo DeFi Framework on this page.";
 
 # Change Log
+
+## Komodo DeFi Framework v2.6.0-beta (Upcoming)
+
+### UTXO Management Enhancement
+
+This upcoming release introduces improved UTXO management capabilities to help users optimize their wallet performance and transaction efficiency.
+
+#### 🔧 UTXO Optimization
+
+*   **feat(utxo): introduce a utxo consolidation rpc** [PR #2587](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2587): A new [`consolidate_utxos`](/komodo-defi-framework/api/legacy/consolidate_utxos/) RPC method that allows users to consolidate unspent transaction outputs (UTXOs) for UTXO-based coins. This feature helps reduce wallet fragmentation, improve transaction creation speed, and potentially lower transaction fees by merging multiple small UTXOs into fewer larger ones. The method includes configurable merge conditions such as minimum UTXO count thresholds and maximum UTXOs per consolidation transaction.
+
+***
+
+## Komodo DeFi Framework v2.5.2-beta
+
+### Privacy Coins Stats and macOS Universal2 Support
+
+This hotfix release enhances privacy coins support by enabling swap status broadcasting for privacy coins while maintaining user anonymity. It also addresses critical stability issues by resolving a segfault issue affecting Linux users, fixing WASM balance calculations for ARRR, and introducing macOS Universal2 build support for seamless operation on both Intel and Apple Silicon Macs.
+
+### Release Notes
+
+*   **Privacy Coin Status Broadcasting**
+    *   Swap status broadcasting was enabled for privacy coins with the persistent pubkey hidden (set to zeros) to maintain user privacy. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **Stats Database Fix**
+    *   An inconsistency in stats DB was fixed to store persistent pubkeys for both maker and taker instead of incorrectly storing HTLC pubkeys in some cases. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **ARRR WASM Balance Fix**
+    *   The `get_nullifiers` function for Zcoin WASM build was aligned with its sqlite counterpart to return nullifiers for both unspent notes and notes with unconfirmed spends, fixing the `spent_by_me` field in transaction history and balance calculations. [#2651](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2651)
+*   **Linux Stability Fix**
+    *   The `memory_db` size metric that relied on `parity-util-mem::malloc_size` was removed because it intermittently segfaulted on Linux due to allocator conflicts between Jemalloc and glibc. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **macOS Universal2 Build**
+    *   A CI job was added to build macOS Universal2 artifacts for KDF by combining `x86_64-apple-darwin` and `aarch64-apple-darwin` binaries via `lipo`, producing a single binary that runs natively on both Intel and Apple Silicon. The universal binary is uploaded as `kdf_<commit>-mac-universal.zip`. [#2628](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2628)
+*   **Dependency Cleanup**
+    *   The `parity-util-mem` dependency was removed. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **CI Containers Update**
+    *   CI container base image was bumped to `debian:bullseye-slim`. [#2534](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2534) [#2641](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2641)
+
+**Full Changelog**: [Compare v2.5.1-beta...v2.5.2-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.1-beta...v2.5.2-beta)\
+**Release Binaries**: [v2.5.2-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.2-beta)
 
 ## Komodo DeFi Framework v2.5.1-beta
 
