@@ -2701,11 +2701,9 @@
   ],
   "src/pages/komodo-defi-framework/api/legacy/get_enabled_coins/index.mdx": [
     "get-enabled-coins",
-    "arguments",
-    "response",
-    "examples",
-    "command",
-    "response-2"
+    "request-parameters",
+    "response-parameters",
+    "examples"
   ],
   "src/pages/komodo-defi-framework/api/legacy/get_gossip_mesh/index.mdx": [
     "get-gossip-mesh",
@@ -2733,11 +2731,9 @@
   ],
   "src/pages/komodo-defi-framework/api/legacy/get_my_peer_id/index.mdx": [
     "get-my-peer-id",
-    "arguments",
-    "response",
-    "examples",
-    "command",
-    "response-success"
+    "request-parameters",
+    "response-parameters",
+    "examples"
   ],
   "src/pages/komodo-defi-framework/api/legacy/get_relay_mesh/index.mdx": [
     "get-relay-mesh",
@@ -3053,11 +3049,9 @@
   ],
   "src/pages/komodo-defi-framework/api/legacy/version/index.mdx": [
     "version",
-    "arguments",
-    "response",
-    "examples",
-    "command",
-    "response-2"
+    "request-parameters",
+    "response-parameters",
+    "examples"
   ],
   "src/pages/komodo-defi-framework/api/legacy/withdraw/index.mdx": [
     "withdraw",
@@ -3089,9 +3083,8 @@
     "response-parameters",
     "examples",
     "request-with-tx-history-cashaddress-format-and-automated-utxo-merging",
-    "response",
     "request-with-get-balances-set-to-false",
-    "response-2",
+    "response",
     "error-types",
     "platform-is-already-activated-error",
     "platform-config-is-not-found-error",
@@ -3103,10 +3096,7 @@
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/enable_erc20/index.mdx": [
     "enable-erc20",
-    "response",
-    "error-platform-coin-is-not-yet-activated",
-    "error-token-already-activated",
-    "error-token-config-not-found-in-coins-file"
+    "error-types"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/index.mdx": [
     "enable-eth-with-tokens",
@@ -3114,24 +3104,10 @@
     "response-parameters",
     "examples",
     "request-including-optional-gas-station-parameters",
-    "response",
     "request-with-get-balances-set-to-false",
-    "response-2",
     "request-including-nft-initialization",
-    "response-3",
     "request-using-wallet-connect",
-    "response-4",
-    "error-responses",
-    "error-types",
-    "platform-is-already-activated-error",
-    "platform-config-is-not-found-error",
-    "coin-protocol-parse-error-error",
-    "unexpected-platform-protocol-error",
-    "token-config-is-not-found-error",
-    "token-protocol-parse-error-error",
-    "unexpected-token-protocol-error",
-    "invalid-request-error",
-    "transport-error"
+    "error-types"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_token/index.mdx": [
     "enable-tendermint-token",
@@ -3146,11 +3122,8 @@
     "response-parameters",
     "examples",
     "request-with-get-balances-set-to-false",
-    "response",
     "request-with-token-activation-and-get-balances-as-true",
-    "response-2",
     "request-for-metamask-wallet-connect-activation",
-    "response-3",
     "error-types",
     "platform-config-is-not-found-error",
     "platform-is-already-activated-error",
@@ -3169,7 +3142,6 @@
     "response",
     "examples",
     "activation-in-trezor-mode",
-    "response-2",
     "task-enable-bch-status",
     "arguments-2",
     "command",
@@ -3179,16 +3151,12 @@
     "response-ready-error",
     "task-enable-bch-user-action",
     "arguments-3",
-    "response-3",
+    "response-2",
     "examples-2",
     "command-2",
-    "response-success",
     "task-enable-bch-cancel",
     "arguments-4",
-    "response-4",
-    "response-success-2",
-    "response-success-already-finished",
-    "response-error-no-such-task"
+    "response-3"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/index.mdx": [
     "task-eth-evm-activation",
@@ -3198,7 +3166,6 @@
     "response-2",
     "examples",
     "activation-in-trezor-mode",
-    "response-3",
     "task-enable-eth-status",
     "arguments-2",
     "command",
@@ -3207,16 +3174,12 @@
     "response-ready-error",
     "task-enable-eth-user-action",
     "arguments-3",
-    "response-4",
+    "response-3",
     "examples-2",
     "command-2",
-    "response-success",
     "task-enable-eth-cancel",
     "arguments-4",
-    "response-5",
-    "response-success-2",
-    "response-success-already-finished",
-    "response-error-no-such-task"
+    "response-4"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_qtum/index.mdx": [
     "task-qtum-activation",
@@ -3225,23 +3188,20 @@
     "response",
     "examples",
     "command",
-    "response-2",
     "task-enable-qtum-status",
     "arguments-2",
     "request",
     "task-enable-qtum-user-action",
     "arguments-3",
-    "response-3",
+    "response-2",
     "examples-2",
     "command-2",
-    "response-success",
     "error-cases",
     "task-enable-qtum-cancel",
     "arguments-4",
-    "response-4",
+    "response-3",
     "examples-3",
-    "command-3",
-    "response-success-2"
+    "command-3"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/index.mdx": [
     "task-tendermint-activation",
@@ -3250,11 +3210,10 @@
     "response",
     "examples",
     "activation-in-trezor-mode",
-    "response-2",
     "task-enable-tendermint-status",
     "arguments-2",
     "command",
-    "response-3",
+    "response-2",
     "response-in-progress",
     "error-types",
     "platform-config-is-not-found-error",
@@ -3266,16 +3225,12 @@
     "unexpected-token-protocol-error",
     "task-enable-tendermint-user-action",
     "arguments-3",
-    "response-4",
+    "response-3",
     "examples-2",
     "command-2",
-    "response-success",
     "task-enable-tendermint-cancel",
     "arguments-4",
-    "response-5",
-    "response-success-2",
-    "response-success-already-finished",
-    "response-error-no-such-task"
+    "response-4"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/index.mdx": [
     "task-utxo-activation",
@@ -3284,7 +3239,6 @@
     "response",
     "examples",
     "activation-in-trezor-mode",
-    "response-2",
     "task-enable-utxo-status",
     "arguments-2",
     "command",
@@ -3293,16 +3247,12 @@
     "response-ready-error",
     "task-enable-utxo-user-action",
     "arguments-3",
-    "response-3",
+    "response-2",
     "examples-2",
     "command-2",
-    "response-success",
     "task-enable-utxo-cancel",
     "arguments-4",
-    "response-4",
-    "response-success-2",
-    "response-success-already-finished",
-    "response-error-no-such-task"
+    "response-3"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_z_coin/index.mdx": [
     "task-z-coin-activation",
@@ -3314,16 +3264,11 @@
     "sync-from-block-2528700-with-custom-zcash-params-path-and-scan-params",
     "sync-from-sapling-activation-height-earliest",
     "using-websockets-to-sync-from-proof-of-keys-day-2023",
-    "response-2",
     "task-enable-z-coin-status",
     "arguments-2",
-    "response-3",
+    "response-2",
     "examples-2",
     "status-of-z-coin-activation",
-    "response-activating-coin-enabling-has-started",
-    "response-updating-blocks-cache",
-    "response-building-wallet-db",
-    "response-enabling-complete",
     "response-coin-creation-error-no-zcash-params",
     "response-error-no-such-task",
     "response-error-invalid-request",
@@ -3331,14 +3276,12 @@
     "response-error-no-such-task-2",
     "task-enable-z-coin-user-action",
     "arguments-3",
-    "response-4",
-    "response-success",
+    "response-3",
     "task-enable-z-coin-cancel",
     "arguments-4",
-    "response-5",
+    "response-4",
     "examples-3",
     "command",
-    "response-success-2",
     "response-success-already-finished",
     "response-error-no-such-task-3"
   ],
@@ -4093,6 +4036,17 @@
     "error-responses",
     "not-running"
   ],
+  "src/pages/komodo-defi-framework/api/v20/wallet/consolidate_utxos/index.mdx": [
+    "consolidate-utxos",
+    "consolidate-utxos-2",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "error-types",
+    "error-response-coin-not-found",
+    "error-response-merge-error",
+    "error-response-missing-parameter"
+  ],
   "src/pages/komodo-defi-framework/api/v20/wallet/delete_wallet/index.mdx": [
     "delete-wallet",
     "delete-wallet-2",
@@ -4132,6 +4086,16 @@
     "set-swap-transaction-fee-policy",
     "request",
     "response"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/wallet/fetch_utxos/index.mdx": [
+    "fetch-utxos",
+    "fetch-utxos-2",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "error-types",
+    "error-response-coin-not-found",
+    "error-response-missing-parameter"
   ],
   "src/pages/komodo-defi-framework/api/v20/wallet/get_private_keys/index.mdx": [
     "get-private-keys",

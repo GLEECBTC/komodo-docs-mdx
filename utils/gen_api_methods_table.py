@@ -4,9 +4,14 @@ import glob
 import re
 import sys
 import json
+import logging
+import unicodedata
 
 script_path = os.path.dirname(os.path.realpath(__file__))
 root_path = os.path.dirname(script_path)
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+logger = logging.getLogger(__name__)
 
 
 def slugify_for_api_table(text):
@@ -14,6 +19,54 @@ def slugify_for_api_table(text):
     text = text.replace("_", "-")
     text = re.sub(r'[^a-zA-Z0-9\-]', '', text)
     return text.lower()
+
+def slugify_heading(text):
+    """
+    Best-effort replication of heading slug generation used by docs:
+    - Drop MDX annotations (e.g., `{{ ... }}`)
+    - Normalize unicode, lowercase
+    - Replace spaces/underscores with hyphens
+    - Remove non-alphanumeric/hyphen chars
+    """
+    text = text.split("{{")[0].strip()
+    text = unicodedata.normalize("NFKD", text)
+    text = text.lower()
+    text = text.replace("_", "-")
+    text = re.sub(r"\s+", "-", text)  # spaces to hyphens
+    text = re.sub(r"[^a-z0-9\-]", "", text)
+    text = re.sub(r"\-+", "-", text).strip("-")
+    return text
+
+def compute_file_slugs(path_to_file):
+    """
+    Fallback slug collector when filepathSlugs.json is stale or missing entries.
+    Collects markdown headings and generates unique slugs.
+    """
+    slugs = []
+    slug_counts = {}
+    try:
+        with open(path_to_file, "r", encoding="utf-8") as f:
+            for raw_line in f:
+                line = raw_line.rstrip("\n")
+                if line.startswith("#"):
+                    # Remove leading hashes and whitespace
+                    heading_text = line.lstrip("#").strip()
+                    if not heading_text:
+                        continue
+                    base = slugify_heading(heading_text)
+                    if not base:
+                        continue
+                    # Ensure uniqueness similar to slugifyWithCounter
+                    count = slug_counts.get(base, 0)
+                    slug_counts[base] = count + 1
+                    if count == 0:
+                        slugs.append(base)
+                    else:
+                        slugs.append(f"{base}-{count+1}")
+    except Exception as e:
+        logger.error(f"Failed to compute fallback slugs for {path_to_file}: {e}")
+        return []
+    return slugs
 
 def get_method_name(line):
     if 'CodeGroup' in line and "label" in line:
@@ -82,13 +135,31 @@ def gen_api_methods_table():
         "v20-dev": []
     }
     methods_list = []
+    updated_slugs = False
     for file in komodefi_files:
             
         if ignore_file(file):
             continue
         file_methods_list = []
         relative_path = file.replace(f'{root_path}/', '')
-        file_slugs = slugs[file.replace(f'{root_path}/', '')]
+        key = relative_path
+        if key not in slugs:
+            logger.warning(
+                "Missing slug entry in filepathSlugs.json for '%s'. "
+                "Attempting to compute fallback slugs from file headings. "
+                "If you keep seeing this, regenerate slugs via: "
+                "node utils/js/validate_update_internal_links_userpass.js", key
+            )
+            computed = compute_file_slugs(file)
+            if not computed:
+                sys.exit(
+                    f"Missing slug entry for '{key}' and failed to compute fallback slugs.\n"
+                    f"Please run: node utils/js/validate_update_internal_links_userpass.js\n"
+                    f"Then re-run this script."
+                )
+            slugs[key] = computed
+            updated_slugs = True
+        file_slugs = slugs[key]
         with open(file, 'r') as f:
 
             doc_path = file.replace(f'{root_path}/src/pages', '').replace('/index.mdx', '')
@@ -115,6 +186,15 @@ def gen_api_methods_table():
         else:
             sys.exit(f"###### No methods found in {file}!")
     methods_list = sorted(list(set(methods_list)))
+
+    # Persist any newly computed slugs back to filepathSlugs.json to plug the gap for future runs
+    if updated_slugs:
+        try:
+            with open(f'{root_path}/filepathSlugs.json', 'w', encoding='utf-8') as f_slugs:
+                json.dump(slugs, f_slugs, indent=2, ensure_ascii=False)
+            logger.info("Updated filepathSlugs.json with missing entries.")
+        except Exception as e:
+            logger.warning("Failed to persist updated slugs to filepathSlugs.json: %s", e)
 
     with open(f'{script_path}/methods_table.template', 'r') as f:
         template = f.read()
