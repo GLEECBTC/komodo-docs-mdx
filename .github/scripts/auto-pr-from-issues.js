@@ -275,17 +275,46 @@ class AutoPRManager {
     return examples;
   }
   
+  sanitizePath(input) {
+    // Sanitize path input to prevent directory traversal attacks
+    if (!input || typeof input !== 'string') {
+      throw new Error('Invalid input: expected non-empty string');
+    }
+    
+    // Remove any path traversal sequences
+    let sanitized = input.replace(/\.\./g, '');
+    
+    // Remove leading slashes and backslashes
+    sanitized = sanitized.replace(/^[/\\]+/, '');
+    
+    // Remove any remaining slashes and backslashes (they could be used for traversal)
+    sanitized = sanitized.replace(/[/\\]/g, '');
+    
+    // Only allow alphanumeric, underscores, hyphens, and colons (for :: separator)
+    sanitized = sanitized.replace(/[^a-zA-Z0-9_:-]/g, '');
+    
+    if (sanitized.length === 0) {
+      throw new Error('Invalid input: sanitization resulted in empty string');
+    }
+    
+    return sanitized;
+  }
+  
   convertMethodToPath(method) {
-    // Convert KDF method format to filesystem path [[memory:353920]]
+    // Convert KDF method format to filesystem path
     // e.g., "task::enable_utxo::init" -> "task-enable_utxo-init"
-    return method.replace(/::/g, '-');
+    // First sanitize the input to prevent path traversal
+    const sanitized = this.sanitizePath(method);
+    return sanitized.replace(/::/g, '-');
   }
   
   determineApiVersion(method) {
     // Determine API version based on method pattern
-    if (method.includes('::')) {
+    // Sanitize first to ensure safe string operations
+    const sanitized = this.sanitizePath(method);
+    if (sanitized.includes('::')) {
       return 'v20-dev'; // New format methods go to v20-dev
-    } else if (method.startsWith('lightning') || method.startsWith('task')) {
+    } else if (sanitized.startsWith('lightning') || sanitized.startsWith('task')) {
       return 'v20';
     } else {
       return 'legacy';
@@ -293,32 +322,34 @@ class AutoPRManager {
   }
   
   async generateMethodDocumentation(issueData, method) {
-    const apiVersion = this.determineApiVersion(method);
-    const methodPath = this.convertMethodToPath(method);
+    // Sanitize method name first to prevent path traversal
+    const sanitizedMethod = this.sanitizePath(method);
+    const apiVersion = this.determineApiVersion(sanitizedMethod);
+    const methodPath = this.convertMethodToPath(sanitizedMethod);
     
     // Determine category from method name
     let category = 'misc';
-    if (method.includes('lightning')) category = 'lightning';
-    else if (method.includes('task')) category = 'task_managed';
-    else if (method.includes('wallet')) category = 'wallet';
-    else if (method.includes('swap')) category = 'swap';
-    else if (method.includes('orderbook')) category = 'orderbook';
+    if (sanitizedMethod.includes('lightning')) category = 'lightning';
+    else if (sanitizedMethod.includes('task')) category = 'task_managed';
+    else if (sanitizedMethod.includes('wallet')) category = 'wallet';
+    else if (sanitizedMethod.includes('swap')) category = 'swap';
+    else if (sanitizedMethod.includes('orderbook')) category = 'orderbook';
     
     const fileName = `${methodPath}.mdx`;
     const dirPath = path.join(this.repoRoot, 'src', 'pages', 'komodo-defi-framework', 'api', apiVersion, category);
     const filePath = path.join(dirPath, fileName);
     
     // Generate method documentation using AI if available
-    const aiContent = await this.generateAIDocumentation(issueData, method, category);
+    const aiContent = await this.generateAIDocumentation(issueData, sanitizedMethod, category);
     
-    const content = aiContent || this.generateTemplateDocumentation(method, issueData, category);
+    const content = aiContent || this.generateTemplateDocumentation(sanitizedMethod, issueData, category);
     
     return {
       path: filePath,
       content: content,
       category: category,
       apiVersion: apiVersion,
-      methodName: method
+      methodName: sanitizedMethod
     };
   }
   
