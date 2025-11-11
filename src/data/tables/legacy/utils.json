@@ -1,6 +1,13 @@
 {
   "NoParams": {
-    "data": []
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "",
+        "required": false,
+        "description": ""
+      }
+    ]
   },
   "VersionResponse": {
     "data": [
@@ -13,6 +20,7 @@
       {
         "parameter": "datetime",
         "type": "string",
+        "required": true,
         "description": "A formatted datetime string"
       }
     ]

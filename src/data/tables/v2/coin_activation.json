@@ -231,7 +231,7 @@
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swapv2contracts) object.",
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.",
         "substructure": "activation.SwapV2Contracts"
       }
     ]
@@ -775,7 +775,7 @@
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swapv2contracts) object.",
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.",
         "substructure": "activation.SwapV2Contracts"
       }
     ]
