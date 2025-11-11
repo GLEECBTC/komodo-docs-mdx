@@ -808,5 +808,53 @@
       }
     },
     "userpass": "RPC_UserP@SSW0RD"
+  },
+  "EnableSia": {
+    "mmrpc": "2.0",
+    "method": "enable_sia",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "client_id": 0,
+      "ticker": "SIA",
+      "activation_params": {
+        "tx_history": true,
+        "required_confirmations": 6,
+        "gap_limit": 20,
+        "client_conf": {
+          "server_url": "https://sia-walletd.komodo.earth/",
+          "headers": {}
+        }
+      }
+    },
+    "id": 9
+  },
+  "EnableSiaInit": {
+    "mmrpc": "2.0",
+    "method": "enable_sia::init",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "client_id": 0,
+      "ticker": "SIA",
+      "activation_params": {
+        "tx_history": true,
+        "required_confirmations": 6,
+        "gap_limit": 20,
+        "client_conf": {
+          "server_url": "https://sia-walletd.komodo.earth/",
+          "headers": {}
+        }
+      }
+    },
+    "id": 1
+  },
+  "EnableSiaStatus": {
+    "mmrpc": "2.0",
+    "method": "enable_sia::status",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "task_id": 12345,
+      "forget_if_finished": true
+    },
+    "id": 2
   }
 }

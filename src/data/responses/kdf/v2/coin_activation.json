@@ -1215,5 +1215,62 @@
         "title": "Success"
       }
     ]
+  },
+  "EnableSia": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 12346
+          },
+          "id": 9
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "EnableSiaInit": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "task_id": 12345
+          },
+          "id": 1
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "EnableSiaStatus": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "status": "Ok",
+            "details": {
+              "ticker": "SIA",
+              "current_block": 123456,
+              "wallet_balance": {
+                "wallet_type": "Iguana",
+                "address": "addr:1599ea80d9af168c...17030fb3",
+                "balance": {
+                  "spendable": "10",
+                  "unspendable": "0"
+                }
+              }
+            }
+          },
+          "id": 2
+        },
+        "title": "Success"
+      }
+    ]
   }
 }

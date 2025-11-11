@@ -1,0 +1,23 @@
+export const title = "Komodo DeFi Framework Method: task::enable_sia::init";
+export const description =
+  "Initialize SIA coin activation and receive a task_id.";
+
+# task::enable\_sia::init {{label : 'task::enable_sia::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of SIA. Refer to the
+[task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/)
+for activation of other coin types.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.EnableSiaInitRequest" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.EnableSiaInitResponse" />
+
+#### 📌 Examples
+
+<CodeGroup title="task::enable_sia::init" tag="POST" label="task::enable_sia::init" mm2MethodDecorate="true" source="v2/coin_activation.EnableSiaInit" />
+
+<KdfResponses responseKey="v2/coin_activation.EnableSiaInit" />

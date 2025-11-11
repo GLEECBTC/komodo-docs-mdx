@@ -1063,5 +1063,389 @@
         "description": "The outcome of the request."
       }
     ]
+  },
+  "EnableSiaRequest": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Sia coin to enable (e.g., \"SIA\")."
+      },
+      {
+        "parameter": "activation_params",
+        "type": "object",
+        "required": true,
+        "description": "Activation parameters specific to Sia.",
+        "substructure": "activation.EnableSiaActivationParams"
+      }
+    ]
+  },
+  "EnableSiaActivationParams": {
+    "data": [
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether to start background tx history sync."
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "description": "Override required confirmations; default from coins config."
+      },
+      {
+        "parameter": "gap_limit",
+        "type": "integer",
+        "required": false,
+        "description": "Gap limit for HD scanning (reserved; Sia currently uses iguana single-address)."
+      },
+      {
+        "parameter": "client_conf",
+        "type": "object",
+        "required": true,
+        "description": "Sia client configuration.",
+        "substructure": "activation.EnableSiaClientConf"
+      }
+    ]
+  },
+  "EnableSiaClientConf": {
+    "data": [
+      {
+        "parameter": "server_url",
+        "type": "string",
+        "required": true,
+        "description": "Base URL of the Sia provider (walletd/indexer)."
+      },
+      {
+        "parameter": "headers",
+        "type": "object",
+        "required": false,
+        "description": "Optional HTTP headers to include on requests."
+      }
+    ]
+  },
+  "EnableSiaResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier to track activation progress."
+      }
+    ]
+  },
+  "EnableSiaErrors": {
+    "data": [
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "CoinIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "Coin is activated already."
+      },
+      {
+        "parameter": "CoinConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Coin config is not found in the coins file."
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Coin protocol parsing failed."
+      },
+      {
+        "parameter": "UnexpectedCoinProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected protocol for the coin."
+      },
+      {
+        "parameter": "CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Error on coin creation."
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "Transport-related error from underlying client."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "EnableSiaInitRequest": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "description": "Client identifier to receive streaming status updates."
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Sia coin to enable."
+      },
+      {
+        "parameter": "activation_params",
+        "type": "object",
+        "required": true,
+        "description": "Activation parameters; see EnableSiaActivationParams."
+      }
+    ]
+  },
+  "EnableSiaInitResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier to track activation progress."
+      }
+    ]
+  },
+  "EnableSiaInitErrors": {
+    "data": [
+      {
+        "parameter": "CoinIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "Coin is activated already."
+      },
+      {
+        "parameter": "CoinConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Coin config is not found in the coins file."
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Coin protocol parsing failed."
+      },
+      {
+        "parameter": "UnexpectedCoinProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected coin protocol."
+      },
+      {
+        "parameter": "CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Error on coin creation (details in message)."
+      },
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "Transport-related error from underlying client."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "EnableSiaStatusRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "description": "If true, the task is removed from memory if finished."
+      }
+    ]
+  },
+  "EnableSiaStatusResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "Current status of activation."
+      },
+      {
+        "parameter": "details",
+        "type": "object",
+        "required": true,
+        "description": "Details object depends on status: Ok (ActivationResult), Error (InitStandaloneCoinError), InProgress (SiaCoinInProgressStatus), UserActionRequired (SiaCoinAwaitingStatus)."
+      }
+    ]
+  },
+  "EnableSiaStatusErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while reading task status."
+      }
+    ]
+  },
+  "EnableSiaActivationResult": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the enabled coin."
+      },
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "Current block height."
+      },
+      {
+        "parameter": "wallet_balance",
+        "type": "object",
+        "required": true,
+        "description": "Wallet balance report (Iguana)."
+      }
+    ]
+  },
+  "EnableSiaInProgressStatus": {
+    "data": [
+      {
+        "parameter": "ActivatingCoin",
+        "type": "string",
+        "required": false,
+        "description": "Activation has started."
+      },
+      {
+        "parameter": "RequestingWalletBalance",
+        "type": "string",
+        "required": false,
+        "description": "Requesting wallet balance."
+      },
+      {
+        "parameter": "Finishing",
+        "type": "string",
+        "required": false,
+        "description": "Finishing activation."
+      }
+    ]
+  },
+  "EnableSiaUserActionRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      },
+      {
+        "parameter": "user_action",
+        "type": "object",
+        "required": true,
+        "description": "User action payload (reserved; not used for Sia as hardware wallets are not supported yet)."
+      }
+    ]
+  },
+  "EnableSiaUserActionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates success."
+      }
+    ]
+  },
+  "EnableSiaUserActionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while sending user action."
+      }
+    ]
+  },
+  "EnableSiaCancelRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      }
+    ]
+  },
+  "EnableSiaCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates success."
+      }
+    ]
+  },
+  "EnableSiaCancelErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "TaskFinished",
+        "type": "string",
+        "required": false,
+        "description": "Task already finished and cannot be cancelled."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while cancelling task."
+      }
+    ]
   }
 }

@@ -2864,6 +2864,8 @@
     "response-sync-in-progress-for-utxo-coins",
     "response-sync-in-progress-for-eth-erc-20-coins",
     "response-successful-result-in-case-of-eth-erc-20-coins",
+    "command-sia-protocol",
+    "error-responses",
     "error-coin-not-active",
     "error-coin-not-compatible",
     "error-coin-enabled-without-tx-history-true",
@@ -2948,11 +2950,12 @@
   ],
   "src/pages/komodo-defi-framework/api/legacy/send_raw_transaction/index.mdx": [
     "send-raw-transaction",
-    "arguments",
-    "response",
-    "examples",
-    "command",
-    "response-success"
+    "send-raw-transaction-2",
+    "request-arguments",
+    "response-parameters",
+    "example",
+    "request",
+    "request-sia-protocol"
   ],
   "src/pages/komodo-defi-framework/api/legacy/set_required_confirmations/index.mdx": [
     "set-required-confirmations",
@@ -3202,6 +3205,31 @@
     "response-3",
     "examples-3",
     "command-3"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/cancel/index.mdx": [
+    "task-enable-sia-cancel",
+    "arguments",
+    "response"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/index.mdx": [
+    "task-sia-activation"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/init/index.mdx": [
+    "task-enable-sia-init",
+    "arguments",
+    "response",
+    "examples"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/status/index.mdx": [
+    "task-enable-sia-status",
+    "arguments",
+    "command",
+    "response-ready-successful"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/user_action/index.mdx": [
+    "task-enable-sia-user-action",
+    "arguments",
+    "response"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/index.mdx": [
     "task-tendermint-activation",
@@ -4327,8 +4355,10 @@
     "examples",
     "request-doc",
     "response-success",
-    "request-eth",
+    "request-sia",
     "response-success-2",
+    "request-eth",
+    "response-success-3",
     "error-response-no-such-coin",
     "error-invalid-hash",
     "error-invalid-ec-signature",
@@ -4349,7 +4379,8 @@
     "request-bch-with-from-id",
     "response-5",
     "request-iris-with-limit-50",
-    "response-6"
+    "response-6",
+    "error-response"
   ],
   "src/pages/komodo-defi-framework/api/v20/wallet/tx/sign_raw_transaction/index.mdx": [
     "sign-raw-transaction",
@@ -4375,9 +4406,7 @@
     "withdraw-btc-kmd-and-other-btc-based-forks",
     "response-kmd-success",
     "hd-withdraw-with-derivation-path",
-    "response-kmd-success-2",
     "hd-withdraw-with-account-id-chain-and-address-id",
-    "response-kmd-success-3",
     "withdraw-btc-kmd-and-other-btc-based-forks-fixed-fee",
     "response-success",
     "withdraw-btc-kmd-and-other-btc-based-forks-1-coin-per-kbyte-fee",
@@ -4386,10 +4415,12 @@
     "response-success-3",
     "eth-erc-20-and-other-eth-based-forks-with-gas-fee",
     "response-success-4",
-    "withdraw-maximum",
+    "withdraw-sia-protocol",
     "response-success-5",
-    "withdraw-qrc-20-coins",
+    "withdraw-maximum",
     "response-success-6",
+    "withdraw-qrc-20-coins",
+    "response-success-7",
     "withdraw-qrc-20-coins-with-gas-limit",
     "withdraw-with-broadcast-true",
     "withdraw-tendermint-coins-with-a-memo-and-custom-gas-fee",
@@ -4514,9 +4545,12 @@
   ],
   "src/pages/komodo-defi-framework/changelog/index.mdx": [
     "change-log",
+    "komodo-de-fi-framework-v2-5-2-beta",
+    "privacy-coins-stats-and-mac-os-universal2-support",
+    "release-notes",
     "komodo-de-fi-framework-v2-5-1-beta",
     "offline-private-key-export-and-first-ai-agent-contribution",
-    "release-notes",
+    "release-notes-2",
     "private-key-management",
     "new-contributors",
     "komodo-de-fi-framework-v2-4-0-beta",
@@ -4537,7 +4571,7 @@
     "komodo-de-fi-framework-v2-3-0-beta",
     "komodo-de-fi-framework-v2-2-0-beta",
     "custom-token-support-and-various-optimizations",
-    "release-notes-2",
+    "release-notes-3",
     "features",
     "enhancements",
     "nb-backwards-compatibility-breaking-changes",
@@ -4546,7 +4580,7 @@
     "bug-fixes",
     "komodo-de-fi-framework-v2-1-0-beta",
     "essential-new-features-trading-protocol-upgrade-hd-wallet-event-streaming-and-seeds-management",
-    "release-notes-3",
+    "release-notes-4",
     "features-2",
     "nb-backwards-compatibility-breaking-changes-2",
     "new-contributors-3",
@@ -4554,7 +4588,7 @@
     "bug-fixes-2",
     "komodo-de-fi-framework-v2-0-0-beta",
     "network-evolution-and-kmd-burn-enhancing-kmds-role-in-komodos-de-fi-framework",
-    "release-notes-4",
+    "release-notes-5",
     "nb-backwards-compatibility-breaking-changes-3",
     "komodo-de-fi-framework-v1-0-7-beta",
     "komodo-de-fi-framework-v1-0-6-beta",

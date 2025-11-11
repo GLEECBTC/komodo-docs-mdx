@@ -16,9 +16,16 @@ logger = logging.getLogger(__name__)
 
 def slugify_for_api_table(text):
     text = text.split("{{")[0].strip()
+    text = text.lower()
+    # Normalize common separators to hyphens
     text = text.replace("_", "-")
-    text = re.sub(r'[^a-zA-Z0-9\-]', '', text)
-    return text.lower()
+    text = re.sub(r"[:]+", "-", text)         # convert :: to -
+    text = re.sub(r"\s+", "-", text)          # spaces to -
+    # Remove anything that's not alphanumeric or hyphen
+    text = re.sub(r"[^a-z0-9\-]", "", text)
+    # Collapse multiple hyphens
+    text = re.sub(r"\-+", "-", text).strip("-")
+    return text
 
 def slugify_heading(text):
     """
@@ -32,6 +39,7 @@ def slugify_heading(text):
     text = unicodedata.normalize("NFKD", text)
     text = text.lower()
     text = text.replace("_", "-")
+    text = re.sub(r"[:]+", "-", text)         # convert :: to -
     text = re.sub(r"\s+", "-", text)  # spaces to hyphens
     text = re.sub(r"[^a-z0-9\-]", "", text)
     text = re.sub(r"\-+", "-", text).strip("-")
@@ -69,10 +77,19 @@ def compute_file_slugs(path_to_file):
     return slugs
 
 def get_method_name(line):
+    # Try to capture CodeGroup label="..."
     if 'CodeGroup' in line and "label" in line:
-        return line.split('label="')[1].split('"')[0]
-    elif line.startswith("## ") and "label" in line:
-        return line.split('label')[1].split(':')[1].split(',')[0].replace("'", "").replace('"', "").strip()
+        # Support both single and double quotes
+        m = re.search(r'label\s*=\s*["\']([^"\']+)["\']', line)
+        if m:
+            return m.group(1)
+    # Fallback: capture heading labels like:
+    # # title {{label : 'method_name', ...}}
+    # or with any heading level (##, ###, etc.)
+    if "label" in line:
+        m = re.search(r'label\s*:\s*["\']([^"\']+)["\']', line)
+        if m:
+            return m.group(1).strip()
     return ""
 
 def ignore_file(file):
@@ -90,6 +107,7 @@ def ignore_file(file):
               "komodo-defi-framework/setup",
               "komodo-defi-framework/api/index.mdx",
               "komodo-defi-framework/api/v20/coin_activation/index.mdx",
+              "komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/index.mdx",
               "task_managed/index.mdx",
               "non_fungible_tokens/index.mdx",
               "query_nft_database_tables/index.mdx",

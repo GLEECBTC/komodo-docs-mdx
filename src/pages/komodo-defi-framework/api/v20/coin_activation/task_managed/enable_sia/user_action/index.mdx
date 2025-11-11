@@ -1,0 +1,18 @@
+export const title = "Komodo DeFi Framework Method: task::enable_sia::user_action";
+export const description =
+  "Provide user action for SIA activation task, if required.";
+
+# task::enable\_sia::user\_action {{label : 'task::enable_sia::user_action', tag : 'API-v2'}}
+
+If the `task::enable_sia::status` returns `UserActionRequired`, use this method to provide
+the required user action payload.
+
+Note: Hardware-wallet user interactions are not currently required for SIA activation.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.EnableSiaUserActionRequest" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.EnableSiaUserActionResponse" />

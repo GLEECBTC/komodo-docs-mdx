@@ -84,5 +84,93 @@
     "tags": [
       "legacy"
     ]
+  },
+  "withdraw": {
+    "errors_table": "WithdrawErrors",
+    "examples": {
+      "WithdrawSia": "Withdraw Sia"
+    },
+    "prerequisites": [],
+    "request_table": "WithdrawRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawResponse",
+    "sequence": 220,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "my_balance": {
+    "errors_table": "MyBalanceErrors",
+    "examples": {
+      "MyBalance": "Get current Sia balance"
+    },
+    "prerequisites": [],
+    "request_table": "MyBalanceRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "MyBalanceResponse",
+    "sequence": 200,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "send_raw_transaction": {
+    "errors_table": "SendRawTransactionErrors",
+    "examples": {
+      "SendRawTransaction": "Broadcast Sia transaction"
+    },
+    "prerequisites": [],
+    "request_table": "SendRawTransactionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "SendRawTransactionResponse",
+    "sequence": 240,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "validateaddress": {
+    "errors_table": "ValidateAddressErrors",
+    "examples": {
+      "ValidateAddress": "Validate Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "ValidateAddressRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "ValidateAddressResponse",
+    "sequence": 250,
+    "tags": [
+      "legacy"
+    ]
   }
 }

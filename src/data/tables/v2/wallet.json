@@ -194,5 +194,569 @@
         "type": "string"
       }
     ]
+  },
+  "GetMyAddressRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Optional HD path selector (unused for Sia Iguana).",
+        "parameter": "path_to_address",
+        "required": false,
+        "type": "object"
+      }
+    ]
+  },
+  "GetMyAddressResponse": {
+    "data": [
+      {
+        "description": "Ticker of the coin.",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Wallet address string.",
+        "parameter": "wallet_address",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "GetMyAddressErrors": {
+    "data": [
+      {
+        "description": "Coin not enabled or not supported.",
+        "parameter": "CoinIsNotSupported|NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Invalid request payload.",
+        "parameter": "InvalidRequest",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Internal server error.",
+        "parameter": "Internal",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "GetRawTransactionRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Transaction hash string.",
+        "parameter": "tx_hash",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "GetRawTransactionResponse": {
+    "data": [
+      {
+        "description": "Raw transaction bytes encoded as hex string (for Sia this is JSON-serialized bytes).",
+        "parameter": "tx_hex",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "GetRawTransactionErrors": {
+    "data": [
+      {
+        "description": "No such coin is enabled.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Invalid hash, not found, or invalid params.",
+        "parameter": "InvalidHashError|HashNotExist|InvalidParam|DecodeError",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Not implemented for this coin.",
+        "parameter": "NotImplemented",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Transport or internal error.",
+        "parameter": "Transport|InternalError|TransactionError",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "MyBalanceRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "MyBalanceResponse": {
+    "data": [
+      {
+        "description": "Ticker of the coin.",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Spendable balance.",
+        "parameter": "balance",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Unspendable balance (e.g., immature).",
+        "parameter": "unspendable_balance",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Wallet address used for balance query.",
+        "parameter": "address",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "MyBalanceErrors": {
+    "data": [
+      {
+        "description": "No such coin is enabled.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Transport or internal error during balance fetch.",
+        "parameter": "Transport|InternalError",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "SendRawTransactionRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Raw transaction hex string. For Sia, you may alternatively pass tx_json.",
+        "parameter": "tx_hex",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Raw transaction JSON object (Sia V2Transaction). Alternative to tx_hex.",
+        "parameter": "tx_json",
+        "required": false,
+        "type": "object"
+      }
+    ]
+  },
+  "SendRawTransactionResponse": {
+    "data": [
+      {
+        "description": "Broadcasted transaction hash.",
+        "parameter": "tx_hash",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "SendRawTransactionErrors": {
+    "data": [
+      {
+        "description": "No such coin is enabled.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Neither tx_hex nor tx_json provided.",
+        "parameter": "InvalidRequest",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Transport or internal error broadcasting transaction.",
+        "parameter": "Transport|Internal",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "ValidateAddressRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Address string to validate.",
+        "parameter": "address",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  "ValidateAddressResponse": {
+    "data": [
+      {
+        "description": "Whether the address is valid.",
+        "parameter": "is_valid",
+        "required": true,
+        "type": "boolean"
+      },
+      {
+        "description": "Optional reason if invalid.",
+        "parameter": "reason",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "ValidateAddressErrors": {
+    "data": [
+      {
+        "description": "No such coin is enabled.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Internal/transport error.",
+        "parameter": "Internal|Transport",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "WithdrawRequest": {
+    "data": [
+      {
+        "description": "Ticker of the enabled coin (e.g., \"SIA\").",
+        "parameter": "coin",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Optional HD address selector (unused for Sia Iguana).",
+        "parameter": "from",
+        "required": false,
+        "type": "object"
+      },
+      {
+        "description": "Recipient address.",
+        "parameter": "to",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Amount to send in coin units.",
+        "parameter": "amount",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Send full balance if true.",
+        "parameter": "max",
+        "required": false,
+        "type": "boolean"
+      },
+      {
+        "description": "Optional fee policy (Sia uses default fee when unspecified).",
+        "parameter": "fee",
+        "required": false,
+        "type": "object"
+      },
+      {
+        "description": "Optional memo (unused for Sia).",
+        "parameter": "memo",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Tendermint IBC transfers only. The source channel for IBC transaction.",
+        "parameter": "ibc_source_channel",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "description": "Set true for Metamask-managed transactions that must be broadcast immediately.",
+        "parameter": "broadcast",
+        "required": false,
+        "type": "boolean"
+      }
+    ]
+  },
+  "WithdrawResponse": {
+    "data": [
+      {
+        "description": "Transaction details object.",
+        "parameter": "tx",
+        "required": true,
+        "type": "object"
+      }
+    ]
+  },
+  "WithdrawErrors": {
+    "data": [
+      {
+        "description": "No such coin is enabled.",
+        "parameter": "NoSuchCoin",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Insufficient balance to complete withdrawal.",
+        "parameter": "NotSufficientBalance|NotSufficientPlatformBalanceForFee",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Amount is too low or zero with max flag.",
+        "parameter": "AmountTooLow|ZeroBalanceToWithdrawMax",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Invalid address or fee parameters.",
+        "parameter": "InvalidAddress|InvalidFeePolicy|InvalidFee",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Withdrawal timed out.",
+        "parameter": "Timeout",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Transport or internal error.",
+        "parameter": "Transport|InternalError",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "WithdrawInitRequest": {
+    "data": [
+      {
+        "description": "Client identifier to receive streaming status updates.",
+        "parameter": "client_id",
+        "required": false,
+        "type": "integer"
+      },
+      {
+        "description": "Withdrawal parameters; same as WithdrawRequest.",
+        "parameter": "withdraw",
+        "required": true,
+        "type": "object"
+      }
+    ]
+  },
+  "WithdrawInitResponse": {
+    "data": [
+      {
+        "description": "Task identifier to track withdrawal progress.",
+        "parameter": "task_id",
+        "required": true,
+        "type": "integer"
+      }
+    ]
+  },
+  "WithdrawStatusRequest": {
+    "data": [
+      {
+        "description": "Task identifier returned by withdraw::init.",
+        "parameter": "task_id",
+        "required": true,
+        "type": "integer"
+      },
+      {
+        "description": "If true, the task is removed from memory if finished.",
+        "parameter": "forget_if_finished",
+        "required": false,
+        "type": "boolean"
+      }
+    ]
+  },
+  "WithdrawStatusResponse": {
+    "data": [
+      {
+        "description": "Current status: Ok|Error|InProgress|UserActionRequired.",
+        "parameter": "status",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Details object depends on status; Ok contains TransactionDetails.",
+        "parameter": "details",
+        "required": true,
+        "type": "object"
+      }
+    ]
+  },
+  "WithdrawUserActionRequest": {
+    "data": [
+      {
+        "description": "Task identifier returned by withdraw::init.",
+        "parameter": "task_id",
+        "required": true,
+        "type": "integer"
+      },
+      {
+        "description": "User action payload if required (hardware wallet etc.).",
+        "parameter": "user_action",
+        "required": true,
+        "type": "object"
+      }
+    ]
+  },
+  "WithdrawCancelRequest": {
+    "data": [
+      {
+        "description": "Task identifier returned by withdraw::init.",
+        "parameter": "task_id",
+        "required": true,
+        "type": "integer"
+      }
+    ]
+  },
+  "WithdrawTaskErrors": {
+    "data": [
+      {
+        "description": "No such task or task finished.",
+        "parameter": "NoSuchTask|TaskFinished",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Withdrawal errors (see WithdrawErrors).",
+        "parameter": "WithdrawError",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "description": "Internal/transport error.",
+        "parameter": "Internal|Transport",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  "MyTxHistoryV2Request": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin to get history for."
+      },
+      {
+        "parameter": "limit",
+        "type": "integer",
+        "required": false,
+        "description": "Limits the number of returned transactions. Ignored if max=true."
+      },
+      {
+        "parameter": "paging_options",
+        "type": "object",
+        "required": false,
+        "description": "A standard Pagination object."
+      },
+      {
+        "parameter": "target",
+        "type": "object",
+        "required": false,
+        "description": "A standard HistoryTarget object (e.g., account_id or address_id)."
+      }
+    ]
+  },
+  "MyTxHistoryV2Response": {
+    "data": [
+      {
+        "parameter": "transactions",
+        "type": "array of objects",
+        "required": true,
+        "description": "Transactions affecting the target."
+      },
+      {
+        "parameter": "from_id",
+        "type": "string|null",
+        "required": true,
+        "description": "FromId echoed back (if any)."
+      },
+      {
+        "parameter": "skipped",
+        "type": "number",
+        "required": true,
+        "description": "Number of skipped records."
+      },
+      {
+        "parameter": "limit",
+        "type": "number",
+        "required": true,
+        "description": "Requested limit."
+      },
+      {
+        "parameter": "total",
+        "type": "number",
+        "required": true,
+        "description": "Total number of transactions available."
+      },
+      {
+        "parameter": "page_number",
+        "type": "number|null",
+        "required": true,
+        "description": "Requested page number (if any)."
+      },
+      {
+        "parameter": "total_pages",
+        "type": "number",
+        "required": true,
+        "description": "Total pages with the chosen limit."
+      },
+      {
+        "parameter": "current_block",
+        "type": "number",
+        "required": true,
+        "description": "Latest block number."
+      },
+      {
+        "parameter": "sync_status",
+        "type": "object",
+        "required": true,
+        "description": "Standard SyncStatus object."
+      }
+    ]
   }
 }

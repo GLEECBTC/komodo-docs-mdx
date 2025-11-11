@@ -1,0 +1,170 @@
+{
+  "SendRawTransactionKmd": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "send_raw_transaction",
+    "coin": "KMD",
+    "tx_hex": "0400008085202f8902d6a5b976db5e5c9e8f9ead50713b25f22cd061edc8ff0ff1049fd2cd775ba087000000006b483045022100bf2073c1ecfef3fc78f272045f46a722591401f61c2d2fac87fc474a17df7c3102200ca1bd0664ba75f3383e5cbbe96127ad534a86238dbea256e000b0fe2067ab8c012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffffd04d4e07ac5dacd08fb76e08d2a435fc4fe2b16eb0158695c820b44f42f044cb010000006a47304402200a0c21e8c0ae4a740f3663fe08aeff02cea6495157d531045b58d2dd79fb802702202f80dddd264db33f55e49799363997a175d39a91242a95f268c40f7ced97030b012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acc3b3ca27000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+  },
+  "SendRawTransactionSiaFull": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "send_raw_transaction",
+    "coin": "SC",
+    "tx_json": {
+      "siacoinInputs": [
+        {
+          "parent": {
+            "id": "db712a113806580ec2cce966135ebf139d0e1086bf04cf84b7fe554ec25bb5a7",
+            "stateElement": {
+              "leafIndex": 72996955,
+              "merkleProof": [
+                "a6f1306840881651aea186e25ae4de9932e58c8178fef43586a9f9fa52b99d1a",
+                "c7158f7aba1d3954f0d56e8a96a1bfe360038b249b7cdcf941da4c974974be89",
+                "64295af67329a2f6f91e10ace99a379e4df6cdfc2405db967f4857226dafaa53",
+                "42a6529a8ef4a849b716071d66bb84d7e929fc1ad671d04229992ff670e3627f",
+                "665e3a2f25267de5e35b5076895438745cd1101ae7c337a3139b910460d8bb36",
+                "84b54d73a6b74c3abb152e7d6f30a1fae6b411522353a7f25220095ed4ae5cbf",
+                "73c4dd35635c1707d322035c52a9cc9cf96766e9adcea4ed675c851d6ae50b3b",
+                "bad7c9a405bbc576a99718cb4c3889b8710db975b2b03e327653170956457bef",
+                "c734b54b9e42c8aa3d6adf11ffa257b474d9cc7036a31aff7c11d0a02b7f2ca4",
+                "c72d15d701e5f83c3db6a0b2ab5f85a932541d4bef41028f19751081996e0f2c",
+                "f2eab142e8a752abb6fc6a0b3f2e3199ed22ff74c701e44676192696e784675a",
+                "d3a9e8d681ba7231fdcef7d795ff5acb1469bf7c17317c8ea59f60fd3963d776",
+                "80a16928a727b386dd824ba1f82a03da2f41a1583b14c21cc1fc0de7af2f5c4e",
+                "7dece8216b769ba9b15b27d00a728cbdbc2d4c72bc7cf93fe9ff48c7f739069e",
+                "cd2dd16a38a0443dc2ad93faefaf7974842dcab419ea1ce1f1b82f97adb81b1a",
+                "ab734606431ad3a6c50a5d3cbff9f340cedef606407e952af55476e6b51f43a6",
+                "5f728bfbc9494ec8ec9f76b229bf85f184fddd3c305b2a91e74546a821a664b6"
+              ]
+            },
+            "siacoinOutput": {
+              "value": "50000000000000000000000000",
+              "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+            },
+            "maturityHeight": 0
+          },
+          "satisfiedPolicy": {
+            "policy": {
+              "type": "pk",
+              "policy": "ed25519:c94acdcbd6a44c25a2640191afd80d6ef6c692c3a0faa0db3cec0189d90f6cd1"
+            },
+            "signatures": [
+              "2ab2ef985c6ebc396caddf60671a5205d4b62201293b90ccdb939fc70fb1a9dd5449a53d21541362cc194674d4e8bc215116b9014b1cee6d625176e647df670d"
+            ]
+          }
+        }
+      ],
+      "siacoinOutputs": [
+        {
+          "value": "1025000000000000000000000",
+          "address": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2"
+        },
+        {
+          "value": "48974990000000000000000000",
+          "address": "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
+        }
+      ],
+      "minerFee": "10000000000000000000"
+    }
+  },
+  "WithdrawLegacyKmd": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "KMD",
+    "to": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+    "amount": "10"
+  },
+  "WithdrawLegacyDocFixedFee": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "DOC",
+    "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+    "amount": "1.0",
+    "fee": {
+      "type": "UtxoFixed",
+      "amount": "0.1"
+    }
+  },
+  "WithdrawLegacyDocPerKbyte": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "DOC",
+    "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+    "amount": "1.0",
+    "fee": {
+      "type": "UtxoPerKbyte",
+      "amount": "1"
+    }
+  },
+  "WithdrawLegacyEth": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "ETH",
+    "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
+    "amount": 10
+  },
+  "WithdrawLegacyEthGas": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "COIN_NAME",
+    "to": "RECIPIENT_ADDRESS",
+    "amount": "AMOUNT",
+    "fee": {
+      "type": "EthGas",
+      "gas_price": "3.5",
+      "gas": 55000
+    }
+  },
+  "WithdrawLegacyEthMax": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "ETH",
+    "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
+    "max": true
+  },
+  "WithdrawLegacyQrc20": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "QRC20",
+    "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
+    "amount": 10
+  },
+  "WithdrawLegacyQrc20Gas": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "QRC20",
+    "to": "qHmJ3KA6ZAjR9wGjpFAS4gtUSeFAqdZgs",
+    "amount": 10,
+    "fee": {
+      "type": "Qrc20Gas",
+      "gas_limit": 250000,
+      "gas_price": 40
+    }
+  },
+  "WithdrawLegacySia": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "coin": "SC",
+    "to": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2",
+    "amount": "1.025"
+  },
+  "MyTxHistoryDoc": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "coin": "DOC",
+    "limit": 1,
+    "from_id": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1"
+  },
+  "MyTxHistoryDocMax": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "coin": "DOC",
+    "max": true,
+    "from_id": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1"
+  },
+  "MyTxHistorySia": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "coin": "SC"
+  }
+}
+

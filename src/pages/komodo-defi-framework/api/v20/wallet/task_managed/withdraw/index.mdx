@@ -15,8 +15,8 @@ It will return the transaction hex (via `task::withdraw::status`), which then ne
 To cancel the transaction generation, use the [withdraw\_cancel](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-cancel) method.
 
 <Note>
-  When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to
-  complete.
+  When used for ZHTLC coins like ARRR or ZOMBIE, it may take some time to complete.
+  SIA protocol coins should use the v1 [withdraw](/komodo-defi-framework/api/legacy/withdraw/#withdraw) method, or the non-task v2 [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/#withdraw) method.
 </Note>
 
 ### Arguments

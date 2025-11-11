@@ -124,5 +124,732 @@
         }
       }
     ]
+  },
+  "GetMyAddress": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "SIA",
+            "wallet_address": "addr:1599ea80d9af168c...17030fb3"
+          },
+          "id": 4
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "GetRawTransaction": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "7b22736961636f696e496e70757473223a5b5d2c22736961636f696e4f757470757473223a5b5d2c226d696e6572466565223a2231303030303030303030303030303030303030227d"
+          },
+          "id": 7
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "SendRawTransaction": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hash": "h:deadbeef...cafe"
+          },
+          "id": 6
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "ValidateAddress": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "is_valid": true
+          },
+          "id": 8
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawSia": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx": {
+              "tx_hash": "h:abcdef...1234",
+              "coin": "SIA"
+            }
+          },
+          "id": 5
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistorySia": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx": {
+              "tx_hash": "h:abcdef...1234",
+              "coin": "SIA"
+            }
+          },
+          "id": 5
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistoryAccountDoc": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "DOC",
+            "target": {
+              "type": "account_id",
+              "account_id": 77
+            },
+            "current_block": 2066531,
+            "transactions": [
+              {
+                "tx_hex": "0400008085202f890165d40f00c0b4395ccdbe6d4f3124fa8b06d4910e5327b67c8186dd4b55afa124030000006b483045022100a3fe466d53ce9e5429608427e0d0224e8923d86dabf5b6c4b4d54dae7c060acd022039d165e1e245efd93a9172ab0a7837985310b4beccd6e05be1894cd66e0912cc012102d09f2cb1693be9c0ea73bb48d45ce61805edd1c43590681b02f877206078a5b3ffffffff0400e1f505000000001976a91479bdbbf2302fa86c7c5861ddc782e6e5776a546d88ac00c2eb0b000000001976a91479bdbbf2302fa86c7c5861ddc782e6e5776a546d88aca01f791c000000001976a91479bdbbf2302fa86c7c5861ddc782e6e5776a546d88ace04728b93f0200001976a91490a0d8ba62c339ade97a14e81b6f531de03fdbb288ac00000000000000000000000000000000000000",
+                "tx_hash": "e5cd671c71f9a2564cd05057ee94be86bd215df257bfb7408b9ee6deb1e461c5",
+                "from": [
+                  "RNTv4xTLLm26p3SvsQCBy9qNK7s1RgGYSB"
+                ],
+                "to": [
+                  "RLNu8gszQ8ENUrY3VSyBS2714CNVwn1f7P",
+                  "RNTv4xTLLm26p3SvsQCBy9qNK7s1RgGYSB"
+                ],
+                "total_amount": "24734.9033",
+                "spent_by_me": "0",
+                "received_by_me": "7.777",
+                "my_balance_change": "7.777",
+                "block_height": 2051968,
+                "timestamp": 1693906841,
+                "fee_details": {
+                  "type": "Utxo",
+                  "coin": "DOC",
+                  "amount": "0.0001"
+                },
+                "coin": "DOC",
+                "internal_id": "e5cd671c71f9a2564cd05057ee94be86bd215df257bfb7408b9ee6deb1e461c5",
+                "transaction_type": "StandardTransfer",
+                "memo": null,
+                "confirmations": 14564
+              }
+            ],
+            "sync_status": {
+              "state": "Finished"
+            },
+            "limit": 10,
+            "skipped": 0,
+            "total": 1,
+            "total_pages": 1,
+            "paging_options": {
+              "PageNumber": 1
+            }
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistoryAddressDoc": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "DOC",
+            "target": {
+              "type": "address_id",
+              "account_id": 0,
+              "chain": "External",
+              "address_id": 1
+            },
+            "current_block": 2066531,
+            "transactions": [
+              {
+                "tx_hex": "0400008085202f8901c97b980d21538685a1fa82e1bb0c3a25b2dfaeaecb10647403b48afaefdcef3d010000006b483045022100d4ec136c54cda3861916e2390f0c8afc5348ce7844eaecb98da1bd2c964703280220107bb95194bdb51b9fd584d1834357376288b1ed5185a2bae34b290947683f5a01210325f62245ee44b9e586e71ef462833d8aa32ae2a05d06a9b78a9fb95b7a7d2a3fffffffff0280969800000000001976a914f26650dc9aa4e4505978ad635cdb15491cee70e188ace07c5205000000001976a914e30fff4883a28b09889f3e94c24392c899d2833e88ac930cf264000000000000000000000000000000",
+                "tx_hash": "8c6456383d7d112ec400597739e07a3c50557a4ec399b8993312d8c4780ce973",
+                "from": [
+                  "RVyndZp3ZrhGKSwHryyM3Kcz9aq2EJrW1z"
+                ],
+                "to": [
+                  "RVyndZp3ZrhGKSwHryyM3Kcz9aq2EJrW1z",
+                  "RXNtAyDSsY3DS3VxTpJegzoHU9bUX54j56"
+                ],
+                "total_amount": "0.99293",
+                "spent_by_me": "0.99293",
+                "received_by_me": "0.99292",
+                "my_balance_change": "-0.00001",
+                "block_height": 2046628,
+                "timestamp": 1693584717,
+                "fee_details": {
+                  "type": "Utxo",
+                  "coin": "DOC",
+                  "amount": "0.00001"
+                },
+                "coin": "DOC",
+                "internal_id": "8c6456383d7d112ec400597739e07a3c50557a4ec399b8993312d8c4780ce973",
+                "transaction_type": "StandardTransfer",
+                "memo": null,
+                "confirmations": 19904
+              }
+            ],
+            "sync_status": {
+              "state": "Finished"
+            },
+            "limit": 1,
+            "skipped": 0,
+            "total": 10,
+            "total_pages": 10,
+            "paging_options": {
+              "PageNumber": 1
+            }
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistoryBchPage2": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "BCH",
+            "target": {
+              "type": "iguana"
+            },
+            "current_block": 772607,
+            "transactions": [
+              {
+                "tx_hex": "0100000001b7b45d92f8f3413a0e5656258e0a51f5c7e8230c0a08cef2ebec1ddbb8f7c28200000000d747304402203ca957fdfcfbba6123d78afe28b17fd4103cc04f6ada4110eb61c2a0350c29b802204215f203d583e8bcc79bd70f33af4f4e27500b5a5375efe75a1c31ec112f3c344120b3f71dbea00eeace7f09b0911de31e46f76a48036b86ccc207dac55540912e01004c6b6304dbf67563b175210315d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732ac6782012088a914dde61fe24ea3cfa39379c475702692fa2f080900882103ed00156316c46094c0cbcf21a5ee549a1b3a50938c43096ef499ca28059edca6ac68ffffffff0133980200000000001976a91411a1563bfa55ae05fa621b2e245abe5a358c852e88acdbf67563",
+                "tx_hash": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+                "from": [
+                  "bitcoincash:ppaa62685yaucdf2a54g3rgtyc9g7yawrvvmqsfumc"
+                ],
+                "to": [
+                  "bitcoincash:qqg6z43mlf26up06vgdjufz6hedrtry99cvk5dgcnt"
+                ],
+                "total_amount": "0.00171035",
+                "spent_by_me": "0",
+                "received_by_me": "0.00170035",
+                "my_balance_change": "0.00170035",
+                "block_height": 766923,
+                "timestamp": 1668615553,
+                "fee_details": {
+                  "type": "Utxo",
+                  "coin": "BCH",
+                  "amount": "0.00001"
+                },
+                "coin": "BCH",
+                "internal_id": "e2167df56142bccdb8c620297f1b6ca3f7c8a955332838430d4d0f62530870f9",
+                "transaction_type": "StandardTransfer",
+                "confirmations": 5685
+              }
+            ],
+            "sync_status": {
+              "state": "Finished"
+            },
+            "limit": 2,
+            "skipped": 2,
+            "total": 16,
+            "total_pages": 8,
+            "paging_options": {
+              "PageNumber": 2
+            }
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistoryBchFromId": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "BCH",
+            "target": {
+              "type": "iguana"
+            },
+            "current_block": 772612,
+            "transactions": [
+              {
+                "tx_hex": "0200000002365a29eb638da7fc57720ad6c99fdbc6cfb9c957920cfb62fd69e494b412c1c1020000006b483045022100de81bca8cfef2f95b3da8aa89edf4f5cc6cf489c565d0965b8142380ef3986f1022062d6ed47f2cd281f4860a27e835949aafbab89eeb0865fbf2280a283dfb7c417412102b9fdfedefde71b21523974b9f24a4b6a1b83c5640b839baa6eb14418cae08191ffffffffc1f73b403f893f93d95b8c7dfa1b59bb5445109d4c51107da1e08fb770e54136010000006a47304402203658375dac3b84ae17e72cf3f5157b8ad25e7caee0629fa8708868974f8d58b402206f38d016ed4e390d783627441685692d21b889d83919abd39368cba28f43f544412102b9fdfedefde71b21523974b9f24a4b6a1b83c5640b839baa6eb14418cae08191ffffffff040000000000000000406a04534c500001010453454e44205321508197ffed321c5fc9a1427e5c68b31d2c1ec92ae1c495f8acb08d8d66cd080000000000002710080000002278c569d322020000000000001976a914d346067e3c3c3964c395fee208594790e29ede5d88ac22020000000000001976a914580af35e3553d57b4b3a2036f4959f10246e98c788ac68955e03000000001976a914580af35e3553d57b4b3a2036f4959f10246e98c788ac00000000",
+                "tx_hash": "7b58248f3486079951a57d6dbd41c019a83f2b876c9fa3afa6fcc5a7c595b837",
+                "from": [
+                  "simpleledger:qpvq4u67x4fa276t8gsrday4nugzgm5ccu4usawss8"
+                ],
+                "to": [
+                  "simpleledger:qpvq4u67x4fa276t8gsrday4nugzgm5ccu4usawss8",
+                  "simpleledger:qrf5vpn78s7rjexrjhlwyzzeg7gw98k7t5va3wuz4v"
+                ],
+                "total_amount": "1480551016.67",
+                "spent_by_me": "0",
+                "received_by_me": "100",
+                "my_balance_change": "100",
+                "block_height": 772211,
+                "timestamp": 1671817336,
+                "fee_details": {
+                  "type": "Utxo",
+                  "coin": "BCH",
+                  "amount": "0.00000482"
+                },
+                "coin": "BCH",
+                "internal_id": "57b78eb912a704921640a589d8bb42bb147dfb88c3d1b4b2e3df910be6b9ab31",
+                "transaction_type": {
+                  "TokenTransfer": "5321508197ffed321c5fc9a1427e5c68b31d2c1ec92ae1c495f8acb08d8d66cd"
+                },
+                "confirmations": 402
+              }
+            ],
+            "sync_status": {
+              "state": "Finished"
+            },
+            "limit": 10,
+            "skipped": 0,
+            "total": 1,
+            "total_pages": 1,
+            "paging_options": {
+              "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
+            }
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistoryIrisLimit50": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "coin": "IRIS",
+            "target": {
+              "type": "iguana"
+            },
+            "current_block": 18120346,
+            "transactions": [
+              {
+                "tx_hex": "0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083130303030303030",
+                "tx_hash": "B34A8D5AD74067F01A0207DF1851A14673C859D8A6F4FB0CBE292D2104C143CA",
+                "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+                "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+                "total_amount": "10.044559",
+                "spent_by_me": "10.044559",
+                "received_by_me": "10",
+                "my_balance_change": "-0.044559",
+                "block_height": 18120218,
+                "timestamp": 1673016440,
+                "fee_details": {
+                  "type": "Tendermint",
+                  "coin": "IRIS",
+                  "amount": "0.044559",
+                  "gas_limit": 100000
+                },
+                "coin": "IRIS",
+                "internal_id": "4644373032304131304637363034374441354438413433420000000000000000",
+                "transaction_type": "StandardTransfer",
+                "memo": "while you are out, buy milk",
+                "confirmations": 129
+              }
+            ],
+            "sync_status": {
+              "state": "NotStarted"
+            },
+            "limit": 50,
+            "skipped": 0,
+            "total": 3,
+            "total_pages": 1,
+            "paging_options": {
+              "PageNumber": 1
+            }
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "MyTxHistorySiaUnsupported": {
+    "error": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "error": "SC",
+          "error_path": "my_tx_history_v2",
+          "error_trace": "my_tx_history_v2:385]",
+          "error_type": "NotSupportedFor",
+          "error_data": "SC",
+          "id": null
+        },
+        "title": "SIA unsupported"
+      }
+    ],
+    "success": []
+  },
+  "WithdrawKmd": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0400008085202f890152db2e550ca2d69eed487c95b6089b0f12e7a8937a89b8754c38a8c361560fca000000006a47304402200220239769f48c8bc96fbbcb66bcc0483f6234cb48ab823e13f0b791cdd501b902204f8b2dd875609e35f1677e39e403a18e9d2d98cd9916f51a62ac1edfc350cd47012102b3c168ed4acd96594288cee3114c77de51b6afe1ab6a866887a13a96ee80f33cffffffff0290a00b00000000001976a9145d904d4531f4c74f760a14ef057c866a06705dda88ac37040700000000001976a9145d904d4531f4c74f760a14ef057c866a06705dda88ac0609ed67000000000000000000000000000000",
+            "tx_hash": "aa456a6288292c4980637083871a6a4a1fb0a2242f6a30ae974069311691f37c",
+            "from": ["RHound8PpyhVLfi56dC7MK3ZvvkAmB3bvQ"],
+            "to": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
+            "total_amount": "10",
+            "spent_by_me": "10",
+            "received_by_me": "0",
+            "my_balance_change": "-10",
+            "block_height": 0,
+            "timestamp": 1743589636,
+            "fee_details": {"type": "Utxo", "coin": "KMD", "amount": "0.00001"},
+            "coin": "KMD",
+            "internal_id": "",
+            "kmd_rewards": {"amount": "0", "claimed_by_my": true},
+            "transaction_type": "StandardTransfer",
+            "memo": null
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawDocFixedFee": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
+            "tx_hash": "1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
+            "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+            "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+            "total_amount": "60.10253836",
+            "spent_by_me": "60.10253836",
+            "received_by_me": "60.00253836",
+            "my_balance_change": "-0.1",
+            "block_height": 0,
+            "timestamp": 1566472936,
+            "fee_details": {"type": "Utxo", "coin": "DOC", "amount": "0.1"},
+            "coin": "DOC",
+            "internal_id": ""
+          },
+          "id": 0
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawDocPerKbyte": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0400008085202f890258be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a000000006b483045022100ef11280e981be280ca5d24c947842ca6a8689d992b73e3a7eb9ff21070b0442b02203e458a2bbb1f2bf8448fc47c51485015904a5271bb17e14be5afa6625d67b1e8012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff58be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a010000006b483045022100daaa10b09e7abf9d4f596fc5ac1f2542b8ecfab9bb9f2b02201644944ddc0280022067aa1b91ec821aa48f1d06d34cd26fb69a9f27d59d5eecdd451006940d9e83db012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788accd7c5e5d000000000000000000000000000000",
+            "tx_hash": "fd115190feec8c0c14df2696969295c59c674886344e5072d64000379101b78c",
+            "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+            "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+            "total_amount": "60.00253836",
+            "spent_by_me": "60.00253836",
+            "received_by_me": "59.61874931",
+            "my_balance_change": "-0.38378905",
+            "block_height": 0,
+            "timestamp": 1566473421,
+            "fee_details": {"type": "Utxo", "coin": "DOC", "amount": "0.38378905"},
+            "coin": "DOC",
+            "internal_id": ""
+          },
+          "id": 0
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawEth": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "ETH",
+            "fee_details": {"type": "Eth", "coin": "ETH", "gas": 21000, "gas_price": "0.000000001", "total_fee": "0.000021"},
+            "from": ["0xbab36286672fbdc7b250804bf6d14be0df69fa29"],
+            "my_balance_change": "-10.000021",
+            "received_by_me": "0",
+            "spent_by_me": "10.000021",
+            "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
+            "total_amount": "10.000021",
+            "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+            "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+          },
+          "id": 0
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawEthGas": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "f86d820b2884d09dc30082d6d894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca0ef0167b0e53ed50d87b6fd630925f2bce6ee72e9b5fdb51c6499a7caaecaed96a062e5cb954e503ff83f2d6ce082649fdcdf8a77c8d37c7d26d46d3f736b228d10",
+            "tx_hash": "a26c4dcacf63c04e385dd973ca7e7ca1465a3b904a0893bcadb7e37681d38c95",
+            "from": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+            "to": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+            "total_amount": "10",
+            "spent_by_me": "10.0001925",
+            "received_by_me": "10",
+            "my_balance_change": "-0.0001925",
+            "block_height": 0,
+            "timestamp": 1566474670,
+            "fee_details": {"type": "Eth", "coin": "ETH", "gas": 55000, "gas_price": "0.0000000035", "total_fee": "0.0001925"},
+            "coin": "ETH",
+            "internal_id": ""
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawEthMax": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "ETH",
+            "fee_details": {"type": "Eth", "coin": "ETH", "gas": 21000, "gas_price": "0.000000001", "total_fee": "0.000021"},
+            "from": ["0xbab36286672fbdc7b250804bf6d14be0df69fa29"],
+            "my_balance_change": "-10.000021",
+            "received_by_me": "0",
+            "spent_by_me": "10.000021",
+            "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
+            "total_amount": "10.000021",
+            "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+            "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawQrc20": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "QRC20",
+            "timestamp": 1608725061,
+            "fee_details": {"type": "Qrc20", "coin": "tQTUM", "miner_fee": "0.00000447", "gas_limit": 100000, "gas_price": 40, "total_gas_fee": "0.04"},
+            "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
+            "my_balance_change": "-10",
+            "received_by_me": "0",
+            "spent_by_me": "10",
+            "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
+            "total_amount": "10",
+            "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+            "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawQrc20Gas": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "QRC20",
+            "timestamp": 1608725061,
+            "fee_details": {"type": "Qrc20", "coin": "tQTUM", "miner_fee": "0.00000447", "gas_limit": 250000, "gas_price": 40, "total_gas_fee": "0.1"},
+            "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
+            "my_balance_change": "-10",
+            "received_by_me": "0",
+            "spent_by_me": "10",
+            "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
+            "total_amount": "10",
+            "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+            "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawSiaProtocol": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_json": {"siacoinInputs": [], "siacoinOutputs": [], "minerFee": "10000000000000000000"},
+            "tx_hash": "37dbf68cba4125714b7ca10e00e3166c434fa622b61837b43b74e4eefc179f0d",
+            "from": ["2c4a02...04db"],
+            "to": ["c67d77...fce2"],
+            "total_amount": "50.000000000000000000000000",
+            "spent_by_me": "50.000000000000000000000000",
+            "received_by_me": "49.923790000000000000000000",
+            "my_balance_change": "-0.076210000000000000000000",
+            "block_height": 0,
+            "timestamp": 1750747840,
+            "fee_details": {"type": "Sia", "coin": "SC", "policy": "Fixed", "total_amount": "0.000010000000000000000000"},
+            "coin": "SC",
+            "internal_id": "",
+            "transaction_type": "SiaV2Transaction",
+            "memo": null
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawBroadcastTrue": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
+            "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
+            "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+            "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+            "total_amount": "13.038553",
+            "spent_by_me": "13.038553",
+            "received_by_me": "13",
+            "my_balance_change": "-0.038553",
+            "block_height": 0,
+            "timestamp": 0,
+            "fee_details": {"type": "Tendermint", "coin": "IRIS", "amount": "0.038553", "gas_limit": 100000},
+            "coin": "IRIS",
+            "internal_id": "e00982a2a8442d7140916a34e29e287a0b1cbb4b38940372d1966ba7acde5bd6",
+            "transaction_type": "StandardTransfer",
+            "memo": "It was a bright cold day in April, and the clocks were striking thirteen."
+          },
+          "id": 0
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawIrisMemoCosmosGas": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
+            "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
+            "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+            "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
+            "total_amount": "13.038553",
+            "spent_by_me": "13.038553",
+            "received_by_me": "13",
+            "my_balance_change": "-0.038553",
+            "block_height": 0,
+            "timestamp": 0,
+            "fee_details": {"type": "Tendermint", "coin": "IRIS", "amount": "0.038553", "gas_limit": 100000},
+            "coin": "IRIS",
+            "internal_id": "e00982a2a8442d7140916a34e29e287a0b1cbb4b38940372d1966ba7acde5bd6",
+            "transaction_type": "StandardTransfer",
+            "memo": "It was a bright cold day in April, and the clocks were striking thirteen."
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "WithdrawIbcAtom": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0af9010abc010a292f6962632e6170706c69636174696f6e732e7472616e736665722e76312e4d73675472616e73666572128e010a087472616e73666572120b6368616e6e656c2d3134311a0f0a057561746f6d1206313030303030222d636f736d6f733136647271766c33753873756b667375346c6d3371736b32386a72336661686a617377736163382a2b6f736d6f3136647271766c33753873756b667375346c6d3371736b32386a72336661686a6163347264773438a6c5b9a089f29efa171233496e2074686520626c61636b657374206f6620796f7572206d6f6d656e74732c20776169742077697468206e6f20666561722e188df8c70a12680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801180b12140a0e0a057561746f6d1205313733353910e0c65b1a40042c4fa45d77405ee94e737a000b146f5019137d5a2d3275849c9ad66dd8ef1d0f087fb584f34b1ebcf7989e41bc0675e96c83f0eec4ffe355e078b6615d7a72",
+            "tx_hash": "06174E488B7BBC35180E841F2D170327BB7DE0A291CA69050D81F82A7CF103CB",
+            "from": ["cosmos16drqvl3u8sukfsu4lm3qsk28jr3fahjaswsac8"],
+            "to": ["osmo16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4"],
+            "total_amount": "0.1173590000000000",
+            "spent_by_me": "0.1173590000000000",
+            "received_by_me": "0",
+            "my_balance_change": "-0.1173590000000000",
+            "block_height": 0,
+            "timestamp": 0,
+            "fee_details": {"type": "Tendermint", "coin": "ATOM", "amount": "0.017359", "gas_limit": 1500000},
+            "coin": "ATOM",
+            "internal_id": "06174e488b7bbc35180e841f2d170327bb7de0a291ca69050d81f82a7cf103cb",
+            "transaction_type": "TendermintIBCTransfer",
+            "memo": "In the blackest of your moments, wait with no fear."
+          },
+          "id": null
+        },
+        "title": "Success"
+      }
+    ]
   }
 }

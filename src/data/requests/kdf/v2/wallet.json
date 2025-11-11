@@ -133,5 +133,299 @@
       "mode": "iguana"
     },
     "userpass": "RPC_UserP@SSW0RD"
+  },
+  "GetMyAddress": {
+    "mmrpc": "2.0",
+    "method": "get_my_address",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "coin": "SIA"
+    },
+    "id": 4
+  },
+  "GetRawTransactionSia": {
+    "mmrpc": "2.0",
+    "method": "get_raw_transaction",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "coin": "SIA",
+      "tx_hash": "h:abcdef...1234"
+    },
+    "id": 7
+  },
+  "SendRawTransaction": {
+    "mmrpc": "2.0",
+    "method": "send_raw_transaction",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "coin": "SIA",
+      "tx_json": {
+        "siacoinInputs": [],
+        "siacoinOutputs": [],
+        "minerFee": "10000000000000000000"
+      }
+    },
+    "id": 6
+  },
+  "ValidateAddress": {
+    "mmrpc": "2.0",
+    "method": "validateaddress",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "coin": "SIA",
+      "address": "addr:1599ea80d9af168c...17030fb3"
+    },
+    "id": 8
+  },
+  "WithdrawSia": {
+    "mmrpc": "2.0",
+    "method": "withdraw",
+    "userpass": "RPC_UserP@SSW0RD",
+    "params": {
+      "coin": "SIA",
+      "to": "addr:1d9a926b1e14b542...8204",
+      "amount": "1"
+    },
+    "id": 5
+  },
+  "WithdrawKmd": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "KMD",
+      "to": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+      "amount": "10"
+    },
+    "id": 0
+  },
+  "WithdrawDocFixedFee": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "DOC",
+      "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+      "amount": "1.0",
+      "fee": {
+        "type": "UtxoFixed",
+        "amount": "0.1"
+      }
+    },
+    "id": 0
+  },
+  "WithdrawDocPerKbyte": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "DOC",
+      "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+      "amount": "1.0",
+      "fee": {
+        "type": "UtxoPerKbyte",
+        "amount": "1"
+      }
+    },
+    "id": 0
+  },
+  "WithdrawEth": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "ETH",
+      "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
+      "amount": 10
+    },
+    "id": 0
+  },
+  "WithdrawEthGas": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "COIN_NAME",
+      "to": "RECIPIENT_ADDRESS",
+      "amount": "AMOUNT",
+      "fee": {
+        "type": "EthGas",
+        "gas_price": "3.5",
+        "gas": 55000
+      }
+    },
+    "id": 0
+  },
+  "WithdrawEthMax": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "ETH",
+      "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
+      "max": true
+    },
+    "id": 0
+  },
+  "WithdrawQrc20": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "QRC20",
+      "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
+      "amount": 10
+    },
+    "id": 0
+  },
+  "WithdrawQrc20Gas": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "QRC20",
+      "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
+      "amount": 10,
+      "fee": {
+        "type": "Qrc20Gas",
+        "gas_limit": 250000,
+        "gas_price": 40
+      }
+    },
+    "id": 0
+  },
+  "WithdrawSiaProtocol": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "SC",
+      "to": "c67d77a585c13727dbba57cfc115995beb9b8737e9a8cb7bb0aa208744e646cdc0acc9c9fce2",
+      "max": true
+    },
+    "id": 0
+  },
+  "WithdrawBroadcastTrue": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "MATIC",
+      "to": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
+      "amount": 0.1,
+      "broadcast": true
+    },
+    "id": 0
+  },
+  "WithdrawIrisMemoCosmosGas": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "IRIS",
+      "to": "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k",
+      "amount": 13,
+      "memo": "It was a bright cold day in April, and the clocks were striking thirteen.",
+      "fee": {
+        "type": "CosmosGas",
+        "gas_price": 0.05,
+        "gas_limit": 150000
+      }
+    },
+    "id": 0
+  },
+  "WithdrawIbcAtom": {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "ATOM",
+      "to": "osmo16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4",
+      "amount": 0.1,
+      "memo": "In the blackest of your moments, wait with no fear.",
+      "ibc_source_channel": 141,
+      "fee": {
+        "type": "CosmosGas",
+        "gas_price": 0.05,
+        "gas_limit": 150000
+      }
+    },
+    "id": 0
+  },
+  "MyTxHistoryAccountDoc": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "my_tx_history",
+    "params": {
+      "coin": "DOC",
+      "limit": 10,
+      "paging_options": {
+        "PageNumber": 1
+      },
+      "target": {
+        "type": "account_id",
+        "account_id": 77
+      }
+    }
+  },
+  "MyTxHistoryAddressDoc": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "my_tx_history",
+    "params": {
+      "coin": "DOC",
+      "limit": 1,
+      "paging_options": {
+        "PageNumber": 1
+      },
+      "target": {
+        "type": "address_id",
+        "account_id": 0,
+        "chain": "External",
+        "address_id": 1
+      }
+    }
+  },
+  "MyTxHistoryBchPage2": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "BCH",
+      "limit": 2,
+      "paging_options": {
+        "PageNumber": 2
+      }
+    }
+  },
+  "MyTxHistoryBchFromId": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "BCH",
+      "limit": 2,
+      "paging_options": {
+        "FromId": "433b641bc89e1b59c22717918583c60ec98421805c8e85b064691705d9aeb970"
+      }
+    }
+  },
+  "MyTxHistoryIrisLimit50": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "IRIS",
+      "limit": 50
+    }
+  },
+  "MyTxHistorySiaUnsupported": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "SC",
+      "limit": 50
+    }
   }
 }
