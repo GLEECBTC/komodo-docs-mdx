@@ -3,8 +3,6 @@ export const description = "The get_enabled_coins method returns data of coins t
 
 # get\_enabled\_coins
 
-**get\_enabled\_coins**
-
 The `get_enabled_coins` method returns data of coins that are currently enabled on the user's Komodo DeFi Framework API node.
 
 <Note>
@@ -12,68 +10,16 @@ The `get_enabled_coins` method returns data of coins that are currently enabled 
   If you need to get the addresses for coins and have not set `enable_hd` in your [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/), use the v1 method.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="legacy/utils.NoParams" />
 
-#### Response
+### Response Parameters
 
-| Structure      | Type             | Description                            |
-| -------------- | ---------------- | -------------------------------------- |
-| result         | array of objects | tickers and addresses of enabled coins |
-| result.address | string           | the user's address for this coin       |
-| result.ticker  | string           | the ticker name of this coin           |
+<CompactTable source="legacy/utils.GetEnabledCoinsResponse" />
 
-#### 📌 Examples
+### 📌 Examples
 
-#### Command
+<CodeGroup title="" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true" source="legacy/utils.LegacyGetEnabledCoins" />
 
-<CodeGroup title="" tag="POST" label="get_enabled_coins" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "get_enabled_coins"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "result": [
-      {
-        "address": "1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
-        "ticker": "BTC"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "PIZZA"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "BEER"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "ETH"
-      },
-      {
-        "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-        "ticker": "ETOMIC"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "DEC8"
-      },
-      {
-        "address": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-        "ticker": "BAT"
-      }
-    ]
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/utils.LegacyGetEnabledCoins" />

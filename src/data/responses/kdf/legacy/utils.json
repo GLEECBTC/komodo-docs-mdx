@@ -1,6 +1,44 @@
 {
   "LegacyVersion": {
     "error": [],
-    "success": []
+    "success": [
+      {
+        "title": "Success",
+        "notes": "",
+        "json": {
+          "result": "2.0.996_mm2_3bb412578_Linux",
+          "datetime": "2024-05-05T12:34:56Z"
+        }
+      }
+    ]
+  },
+  "LegacyGetMyPeerId": {
+    "error": [],
+    "success": [
+      {
+        "title": "Success",
+        "notes": "",
+        "json": {
+          "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
+        }
+      }
+    ]
+  },
+  "LegacyGetEnabledCoins": {
+    "error": [],
+    "success": [
+      {
+        "title": "Success",
+        "notes": "",
+        "json": {
+          "result": [
+            {
+              "address": "1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
+              "ticker": "BTC"
+            }
+          ]
+        }
+      }
+    ]
   }
 }

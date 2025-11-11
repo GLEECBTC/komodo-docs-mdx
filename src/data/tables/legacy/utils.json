@@ -1,4 +1,7 @@
 {
+  "NoParams": {
+    "data": []
+  },
   "VersionResponse": {
     "data": [
       {
@@ -11,6 +14,43 @@
         "parameter": "datetime",
         "type": "string",
         "description": "A formatted datetime string"
+      }
+    ]
+  },
+  "GetMyPeerIdResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The Peer ID of your node on the network"
+      }
+    ]
+  },
+  "EnabledCoinEntry": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The user's address for this coin"
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the enabled coin"
+      }
+    ]
+  },
+  "GetEnabledCoinsResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "list of objects",
+        "required": true,
+        "description": "Tickers and addresses of enabled coins",
+        "substructure": "legacy/utils.EnabledCoinEntry"
       }
     ]
   }

@@ -45,125 +45,125 @@ The Komodo DeFi Framework supports Bitcoin Cash SLP tokens. Using this method, y
 
 <CompactTable source="v2/coin_activation.EnableBchWithTokensErrorTypes" />
 
-  #### PlatformIsAlreadyActivated Error
+#### PlatformIsAlreadyActivated Error
 
-  In this case, you need to [disable](/komodo-defi-framework/api/legacy/disable_coin/) BCH and try again.
+In this case, you need to [disable](/komodo-defi-framework/api/legacy/disable_coin/) BCH and try again.
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "BCH",
-      "error_path": "platform_coin_with_tokens",
-      "error_trace": "platform_coin_with_tokens:281]",
-      "error_type": "PlatformIsAlreadyActivated",
-      "error_data": "BCH",
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "BCH",
+    "error_path": "platform_coin_with_tokens",
+    "error_trace": "platform_coin_with_tokens:281]",
+    "error_type": "PlatformIsAlreadyActivated",
+    "error_data": "BCH",
+    "id": null
+}
+```
 
-  #### PlatformConfigIsNotFound Error
+#### PlatformConfigIsNotFound Error
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Platform BCH-wrong config is not found",
-      "error_path": "platform_coin_with_tokens.prelude",
-      "error_trace": "platform_coin_with_tokens:286] prelude:56]",
-      "error_type": "PlatformConfigIsNotFound",
-      "error_data": "BCH-wrong",
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Platform BCH-wrong config is not found",
+    "error_path": "platform_coin_with_tokens.prelude",
+    "error_trace": "platform_coin_with_tokens:286] prelude:56]",
+    "error_type": "PlatformConfigIsNotFound",
+    "error_data": "BCH-wrong",
+    "id": null
+}
+```
 
-  #### UnexpectedPlatformProtocol Error
+#### UnexpectedPlatformProtocol Error
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Unexpected platform protocol UTXO for BTC",
-      "error_path": "platform_coin_with_tokens.prelude.bch_with_tokens_activation",
-      "error_trace": "platform_coin_with_tokens:286] prelude:67] bch_with_tokens_activation:127]",
-      "error_type": "UnexpectedPlatformProtocol",
-      "error_data": {
-          "ticker": "BTC",
-          "protocol": {
-              "type": "UTXO"
-          }
-      },
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Unexpected platform protocol UTXO for BTC",
+    "error_path": "platform_coin_with_tokens.prelude.bch_with_tokens_activation",
+    "error_trace": "platform_coin_with_tokens:286] prelude:67] bch_with_tokens_activation:127]",
+    "error_type": "UnexpectedPlatformProtocol",
+    "error_data": {
+        "ticker": "BTC",
+        "protocol": {
+            "type": "UTXO"
+        }
+    },
+    "id": null
+}
+```
 
-  #### UnexpectedTokenProtocol Error
+#### UnexpectedTokenProtocol Error
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Unexpected token protocol ERC20 { platform: \"ETH\", contract_address: \"0xdAC17F958D2ee523a2206206994597C13D831ec7\" } for USDT-ERC20",
-      "error_path": "platform_coin_with_tokens.prelude.slp_token_activation",
-      "error_trace": "platform_coin_with_tokens:301] platform_coin_with_tokens:114] prelude:67] slp_token_activation:47]",
-      "error_type": "UnexpectedTokenProtocol",
-      "error_data": {
-          "ticker": "USDT-ERC20",
-          "protocol": {
-              "type": "ERC20",
-              "protocol_data": {
-                  "platform": "ETH",
-                  "contract_address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-              }
-          }
-      },
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Unexpected token protocol ERC20 { platform: \"ETH\", contract_address: \"0xdAC17F958D2ee523a2206206994597C13D831ec7\" } for USDT-ERC20",
+    "error_path": "platform_coin_with_tokens.prelude.slp_token_activation",
+    "error_trace": "platform_coin_with_tokens:301] platform_coin_with_tokens:114] prelude:67] slp_token_activation:47]",
+    "error_type": "UnexpectedTokenProtocol",
+    "error_data": {
+        "ticker": "USDT-ERC20",
+        "protocol": {
+            "type": "ERC20",
+            "protocol_data": {
+                "platform": "ETH",
+                "contract_address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+            }
+        }
+    },
+    "id": null
+}
+```
 
-  #### PlatformCoinCreationError Error
+#### PlatformCoinCreationError Error
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Error Using empty bchd_urls is unsafe for SLP users! on platform coin BCH creation",
-      "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
-      "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
-      "error_type": "PlatformCoinCreationError",
-      "error_data": {
-          "ticker": "BCH",
-          "error": "Using empty bchd_urls is unsafe for SLP users!"
-      },
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Error Using empty bchd_urls is unsafe for SLP users! on platform coin BCH creation",
+    "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
+    "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
+    "error_type": "PlatformCoinCreationError",
+    "error_data": {
+        "ticker": "BCH",
+        "error": "Using empty bchd_urls is unsafe for SLP users!"
+    },
+    "id": null
+}
+```
 
-  #### PlatformCoinCreationError Error (native)
+#### PlatformCoinCreationError Error (native)
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Error bch:633] utxo:1704] utxo:995] Error parsing the native wallet configuration '/home/user/.Bitcoin Cash Testnet/Bitcoin Cash Testnet.conf': No such file or directory (os error 2) on platform coin tBCH creation",
-      "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
-      "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
-      "error_type": "PlatformCoinCreationError",
-      "error_data": {
-          "ticker": "tBCH",
-          "error": "bch:633] utxo:1704] utxo:995] Error parsing the native wallet configuration '/home/user/.Bitcoin Cash Testnet/Bitcoin Cash Testnet.conf': No such file or directory (os error 2)"
-      },
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Error bch:633] utxo:1704] utxo:995] Error parsing the native wallet configuration '/home/user/.Bitcoin Cash Testnet/Bitcoin Cash Testnet.conf': No such file or directory (os error 2) on platform coin tBCH creation",
+    "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
+    "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
+    "error_type": "PlatformCoinCreationError",
+    "error_data": {
+        "ticker": "tBCH",
+        "error": "bch:633] utxo:1704] utxo:995] Error parsing the native wallet configuration '/home/user/.Bitcoin Cash Testnet/Bitcoin Cash Testnet.conf': No such file or directory (os error 2)"
+    },
+    "id": null
+}
+```
 
-  #### PlatformCoinCreationError Error (Electrum server not responding)
+#### PlatformCoinCreationError Error (Electrum server not responding)
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "error": "Error bch:633] utxo:1667] Failed to connect to at least 1 of [ElectrumRpcRequest { url: \"bch0.kister.net:5100\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"testnet.imaginary.cash:5000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"blackie.c3-soft.com:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"tbch.loping.net:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"electroncash.de:5000\", protocol: TCP, disable_cert_verification: false }] in 5 seconds. on platform coin tBCH creation",
-      "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
-      "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
-      "error_type": "PlatformCoinCreationError",
-      "error_data": {
-          "ticker": "tBCH",
-          "error": "bch:633] utxo:1667] Failed to connect to at least 1 of [ElectrumRpcRequest { url: \"bch0.kister.net:5100\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"testnet.imaginary.cash:5000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"blackie.c3-soft.com:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"tbch.loping.net:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"electroncash.de:5000\", protocol: TCP, disable_cert_verification: false }] in 5 seconds."
-      },
-      "id": null
-  }
-  ```
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Error bch:633] utxo:1667] Failed to connect to at least 1 of [ElectrumRpcRequest { url: \"bch0.kister.net:5100\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"testnet.imaginary.cash:5000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"blackie.c3-soft.com:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"tbch.loping.net:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"electroncash.de:5000\", protocol: TCP, disable_cert_verification: false }] in 5 seconds. on platform coin tBCH creation",
+    "error_path": "platform_coin_with_tokens.bch_with_tokens_activation",
+    "error_trace": "platform_coin_with_tokens:290] bch_with_tokens_activation:212]",
+    "error_type": "PlatformCoinCreationError",
+    "error_data": {
+        "ticker": "tBCH",
+        "error": "bch:633] utxo:1667] Failed to connect to at least 1 of [ElectrumRpcRequest { url: \"bch0.kister.net:5100\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"testnet.imaginary.cash:5000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"blackie.c3-soft.com:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"tbch.loping.net:6000\", protocol: TCP, disable_cert_verification: false }, ElectrumRpcRequest { url: \"electroncash.de:5000\", protocol: TCP, disable_cert_verification: false }] in 5 seconds."
+    },
+    "id": null
+}
+```

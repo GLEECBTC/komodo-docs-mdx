@@ -3,41 +3,18 @@ export const description = "The get_my_peer_id method returns your unique identi
 
 # get\_my\_peer\_id
 
-**get\_my\_peer\_id**
+The `get_my_peer_id` method returns your unique identifying Peer ID on the network.
 
-The `get_my_peer_id` method returns your unique identifying Peer ID on the network
+### Request Parameters
 
-## Arguments
+<CompactTable source="legacy/utils.NoParams" />
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+### Response Parameters
 
-#### Response
+<CompactTable source="legacy/utils.GetMyPeerIdResponse" />
 
-| Structure | Type   | Description                            |
-| --------- | ------ | -------------------------------------- |
-| PeerID    | string | The PeerID of your node on the network |
+### 📌 Examples
 
-#### 📌 Examples
+<CodeGroup title="" tag="POST" label="get_my_peer_id" mm2MethodDecorate="true" source="legacy/utils.LegacyGetMyPeerId" />
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="get_my_peer_id" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "get_my_peer_id"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/utils.LegacyGetMyPeerId" />

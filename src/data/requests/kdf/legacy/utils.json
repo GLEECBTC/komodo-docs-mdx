@@ -1,5 +1,11 @@
 {
   "LegacyVersion": {
     "method": "version"
+  },
+  "LegacyGetMyPeerId": {
+    "method": "get_my_peer_id"
+  },
+  "LegacyGetEnabledCoins": {
+    "method": "get_enabled_coins"
   }
 }
