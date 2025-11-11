@@ -36,6 +36,15 @@
               "description": {
                 "type": "string",
                 "description": "Parameter description"
+              },
+              "substructure": {
+                "type": "string",
+                "description": "Reference to another table structure (e.g., activation.ActivationRpcData)"
+              },
+              "context": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Optional context tags (e.g., Metamask, Keplr, WalletConnect)"
               }
             },
             "required": ["parameter", "type", "required", "description"],
