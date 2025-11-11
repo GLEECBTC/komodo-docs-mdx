@@ -215,14 +215,14 @@ class DocsSyncManager {
       while ((match = pattern.exec(text)) !== null) {
         try {
           const jsonText = match[1] || match[0];
-          // Clean up the JSON (remove comments, fix common issues)
+          // Handle template variables before other cleanup
           let cleanJson = jsonText
+            .replace(/"{{[^}]*}}"/g, '"{{placeholder}}"') // Replace template variables
             .replace(/\/\/.*$/gm, '') // Remove line comments
             .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
             .trim(); // Remove extra whitespace
           
-          // Handle template variables more carefully
-          cleanJson = cleanJson.replace(/"{{[^}]*}}"/g, '"{{placeholder}}"');
+          // (template variable replacement already done above)
           
           const parsed = JSON.parse(cleanJson);
           codeBlocks.push({
