@@ -2656,6 +2656,20 @@
     "response-btc-and-kmd-should-be-activated-asap-in-this-case",
     "response-no-swaps-and-orders-waiting-to-be-started"
   ],
+  "src/pages/komodo-defi-framework/api/legacy/consolidate_utxos/index.mdx": [
+    "consolidate-utxos",
+    "arguments",
+    "response",
+    "examples",
+    "basic-utxo-consolidation",
+    "response-success",
+    "utxo-consolidation-with-custom-merge-conditions",
+    "response-success-2",
+    "response-error-coin-not-activated",
+    "response-error-insufficient-utxos-to-consolidate",
+    "response-error-non-utxo-coin",
+    "additional-notes"
+  ],
   "src/pages/komodo-defi-framework/api/legacy/convert_utxo_address/index.mdx": [
     "convert-utxo-address",
     "arguments",
@@ -4554,6 +4568,9 @@
   ],
   "src/pages/komodo-defi-framework/changelog/index.mdx": [
     "change-log",
+    "komodo-de-fi-framework-v2-6-0-beta-upcoming",
+    "utxo-management-enhancement",
+    "utxo-optimization",
     "komodo-de-fi-framework-v2-5-2-beta",
     "privacy-coins-stats-and-mac-os-universal2-support",
     "release-notes",
