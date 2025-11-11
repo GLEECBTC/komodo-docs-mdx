@@ -1,0 +1,166 @@
+export const title = "Komodo DeFi Framework Method: Consolidate UTXOs";
+export const description = "The consolidate_utxos method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin to optimize transaction efficiency and reduce wallet fragmentation.";
+
+# consolidate\_utxos
+
+**consolidate\_utxos coin merge\_conditions**
+
+The `consolidate_utxos` method consolidates unspent transaction outputs (UTXOs) for a specified UTXO-based coin. This operation helps optimize transaction efficiency by reducing wallet fragmentation and lowering the number of UTXOs, which can improve transaction creation speed and reduce fees.
+
+<Note>
+  This method is specifically designed for UTXO-based coins (Bitcoin, Litecoin, KMD, etc.) and will not work with account-based coins like Ethereum or ERC-20 tokens.
+</Note>
+
+## Arguments
+
+| Structure                              | Type    | Description                                                                                |
+| -------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| coin                                   | string  | The name of the UTXO-based coin to consolidate                                             |
+| merge\_conditions                      | object  | Optional. Configuration object for consolidation behavior                                  |
+| merge\_conditions.merge\_at            | integer | Optional. Minimum number of lone UTXOs that triggers automatic consolidation. Default: 100 |
+| merge\_conditions.max\_merge\_at\_once | integer | Optional. Maximum number of UTXOs to merge in a single transaction. Default: 50            |
+
+## Response
+
+| Structure           | Type             | Description                                                                |
+| ------------------- | ---------------- | -------------------------------------------------------------------------- |
+| tx\_hash            | string           | The hash of the consolidation transaction                                  |
+| tx\_hex             | string           | The raw transaction hex that can be broadcast using `send_raw_transaction` |
+| from                | array of strings | Source addresses (UTXOs) that were consolidated                            |
+| to                  | array of strings | Destination address where consolidated funds were sent                     |
+| total\_amount       | string (numeric) | Total amount consolidated                                                  |
+| spent\_by\_me       | string (numeric) | Total amount spent including fees                                          |
+| received\_by\_me    | string (numeric) | Amount received after consolidation                                        |
+| my\_balance\_change | string (numeric) | Net balance change (typically negative due to transaction fees)            |
+| fee\_details        | object           | Fee information for the consolidation transaction                          |
+| coin                | string           | The coin that was consolidated                                             |
+| utxos\_merged       | integer          | Number of UTXOs that were successfully merged                              |
+
+#### 📌 Examples
+
+#### Basic UTXO Consolidation
+
+<CodeGroup title="consolidate_utxos" tag="POST" label="consolidate_utxos" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "consolidate_utxos",
+    "coin": "KMD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "tx_hash": "7e0e1b0c8a2f1d9e3c4b5a6789012345678901234567890123456789abcdef01",
+    "tx_hex": "0400008085202f890312345...abcdef",
+    "from": [
+      "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ",
+      "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ",
+      "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ"
+    ],
+    "to": [
+      "RGVd8VTPgKXWo9JGjUSdkkDKFzCUKKXVDJ"
+    ],
+    "total_amount": "15.75",
+    "spent_by_me": "15.75001",
+    "received_by_me": "15.74999",
+    "my_balance_change": "-0.00001",
+    "fee_details": {
+      "type": "Utxo",
+      "amount": "0.00001"
+    },
+    "coin": "KMD",
+    "utxos_merged": 25
+  }
+  ```
+</CollapsibleSection>
+
+#### UTXO Consolidation with Custom Merge Conditions
+
+<CodeGroup title="consolidate_utxos" tag="POST" label="consolidate_utxos" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "consolidate_utxos",
+    "coin": "BTC",
+    "merge_conditions": {
+      "merge_at": 50,
+      "max_merge_at_once": 25
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "tx_hash": "8f1f2e3d4c5b6a7890123456789012345678901234567890123456789abcdef02",
+    "tx_hex": "0100000012345...abcdef",
+    "from": [
+      "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+    ],
+    "to": [
+      "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+    ],
+    "total_amount": "0.5",
+    "spent_by_me": "0.50001",
+    "received_by_me": "0.49999",
+    "my_balance_change": "-0.00001",
+    "fee_details": {
+      "type": "Utxo",
+      "amount": "0.00001"
+    },
+    "coin": "BTC",
+    "utxos_merged": 25
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (error - coin not activated)
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "error": "rpc:174] dispatcher_legacy:155] lp_coins:1668] Coin BTC is not activated"
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (error - insufficient UTXOs to consolidate)
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "error": "Not enough UTXOs to consolidate. Current UTXO count: 5, minimum required: 50"
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (error - non-UTXO coin)
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "error": "UTXO consolidation is not supported for ETH. This method only works with UTXO-based coins."
+  }
+  ```
+</CollapsibleSection>
+
+## Additional Notes
+
+*   **Transaction Broadcasting**: The `consolidate_utxos` method only creates the consolidation transaction. You must use the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) method to broadcast the transaction to the network.
+
+*   **Fee Optimization**: Consolidating UTXOs can reduce future transaction fees by minimizing the number of inputs required for subsequent transactions.
+
+*   **Timing Considerations**: It's generally best to consolidate UTXOs during periods of low network congestion to minimize transaction fees.
+
+*   **Privacy Impact**: Consolidation transactions can link multiple addresses/UTXOs together, which may impact privacy. Consider this when deciding whether to consolidate.
+
+*   **Automatic Triggering**: If you don't specify `merge_conditions`, the default behavior will trigger consolidation when you have 100 or more UTXOs, merging up to 50 at once.

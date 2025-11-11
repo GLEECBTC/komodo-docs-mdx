@@ -1165,6 +1165,10 @@
             "href": "/komodo-defi-framework/api/legacy/convertaddress/"
           },
           {
+            "title": "consolidate_utxos",
+            "href": "/komodo-defi-framework/api/legacy/consolidate_utxos/"
+          },
+          {
             "title": "convert_utxo_address",
             "href": "/komodo-defi-framework/api/legacy/convert_utxo_address/"
           },
