@@ -39,41 +39,7 @@ Use this method for task managed activation of UTXO coins like KMD, LTC, BTC & D
 
 #### Activation in Trezor mode
 
-<CodeGroup title="task::enable_utxo::init" tag="POST" label="task::enable_utxo::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_utxo::init",
-    "params": {
-      "ticker": "KMD",
-      "activation_params": {
-        "mode": {
-          "rpc": "Electrum",
-          "rpc_data": {
-            "servers": [
-              {
-                "url": "electrum2.cipig.net:10001"
-              },
-              {
-                "url": "electrum3.cipig.net:20001",
-                "ws_url": "electrum3.cipig.net:30001",
-                "protocol": "SSL"
-              }
-            ]
-          }
-        },
-        "scan_policy": "scan_if_new_wallet",
-        "priv_key_policy": {
-          "type": "Trezor"
-        },
-        "min_addresses_number": 3,
-        "gap_limit": 20
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_utxo::init" tag="POST" label="task::enable_utxo::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoInit" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -107,19 +73,7 @@ The response will return the following:
 
 #### Command
 
-<CodeGroup title="task::enable_utxo::status" tag="POST" label="task::enable_utxo::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_utxo::status",
-    "params": {
-      "task_id": 1,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_utxo::status" tag="POST" label="task::enable_utxo::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoStatus" />
 
 | Parameter | Type   | Description                                                                                                           |
 | --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -272,22 +226,7 @@ If the `task::enable_utxo::status` returns `UserActionRequired`, we need to use 
 
 #### Command
 
-<CodeGroup title="task::enable_utxo::user_action" tag="POST" label="task::enable_utxo::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_utxo::user_action",
-    "params": {
-      "task_id": 1,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_utxo::user_action" tag="POST" label="task::enable_utxo::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -322,18 +261,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 | error\_type  | string | An enumerated value for the returned error.                    |
 | error\_data  | string | The input task ID which resulted in the error.                 |
 
-<CodeGroup title="task::enable_utxo::cancel" tag="POST" label="task::enable_utxo::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_utxo::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 1
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_utxo::cancel" tag="POST" label="task::enable_utxo::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)

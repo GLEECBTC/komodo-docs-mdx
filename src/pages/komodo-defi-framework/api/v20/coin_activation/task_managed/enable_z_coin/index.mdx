@@ -30,92 +30,21 @@ To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx
 
 #### Arguments
 
-| Structure          | Type   | Description                                                                                                          |
-| ------------------ | ------ | -------------------------------------------------------------------------------------------------------------------- |
-| ticker             | string | Ticker of coin to activate                                                                                           |
-| activation\_params | object | A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object. |
+<CompactTable source="v2/coin_activation.TaskEnableZCoinArguments" />
 
 #### Response
 
-| Structure | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| task\_id  | integer | An identifying number which is used to query task status. |
+<CompactTable source="v2/coin_activation.TaskResponse" />
 
 #### 📌 Examples
 
 #### Enable Z coin without any optional parameters
 
-<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_z_coin::init",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ZOMBIE",
-      "activation_params": {
-        "mode": {
-          "rpc": "Light",
-          "rpc_data": {
-            "electrum_servers": [
-              {
-                "url": "zombie.dragonhound.info:10133"
-              },
-              {
-                "url": "zombie.dragonhound.info:20133",
-                "protocol": "SSL",
-                "ws_url": "zombie.dragonhound.info:30059"
-              }
-            ],
-            "light_wallet_d_servers": [
-              "http://zombie.dragonhound.info:1443"
-            ]
-          }
-        },
-        "zcash_params_path": "/home/username/path_to/.zcash-params",
-        "scan_blocks_per_iteration": 100,
-        "scan_interval_ms": 200
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitBasic" />
 
 #### Sync from block 2528700, with custom `.zcash-params` path and scan params
 
-<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_z_coin::init",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ZOMBIE",
-      "activation_params": {
-        "mode": {
-          "rpc": "Light",
-          "rpc_data": {
-            "electrum_servers": [
-              {
-                "url": "zombie.dragonhound.info:10133"
-              }
-            ],
-            "light_wallet_d_servers": [
-              "http://zombie.dragonhound.info:1443"
-            ],
-            "sync_params": {
-              "height": 2528700
-            }
-          }
-        },
-        "zcash_params_path": "/home/username/path_to/.zcash-params",
-        "scan_blocks_per_iteration": 100,
-        "scan_interval_ms": 200
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitWithSyncParams" />
 
 #### Sync from sapling activation height (earliest)
 
@@ -215,17 +144,11 @@ Z coins need to build sync a local block cache and wallet database before they c
 
 #### Arguments
 
-| Parameter            | Type    | Description                                                                              |
-| -------------------- | ------- | ---------------------------------------------------------------------------------------- |
-| task\_id             | integer | The identifying number returned when initiating the initialisation process.              |
-| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true` |
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
 
 #### Response
 
-| Parameter | Type   | Description                                                                                                           |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| status    | string | A short indication of how the enabling is progressing.                                                                |
-| details   | object | Depending on the state of enabling progress, this will contain different information as shown in the responses below. |
+<CompactTable source="v2/coin_activation.TaskStatusResponse" />
 
 Possible `status` values while activation is in progress:
 
@@ -247,19 +170,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 #### Status of Z coin activation
 
-<CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_z_coin::status",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 0,
-      "forget_if_finished": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinStatus" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (ActivatingCoin - enabling has started)
@@ -442,22 +353,7 @@ If the `task::enable_z_coin::status` returns `UserActionRequired`, we need to us
 | --------- | ------ | --------------------------- |
 | result    | string | The outcome of the request. |
 
-<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "task::enable_z_coin::user_action",
-    "params": {
-      "task_id": 3,
-      "user_action": {
-        "action_type": "TrezorPin",
-        "pin": "862743"
-      }
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinUserAction" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
@@ -496,18 +392,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 #### Command
 
-<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "task::enable_z_coin::cancel",
-    "mmrpc": "2.0",
-    "params": {
-      "task_id": 3
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinCancel" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
