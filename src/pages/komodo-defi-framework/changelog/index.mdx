@@ -4,6 +4,32 @@ export const description =
 
 # Change Log
 
+## Komodo DeFi Framework v2.5.2-beta
+
+### Privacy Coins Stats and macOS Universal2 Support
+
+This hotfix release enhances privacy coins support by enabling swap status broadcasting for privacy coins while maintaining user anonymity. It also addresses critical stability issues by resolving a segfault issue affecting Linux users, fixing WASM balance calculations for ARRR, and introducing macOS Universal2 build support for seamless operation on both Intel and Apple Silicon Macs.
+
+### Release Notes
+
+*   **Privacy Coin Status Broadcasting**
+    *   Swap status broadcasting was enabled for privacy coins with the persistent pubkey hidden (set to zeros) to maintain user privacy. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **Stats Database Fix**
+    *   An inconsistency in stats DB was fixed to store persistent pubkeys for both maker and taker instead of incorrectly storing HTLC pubkeys in some cases. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **ARRR WASM Balance Fix**
+    *   The `get_nullifiers` function for Zcoin WASM build was aligned with its sqlite counterpart to return nullifiers for both unspent notes and notes with unconfirmed spends, fixing the `spent_by_me` field in transaction history and balance calculations. [#2651](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2651)
+*   **Linux Stability Fix**
+    *   The `memory_db` size metric that relied on `parity-util-mem::malloc_size` was removed because it intermittently segfaulted on Linux due to allocator conflicts between Jemalloc and glibc. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **macOS Universal2 Build**
+    *   A CI job was added to build macOS Universal2 artifacts for KDF by combining `x86_64-apple-darwin` and `aarch64-apple-darwin` binaries via `lipo`, producing a single binary that runs natively on both Intel and Apple Silicon. The universal binary is uploaded as `kdf_<commit>-mac-universal.zip`. [#2628](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2628)
+*   **Dependency Cleanup**
+    *   The `parity-util-mem` dependency was removed. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **CI Containers Update**
+    *   CI container base image was bumped to `debian:bullseye-slim`. [#2534](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2534) [#2641](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2641)
+
+**Full Changelog**: [Compare v2.5.1-beta...v2.5.2-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.1-beta...v2.5.2-beta)\
+**Release Binaries**: [v2.5.2-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.2-beta)
+
 ## Komodo DeFi Framework v2.5.1-beta
 
 ### Offline Private Key Export and First AI Agent Contribution
