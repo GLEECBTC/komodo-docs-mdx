@@ -697,7 +697,9 @@ Closes #${issue.number}
           cwd: this.repoRoot, 
           stdio: 'ignore' 
         });
-      } catch {}
+      } catch (cleanupError) {
+        console.warn(`Warning: Failed to cleanup branch 'auto-pr/issue-${issue.number}': ${cleanupError.message}`);
+      }
     }
   }
   
