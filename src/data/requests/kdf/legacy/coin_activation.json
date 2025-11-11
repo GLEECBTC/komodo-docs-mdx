@@ -25,16 +25,16 @@
     "method": "electrum",
     "servers": [
       {
-        "url": "kmd.electrum3.cipig.net:10001",
+        "url": "kmd.electrum2.cipig.net:30001",
+        "protocol": "WSS"
+      },
+      {
+        "url": "kmd.electrum3.cipig.net:30001",
+        "protocol": "WSS"
+      },
+      {
+        "url": "kmd.electrum1.cipig.net:10001",
         "protocol": "TCP"
-      },
-      {
-        "url": "kmd.electrum1.cipig.net:20001",
-        "protocol": "SSL"
-      },
-      {
-        "url": "kmd.electrum3.cipig.net:20001",
-        "protocol": "SSL"
       }
     ],
     "required_confirmations": 10,
@@ -47,16 +47,16 @@
     "method": "electrum",
     "servers": [
       {
+        "url": "qtum.electrum1.cipig.net:30050",
+        "protocol": "WSS"
+      },
+      {
+        "url": "qtum.electrum3.cipig.net:20050",
+        "protocol": "SSL"
+      },
+      {
         "url": "qtum.electrum1.cipig.net:20050",
         "protocol": "SSL"
-      },
-      {
-        "url": "qtum.electrum2.cipig.net:20050",
-        "protocol": "SSL"
-      },
-      {
-        "url": "qtum.electrum2.cipig.net:10050",
-        "protocol": "TCP"
       }
     ],
     "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
@@ -80,8 +80,8 @@
     "method": "enable",
     "urls": [
       "https://eth3.cipig.net:18555",
-      "https://mainnet.gateway.tenderly.co",
-      "https://ethereum-rpc.publicnode.com"
+      "https://ethereum-rpc.publicnode.com",
+      "https://mainnet.gateway.tenderly.co"
     ],
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
@@ -112,7 +112,7 @@
     "urls": [
       "https://node.komodo.earth:8080/polygon",
       "https://pol3.cipig.net:18755",
-      "https://polygon.gateway.tenderly.co"
+      "https://polygon-bor-rpc.publicnode.com"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },

@@ -15,16 +15,16 @@
       },
       "nodes": [
         {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
-        {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
           "url": "https://polygon-bor-rpc.publicnode.com",
           "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+        },
+        {
+          "url": "https://polygon.gateway.tenderly.co",
+          "ws_url": "wss://polygon.gateway.tenderly.co"
         }
       ],
       "erc20_tokens_requests": [
@@ -122,8 +122,8 @@
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://node.komodo.earth:8080/ethereum",
-          "komodo_proxy": true
+          "url": "https://ethereum-rpc.publicnode.com",
+          "ws_url": "wss://ethereum-rpc.publicnode.com"
         },
         {
           "url": "https://eth.drpc.org",
@@ -171,16 +171,16 @@
       },
       "nodes": [
         {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
-        {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
           "url": "https://polygon-bor-rpc.publicnode.com",
           "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+        },
+        {
+          "url": "https://polygon.drpc.org",
+          "ws_url": "wss://polygon.drpc.org"
         }
       ],
       "erc20_tokens_requests": [
@@ -216,16 +216,16 @@
       "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
       "nodes": [
         {
-          "url": "https://node.komodo.earth:8080/polygon",
-          "komodo_proxy": true
-        },
-        {
           "url": "https://pol3.cipig.net:18755",
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
           "url": "https://polygon-bor-rpc.publicnode.com",
           "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+        },
+        {
+          "url": "https://polygon.gateway.tenderly.co",
+          "ws_url": "wss://polygon.gateway.tenderly.co"
         }
       ],
       "erc20_tokens_requests": [
@@ -267,12 +267,12 @@
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
-          "url": "https://node.komodo.earth:8080/ethereum",
-          "komodo_proxy": true
-        },
-        {
           "url": "https://ethereum-rpc.publicnode.com",
           "ws_url": "wss://ethereum-rpc.publicnode.com"
+        },
+        {
+          "url": "https://eth.drpc.org",
+          "ws_url": "wss://eth.drpc.org"
         }
       ],
       "tx_history": true,
@@ -298,12 +298,6 @@
       ],
       "nodes": [
         {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
-        {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
@@ -323,12 +317,6 @@
         }
       ],
       "nodes": [
-        {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
@@ -359,10 +347,6 @@
         },
         {
           "url": "https://cosmoshub.rpc.stakin-nodes.com/"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/cosmos",
-          "komodo_proxy": true
         }
       ],
       "tokens_params": []
@@ -468,16 +452,16 @@
           "rpc_data": {
             "servers": [
               {
-                "url": "qtum.electrum1.cipig.net:30050",
-                "protocol": "WSS"
+                "url": "qtum.electrum1.cipig.net:20050",
+                "protocol": "SSL"
               },
               {
-                "url": "qtum.electrum3.cipig.net:10050",
+                "url": "qtum.electrum2.cipig.net:10050",
                 "protocol": "TCP"
               },
               {
-                "url": "qtum.electrum3.cipig.net:30050",
-                "protocol": "WSS"
+                "url": "qtum.electrum2.cipig.net:20050",
+                "protocol": "SSL"
               }
             ]
           }
@@ -536,11 +520,11 @@
                 "protocol": "SSL"
               },
               {
-                "url": "kmd.electrum3.cipig.net:10001",
-                "protocol": "TCP"
+                "url": "kmd.electrum2.cipig.net:20001",
+                "protocol": "SSL"
               },
               {
-                "url": "kmd.electrum2.cipig.net:30001",
+                "url": "kmd.electrum1.cipig.net:30001",
                 "protocol": "WSS"
               }
             ]
@@ -596,12 +580,6 @@
         }
       ],
       "nodes": [
-        {
-          "url": "https://iris-rpc.alpha.komodo.earth/",
-          "api_url": "https://iris-api.alpha.komodo.earth/",
-          "grpc_url": "https://iris-grpc.alpha.komodo.earth/",
-          "ws_url": "wss://iris-rpc.alpha.komodo.earth/websocket"
-        },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
