@@ -362,7 +362,7 @@ ${prBody}`;
       return data.choices?.[0]?.message?.content?.trim() || null;
 
     } catch (error) {
-      console.warn(`OpenAI API API error: ${error.message}`);
+      console.warn(`OpenAI API error: ${error.message}`);
       return null;
     }
   }
