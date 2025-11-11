@@ -100,5 +100,38 @@
       "to": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
     },
     "userpass": "RPC_UserP@SSW0RD"
+  },
+  "GetPrivateKeysHd": {
+    "method": "get_private_keys",
+    "mmrpc": "2.0",
+    "params": {
+      "mode": "hd",
+      "coins": [
+        "KMD",
+        "ETH",
+        "ARRR",
+        "ATOM",
+        "LTC-segwit"
+      ],
+      "start_index": 0,
+      "end_index": 1,
+      "account_index": 0
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "GetPrivateKeysIguana": {
+    "method": "get_private_keys",
+    "mmrpc": "2.0",
+    "params": {
+      "coins": [
+        "KMD",
+        "ETH",
+        "ARRR",
+        "ATOM",
+        "LTC-segwit"
+      ],
+      "mode": "iguana"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
   }
 }

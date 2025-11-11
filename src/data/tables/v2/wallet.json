@@ -21,6 +21,62 @@
       }
     ]
   },
+  "GetPrivateKeysRequest": {
+    "data": [
+      {
+        "parameter": "coins",
+        "type": "array of strings",
+        "required": true,
+        "description": "Array of coin tickers to export private keys for."
+      },
+      {
+        "parameter": "mode",
+        "type": "string (enum)",
+        "required": false,
+        "description": "Export mode: \"hd\" for HD wallet export, \"iguana\" for legacy Iguana format. Defaults based on MM2.json config."
+      },
+      {
+        "parameter": "start_index",
+        "type": "integer",
+        "required": false,
+        "description": "\"mode\": hd only. Starting address index for HD mode (default: 0)."
+      },
+      {
+        "parameter": "end_index",
+        "type": "integer",
+        "required": false,
+        "description": "\"mode\": hd only. Ending address index for HD mode (default: start_index + 10)."
+      },
+      {
+        "parameter": "account_index",
+        "type": "integer",
+        "required": false,
+        "description": "\"mode\": hd only. Account index for HD derivation path (default: 0)."
+      }
+    ]
+  },
+  "GetPrivateKeysHdResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "list",
+        "required": true,
+        "description": "Array of coin key information with HD derivation data.",
+        "substructure": "wallet.HdCoinKeys"
+      }
+    ]
+  },
+  "GetPrivateKeysIguanaResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "list",
+        "required": true,
+        "description": "Array of coin key information in Iguana format.",
+        "substructure": "wallet.IguanaKeysInfo"
+      }
+    ]
+  },
   "ConsolidateUtxosRequest": {
     "data": [
       {

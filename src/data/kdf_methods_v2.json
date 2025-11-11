@@ -194,6 +194,30 @@
       "v2"
     ]
   },
+  "get_private_keys": {
+    "errors_table": "",
+    "examples": {
+      "GetPrivateKeysHd": "Export HD Private Keys",
+      "GetPrivateKeysIguana": "Export Iguana Private Keys"
+    },
+    "prerequisites": [],
+    "request_table": "GetPrivateKeysRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "GetPrivateKeysHdResponse",
+    "sequence": 60,
+    "tags": [
+      "v2"
+    ]
+  },
   "task::enable_bch::cancel": {
     "deprecated": true,
     "errors_table": "",

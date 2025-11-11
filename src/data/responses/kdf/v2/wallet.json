@@ -60,5 +60,69 @@
   "WithdrawMartyAccountId": {
     "error": [],
     "success": []
+  },
+  "GetPrivateKeysHd": {
+    "error": [],
+    "success": [
+      {
+        "title": "HD Mode",
+        "notes": "Each coin contains an array of HdKeysInfo objects",
+        "json": {
+          "mmrpc": "2.0",
+          "result": [
+            {
+              "coin": "KMD",
+              "addresses": [
+                {
+                  "derivation_path": "m/44'/141'/0/0/0",
+                  "pubkey": "02416813acfc3d051f2a3163241528331cb1407814ca7eda035e29dd81ce1a7360",
+                  "address": "RLEiXpHJrBBFGLHfBVyKwB8pWyuZvTX46Q",
+                  "priv_key": "Ur57s4Btk5zv7ts2Rb1vHUjDzcBUuPGXZtuLUKK2yUTSCyNiA82f"
+                },
+                {
+                  "derivation_path": "m/44'/141'/0/0/1",
+                  "pubkey": "02acd4bb36d93065879be4aae17c62791898ce366adb732b03dc0ce8092d04944b",
+                  "address": "RJyVMQknrJnGBQVUrSBNffc2BD8j7kM6w1",
+                  "priv_key": "UuMf4R7qEccYNDQWKYeooBANodhfev37QyoAnqZyb2VQz3CFGPH2"
+                }
+              ]
+            },
+            {
+              "coin": "ETH",
+              "addresses": [
+                {
+                  "derivation_path": "m/44'/60'/0/0/0",
+                  "pubkey": "0x47d306e1d039d958539d7b292c62a1da1d61eff2f4d8d96d35f3074032ef4a28f2434dab1170092591b955043792e6d8278d16b37363d79d34b5029dbe2d9a51",
+                  "address": "0x614b89716A94b5be94a67540dF9A5bF1bE1685F3",
+                  "priv_key": "0x4718e83c33159c53c19fbb44b98a5006a902d682ad096b2e1dbb7c55619463ac"
+                }
+              ]
+            }
+          ],
+          "id": null
+        }
+      }
+    ]
+  },
+  "GetPrivateKeysIguana": {
+    "error": [],
+    "success": [
+      {
+        "title": "Iguana Mode",
+        "notes": "Each item is an IguanaKeysInfo object",
+        "json": {
+          "mmrpc": "2.0",
+          "result": [
+            {
+              "coin": "KMD",
+              "pubkey": "0399e7edd441d026ab62d915c6542464002c1634cacfa3afd69fb9c08b7b76355f",
+              "address": "RQbyMz5jSBjidHkM4wRAhmbHUTSR7UehXG",
+              "priv_key": "UpaMPnKdPZJWBGb8whpQWjP5A61WpT6e2SUYQz4KyfkE4JzVU9ZF"
+            }
+          ],
+          "id": null
+        }
+      }
+    ]
   }
 }
