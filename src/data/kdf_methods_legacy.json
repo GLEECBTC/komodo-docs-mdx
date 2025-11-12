@@ -86,7 +86,7 @@
     ]
   },
   "get_enabled_coins": {
-    "errors_table": "",
+    "errors_table": "N/A",
     "examples": {
       "LegacyGetEnabledCoins": "Get Enabled Coins"
     },
@@ -109,7 +109,7 @@
     ]
   },
   "get_my_peer_id": {
-    "errors_table": "",
+    "errors_table": "GetMyPeerIdErrors",
     "examples": {
       "LegacyGetMyPeerId": "Get My Peer ID"
     },

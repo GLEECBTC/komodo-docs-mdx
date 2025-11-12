@@ -123,11 +123,13 @@ The `tags` field is used to categorize the method for reference.
 
 #### Missing methods
 
-If a method is missing from the `kdf_methods_v2.json`/`kdf_methods_legacy.json` files, it will be reported as missing in `postman/generated/reports/missing_methods.json` (TODO: Currently this report is empty. We need to craft a way to figure this out from existing docs).
+If a method is missing from the `kdf_methods_v2.json`/`kdf_methods_legacy.json` files, it will be reported as missing in split files:
+`postman/generated/reports/missing_methods_v2.json` and `postman/generated/reports/missing_methods_legacy.json`.
 
 #### Missing requests
 
-Any request key detected in the param tables or responses json files, but not seen in the request json files, will be reported as missing in `postman/generated/reports/missing_requests.json` as a simple list for each version.
+Any request key detected in the param tables or responses json files, but not seen in the request json files, will be reported as missing in
+`postman/generated/reports/missing_requests_v2.json` and `postman/generated/reports/missing_requests_legacy.json`.
 
 ```json
 {
@@ -144,7 +146,8 @@ Any request key detected in the param tables or responses json files, but not se
 
 #### Missing responses
 
-Any response key detected in the param table or request json files, but not seen in the responses json files, will be reported as missing in `postman/generated/reports/missing_responses.json` as a simple list for each method.
+Any response key detected in the param table or request json files, but not seen in the responses json files, will be reported as missing in
+`postman/generated/reports/missing_responses_v2.json` and `postman/generated/reports/missing_responses_legacy.json` as a simple list for each method.
 
 ```json
 {
@@ -159,7 +162,8 @@ Any response key detected in the param table or request json files, but not seen
 
 #### Missing tables
 
-Any method detected in the `kdf_methods_v2.json`/`kdf_methods_legacy.json` files, but not seen in the param tables json files, will be reported as missing in `postman/generated/reports/missing_tables.json` as a simple list.
+Any method detected in the `kdf_methods_v2.json`/`kdf_methods_legacy.json` files, but not seen in the param tables json files, will be reported as missing in
+`postman/generated/reports/missing_tables_v2.json` and `postman/generated/reports/missing_tables_legacy.json` as a simple list.
 
 ```json
 [

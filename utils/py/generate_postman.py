@@ -63,9 +63,13 @@ class UnifiedPostmanGenerator:
         # Reports data
         self.unused_params = {}
         self.unused_params_detailed = {}
-        self.missing_responses = {}
+        self.missing_responses = {}  # combined (back-compat)
+        self.missing_responses_v2 = {}
+        self.missing_responses_legacy = {}
         self.missing_requests = {}
-        self.missing_methods = []
+        self.missing_methods = []  # combined (back-compat)
+        self.missing_methods_v2 = []
+        self.missing_methods_legacy = []
         self.untranslated_keys = []
         
         # Task ID variables for method groups
@@ -436,7 +440,7 @@ class UnifiedPostmanGenerator:
     def generate_table_markdown(self, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> str:
         """Generate markdown table from table data for method."""
         if not self.get_method_config(method, version):
-            # Method not defined - will be tracked in missing_methods.json
+            # Method not defined - will be tracked in the split missing methods report
             return ""
         
         return self.table_manager.generate_table_markdown(method, self.get_method_config(method, version))
@@ -759,9 +763,14 @@ pm.test("Capture task_id", function () {{
                                 # Skip manual/external methods that can't be automated
                                 if self._is_manual_example(request_key):
                                     continue
+                                # Track in combined and per-version dicts
                                 if method not in self.missing_responses:
                                     self.missing_responses[method] = []
                                 self.missing_responses[method].append(request_key)
+                                target = self.missing_responses_v2 if version == "v2" else self.missing_responses_legacy
+                                if method not in target:
+                                    target[method] = []
+                                target[method].append(request_key)
                 
                 # Add to folder tree (using filtered data)
                 file_tree = self.create_folder_structure(filtered_requests_data, version, filename, tables, "standard")
@@ -990,7 +999,7 @@ pm.test("Capture task_id", function () {{
             if missing_requests_for_version:
                 self.missing_requests[version] = sorted(missing_requests_for_version)
             
-            # Find missing methods (requests without method definitions in version-specific config)
+        # Find missing methods (requests without method definitions in version-specific config)
             for request_key, request_data in requests_data.items():
                 if isinstance(request_data, dict) and "method" in request_data:
                     method_name = request_data["method"]
@@ -998,9 +1007,67 @@ pm.test("Capture task_id", function () {{
                     if method_name not in deprecated_methods and not self.get_method_config(method_name, version):
                         if method_name not in self.missing_methods:
                             self.missing_methods.append(method_name)
+                        # Track per-version
+                        if version == 'v2':
+                            if method_name not in self.missing_methods_v2:
+                                self.missing_methods_v2.append(method_name)
+                        elif version == 'legacy':
+                            if method_name not in self.missing_methods_legacy:
+                                self.missing_methods_legacy.append(method_name)
         
         # Sort missing methods
         self.missing_methods = sorted(self.missing_methods)
+        self.missing_methods_v2 = sorted(self.missing_methods_v2)
+        self.missing_methods_legacy = sorted(self.missing_methods_legacy)
+    
+    def _build_missing_tables_by_version(self, reports_dir: Path) -> None:
+        """Build and save missing tables split by version using TableManager."""
+        # v2
+        self.table_manager.clear_missing_tables()
+        for method_name, cfg in sorted(self.method_config_v2.items()):
+            self.table_manager.validate_method_tables(method_name, cfg)
+        v2_report = self.table_manager.get_missing_tables_report()
+        dump_sorted_json(v2_report, reports_dir / "missing_tables_v2.json")
+        # legacy
+        self.table_manager.clear_missing_tables()
+        for method_name, cfg in sorted(self.method_config_legacy.items()):
+            self.table_manager.validate_method_tables(method_name, cfg)
+        legacy_report = self.table_manager.get_missing_tables_report()
+        dump_sorted_json(legacy_report, reports_dir / "missing_tables_legacy.json")
+    
+    def _check_table_version_mismatches(self) -> Dict[str, Any]:
+        """Detect v2 methods referencing legacy tables and legacy methods referencing v2 tables."""
+        results = {"v2_methods_with_legacy_tables": [], "legacy_methods_with_v2_tables": []}
+        tables_all = self.table_manager.load_all_tables()
+        # Helper to test a single method config
+        def check_method(method_name: str, cfg: Dict[str, Any], expected: str) -> List[Dict[str, str]]:
+            issues: List[Dict[str, str]] = []
+            for table_type, field in [("request", "request_table"), ("response", "response_table"), ("error", "errors_table")]:
+                table_name = cfg.get(field)
+                if not table_name or table_name == "N/A":
+                    continue
+                # If table not found at all, skip here (handled by missing tables)
+                sources = self.table_manager.get_table_source(table_name)
+                if sources and expected not in sources and "common" not in sources:
+                    issues.append({
+                        "method": method_name,
+                        "table_type": table_type,
+                        "table_name": table_name,
+                        "source": sorted(list(sources)),
+                        "expected": expected
+                    })
+            return issues
+        # v2 methods should use v2/common
+        for m, cfg in self.method_config_v2.items():
+            issues = check_method(m, cfg, "v2")
+            if issues:
+                results["v2_methods_with_legacy_tables"].extend(issues)
+        # legacy methods should use legacy/common
+        for m, cfg in self.method_config_legacy.items():
+            issues = check_method(m, cfg, "legacy")
+            if issues:
+                results["legacy_methods_with_v2_tables"].extend(issues)
+        return results
     
     def detect_missing_response_and_error_tables(self) -> None:
         """Detect missing response and error tables for all methods."""
@@ -1090,15 +1157,15 @@ pm.test("Capture task_id", function () {{
         dump_sorted_json(self.unused_params_detailed or {}, detailed_file)
         logger.info(f"Detailed unused parameters report saved to {detailed_file}")
         
-        # Save missing responses report (always)
-        sorted_missing = {}
-        if self.missing_responses:
-            for method in sorted(self.missing_responses.keys()):
-                sorted_missing[method] = sorted(self.missing_responses[method])
-        
-        missing_file = reports_dir / "missing_responses.json"
-        dump_sorted_json(sorted_missing, missing_file)
-        logger.info(f"Missing responses report saved to {missing_file}")
+        # Save split missing responses by version (authoritative)
+        dump_sorted_json(
+            {k: sorted(v) for k, v in sorted(self.missing_responses_v2.items())} if self.missing_responses_v2 else {},
+            reports_dir / "missing_responses_v2.json"
+        )
+        dump_sorted_json(
+            {k: sorted(v) for k, v in sorted(self.missing_responses_legacy.items())} if self.missing_responses_legacy else {},
+            reports_dir / "missing_responses_legacy.json"
+        )
         
         # Save untranslated keys report (always)
         untranslated_list = sorted(self.untranslated_keys) if self.untranslated_keys else []
@@ -1106,25 +1173,22 @@ pm.test("Capture task_id", function () {{
         dump_sorted_json(untranslated_list, untranslated_file)
         logger.info(f"Untranslated keys report saved to {untranslated_file}")
         
-        # Save missing tables report (always) - now grouped by type
-        missing_tables_file = reports_dir / "missing_tables.json"
-        self.table_manager.save_missing_tables_report(missing_tables_file)
+        # Save missing tables by version (authoritative)
+        self._build_missing_tables_by_version(reports_dir)
         
-        # Save missing requests report (always)
-        sorted_missing_requests = {}
-        if self.missing_requests:
-            for version in sorted(self.missing_requests.keys()):
-                sorted_missing_requests[version] = sorted(self.missing_requests[version])
+        # Save split missing requests (authoritative)
+        sorted_missing_requests_v2 = sorted(self.missing_requests.get("v2", []))
+        sorted_missing_requests_legacy = sorted(self.missing_requests.get("legacy", []))
+        dump_sorted_json(sorted_missing_requests_v2, reports_dir / "missing_requests_v2.json")
+        dump_sorted_json(sorted_missing_requests_legacy, reports_dir / "missing_requests_legacy.json")
         
-        missing_requests_file = reports_dir / "missing_requests.json"
-        dump_sorted_json(sorted_missing_requests, missing_requests_file)
-        logger.info(f"Missing requests report saved to {missing_requests_file}")
+        # Save split missing methods (authoritative)
+        dump_sorted_json(self.missing_methods_v2, reports_dir / "missing_methods_v2.json")
+        dump_sorted_json(self.missing_methods_legacy, reports_dir / "missing_methods_legacy.json")
         
-        # Save missing methods report (always)
-        missing_methods_list = sorted(self.missing_methods) if self.missing_methods else []
-        missing_methods_file = reports_dir / "missing_methods.json"
-        dump_sorted_json(missing_methods_list, missing_methods_file)
-        logger.info(f"Missing methods report saved to {missing_methods_file}")
+        # Save table version mismatch report
+        mismatches = self._check_table_version_mismatches()
+        dump_sorted_json(mismatches, reports_dir / "table_version_mismatches.json")
     
     # ===== EXAMPLE SYNC =====
     
@@ -1387,6 +1451,10 @@ pm.test("Capture task_id", function () {{
     
     def generate_all_collections(self, output_dir: Path, auto_repair: bool = False) -> Dict[str, Dict]:
         """Generate all collection types."""
+        # Normalize output_dir to absolute within workspace
+        output_dir = Path(output_dir)
+        if not output_dir.is_absolute():
+            output_dir = (self.workspace_root / output_dir).resolve()
         generated_files = {}
         
         # Auto-repair missing method configurations if requested
@@ -1459,11 +1527,16 @@ pm.test("Capture task_id", function () {{
             "count": self._count_report_items(self.unused_params) if self.unused_params else 0
         }
         
-        # Missing responses (always)
-        missing_responses_file = reports_dir / "missing_responses.json"
-        reports_data["missing_responses"] = {
-            "file": str(missing_responses_file.relative_to(self.workspace_root)),
-            "count": self._count_report_items(self.missing_responses) if self.missing_responses else 0
+        # Missing responses (split)
+        mr_v2 = reports_dir / "missing_responses_v2.json"
+        mr_legacy = reports_dir / "missing_responses_legacy.json"
+        reports_data["missing_responses_v2"] = {
+            "file": str(mr_v2.relative_to(self.workspace_root)),
+            "count": self._count_report_items(self.missing_responses_v2) if self.missing_responses_v2 else 0
+        }
+        reports_data["missing_responses_legacy"] = {
+            "file": str(mr_legacy.relative_to(self.workspace_root)),
+            "count": self._count_report_items(self.missing_responses_legacy) if self.missing_responses_legacy else 0
         }
         
         # Untranslated keys (always)
@@ -1473,39 +1546,34 @@ pm.test("Capture task_id", function () {{
             "count": len(self.untranslated_keys) if self.untranslated_keys else 0
         }
         
-        # Missing tables (always) - with breakdown by type
-        missing_tables_file = reports_dir / "missing_tables.json"
-        missing_tables_report = self.table_manager.get_missing_tables_report()
-        missing_tables_count = sum(len(methods) for methods in missing_tables_report.values())
-        
-        # Create detailed breakdown
-        missing_tables_breakdown = {}
-        for table_type, methods in missing_tables_report.items():
-            # Convert missing_request_tables -> request_tables for cleaner naming
-            clean_type = table_type.replace("missing_", "")
-            missing_tables_breakdown[clean_type] = {
-                "count": len(methods)
-            }
-        
-        reports_data["missing_tables"] = {
-            "file": str(missing_tables_file.relative_to(self.workspace_root)),
-            "total_count": missing_tables_count,
-            "breakdown": missing_tables_breakdown
+        # Missing tables (split)
+        reports_data["missing_tables_v2"] = {
+            "file": str((reports_dir / "missing_tables_v2.json").relative_to(self.workspace_root))
+        }
+        reports_data["missing_tables_legacy"] = {
+            "file": str((reports_dir / "missing_tables_legacy.json").relative_to(self.workspace_root))
         }
         
-        # Missing requests (always)
-        missing_requests_file = reports_dir / "missing_requests.json"
-        missing_requests_count = sum(len(reqs) for reqs in self.missing_requests.values()) if self.missing_requests else 0
-        reports_data["missing_requests"] = {
-            "file": str(missing_requests_file.relative_to(self.workspace_root)),
-            "count": missing_requests_count
+        # Missing requests (split)
+        sorted_missing_requests_v2 = sorted(self.missing_requests.get("v2", []))
+        sorted_missing_requests_legacy = sorted(self.missing_requests.get("legacy", []))
+        reports_data["missing_requests_v2"] = {
+            "file": str((reports_dir / "missing_requests_v2.json").relative_to(self.workspace_root)),
+            "count": len(sorted_missing_requests_v2)
+        }
+        reports_data["missing_requests_legacy"] = {
+            "file": str((reports_dir / "missing_requests_legacy.json").relative_to(self.workspace_root)),
+            "count": len(sorted_missing_requests_legacy)
         }
         
-        # Missing methods (always)
-        missing_methods_file = reports_dir / "missing_methods.json"
-        reports_data["missing_methods"] = {
-            "file": str(missing_methods_file.relative_to(self.workspace_root)),
-            "count": len(self.missing_methods) if self.missing_methods else 0
+        # Missing methods (split)
+        reports_data["missing_methods_v2"] = {
+            "file": str((reports_dir / "missing_methods_v2.json").relative_to(self.workspace_root)),
+            "count": len(self.missing_methods_v2)
+        }
+        reports_data["missing_methods_legacy"] = {
+            "file": str((reports_dir / "missing_methods_legacy.json").relative_to(self.workspace_root)),
+            "count": len(self.missing_methods_legacy)
         }
         
         # Generate summary

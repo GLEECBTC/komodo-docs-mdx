@@ -292,6 +292,108 @@
         "description": "Operation timed out or internal error."
       }
     ]
+  },
+  "ValidateAddressErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Malformed request or unsupported operation for this coin."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "SendRawTransactionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "No such coin is enabled."
+      },
+      {
+        "parameter": "InvalidHashError|HashNotExist|InvalidParam|DecodeError|NotImplemented",
+        "type": "string",
+        "required": false,
+        "description": "Invalid parameters, not found, or not supported for this protocol."
+      },
+      {
+        "parameter": "Transport|InternalError|TransactionError",
+        "type": "string",
+        "required": false,
+        "description": "Transport or internal error."
+      }
+    ]
+  },
+  "MyBalanceRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker of the coin to query."
+      }
+    ]
+  },
+  "MyBalanceResponse": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": false,
+        "description": "Wallet address (for single-address coins)."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "Summary of wallet balance fields."
+      }
+    ]
+  },
+  "MyBalanceErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "MyTxHistoryErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "Transport|InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Network or internal error occurred."
+      }
+    ]
   }
 }
 

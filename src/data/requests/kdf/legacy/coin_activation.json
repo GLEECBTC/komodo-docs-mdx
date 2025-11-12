@@ -18,6 +18,7 @@
         "url": "bch.soul-dev.com:50002"
       }
     ],
+    "tx_history": true,
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyElectrumDoc": {
@@ -40,6 +41,7 @@
         "url": "doc.electrum3.cipig.net:20020"
       }
     ],
+    "tx_history": true,
     "userpass": "RPC_UserP@SSW0RD",
     "utxo_merge_params": {
       "check_every": 10,
@@ -133,8 +135,8 @@
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
       "https://0xrpc.io/eth",
-      "https://eth3.cipig.net:18555",
-      "https://mainnet.gateway.tenderly.co"
+      "https://eth.drpc.org",
+      "https://eth3.cipig.net:18555"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -150,8 +152,8 @@
     "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
     "urls": [
       "https://0xrpc.io/eth",
-      "https://eth.drpc.org",
-      "https://eth3.cipig.net:18555"
+      "https://eth3.cipig.net:18555",
+      "https://mainnet.gateway.tenderly.co"
     ],
     "userpass": "RPC_UserP@SSW0RD"
   },

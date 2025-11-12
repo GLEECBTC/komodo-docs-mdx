@@ -87,9 +87,11 @@ Each request includes a formatted table showing all available parameters:
 Validation reports are available in the `../reports/` directory:
 
 - `unused_params.json` - Parameters in tables but not used in examples
-- `missing_responses.json` - Request keys without corresponding responses  
 - `untranslated_keys.json` - Request keys without translations
-- `missing_tables.json` - Methods without table documentation
+- `missing_responses_v2.json` / `missing_responses_legacy.json` - Request keys without corresponding responses (split by version)
+- `missing_tables_v2.json` / `missing_tables_legacy.json` - Methods without table documentation (split by version)
+- `missing_requests_v2.json` / `missing_requests_legacy.json` - Responses without matching requests (split by version)
+- `missing_methods_v2.json` / `missing_methods_legacy.json` - Requests whose methods are missing in config (split by version)
 
 ---
 
