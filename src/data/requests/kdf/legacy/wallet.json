@@ -165,6 +165,12 @@
     "userpass": "RPC_UserP@SSW0RD",
     "method": "my_tx_history",
     "coin": "SC"
+  },
+  "ValidateAddress": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "validateaddress",
+    "coin": "DOC",
+    "address": "RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"
   }
 }
 

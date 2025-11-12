@@ -2651,10 +2651,7 @@
     "coins-needed-for-kick-start",
     "arguments",
     "response",
-    "examples",
-    "command",
-    "response-btc-and-kmd-should-be-activated-asap-in-this-case",
-    "response-no-swaps-and-orders-waiting-to-be-started"
+    "examples"
   ],
   "src/pages/komodo-defi-framework/api/legacy/consolidate_utxos/index.mdx": [
     "consolidate-utxos",
@@ -3058,11 +3055,7 @@
     "validateaddress",
     "arguments",
     "response",
-    "examples",
-    "command",
-    "response-valid-address",
-    "response-invalid-cash-address",
-    "response-invalid-eth-address"
+    "examples"
   ],
   "src/pages/komodo-defi-framework/api/legacy/version/index.mdx": [
     "version",

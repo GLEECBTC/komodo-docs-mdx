@@ -232,6 +232,38 @@
         "description": "Standard SyncStatus object."
       }
     ]
+  },
+  "ValidateAddressRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin to validate address for."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The input string to validate."
+      }
+    ]
+  },
+  "ValidateAddressResponse": {
+    "data": [
+      {
+        "parameter": "is_valid",
+        "type": "bool",
+        "required": true,
+        "description": "Whether the input string is a valid coin address."
+      },
+      {
+        "parameter": "reason",
+        "type": "string (optional)",
+        "required": false,
+        "description": "Only present if not valid. The reason why the input string is not a valid address."
+      }
+    ]
   }
 }
 

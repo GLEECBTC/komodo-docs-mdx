@@ -9,39 +9,14 @@ If the Komodo DeFi Framework API is stopped while making a swap/having the activ
 
 ## Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="legacy/utils.NoParams" />
 
 #### Response
 
-| Structure | Type             | Description                                                              |
-| --------- | ---------------- | ------------------------------------------------------------------------ |
-| result    | array of strings | tickers of coins that should be activated to kick-start swaps and orders |
+<CompactTable source="legacy/utils.CoinsNeededForKickStartResponse" />
 
 #### 📌 Examples
 
-#### Command
+<CodeGroup title="" tag="POST" label="coins_needed_for_kick_start" mm2MethodDecorate="true" source="legacy/utils.CoinsNeededForKickStart" />
 
-<CodeGroup title="" tag="POST" label="coins_needed_for_kick_start" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "coins_needed_for_kick_start"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (BTC and KMD should be activated ASAP in this case)
-
-  ```json
-  { "result": ["BTC", "KMD"] }
-  ```
-
-  #### Response (no swaps and orders waiting to be started)
-
-  ```json
-  { "result": [] }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/utils.CoinsNeededForKickStart" />

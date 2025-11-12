@@ -610,6 +610,37 @@
         "title": "History too large (server)"
       }
     ]
+  },
+  "ValidateAddress": {
+    "error": [],
+    "success": [
+      {
+        "title": "Response (valid address)",
+        "json": {
+          "result": {
+            "is_valid": true
+          }
+        }
+      },
+      {
+        "title": "Response (invalid cash address)",
+        "json": {
+          "result": {
+            "is_valid": false,
+            "reason": "utxo:415] Checksum verification failed"
+          }
+        }
+      },
+      {
+        "title": "Response (invalid ETH address)",
+        "json": {
+          "result": {
+            "is_valid": false,
+            "reason": "eth:360] eth:2522] Invalid address checksum"
+          }
+        }
+      }
+    ]
   }
 }
 

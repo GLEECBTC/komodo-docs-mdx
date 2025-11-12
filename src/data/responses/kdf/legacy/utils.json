@@ -40,5 +40,24 @@
         }
       }
     ]
+  },
+  "CoinsNeededForKickStart": {
+    "error": [],
+    "success": [
+      {
+        "title": "Success (BTC and KMD should be activated ASAP in this case)",
+        "notes": "",
+        "json": {
+          "result": ["BTC", "KMD"]
+        }
+      },
+      {
+        "title": "Success (no swaps and orders waiting to be started)",
+        "notes": "",
+        "json": {
+          "result": []
+        }
+      }
+    ]
   }
 }

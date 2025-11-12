@@ -88,10 +88,10 @@
   "withdraw": {
     "errors_table": "WithdrawErrors",
     "examples": {
-      "WithdrawSia": "Withdraw Sia"
+      "WithdrawLegacySia": "Withdraw Sia"
     },
     "prerequisites": [],
-    "request_table": "WithdrawRequest",
+    "request_table": "WithdrawLegacyRequest",
     "requirements": {
       "environments": [
         "native",
@@ -101,7 +101,7 @@
         "iguana"
       ]
     },
-    "response_table": "WithdrawResponse",
+    "response_table": "WithdrawLegacyResponse",
     "sequence": 220,
     "tags": [
       "legacy"
@@ -169,6 +169,29 @@
     },
     "response_table": "ValidateAddressResponse",
     "sequence": 250,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "coins_needed_for_kick_start": {
+    "errors_table": "",
+    "examples": {
+      "CoinsNeededForKickStart": "Coins needed for kick start"
+    },
+    "prerequisites": [],
+    "request_table": "NoParams",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "CoinsNeededForKickStartResponse",
+    "sequence": 260,
     "tags": [
       "legacy"
     ]
