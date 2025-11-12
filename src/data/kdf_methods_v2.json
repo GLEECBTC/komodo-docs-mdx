@@ -72,7 +72,7 @@
     ]
   },
   "enable_erc20": {
-    "errors_table": "",
+    "errors_table": "EnableErc20ErrorTypes",
     "examples": {
       "EnableErc20Basic": "Enable Erc20 Basic"
     },
@@ -88,14 +88,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableErc20Response",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "enable_eth_with_tokens": {
-    "errors_table": "",
+    "errors_table": "EnableEthWithTokensErrorTypes",
     "examples": {
       "EnableEthWithTokensGasStation": "Enable Eth With Tokens Gas Station",
       "EnableEthWithTokensMaticBalancesFalse": "Enable Eth With Tokens Matic Balances False",
@@ -113,7 +113,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableEthWithTokensResponse",
     "sequence": 25,
     "tags": [
       "v2"
@@ -227,7 +227,7 @@
     ]
   },
   "enable_tendermint_token": {
-    "errors_table": "",
+    "errors_table": "EnableTendermintTokenErrors",
     "examples": {
       "EnableTendermintTokenBasic": "Enable Tendermint Token Basic"
     },
@@ -246,14 +246,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableTendermintWithAssetsResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "enable_tendermint_with_assets": {
-    "errors_table": "",
+    "errors_table": "EnableTendermintWithAssetsErrors",
     "examples": {
       "EnableTendermintWithAssetsBalancesFalse": "Enable Tendermint With Assets Balances False",
       "EnableTendermintWithAssetsBalancesTrue": "Enable Tendermint With Assets Balances True",
@@ -271,7 +271,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableTendermintWithAssetsResponse",
     "sequence": 25,
     "tags": [
       "v2"
@@ -323,7 +323,7 @@
     ]
   },
   "get_private_keys": {
-    "errors_table": "",
+    "errors_table": "GetPrivateKeysErrors",
     "examples": {
       "GetPrivateKeysHd": "Export HD Private Keys",
       "GetPrivateKeysIguana": "Export Iguana Private Keys"
@@ -554,7 +554,7 @@
     ]
   },
   "task::enable_eth::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableEthCancel": "Cancel EVM Activation Task"
     },
@@ -570,14 +570,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableEthInit": "Initialize EVM coin (ETH, AVAX, etc.)",
       "TaskEnableEthInitTrezor": "Initialize EVM coin (ETH, AVAX, etc.) with Trezor"
@@ -605,14 +605,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableEthStatus": "Check EVM Task Status"
     },
@@ -628,14 +628,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableEthUserActionPin": "Provide Trezor PIN"
     },
@@ -654,14 +654,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableQtumCancel": "Cancel Qtum Activation Task"
     },
@@ -677,14 +677,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableQtumInit": "Initialize Qtum"
     },
@@ -709,14 +709,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableQtumStatus": "Check Qtum Activation Task Status"
     },
@@ -732,14 +732,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableQtumUserActionPin": "Provide Trezor PIN"
     },
@@ -758,14 +758,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableTendermintCancel": "Cancel Tendermint Activation Task"
     },
@@ -781,14 +781,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableTendermintInit": "Initialize Tendermint Coin"
     },
@@ -813,14 +813,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableTendermintStatus": "Check Tendermint Activation Task Status"
     },
@@ -836,14 +836,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableTendermintUserActionPin": "Provide Trezor PIN"
     },
@@ -862,14 +862,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableUtxoCancel": "Cancel UTXO Activation Task"
     },
@@ -885,14 +885,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableUtxoInit": "Initialize UTXO Coin"
     },
@@ -917,14 +917,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableUtxoStatus": "Check UTXO Task Status"
     },
@@ -940,14 +940,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableUtxoUserActionPin": "Provide Trezor PIN"
     },
@@ -973,14 +973,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_z_coin::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableZCoinCancel": "Cancel Z-coin Activation Task"
     },
@@ -994,14 +994,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_z_coin::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableZCoinInit": "Initialize Z-coin",
       "TaskEnableZCoinInitBasic": "Initialize Z-coin with basic params",
@@ -1019,14 +1019,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_z_coin::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableZCoinStatus": "Check Z-coin Activation Task Status"
     },
@@ -1040,14 +1040,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_z_coin::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableZCoinUserActionPin": "Provide Trezor PIN"
     },
@@ -1064,7 +1064,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"

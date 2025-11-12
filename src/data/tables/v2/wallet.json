@@ -303,6 +303,28 @@
       }
     ]
   },
+  "GetPrivateKeysErrors": {
+    "data": [
+      {
+        "parameter": "KeyDerivationFailed",
+        "type": "string",
+        "required": false,
+        "description": "Failed to derive keys for one or more coins."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Request parameters are invalid for the selected mode."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected internal error."
+      }
+    ]
+  },
   "MyBalanceRequest": {
     "data": [
       {

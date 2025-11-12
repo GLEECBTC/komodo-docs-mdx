@@ -91,5 +91,15 @@
         "description": "Unhandled internal error."
       }
     ]
+  },
+  "GetMyPeerIdErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
   }
 }

@@ -143,6 +143,16 @@
       }
     ]
   },
+  "GetEnabledCoinsErrors": {
+    "data": [
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
   "GetMnemonicRequest": {
     "data": [
       {
