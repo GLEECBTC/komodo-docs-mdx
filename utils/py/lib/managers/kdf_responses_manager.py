@@ -132,6 +132,8 @@ class KdfResponseManager:
         self.expected_error_responses: Dict[str, Dict[str, Dict[str, Any]]] = {}
         self._current_request_key: Optional[str] = None
         self._current_method_name: Optional[str] = None
+        # Test data (addresses → known txids) for env-specific overrides
+        self.test_data: Optional[Dict[str, Any]] = None
         
         # Task tracking: registry and report path
         self.task_registry: Dict[str, TaskInstance] = {}
@@ -339,6 +341,17 @@ class KdfResponseManager:
                 # Prefer raw body for matching; fallback to stringified dict
                 raw_body = data.get("raw_response") if isinstance(data, dict) else None
                 text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+                
+                # Attach address hint when coin context is known
+                try:
+                    ticker_for_request = self._extract_ticker_from_request(filtered_request_data)
+                    ticker_upper = str(ticker_for_request).upper() if ticker_for_request else None
+                    if ticker_upper:
+                        addr_hint = self.wallet_manager.get_address_hint(instance.name, ticker_upper)
+                        if addr_hint:
+                            data["address_hint"] = {"coin": ticker_upper, "address": addr_hint}
+                except Exception:
+                    pass
 
                 # Auto-activation + retry wiring
                 try:
@@ -845,6 +858,13 @@ class KdfResponseManager:
         
         # Extract ticker from request data
         ticker = self._extract_ticker_from_request(request_data)
+        # Load test data if available
+        if self.test_data is None:
+            try:
+                with open(self.workspace_root / "postman/generated/reports/test_data.json", "r", encoding="utf-8") as f:
+                    self.test_data = json.load(f)
+            except Exception:
+                self.test_data = {}
         
         for instance in KDF_INSTANCES:
             # Ensure coin is activated if needed
@@ -887,6 +907,34 @@ class KdfResponseManager:
                 modified_request = self.normalize_request_for_non_hd(request_data)
             else:
                 modified_request = request_data
+            # Apply test-data overrides for known examples (e.g., my_tx_history from_id)
+            try:
+                if isinstance(modified_request, dict):
+                    # Deep copy to avoid mutating shared dict
+                    import copy
+                    modified_request = copy.deepcopy(modified_request)
+                    method = modified_request.get("method", "")
+                    if method == "my_tx_history":
+                        # Override legacy from_id if available
+                        inst_data = (self.test_data or {}).get(instance.name, {})
+                        coin_key = (ticker or "").upper()
+                        known = None
+                        # Prefer address-mapped txid if present
+                        addresses = inst_data.get(coin_key, {}).get("addresses", {}) if isinstance(inst_data, dict) else {}
+                        if isinstance(addresses, dict) and addresses:
+                            # pick first address in report for this coin
+                            addr_key = sorted(addresses.keys())[0]
+                            txids = addresses.get(addr_key, {}).get("known_txids", [])
+                            if isinstance(txids, list) and len(txids) > 0:
+                                known = txids[0]
+                        if known:
+                            if "from_id" in modified_request:
+                                modified_request["from_id"] = known
+                            # Also support v2-style paging_options.FromId if seen under legacy by mistake
+                            if "paging_options" in modified_request and isinstance(modified_request["paging_options"], dict):
+                                modified_request["paging_options"]["FromId"] = known
+            except Exception:
+                pass
             
             # Set up timing context and send request
             self._current_timing_context = {}
