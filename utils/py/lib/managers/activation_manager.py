@@ -483,6 +483,8 @@ class ActivationRequestBuilder:
             return self._build_utxo_activation(ticker_upper, protocol_info, enable_hd)
         elif protocol_info.protocol_type == "ZHTLC":
             return self._build_zhtlc_activation(ticker_upper, protocol_info, enable_hd)
+        elif protocol_info.protocol_type == "SIA":
+            return self._build_sia_activation(ticker_upper, protocol_info)
         else:
             raise ValueError(f"Unsupported protocol type: {protocol_info.protocol_type} for ticker: {ticker}")
     
@@ -533,6 +535,28 @@ class ActivationRequestBuilder:
                 
         return ActivationRequest(
             method="task::enable_tendermint::init",
+            params=params,
+            timeout=60,
+            is_task=True
+        )
+
+    def _build_sia_activation(self, ticker: str, protocol_info: CoinProtocolInfo) -> ActivationRequest:
+        """Build SIA coin activation request."""
+        # Use params aligned with v2 request template
+        params = {
+            "activation_params": {
+                "client_conf": {
+                    "headers": {},
+                    "server_url": "https://sia-walletd.komodo.earth/"
+                },
+                "required_confirmations": 3,
+                "tx_history": True
+            },
+            "client_id": 0,
+            "ticker": ticker
+        }
+        return ActivationRequest(
+            method="enable_sia::init",
             params=params,
             timeout=60,
             is_task=True
@@ -730,6 +754,8 @@ class ActivationManager:
             return "task::enable_tendermint::status"
         if "enable_utxo::init" in method:
             return "task::enable_utxo::status"
+        if "enable_sia::init" in method:
+            return "enable_sia::status"
         return None
 
     def _poll_task(self, ticker: str, status_method: str, task_id: Any) -> None:
@@ -958,7 +984,14 @@ class ActivationManager:
                             error="No status method available for task"
                         )
                 else:
-                    self.logger.warning(f"No task ID returned from {ticker_upper} activation request")
+                    # Provide more context for debugging: include the raw init response
+                    try:
+                        self.logger.warning(
+                            f"No task ID returned from {ticker_upper} activation request. "
+                            f"Init response: {json.dumps(response) if isinstance(response, (dict, list)) else str(response)}"
+                        )
+                    except Exception:
+                        self.logger.warning(f"No task ID returned from {ticker_upper} activation request. Init response: <unserializable>")
                     ACTIVATION_STATE[key].update({
                         "status": "failed", 
                         "error": "No task ID returned"

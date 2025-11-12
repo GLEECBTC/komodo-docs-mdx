@@ -61,5 +61,45 @@
         "substructure": "legacy/utils.EnabledCoinEntry"
       }
     ]
+  },
+  "CoinsNeededForKickStartResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "array of strings",
+        "required": true,
+        "description": "Tickers of coins that should be activated to kick-start swaps and orders"
+      }
+    ]
+  },
+  "VersionErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "CoinsNeededForKickStartErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "GetMyPeerIdErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
   }
 }

@@ -121,12 +121,12 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://eth3.cipig.net:18555",
-          "ws_url": "wss://eth3.cipig.net:38555"
+          "url": "https://0xrpc.io/eth",
+          "ws_url": "wss://0xrpc.io/eth"
         },
         {
-          "url": "https://ethereum-rpc.publicnode.com",
-          "ws_url": "wss://ethereum-rpc.publicnode.com"
+          "url": "https://eth3.cipig.net:18555",
+          "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
           "url": "https://mainnet.gateway.tenderly.co",
@@ -163,8 +163,8 @@
       "get_balances": false,
       "nodes": [
         {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          "url": "https://pol3.cipig.net:18755",
+          "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
           "url": "https://polygon.drpc.org",
@@ -215,12 +215,12 @@
       },
       "nodes": [
         {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          "url": "https://pol3.cipig.net:18755",
+          "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
-          "url": "https://polygon.drpc.org",
-          "ws_url": "wss://polygon.drpc.org"
+          "url": "https://polygon-bor-rpc.publicnode.com",
+          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
         },
         {
           "url": "https://polygon.gateway.tenderly.co",
@@ -254,16 +254,16 @@
       "mm2": 1,
       "nodes": [
         {
-          "url": "https://0xrpc.io/eth",
-          "ws_url": "wss://0xrpc.io/eth"
-        },
-        {
           "url": "https://eth.drpc.org",
           "ws_url": "wss://eth.drpc.org"
         },
         {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
+        },
+        {
+          "url": "https://mainnet.gateway.tenderly.co",
+          "ws_url": "wss://mainnet.gateway.tenderly.co"
         }
       ],
       "priv_key_policy": {
@@ -275,6 +275,52 @@
       "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
       "ticker": "ETH",
       "tx_history": true
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "EnableSia": {
+    "id": 9,
+    "method": "enable_sia",
+    "mmrpc": "2.0",
+    "params": {
+      "activation_params": {
+        "client_conf": {
+          "headers": {},
+          "server_url": "https://sia-walletd.komodo.earth/"
+        },
+        "required_confirmations": 3,
+        "tx_history": true
+      },
+      "client_id": 0,
+      "ticker": "SIA"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "EnableSiaInit": {
+    "id": 1,
+    "method": "enable_sia::init",
+    "mmrpc": "2.0",
+    "params": {
+      "activation_params": {
+        "client_conf": {
+          "headers": {},
+          "server_url": "https://sia-walletd.komodo.earth/"
+        },
+        "required_confirmations": 3,
+        "tx_history": true
+      },
+      "client_id": 0,
+      "ticker": "SIA"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "EnableSiaStatus": {
+    "id": 2,
+    "method": "enable_sia::status",
+    "mmrpc": "2.0",
+    "params": {
+      "forget_if_finished": true,
+      "task_id": 12345
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
@@ -297,6 +343,9 @@
       "mm2": 1,
       "nodes": [
         {
+          "url": "https://iris-rpc.publicnode.com"
+        },
+        {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
@@ -316,6 +365,9 @@
     "params": {
       "get_balances": true,
       "nodes": [
+        {
+          "url": "https://iris-rpc.publicnode.com"
+        },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
@@ -469,8 +521,8 @@
       "min_addresses_number": 3,
       "nodes": [
         {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
+          "url": "https://pol3.cipig.net:18755",
+          "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
           "url": "https://polygon.drpc.org",
@@ -594,6 +646,9 @@
     "mmrpc": "2.0",
     "params": {
       "nodes": [
+        {
+          "url": "https://iris-rpc.publicnode.com"
+        },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
@@ -808,53 +863,5 @@
       }
     },
     "userpass": "RPC_UserP@SSW0RD"
-  },
-  "EnableSia": {
-    "mmrpc": "2.0",
-    "method": "enable_sia",
-    "userpass": "RPC_UserP@SSW0RD",
-    "params": {
-      "client_id": 0,
-      "ticker": "SIA",
-      "activation_params": {
-        "tx_history": true,
-        "required_confirmations": 6,
-        "gap_limit": 20,
-        "client_conf": {
-          "server_url": "https://sia-walletd.komodo.earth/",
-          "headers": {}
-        }
-      }
-    },
-    "id": 9
-  },
-  "EnableSiaInit": {
-    "mmrpc": "2.0",
-    "method": "enable_sia::init",
-    "userpass": "RPC_UserP@SSW0RD",
-    "params": {
-      "client_id": 0,
-      "ticker": "SIA",
-      "activation_params": {
-        "tx_history": true,
-        "required_confirmations": 6,
-        "gap_limit": 20,
-        "client_conf": {
-          "server_url": "https://sia-walletd.komodo.earth/",
-          "headers": {}
-        }
-      }
-    },
-    "id": 1
-  },
-  "EnableSiaStatus": {
-    "mmrpc": "2.0",
-    "method": "enable_sia::status",
-    "userpass": "RPC_UserP@SSW0RD",
-    "params": {
-      "task_id": 12345,
-      "forget_if_finished": true
-    },
-    "id": 2
   }
 }

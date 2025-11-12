@@ -1447,5 +1447,129 @@
         "description": "Internal server error while cancelling task."
       }
     ]
+  },
+  "EnableErc20Response": {
+    "data": [
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "Block height of the platform coin being activated"
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the ERC20 token platform (e.g., ETH)."
+      }
+    ]
+  },
+  "EnableTendermintTokenErrors": {
+    "data": [
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or contains unsupported parameters."
+      },
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "Platform coin not activated or not found."
+      }
+    ]
+  },
+  "EnableTendermintWithAssetsErrors": {
+    "data": [
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or contains unsupported parameters."
+      },
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "Platform coin not activated or not found."
+      }
+    ]
+  },
+  "TaskCancelErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "TaskFinished",
+        "type": "string",
+        "required": false,
+        "description": "Task already finished and cannot be cancelled."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while cancelling task."
+      }
+    ]
+  },
+  "TaskInitErrors": {
+    "data": [
+      {
+        "parameter": "CoinConfigIsNotFound|CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Activation failed due to invalid or missing configuration."
+      },
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "TaskStatusErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while reading task status."
+      }
+    ]
+  },
+  "TaskUserActionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while sending user action."
+      }
+    ]
   }
 }

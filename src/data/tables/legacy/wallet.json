@@ -232,6 +232,168 @@
         "description": "Standard SyncStatus object."
       }
     ]
+  },
+  "ValidateAddressRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The coin to validate address for."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The input string to validate."
+      }
+    ]
+  },
+  "ValidateAddressResponse": {
+    "data": [
+      {
+        "parameter": "is_valid",
+        "type": "bool",
+        "required": true,
+        "description": "Whether the input string is a valid coin address."
+      },
+      {
+        "parameter": "reason",
+        "type": "string (optional)",
+        "required": false,
+        "description": "Only present if not valid. The reason why the input string is not a valid address."
+      }
+    ]
+  },
+  "WithdrawLegacyErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "NotSufficientBalance",
+        "type": "string",
+        "required": false,
+        "description": "Insufficient balance to complete withdrawal."
+      },
+      {
+        "parameter": "InvalidAddress|InvalidFeePolicy|InvalidFee",
+        "type": "string",
+        "required": false,
+        "description": "Invalid address or fee parameters."
+      },
+      {
+        "parameter": "Timeout|InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Operation timed out or internal error."
+      }
+    ]
+  },
+  "ValidateAddressErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "Malformed request or unsupported operation for this coin."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "SendRawTransactionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "No such coin is enabled."
+      },
+      {
+        "parameter": "InvalidHashError|HashNotExist|InvalidParam|DecodeError|NotImplemented",
+        "type": "string",
+        "required": false,
+        "description": "Invalid parameters, not found, or not supported for this protocol."
+      },
+      {
+        "parameter": "Transport|InternalError|TransactionError",
+        "type": "string",
+        "required": false,
+        "description": "Transport or internal error."
+      }
+    ]
+  },
+  "MyBalanceRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The ticker of the coin to query."
+      }
+    ]
+  },
+  "MyBalanceResponse": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": false,
+        "description": "Wallet address (for single-address coins)."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "Summary of wallet balance fields."
+      }
+    ]
+  },
+  "MyBalanceErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "MyTxHistoryErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin is not enabled."
+      },
+      {
+        "parameter": "Transport|InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Network or internal error occurred."
+      }
+    ]
   }
 }
 

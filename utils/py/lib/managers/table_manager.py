@@ -64,6 +64,8 @@ class TableManager:
         
         # Cache for loaded tables
         self._tables_cache: Optional[Dict[str, Dict]] = None
+        # Track which source each table came from: 'legacy' | 'v2' | 'common'
+        self._table_sources: Dict[str, set] = {}
         
         # Missing table tracking
         self.missing_tables = {
@@ -105,6 +107,9 @@ class TableManager:
                 tables = self.load_json_file(table_file)
                 if tables:
                     all_tables.update(tables)
+                    # record sources
+                    for key in tables.keys():
+                        self._table_sources.setdefault(key, set()).add("common")
                     self.logger.info(f"Loaded {len(tables)} tables from {table_file}")
         
         # Load version-specific tables
@@ -115,12 +120,22 @@ class TableManager:
                     tables = self.load_json_file(table_file)
                     if tables:
                         all_tables.update(tables)
+                        # record sources
+                        for key in tables.keys():
+                            self._table_sources.setdefault(key, set()).add(version_dir)
                         self.logger.info(f"Loaded {len(tables)} tables from {table_file}")
         
         self._tables_cache = all_tables
         self.logger.info(f"Loaded {len(all_tables)} total table definitions")
         
         return all_tables
+    
+    def get_table_source(self, table_name: str) -> Optional[set]:
+        """Return the source set of a table key: {'legacy','v2','common'} or None."""
+        # Ensure cache is populated
+        if self._tables_cache is None:
+            self.load_all_tables()
+        return self._table_sources.get(table_name)
     
     def get_table_reference(self, method_config: Dict[str, Any], table_type: str) -> TableReference:
         """Get a table reference for a specific method and table type.

@@ -132,6 +132,8 @@ class KdfResponseManager:
         self.expected_error_responses: Dict[str, Dict[str, Dict[str, Any]]] = {}
         self._current_request_key: Optional[str] = None
         self._current_method_name: Optional[str] = None
+        # Test data (addresses → known txids) for env-specific overrides
+        self.test_data: Optional[Dict[str, Any]] = None
         
         # Task tracking: registry and report path
         self.task_registry: Dict[str, TaskInstance] = {}
@@ -339,6 +341,17 @@ class KdfResponseManager:
                 # Prefer raw body for matching; fallback to stringified dict
                 raw_body = data.get("raw_response") if isinstance(data, dict) else None
                 text = raw_body if isinstance(raw_body, str) and raw_body else str(data)
+                
+                # Attach address hint when coin context is known
+                try:
+                    ticker_for_request = self._extract_ticker_from_request(filtered_request_data)
+                    ticker_upper = str(ticker_for_request).upper() if ticker_for_request else None
+                    if ticker_upper:
+                        addr_hint = self.wallet_manager.get_address_hint(instance.name, ticker_upper)
+                        if addr_hint:
+                            data["address_hint"] = {"coin": ticker_upper, "address": addr_hint}
+                except Exception:
+                    pass
 
                 # Auto-activation + retry wiring
                 try:
@@ -845,6 +858,13 @@ class KdfResponseManager:
         
         # Extract ticker from request data
         ticker = self._extract_ticker_from_request(request_data)
+        # Load test data if available
+        if self.test_data is None:
+            try:
+                with open(self.workspace_root / "postman/generated/reports/test_data.json", "r", encoding="utf-8") as f:
+                    self.test_data = json.load(f)
+            except Exception:
+                self.test_data = {}
         
         for instance in KDF_INSTANCES:
             # Ensure coin is activated if needed
@@ -887,6 +907,34 @@ class KdfResponseManager:
                 modified_request = self.normalize_request_for_non_hd(request_data)
             else:
                 modified_request = request_data
+            # Apply test-data overrides for known examples (e.g., my_tx_history from_id)
+            try:
+                if isinstance(modified_request, dict):
+                    # Deep copy to avoid mutating shared dict
+                    import copy
+                    modified_request = copy.deepcopy(modified_request)
+                    method = modified_request.get("method", "")
+                    if method == "my_tx_history":
+                        # Override legacy from_id if available
+                        inst_data = (self.test_data or {}).get(instance.name, {})
+                        coin_key = (ticker or "").upper()
+                        known = None
+                        # Prefer address-mapped txid if present
+                        addresses = inst_data.get(coin_key, {}).get("addresses", {}) if isinstance(inst_data, dict) else {}
+                        if isinstance(addresses, dict) and addresses:
+                            # pick first address in report for this coin
+                            addr_key = sorted(addresses.keys())[0]
+                            txids = addresses.get(addr_key, {}).get("known_txids", [])
+                            if isinstance(txids, list) and len(txids) > 0:
+                                known = txids[0]
+                        if known:
+                            if "from_id" in modified_request:
+                                modified_request["from_id"] = known
+                            # Also support v2-style paging_options.FromId if seen under legacy by mistake
+                            if "paging_options" in modified_request and isinstance(modified_request["paging_options"], dict):
+                                modified_request["paging_options"]["FromId"] = known
+            except Exception:
+                pass
             
             # Set up timing context and send request
             self._current_timing_context = {}
@@ -1414,68 +1462,156 @@ class KdfResponseManager:
         self.save_inconsistent_responses_report(output_dir)
     
     def regenerate_missing_responses_report(self, reports_dir: Path) -> None:
-        """Regenerate missing responses report after response collection."""
-        self.logger.info("Regenerating missing responses report...")
+        """Regenerate missing responses split reports after response collection, validating actual response content."""
+        self.logger.info("Regenerating missing responses (split) reports...")
+        # Manual example patterns to skip (require external interaction)
+        manual_patterns = ["WalletConnect", "Trezor", "Metamask", "UserAction"]
         
-        # Load all request data
-        all_requests = {}
+        # Load requests per version
+        def load_requests(version: str) -> Dict[str, Dict[str, Any]]:
+            reqs: Dict[str, Dict[str, Any]] = {}
+            req_dir = self.workspace_root / "src/data/requests/kdf" / version
+            for request_file in req_dir.glob("*.json"):
+                reqs.update(self.load_json_file(request_file) or {})
+            return reqs
         
-        # Load v2 request files
-        v2_requests_dir = self.workspace_root / "src/data/requests/kdf/v2"
-        for request_file in v2_requests_dir.glob("*.json"):
-            v2_requests = self.load_json_file(request_file) or {}
-            all_requests.update(v2_requests)
+        v2_requests = load_requests("v2")
+        legacy_requests = load_requests("legacy")
         
-        # Load legacy request files
-        legacy_requests_dir = self.workspace_root / "src/data/requests/kdf/legacy"
-        for request_file in legacy_requests_dir.glob("*.json"):
-            legacy_requests = self.load_json_file(request_file) or {}
-            all_requests.update(legacy_requests)
+        # Load responses per version into a single dict per version
+        def load_responses(version: str) -> Dict[str, Any]:
+            all_responses: Dict[str, Any] = {}
+            resp_dir = self.workspace_root / "src/data/responses/kdf" / version
+            for response_file in resp_dir.glob("*.json"):
+                data = self.load_json_file(response_file) or {}
+                if isinstance(data, dict):
+                    all_responses.update(data)
+            # Load common for references if present
+            common_file = self.workspace_root / "src/data/responses/kdf/common.json"
+            common = self.load_json_file(common_file) or {}
+            return {"__all__": all_responses, "__common__": common}
         
-        # Load method config to check for deprecated methods (merged v2 + legacy)
+        v2_responses = load_responses("v2")
+        legacy_responses = load_responses("legacy")
+        
+        # Helper to resolve response reference and check if it has any content
+        def has_response_content(request_key: str, responses_bundle: Dict[str, Any]) -> bool:
+            all_responses = responses_bundle.get("__all__", {})
+            common = responses_bundle.get("__common__", {})
+            if request_key not in all_responses:
+                return False
+            value = all_responses[request_key]
+            # Resolve if it's a string reference into common
+            if isinstance(value, str):
+                value = common.get(value)
+            # If it's a list, resolve any string refs inside
+            if isinstance(value, list):
+                resolved_list: List[Any] = []
+                for item in value:
+                    if isinstance(item, str):
+                        resolved_list.append(common.get(item))
+                    else:
+                        resolved_list.append(item)
+                value = resolved_list
+            # Now, determine content:
+            if isinstance(value, dict):
+                success = value.get("success", [])
+                error = value.get("error", [])
+                return (isinstance(success, list) and len(success) > 0) or (isinstance(error, list) and len(error) > 0)
+            # If it's a list of blocks, consider non-empty list as content
+            if isinstance(value, list):
+                return len(value) > 0
+            return False
+        
+        # Load method configs to skip deprecated
         data_dir = self.workspace_root / "src/data"
         kdf_methods = {}
         for fp in [data_dir / "kdf_methods_legacy.json", data_dir / "kdf_methods_v2.json"]:
             kdf_methods.update(self.load_json_file(fp) or {})
         
-        # Check for missing responses (simplified version)
-        missing_responses = {}
+        def build_missing(requests: Dict[str, Dict[str, Any]], responses_bundle: Dict[str, Any]) -> Dict[str, List[str]]:
+            missing: Dict[str, List[str]] = {}
+            for request_key, request_data in requests.items():
+                if not isinstance(request_data, dict):
+                    continue
+                # Skip manual/external examples
+                if any(pat in request_key for pat in manual_patterns):
+                    continue
+                method_name = request_data.get("method", "unknown")
+                # Skip deprecated methods
+                method_cfg = kdf_methods.get(method_name, {})
+                if method_cfg.get("deprecated", False):
+                    continue
+                # Check if response exists with content
+                if not has_response_content(request_key, responses_bundle):
+                    missing.setdefault(method_name, []).append(request_key)
+            return missing
         
-        for request_key, request_data in all_requests.items():
-            method_name = request_data.get("method", "unknown")
-            method_config = kdf_methods.get(method_name, {})
-            
-            # Skip deprecated methods
-            if method_config.get('deprecated', False):
-                continue
-            
-            # For now, assume all methods need responses (proper logic can be added later)
-            if method_name not in missing_responses:
-                missing_responses[method_name] = []
-            missing_responses[method_name].append(request_key)
+        missing_v2 = build_missing(v2_requests, v2_responses)
+        missing_legacy = build_missing(legacy_requests, legacy_responses)
         
-        # Save regenerated missing responses report
-        missing_file = reports_dir / "missing_responses.json"
-        dump_sorted_json(missing_responses, missing_file)
-        
-        self.logger.info(f"Missing responses report regenerated: {missing_file}")
-        self.logger.info(f"Total missing methods: {len(missing_responses)}")
+        dump_sorted_json(missing_v2, reports_dir / "missing_responses_v2.json")
+        dump_sorted_json(missing_legacy, reports_dir / "missing_responses_legacy.json")
+        self.logger.info("Missing responses split reports regenerated.")
     
     def update_response_files(self, auto_updatable_responses: Dict[str, Any]) -> int:
         """Update response files with successful responses."""
         self.logger.info("Updating response files")
-        
-        # If no responses to add, return early
         if not auto_updatable_responses:
             self.logger.info("No new successful responses to update.")
             return 0
         
-        # For now, just log what would be updated
-        # Proper file update logic can be added later
-        updated_count = len(auto_updatable_responses)
-        self.logger.info(f"Would update {updated_count} response files with new responses")
+        # Build lookup: request_key -> (version, response_file_path)
+        mapping: Dict[str, Tuple[str, Path]] = {}
+        base_requests = self.workspace_root / "src/data/requests/kdf"
+        for version in ["v2", "legacy"]:
+            req_dir = base_requests / version
+            resp_dir = self.workspace_root / "src/data/responses/kdf" / version
+            if not req_dir.exists():
+                continue
+            for req_file in req_dir.glob("*.json"):
+                try:
+                    data = self.load_json_file(req_file) or {}
+                    for key in data.keys():
+                        mapping[key] = (version, resp_dir / req_file.name)
+                except Exception:
+                    continue
         
-        return updated_count
+        updated = 0
+        for request_key, canonical_response in auto_updatable_responses.items():
+            try:
+                if request_key not in mapping:
+                    self.logger.info(f"Skipping update for {request_key}: request key not found in mapping")
+                    continue
+                version, resp_path = mapping[request_key]
+                # Load current response file (create if missing)
+                if resp_path.exists():
+                    responses_data = self.load_json_file(resp_path) or {}
+                else:
+                    responses_data = {}
+                    resp_path.parent.mkdir(parents=True, exist_ok=True)
+                # Ensure request_key entry exists
+                entry = responses_data.get(request_key)
+                if not isinstance(entry, dict):
+                    entry = {"error": [], "success": []}
+                    responses_data[request_key] = entry
+                success_list = entry.setdefault("success", [])
+                # Prepare success item
+                item = {"title": "Success", "json": canonical_response}
+                # Deduplicate by JSON content
+                exists = any(isinstance(x, dict) and x.get("json") == canonical_response for x in success_list)
+                if not exists:
+                    success_list.append(item)
+                    # Save back
+                    dump_sorted_json(responses_data, resp_path)
+                    updated += 1
+                    self.logger.info(f"✅ Updated {resp_path.name} with {request_key}")
+            except Exception as e:
+                self.logger.warning(f"Failed to update response for {request_key}: {e}")
+                continue
+        
+        self.logger.info(f"Updated response files for {updated} entries")
+        return updated
 
 
 def main():

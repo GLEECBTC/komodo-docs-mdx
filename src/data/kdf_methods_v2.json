@@ -72,7 +72,7 @@
     ]
   },
   "enable_erc20": {
-    "errors_table": "",
+    "errors_table": "EnableErc20ErrorTypes",
     "examples": {
       "EnableErc20Basic": "Enable Erc20 Basic"
     },
@@ -88,14 +88,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableErc20Response",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "enable_eth_with_tokens": {
-    "errors_table": "",
+    "errors_table": "EnableEthWithTokensErrorTypes",
     "examples": {
       "EnableEthWithTokensGasStation": "Enable Eth With Tokens Gas Station",
       "EnableEthWithTokensMaticBalancesFalse": "Enable Eth With Tokens Matic Balances False",
@@ -113,110 +113,12 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableEthWithTokensResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ],
     "timeout": 300
-  },
-  "enable_tendermint_token": {
-    "errors_table": "",
-    "examples": {
-      "EnableTendermintTokenBasic": "Enable Tendermint Token Basic"
-    },
-    "prerequisites": [],
-    "request_table": "EnableTendermintTokenArguments",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "prerequisite_methods": [
-        "enable_tendermint_with_assets"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 25,
-    "tags": [
-      "v2"
-    ]
-  },
-  "enable_tendermint_with_assets": {
-    "errors_table": "",
-    "examples": {
-      "EnableTendermintWithAssetsBalancesFalse": "Enable Tendermint With Assets Balances False",
-      "EnableTendermintWithAssetsBalancesTrue": "Enable Tendermint With Assets Balances True",
-      "EnableTendermintWithAssetsWalletConnect": "Enable Tendermint With Assets Wallet Connect"
-    },
-    "prerequisites": [],
-    "request_table": "EnableTendermintWithAssetsArguments",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 25,
-    "tags": [
-      "v2"
-    ]
-  },
-  "fetch_utxos": {
-    "errors_table": "FetchUtxosErrors",
-    "examples": {
-      "FetchUtxos": "Fetch Utxos"
-    },
-    "prerequisites": [],
-    "request_table": "FetchUtxosRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "FetchUtxosResponse",
-    "sequence": 50,
-    "tags": [
-      "v2"
-    ]
-  },
-  "get_private_keys": {
-    "errors_table": "",
-    "examples": {
-      "GetPrivateKeysHd": "Export HD Private Keys",
-      "GetPrivateKeysIguana": "Export Iguana Private Keys"
-    },
-    "prerequisites": [],
-    "request_table": "GetPrivateKeysRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "hd",
-        "iguana"
-      ]
-    },
-    "response_table": "GetPrivateKeysHdResponse",
-    "sequence": 60,
-    "tags": [
-      "v2"
-    ]
   },
   "enable_sia": {
     "errors_table": "EnableSiaErrors",
@@ -236,6 +138,26 @@
     },
     "response_table": "EnableSiaResponse",
     "sequence": 100,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_sia::cancel": {
+    "errors_table": "EnableSiaCancelErrors",
+    "examples": {},
+    "prerequisites": [],
+    "request_table": "EnableSiaCancelRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaCancelResponse",
+    "sequence": 104,
     "tags": [
       "v2"
     ]
@@ -304,11 +226,87 @@
       "v2"
     ]
   },
-  "enable_sia::cancel": {
-    "errors_table": "EnableSiaCancelErrors",
-    "examples": {},
+  "enable_tendermint_token": {
+    "errors_table": "EnableTendermintTokenErrors",
+    "examples": {
+      "EnableTendermintTokenBasic": "Enable Tendermint Token Basic"
+    },
     "prerequisites": [],
-    "request_table": "EnableSiaCancelRequest",
+    "request_table": "EnableTendermintTokenArguments",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "prerequisite_methods": [
+        "enable_tendermint_with_assets"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "EnableTendermintWithAssetsResponse",
+    "sequence": 25,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_tendermint_with_assets": {
+    "errors_table": "EnableTendermintWithAssetsErrors",
+    "examples": {
+      "EnableTendermintWithAssetsBalancesFalse": "Enable Tendermint With Assets Balances False",
+      "EnableTendermintWithAssetsBalancesTrue": "Enable Tendermint With Assets Balances True",
+      "EnableTendermintWithAssetsWalletConnect": "Enable Tendermint With Assets Wallet Connect"
+    },
+    "prerequisites": [],
+    "request_table": "EnableTendermintWithAssetsArguments",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "EnableTendermintWithAssetsResponse",
+    "sequence": 25,
+    "tags": [
+      "v2"
+    ]
+  },
+  "fetch_utxos": {
+    "errors_table": "FetchUtxosErrors",
+    "examples": {
+      "FetchUtxos": "Fetch Utxos"
+    },
+    "prerequisites": [],
+    "request_table": "FetchUtxosRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "FetchUtxosResponse",
+    "sequence": 50,
+    "tags": [
+      "v2"
+    ]
+  },
+  "get_my_address": {
+    "errors_table": "GetMyAddressErrors",
+    "examples": {
+      "GetMyAddress": "Get Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "GetMyAddressRequest",
     "requirements": {
       "environments": [
         "native",
@@ -318,8 +316,127 @@
         "iguana"
       ]
     },
-    "response_table": "EnableSiaCancelResponse",
-    "sequence": 104,
+    "response_table": "GetMyAddressResponse",
+    "sequence": 210,
+    "tags": [
+      "v2"
+    ]
+  },
+  "get_private_keys": {
+    "errors_table": "GetPrivateKeysErrors",
+    "examples": {
+      "GetPrivateKeysHd": "Export HD Private Keys",
+      "GetPrivateKeysIguana": "Export Iguana Private Keys"
+    },
+    "prerequisites": [],
+    "request_table": "GetPrivateKeysRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "GetPrivateKeysHdResponse",
+    "sequence": 60,
+    "tags": [
+      "v2"
+    ]
+  },
+  "get_raw_transaction": {
+    "errors_table": "GetRawTransactionErrors",
+    "examples": {
+      "GetRawTransactionSia": "Get raw Sia transaction"
+    },
+    "prerequisites": [],
+    "request_table": "GetRawTransactionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "GetRawTransactionResponse",
+    "sequence": 230,
+    "tags": [
+      "v2"
+    ]
+  },
+  "my_tx_history": {
+    "errors_table": "MyTxHistoryV2Errors",
+    "examples": {
+      "MyTxHistoryAccountDoc": "Tx history (by account - DOC)",
+      "MyTxHistoryAddressDoc": "Tx history (by address - DOC)",
+      "MyTxHistoryBchFromId": "Tx history (BCH - from_id)",
+      "MyTxHistoryBchPage2": "Tx history (BCH - page 2)",
+      "MyTxHistoryIrisLimit50": "Tx history (IRIS - limit 50)",
+      "MyTxHistorySiaUnsupported": "Tx history (SIA - unsupported)"
+    },
+    "prerequisites": [],
+    "request_table": "MyTxHistoryV2Request",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "MyTxHistoryV2Response",
+    "sequence": 230,
+    "tags": [
+      "v2"
+    ]
+  },
+  "send_raw_transaction": {
+    "errors_table": "SendRawTransactionErrors",
+    "examples": {
+      "SendRawTransaction": "Broadcast Sia transaction",
+      "SendRawTransactionKmd": "Broadcast KMD transaction",
+      "SendRawTransactionSiaFull": "Broadcast full Sia JSON transaction"
+    },
+    "prerequisites": [],
+    "request_table": "SendRawTransactionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "SendRawTransactionResponse",
+    "sequence": 240,
+    "tags": [
+      "v2"
+    ]
+  },
+  "validateaddress": {
+    "errors_table": "ValidateAddressErrors",
+    "examples": {
+      "ValidateAddress": "Validate Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "ValidateAddressRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "ValidateAddressResponse",
+    "sequence": 250,
     "tags": [
       "v2"
     ]
@@ -437,7 +554,7 @@
     ]
   },
   "task::enable_eth::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableEthCancel": "Cancel EVM Activation Task"
     },
@@ -453,14 +570,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableEthInit": "Initialize EVM coin (ETH, AVAX, etc.)",
       "TaskEnableEthInitTrezor": "Initialize EVM coin (ETH, AVAX, etc.) with Trezor"
@@ -488,14 +605,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableEthStatus": "Check EVM Task Status"
     },
@@ -511,14 +628,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_eth::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableEthUserActionPin": "Provide Trezor PIN"
     },
@@ -537,14 +654,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableQtumCancel": "Cancel Qtum Activation Task"
     },
@@ -560,14 +677,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableQtumInit": "Initialize Qtum"
     },
@@ -592,14 +709,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableQtumStatus": "Check Qtum Activation Task Status"
     },
@@ -615,14 +732,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_qtum::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableQtumUserActionPin": "Provide Trezor PIN"
     },
@@ -641,14 +758,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableTendermintCancel": "Cancel Tendermint Activation Task"
     },
@@ -664,14 +781,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableTendermintInit": "Initialize Tendermint Coin"
     },
@@ -696,14 +813,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableTendermintStatus": "Check Tendermint Activation Task Status"
     },
@@ -719,14 +836,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_tendermint::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableTendermintUserActionPin": "Provide Trezor PIN"
     },
@@ -745,14 +862,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::cancel": {
-    "errors_table": "",
+    "errors_table": "TaskCancelErrors",
     "examples": {
       "TaskEnableUtxoCancel": "Cancel UTXO Activation Task"
     },
@@ -768,14 +885,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskCancelResponse",
     "sequence": 110,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::init": {
-    "errors_table": "",
+    "errors_table": "TaskInitErrors",
     "examples": {
       "TaskEnableUtxoInit": "Initialize UTXO Coin"
     },
@@ -800,14 +917,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskResponse",
     "sequence": 25,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::status": {
-    "errors_table": "",
+    "errors_table": "TaskStatusErrors",
     "examples": {
       "TaskEnableUtxoStatus": "Check UTXO Task Status"
     },
@@ -823,14 +940,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskStatusResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
   "task::enable_utxo::user_action": {
-    "errors_table": "",
+    "errors_table": "TaskUserActionErrors",
     "examples": {
       "TaskEnableUtxoUserActionPin": "Provide Trezor PIN"
     },
@@ -856,41 +973,110 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "TaskUserActionResponse",
     "sequence": 100,
     "tags": [
       "v2"
     ]
   },
-  "get_my_address": {
-    "errors_table": "GetMyAddressErrors",
+  "task::enable_z_coin::cancel": {
+    "errors_table": "TaskCancelErrors",
     "examples": {
-      "GetMyAddress": "Get Sia address"
+      "TaskEnableZCoinCancel": "Cancel Z-coin Activation Task"
     },
     "prerequisites": [],
-    "request_table": "GetMyAddressRequest",
+    "request_table": "TaskCancelArguments",
     "requirements": {
       "environments": [
-        "native",
-        "wasm"
+        "native"
       ],
       "wallet_types": [
         "iguana"
       ]
     },
-    "response_table": "GetMyAddressResponse",
-    "sequence": 210,
+    "response_table": "TaskCancelResponse",
+    "sequence": 110,
     "tags": [
       "v2"
     ]
   },
-  "get_raw_transaction": {
-    "errors_table": "GetRawTransactionErrors",
+  "task::enable_z_coin::init": {
+    "errors_table": "TaskInitErrors",
     "examples": {
-      "GetRawTransactionSia": "Get raw Sia transaction"
+      "TaskEnableZCoinInit": "Initialize Z-coin",
+      "TaskEnableZCoinInitBasic": "Initialize Z-coin with basic params",
+      "TaskEnableZCoinInitWasm": "Enable Z Coin Initialization Wasm",
+      "TaskEnableZCoinInitWithSyncParams": "Initialize Z-coin with sync params"
     },
     "prerequisites": [],
-    "request_table": "GetRawTransactionRequest",
+    "request_table": "TaskEnableZCoinArguments",
+    "requirements": {
+      "environments": [
+        "native"
+      ],
+      "notes": "Z-coin activation requires native environment for zcash params and non-HD wallet",
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "TaskResponse",
+    "sequence": 25,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::enable_z_coin::status": {
+    "errors_table": "TaskStatusErrors",
+    "examples": {
+      "TaskEnableZCoinStatus": "Check Z-coin Activation Task Status"
+    },
+    "prerequisites": [],
+    "request_table": "TaskStatusArguments",
+    "requirements": {
+      "environments": [
+        "native"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "TaskStatusResponse",
+    "sequence": 100,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::enable_z_coin::user_action": {
+    "errors_table": "TaskUserActionErrors",
+    "examples": {
+      "TaskEnableZCoinUserActionPin": "Provide Trezor PIN"
+    },
+    "prerequisites": [],
+    "request_table": "TaskUserActionArguments",
+    "requirements": {
+      "environments": [
+        "native"
+      ],
+      "hardware": [
+        "trezor"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "TaskUserActionResponse",
+    "sequence": 100,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::withdraw::cancel": {
+    "errors_table": "WithdrawTaskErrors",
+    "examples": {},
+    "prerequisites": [
+      "task::withdraw::init"
+    ],
+    "request_table": "WithdrawCancelRequest",
     "requirements": {
       "environments": [
         "native",
@@ -900,8 +1086,8 @@
         "iguana"
       ]
     },
-    "response_table": "GetRawTransactionResponse",
-    "sequence": 230,
+    "response_table": "WithdrawStatusResponse",
+    "sequence": 224,
     "tags": [
       "v2"
     ]
@@ -970,130 +1156,30 @@
       "v2"
     ]
   },
-  "task::withdraw::cancel": {
-    "errors_table": "WithdrawTaskErrors",
-    "examples": {},
-    "prerequisites": [
-      "task::withdraw::init"
-    ],
-    "request_table": "WithdrawCancelRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "WithdrawStatusResponse",
-    "sequence": 224,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::enable_z_coin::cancel": {
-    "errors_table": "",
-    "examples": {
-      "TaskEnableZCoinCancel": "Cancel Z-coin Activation Task"
-    },
-    "prerequisites": [],
-    "request_table": "TaskCancelArguments",
-    "requirements": {
-      "environments": [
-        "native"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 110,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::enable_z_coin::init": {
-    "errors_table": "",
-    "examples": {
-      "TaskEnableZCoinInit": "Initialize Z-coin",
-      "TaskEnableZCoinInitBasic": "Initialize Z-coin with basic params",
-      "TaskEnableZCoinInitWasm": "Enable Z Coin Initialization Wasm",
-      "TaskEnableZCoinInitWithSyncParams": "Initialize Z-coin with sync params"
-    },
-    "prerequisites": [],
-    "request_table": "TaskEnableZCoinArguments",
-    "requirements": {
-      "environments": [
-        "native"
-      ],
-      "notes": "Z-coin activation requires native environment for zcash params and non-HD wallet",
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 25,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::enable_z_coin::status": {
-    "errors_table": "",
-    "examples": {
-      "TaskEnableZCoinStatus": "Check Z-coin Activation Task Status"
-    },
-    "prerequisites": [],
-    "request_table": "TaskStatusArguments",
-    "requirements": {
-      "environments": [
-        "native"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 100,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::enable_z_coin::user_action": {
-    "errors_table": "",
-    "examples": {
-      "TaskEnableZCoinUserActionPin": "Provide Trezor PIN"
-    },
-    "prerequisites": [],
-    "request_table": "TaskUserActionArguments",
-    "requirements": {
-      "environments": [
-        "native"
-      ],
-      "hardware": [
-        "trezor"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "",
-    "sequence": 100,
-    "tags": [
-      "v2"
-    ]
-  },
   "withdraw": {
-    "errors_table": "",
+    "errors_table": "WithdrawErrors",
     "examples": {
+      "WithdrawBroadcastTrue": "Withdraw Broadcast True",
+      "WithdrawDocFixedFee": "Withdraw Doc Fixed Fee",
+      "WithdrawDocPerKbyte": "Withdraw Doc Per Kbyte",
+      "WithdrawEth": "Withdraw Eth",
+      "WithdrawEthGas": "Withdraw Eth Gas",
+      "WithdrawEthMax": "Withdraw Eth Max",
+      "WithdrawIbcAtom": "Withdraw Ibc Atom",
+      "WithdrawIrisMemoCosmosGas": "Withdraw Iris Memo Cosmos Gas",
+      "WithdrawKmd": "Withdraw Kmd",
       "WithdrawMartyAccountId": "Withdraw Marty Account Id",
       "WithdrawMartyDerivationPath": "Withdraw Marty Derivation Path",
       "WithdrawMartyFixedFee": "Withdraw Marty Fixed Fee",
       "WithdrawMartyNonHD": "Withdraw Marty (Non HD)",
-      "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte"
+      "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte",
+      "WithdrawQrc20": "Withdraw Qrc20",
+      "WithdrawQrc20Gas": "Withdraw Qrc20 Gas",
+      "WithdrawSia": "Withdraw Sia",
+      "WithdrawSiaProtocol": "Withdraw Sia Protocol"
     },
     "prerequisites": [],
-    "request_table": "",
+    "request_table": "WithdrawRequest",
     "requirements": {
       "environments": [
         "native",
@@ -1104,7 +1190,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "WithdrawResponse",
     "sequence": 50,
     "tags": [
       "v2"

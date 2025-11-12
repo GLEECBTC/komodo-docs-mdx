@@ -1,11 +1,18 @@
 {
-  "LegacyVersion": {
-    "method": "version"
-  },
-  "LegacyGetMyPeerId": {
-    "method": "get_my_peer_id"
+  "CoinsNeededForKickStart": {
+    "method": "coins_needed_for_kick_start",
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyGetEnabledCoins": {
-    "method": "get_enabled_coins"
+    "method": "get_enabled_coins",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyGetMyPeerId": {
+    "method": "get_my_peer_id",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyVersion": {
+    "method": "version",
+    "userpass": "RPC_UserP@SSW0RD"
   }
 }

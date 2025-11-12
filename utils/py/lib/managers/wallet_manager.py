@@ -374,6 +374,34 @@ class WalletManager:
             for coin_addresses in instance_addresses.values()
         )
     
+    def get_address_hint(self, instance_name: str, coin: str) -> Optional[str]:
+        """Return a representative address for a given instance/coin.
+        
+        Prefers in-memory addresses extracted during this run; falls back to the
+        latest saved test_addresses.json report if needed.
+        """
+        try:
+            coin = str(coin).upper()
+            # Prefer in-memory
+            addrs = self.get_addresses_for_coin(instance_name, coin)
+            if addrs:
+                # Return the first address deterministically by sorting
+                first = sorted(a.address for a in addrs if a and a.address)[0]
+                return first
+            # Fallback to saved report
+            report_path = self.workspace_root / "postman/generated/reports/test_addresses.json"
+            if report_path.exists():
+                import json
+                with open(report_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                inst = data.get(instance_name, {})
+                coin_map = inst.get(coin) if isinstance(inst, dict) else None
+                if isinstance(coin_map, dict) and coin_map:
+                    return sorted(coin_map.keys())[0]
+        except Exception:
+            pass
+        return None
+    
     def save_test_addresses_report(self, output_file: Path):
         """Save addresses in the test_addresses.json format."""
         # Convert to the expected format: instance -> coin -> {address: balance}
