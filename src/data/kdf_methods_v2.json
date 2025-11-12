@@ -120,6 +120,112 @@
     ],
     "timeout": 300
   },
+  "enable_sia": {
+    "errors_table": "EnableSiaErrors",
+    "examples": {
+      "EnableSia": "Enable Sia (returns task_id)"
+    },
+    "prerequisites": [],
+    "request_table": "EnableSiaRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaResponse",
+    "sequence": 100,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_sia::cancel": {
+    "errors_table": "EnableSiaCancelErrors",
+    "examples": {},
+    "prerequisites": [],
+    "request_table": "EnableSiaCancelRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaCancelResponse",
+    "sequence": 104,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_sia::init": {
+    "errors_table": "EnableSiaInitErrors",
+    "examples": {
+      "EnableSiaInit": "Enable Sia (task::init)"
+    },
+    "prerequisites": [],
+    "request_table": "EnableSiaInitRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaInitResponse",
+    "sequence": 101,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_sia::status": {
+    "errors_table": "EnableSiaStatusErrors",
+    "examples": {
+      "EnableSiaStatus": "Enable Sia (task::status)"
+    },
+    "prerequisites": [],
+    "request_table": "EnableSiaStatusRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaStatusResponse",
+    "sequence": 102,
+    "tags": [
+      "v2"
+    ]
+  },
+  "enable_sia::user_action": {
+    "errors_table": "EnableSiaUserActionErrors",
+    "examples": {},
+    "prerequisites": [],
+    "request_table": "EnableSiaUserActionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "EnableSiaUserActionResponse",
+    "sequence": 103,
+    "tags": [
+      "v2"
+    ]
+  },
   "enable_tendermint_token": {
     "errors_table": "",
     "examples": {
@@ -194,6 +300,28 @@
       "v2"
     ]
   },
+  "get_my_address": {
+    "errors_table": "GetMyAddressErrors",
+    "examples": {
+      "GetMyAddress": "Get Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "GetMyAddressRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "GetMyAddressResponse",
+    "sequence": 210,
+    "tags": [
+      "v2"
+    ]
+  },
   "get_private_keys": {
     "errors_table": "",
     "examples": {
@@ -218,13 +346,13 @@
       "v2"
     ]
   },
-  "enable_sia": {
-    "errors_table": "EnableSiaErrors",
+  "get_raw_transaction": {
+    "errors_table": "GetRawTransactionErrors",
     "examples": {
-      "EnableSia": "Enable Sia (returns task_id)"
+      "GetRawTransactionSia": "Get raw Sia transaction"
     },
     "prerequisites": [],
-    "request_table": "EnableSiaRequest",
+    "request_table": "GetRawTransactionRequest",
     "requirements": {
       "environments": [
         "native",
@@ -234,92 +362,8 @@
         "iguana"
       ]
     },
-    "response_table": "EnableSiaResponse",
-    "sequence": 100,
-    "tags": [
-      "v2"
-    ]
-  },
-  "enable_sia::init": {
-    "errors_table": "EnableSiaInitErrors",
-    "examples": {
-      "EnableSiaInit": "Enable Sia (task::init)"
-    },
-    "prerequisites": [],
-    "request_table": "EnableSiaInitRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "EnableSiaInitResponse",
-    "sequence": 101,
-    "tags": [
-      "v2"
-    ]
-  },
-  "enable_sia::status": {
-    "errors_table": "EnableSiaStatusErrors",
-    "examples": {
-      "EnableSiaStatus": "Enable Sia (task::status)"
-    },
-    "prerequisites": [],
-    "request_table": "EnableSiaStatusRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "EnableSiaStatusResponse",
-    "sequence": 102,
-    "tags": [
-      "v2"
-    ]
-  },
-  "enable_sia::user_action": {
-    "errors_table": "EnableSiaUserActionErrors",
-    "examples": {},
-    "prerequisites": [],
-    "request_table": "EnableSiaUserActionRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "EnableSiaUserActionResponse",
-    "sequence": 103,
-    "tags": [
-      "v2"
-    ]
-  },
-  "enable_sia::cancel": {
-    "errors_table": "EnableSiaCancelErrors",
-    "examples": {},
-    "prerequisites": [],
-    "request_table": "EnableSiaCancelRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "EnableSiaCancelResponse",
-    "sequence": 104,
+    "response_table": "GetRawTransactionResponse",
+    "sequence": 230,
     "tags": [
       "v2"
     ]
@@ -862,136 +906,6 @@
       "v2"
     ]
   },
-  "get_my_address": {
-    "errors_table": "GetMyAddressErrors",
-    "examples": {
-      "GetMyAddress": "Get Sia address"
-    },
-    "prerequisites": [],
-    "request_table": "GetMyAddressRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "GetMyAddressResponse",
-    "sequence": 210,
-    "tags": [
-      "v2"
-    ]
-  },
-  "get_raw_transaction": {
-    "errors_table": "GetRawTransactionErrors",
-    "examples": {
-      "GetRawTransactionSia": "Get raw Sia transaction"
-    },
-    "prerequisites": [],
-    "request_table": "GetRawTransactionRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "GetRawTransactionResponse",
-    "sequence": 230,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::withdraw::init": {
-    "errors_table": "WithdrawTaskErrors",
-    "examples": {},
-    "prerequisites": [],
-    "request_table": "WithdrawInitRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "WithdrawInitResponse",
-    "sequence": 221,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::withdraw::status": {
-    "errors_table": "WithdrawTaskErrors",
-    "examples": {},
-    "prerequisites": [
-      "task::withdraw::init"
-    ],
-    "request_table": "WithdrawStatusRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "WithdrawStatusResponse",
-    "sequence": 222,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::withdraw::user_action": {
-    "errors_table": "WithdrawTaskErrors",
-    "examples": {},
-    "prerequisites": [
-      "task::withdraw::init"
-    ],
-    "request_table": "WithdrawUserActionRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "WithdrawStatusResponse",
-    "sequence": 223,
-    "tags": [
-      "v2"
-    ]
-  },
-  "task::withdraw::cancel": {
-    "errors_table": "WithdrawTaskErrors",
-    "examples": {},
-    "prerequisites": [
-      "task::withdraw::init"
-    ],
-    "request_table": "WithdrawCancelRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "WithdrawStatusResponse",
-    "sequence": 224,
-    "tags": [
-      "v2"
-    ]
-  },
   "task::enable_z_coin::cancel": {
     "errors_table": "",
     "examples": {
@@ -1083,14 +997,113 @@
       "v2"
     ]
   },
+  "task::withdraw::cancel": {
+    "errors_table": "WithdrawTaskErrors",
+    "examples": {},
+    "prerequisites": [
+      "task::withdraw::init"
+    ],
+    "request_table": "WithdrawCancelRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawStatusResponse",
+    "sequence": 224,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::withdraw::init": {
+    "errors_table": "WithdrawTaskErrors",
+    "examples": {},
+    "prerequisites": [],
+    "request_table": "WithdrawInitRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawInitResponse",
+    "sequence": 221,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::withdraw::status": {
+    "errors_table": "WithdrawTaskErrors",
+    "examples": {},
+    "prerequisites": [
+      "task::withdraw::init"
+    ],
+    "request_table": "WithdrawStatusRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawStatusResponse",
+    "sequence": 222,
+    "tags": [
+      "v2"
+    ]
+  },
+  "task::withdraw::user_action": {
+    "errors_table": "WithdrawTaskErrors",
+    "examples": {},
+    "prerequisites": [
+      "task::withdraw::init"
+    ],
+    "request_table": "WithdrawUserActionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawStatusResponse",
+    "sequence": 223,
+    "tags": [
+      "v2"
+    ]
+  },
   "withdraw": {
     "errors_table": "",
     "examples": {
+      "WithdrawBroadcastTrue": "Withdraw Broadcast True",
+      "WithdrawDocFixedFee": "Withdraw Doc Fixed Fee",
+      "WithdrawDocPerKbyte": "Withdraw Doc Per Kbyte",
+      "WithdrawEth": "Withdraw Eth",
+      "WithdrawEthGas": "Withdraw Eth Gas",
+      "WithdrawEthMax": "Withdraw Eth Max",
+      "WithdrawIbcAtom": "Withdraw Ibc Atom",
+      "WithdrawIrisMemoCosmosGas": "Withdraw Iris Memo Cosmos Gas",
+      "WithdrawKmd": "Withdraw Kmd",
       "WithdrawMartyAccountId": "Withdraw Marty Account Id",
       "WithdrawMartyDerivationPath": "Withdraw Marty Derivation Path",
       "WithdrawMartyFixedFee": "Withdraw Marty Fixed Fee",
       "WithdrawMartyNonHD": "Withdraw Marty (Non HD)",
-      "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte"
+      "WithdrawMartyPerKbyte": "Withdraw Marty Per Kbyte",
+      "WithdrawQrc20": "Withdraw Qrc20",
+      "WithdrawQrc20Gas": "Withdraw Qrc20 Gas",
+      "WithdrawSia": "Withdraw Sia",
+      "WithdrawSiaProtocol": "Withdraw Sia Protocol"
     },
     "prerequisites": [],
     "request_table": "",

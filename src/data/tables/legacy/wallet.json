@@ -264,6 +264,34 @@
         "description": "Only present if not valid. The reason why the input string is not a valid address."
       }
     ]
+  },
+  "WithdrawLegacyErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "NotSufficientBalance",
+        "type": "string",
+        "required": false,
+        "description": "Insufficient balance to complete withdrawal."
+      },
+      {
+        "parameter": "InvalidAddress|InvalidFeePolicy|InvalidFee",
+        "type": "string",
+        "required": false,
+        "description": "Invalid address or fee parameters."
+      },
+      {
+        "parameter": "Timeout|InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Operation timed out or internal error."
+      }
+    ]
   }
 }
 

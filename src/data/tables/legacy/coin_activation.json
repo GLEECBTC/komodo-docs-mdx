@@ -239,5 +239,49 @@
         "description": "the result of the request; this value either indicates `success`, or an error or other type of failure"
       }
     ]
+  },
+  "ElectrumErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or missing required parameters."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "EnableErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or missing required parameters."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
   }
 }

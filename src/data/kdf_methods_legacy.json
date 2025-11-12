@@ -1,6 +1,29 @@
 {
+  "coins_needed_for_kick_start": {
+    "errors_table": "CoinsNeededForKickStartErrors",
+    "examples": {
+      "CoinsNeededForKickStart": "Coins needed for kick start"
+    },
+    "prerequisites": [],
+    "request_table": "NoParams",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "CoinsNeededForKickStartResponse",
+    "sequence": 260,
+    "tags": [
+      "legacy"
+    ]
+  },
   "electrum": {
-    "errors_table": "",
+    "errors_table": "ElectrumErrors",
     "examples": {
       "LegacyElectrumBch": "Electrum Bch",
       "LegacyElectrumDoc": "Electrum Doc",
@@ -19,14 +42,14 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "ElectrumResponse",
     "sequence": 25,
     "tags": [
       "legacy"
     ]
   },
   "enable": {
-    "errors_table": "",
+    "errors_table": "EnableErrors",
     "examples": {
       "LegacyEnableBnb": "Enable BNB Token (Legacy)",
       "LegacyEnableEth": "Enable Ethereum Token (Legacy)",
@@ -56,16 +79,16 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "EnableResponse",
     "sequence": 25,
     "tags": [
       "legacy"
     ]
   },
-  "version": {
+  "get_enabled_coins": {
     "errors_table": "",
     "examples": {
-      "LegacyVersion": "Version"
+      "LegacyGetEnabledCoins": "Get Enabled Coins"
     },
     "prerequisites": [],
     "request_table": "NoParams",
@@ -79,30 +102,31 @@
         "iguana"
       ]
     },
-    "response_table": "VersionResponse",
-    "sequence": 25,
+    "response_table": "GetEnabledCoinsResponse",
+    "sequence": 210,
     "tags": [
       "legacy"
     ]
   },
-  "withdraw": {
-    "errors_table": "WithdrawErrors",
+  "get_my_peer_id": {
+    "errors_table": "",
     "examples": {
-      "WithdrawLegacySia": "Withdraw Sia"
+      "LegacyGetMyPeerId": "Get My Peer ID"
     },
     "prerequisites": [],
-    "request_table": "WithdrawLegacyRequest",
+    "request_table": "NoParams",
     "requirements": {
       "environments": [
         "native",
         "wasm"
       ],
       "wallet_types": [
+        "hd",
         "iguana"
       ]
     },
-    "response_table": "WithdrawLegacyResponse",
-    "sequence": 220,
+    "response_table": "GetMyPeerIdResponse",
+    "sequence": 205,
     "tags": [
       "legacy"
     ]
@@ -129,10 +153,40 @@
       "legacy"
     ]
   },
+  "my_tx_history": {
+    "errors_table": "MyTxHistoryErrors",
+    "examples": {
+      "MyTxHistoryDoc": "Tx history (DOC)",
+      "MyTxHistoryDocMax": "My Tx History Doc Max",
+      "MyTxHistoryErrors": "My Tx History Errors",
+      "MyTxHistoryEthSuccess": "My Tx History Eth Success",
+      "MyTxHistorySia": "Tx history (SIA)",
+      "MyTxHistorySyncEthInProgress": "My Tx History Sync Eth In Progress",
+      "MyTxHistorySyncUtxoInProgress": "My Tx History Sync Utxo In Progress"
+    },
+    "prerequisites": [],
+    "request_table": "MyTxHistoryRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "MyTxHistoryResponse",
+    "sequence": 230,
+    "tags": [
+      "legacy"
+    ]
+  },
   "send_raw_transaction": {
     "errors_table": "SendRawTransactionErrors",
     "examples": {
-      "SendRawTransaction": "Broadcast Sia transaction"
+      "SendRawTransaction": "Broadcast Sia transaction",
+      "SendRawTransactionKmd": "Send Raw Transaction Kmd",
+      "SendRawTransactionSiaFull": "Send Raw Transaction Sia Full"
     },
     "prerequisites": [],
     "request_table": "SendRawTransactionRequest",
@@ -173,10 +227,10 @@
       "legacy"
     ]
   },
-  "coins_needed_for_kick_start": {
-    "errors_table": "",
+  "version": {
+    "errors_table": "VersionErrors",
     "examples": {
-      "CoinsNeededForKickStart": "Coins needed for kick start"
+      "LegacyVersion": "Version"
     },
     "prerequisites": [],
     "request_table": "NoParams",
@@ -190,8 +244,38 @@
         "iguana"
       ]
     },
-    "response_table": "CoinsNeededForKickStartResponse",
-    "sequence": 260,
+    "response_table": "VersionResponse",
+    "sequence": 25,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "withdraw": {
+    "errors_table": "WithdrawLegacyErrors",
+    "examples": {
+      "WithdrawLegacyDocFixedFee": "Withdraw Doc Fixed Fee",
+      "WithdrawLegacyDocPerKbyte": "Withdraw Doc Per Kbyte",
+      "WithdrawLegacyEth": "Withdraw Eth",
+      "WithdrawLegacyEthGas": "Withdraw Eth Gas",
+      "WithdrawLegacyEthMax": "Withdraw Eth Max",
+      "WithdrawLegacyKmd": "Withdraw Kmd",
+      "WithdrawLegacyQrc20": "Withdraw Qrc20",
+      "WithdrawLegacyQrc20Gas": "Withdraw Qrc20 Gas",
+      "WithdrawLegacySia": "Withdraw Sia"
+    },
+    "prerequisites": [],
+    "request_table": "WithdrawLegacyRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "WithdrawLegacyResponse",
+    "sequence": 220,
     "tags": [
       "legacy"
     ]
