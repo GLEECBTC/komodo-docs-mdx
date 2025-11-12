@@ -758,5 +758,33 @@
         "description": "Standard SyncStatus object."
       }
     ]
+  },
+  "MyTxHistoryV2Errors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin|CoinIsNotSupported",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found, not enabled, or not supported for v2 history."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or contains invalid parameters."
+      },
+      {
+        "parameter": "StorageIsNotInitialized|StorageError",
+        "type": "string",
+        "required": false,
+        "description": "The local history storage is not initialized or failed."
+      },
+      {
+        "parameter": "Internal|Transport",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected internal or transport error."
+      }
+    ]
   }
 }

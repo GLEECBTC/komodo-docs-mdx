@@ -368,6 +368,79 @@
       "v2"
     ]
   },
+  "my_tx_history": {
+    "errors_table": "MyTxHistoryV2Errors",
+    "examples": {
+      "MyTxHistoryAccountDoc": "Tx history (by account - DOC)",
+      "MyTxHistoryAddressDoc": "Tx history (by address - DOC)",
+      "MyTxHistoryBchFromId": "Tx history (BCH - from_id)",
+      "MyTxHistoryBchPage2": "Tx history (BCH - page 2)",
+      "MyTxHistoryIrisLimit50": "Tx history (IRIS - limit 50)",
+      "MyTxHistorySiaUnsupported": "Tx history (SIA - unsupported)"
+    },
+    "prerequisites": [],
+    "request_table": "MyTxHistoryV2Request",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "MyTxHistoryV2Response",
+    "sequence": 230,
+    "tags": [
+      "v2"
+    ]
+  },
+  "send_raw_transaction": {
+    "errors_table": "SendRawTransactionErrors",
+    "examples": {
+      "SendRawTransaction": "Broadcast Sia transaction",
+      "SendRawTransactionKmd": "Broadcast KMD transaction",
+      "SendRawTransactionSiaFull": "Broadcast full Sia JSON transaction"
+    },
+    "prerequisites": [],
+    "request_table": "SendRawTransactionRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "SendRawTransactionResponse",
+    "sequence": 240,
+    "tags": [
+      "v2"
+    ]
+  },
+  "validateaddress": {
+    "errors_table": "ValidateAddressErrors",
+    "examples": {
+      "ValidateAddress": "Validate Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "ValidateAddressRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "ValidateAddressResponse",
+    "sequence": 250,
+    "tags": [
+      "v2"
+    ]
+  },
   "task::enable_bch::cancel": {
     "deprecated": true,
     "errors_table": "",
@@ -1084,7 +1157,7 @@
     ]
   },
   "withdraw": {
-    "errors_table": "",
+    "errors_table": "WithdrawErrors",
     "examples": {
       "WithdrawBroadcastTrue": "Withdraw Broadcast True",
       "WithdrawDocFixedFee": "Withdraw Doc Fixed Fee",
@@ -1106,7 +1179,7 @@
       "WithdrawSiaProtocol": "Withdraw Sia Protocol"
     },
     "prerequisites": [],
-    "request_table": "",
+    "request_table": "WithdrawRequest",
     "requirements": {
       "environments": [
         "native",
@@ -1117,7 +1190,7 @@
         "iguana"
       ]
     },
-    "response_table": "",
+    "response_table": "WithdrawResponse",
     "sequence": 50,
     "tags": [
       "v2"
