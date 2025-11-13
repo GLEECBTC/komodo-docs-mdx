@@ -4366,9 +4366,6 @@
     "response-success-2",
     "request-eth",
     "response-success-3",
-    "error-response-no-such-coin",
-    "error-invalid-hash",
-    "error-invalid-ec-signature",
     "error-types"
   ],
   "src/pages/komodo-defi-framework/api/v20/wallet/tx/index.mdx": [

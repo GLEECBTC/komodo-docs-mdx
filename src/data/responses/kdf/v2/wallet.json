@@ -811,7 +811,49 @@
     ]
   },
   "GetRawTransaction": {
-    "error": [],
+    "error": [
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "error": "No such coin KMD",
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:2234] lp_coins:2156]",
+          "error_type": "NoSuchCoin",
+          "error_data": {
+            "coin": "KMD"
+          },
+          "hint": "If you don't have a known tx_hash, check postman/generated/reports/test_data.json for sample addresses and known_txids (e.g., DOC). You can also use my_tx_history to discover txids for enabled coins."
+        },
+        "title": "Error (no such coin)"
+      },
+      {
+        "json": {
+          "id": 1,
+          "mmrpc": "2.0",
+          "error": "Invalid  hash: Invalid input length",
+          "error_path": "utxo_common",
+          "error_trace": "utxo_common:1809]",
+          "error_type": "InvalidHashError",
+          "error_data": "Invalid input length",
+          "hint": "Provide a valid tx_hash. For testable values, see postman/generated/reports/test_data.json under native-hd.DOC.addresses[...].known_txids, or fetch via my_tx_history."
+        },
+        "title": "Error (invalid hash)"
+      },
+      {
+        "json": {
+          "id": 1,
+          "mmrpc": "2.0",
+          "error": "Internal error: eth:3221] Crypto error (Invalid EC signature)",
+          "error_path": "eth",
+          "error_trace": "eth:543]",
+          "error_type": "InternalError",
+          "error_data": "eth:3221] Crypto error (Invalid EC signature)",
+          "hint": "Verify the tx_hash and that the coin is enabled and synced. If you need a known-good tx for testing, prefer DOC from test_data.json."
+        },
+        "title": "Error (internal)"
+      }
+    ],
     "success": [
       {
         "json": {
