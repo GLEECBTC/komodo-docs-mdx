@@ -1,0 +1,16 @@
+{
+  "AddNodeToVersionStat": {
+    "error": [],
+    "success": [
+      {
+        "generated": true,
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": "success"
+        },
+        "title": "Success"
+      }
+    ]
+  }
+}

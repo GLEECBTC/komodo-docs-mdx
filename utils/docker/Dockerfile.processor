@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install required Python packages
+RUN pip install --no-cache-dir requests jinja2
+
+# Copy the response processor script
+COPY utils/scripts/process_responses.py /app/
+
+# Create directories for input/output
+RUN mkdir -p /input /output /templates
+
+# Default command
+CMD ["python", "process_responses.py", "--help"]

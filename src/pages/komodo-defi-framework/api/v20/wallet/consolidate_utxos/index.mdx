@@ -1,0 +1,84 @@
+export const title = "Komodo DeFi Framework Method: Consolidate Utxos";
+export const description = "Merges multiple unspent transaction outputs for an address.";
+
+# Consolidate Utxos
+
+## consolidate\_utxos {{label : 'consolidate_utxos', tag : 'API-v2'}}
+
+Merges multiple unspent transaction outputs for an address.
+
+<Note>
+  After a wallet has cultivated a long history, or received many small mining payouts, it may become slower to respond.
+  Consolidating unspent transaction outputs should be routinely performed when mining to wallet in order to avoid this.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2/wallet.ConsolidateUtxosRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/wallet.ConsolidateUtxosResponse" />
+
+#### 📌 Examples
+
+<CodeGroup title="fetch_utxos" tag="POST" label="fetch_utxos" mm2MethodDecorate="true" source="v2/wallet.ConsolidateUtxos" />
+
+<KdfResponses responseKey="v2/wallet.ConsolidateUtxos" />
+
+### Error Types
+
+<CompactTable source="v2/wallet.ConsolidateUtxosErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Error Response (Coin Not Found)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "NoSuchCoin",
+      "error_path": "consolidate_utxos.lp_coins",
+      "error_trace": "consolidate_utxos:72] lp_coins:5278]",
+      "error_type": "NoSuchCoin",
+      "id": null 
+  }
+  ```
+
+  #### Error Response (Merge Error)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Failed to merge UTXOs: utxo_arc_builder:173] Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=20",
+      "error_path": "consolidate_utxos",
+      "error_trace": "consolidate_utxos:89]",
+      "error_type": "MergeError",
+      "error_data": "Failed to merge UTXOs: utxo_arc_builder:173] Not enough unspent UTXOs to merge for coin=MARTY, found=1, required=20",
+      "id": null
+  }
+  ```
+
+  #### Error Response (Missing parameter)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: missing field `merge_at`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:143]",
+      "error_type": "InvalidRequest",
+      "error_data": "missing field `merge_at`",
+      "id": null
+  }
+
+  {
+    "mmrpc": "2.0",
+    "error": "Error parsing request: missing field `max_merge_at_once`",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:143]",
+    "error_type": "InvalidRequest",
+    "error_data": "missing field `max_merge_at_once`",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

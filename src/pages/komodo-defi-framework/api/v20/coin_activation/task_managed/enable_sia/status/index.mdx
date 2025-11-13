@@ -1,0 +1,40 @@
+export const title = "Komodo DeFi Framework Method: task::enable_sia::status";
+export const description =
+  "Query the status of the SIA activation task.";
+
+# task::enable\_sia::status {{label : 'task::enable_sia::status', tag : 'API-v2'}}
+
+After running the `task::enable_sia::init` method, query the status of activation
+to check its progress. The response returns:
+
+*   Result of the task (success or error)
+*   Progress status (what state the task is in)
+*   Required user action (what user should do before the task can continue)
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.EnableSiaStatusRequest" />
+
+#### Command
+
+<CodeGroup title="task::enable_sia::status" tag="POST" label="task::enable_sia::status" mm2MethodDecorate="true" source="v2/coin_activation.EnableSiaStatus" />
+
+<CompactTable source="v2/coin_activation.EnableSiaStatusResponse" />
+
+Possible `status` values while activation is in progress:
+
+*   ActivatingCoin: The first step of activation. No user action required.
+*   RequestingWalletBalance: Initial balances info is being requested. No user action required.
+*   Finishing: Activation process completed.
+
+Once complete, `status` will be `Ok`, and the `details` object will have the following structure:
+
+#### Response (ready, successful)
+
+| Parameter       | Type    | Description                              |
+| --------------- | ------- | ---------------------------------------- |
+| current\_block  | integer | Block height of the coin being activated |
+| ticker          | string  | Ticker of the coin being activated       |
+| wallet\_balance | object  | Wallet balance object (Iguana for Sia)   |
+
+<KdfResponses responseKey="v2/coin_activation.EnableSiaStatus" />

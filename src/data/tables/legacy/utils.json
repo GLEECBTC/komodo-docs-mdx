@@ -1,0 +1,105 @@
+{
+  "NoParams": {
+    "data": [
+      {
+        "parameter": "(none)",
+        "type": "",
+        "required": false,
+        "description": ""
+      }
+    ]
+  },
+  "VersionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The Komodo DeFi Framework API version"
+      },
+      {
+        "parameter": "datetime",
+        "type": "string",
+        "required": true,
+        "description": "A formatted datetime string"
+      }
+    ]
+  },
+  "GetMyPeerIdResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The Peer ID of your node on the network"
+      }
+    ]
+  },
+  "EnabledCoinEntry": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The user's address for this coin"
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "The ticker symbol of the enabled coin"
+      }
+    ]
+  },
+  "GetEnabledCoinsResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "list of objects",
+        "required": true,
+        "description": "Tickers and addresses of enabled coins",
+        "substructure": "legacy/utils.EnabledCoinEntry"
+      }
+    ]
+  },
+  "CoinsNeededForKickStartResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "array of strings",
+        "required": true,
+        "description": "Tickers of coins that should be activated to kick-start swaps and orders"
+      }
+    ]
+  },
+  "VersionErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "CoinsNeededForKickStartErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "GetMyPeerIdErrors": {
+    "data": [
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  }
+}

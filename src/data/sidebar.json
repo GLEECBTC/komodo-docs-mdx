@@ -403,6 +403,26 @@
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/"
           },
           {
+            "title": "Task: Enable SIA",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/"
+          },
+          {
+            "title": "task::enable_sia::init",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/init/"
+          },
+          {
+            "title": "task::enable_sia::status",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/status/"
+          },
+          {
+            "title": "task::enable_sia::user_action",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/user_action/"
+          },
+          {
+            "title": "task::enable_sia::cancel",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_sia/cancel/"
+          },
+          {
             "title": "Task: Enable BCH",
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/"
           },
@@ -417,7 +437,7 @@
           {
             "title": "Task: Enable Tendermint",
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_tendermint/"
-          },          
+          },
           {
             "title": "Task: Enable UTXO",
             "href": "/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_utxo/"
@@ -620,7 +640,7 @@
           {
             "title": "Validators",
             "href": "/komodo-defi-framework/api/v20/wallet/staking/validators/"
-          }          
+          }
         ]
       },
       {
@@ -714,6 +734,14 @@
           {
             "title": "get_private_keys",
             "href": "/komodo-defi-framework/api/v20/wallet/get_private_keys/"
+          },
+          {
+            "title": "consolidate_utxos",
+            "href": "/komodo-defi-framework/api/v20/wallet/consolidate_utxos/"
+          },
+          {
+            "title": "fetch_utxos",
+            "href": "/komodo-defi-framework/api/v20/wallet/fetch_utxos/"
           }
         ]
       },

@@ -1,4 +1,38 @@
 {
+  "ErrorResponse": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "A human-readable error message."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": true,
+        "description": "The path in the code where the error occurred."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": true,
+        "description": "A stack trace of the error."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of the error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "object",
+        "required": true,
+        "description": "Additional data related to the error."
+      }
+    ]
+  },
   "EventStreamConfig": {
     "data": [
       {
@@ -43,13 +77,32 @@
         "parameter": "rational",
         "type": "object",
         "required": true,
-        "description": "A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+        "description": "A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.",
+        "substructure": "common.RationalValue"
       },
       {
         "parameter": "fraction",
         "type": "object",
         "required": true,
-        "description": "A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+        "description": "A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.",
+        "substructure": "common.FractionalValue"
+      }
+    ]
+  },
+  "Pagination": {
+    "data": [
+      {
+        "parameter": "PageNumber",
+        "type": "integer",
+        "required": false,
+        "default": "1",
+        "description": "Offset for paginated results"
+      },
+      {
+        "parameter": "FromId",
+        "type": "integer",
+        "required": false,
+        "description": "Ignores any results prior to this UUID"
       }
     ]
   },
@@ -73,23 +126,6 @@
         "type": "number",
         "required": false,
         "description": "Returns limit swaps from the selected page. This parameter is ignored if from_uuid is set."
-      }
-    ]
-  },
-  "Pagination": {
-    "data": [
-      {
-        "parameter": "PageNumber",
-        "type": "integer",
-        "required": false,
-        "default": "1",
-        "description": "Offset for paginated results"
-      },
-      {
-        "parameter": "FromId",
-        "type": "integer",
-        "required": false,
-        "description": "Ignores any results prior to this UUID"
       }
     ]
   },
@@ -141,7 +177,8 @@
         "parameter": "additional_info",
         "type": "object",
         "required": true,
-        "description": "A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only."
+        "description": "A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only.",
+        "substructure": "common.SyncStatusExtended"
       }
     ]
   },
@@ -219,47 +256,14 @@
         "parameter": "namespaces",
         "type": "object",
         "required": true,
-        "description": "Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)."
+        "description": "Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection).",
+        "substructure": "common.WcConnNs"
       },
       {
         "parameter": "expiry",
         "type": "integer",
         "required": true,
         "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/) indicating when the connection will expire if not otherwise closed."
-      }
-    ]
-  },
-  "ErrorResponse": {
-    "data": [
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "A human-readable error message."
-      },
-      {
-        "parameter": "error_path",
-        "type": "string",
-        "required": true,
-        "description": "The path in the code where the error occurred."
-      },
-      {
-        "parameter": "error_trace",
-        "type": "string",
-        "required": true,
-        "description": "A stack trace of the error."
-      },
-      {
-        "parameter": "error_type",
-        "type": "string",
-        "required": true,
-        "description": "The type of the error."
-      },
-      {
-        "parameter": "error_data",
-        "type": "object",
-        "required": true,
-        "description": "Additional data related to the error."
       }
     ]
   }

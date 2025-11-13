@@ -11,7 +11,8 @@
         "parameter": "servers",
         "type": "list of objects",
         "required": true,
-        "description": "A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects."
+        "description": "A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects.",
+        "substructure": "activation.ActivationServers"
       },
       {
         "parameter": "mm2",
@@ -62,7 +63,8 @@
         "parameter": "utxo_merge_params",
         "type": "object",
         "required": false,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },
@@ -235,6 +237,50 @@
         "type": "string",
         "required": true,
         "description": "the result of the request; this value either indicates `success`, or an error or other type of failure"
+      }
+    ]
+  },
+  "ElectrumErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or missing required parameters."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
+      }
+    ]
+  },
+  "EnableErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "The selected coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or missing required parameters."
+      },
+      {
+        "parameter": "InternalError",
+        "type": "string",
+        "required": false,
+        "description": "Unhandled internal error."
       }
     ]
   }

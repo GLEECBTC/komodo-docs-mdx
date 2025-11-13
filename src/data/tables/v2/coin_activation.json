@@ -17,7 +17,8 @@
         "parameter": "mode",
         "type": "object",
         "required": true,
-        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       },
       {
         "parameter": "tx_history",
@@ -36,7 +37,8 @@
         "parameter": "address_format",
         "type": "object",
         "required": false,
-        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
+        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.",
+        "substructure": "wallet.AddressFormat"
       },
       {
         "parameter": "allow_slp_unsafe_conf",
@@ -77,7 +79,8 @@
         "parameter": "utxo_merge_params",
         "type": "object",
         "required": true,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },
@@ -93,13 +96,15 @@
         "parameter": "bch_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "slp_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       }
     ]
   },
@@ -110,23 +115,6 @@
         "type": "string",
         "required": true,
         "description": "Ticker of the ERC20 like token coin."
-      },
-      {
-        "parameter": "activation_params.required_confirmations",
-        "type": "integer",
-        "required": false,
-        "default": "value in the coins file if not set",
-        "description": "Confirmations to wait for steps in swap."
-      }
-    ]
-  },
-  "EnableTendermintTokenArguments": {
-    "data": [
-      {
-        "parameter": "ticker",
-        "type": "string",
-        "required": true,
-        "description": "Ticker of the Tendermint asset."
       },
       {
         "parameter": "activation_params.required_confirmations",
@@ -201,7 +189,8 @@
         "type": "object",
         "required": false,
         "default": "`{\"type\": \"ContextPrivKey\"}`",
-        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object."
+        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object.",
+        "substructure": "wallet.PrivKeyPolicy"
       },
       {
         "parameter": "required_confirmations",
@@ -235,13 +224,15 @@
         "parameter": "nft_req",
         "type": "object",
         "required": false,
-        "description": "Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object."
+        "description": "Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.",
+        "substructure": "nfts.NftProvider"
       },
       {
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.",
+        "substructure": "activation.SwapV2Contracts"
       }
     ]
   },
@@ -257,19 +248,39 @@
         "parameter": "eth_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "erc20_addresses_infos",
         "type": "object",
         "required": true,
-        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter."
+        "description": "A standard [AddressInfo](/komodo-defi-framework/api/common_structures/wallet/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter.",
+        "substructure": "wallet.AddressInfo"
       },
       {
         "parameter": "nfts_infos",
         "type": "list",
         "required": true,
-        "description": "A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects."
+        "description": "A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects.",
+        "substructure": "nfts.NftInfoBasic"
+      }
+    ]
+  },
+  "EnableTendermintTokenArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Tendermint asset."
+      },
+      {
+        "parameter": "activation_params.required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "value in the coins file if not set",
+        "description": "Confirmations to wait for steps in swap."
       }
     ]
   },
@@ -335,10 +346,12 @@
         "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
       },
       {
-        "parameter": "activation_params",
+        "parameter": "activation_params.priv_key_policy",
         "type": "object",
         "required": false,
-        "description": "Only used with Metamask, Keplr or WalletConnect activations. Defines the [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) of the connection."
+        "context": ["Metamask", "Keplr", "WalletConnect"],
+        "description": "Only used with Metamask, Keplr or WalletConnect activations. A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object.",
+        "substructure": "wallet.PrivKeyPolicy"
       }
     ]
   },
@@ -379,6 +392,250 @@
         "type": "array",
         "required": false,
         "description": "Only returned when `get_balances` is `false`. A list of each token which was activated."
+      }
+    ]
+  },
+  "EnableEthWithTokensErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin you are trying to activate is already activated"
+      },
+      {
+        "parameter": "PlatformConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the platform coin you are trying to activate is not found"
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Parsing the protocol of the platform coin you are trying to activate failed"
+      },
+      {
+        "parameter": "UnexpectedPlatformProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected platform protocol found for the platform coin you are trying to activate"
+      },
+      {
+        "parameter": "TokenConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the token you are trying to activate is not found"
+      },
+      {
+        "parameter": "TokenProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Parsing the protocol of the token you are trying to activate failed"
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "The request failed due to a network error (e.g., node unresponsive)"
+      },
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or uses an unsupported configuration for the current build"
+      }
+    ]
+  },
+  "EnableErc20ErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformCoinIsNotActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin is not activated"
+      },
+      {
+        "parameter": "TokenIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The token is already activated"
+      },
+      {
+        "parameter": "TokenConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Token config is not found in coins file"
+      }
+    ]
+  },
+  
+  "EnableBchWithTokensErrorTypes": {
+    "data": [
+      {
+        "parameter": "PlatformIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "The platform coin is already activated"
+      },
+      {
+        "parameter": "PlatformConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Config of the platform coin is not found"
+      },
+      {
+        "parameter": "UnexpectedPlatformProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected platform protocol found for the platform coin"
+      },
+      {
+        "parameter": "UnexpectedTokenProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected protocol found in the token config"
+      },
+      {
+        "parameter": "PlatformCoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "There was an error when trying to activate the platform coin"
+      }
+    ]
+  },
+  "TaskCancelArguments": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the enabling process."
+      }
+    ]
+  },
+  "TaskCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates task cancellation was succesful."
+      },
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "An error message to explain what went wrong."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": true,
+        "description": "An indicator of the class or function which reurned the error."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": true,
+        "description": "An indicator of where in the source code the error was thrown."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": true,
+        "description": "An enumerated value for the returned error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "string",
+        "required": true,
+        "description": "The input task ID which resulted in the error."
+      }
+    ]
+  },
+  "TaskEnableBchArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the platform protocol coin. Options: `BCH` or `tBCH`"
+      },
+      {
+        "parameter": "bchd_urls",
+        "type": "array of strings",
+        "required": true,
+        "description": "A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/)."
+      },
+      {
+        "parameter": "mode",
+        "type": "object",
+        "required": true,
+        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "default": "`false`",
+        "description": "If `true`, spawns a background loop to store the local cache of address(es) transactions."
+      },
+      {
+        "parameter": "slp_tokens_requests",
+        "type": "array of objects",
+        "required": true,
+        "description": "A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects."
+      },
+      {
+        "parameter": "address_format",
+        "type": "object",
+        "required": false,
+        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object.",
+        "substructure": "wallet.AddressFormat"
+      },
+      {
+        "parameter": "allow_slp_unsafe_conf",
+        "type": "boolean",
+        "required": false,
+        "default": "`false`",
+        "description": "If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning."
+      },
+      {
+        "parameter": "get_balances",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "value in the coins file, or `3` if not set",
+        "description": "Confirmations to wait for steps in swap."
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "Has no effect on BCH."
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method"
+      },
+      {
+        "parameter": "utxo_merge_params",
+        "type": "object",
+        "required": true,
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses.",
+        "substructure": "activation.UtxoMergeParams"
       }
     ]
   },
@@ -486,7 +743,8 @@
         "parameter": "nft_req",
         "type": "object",
         "required": false,
-        "description": "Non-HD only. encapsulates the request parameters for NFT activation, including NFT provider configuration."
+        "description": "Non-HD only. Encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.",
+        "substructure": "nfts.NftProvider"
       },
       {
         "parameter": "min_addresses_number",
@@ -510,128 +768,15 @@
         "parameter": "path_to_address",
         "type": "object",
         "required": false,
-        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object."
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object.",
+        "substructure": "wallet.AddressPath"
       },
       {
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
-      }
-    ]
-  },
-  "TaskResponse": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "An identifying number which is used to query task status."
-      }
-    ]
-  },
-  "TaskStatusArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the initialisation process."
-      },
-      {
-        "parameter": "forget_if_finished",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `false`, will return final response for completed tasks."
-      }
-    ]
-  },
-  "TaskUserActionArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the initialisation process."
-      },
-      {
-        "parameter": "user_action",
-        "type": "object",
-        "required": true,
-        "description": "Object containing the params below"
-      },
-      {
-        "parameter": "user_action.action_type",
-        "type": "string",
-        "required": true,
-        "description": "Will be `TrezorPin` for this method"
-      },
-      {
-        "parameter": "user_action.pin",
-        "type": "string (number)",
-        "required": true,
-        "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
-      }
-    ]
-  },
-  "TaskUserActionResponse": {
-    "data": [
-      {
-        "parameter": "result",
-        "type": "string",
-        "required": true,
-        "description": "The outcome of the request."
-      }
-    ]
-  },
-  "TaskCancelArguments": {
-    "data": [
-      {
-        "parameter": "task_id",
-        "type": "integer",
-        "required": true,
-        "description": "The identifying number returned when initiating the enabling process."
-      }
-    ]
-  },
-  "TaskCancelResponse": {
-    "data": [
-      {
-        "parameter": "result",
-        "type": "string",
-        "required": true,
-        "description": "Indicates task cancellation was succesful."
-      },
-      {
-        "parameter": "error",
-        "type": "string",
-        "required": true,
-        "description": "An error message to explain what went wrong."
-      },
-      {
-        "parameter": "error_path",
-        "type": "string",
-        "required": true,
-        "description": "An indicator of the class or function which reurned the error."
-      },
-      {
-        "parameter": "error_trace",
-        "type": "string",
-        "required": true,
-        "description": "An indicator of where in the source code the error was thrown."
-      },
-      {
-        "parameter": "error_type",
-        "type": "string",
-        "required": true,
-        "description": "An enumerated value for the returned error."
-      },
-      {
-        "parameter": "error_data",
-        "type": "string",
-        "required": true,
-        "description": "The input task ID which resulted in the error."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#swap-v2-contracts) object.",
+        "substructure": "activation.SwapV2Contracts"
       }
     ]
   },
@@ -647,163 +792,15 @@
         "parameter": "activation_params",
         "type": "object",
         "required": true,
-        "description": "An object containing the actvation parameters below."
+        "description": "An object containing the activation parameters below. A standard [ActivationParams](/komodo-defi-framework/api/common_structures/activation/#activation-params) object.",
+        "substructure": "activation.ActivationParams"
       },
       {
-        "parameter": ".priv_key_policy",
-        "type": "object",
-        "required": false,
-        "default": "`{\"type\": \"ContextPrivKey\"}`",
-        "description": "A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object."
-      },
-      {
-        "parameter": ".min_addresses_number",
-        "type": "integer",
-        "required": true,
-        "description": "How many additional addreesses to generate at a minimum."
-      },
-      {
-        "parameter": ".scan_policy",
-        "type": "string",
-        "required": true,
-        "description": "Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework."
-      },
-      {
-        "parameter": ".gap_limit",
-        "type": "integer",
-        "required": true,
-        "description": "The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning."
-      },
-      {
-        "parameter": ".mode",
+        "parameter": "activation_params.mode",
         "type": "object",
         "required": true,
-        "description": "An object containing RPC type and data parameters as below."
-      },
-      {
-        "parameter": "..rpc",
-        "type": "string",
-        "required": true,
-        "description": "UTXO RPC mode. Options: `{ \"rpc\":\"Native\" }` if running a native blockchain node, or `\"rpc\":\"Electrum\"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers`"
-      },
-      {
-        "parameter": "..rpc_data",
-        "type": "object",
-        "required": true,
-        "description": "An object containing electrum server information."
-      },
-      {
-        "parameter": "...servers",
-        "type": "list",
-        "required": true,
-        "description": "A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums))"
-      },
-      {
-        "parameter": "....url",
-        "type": "object",
-        "required": true,
-        "description": "The url and port of a coins electrum server"
-      },
-      {
-        "parameter": "....ws_url",
-        "type": "object",
-        "required": false,
-        "description": "Used to define electrum server url/port for websocket connections."
-      },
-      {
-        "parameter": "....protocol",
-        "type": "object",
-        "required": false,
-        "default": "`TCP`",
-        "description": "Defines electrum server protocol as `TCP` or `SSL`."
-      },
-      {
-        "parameter": "....disable_cert_verification",
-        "type": "boolean",
-        "required": false,
-        "description": "For `SSL` electrum connections, this will allow expired certificates."
-      }
-    ]
-  },
-  "TaskEnableBchArguments": {
-    "data": [
-      {
-        "parameter": "ticker",
-        "type": "string",
-        "required": true,
-        "description": "Ticker of the platform protocol coin. Options: `BCH` or `tBCH`"
-      },
-      {
-        "parameter": "bchd_urls",
-        "type": "array of strings",
-        "required": true,
-        "description": "A list of BCHD gRPC API server URLs, used for validation of SLP token transactions. It's recommended to add as many servers as possible. The URLs list can be found at [https://bchd.fountainhead.cash/](https://bchd.fountainhead.cash/)."
-      },
-      {
-        "parameter": "mode",
-        "type": "object",
-        "required": true,
-        "description": "A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
-      },
-      {
-        "parameter": "tx_history",
-        "type": "boolean",
-        "required": false,
-        "default": "`false`",
-        "description": "If `true`, spawns a background loop to store the local cache of address(es) transactions."
-      },
-      {
-        "parameter": "slp_tokens_requests",
-        "type": "array of objects",
-        "required": true,
-        "description": "A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects."
-      },
-      {
-        "parameter": "address_format",
-        "type": "object",
-        "required": false,
-        "description": "Overwrites the address format from coins file, if set. A standard [AddressFormat](/komodo-defi-framework/api/common_structures/wallet/#address-format) object."
-      },
-      {
-        "parameter": "allow_slp_unsafe_conf",
-        "type": "boolean",
-        "required": false,
-        "default": "`false`",
-        "description": "If `true`, allows bchd_urls to be empty. **Warning:** it is highly unsafe to do so as it may lead to invalid SLP transactions generation and tokens burning."
-      },
-      {
-        "parameter": "get_balances",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
-      },
-      {
-        "parameter": "required_confirmations",
-        "type": "integer",
-        "required": false,
-        "default": "value in the coins file, or `3` if not set",
-        "description": "Confirmations to wait for steps in swap."
-      },
-      {
-        "parameter": "requires_notarization",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "Has no effect on BCH."
-      },
-      {
-        "parameter": "tx_history",
-        "type": "boolean",
-        "required": false,
-        "default": "`true`",
-        "description": "If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method"
-      },
-      {
-        "parameter": "utxo_merge_params",
-        "type": "object",
-        "required": true,
-        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+        "description": "Activation mode configuration. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object.",
+        "substructure": "activation.ActivationMode"
       }
     ]
   },
@@ -886,6 +883,65 @@
       }
     ]
   },
+  "TaskResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "An identifying number which is used to query task status."
+      }
+    ]
+  },
+  "TaskStatusArguments": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "The identifying number returned when initiating the initialisation process."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "default": "`true`",
+        "description": "If `false`, will return final response for completed tasks."
+      }
+    ]
+  },
+  "TaskStatusErrorResponse": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "A short indication of how the requested process is progressing."
+      },
+      {
+        "parameter": "details.result",
+        "type": "object",
+        "required": true,
+        "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
+      }
+    ]
+  },
+  "TaskStatusInProgress": {
+    "data": [
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "Will return `InProgress` if task is not yet comepleted"
+      },
+      {
+        "parameter": "details",
+        "type": "string",
+        "required": true,
+        "description": "An indication of the current step of the activation process"
+      }
+    ]
+  },
   "TaskStatusResponse": {
     "data": [
       {
@@ -964,35 +1020,555 @@
       }
     ]
   },
-  "TaskStatusInProgress": {
+  "TaskUserActionArguments": {
     "data": [
       {
-        "parameter": "status",
-        "type": "string",
+        "parameter": "task_id",
+        "type": "integer",
         "required": true,
-        "description": "Will return `InProgress` if task is not yet comepleted"
+        "description": "The identifying number returned when initiating the initialisation process."
       },
       {
-        "parameter": "details",
+        "parameter": "user_action",
+        "type": "object",
+        "required": true,
+        "description": "Object containing the params below"
+      },
+      {
+        "parameter": "user_action.action_type",
         "type": "string",
         "required": true,
-        "description": "An indication of the current step of the activation process"
+        "description": "Will be `TrezorPin` or `TrezorPassphrase`."
+      },
+      {
+        "parameter": "user_action.pin",
+        "type": "string (number)",
+        "required": true,
+        "description": "When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information."
+      },
+      {
+        "parameter": "user_action.passphrase",
+        "type": "string",
+        "required": true,
+        "description": "Your Trezor passphrase. This is the passphrase you use to unlock a hidden wallet on your Trezor device. Can be empty if you are using a non-hidden wallet."
       }
     ]
   },
-  "TaskStatusErrorResponse": {
+  "TaskUserActionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "The outcome of the request."
+      }
+    ]
+  },
+  "EnableSiaRequest": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Sia coin to enable (e.g., \"SIA\")."
+      },
+      {
+        "parameter": "activation_params",
+        "type": "object",
+        "required": true,
+        "description": "Activation parameters specific to Sia.",
+        "substructure": "activation.EnableSiaActivationParams"
+      }
+    ]
+  },
+  "EnableSiaActivationParams": {
+    "data": [
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether to start background tx history sync."
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "description": "Override required confirmations; default from coins config."
+      },
+      {
+        "parameter": "gap_limit",
+        "type": "integer",
+        "required": false,
+        "description": "Gap limit for HD scanning (reserved; Sia currently uses iguana single-address)."
+      },
+      {
+        "parameter": "client_conf",
+        "type": "object",
+        "required": true,
+        "description": "Sia client configuration.",
+        "substructure": "activation.EnableSiaClientConf"
+      }
+    ]
+  },
+  "EnableSiaClientConf": {
+    "data": [
+      {
+        "parameter": "server_url",
+        "type": "string",
+        "required": true,
+        "description": "Base URL of the Sia provider (walletd/indexer)."
+      },
+      {
+        "parameter": "headers",
+        "type": "object",
+        "required": false,
+        "description": "Optional HTTP headers to include on requests."
+      }
+    ]
+  },
+  "EnableSiaResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier to track activation progress."
+      }
+    ]
+  },
+  "EnableSiaErrors": {
+    "data": [
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "CoinIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "Coin is activated already."
+      },
+      {
+        "parameter": "CoinConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Coin config is not found in the coins file."
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Coin protocol parsing failed."
+      },
+      {
+        "parameter": "UnexpectedCoinProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected protocol for the coin."
+      },
+      {
+        "parameter": "CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Error on coin creation."
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "Transport-related error from underlying client."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "EnableSiaInitRequest": {
+    "data": [
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "description": "Client identifier to receive streaming status updates."
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Sia coin to enable."
+      },
+      {
+        "parameter": "activation_params",
+        "type": "object",
+        "required": true,
+        "description": "Activation parameters; see EnableSiaActivationParams."
+      }
+    ]
+  },
+  "EnableSiaInitResponse": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier to track activation progress."
+      }
+    ]
+  },
+  "EnableSiaInitErrors": {
+    "data": [
+      {
+        "parameter": "CoinIsAlreadyActivated",
+        "type": "string",
+        "required": false,
+        "description": "Coin is activated already."
+      },
+      {
+        "parameter": "CoinConfigIsNotFound",
+        "type": "string",
+        "required": false,
+        "description": "Coin config is not found in the coins file."
+      },
+      {
+        "parameter": "CoinProtocolParseError",
+        "type": "string",
+        "required": false,
+        "description": "Coin protocol parsing failed."
+      },
+      {
+        "parameter": "UnexpectedCoinProtocol",
+        "type": "string",
+        "required": false,
+        "description": "Unexpected coin protocol."
+      },
+      {
+        "parameter": "CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Error on coin creation (details in message)."
+      },
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "Transport",
+        "type": "string",
+        "required": false,
+        "description": "Transport-related error from underlying client."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "EnableSiaStatusRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      },
+      {
+        "parameter": "forget_if_finished",
+        "type": "boolean",
+        "required": false,
+        "description": "If true, the task is removed from memory if finished."
+      }
+    ]
+  },
+  "EnableSiaStatusResponse": {
     "data": [
       {
         "parameter": "status",
         "type": "string",
         "required": true,
-        "description": "A short indication of how the requested process is progressing."
+        "description": "Current status of activation."
       },
       {
-        "parameter": "details.result",
+        "parameter": "details",
         "type": "object",
         "required": true,
-        "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
+        "description": "Details object depends on status: Ok (ActivationResult), Error (InitStandaloneCoinError), InProgress (SiaCoinInProgressStatus), UserActionRequired (SiaCoinAwaitingStatus)."
+      }
+    ]
+  },
+  "EnableSiaStatusErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while reading task status."
+      }
+    ]
+  },
+  "EnableSiaActivationResult": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the enabled coin."
+      },
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "Current block height."
+      },
+      {
+        "parameter": "wallet_balance",
+        "type": "object",
+        "required": true,
+        "description": "Wallet balance report (Iguana)."
+      }
+    ]
+  },
+  "EnableSiaInProgressStatus": {
+    "data": [
+      {
+        "parameter": "ActivatingCoin",
+        "type": "string",
+        "required": false,
+        "description": "Activation has started."
+      },
+      {
+        "parameter": "RequestingWalletBalance",
+        "type": "string",
+        "required": false,
+        "description": "Requesting wallet balance."
+      },
+      {
+        "parameter": "Finishing",
+        "type": "string",
+        "required": false,
+        "description": "Finishing activation."
+      }
+    ]
+  },
+  "EnableSiaUserActionRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      },
+      {
+        "parameter": "user_action",
+        "type": "object",
+        "required": true,
+        "description": "User action payload (reserved; not used for Sia as hardware wallets are not supported yet)."
+      }
+    ]
+  },
+  "EnableSiaUserActionResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates success."
+      }
+    ]
+  },
+  "EnableSiaUserActionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while sending user action."
+      }
+    ]
+  },
+  "EnableSiaCancelRequest": {
+    "data": [
+      {
+        "parameter": "task_id",
+        "type": "integer",
+        "required": true,
+        "description": "Task identifier returned by enable_sia/init."
+      }
+    ]
+  },
+  "EnableSiaCancelResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates success."
+      }
+    ]
+  },
+  "EnableSiaCancelErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "TaskFinished",
+        "type": "string",
+        "required": false,
+        "description": "Task already finished and cannot be cancelled."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while cancelling task."
+      }
+    ]
+  },
+  "EnableErc20Response": {
+    "data": [
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "Block height of the platform coin being activated"
+      },
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the ERC20 token platform (e.g., ETH)."
+      }
+    ]
+  },
+  "EnableTendermintTokenErrors": {
+    "data": [
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or contains unsupported parameters."
+      },
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "Platform coin not activated or not found."
+      }
+    ]
+  },
+  "EnableTendermintWithAssetsErrors": {
+    "data": [
+      {
+        "parameter": "InvalidRequest",
+        "type": "string",
+        "required": false,
+        "description": "The request is malformed or contains unsupported parameters."
+      },
+      {
+        "parameter": "NoSuchCoin",
+        "type": "string",
+        "required": false,
+        "description": "Platform coin not activated or not found."
+      }
+    ]
+  },
+  "TaskCancelErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "TaskFinished",
+        "type": "string",
+        "required": false,
+        "description": "Task already finished and cannot be cancelled."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while cancelling task."
+      }
+    ]
+  },
+  "TaskInitErrors": {
+    "data": [
+      {
+        "parameter": "CoinConfigIsNotFound|CoinCreationError",
+        "type": "string",
+        "required": false,
+        "description": "Activation failed due to invalid or missing configuration."
+      },
+      {
+        "parameter": "TaskTimedOut",
+        "type": "string",
+        "required": false,
+        "description": "Initialization task timed out."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error."
+      }
+    ]
+  },
+  "TaskStatusErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while reading task status."
+      }
+    ]
+  },
+  "TaskUserActionErrors": {
+    "data": [
+      {
+        "parameter": "NoSuchTask",
+        "type": "string",
+        "required": false,
+        "description": "No such task for provided task_id."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "Internal server error while sending user action."
       }
     ]
   }

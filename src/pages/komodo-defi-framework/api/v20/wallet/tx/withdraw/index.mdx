@@ -9,692 +9,140 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure            | Type             | Description                                                                                                                                                                                                                                     |
-| -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
-| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                            |
-| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
-| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                             |
-| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                |
-| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                           |
-| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
-| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
-| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
+<CompactTable source="v2/wallet.WithdrawRequest" />
 
 ### Response
 
-| Structure                    | Type                       | Description                                                                                                                                                                                             |
-| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
-| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
-| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
-| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
-| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
-| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                   |
-| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                      |
-| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                   |
-| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                  |
-| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                         |
-| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
-| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                           |
-| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                  |
+<CompactTable source="v2/wallet.WithdrawResponse" />
 
 ### 📌 Examples
 
 #### Withdraw BTC, KMD, and other BTC-based forks
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "withdraw",
-    "params": {
-      "coin": "KMD",
-      "to": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "amount": "10"
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawKmd" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (KMD success)
 
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": {
-          "tx_hex": "0400008085202f890152db2e550ca2d69eed487c95b6089b0f12e7a8937a89b8754c38a8c361560fca000000006a47304402200220239769f48c8bc96fbbcb66bcc0483f6234cb48ab823e13f0b791cdd501b902204f8b2dd875609e35f1677e39e403a18e9d2d98cd9916f51a62ac1edfc350cd47012102b3c168ed4acd96594288cee3114c77de51b6afe1ab6a866887a13a96ee80f33cffffffff0290a00b00000000001976a9145d904d4531f4c74f760a14ef057c866a06705dda88ac37040700000000001976a9145d904d4531f4c74f760a14ef057c866a06705dda88ac0609ed67000000000000000000000000000000",
-          "tx_hash": "aa456a6288292c4980637083871a6a4a1fb0a2242f6a30ae974069311691f37c",
-          "from": [
-              "RHound8PpyhVLfi56dC7MK3ZvvkAmB3bvQ"
-          ],
-          "to": [
-              "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
-          ],
-          "total_amount": "10",
-          "spent_by_me": "10",
-          "received_by_me": "0",
-          "my_balance_change": "-10",
-          "block_height": 0,
-          "timestamp": 1743589636,
-          "fee_details": {
-              "type": "Utxo",
-              "coin": "KMD",
-              "amount": "0.00001"
-          },
-          "coin": "KMD",
-          "internal_id": "",
-          "kmd_rewards": {
-              "amount": "0",
-              "claimed_by_me": true
-          },
-          "transaction_type": "StandardTransfer",
-          "memo": null
-      },
-      "id": null
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawKmd" />
 </CollapsibleSection>
 
 #### HD Withdraw with derivation\_path
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "withdraw",
-    "params": {
-      "coin": "MCL",
-      "to": "RNBA756iaFCx2Uhya3pvCufbeyovAaknJL",
-      "amount": 1.025,
-      "from": {
-        "derivation_path": "m/44'/141'/0'/0/0"
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawMartyDerivationPath" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (KMD success)
-
-  ```json
-  # TODO: Add response
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawMartyDerivationPath" />
 </CollapsibleSection>
 
 #### HD Withdraw with `account_id`, `chain` and `address_id`
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "mmrpc": "2.0",
-    "method": "withdraw",
-    "params": {
-      "coin": "VRSC",
-      "to": "RNBA756iaFCx2Uhya3pvCufbeyovAaknJL",
-      "amount": 1.025,
-      "from": {
-        "account_id": 0,
-        "chain": "External",
-        "address_id": 2
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawMartyAccountId" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (KMD success)
-
-  ```json
-  # TODO: Add response
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawMartyAccountId" />
 </CollapsibleSection>
 
 #### Withdraw BTC, KMD, and other BTC-based forks, fixed fee
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "DOC",
-      "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-      "amount": "1.0",
-      "fee": {
-        "type": "UtxoFixed",
-        "amount": "0.1"
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawDocFixedFee" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
-      "tx_hash": "1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
-      "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-      "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-      "total_amount": "60.10253836",
-      "spent_by_me": "60.10253836",
-      "received_by_me": "60.00253836",
-      "my_balance_change": "-0.1",
-      "block_height": 0,
-      "timestamp": 1566472936,
-      "fee_details": {
-        "type": "Utxo",
-        "coin": "DOC",
-        "amount": "0.1"
-      },
-      "coin": "DOC",
-      "internal_id": ""
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawDocFixedFee" />
 </CollapsibleSection>
 
 #### Withdraw BTC, KMD, and other BTC-based forks, 1 coin per Kbyte fee
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "DOC",
-      "to": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-      "amount": "1.0",
-      "fee": {
-        "type": "UtxoPerKbyte",
-        "amount": "1"
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawDocPerKbyte" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "0400008085202f890258be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a000000006b483045022100ef11280e981be280ca5d24c947842ca6a8689d992b73e3a7eb9ff21070b0442b02203e458a2bbb1f2bf8448fc47c51485015904a5271bb17e14be5afa6625d67b1e8012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff58be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a010000006b483045022100daaa10b09e7abf9d4f596fc5ac1f2542b8ecfab9bb9f2b02201644944ddc0280022067aa1b91ec821aa48f1d06d34cd26fb69a9f27d59d5eecdd451006940d9e83db012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788accd7c5e5d000000000000000000000000000000",
-      "tx_hash": "fd115190feec8c0c14df2696969295c59c674886344e5072d64000379101b78c",
-      "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-      "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-      "total_amount": "60.00253836",
-      "spent_by_me": "60.00253836",
-      "received_by_me": "59.61874931",
-      "my_balance_change": "-0.38378905",
-      "block_height": 0,
-      "timestamp": 1566473421,
-      "fee_details": {
-        "type": "Utxo",
-        "coin": "DOC",
-        "amount": "0.38378905"
-      },
-      "coin": "DOC",
-      "internal_id": ""
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawDocPerKbyte" />
 </CollapsibleSection>
 
 #### Withdraw ETH, ERC20, and other ETH-based forks
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "ETH",
-      "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
-      "amount": 10
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawEth" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "block_height": 0,
-      "coin": "ETH",
-      "fee_details": {
-        "type": "Eth",
-        "coin": "ETH",
-        "gas": 21000,
-        "gas_price": "0.000000001",
-        "total_fee": "0.000021"
-      },
-      "from": ["0xbab36286672fbdc7b250804bf6d14be0df69fa29"],
-      "my_balance_change": "-10.000021",
-      "received_by_me": "0",
-      "spent_by_me": "10.000021",
-      "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
-      "total_amount": "10.000021",
-      "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
-      "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawEth" />
 </CollapsibleSection>
 
 #### ETH/ERC20 and other ETH-based forks, with gas fee
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "COIN_NAME",
-      "to": "RECIPIENT_ADDRESS",
-      "amount": "AMOUNT",
-      "fee": {
-        "type": "EthGas",
-        "gas_price": "3.5",
-        "gas": 55000
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawEthGas" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "f86d820b2884d09dc30082d6d894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca0ef0167b0e53ed50d87b6fd630925f2bce6ee72e9b5fdb51c6499a7caaecaed96a062e5cb954e503ff83f2d6ce082649fdcdf8a77c8d37c7d26d46d3f736b228d10",
-      "tx_hash": "a26c4dcacf63c04e385dd973ca7e7ca1465a3b904a0893bcadb7e37681d38c95",
-      "from": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
-      "to": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
-      "total_amount": "10",
-      "spent_by_me": "10.0001925",
-      "received_by_me": "10",
-      "my_balance_change": "-0.0001925",
-      "block_height": 0,
-      "timestamp": 1566474670,
-      "fee_details": {
-        "type": "Eth",
-        "coin": "ETH",
-        "gas": 55000,
-        "gas_price": "0.0000000035",
-        "total_fee": "0.0001925"
-      },
-      "coin": "ETH",
-      "internal_id": ""
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawEthGas" />
+</CollapsibleSection>
+
+#### Withdraw SIA protocol
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawSiaProtocol" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ##### Response (success)
+
+  <KdfResponses responseKey="v2/wallet.WithdrawSiaProtocol" />
 </CollapsibleSection>
 
 #### Withdraw maximum
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "ETH",
-      "to": "0xbab36286672fbdc7b250804bf6d14be0df69fa28",
-      "max": true
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawEthMax" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   ##### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "block_height": 0,
-      "coin": "ETH",
-      "fee_details": {
-        "type": "Eth",
-        "coin": "ETH",
-        "gas": 21000,
-        "gas_price": "0.000000001",
-        "total_fee": "0.000021"
-      },
-      "from": ["0xbab36286672fbdc7b250804bf6d14be0df69fa29"],
-      "my_balance_change": "-10.000021",
-      "received_by_me": "0",
-      "spent_by_me": "10.000021",
-      "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
-      "total_amount": "10.000021",
-      "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
-      "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawEthMax" />
 </CollapsibleSection>
 
 ##### Withdraw QRC20 coins
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "QRC20",
-      "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
-      "amount": 10
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawQrc20" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   ##### Response (success)
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "block_height": 0,
-      "coin": "QRC20",
-      "timestamp": 1608725061,
-      "fee_details": {
-        "type": "Qrc20",
-        "coin": "tQTUM",
-        "miner_fee": "0.00000447",
-        "gas_limit": 100000,
-        "gas_price": 40,
-        "total_gas_fee": "0.04"
-      },
-      "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
-      "my_balance_change": "-10",
-      "received_by_me": "0",
-      "spent_by_me": "10",
-      "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
-      "total_amount": "10",
-      "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
-      "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawQrc20" />
 </CollapsibleSection>
 
 ##### Withdraw QRC20 coins with gas limit
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "QRC20",
-      "to": "qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs",
-      "amount": 10,
-      "fee": {
-        "type": "Qrc20Gas",
-        "gas_limit": 250000,
-        "gas_price": 40
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawQrc20Gas" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "block_height": 0,
-      "coin": "QRC20",
-      "timestamp": 1608725061,
-      "fee_details": {
-        "type": "Qrc20",
-        "coin": "tQTUM",
-        "miner_fee": "0.00000447",
-        "gas_limit": 250000,
-        "gas_price": 40,
-        "total_gas_fee": "0.1"
-      },
-      "from": ["qXxsj5RtciAby9T7m98AgAATL4zTi4UwDG"],
-      "my_balance_change": "-10",
-      "received_by_me": "0",
-      "spent_by_me": "10",
-      "to": ["qHmJ3KA6ZAjR9wGjpFASn4gtUSeFAqdZgs"],
-      "total_amount": "10",
-      "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
-      "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
-    },
-    "id": 0
-  }
-  ```
+  <KdfResponses responseKey="v2/wallet.WithdrawQrc20Gas" />
 </CollapsibleSection>
 
-##### Withdraw with broadcast = true
+#### Withdraw with broadcast = true
 
-Metamask doesn't allow `eth_signTransaction` for security reasons, so we can only use `eth_sendTransaction` for processing withdrawals.
-As a result, when submitting a withdrawal via metamask it will be rejected unless `"broadcast": true`.
-
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "MATIC",
-      "to": "0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
-      "amount": 0.1,
-      "broadcast": true
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawBroadcastTrue" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
-      "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
-      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
-      "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
-      "total_amount": "13.038553",
-      "spent_by_me": "13.038553",
-      "received_by_me": "13",
-      "my_balance_change": "-0.038553",
-      "block_height": 0,
-      "timestamp": 0,
-      "fee_details": {
-        "type": "Tendermint",
-        "coin": "IRIS",
-        "amount": "0.038553",
-        "gas_limit": 100000
-      },
-      "coin": "IRIS",
-      "internal_id": "e00982a2a8442d7140916a34e29e287a0b1cbb4b38940372d1966ba7acde5bd6",
-      "transaction_type": "StandardTransfer",
-      "memo": "It was a bright cold day in April, and the clocks were striking thirteen."
-    },
-    "id": 0
-  }
-  ```
-
-  You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
+  <KdfResponses responseKey="v2/wallet.WithdrawBroadcastTrue" />
 </CollapsibleSection>
 
 ##### Withdraw Tendermint coins with a memo and custom gas fee
 
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "IRIS",
-      "to": "iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k",
-      "amount": 13,
-      "memo": "It was a bright cold day in April, and the clocks were striking thirteen.",
-      "fee": {
-        "type": "CosmosGas",
-        "gas_price": 0.05,
-        "gas_limit": 150000
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawIrisMemoCosmosGas" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "tx_hex": "0ade010a8b010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126b0a2a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b122a6961613136647271766c33753873756b667375346c6d3371736b32386a72336661686a6139767376366b1a110a05756972697312083133303030303030124949742077617320612062726967687420636f6c642064617920696e20417072696c2c20616e642074686520636c6f636b73207765726520737472696b696e6720746869727465656e2e188f85b50812680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801181d12140a0e0a0575697269731205333835353310a08d061a40a9ac8c4112d7d7252062e289d222a438258a7c49c6657fdcbf831d62fc5eb2d05af46d6b86881335b3bc7ca98b2bfc3ef02ec5adf6768de9a778b282f9cc868e",
-      "tx_hash": "E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6",
-      "from": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
-      "to": ["iaa16drqvl3u8sukfsu4lm3qsk28jr3fahja9vsv6k"],
-      "total_amount": "13.038553",
-      "spent_by_me": "13.038553",
-      "received_by_me": "13",
-      "my_balance_change": "-0.038553",
-      "block_height": 0,
-      "timestamp": 0,
-      "fee_details": {
-        "type": "Tendermint",
-        "coin": "IRIS",
-        "amount": "0.038553",
-        "gas_limit": 100000
-      },
-      "coin": "IRIS",
-      "internal_id": "e00982a2a8442d7140916a34e29e287a0b1cbb4b38940372d1966ba7acde5bd6",
-      "transaction_type": "StandardTransfer",
-      "memo": "It was a bright cold day in April, and the clocks were striking thirteen."
-    },
-    "id": 0
-  }
-  ```
-
-  You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
+  <KdfResponses responseKey="v2/wallet.WithdrawIrisMemoCosmosGas" />
 </CollapsibleSection>
 
 ##### Withdraw Tendermint IBC coins
 
-Using the Cosmos [Ecosystem IBC protocol](https://everstake.one/blog/cosmos-ibc-breaking-down-the-walls-between-blockchains), you can withdraw coins from one chain to another. This example shows a withdrawal from Cosmos to Osmosis.
-
-<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "withdraw",
-    "params": {
-      "coin": "ATOM",
-      "to": "osmo16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4",
-      "amount": 0.1,
-      "memo": "In the blackest of your moments, wait with no fear.",
-      "ibc_source_channel": 141,
-      "fee": {
-        "type": "CosmosGas",
-        "gas_price": 0.05,
-        "gas_limit": 150000
-      }
-    },
-    "id": 0
-  }
-  ```
-</CodeGroup>
-
-<Note>
-  The `ibc_source_channel` value above is for demonstration only. For more information regarding how to set a valid value, see our guide to [finding the right IBC channel](/komodo-wallet/guides/how-to-find-the-right-ibc-channel-for-transfers/).
-</Note>
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true" source="v2/wallet.WithdrawIbcAtom" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "tx_hex": "0af9010abc010a292f6962632e6170706c69636174696f6e732e7472616e736665722e76312e4d73675472616e73666572128e010a087472616e73666572120b6368616e6e656c2d3134311a0f0a057561746f6d1206313030303030222d636f736d6f733136647271766c33753873756b667375346c6d3371736b32386a72336661686a617377736163382a2b6f736d6f3136647271766c33753873756b667375346c6d3371736b32386a72336661686a6163347264773438a6c5b9a089f29efa171233496e2074686520626c61636b657374206f6620796f7572206d6f6d656e74732c20776169742077697468206e6f20666561722e188df8c70a12680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc212040a020801180b12140a0e0a057561746f6d1205313733353910e0c65b1a40042c4fa45d77405ee94e737a000b146f5019137d5a2d3275849c9ad66dd8ef1d0f087fb584f34b1ebcf7989e41bc0675e96c83f0eec4ffe355e078b6615d7a72",
-        "tx_hash": "06174E488B7BBC35180E841F2D170327BB7DE0A291CA69050D81F82A7CF103CB",
-        "from": [
-            "cosmos16drqvl3u8sukfsu4lm3qsk28jr3fahjaswsac8"
-        ],
-        "to": [
-            "osmo16drqvl3u8sukfsu4lm3qsk28jr3fahjac4rdw4"
-        ],
-        "total_amount": "0.1173590000000000",
-        "spent_by_me": "0.1173590000000000",
-        "received_by_me": "0",
-        "my_balance_change": "-0.1173590000000000",
-        "block_height": 0,
-        "timestamp": 0,
-        "fee_details": {
-            "type": "Tendermint",
-            "coin": "ATOM",
-            "amount": "0.017359",
-            "gas_limit": 1500000
-        },
-        "coin": "ATOM",
-        "internal_id": "06174e488b7bbc35180e841f2d170327bb7de0a291ca69050d81f82a7cf103cb",
-        "transaction_type": "TendermintIBCTransfer",
-        "memo": "In the blackest of your moments, wait with no fear."
-    },
-    "id": null
-  }
-  ```
-
-  You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
+  <KdfResponses responseKey="v2/wallet.WithdrawIbcAtom" />
 </CollapsibleSection>
 
 ### Error Responses

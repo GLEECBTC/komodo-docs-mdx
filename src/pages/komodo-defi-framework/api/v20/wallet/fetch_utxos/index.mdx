@@ -1,0 +1,60 @@
+export const title = "Komodo DeFi Framework Method: Fetch Utxos";
+export const description = "Returns all unspent transaction outputs (UTXOs) for an address.";
+
+# Fetch Utxos
+
+## fetch\_utxos {{label : 'fetch_utxos', tag : 'API-v2'}}
+
+Returns all unspent transaction outputs (UTXOs) for supported coins.
+
+<Note>
+  After a wallet has cultivated a long history, or received many small mining payouts, it may become slower to respond.
+  Consolidating unspent transaction outputs should be routinely performed when mining to wallet in order to avoid this.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2/wallet.FetchUtxosRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/wallet.FetchUtxosResponse" />
+
+#### 📌 Examples
+
+<CodeGroup title="fetch_utxos" tag="POST" label="fetch_utxos" mm2MethodDecorate="true" source="v2/wallet.FetchUtxos" />
+
+<KdfResponses responseKey="v2/wallet.FetchUtxos" />
+
+### Error Types
+
+<CompactTable source="v2/wallet.FetchUtxosErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Error Response (Coin Not Found)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "NoSuchCoin",
+      "error_path": "fetch_utxos.lp_coins",
+      "error_trace": "fetch_utxos:72] lp_coins:5278]",
+      "error_type": "NoSuchCoin",
+      "id": null
+  }
+  ```
+
+  #### Error Response (Missing parameter)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: missing field `coin`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:143]",
+      "error_type": "InvalidRequest",
+      "error_data": "missing field `coin`",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

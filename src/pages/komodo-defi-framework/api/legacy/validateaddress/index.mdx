@@ -9,63 +9,14 @@ The `validateaddress` method checks if an input string is a valid address of the
 
 ## Arguments
 
-| Structure | Type   | Description                      |
-| --------- | ------ | -------------------------------- |
-| coin      | string | the coin to validate address for |
-| address   | string | the input string to validate     |
+<CompactTable source="legacy/wallet.ValidateAddressRequest" />
 
 ## Response
 
-| Structure | Type              | Description                                                                    |
-| --------- | ----------------- | ------------------------------------------------------------------------------ |
-| is\_valid | bool              | Whether input string is a valid coin address.                                  |
-| reason    | string (optional) | Only present if not valid. The reason why input string is not a valid address. |
+<CompactTable source="legacy/wallet.ValidateAddressResponse" />
 
 #### 📌 Examples
 
-#### Command
+<CodeGroup title="" tag="POST" label="validateaddress" mm2MethodDecorate="true" source="legacy/wallet.ValidateAddress" />
 
-<CodeGroup title="" tag="POST" label="validateaddress" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "validateaddress",
-    "coin": "DOC",
-    "address": "RRnMcSeKiLrNdbp91qNVQwwXx5azD4S4CD"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (valid address)
-
-  ```json
-  {
-    "result": {
-      "is_valid": true
-    }
-  }
-  ```
-
-  #### Response (invalid cash address)
-
-  ```json
-  {
-    "result": {
-      "is_valid": false,
-      "reason": "utxo:415] Checksum verification failed"
-    }
-  }
-  ```
-
-  #### Response (invalid ETH address)
-
-  ```json
-  {
-    "result": {
-      "is_valid": false,
-      "reason": "eth:360] eth:2522] Invalid address checksum"
-    }
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/wallet.ValidateAddress" />

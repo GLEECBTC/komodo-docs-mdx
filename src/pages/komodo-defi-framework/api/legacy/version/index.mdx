@@ -3,41 +3,18 @@ export const description = "The version method returns the Komodo DeFi Framework
 
 # version
 
-**version()**
-
 The `version` method returns the Komodo DeFi Framework API version.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="legacy/utils.NoParams" />
 
-## Response
+### Response Parameters
 
-| Structure | Type   | Description                           |
-| --------- | ------ | ------------------------------------- |
-| result    | string | the Komodo DeFi Framework API version |
+<CompactTable source="legacy/utils.VersionResponse" />
 
-#### 📌 Examples
+### 📌 Examples
 
-#### Command
+<CodeGroup title="" tag="POST" label="version" mm2MethodDecorate="true" source="legacy/utils.LegacyVersion" />
 
-<CodeGroup title="" tag="POST" label="version" mm2MethodDecorate="true">
-  ```json
-  {
-    "method": "version",
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "result": "2.0.996_mm2_3bb412578_Linux"
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="legacy/utils.LegacyVersion" />

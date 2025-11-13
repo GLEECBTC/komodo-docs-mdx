@@ -1,0 +1,1781 @@
+#!/usr/bin/env python3
+"""
+Unified Postman Collection Generator for KDF API
+
+This script generates comprehensive Postman collections from KDF JSON files,
+supporting both standard collections and environment-specific collections.
+
+Features:
+- Generates standard collections with full folder structure and validation
+- Generates environment-specific collections (Native, WASM, Trezor variants)
+- Parameter validation and reporting
+- Protocol filtering for different environments
+- Comprehensive CLI interface
+
+Usage:
+    python unified_postman_generator.py --help
+"""
+
+import json
+import os
+import sys
+import uuid
+import argparse
+from pathlib import Path
+from typing import Dict, List, Set, Any, Optional, Tuple
+from datetime import datetime
+import logging
+
+# Add the lib directory to the path
+sys.path.append(str(Path(__file__).parent / "lib"))
+
+from managers.environment_manager import EnvironmentManager
+from managers.table_manager import TableManager
+from utils.json_utils import dump_sorted_json
+
+# Setup logging
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
+
+
+class UnifiedPostmanGenerator:
+    """Unified generator for both standard and environment-specific Postman collections."""
+    
+    def __init__(self, workspace_root: Optional[str] = None):
+        """Initialize the generator.
+        
+        Args:
+            workspace_root: Path to the workspace root. If None, auto-detects.
+        """
+        if workspace_root is None:
+            # Auto-detect workspace root from utils/py/ to workspace root
+            workspace_root = Path(__file__).parent.parent.parent
+        
+        self.workspace_root = Path(workspace_root)
+        self.requests_dir = self.workspace_root / "src" / "data" / "requests" / "kdf"
+        self.responses_dir = self.workspace_root / "src" / "data" / "responses" / "kdf"
+        self.tables_dir = self.workspace_root / "src" / "data" / "tables"
+        
+        # Initialize managers
+        self.env_manager = EnvironmentManager()
+        self.table_manager = TableManager(workspace_root=self.workspace_root, logger=logger)
+        
+        # Reports data
+        self.unused_params = {}
+        self.unused_params_detailed = {}
+        self.missing_responses = {}  # combined (back-compat)
+        self.missing_responses_v2 = {}
+        self.missing_responses_legacy = {}
+        self.missing_requests = {}
+        self.missing_methods = []  # combined (back-compat)
+        self.missing_methods_v2 = []
+        self.missing_methods_legacy = []
+        self.untranslated_keys = []
+        
+        # Task ID variables for method groups
+        self.task_variables = {}
+        
+        # Load configurations (keep v2 and legacy separate)
+        self.method_config_v2, self.method_config_legacy = self.load_method_configs()
+        self.common_responses = self.load_common_responses()
+    
+    # ===== COMMON UTILITIES =====
+    
+    def load_json_file(self, file_path: Path) -> Optional[Dict]:
+        """Load JSON file and return its content."""
+        try:
+            with open(file_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.warning(f"File not found: {file_path}")
+            return None
+        except json.JSONDecodeError as e:
+            logger.error(f"Invalid JSON in {file_path}: {e}")
+            return None
+    
+    def load_method_configs(self) -> Tuple[Dict[str, Dict], Dict[str, Dict]]:
+        """Load method configurations separately for v2 and legacy without merging."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+
+        v2_cfg = self.load_json_file(v2_file) or {}
+        legacy_cfg = self.load_json_file(legacy_file) or {}
+
+        # No fallback to old single file; expect split files
+
+        return v2_cfg, legacy_cfg
+
+    def get_method_config(self, method: str, version: Optional[str] = None) -> Dict:
+        """Get method config for a method name, optionally constrained by version."""
+        if version == 'legacy':
+            return self.method_config_legacy.get(method, {})
+        if version == 'v2':
+            return self.method_config_v2.get(method, {})
+        # Fallback search order: v2 then legacy
+        return self.method_config_v2.get(method, self.method_config_legacy.get(method, {}))
+    
+    def load_common_responses(self) -> Dict[str, Dict]:
+        """Load common responses from common.json."""
+        common_file = self.responses_dir / "common.json"
+        common_responses = self.load_json_file(common_file)
+        return common_responses if common_responses else {}
+    
+    def _is_manual_example(self, request_key: str) -> bool:
+        """Check if a method requires manual intervention or external services."""
+        manual_patterns = [
+            "WalletConnect",  # Requires external wallet connection
+            "Trezor",         # Requires hardware wallet
+            "Metamask",       # Requires browser extension
+            "Pin",            # Requires user PIN entry
+            "UserAction"      # Requires user interaction
+        ]
+        
+        return any(pattern in request_key for pattern in manual_patterns)
+    
+    def load_all_tables(self) -> Dict[str, Dict]:
+        """Load all table files and combine them."""
+        return self.table_manager.load_all_tables()
+    
+    def load_request_data(self, version: str = "v2") -> Dict[str, Any]:
+        """Load ALL request data from JSON files in the specified version directory."""
+        request_dir = self.requests_dir / version
+        
+        if not request_dir.exists():
+            raise FileNotFoundError(f"Request directory not found: {request_dir}")
+        
+        all_requests = {}
+        for request_file in request_dir.glob("*.json"):
+            file_data = self.load_json_file(request_file)
+            if file_data:
+                all_requests.update(file_data)
+        
+        if not all_requests:
+            raise FileNotFoundError(f"No valid request files found in: {request_dir}")
+        
+        return all_requests
+    
+    # ===== DATA PROCESSING UTILITIES =====
+    
+    def extract_method_name(self, method: str) -> str:
+        """Extract method name from KDF method string."""
+        return method.replace("::", "_")
+    
+    def get_method_path_components(self, method: str) -> List[str]:
+        """Convert method name to folder path components."""
+        if "::" in method:
+            # For v2 methods like "task::enable_utxo::init"
+            parts = method.split("::")
+            return parts  # ["task", "enable_utxo", "init"]
+        else:
+            # For legacy methods like "enable"
+            return [method]  # ["enable"]
+    
+    def get_method_group(self, request_key: str) -> str:
+        """Extract method group from request key."""
+        suffixes = ["Init", "Status", "UserAction", "Cancel"]
+        group = request_key
+        for suffix in suffixes:
+            if group.endswith(suffix):
+                group = group[:-len(suffix)]
+                break
+        return group
+    
+    def get_task_variable_name(self, method: str) -> str:
+        """Generate task variable name from method."""
+        if "::" in method:
+            parts = method.split("::")
+            if len(parts) >= 2:
+                method_part = parts[1].replace("_", " ").title().replace(" ", "")
+                return f"Task{method_part}_TaskId"
+        return "DefaultTask_TaskId"
+    
+    def get_translated_name(self, request_key: str, version: Optional[str] = None) -> str:
+        """Get translated name for request key, fallback to original."""
+        # Search version-specific config first
+        search_spaces: List[Dict[str, Dict]] = []
+        if version == 'v2':
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+        elif version == 'legacy':
+            search_spaces = [self.method_config_legacy, self.method_config_v2]
+        else:
+            search_spaces = [self.method_config_v2, self.method_config_legacy]
+
+        for space in search_spaces:
+            for method, config in space.items():
+                if config.get('deprecated', False):
+                    continue
+                examples = config.get("examples", {})
+                if request_key in examples:
+                    return examples[request_key]
+        
+        if request_key not in self.untranslated_keys:
+            self.untranslated_keys.append(request_key)
+        return request_key
+    
+    # ===== DATA TRANSFORMATION =====
+    
+    def replace_userpass(self, data: Any) -> Any:
+        """Replace userpass values with Postman variable."""
+        if isinstance(data, dict):
+            new_dict = {}
+            for key, value in data.items():
+                if key == "userpass" and value == "RPC_UserP@SSW0RD":
+                    new_dict[key] = "{{ userpass }}"
+                else:
+                    new_dict[key] = self.replace_userpass(value)
+            return new_dict
+        elif isinstance(data, list):
+            return [self.replace_userpass(item) for item in data]
+        else:
+            return data
+    
+    def replace_task_id(self, data: Any, task_var_name: str) -> Any:
+        """Replace task_id values with Postman variable."""
+        if isinstance(data, dict):
+            new_dict = {}
+            for key, value in data.items():
+                if key == "task_id" and isinstance(value, int):
+                    new_dict[key] = f"{{{{ {task_var_name} }}}}"
+                else:
+                    new_dict[key] = self.replace_task_id(value, task_var_name)
+            return new_dict
+        elif isinstance(data, list):
+            return [self.replace_task_id(item, task_var_name) for item in data]
+        else:
+            return data
+    
+    # ===== ENVIRONMENT-SPECIFIC FILTERING =====
+    
+    def filter_protocols_for_environment(self, request_data: Dict[str, Any], 
+                                       environment: str) -> Dict[str, Any]:
+        """Filter and update protocol configurations for specific environment."""
+        filtered_data = json.loads(json.dumps(request_data))  # Deep copy
+        
+        # Parse environment components
+        env_parts = environment.split('_')
+        base_env = env_parts[0]  # native, wasm
+        wallet_type = env_parts[1] if len(env_parts) > 1 and env_parts[1] in ['hd', 'iguana'] else None
+        
+        for request_key, request_body in filtered_data.items():
+            if not isinstance(request_body, dict):
+                continue
+            
+            params = request_body.get('params', {})
+            method = request_body.get('method', '')
+            
+            # Handle electrum servers
+            self._update_electrum_servers(params, base_env)
+            
+            # Handle WebSocket URLs
+            self._update_websocket_urls(params, base_env)
+            
+            # Handle nodes for ETH/Tendermint
+            self._update_node_urls(params, base_env)
+            
+            # Handle wallet type specific parameters
+            self._update_wallet_type_params(params, method, wallet_type)
+        
+        return filtered_data
+    
+    def _update_electrum_servers(self, params: Dict[str, Any], environment: str):
+        """Update electrum server configurations for environment."""
+        # Handle nested electrum servers (UTXO coins)
+        if 'mode' in params and 'rpc_data' in params['mode']:
+            rpc_data = params['mode']['rpc_data']
+            if 'servers' in rpc_data:
+                rpc_data['servers'] = self._filter_electrum_servers(
+                    rpc_data['servers'], environment
+                )
+        
+        # Handle direct electrum servers (Z-coins)
+        if 'electrum_servers' in params:
+            params['electrum_servers'] = self._filter_electrum_servers(
+                params['electrum_servers'], environment
+            )
+    
+    def _filter_electrum_servers(self, servers: List[Dict], environment: str) -> List[Dict]:
+        """Filter electrum servers: exclude WSS, favor cipig and SSL, cap at 3."""
+        if not isinstance(servers, list):
+            return []
+        # Normalize protocol casing and exclude WSS
+        candidates: List[Dict] = []
+        for s in servers:
+            if not isinstance(s, dict):
+                continue
+            proto = str(s.get('protocol') or s.get('proto') or '').upper()
+            if proto == 'WSS':
+                continue
+            candidates.append(s)
+        # Partition by protocol
+        ssl_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'SSL']
+        tcp_list = [s for s in candidates if str(s.get('protocol') or s.get('proto') or '').upper() == 'TCP']
+        other_list = [s for s in candidates if s not in ssl_list and s not in tcp_list]
+        # Prioritize cipig within each group
+        def prioritize_cipig(lst: List[Dict]) -> List[Dict]:
+            cipig = []
+            rest = []
+            for item in lst:
+                url = str(item.get('url', '')).lower()
+                if 'cipig' in url:
+                    cipig.append(item)
+                else:
+                    rest.append(item)
+            return cipig + rest
+        ordered = prioritize_cipig(ssl_list) + prioritize_cipig(tcp_list) + prioritize_cipig(other_list)
+        return ordered[:3]
+    
+    def _update_websocket_urls(self, params: Dict[str, Any], environment: str):
+        """Update WebSocket URLs for environment."""
+        if environment == 'wasm':
+            # Ensure all WebSocket URLs use WSS
+            for key in ['nodes', 'ws_url']:
+                if key in params:
+                    if key == 'nodes' and isinstance(params[key], list):
+                        for node in params[key]:
+                            if 'ws_url' in node and node['ws_url'].startswith('ws://'):
+                                node['ws_url'] = node['ws_url'].replace('ws://', 'wss://')
+    
+    def _update_node_urls(self, params: Dict[str, Any], environment: str):
+        """Update node URLs for environment preferences."""
+        if 'nodes' in params and isinstance(params['nodes'], list):
+            for node in params['nodes']:
+                if environment == 'wasm':
+                    if 'ws_url' in node and not node['ws_url'].startswith('wss://'):
+                        if node['ws_url'].startswith('ws://'):
+                            node['ws_url'] = node['ws_url'].replace('ws://', 'wss://')
+    
+    def _update_wallet_type_params(self, params: Dict[str, Any], method: str, wallet_type: str):
+        """Update parameters based on wallet type requirements."""
+        if wallet_type is None:
+            return
+        
+        if wallet_type == 'iguana':
+            # Remove HD-only parameters for Iguana wallet
+            hd_only_params = self.env_manager.get_conditional_params(method, 'hd')
+            for param in hd_only_params:
+                if param in params:
+                    del params[param]
+    
+    # ===== VALIDATION =====
+    
+    def validate_request_params(self, request_data: Dict, method: str, tables: Dict[str, Dict], version: Optional[str] = None):
+        """Validate request parameters against table definitions and return full validation result."""
+        method_cfg = self.get_method_config(method, version)
+        if not method_cfg:
+            logger.warning(f"No method config found for method: {method} (version={version})")
+            return set()
+        
+        validation_result = self.table_manager.validate_request_params(
+            request_data, method, method_cfg
+        )
+        
+        if validation_result:
+            if validation_result.unused_params:
+                logger.warning(f"Unused parameters in {method}: {validation_result.unused_params}")
+            return validation_result
+        
+        return None
+    
+    
+    def check_response_exists(self, request_key: str, version: str) -> bool:
+        """Check if response exists for the request in ANY response file and has actual content."""
+        response_dir = self.responses_dir / version
+        if not response_dir.exists():
+            return False
+        
+        # Check all response files in the version directory
+        for response_file in response_dir.glob("*.json"):
+            response_data = self.load_json_file(response_file)
+            if not response_data:
+                continue
+            
+            if request_key not in response_data:
+                continue
+            
+            # Resolve any common response references
+            response_value = response_data[request_key]
+            resolved_response = self.resolve_response_reference(response_value, self.common_responses)
+            
+            if resolved_response is None:
+                continue
+            
+            # Check if response has actual content (not just empty templates)
+            if isinstance(resolved_response, dict):
+                # Check for success and error arrays
+                success_responses = resolved_response.get("success", [])
+                error_responses = resolved_response.get("error", [])
+                
+                # If both arrays are empty, consider this as missing response
+                if (isinstance(success_responses, list) and len(success_responses) == 0 and 
+                    isinstance(error_responses, list) and len(error_responses) == 0):
+                    continue
+            
+            # Found a valid response
+            return True
+        
+        return False
+    
+    def resolve_response_reference(self, response_value: Any, common_responses: Dict[str, Dict]) -> Any:
+        """Resolve response references to common responses."""
+        if isinstance(response_value, str) and response_value in common_responses:
+            return common_responses[response_value]
+        elif isinstance(response_value, list):
+            resolved_list = []
+            for item in response_value:
+                if isinstance(item, str) and item in common_responses:
+                    resolved_list.append(common_responses[item])
+                else:
+                    resolved_list.append(item)
+            return resolved_list
+        else:
+            return response_value
+    
+    # ===== TABLE GENERATION =====
+    
+    def _track_missing_table(self, method: str, table_type: str) -> None:
+        """Track a missing table by type."""
+        self.table_manager.track_missing_table(method, table_type)
+
+    def generate_table_markdown(self, method: str, tables: Dict[str, Dict], version: Optional[str] = None) -> str:
+        """Generate markdown table from table data for method."""
+        if not self.get_method_config(method, version):
+            # Method not defined - will be tracked in the split missing methods report
+            return ""
+        
+        return self.table_manager.generate_table_markdown(method, self.get_method_config(method, version))
+    
+    # ===== POSTMAN REQUEST CREATION =====
+    
+    def create_postman_request(self, request_key: str, request_data: Dict, 
+                             version: str, tables: Dict[str, Dict], 
+                             method_examples: List[tuple] = None,
+                             environment: str = None) -> Dict:
+        """Create a Postman request object."""
+        method = request_data.get("method", "unknown")
+        
+        # Get translated name
+        if method_examples and len(method_examples) > 1:
+            translated_name = method
+        else:
+            translated_name = self.get_translated_name(request_key, version)
+        
+        # Add environment suffix for environment-specific collections
+        if environment and environment != "standard":
+            env_suffix = environment.replace('_', ' ').title()
+            if env_suffix not in translated_name:
+                translated_name += f" ({env_suffix})"
+        
+        # Handle task_id variables
+        task_var_name = None
+        if "task_id" in json.dumps(request_data):
+            task_var_name = self.get_task_variable_name(method)
+            self.task_variables[task_var_name] = "1"
+        
+        # Replace userpass and task_id
+        processed_data = self.replace_userpass(request_data)
+        if task_var_name:
+            processed_data = self.replace_task_id(processed_data, task_var_name)
+        
+        # Generate description with table markdown
+        description = self.generate_table_markdown(method, tables, version)
+        
+        # Add environment-specific description notes
+        if environment:
+            description += self._generate_environment_notes(environment, method)
+        
+        # Add examples if there are multiple variants
+        examples = []
+        if method_examples and len(method_examples) > 1:
+            for example_key, example_data in method_examples:
+                example_name = self.get_translated_name(example_key)
+                processed_example = self.replace_userpass(example_data)
+                if task_var_name:
+                    processed_example = self.replace_task_id(processed_example, task_var_name)
+                
+                examples.append({
+                    "name": example_name,
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": json.dumps(processed_example, indent=2)
+                        },
+                        "url": {
+                            "raw": "{{base_url}}",
+                            "host": ["{{base_url}}"]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json"
+                })
+        
+        request_obj = {
+            "name": translated_name,
+            "request": {
+                "method": "POST",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                    "mode": "raw",
+                    "raw": json.dumps(processed_data, indent=2)
+                },
+                "url": {
+                    "raw": "{{base_url}}",
+                    "host": ["{{base_url}}"]
+                },
+                "description": description
+            },
+            "response": examples,
+            "event": []
+        }
+        
+        # Add test for capturing task_id if this is an init request
+        if method.endswith("::init") and "task_id" not in json.dumps(request_data):
+            actual_task_var_name = self.get_task_variable_name(method)
+            test_script = f"""
+pm.test("Capture task_id", function () {{
+    const responseJson = pm.response.json();
+    if (responseJson.result && responseJson.result.task_id) {{
+        pm.collectionVariables.set("{actual_task_var_name}", responseJson.result.task_id);
+    }}
+}});
+"""
+            request_obj["event"] = [{
+                "listen": "test",
+                "script": {
+                    "exec": test_script.strip().split('\n'),
+                    "type": "text/javascript"
+                }
+            }]
+        
+        return request_obj
+    
+    def _generate_environment_notes(self, environment: str, method: str) -> str:
+        """Generate environment-specific notes for request description."""
+        notes = "\n\n"
+        
+        if environment == 'wasm':
+            notes += "**Environment Notes:**\n"
+            notes += "- This request uses WebSocket Secure (WSS) protocols only\n"
+            notes += "- Electrum servers are filtered to WSS-compatible endpoints\n"
+        elif 'trezor' in environment:
+            notes += "**Hardware Requirements:**\n"
+            notes += "- This request requires Trezor hardware wallet\n"
+        
+        # Add protocol preferences
+        base_env = environment.split('_')[0] if environment else 'native'
+        protocol_prefs = self.env_manager.get_protocol_preferences(method, base_env)
+        if protocol_prefs:
+            notes += f"\n**Protocol Preferences:** {protocol_prefs}\n"
+        
+        return notes
+    
+    # ===== FOLDER STRUCTURE CREATION =====
+    
+    def create_folder_structure(self, requests: Dict[str, Dict], version: str, 
+                              filename: str, tables: Dict[str, Dict],
+                              environment: str = None) -> Dict:
+        """Create folder structure for Postman collection organized by method paths."""
+        folder_tree = {}
+        
+        # Group requests by method
+        method_groups = {}
+        for request_key, request_data in requests.items():
+            method = request_data.get("method")
+            if not method:
+                continue
+            
+            # Check environment compatibility if specified
+            if environment and environment != "standard":
+                base_env = environment.split('_')[0]
+                hardware = 'trezor' if 'trezor' in environment else None
+                wallet_type = environment.split('_')[1] if '_' in environment and environment.split('_')[1] in ['hd', 'iguana'] else None
+                
+                if not self._is_request_compatible(request_key, method, base_env, hardware, wallet_type):
+                    continue
+            
+            if method not in method_groups:
+                method_groups[method] = []
+            method_groups[method].append((request_key, request_data))
+        
+        # Process each method group
+        for method, examples in method_groups.items():
+            method_components = self.get_method_path_components(method)
+            path_parts = [version.lower(), filename.lower()] + method_components
+            
+            # Navigate/create the nested structure
+            current_level = folder_tree
+            for i, part in enumerate(path_parts):
+                if part not in current_level:
+                    current_level[part] = {
+                        "_folders": {},
+                        "_items": []
+                    }
+                
+                if i == len(path_parts) - 1:
+                    # Last component - create request
+                    primary_key, primary_data = examples[0]
+                    
+                    request_obj = self.create_postman_request(
+                        primary_key, 
+                        primary_data, 
+                        version, 
+                        tables,
+                        examples if len(examples) > 1 else None,
+                        environment
+                    )
+                    current_level[part]["_items"].append(request_obj)
+                else:
+                    current_level = current_level[part]["_folders"]
+        
+        return folder_tree
+    
+    def _is_request_compatible(self, request_key: str, method: str, 
+                             environment: str, hardware: str = None, wallet_type: str = None) -> bool:
+        """Check if a request is compatible with the target environment."""
+        # Check method compatibility
+        is_compatible, _ = self.env_manager.validate_method_compatibility(
+            method, environment, hardware, wallet_type
+        )
+        
+        if not is_compatible:
+            return False
+        
+        # Check example-specific compatibility using pattern matching
+        return self.env_manager._matches_pattern_requirements(
+            request_key, environment, hardware, wallet_type
+        )
+    
+    def convert_tree_to_postman_folders(self, tree: Dict, name: str = "") -> List[Dict]:
+        """Convert the folder tree to Postman folder structure."""
+        items = []
+        
+        for key, value in tree.items():
+            if key.startswith("_"):
+                continue
+            
+            folder_items = []
+            
+            if "_items" in value:
+                folder_items.extend(value["_items"])
+            
+            if "_folders" in value:
+                for subfolder_name, subfolder_data in value["_folders"].items():
+                    subfolder_items = self.convert_tree_to_postman_folders({subfolder_name: subfolder_data}, subfolder_name)
+                    folder_items.extend(subfolder_items)
+            
+            if folder_items:
+                items.append({
+                    "name": key,
+                    "item": folder_items
+                })
+        
+        return items
+    
+    # ===== COLLECTION GENERATION =====
+    
+    def generate_standard_collection(self) -> Dict:
+        """Generate the standard comprehensive Postman collection."""
+        tables = self.load_all_tables()
+        folder_tree = {}
+        
+        # Process each version directory
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            
+            version = version_dir.name
+            logger.info(f"Processing version: {version}")
+            
+            # Process all JSON files in the version directory
+            for json_file in version_dir.glob("*.json"):
+                filename = json_file.stem
+                logger.info(f"Processing file: {filename}")
+                
+                requests_data = self.load_json_file(json_file)
+                if not requests_data:
+                    continue
+                
+                # Filter out deprecated methods and validate
+                filtered_requests_data = {}
+                for request_key, request_data in requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        method_config = self.get_method_config(method, version)
+                        if method_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                    filtered_requests_data[request_key] = request_data
+                
+                # Validate and collect reports
+                # Accumulate per-method used/table parameters across all examples
+                method_param_usage: Dict[str, Dict[str, Set[str]]] = {}
+                for request_key, request_data in filtered_requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        validation = self.validate_request_params(request_data, method, tables, version)
+                        if validation:
+                            table_params_this = set(validation.valid_params) | set(validation.unused_params)
+                            if method not in method_param_usage:
+                                method_param_usage[method] = {
+                                    "table_params": set(table_params_this),
+                                    "used_params_union": set(validation.valid_params),
+                                    "request_params_union": set(validation.request_params)
+                                }
+                            else:
+                                # Ensure table params are consistent; if not, take union to be safe
+                                method_param_usage[method]["table_params"].update(table_params_this)
+                                method_param_usage[method]["used_params_union"].update(validation.valid_params)
+                                method_param_usage[method]["request_params_union"].update(validation.request_params)
+                    
+                # After scanning all examples in this file, compute overall unused per method
+                for method, usage in method_param_usage.items():
+                    overall_unused = usage["table_params"] - usage["used_params_union"]
+                    if overall_unused:
+                        # Merge with any existing entries from previous files
+                        existing = set(self.unused_params.get(method, []))
+                        self.unused_params[method] = sorted(existing.union(overall_unused))
+
+                        # Build detailed entries (with context and common-structures hints)
+                        detailed_list = self.unused_params_detailed.get(method, [])
+                        detailed_list.extend(self._build_unused_param_details(method, overall_unused, version, usage))
+                        # De-duplicate by parameter name
+                        seen = set()
+                        deduped = []
+                        for item in detailed_list:
+                            key = item.get("parameter")
+                            if key in seen:
+                                continue
+                            seen.add(key)
+                            deduped.append(item)
+                        self.unused_params_detailed[method] = deduped
+
+                # Continue with missing responses detection per example
+                for request_key, request_data in filtered_requests_data.items():
+                    method = request_data.get("method")
+                    if method:
+                        # Missing responses check
+                        if not self.check_response_exists(request_key, version):
+                            # Skip deprecated methods from missing responses report
+                            method_config = self.get_method_config(method, version)
+                            if not method_config.get('deprecated', False):
+                                # Skip manual/external methods that can't be automated
+                                if self._is_manual_example(request_key):
+                                    continue
+                                # Track in combined and per-version dicts
+                                if method not in self.missing_responses:
+                                    self.missing_responses[method] = []
+                                self.missing_responses[method].append(request_key)
+                                target = self.missing_responses_v2 if version == "v2" else self.missing_responses_legacy
+                                if method not in target:
+                                    target[method] = []
+                                target[method].append(request_key)
+                
+                # Add to folder tree (using filtered data)
+                file_tree = self.create_folder_structure(filtered_requests_data, version, filename, tables, "standard")
+                
+                # Merge into main tree
+                for key, value in file_tree.items():
+                    if key not in folder_tree:
+                        folder_tree[key] = value
+                    else:
+                        if "_folders" in value:
+                            for subfolder_name, subfolder_data in value["_folders"].items():
+                                if subfolder_name not in folder_tree[key]["_folders"]:
+                                    folder_tree[key]["_folders"][subfolder_name] = subfolder_data
+                        if "_items" in value:
+                            folder_tree[key]["_items"].extend(value["_items"])
+        
+        # Convert tree to Postman folder structure
+        all_folders = self.convert_tree_to_postman_folders(folder_tree)
+        
+        # Create collection variables
+        variables = [
+            {"key": "base_url", "value": "http://127.0.0.1:7783", "type": "string"},
+            {"key": "userpass", "value": "RPC_UserP@SSW0RD", "type": "string"}
+        ]
+        
+        # Add task ID variables
+        for var_name, default_value in self.task_variables.items():
+            variables.append({
+                "key": var_name,
+                "value": default_value,
+                "type": "string"
+            })
+        
+        # Create the collection
+        collection = {
+            "info": {
+                "name": "Komodo DeFi Framework API",
+                "description": "Comprehensive auto-generated Postman collection for KDF API",
+                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+                "_postman_id": str(uuid.uuid4())
+            },
+            "item": all_folders,
+            "variable": variables
+        }
+        
+        return collection
+    
+    def generate_environment_collection(self, environment: str) -> Dict[str, Any]:
+        """Generate a Postman collection for a specific environment."""
+        # Load and filter request data
+        request_data = self.load_request_data('v2')
+        
+        # Filter out deprecated methods first
+        filtered_request_data = {}
+        for request_key, request_info in request_data.items():
+            method = request_info.get('method')
+            if method:
+                method_config = self.get_method_config(method, 'v2')
+                if method_config.get('deprecated', False):
+                    continue  # Skip deprecated methods
+            filtered_request_data[request_key] = request_info
+        
+        filtered_data = self.filter_protocols_for_environment(filtered_request_data, environment)
+        
+        # Get environment configuration
+        env_configs = self.env_manager.get_environment_specific_postman_configs()
+        config = env_configs.get(environment, {})
+        
+        # Load tables for descriptions
+        tables = self.load_all_tables()
+        
+        collection = {
+            "info": {
+                "name": config.get('name', f'KDF API ({environment.title()})'),
+                "description": self._generate_collection_description(environment, config),
+                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+                "_postman_id": f"kdf-{environment}-{datetime.now().strftime('%Y%m%d')}"
+            },
+            "variable": [
+                {
+                    "key": "base_url",
+                    "value": config.get('base_url', 'http://127.0.0.1:7783'),
+                    "type": "string"
+                },
+                {
+                    "key": "userpass",
+                    "value": "RPC_UserP@SSW0RD",
+                    "type": "string"
+                }
+            ],
+            "item": []
+        }
+        
+        # Group requests by method family
+        method_groups = self._group_requests_by_method(filtered_data)
+        
+        for method_family, requests in method_groups.items():
+            folder_item = {
+                "name": method_family,
+                "item": []
+            }
+            
+            for request_key, request_body in requests.items():
+                method = request_body.get('method', '')
+                hardware = 'trezor' if 'trezor' in environment else None
+                wallet_type = config.get('wallet_type', None)
+                base_env = environment.split('_')[0]
+                
+                if self._is_request_compatible(request_key, method, base_env, hardware, wallet_type):
+                    postman_request = self.create_postman_request(
+                        request_key, request_body, 'v2', tables, None, environment
+                    )
+                    folder_item["item"].append(postman_request)
+            
+            if folder_item["item"]:
+                collection["item"].append(folder_item)
+        
+        return collection
+    
+    def _generate_collection_description(self, environment: str, config: Dict) -> str:
+        """Generate description for the collection."""
+        description = config.get('description', f'KDF API for {environment} environment')
+        notes = config.get('notes', '')
+        
+        protocol_info = ""
+        if 'preferred_protocols' in config:
+            protocols = config['preferred_protocols']
+            protocol_details = []
+            for proto_type, proto_list in protocols.items():
+                protocol_details.append(f"{proto_type}: {', '.join(proto_list)}")
+            protocol_info = f"\n\nSupported Protocols:\n- " + "\n- ".join(protocol_details)
+        
+        hardware_info = ""
+        if 'hardware' in config:
+            hardware_info = f"\n\nHardware Support: {', '.join(config['hardware'])}"
+        
+        return f"{description}\n\n{notes}{protocol_info}{hardware_info}"
+    
+    def _group_requests_by_method(self, request_data: Dict[str, Any]) -> Dict[str, Dict]:
+        """Group requests by method family for better organization."""
+        groups = {}
+        
+        for request_key, request_body in request_data.items():
+            if not isinstance(request_body, dict):
+                continue
+            
+            method = request_body.get('method', '')
+            
+            # Determine method family
+            if method.startswith('task::enable_'):
+                coin_type = method.split('::')[1].replace('enable_', '')
+                family = f"Task Enable {coin_type.upper()}"
+            elif method.startswith('enable_'):
+                family = "Legacy Enable"
+            else:
+                family = "Other Methods"
+            
+            if family not in groups:
+                groups[family] = {}
+            
+            groups[family][request_key] = request_body
+        
+        return groups
+    
+    # ===== REPORTS =====
+    
+    def detect_missing_requests_and_methods(self) -> None:
+        """Detect missing requests (responses without corresponding requests) and missing methods.
+        
+        Excludes deprecated methods from all missing reports.
+        """
+        # Get set of deprecated methods
+        deprecated_methods = set()
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
+                if method_config.get('deprecated', False):
+                    deprecated_methods.add(method_name)
+        
+        # Load all request and response data from all files
+        for version in ['v2', 'legacy']:
+            version_responses_dir = self.responses_dir / version
+            version_requests_dir = self.requests_dir / version
+            
+            if not version_responses_dir.exists() or not version_requests_dir.exists():
+                continue
+            
+            # Collect all requests from all files in this version
+            requests_data = {}
+            for request_file in version_requests_dir.glob("*.json"):
+                request_data = self.load_json_file(request_file) or {}
+                requests_data.update(request_data)
+            
+            # Collect all responses from all files in this version    
+            responses_data = {}
+            for response_file in version_responses_dir.glob("*.json"):
+                response_data = self.load_json_file(response_file) or {}
+                responses_data.update(response_data)
+            
+            # Find missing requests (responses without corresponding requests)
+            missing_requests_for_version = []
+            for response_key in responses_data.keys():
+                # Check if there's a corresponding request
+                if response_key not in requests_data:
+                    # Check if this response corresponds to a deprecated method
+                    is_deprecated = False
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods:
+                                # This is a deprecated method's response - skip it
+                                is_deprecated = True
+                                break
+                    
+                    # Also check if the response key itself suggests a deprecated method
+                    # by looking for the method name in existing requests
+                    for request_key, request_data in requests_data.items():
+                        if isinstance(request_data, dict) and "method" in request_data:
+                            method_name = request_data["method"]
+                            if method_name in deprecated_methods and method_name in response_key.lower():
+                                is_deprecated = True
+                                break
+                    
+                    if not is_deprecated:
+                        missing_requests_for_version.append(response_key)
+            
+            if missing_requests_for_version:
+                self.missing_requests[version] = sorted(missing_requests_for_version)
+            
+        # Find missing methods (requests without method definitions in version-specific config)
+            for request_key, request_data in requests_data.items():
+                if isinstance(request_data, dict) and "method" in request_data:
+                    method_name = request_data["method"]
+                    # Skip deprecated methods
+                    if method_name not in deprecated_methods and not self.get_method_config(method_name, version):
+                        if method_name not in self.missing_methods:
+                            self.missing_methods.append(method_name)
+                        # Track per-version
+                        if version == 'v2':
+                            if method_name not in self.missing_methods_v2:
+                                self.missing_methods_v2.append(method_name)
+                        elif version == 'legacy':
+                            if method_name not in self.missing_methods_legacy:
+                                self.missing_methods_legacy.append(method_name)
+        
+        # Sort missing methods
+        self.missing_methods = sorted(self.missing_methods)
+        self.missing_methods_v2 = sorted(self.missing_methods_v2)
+        self.missing_methods_legacy = sorted(self.missing_methods_legacy)
+    
+    def _build_missing_tables_by_version(self, reports_dir: Path) -> None:
+        """Build and save missing tables split by version using TableManager."""
+        # v2
+        self.table_manager.clear_missing_tables()
+        for method_name, cfg in sorted(self.method_config_v2.items()):
+            self.table_manager.validate_method_tables(method_name, cfg)
+        v2_report = self.table_manager.get_missing_tables_report()
+        dump_sorted_json(v2_report, reports_dir / "missing_tables_v2.json")
+        # legacy
+        self.table_manager.clear_missing_tables()
+        for method_name, cfg in sorted(self.method_config_legacy.items()):
+            self.table_manager.validate_method_tables(method_name, cfg)
+        legacy_report = self.table_manager.get_missing_tables_report()
+        dump_sorted_json(legacy_report, reports_dir / "missing_tables_legacy.json")
+    
+    def _check_table_version_mismatches(self) -> Dict[str, Any]:
+        """Detect v2 methods referencing legacy tables and legacy methods referencing v2 tables."""
+        results = {"v2_methods_with_legacy_tables": [], "legacy_methods_with_v2_tables": []}
+        tables_all = self.table_manager.load_all_tables()
+        # Helper to test a single method config
+        def check_method(method_name: str, cfg: Dict[str, Any], expected: str) -> List[Dict[str, str]]:
+            issues: List[Dict[str, str]] = []
+            for table_type, field in [("request", "request_table"), ("response", "response_table"), ("error", "errors_table")]:
+                table_name = cfg.get(field)
+                if not table_name or table_name == "N/A":
+                    continue
+                # If table not found at all, skip here (handled by missing tables)
+                sources = self.table_manager.get_table_source(table_name)
+                if sources and expected not in sources and "common" not in sources:
+                    issues.append({
+                        "method": method_name,
+                        "table_type": table_type,
+                        "table_name": table_name,
+                        "source": sorted(list(sources)),
+                        "expected": expected
+                    })
+            return issues
+        # v2 methods should use v2/common
+        for m, cfg in self.method_config_v2.items():
+            issues = check_method(m, cfg, "v2")
+            if issues:
+                results["v2_methods_with_legacy_tables"].extend(issues)
+        # legacy methods should use legacy/common
+        for m, cfg in self.method_config_legacy.items():
+            issues = check_method(m, cfg, "legacy")
+            if issues:
+                results["legacy_methods_with_v2_tables"].extend(issues)
+        return results
+    
+    def detect_missing_response_and_error_tables(self) -> None:
+        """Detect missing response and error tables for all methods."""
+        for space in [self.method_config_v2, self.method_config_legacy]:
+            for method_name, method_config in space.items():
+            # Skip deprecated methods
+                if method_config.get('deprecated', False):
+                    continue
+            
+                # Use TableManager to validate all table references
+                self.table_manager.validate_method_tables(method_name, method_config)
+    
+    def _build_unused_param_details(self, method: str, unused_params: Set[str], version: str, usage: Dict[str, Set[str]]) -> List[Dict[str, Any]]:
+        """Create detailed entries for unused parameters including context and nested matches.
+        Also extracts a hint to common-structures from parameter description when available.
+        """
+        details: List[Dict[str, Any]] = []
+        try:
+            method_cfg = self.get_method_config(method, version)
+            # Resolve request table and its data
+            tmp_cfg = dict(method_cfg)
+            tmp_cfg["method_name"] = method
+            table_ref = self.table_manager.get_table_reference(tmp_cfg, 'request')
+            tables = self.table_manager.load_all_tables()
+            table_data = tables.get(table_ref.table_name, {}).get("data", [])
+            # Map param -> definition
+            param_to_def: Dict[str, Dict[str, Any]] = {p.get("parameter"): p for p in table_data if isinstance(p, dict)}
+            request_params_union = usage.get("request_params_union", set())
+            for param in sorted(unused_params):
+                param_def = param_to_def.get(param, {})
+                description = param_def.get("description") if isinstance(param_def, dict) else None
+                context = param_def.get("context") if isinstance(param_def, dict) else None
+                # nested matches present in examples (keep dotted forms)
+                nested_matches = sorted([rp for rp in request_params_union if rp.endswith(f".{param}") or rp.startswith(f"{param}.")])
+                # extract common-structures path hint from description
+                common_struct_ref = None
+                if isinstance(description, str) and "/common_structures/" in description:
+                    try:
+                        idx = description.index("/common_structures/")
+                        tail = description[idx:]
+                        # end at first space, newline, or closing paren
+                        for sep in [" ", "\n", ")", "`"]:
+                            cut = tail.find(sep)
+                            if cut > 0:
+                                tail = tail[:cut]
+                                break
+                        common_struct_ref = tail
+                    except Exception:
+                        common_struct_ref = None
+                details.append({
+                    "parameter": param,
+                    "method": method,
+                    "version": version,
+                    "request_table": table_ref.table_name,
+                    "context": context,
+                    "nested_matches_in_examples": nested_matches,
+                    "common_structures_ref": common_struct_ref
+                })
+        except Exception:
+            for p in sorted(unused_params):
+                details.append({
+                    "parameter": p,
+                    "method": method,
+                    "version": version
+                })
+        return details
+    
+    def save_reports(self, reports_dir: Path) -> None:
+        """Save validation reports with consistent alphabetical sorting.
+        
+        Always writes all report files, even if empty, to indicate current state.
+        """
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Save unused parameters report (always)
+        sorted_unused = {}
+        if self.unused_params:
+            for method in sorted(self.unused_params.keys()):
+                sorted_unused[method] = sorted(self.unused_params[method])
+        
+        unused_file = reports_dir / "unused_params.json"
+        dump_sorted_json(sorted_unused, unused_file)
+        logger.info(f"Unused parameters report saved to {unused_file}")
+
+        # Save detailed unused parameters report (always)
+        detailed_file = reports_dir / "unused_params_detailed.json"
+        dump_sorted_json(self.unused_params_detailed or {}, detailed_file)
+        logger.info(f"Detailed unused parameters report saved to {detailed_file}")
+        
+        # Save split missing responses by version (authoritative)
+        dump_sorted_json(
+            {k: sorted(v) for k, v in sorted(self.missing_responses_v2.items())} if self.missing_responses_v2 else {},
+            reports_dir / "missing_responses_v2.json"
+        )
+        dump_sorted_json(
+            {k: sorted(v) for k, v in sorted(self.missing_responses_legacy.items())} if self.missing_responses_legacy else {},
+            reports_dir / "missing_responses_legacy.json"
+        )
+        
+        # Save untranslated keys report (always)
+        untranslated_list = sorted(self.untranslated_keys) if self.untranslated_keys else []
+        untranslated_file = reports_dir / "untranslated_keys.json"
+        dump_sorted_json(untranslated_list, untranslated_file)
+        logger.info(f"Untranslated keys report saved to {untranslated_file}")
+        
+        # Save missing tables by version (authoritative)
+        self._build_missing_tables_by_version(reports_dir)
+        
+        # Save split missing requests (authoritative)
+        sorted_missing_requests_v2 = sorted(self.missing_requests.get("v2", []))
+        sorted_missing_requests_legacy = sorted(self.missing_requests.get("legacy", []))
+        dump_sorted_json(sorted_missing_requests_v2, reports_dir / "missing_requests_v2.json")
+        dump_sorted_json(sorted_missing_requests_legacy, reports_dir / "missing_requests_legacy.json")
+        
+        # Save split missing methods (authoritative)
+        dump_sorted_json(self.missing_methods_v2, reports_dir / "missing_methods_v2.json")
+        dump_sorted_json(self.missing_methods_legacy, reports_dir / "missing_methods_legacy.json")
+        
+        # Save table version mismatch report
+        mismatches = self._check_table_version_mismatches()
+        dump_sorted_json(mismatches, reports_dir / "table_version_mismatches.json")
+    
+    # ===== EXAMPLE SYNC =====
+    
+    def _collect_examples_from_requests(self) -> Dict[str, Dict[str, Set[str]]]:
+        """Collect request example keys per method, grouped by version.
+        
+        Returns:
+            { 'legacy': { method: {example_keys...} }, 'v2': { ... } }
+        """
+        collected: Dict[str, Dict[str, Set[str]]] = { 'legacy': {}, 'v2': {} }
+        # Iterate version dirs under requests
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            version = version_dir.name
+            if version not in collected:
+                collected[version] = {}
+            for json_file in version_dir.glob("*.json"):
+                reqs = self.load_json_file(json_file) or {}
+                for request_key, request_data in reqs.items():
+                    if not isinstance(request_data, dict):
+                        continue
+                    method = request_data.get("method")
+                    if not method:
+                        continue
+                    collected[version].setdefault(method, set()).add(request_key)
+        return collected
+    
+    def sync_examples_from_requests(self, dry_run: bool = False) -> Dict[str, Any]:
+        """Sync missing example keys into kdf_methods files based on request files.
+        
+        - Adds only missing examples; does not remove existing ones
+        - Uses inferred human-readable names for new examples
+        
+        Returns summary stats.
+        """
+        collected = self._collect_examples_from_requests()
+        added_count = 0
+        per_method_added: Dict[str, int] = {}
+        
+        # Helper to update a config dict
+        def update_config(config: Dict[str, Dict], version: str):
+            nonlocal added_count
+            for method, example_keys in collected.get(version, {}).items():
+                method_cfg = config.get(method)
+                if not method_cfg:
+                    # Skip methods not defined in this version config
+                    continue
+                examples: Dict[str, str] = method_cfg.get("examples", {}) or {}
+                new_this_method = 0
+                for ex_key in sorted(example_keys):
+                    if ex_key not in examples:
+                        examples[ex_key] = self._infer_example_name(ex_key, method)
+                        new_this_method += 1
+                if new_this_method:
+                    method_cfg["examples"] = dict(sorted(examples.items()))
+                    per_method_added[method] = per_method_added.get(method, 0) + new_this_method
+                    added_count += new_this_method
+        
+        update_config(self.method_config_legacy, 'legacy')
+        update_config(self.method_config_v2, 'v2')
+        
+        if not dry_run and added_count:
+            self._save_method_config()
+        
+        return {
+            "added_examples": added_count,
+            "per_method": dict(sorted(per_method_added.items())),
+            "dry_run": dry_run
+        }
+    
+    # ===== SELF-REPAIR FUNCTIONALITY =====
+    
+    def discover_missing_methods(self) -> Dict[str, Dict]:
+        """Discover methods in request files that are missing from method config."""
+        missing_methods = {}
+        
+        # Scan all request files to find methods
+        for version_dir in self.requests_dir.iterdir():
+            if not version_dir.is_dir():
+                continue
+            
+            for json_file in version_dir.glob("*.json"):
+                requests_data = self.load_json_file(json_file)
+                if not requests_data:
+                    continue
+                
+                for request_key, request_data in requests_data.items():
+                    method = request_data.get("method")
+                    if method and not self.get_method_config(method, version_dir.name):
+                        # Check if method exists in either config but is deprecated
+                        existing_config = self.get_method_config(method)
+                        if existing_config.get('deprecated', False):
+                            continue  # Skip deprecated methods
+                            
+                        if method not in missing_methods:
+                            missing_methods[method] = {
+                                "examples": {},
+                                "version": version_dir.name,
+                                "file": json_file.stem
+                            }
+                        
+                        # Infer a human-readable name for this example
+                        example_name = self._infer_example_name(request_key, method)
+                        missing_methods[method]["examples"][request_key] = example_name
+        
+        return missing_methods
+    
+    def _infer_example_name(self, request_key: str, method: str) -> str:
+        """Infer a human-readable name for a request example."""
+        # Remove common prefixes
+        name = request_key
+        
+        # Convert CamelCase to Title Case with spaces
+        import re
+        name = re.sub(r'([A-Z])', r' \1', name).strip()
+        
+        # Clean up specific patterns
+        name = name.replace("Enable ", "Enable ")
+        name = name.replace("Task ", "")
+        name = name.replace("Legacy ", "")
+        
+        # Add context based on method type
+        if "enable_" in method:
+            if "Init" in request_key:
+                name = name.replace(" Init", " Initialization")
+            elif "Status" in request_key:
+                name = name.replace(" Status", " Status Check")
+            elif "Cancel" in request_key:
+                name = name.replace(" Cancel", " Cancellation")
+            elif "UserAction" in request_key:
+                if "Pin" in request_key:
+                    name = name.replace(" User Action Pin", " (Trezor PIN)")
+                else:
+                    name = name.replace(" User Action", " User Action")
+        
+        return name
+    
+    def _infer_method_requirements(self, method: str, examples: Dict[str, str]) -> Dict[str, Any]:
+        """Infer method requirements based on method name and examples."""
+        requirements = {
+            "environments": ["native", "wasm"],
+            "wallet_types": ["hd", "iguana"]
+        }
+        
+        # Infer environment and wallet compatibility based on method patterns
+        
+        # Stream methods are wasm-only
+        if method.startswith("stream::"):
+            requirements["environments"] = ["wasm"]
+        
+        # Trezor methods require hardware
+        if "trezor" in method.lower() or "::user_action" in method.lower():
+            requirements["wallet_types"] = ["trezor"]
+        
+        # Infer from example patterns
+        for example_key in examples.keys():
+            if "Trezor" in example_key:
+                # Trezor examples indicate hardware wallet requirement
+                requirements["wallet_types"] = ["trezor"]
+            
+            if "WalletConnect" in example_key:
+                if "wallet_types" in requirements:
+                    # WalletConnect typically works with both HD and iguana
+                    pass
+        
+        return requirements
+    
+    def _infer_table_name(self, method: str) -> str:
+        """Infer a table name based on method name."""
+        # Convert method name to a table name
+        table_name = method.replace("::", "_").replace("_", " ").title().replace(" ", "")
+        table_name += "Arguments"
+        return table_name
+    
+    def auto_repair_missing_methods(self, dry_run: bool = True) -> Dict[str, Any]:
+        """Automatically repair missing method configurations."""
+        missing_methods = self.discover_missing_methods()
+        repair_plan = {
+            "discovered_methods": len(missing_methods),
+            "methods": {},
+            "would_add": [] if not dry_run else list(missing_methods.keys())
+        }
+        
+        if not missing_methods:
+            logger.info("No missing methods discovered - configuration is complete!")
+            return repair_plan
+        
+        logger.info(f"Discovered {len(missing_methods)} missing methods")
+        
+        for method, method_info in missing_methods.items():
+            table_name = self._infer_table_name(method)
+            requirements = self._infer_method_requirements(method, method_info["examples"])
+            
+            method_config = {
+                "request_table": table_name,
+                "response_table": "",
+                "errors_table": "",
+                "examples": method_info["examples"],
+                "requirements": requirements
+            }
+            
+            repair_plan["methods"][method] = method_config
+            
+            if dry_run:
+                logger.info(f"Would add method '{method}' with {len(method_info['examples'])} examples")
+            else:
+                self.method_config[method] = method_config
+                logger.info(f"Added method '{method}' with {len(method_info['examples'])} examples")
+        
+        if not dry_run:
+            self._save_method_config()
+            logger.info(f"Saved updated method configuration with {len(missing_methods)} new methods")
+        
+        return repair_plan
+    
+    def _save_method_config(self):
+        """Save the updated method configurations back to their respective files."""
+        data_dir = self.workspace_root / "src" / "data"
+        v2_file = data_dir / "kdf_methods_v2.json"
+        legacy_file = data_dir / "kdf_methods_legacy.json"
+        dump_sorted_json(dict(sorted(self.method_config_legacy.items())), legacy_file)
+        dump_sorted_json(dict(sorted(self.method_config_v2.items())), v2_file)
+    
+    # ===== MAIN GENERATION METHODS =====
+    
+    def _count_collection_items(self, collection_data: Dict) -> int:
+        """Count the total number of requests in a collection."""
+        count = 0
+        
+        def count_items(items):
+            nonlocal count
+            for item in items:
+                if "request" in item:
+                    count += 1
+                elif "item" in item:
+                    count_items(item["item"])
+        
+        if "item" in collection_data:
+            count_items(collection_data["item"])
+        
+        return count
+    
+    def _count_report_items(self, report_data: Any) -> int:
+        """Count items in a report based on its structure."""
+        if isinstance(report_data, dict):
+            # For reports like missing_responses and unused_params
+            total = 0
+            for key, value in report_data.items():
+                if isinstance(value, list):
+                    total += len(value)
+                else:
+                    total += 1
+            return total
+        elif isinstance(report_data, list):
+            # For reports like untranslated_keys and missing_tables
+            return len(report_data)
+        else:
+            return 1
+    
+    def generate_all_collections(self, output_dir: Path, auto_repair: bool = False) -> Dict[str, Dict]:
+        """Generate all collection types."""
+        # Normalize output_dir to absolute within workspace
+        output_dir = Path(output_dir)
+        if not output_dir.is_absolute():
+            output_dir = (self.workspace_root / output_dir).resolve()
+        generated_files = {}
+        
+        # Auto-repair missing method configurations if requested
+        if auto_repair:
+            logger.info("🔧 Running self-repair for missing method configurations...")
+            repair_plan = self.auto_repair_missing_methods(dry_run=False)
+            if repair_plan["discovered_methods"] > 0:
+                logger.info(f"✅ Auto-repaired {repair_plan['discovered_methods']} missing method configurations")
+            else:
+                logger.info("✅ No missing method configurations found")
+        
+        # Create output directories
+        standard_dir = output_dir / "collections"
+        environments_dir = output_dir / "environments" 
+        reports_dir = output_dir / "reports"
+        
+        standard_dir.mkdir(parents=True, exist_ok=True)
+        environments_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate standard collection
+        logger.info("Generating standard comprehensive collection...")
+        standard_collection = self.generate_standard_collection()
+        
+        standard_file = standard_dir / "kdf_comprehensive_collection.json"
+        dump_sorted_json(standard_collection, standard_file)
+        
+        # Count items in standard collection
+        standard_count = self._count_collection_items(standard_collection)
+        generated_files["standard"] = {
+            "file": str(standard_file.relative_to(self.workspace_root)),
+            "count": standard_count
+        }
+        logger.info(f"Standard collection saved to {standard_file}")
+        
+        # Generate environment-specific collections
+        env_configs = self.env_manager.get_environment_specific_postman_configs()
+        
+        for environment in env_configs.keys():
+            logger.info(f"Generating collection for environment: {environment}")
+            
+            env_collection = self.generate_environment_collection(environment)
+            
+            env_file = environments_dir / f"kdf_{environment}_collection.json"
+            dump_sorted_json(env_collection, env_file)
+            
+            # Count items in environment collection
+            env_count = self._count_collection_items(env_collection)
+            generated_files[environment] = {
+                "file": str(env_file.relative_to(self.workspace_root)),
+                "count": env_count
+            }
+            logger.info(f"Environment collection saved to {env_file}")
+        
+        # Detect missing requests and methods before saving reports
+        self.detect_missing_requests_and_methods()
+        
+        # Detect missing response and error tables
+        self.detect_missing_response_and_error_tables()
+        
+        # Save reports
+        self.save_reports(reports_dir)
+        
+        # Prepare reports data with file paths and counts (always include all reports)
+        reports_data = {}
+        
+        # Unused params (always)
+        unused_params_file = reports_dir / "unused_params.json"
+        reports_data["unused_params"] = {
+            "file": str(unused_params_file.relative_to(self.workspace_root)),
+            "count": self._count_report_items(self.unused_params) if self.unused_params else 0
+        }
+        
+        # Missing responses (split)
+        mr_v2 = reports_dir / "missing_responses_v2.json"
+        mr_legacy = reports_dir / "missing_responses_legacy.json"
+        reports_data["missing_responses_v2"] = {
+            "file": str(mr_v2.relative_to(self.workspace_root)),
+            "count": self._count_report_items(self.missing_responses_v2) if self.missing_responses_v2 else 0
+        }
+        reports_data["missing_responses_legacy"] = {
+            "file": str(mr_legacy.relative_to(self.workspace_root)),
+            "count": self._count_report_items(self.missing_responses_legacy) if self.missing_responses_legacy else 0
+        }
+        
+        # Untranslated keys (always)
+        untranslated_keys_file = reports_dir / "untranslated_keys.json"
+        reports_data["untranslated_keys"] = {
+            "file": str(untranslated_keys_file.relative_to(self.workspace_root)),
+            "count": len(self.untranslated_keys) if self.untranslated_keys else 0
+        }
+        
+        # Missing tables (split)
+        reports_data["missing_tables_v2"] = {
+            "file": str((reports_dir / "missing_tables_v2.json").relative_to(self.workspace_root))
+        }
+        reports_data["missing_tables_legacy"] = {
+            "file": str((reports_dir / "missing_tables_legacy.json").relative_to(self.workspace_root))
+        }
+        
+        # Missing requests (split)
+        sorted_missing_requests_v2 = sorted(self.missing_requests.get("v2", []))
+        sorted_missing_requests_legacy = sorted(self.missing_requests.get("legacy", []))
+        reports_data["missing_requests_v2"] = {
+            "file": str((reports_dir / "missing_requests_v2.json").relative_to(self.workspace_root)),
+            "count": len(sorted_missing_requests_v2)
+        }
+        reports_data["missing_requests_legacy"] = {
+            "file": str((reports_dir / "missing_requests_legacy.json").relative_to(self.workspace_root)),
+            "count": len(sorted_missing_requests_legacy)
+        }
+        
+        # Missing methods (split)
+        reports_data["missing_methods_v2"] = {
+            "file": str((reports_dir / "missing_methods_v2.json").relative_to(self.workspace_root)),
+            "count": len(self.missing_methods_v2)
+        }
+        reports_data["missing_methods_legacy"] = {
+            "file": str((reports_dir / "missing_methods_legacy.json").relative_to(self.workspace_root)),
+            "count": len(self.missing_methods_legacy)
+        }
+        
+        # Generate summary
+        summary = {
+            "generation_timestamp": datetime.now().isoformat(),
+            "generated_files": generated_files,
+            "reports": reports_data
+        }
+        # Attempt to include KDF version extracted from response report (no extra requests)
+        try:
+            report_path = self.workspace_root / "postman/generated/reports/kdf_postman_responses.json"
+            if report_path.exists():
+                with open(report_path, 'r', encoding='utf-8') as f:
+                    report = json.load(f)
+                # Look for LegacyVersion
+                if isinstance(report, dict):
+                    if "LegacyVersion" in report and isinstance(report["LegacyVersion"], dict):
+                        ver = report["LegacyVersion"].get("result")
+                        if isinstance(ver, str):
+                            summary["kdf_version"] = ver
+                    elif isinstance(report.get("responses"), dict):
+                        lv = report["responses"].get("LegacyVersion")
+                        if isinstance(lv, dict) and isinstance(lv.get("result"), str):
+                            summary["kdf_version"] = lv["result"]
+        except Exception:
+            pass
+        
+        summary_file = output_dir / "generation_summary.json"
+        dump_sorted_json(summary, summary_file)
+        
+        return generated_files
+
+
+def main():
+    """Main CLI interface."""
+    parser = argparse.ArgumentParser(
+        description="Unified Postman Collection Generator for KDF API",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Generate all collections (standard + all environments)
+  python unified_postman_generator.py --all
+  
+  # Generate with auto-repair of missing method configurations
+  python unified_postman_generator.py --all --auto-repair
+  
+  # Check what would be repaired without making changes
+  python unified_postman_generator.py --dry-run-repair
+  
+  # Generate only standard comprehensive collection
+  python unified_postman_generator.py --standard
+  
+  # Generate specific environment collection
+  python unified_postman_generator.py --environment native_hd
+  
+  # Generate with custom output directory
+  python unified_postman_generator.py --all --output-dir ./custom_output
+  
+  # Enable verbose logging
+  python unified_postman_generator.py --all --verbose
+        """
+    )
+    
+    # Mode selection (mutually exclusive)
+    mode_group = parser.add_mutually_exclusive_group(required=True)
+    mode_group.add_argument(
+        '--all', '-a',
+        action='store_true',
+        help="Generate all collections (standard + all environments)"
+    )
+    mode_group.add_argument(
+        '--standard', '-s',
+        action='store_true',
+        help="Generate only the standard comprehensive collection"
+    )
+    mode_group.add_argument(
+        '--environment', '-e',
+        choices=['native_hd', 'native_iguana', 'wasm_hd', 'wasm_iguana', 'trezor_native_hd', 'trezor_wasm_hd'],
+        help="Generate specific environment collection"
+    )
+    mode_group.add_argument(
+        '--dry-run-repair',
+        action='store_true',
+        help="Show what would be repaired without making changes"
+    )
+    mode_group.add_argument(
+        '--sync-examples',
+        action='store_true',
+        help="Sync missing request examples into kdf_methods files"
+    )
+    
+    # Optional arguments
+    parser.add_argument(
+        '--workspace', '-w',
+        help="Path to workspace root (auto-detected if not provided)"
+    )
+    parser.add_argument(
+        '--output-dir', '-o',
+        help="Output directory (default: postman/generated)"
+    )
+    parser.add_argument(
+        '--verbose', '-v',
+        action='store_true',
+        help="Enable verbose output"
+    )
+    parser.add_argument(
+        '--auto-repair',
+        action='store_true',
+        help="Automatically repair missing method configurations"
+    )
+    
+    args = parser.parse_args()
+    
+    # Configure logging
+    if args.verbose:
+        logging.getLogger().setLevel(logging.INFO)
+    
+    try:
+        generator = UnifiedPostmanGenerator(args.workspace)
+        
+        # Set output directory
+        if args.output_dir:
+            output_dir = Path(args.output_dir)
+        else:
+            output_dir = generator.workspace_root / "postman" / "generated"
+        
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Handle dry-run repair mode
+        if args.dry_run_repair:
+            print("🔍 Checking for missing method configurations...")
+            repair_plan = generator.auto_repair_missing_methods(dry_run=True)
+            
+            if repair_plan["discovered_methods"] == 0:
+                print("✅ No missing method configurations found!")
+            else:
+                print(f"📋 Found {repair_plan['discovered_methods']} missing method configurations:")
+                for method in repair_plan["would_add"]:
+                    examples_count = len(repair_plan["methods"][method]["examples"])
+                    print(f"  • {method} (with {examples_count} examples)")
+                print(f"\nTo apply these fixes, run with --auto-repair")
+            return
+        
+        if args.all:
+            print("🚀 Generating all collections...")
+            generated_files = generator.generate_all_collections(output_dir, auto_repair=args.auto_repair)
+            
+            print(f"\n✅ Generated {len(generated_files)} collections:")
+            for collection_type, file_info in generated_files.items():
+                file_path = file_info["file"]
+                count = file_info["count"]
+                print(f"  {collection_type}: {file_path} ({count} requests)")
+            
+            print(f"\n📊 Summary: {output_dir / 'generation_summary.json'}")
+            
+        elif args.standard:
+            print("🚀 Generating standard comprehensive collection...")
+            collection = generator.generate_standard_collection()
+            
+            collections_dir = output_dir / "collections"
+            collections_dir.mkdir(parents=True, exist_ok=True)
+            
+            output_file = collections_dir / "kdf_comprehensive_collection.json"
+            dump_sorted_json(collection, output_file)
+            
+            # Detect missing requests and methods before saving reports
+            generator.detect_missing_requests_and_methods()
+            
+            # Detect missing response and error tables
+            generator.detect_missing_response_and_error_tables()
+            
+            # Save reports
+            reports_dir = output_dir / "reports"
+            generator.save_reports(reports_dir)
+            
+            print(f"✅ Standard collection generated: {output_file}")
+            print(f"📊 Reports saved to: {reports_dir}")
+            
+        elif args.environment:
+            print(f"🚀 Generating collection for environment: {args.environment}")
+            collection = generator.generate_environment_collection(args.environment)
+            
+            environments_dir = output_dir / "environments"
+            environments_dir.mkdir(parents=True, exist_ok=True)
+            
+            output_file = environments_dir / f"kdf_{args.environment}_collection.json"
+            dump_sorted_json(collection, output_file)
+            
+            print(f"✅ Environment collection generated: {output_file}")
+        elif args.sync_examples:
+            print("🔄 Syncing missing request examples into kdf_methods files...")
+            summary = generator.sync_examples_from_requests(dry_run=False)
+            print(json.dumps(summary, indent=2))
+            print("✅ Sync complete.")
+    
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        if args.verbose:
+            import traceback
+            traceback.print_exc()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

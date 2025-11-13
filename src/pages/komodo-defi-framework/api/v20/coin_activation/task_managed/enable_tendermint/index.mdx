@@ -24,19 +24,7 @@ Use this method for task managed activation of Tendermint coins & tokens. Refer 
 
 <CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintInit" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 2
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintInit" />
 
 ## task::enable\_tendermint::status {{label : 'task::enable_tendermint::status', tag : 'API-v2'}}
 
@@ -59,34 +47,7 @@ The response will return the following:
 
 <CompactTable source="v2/coin_activation.TaskStatusTendermintResponse" />
 
-\|                  |                  |                                                                                                                                                                               |
-
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-        "status": "Ok",
-        "details": {
-            "ticker": "IRIS",
-            "address": "iaa1p8t6fh9tuq5c9mmnlhuuwuy4hw70cmpdcs8sc6",
-            "current_block": 29775307,
-            "balance": {
-                "spendable": "0",
-                "unspendable": "0"
-            },
-            "tokens_balances": {
-                "ATOM-IBC_IRIS": {
-                    "spendable": "0",
-                    "unspendable": "0"
-                }
-            }
-        }
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintStatus" />
 
 #### Response (in progress)
 
@@ -95,18 +56,7 @@ The response will return the following:
 | status    | string | Will return `InProgress` if task is not yet comepleted      |
 | details   | string | An indication of the current step of the activation process |
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": "RequestingWalletBalance"
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintStatus" />
 
 <CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
   ### Error Types
@@ -269,19 +219,9 @@ If the `task::enable_tendermint::status` returns `UserActionRequired`, we need t
 
 #### Command
 
-<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintUserAction" />
+<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintUserActionPin" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintUserActionPin" />
 
 ## task::enable\_tendermint::cancel {{label : 'task::enable_tendermint::cancel', tag : 'API-v2'}}
 
@@ -306,44 +246,6 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintCancel" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintCancel" />
 
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
-
-<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  #### Response (success - already finished)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "Task is finished already",
-    "error_path": "init_standalone_coin.manager",
-    "error_trace": "init_standalone_coin:144] manager:101]",
-    "error_type": "TaskFinished",
-    "error_data": 0,
-    "id": null
-  }
-  ```
-
-  #### Response (error - no such task)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "error": "No such task '1'",
-    "error_path": "init_standalone_coin",
-    "error_trace": "init_standalone_coin:119]",
-    "error_type": "NoSuchTask",
-    "error_data": 1,
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableTendermintCancel" />

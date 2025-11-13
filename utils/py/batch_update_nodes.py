@@ -99,7 +99,7 @@ def main():
     args = parser.parse_args()
     
     if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.INFO)
     
     # Convert to absolute path relative to the script's location
     if not os.path.isabs(args.directory):

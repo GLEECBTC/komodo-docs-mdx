@@ -24,19 +24,7 @@ Use this method for task managed activation of QTUM coins and tokens. Refer to t
 
 <CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumInit" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 1
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableQtumInit" />
 
 ## task::enable\_qtum::status {{label : 'task::enable_qtum::status', tag : 'API-v2'}}
 
@@ -75,19 +63,9 @@ If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use 
 
 #### Command
 
-<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumUserAction" />
+<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumUserActionPin" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableQtumUserActionPin" />
 
 ## Error Cases
 
@@ -131,14 +109,4 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumCancel" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableQtumCancel" />

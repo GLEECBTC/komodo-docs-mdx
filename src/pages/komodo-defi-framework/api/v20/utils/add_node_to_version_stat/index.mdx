@@ -17,38 +17,13 @@ The `add_node_to_version_stat` method adds a node's name, IP address, and PeerID
 
 <CompactTable source="v2/utils.AddNodeToVersionStatRequest" />
 
+<CodeGroup title="" tag="POST" label="enable_tendermint_token" mm2MethodDecorate="true" source="v2/utils.AddNodeToVersionStat" />
+
 ### Response Parameters
 
 <CompactTable source="v2/utils.AddNodeToVersionStatResponse" />
 
-#### 📌 Examples
-
-<CodeGroup title="Add Node to Version Stat" tag="POST" label="add_node_to_version_stat" mm2MethodDecorate="true">
-  ```json
-  {
-    "mmrpc": "2.0",
-    "method": "add_node_to_version_stat",
-    "userpass": "RPC_UserP@SSW0RD",
-    "params": {
-      "name": "seed1",
-      "address": "168.119.236.241",
-      "peer_id": "12D3KooWEsuiKcQaBaKEzuMtT6uFjs89P1E8MK3wGRZbeuCbCw6P"
-    }
-  }
-  ```
-</CodeGroup>
-
-<CollapsibleSection expandedText="Hide Add Node to Version Stat Response" collapsedText="Show Add Node to Version Stat Response">
-  #### Response (success)
-
-  ```json
-  {
-      "mmrpc": "2.0",
-      "result": "success",
-      "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/utils.AddNodeToVersionStat" />
 
 ### Error Types
 

@@ -1,0 +1,14 @@
+export const title = "Komodo DeFi Framework Method: SIA Coin Activation Tasks";
+export const description =
+  "The methods in this document demonstrate the task-managed activation of SIA.";
+
+# Task: SIA Activation
+
+The task-managed SIA activation flow consists of:
+
+*   `task::enable_sia::init`: Start activation, returns a `task_id`
+*   `task::enable_sia::status`: Poll activation progress and final result
+*   `task::enable_sia::user_action`: Provide user action when required (reserved for SIA)
+*   `task::enable_sia::cancel`: Cancel an ongoing activation
+
+Refer to each subpage for arguments, responses, and examples.

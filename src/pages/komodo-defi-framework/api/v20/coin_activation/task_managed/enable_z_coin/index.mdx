@@ -124,19 +124,7 @@ The Z coin lightwallet client only supports blocks that are post-sapling. The sa
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "task_id": 0
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableZCoinInitBasic" />
 
 ## task::enable\_z\_coin::status {{label : 'task::enable_z_coin::status', tag : 'API-v2'}}
 
@@ -172,80 +160,7 @@ Once complete, `status`  will be `Ok`, and the `details` object will have the fo
 
 <CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinStatus" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (ActivatingCoin - enabling has started)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": "ActivatingCoin"
-    },
-    "id": null
-  }
-  ```
-
-  #### Response (UpdatingBlocksCache)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": {
-        "UpdatingBlocksCache": {
-          "current_scanned_block": 265930,
-          "latest_block": 269656
-        }
-      }
-    },
-    "id": null
-  }
-  ```
-
-  #### Response (BuildingWalletDb)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "InProgress",
-      "details": {
-        "BuildingWalletDb": {
-          "current_scanned_block": 265311,
-          "latest_block": 269656
-        }
-      }
-    },
-  "id": null
-  }
-  ```
-
-  #### Response (Enabling complete)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": {
-      "status": "Ok",
-      "details": {
-        "ticker": "ZOMBIE",
-        "current_block": 269657,
-        "wallet_balance": {
-          "wallet_type": "Iguana",
-          "address": "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj",
-          "balance": {
-            "spendable": "29.99989008",
-            "unspendable": "0"
-          }
-        }
-      }
-    },
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableZCoinStatus" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### Response (CoinCreationError - no Zcash Params)
@@ -353,19 +268,9 @@ If the `task::enable_z_coin::status` returns `UserActionRequired`, we need to us
 | --------- | ------ | --------------------------- |
 | result    | string | The outcome of the request. |
 
-<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinUserAction" />
+<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinUserActionPin" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableZCoinUserActionPin" />
 
 ## task::enable\_z\_coin::cancel {{label : 'task::enable_z_coin::cancel', tag : 'API-v2'}}
 
@@ -394,17 +299,7 @@ If you want to cancel the enabling process before it has completed, you can use 
 
 <CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinCancel" />
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
-  }
-  ```
-</CollapsibleSection>
+<KdfResponses responseKey="v2/coin_activation.TaskEnableZCoinCancel" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
   #### Response (success - already finished)

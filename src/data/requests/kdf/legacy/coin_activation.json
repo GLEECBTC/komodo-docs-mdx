@@ -1,131 +1,185 @@
 {
   "LegacyElectrumBch": {
     "coin": "BCH",
+    "max_connected": 2,
     "method": "electrum",
+    "min_connected": 1,
     "servers": [
       {
-        "url": "bch.electrum3.cipig.net:10055",
-        "protocol": "TCP"
+        "protocol": "SSL",
+        "url": "bch.electrum3.cipig.net:20055"
       },
       {
-        "url": "bch.electrum3.cipig.net:20055",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "url": "bch.imaginary.cash:50002"
       },
       {
-        "url": "bch.electrum3.cipig.net:30055",
-        "protocol": "WSS"
+        "protocol": "SSL",
+        "url": "bch.soul-dev.com:50002"
       }
     ],
-    "min_connected": 1,
-    "max_connected": 2,
+    "tx_history": true,
     "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyElectrumDoc": {
+    "coin": "DOC",
+    "method": "electrum",
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true,
+    "servers": [
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum1.cipig.net:20020"
+      },
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum2.cipig.net:20020"
+      },
+      {
+        "protocol": "SSL",
+        "url": "doc.electrum3.cipig.net:20020"
+      }
+    ],
+    "tx_history": true,
+    "userpass": "RPC_UserP@SSW0RD",
+    "utxo_merge_params": {
+      "check_every": 10,
+      "max_merge_at_once": 100,
+      "merge_at": 50
+    }
   },
   "LegacyElectrumKmd": {
     "coin": "KMD",
     "method": "electrum",
-    "servers": [
-      {
-        "url": "kmd.electrum3.cipig.net:10001",
-        "protocol": "TCP"
-      },
-      {
-        "url": "kmd.electrum1.cipig.net:20001",
-        "protocol": "SSL"
-      },
-      {
-        "url": "kmd.electrum3.cipig.net:20001",
-        "protocol": "SSL"
-      }
-    ],
+    "mm2": 1,
     "required_confirmations": 10,
     "requires_notarization": true,
+    "servers": [
+      {
+        "protocol": "SSL",
+        "url": "kmd.electrum1.cipig.net:20001"
+      },
+      {
+        "protocol": "SSL",
+        "url": "kmd.electrum2.cipig.net:20001"
+      },
+      {
+        "protocol": "SSL",
+        "url": "kmd.electrum3.cipig.net:20001"
+      }
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyElectrumMarty": {
+    "coin": "MARTY",
+    "max_connected": 2,
+    "method": "electrum",
+    "min_connected": 1,
     "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true,
+    "servers": [
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum1.cipig.net:20021"
+      },
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum2.cipig.net:20021"
+      },
+      {
+        "protocol": "SSL",
+        "url": "marty.electrum3.cipig.net:20021"
+      }
+    ],
     "userpass": "RPC_UserP@SSW0RD"
   },
   "LegacyElectrumQtum": {
     "coin": "QTUM",
+    "fallback_swap_contract": "0x2f754733acd6d753731c00fee32cb484551cc15d",
     "method": "electrum",
     "servers": [
       {
-        "url": "qtum.electrum1.cipig.net:20050",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "url": "qtum.electrum1.cipig.net:20050"
       },
       {
-        "url": "qtum.electrum2.cipig.net:20050",
-        "protocol": "SSL"
+        "protocol": "SSL",
+        "url": "qtum.electrum2.cipig.net:20050"
       },
       {
-        "url": "qtum.electrum2.cipig.net:10050",
-        "protocol": "TCP"
+        "protocol": "SSL",
+        "url": "qtum.electrum3.cipig.net:20050"
       }
     ],
     "swap_contract_address": "0x2f754733acd6d753731c00fee32cb484551cc15d",
     "userpass": "RPC_UserP@SSW0RD"
   },
-  "LegacyEnableNative": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL"
-  },
-  "LegacyEnableNativeWithParams": {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "coin": "TKL",
-    "mm2": 1,
-    "required_confirmations": 10,
-    "requires_notarization": true
-  },
-  "LegacyEnableEth": {
-    "coin": "ETH",
-    "method": "enable",
-    "urls": [
-      "https://eth3.cipig.net:18555",
-      "https://mainnet.gateway.tenderly.co",
-      "https://ethereum-rpc.publicnode.com"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "userpass": "RPC_UserP@SSW0RD"
-  },
-  "LegacyEnableEthGasStation": {
-    "coin": "ETH",
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable",
-    "urls": [
-      "https://eth3.cipig.net:18555",
-      "https://0xrpc.io/eth",
-      "https://eth.drpc.org"
-    ],
-    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-    "gas_station_decimals": 8,
-    "gas_station_policy": {
-      "policy": "MeanAverageFast"
-    }
-  },
-  "LegacyEnableMatic": {
-    "coin": "NZDS-PLG20",
-    "method": "enable",
-    "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-    "urls": [
-      "https://node.komodo.earth:8080/polygon",
-      "https://pol3.cipig.net:18755",
-      "https://polygon.gateway.tenderly.co"
-    ],
-    "userpass": "RPC_UserP@SSW0RD"
-  },
   "LegacyEnableBnb": {
     "coin": "BUSD-BEP20",
+    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
     "method": "enable",
     "swap_contract_address": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
-    "fallback_swap_contract": "0xeDc5b89Fe1f0382F9E4316069971D90a0951DB31",
     "urls": [
       "https://bsc1.cipig.net:18655",
       "https://bsc2.cipig.net:18655",
       "https://bsc3.cipig.net:18655"
     ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableEth": {
+    "coin": "ETH",
+    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+    "method": "enable",
+    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+    "urls": [
+      "https://0xrpc.io/eth",
+      "https://eth.drpc.org",
+      "https://eth3.cipig.net:18555"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableEthGasStation": {
+    "coin": "ETH",
+    "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
+    "gas_station_decimals": 8,
+    "gas_station_policy": {
+      "policy": "MeanAverageFast"
+    },
+    "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
+    "method": "enable",
+    "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
+    "urls": [
+      "https://0xrpc.io/eth",
+      "https://eth3.cipig.net:18555",
+      "https://mainnet.gateway.tenderly.co"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableMatic": {
+    "coin": "NZDS-PLG20",
+    "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+    "method": "enable",
+    "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
+    "urls": [
+      "https://node.komodo.earth:8080/polygon",
+      "https://pol3.cipig.net:18755",
+      "https://polygon.drpc.org"
+    ],
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableNative": {
+    "coin": "TKL",
+    "method": "enable",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "LegacyEnableNativeWithParams": {
+    "coin": "TKL",
+    "method": "enable",
+    "mm2": 1,
+    "required_confirmations": 10,
+    "requires_notarization": true,
     "userpass": "RPC_UserP@SSW0RD"
   }
 }
