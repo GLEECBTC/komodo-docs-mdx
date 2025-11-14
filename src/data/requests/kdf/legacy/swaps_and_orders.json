@@ -1,25 +1,30 @@
 {
   "ActiveSwaps": {
-    "method": "active_swaps"
+    "method": "active_swaps",
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "ActiveSwapsIncludeStatus": {
     "include_status": true,
-    "method": "active_swaps"
+    "method": "active_swaps",
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "AllSwapsUuidsByFilterDateRange": {
     "from_timestamp": 1611705600,
     "method": "all_swaps_uuids_by_filter",
     "my_coin": "DOC",
-    "to_timestamp": 1611792001
+    "to_timestamp": 1611792001,
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "AllSwapsUuidsByFilterFromTimestamp": {
     "from_timestamp": 1611705600,
     "method": "all_swaps_uuids_by_filter",
-    "my_coin": "DOC"
+    "my_coin": "DOC",
+    "userpass": "RPC_UserP@SSW0RD"
   },
   "AllSwapsUuidsByFilterMyAndOtherCoin": {
     "method": "all_swaps_uuids_by_filter",
     "my_coin": "DOC",
-    "other_coin": "MARTY"
+    "other_coin": "MARTY",
+    "userpass": "RPC_UserP@SSW0RD"
   }
 }
