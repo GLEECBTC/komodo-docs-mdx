@@ -129,6 +129,30 @@
         }
       }
     ]
+  },
+  "AllSwapsUuidsByFilter": {
+    "error": [],
+    "success": [
+      {
+        "title": "Response (success)",
+        "notes": "",
+        "json": {
+          "result": {
+            "uuids": [
+              "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+              "7592a07a-2805-4050-8ab8-984480e812f0",
+              "82cbad96-ea9f-40fb-9225-07496323e35d",
+              "177f7fa5-c9f3-4673-a2fa-28451a123e61"
+            ],
+            "my_coin": "DOC",
+            "other_coin": "MARTY",
+            "from_timestamp": null,
+            "to_timestamp": null,
+            "found_records": 4
+          }
+        }
+      }
+    ]
   }
 }
 

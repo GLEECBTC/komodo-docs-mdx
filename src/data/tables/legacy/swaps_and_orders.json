@@ -24,6 +24,74 @@
         "description": "Only visible if include_status=true. Map of SwapStatus objects by UUID (see /komodo-defi-framework/api/common_structures/swaps/#swap-status)"
       }
     ]
+  },
+  "AllSwapsUuidsByFilterRequest": {
+    "data": [
+      {
+        "parameter": "my_coin",
+        "type": "string",
+        "required": false,
+        "description": "Return only swaps that match the swap.my_coin = request.my_coin condition"
+      },
+      {
+        "parameter": "other_coin",
+        "type": "string",
+        "required": false,
+        "description": "Return only swaps that match the swap.other_coin = request.other_coin condition"
+      },
+      {
+        "parameter": "from_timestamp",
+        "type": "number (timestamp in seconds)",
+        "required": false,
+        "description": "Return only swaps that match the swap.started_at >= request.from_timestamp condition"
+      },
+      {
+        "parameter": "to_timestamp",
+        "type": "number (timestamp in seconds)",
+        "required": false,
+        "description": "Return only swaps that match the swap.started_at < request.to_timestamp condition"
+      }
+    ]
+  },
+  "AllSwapsUuidsByFilterResponse": {
+    "data": [
+      {
+        "parameter": "uuids",
+        "type": "array of strings",
+        "required": true,
+        "description": "UUIDs of swaps that match the selected filters"
+      },
+      {
+        "parameter": "my_coin",
+        "type": "string",
+        "required": false,
+        "description": "my_coin that was set in the request; null if not provided"
+      },
+      {
+        "parameter": "other_coin",
+        "type": "string",
+        "required": false,
+        "description": "other_coin that was set in the request; null if not provided"
+      },
+      {
+        "parameter": "from_timestamp",
+        "type": "number (timestamp in seconds)",
+        "required": false,
+        "description": "from_timestamp that was set in the request; null if not provided"
+      },
+      {
+        "parameter": "to_timestamp",
+        "type": "number (timestamp in seconds)",
+        "required": false,
+        "description": "to_timestamp that was set in the request; null if not provided"
+      },
+      {
+        "parameter": "found_records",
+        "type": "number",
+        "required": true,
+        "description": "Number of UUIDs that match the selected filters"
+      }
+    ]
   }
 }
 
