@@ -13,57 +13,18 @@ The `ban_pubkey` method bans the selected pubkey ignoring its order matching mes
 
 ## Arguments
 
-| Structure     | Type    | Description                                                                              |
-| ------------- | ------- | ---------------------------------------------------------------------------------------- |
-| pubkey        | string  | The pubkey to ban                                                                        |
-| reason        | string  | Optional. The reason for banning                                                         |
-| duration\_min | integer | Optional. Minutes to apply the ban. If not set, ban will persist until kdf is restarted. |
+<CompactTable source="legacy/utils.BanPubkeyRequest" />
 
 ## Response
 
-| Structure | Type   | Description                    |
-| --------- | ------ | ------------------------------ |
-| result    | string | whether the ban was successful |
+<CompactTable source="legacy/utils.BanPubkeyResponse" />
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="ban_pubkey" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "ban_pubkey",
-    "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
-    "reason": "Being a naughty boy",
-    "duration_min": 15
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="ban_pubkey" mm2MethodDecorate="true" source="legacy/utils.BanPubkey" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
-
-  ```json
-  {
-    "result": "success"
-  }
-  ```
-
-  #### Error (already banned)
-
-  ```json
-  {
-    "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
-  }
-  ```
-
-  #### Error (invalid pubkey)
-
-  ```json
-
-  {
-    "error": "rpc:184] dispatcher_legacy:140] pubkey_banning:63] invalid value: string \"2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac\", expected a hash string"
-  }
-  ```
+  <KdfResponses responseKey="legacy/utils.BanPubkey" />
 </CollapsibleSection>

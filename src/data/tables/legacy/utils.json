@@ -1,4 +1,36 @@
 {
+  "BanPubkeyRequest": {
+    "data": [
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The secp256k1 pubkey (without prefix) to ban"
+      },
+      {
+        "parameter": "reason",
+        "type": "string",
+        "required": false,
+        "description": "Optional. Human-readable reason for banning"
+      },
+      {
+        "parameter": "duration_min",
+        "type": "integer (minutes)",
+        "required": false,
+        "description": "Optional. Duration of the ban in minutes. If omitted, ban persists until the node restarts"
+      }
+    ]
+  },
+  "BanPubkeyResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "Indicates whether the ban was successful"
+      }
+    ]
+  },
   "NoParams": {
     "data": [
       {

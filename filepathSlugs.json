@@ -2562,10 +2562,7 @@
     "arguments",
     "response",
     "examples",
-    "command",
-    "response-success",
-    "error-already-banned",
-    "error-invalid-pubkey"
+    "command"
   ],
   "src/pages/komodo-defi-framework/api/legacy/batch_requests/index.mdx": [
     "batch-requests",

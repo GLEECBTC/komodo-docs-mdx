@@ -46,6 +46,29 @@
       "legacy"
     ]
   },
+  "ban_pubkey": {
+    "errors_table": "N/A",
+    "examples": {
+      "BanPubkey": "Ban a pubkey"
+    },
+    "prerequisites": [],
+    "request_table": "BanPubkeyRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "BanPubkeyResponse",
+    "sequence": 237,
+    "tags": [
+      "legacy"
+    ]
+  },
   "coins_needed_for_kick_start": {
     "errors_table": "CoinsNeededForKickStartErrors",
     "examples": {
