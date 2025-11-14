@@ -594,6 +594,62 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 23797600,
+            "nfts_infos": {},
+            "ticker": "ETH",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "APE-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "ETH": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MINDS-ERC20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "APE-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "ETH": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MINDS-ERC20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -1111,6 +1167,62 @@
           "mmrpc": "2.0",
           "result": {
             "current_block": 79009615,
+            "nfts_infos": {},
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 79010328,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -1726,6 +1838,62 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "current_block": 79010341,
+            "nfts_infos": {},
+            "ticker": "MATIC",
+            "wallet_balance": {
+              "accounts": [
+                {
+                  "account_index": 0,
+                  "addresses": [
+                    {
+                      "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                      "balance": {
+                        "AAVE-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "MATIC": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        },
+                        "PGX-PLG20": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                        }
+                      },
+                      "chain": "External",
+                      "derivation_path": "m/44'/60'/0'/0/0"
+                    }
+                  ],
+                  "derivation_path": "m/44'/60'/0'",
+                  "total_balance": {
+                    "AAVE-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "MATIC": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    },
+                    "PGX-PLG20": {
+                      "spendable": "0",
+                      "unspendable": "0"
+                    }
+                  }
+                }
+              ],
+              "wallet_type": "HD"
+            }
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -1965,6 +2133,21 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "current_block": 32737280,
+            "ticker": "IRIS",
+            "tokens_tickers": [
+              "ATOM-IBC_IRIS"
+            ]
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -2181,6 +2364,28 @@
               "unspendable": "0"
             },
             "current_block": 32737043,
+            "ticker": "IRIS",
+            "tokens_balances": {
+              "ATOM-IBC_IRIS": {
+                "spendable": "0",
+                "unspendable": "0"
+              }
+            }
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
+            "balance": {
+              "spendable": "0",
+              "unspendable": "0"
+            },
+            "current_block": 32737281,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -2999,6 +3204,70 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "current_block": 5325022,
+              "ticker": "QTUM",
+              "wallet_balance": {
+                "accounts": [
+                  {
+                    "account_index": 0,
+                    "addresses": [
+                      {
+                        "address": "QdGumZkwdNhnh9qNtcmBT6jPqWXq74ieiu",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/1"
+                      },
+                      {
+                        "address": "QgZi2XMapaq2HLZZpZQo1BAXtGyRmXCm7K",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/0"
+                      },
+                      {
+                        "address": "QUA2EaaWbyaY7oDxRjZbshdEaigAGXmyTv",
+                        "balance": {
+                          "QTUM": {
+                            "spendable": "0",
+                            "unspendable": "0"
+                          }
+                        },
+                        "chain": "External",
+                        "derivation_path": "m/44'/2301'/0'/0/2"
+                      }
+                    ],
+                    "derivation_path": "m/44'/2301'/0'",
+                    "total_balance": {
+                      "QTUM": {
+                        "spendable": "0",
+                        "unspendable": "0"
+                      }
+                    }
+                  }
+                ],
+                "wallet_type": "HD"
+              }
+            },
+            "status": "Ok"
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -3568,6 +3837,26 @@
                 "unspendable": "0"
               },
               "current_block": 28413376,
+              "ticker": "ATOM",
+              "tokens_balances": {}
+            },
+            "status": "Ok"
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": {
+            "details": {
+              "address": "cosmos1hkg6p4lqnxardx2878clge6vjhfknf6s57ac92",
+              "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+              },
+              "current_block": 28413616,
               "ticker": "ATOM",
               "tokens_balances": {}
             },
