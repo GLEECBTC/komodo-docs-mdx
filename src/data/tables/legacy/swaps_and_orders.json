@@ -1,0 +1,30 @@
+{
+  "ActiveSwapsRequest": {
+    "data": [
+      {
+        "parameter": "include_status",
+        "type": "bool",
+        "required": false,
+        "description": "Optional, defaults to false. Whether to include swap statuses in response"
+      }
+    ]
+  },
+  "ActiveSwapsResponse": {
+    "data": [
+      {
+        "parameter": "uuids",
+        "type": "array of strings",
+        "required": true,
+        "description": "A list of currently active swap UUIDs"
+      },
+      {
+        "parameter": "statuses",
+        "type": "object (map)",
+        "required": false,
+        "description": "Only visible if include_status=true. Map of SwapStatus objects by UUID (see /komodo-defi-framework/api/common_structures/swaps/#swap-status)"
+      }
+    ]
+  }
+}
+
+

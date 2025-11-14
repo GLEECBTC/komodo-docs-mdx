@@ -83,6 +83,24 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "result": {
+            "current_block": 1312591,
+            "from_id": null,
+            "limit": 1,
+            "page_number": null,
+            "skipped": 0,
+            "sync_status": {
+              "state": "NotEnabled"
+            },
+            "total": 0,
+            "total_pages": 0,
+            "transactions": []
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -111,6 +129,24 @@
         "json": {
           "result": {
             "current_block": 1311216,
+            "from_id": "8f24729f566e2b08828ec3e9be34530ace752fe52fad62e8acb46a0090e65eb5",
+            "limit": 1,
+            "page_number": null,
+            "skipped": 1,
+            "sync_status": {
+              "state": "Finished"
+            },
+            "total": 1,
+            "total_pages": 1,
+            "transactions": []
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "result": {
+            "current_block": 1312591,
             "from_id": "8f24729f566e2b08828ec3e9be34530ace752fe52fad62e8acb46a0090e65eb5",
             "limit": 1,
             "page_number": null,
@@ -286,6 +322,24 @@
         "json": {
           "result": {
             "current_block": 23782482,
+            "from_id": null,
+            "limit": 3,
+            "page_number": null,
+            "skipped": 0,
+            "sync_status": {
+              "state": "NotEnabled"
+            },
+            "total": 0,
+            "total_pages": 0,
+            "transactions": []
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "result": {
+            "current_block": 23796431,
             "from_id": null,
             "limit": 3,
             "page_number": null,
@@ -500,6 +554,24 @@
       {
         "json": {
           "result": {
+            "current_block": 23796432,
+            "from_id": null,
+            "limit": 0,
+            "page_number": null,
+            "skipped": 0,
+            "sync_status": {
+              "state": "NotEnabled"
+            },
+            "total": 0,
+            "total_pages": 0,
+            "transactions": []
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "result": {
             "current_block": 8039935,
             "from_id": null,
             "limit": 0,
@@ -597,6 +669,24 @@
         "json": {
           "result": {
             "current_block": 1311216,
+            "from_id": null,
+            "limit": 0,
+            "page_number": null,
+            "skipped": 0,
+            "sync_status": {
+              "state": "NotEnabled"
+            },
+            "total": 0,
+            "total_pages": 0,
+            "transactions": []
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "result": {
+            "current_block": 1312591,
             "from_id": null,
             "limit": 0,
             "page_number": null,
@@ -852,6 +942,34 @@
           "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022003dad4021cda105b9eb4ff24142dcf34cf1e73ac9b3045997ba78e5e2f0410d202201a1edf942addbdcf5f5adec52932c20c7811207f65f2c8b17b569ba1a03c665d01210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac135e1469000000000000000000000000000000"
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "block_height": 0,
+          "coin": "DOC",
+          "fee_details": {
+            "amount": "0.0245",
+            "coin": "DOC",
+            "type": "Utxo"
+          },
+          "from": [
+            "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+          ],
+          "internal_id": "",
+          "memo": null,
+          "my_balance_change": "-1.0245",
+          "received_by_me": "6.5955",
+          "spent_by_me": "7.62",
+          "timestamp": 1763111256,
+          "to": [
+            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+          ],
+          "total_amount": "7.62",
+          "transaction_type": "StandardTransfer",
+          "tx_hash": "f4734d8b7bfbade0b51ffac1e5e4fd223a52ed8841ea5e7754dead8a2ecf9bc4",
+          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022074597e7516361305d62ea0763f16166426374fdd08e33849a87d51507e55960d022001f767e74aa76dda41cf9b7147096b3225fc637bb11e889ad6f5d90ec4a33df301210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac58f11669000000000000000000000000000000"
+        },
+        "title": "Success"
       }
     ]
   },
@@ -1020,6 +1138,34 @@
           "transaction_type": "StandardTransfer",
           "tx_hash": "5e8d4a4ccb34a96848409f148ecd54c1b4873927bf5476f9a926d28f20481f3a",
           "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a47304402201b5bb119ee99853f5d12f6fa450e7f227916f9fb97b44c9fc2db4def314ef22b022054b4383dbca61fe4fc57d2d49e151f313bbb981c80d65d304e5bed7348d91a9301210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac145e1469000000000000000000000000000000"
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "block_height": 0,
+          "coin": "DOC",
+          "fee_details": {
+            "amount": "0.245",
+            "coin": "DOC",
+            "type": "Utxo"
+          },
+          "from": [
+            "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+          ],
+          "internal_id": "",
+          "memo": null,
+          "my_balance_change": "-1.245",
+          "received_by_me": "6.375",
+          "spent_by_me": "7.62",
+          "timestamp": 1763111257,
+          "to": [
+            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+          ],
+          "total_amount": "7.62",
+          "transaction_type": "StandardTransfer",
+          "tx_hash": "3d31580d82ca04584d0acb724ffe76f4c0e25c6c0f6163dc83531bd92d0780d2",
+          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a4730440220715512ab3bafddb443c45b7250765bba6645634ecdcc3c7b6fc14201cc1a6252022001d712c78954e7b76f9e4b0453e444d4261c419549a24abd8f0350a18cbd0f4d01210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac59f11669000000000000000000000000000000"
         },
         "title": "Success"
       }

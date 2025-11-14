@@ -2545,9 +2545,7 @@
     "response",
     "examples",
     "command-without-include-status",
-    "response-uuids-only",
-    "command-include-status-true",
-    "response-statuses-included"
+    "command-include-status-true"
   ],
   "src/pages/komodo-defi-framework/api/legacy/all_swaps_uuids_by_filter/index.mdx": [
     "all-swaps-uuids-by-filter",

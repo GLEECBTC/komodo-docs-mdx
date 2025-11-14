@@ -1,0 +1,9 @@
+{
+  "ActiveSwaps": {
+    "method": "active_swaps"
+  },
+  "ActiveSwapsIncludeStatus": {
+    "include_status": true,
+    "method": "active_swaps"
+  }
+}

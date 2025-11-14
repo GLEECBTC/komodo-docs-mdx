@@ -349,6 +349,8 @@
   "get_raw_transaction": {
     "errors_table": "GetRawTransactionErrors",
     "examples": {
+      "GetRawTransactionDoc": "Get Raw Transaction Doc",
+      "GetRawTransactionEth": "Get Raw Transaction Eth",
       "GetRawTransactionSia": "Get raw Sia transaction"
     },
     "prerequisites": [],
@@ -415,28 +417,6 @@
     },
     "response_table": "SendRawTransactionResponse",
     "sequence": 240,
-    "tags": [
-      "v2"
-    ]
-  },
-  "validateaddress": {
-    "errors_table": "ValidateAddressErrors",
-    "examples": {
-      "ValidateAddress": "Validate Sia address"
-    },
-    "prerequisites": [],
-    "request_table": "ValidateAddressRequest",
-    "requirements": {
-      "environments": [
-        "native",
-        "wasm"
-      ],
-      "wallet_types": [
-        "iguana"
-      ]
-    },
-    "response_table": "ValidateAddressResponse",
-    "sequence": 250,
     "tags": [
       "v2"
     ]
@@ -1152,6 +1132,28 @@
     },
     "response_table": "WithdrawStatusResponse",
     "sequence": 223,
+    "tags": [
+      "v2"
+    ]
+  },
+  "validateaddress": {
+    "errors_table": "ValidateAddressErrors",
+    "examples": {
+      "ValidateAddress": "Validate Sia address"
+    },
+    "prerequisites": [],
+    "request_table": "ValidateAddressRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "ValidateAddressResponse",
+    "sequence": 250,
     "tags": [
       "v2"
     ]

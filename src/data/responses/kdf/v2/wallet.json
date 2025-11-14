@@ -586,6 +586,96 @@
           ]
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": [
+            {
+              "addresses": [
+                {
+                  "address": "zs1kzmm3n8ux0p0ssku699seasfpscwmths8v4vml9k8mgqxjhjejhqr5ugkway9z9h9r8k7f9kar3",
+                  "derivation_path": "m/44'/133'/0'",
+                  "priv_key": "secret-extended-key-main1qwyyyk73qqqqpq95c6xu8dzqmxwjc6hwgm400j56qwshjdetu7cd8zgzgcglg43q520j3ntw8ap0zuu90ljr7tuqh6ynxg0u0huyw6443z3yjjz492csgp9cffacgq3ncp5lc7dhyrdjlhdzqvlvgs6qrgvy9kfvxg09jgcdnj2zdnxedg39y66fr3gegmsvstjkzuraqh9y00tvcnmnaejmz7lqkqahx3vu70p28m62reurmz0x79szzzh5p2yeg4hf88rhlx3u3hs66c3s2",
+                  "pubkey": "",
+                  "viewing_key": "zxviews1qwyyyk73qqqqpq95c6xu8dzqmxwjc6hwgm400j56qwshjdetu7cd8zgzgcglg43q5g3v327uwyn0dhpeu7fs7jk0fa0lus7a8alnrqqh8gxkl5pua6ern0vc3xceq5vslhgt9lzjx9md853jnwm5pm8c926ef5t4qdqj6t4wnj2zdnxedg39y66fr3gegmsvstjkzuraqh9y00tvcnmnaejmz7lqkqahx3vu70p28m62reurmz0x79szzzh5p2yeg4hf88rhlx3u3hsl3mh2e",
+                  "z_derivation_path": "m/32'/133'/0"
+                }
+              ],
+              "coin": "ARRR"
+            },
+            {
+              "addresses": [
+                {
+                  "address": "cosmos1ehy9ncnal5dv7ydzmupngh2lftz2tkfdm84phc",
+                  "derivation_path": "m/44'/118'/0'/0/1",
+                  "priv_key": "8f921063fe8893525908470ea254c4ebce9c3735e0844de19bd1343474a1b9f9",
+                  "pubkey": "020912a98b604463c91a60c9512fa858a003a4d5380e05b38f56764672e5c414df"
+                },
+                {
+                  "address": "cosmos1hkg6p4lqnxardx2878clge6vjhfknf6s57ac92",
+                  "derivation_path": "m/44'/118'/0'/0/0",
+                  "priv_key": "bb1495023671d607e30c52b085706c87db3e9133d3826d9337b80f094af3d147",
+                  "pubkey": "0339d31bbc2b130371ff830b1af26de3eb3b1152a4f90abd0cf0b4d3bc974a93b4"
+                }
+              ],
+              "coin": "ATOM"
+            },
+            {
+              "addresses": [
+                {
+                  "address": "0x2AFB7a2d7b122D14366E114d17078d7B27383970",
+                  "derivation_path": "m/44'/60'/0'/0/1",
+                  "priv_key": "0x31c8f1844906139ecba4c8ea4d0ab22f2f6a6d9baf6b6e5f9655e578dfcc4717",
+                  "pubkey": "0xd7f114222b3e3a753df8237d6c51a000a13df2c3740287c27dd6b1f80dd0abec287135edc23ab001511412e1a8b6d2b2bc9976e6beb699c40efe8e4b0399af38"
+                },
+                {
+                  "address": "0xAEeF0f62Ff189D1e4B1b62E7efF453b15d32886f",
+                  "derivation_path": "m/44'/60'/0'/0/0",
+                  "priv_key": "0x37a37c2db4d5fb22cb93c593dde0ef2fecd3fc862dae9d1ff9ea9eb984968fa9",
+                  "pubkey": "0x77e368739cf5f8c55acf8ddfcc8b06d7dc591aa44a0cbe69c66e1e0fd5f094cd6cdea840ae143e071615f1c386dec6da9a1c33a6907b6c807c247594c3ef9051"
+                }
+              ],
+              "coin": "ETH"
+            },
+            {
+              "addresses": [
+                {
+                  "address": "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5",
+                  "derivation_path": "m/44'/141'/0'/0/0",
+                  "priv_key": "UxEBdQAQyqJyAgpFgALQwjkbq7jL73TvBMqpyHrXRjbrHSgzKLeq",
+                  "pubkey": "033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1c"
+                },
+                {
+                  "address": "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa",
+                  "derivation_path": "m/44'/141'/0'/0/1",
+                  "priv_key": "Ur4kSNs8pBMMUnuv2yoS4T2GRrTQ42UpUu6bjs9TYEXNd5fbUvvi",
+                  "pubkey": "0339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6"
+                }
+              ],
+              "coin": "KMD"
+            },
+            {
+              "addresses": [
+                {
+                  "address": "ltc1qfmtyjrvvavs3xffn4ntythp92cxpqzvmsae8mz",
+                  "derivation_path": "m/84'/2'/0'/0/0",
+                  "priv_key": "T4PiLD88Gm3r2HaeJZnK7KbGVCGeb3XMzRudG6y4FcFtnLJKoEQS",
+                  "pubkey": "039b72983e890af8ec22e8bd530e40b12b1eea4d16ae4b8008f62a7df85c7501fc"
+                },
+                {
+                  "address": "ltc1qv3tlup2kkyqgyskktcvp33872pxzw3t6re0s42",
+                  "derivation_path": "m/84'/2'/0'/0/1",
+                  "priv_key": "T4Qe9PQCe1wV5DgD1n6zSeP74qe8fxDjAFcyTnsPsAAEqoRu9JAs",
+                  "pubkey": "028411bf828cbcece736a4e1c23c6a0641eeb11f0e38e5e75314d614e7888c87a2"
+                }
+              ],
+              "coin": "LTC-segwit"
+            }
+          ]
+        },
+        "title": "Success"
       }
     ]
   },
@@ -807,6 +897,46 @@
           ]
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": null,
+          "mmrpc": "2.0",
+          "result": [
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "coin": "ETH",
+              "priv_key": "0x9066762458bf44c701d8fd9f592254166cb7b680e95f0b9d0b82bae32c7a8167",
+              "pubkey": "0x88533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4c2c88524377452dd615ad296399043265c24d3fa8b9f2a6b89f1db78ba0e6baf"
+            },
+            {
+              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
+              "coin": "ATOM",
+              "priv_key": "9066762458bf44c701d8fd9f592254166cb7b680e95f0b9d0b82bae32c7a8167",
+              "pubkey": "0388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4"
+            },
+            {
+              "address": "LPriJnGd14ZT6HC2vAU4JEC6TZDEsPd73u",
+              "coin": "LTC-segwit",
+              "priv_key": "T7tfx3ogYSrxZuUgYfzDNw1sAkHZGa4DzRRicJuckWB8z988TXxH",
+              "pubkey": "0388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4"
+            },
+            {
+              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+              "coin": "KMD",
+              "priv_key": "UtrEoz8UeHrcG7duBaivw29i9xhPHbJwwiuHKm4keFDgN7Ueduv7",
+              "pubkey": "0388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4"
+            },
+            {
+              "address": "zs16g3ghhppmrtfw2mvca6zar65nk87vfventucjjyslwcaqpreq67mrph9ngzayklmqt4dgf7ntuq",
+              "coin": "ARRR",
+              "priv_key": "secret-extended-key-main1qqqqqqqqqqqqqqxclwzn838nz8mshqywdxzd4s8wpv559rvs53xyfu6dhuhhl0k9vn8sgzq3pymlk6k5szyuzvt9ze8cpqn9wgw02ya2e0h0hadyujsqhnssv63j2ld4sh92qm4zyn6ham56czsf25zgk8jtwrakukvfavst5u8thk23x6e6zyp5p27tr9yerzua46wvqcu6kwea3ktxm44f3v4arnrqvhwrgjj8lncvs7ersx642asxzclkxatfnmaj9n4gfjrx4zsvcyusf",
+              "pubkey": "",
+              "viewing_key": "zxviews1qqqqqqqqqqqqqqxclwzn838nz8mshqywdxzd4s8wpv559rvs53xyfu6dhuhhl0k9vjw8erw00752g4c3wjhe27qp5hc2e7458qhz6x3rt0x53e65mmwgwfkrd3ang52e0m6puh003vvrg7ylrllmpkf2xq8yaa70yqscy0w45u8thk23x6e6zyp5p27tr9yerzua46wvqcu6kwea3ktxm44f3v4arnrqvhwrgjj8lncvs7ersx642asxzclkxatfnmaj9n4gfjrx4zsd3xsef"
+            }
+          ]
+        },
+        "title": "Success"
       }
     ]
   },
@@ -814,44 +944,44 @@
     "error": [
       {
         "json": {
-          "id": 0,
-          "mmrpc": "2.0",
-          "error": "No such coin KMD",
-          "error_path": "lp_coins",
-          "error_trace": "lp_coins:2234] lp_coins:2156]",
-          "error_type": "NoSuchCoin",
-          "error_data": {
-            "coin": "KMD"
-          },
-          "hint": "If you don't have a known tx_hash, check postman/generated/reports/test_data.json for sample addresses and known_txids (e.g., DOC). You can also use my_tx_history to discover txids for enabled coins."
+          "error": "Internal error: eth:3221] Crypto error (Invalid EC signature)",
+          "error_data": "eth:3221] Crypto error (Invalid EC signature)",
+          "error_path": "eth",
+          "error_trace": "eth:543]",
+          "error_type": "InternalError",
+          "hint": "Verify the tx_hash and that the coin is enabled and synced. If you need a known-good tx for testing, prefer DOC from test_data.json.",
+          "id": 1,
+          "mmrpc": "2.0"
         },
-        "title": "Error (no such coin)"
+        "title": "Error (internal)"
       },
       {
         "json": {
-          "id": 1,
-          "mmrpc": "2.0",
           "error": "Invalid  hash: Invalid input length",
+          "error_data": "Invalid input length",
           "error_path": "utxo_common",
           "error_trace": "utxo_common:1809]",
           "error_type": "InvalidHashError",
-          "error_data": "Invalid input length",
-          "hint": "Provide a valid tx_hash. For testable values, see postman/generated/reports/test_data.json under native-hd.DOC.addresses[...].known_txids, or fetch via my_tx_history."
+          "hint": "Provide a valid tx_hash. For testable values, see postman/generated/reports/test_data.json under native-hd.DOC.addresses[...].known_txids, or fetch via my_tx_history.",
+          "id": 1,
+          "mmrpc": "2.0"
         },
         "title": "Error (invalid hash)"
       },
       {
         "json": {
-          "id": 1,
-          "mmrpc": "2.0",
-          "error": "Internal error: eth:3221] Crypto error (Invalid EC signature)",
-          "error_path": "eth",
-          "error_trace": "eth:543]",
-          "error_type": "InternalError",
-          "error_data": "eth:3221] Crypto error (Invalid EC signature)",
-          "hint": "Verify the tx_hash and that the coin is enabled and synced. If you need a known-good tx for testing, prefer DOC from test_data.json."
+          "error": "No such coin KMD",
+          "error_data": {
+            "coin": "KMD"
+          },
+          "error_path": "lp_coins",
+          "error_trace": "lp_coins:2234] lp_coins:2156]",
+          "error_type": "NoSuchCoin",
+          "hint": "If you don't have a known tx_hash, check postman/generated/reports/test_data.json for sample addresses and known_txids (e.g., DOC). You can also use my_tx_history to discover txids for enabled coins.",
+          "id": 0,
+          "mmrpc": "2.0"
         },
-        "title": "Error (internal)"
+        "title": "Error (no such coin)"
       }
     ],
     "success": [
@@ -861,6 +991,36 @@
           "mmrpc": "2.0",
           "result": {
             "tx_hex": "7b22736961636f696e496e70757473223a5b5d2c22736961636f696e4f757470757473223a5b5d2c226d696e6572466565223a2231303030303030303030303030303030303030227d"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "GetRawTransactionDoc": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "id": 1,
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "0400008085202f89011467e2ce7d17db3e6395a60db08efff0a27d6d2b54506cbf8e1b3b7b8a030a8c010000006a473044022048ac9a4f1b1aaef543646a730d4591a725fc14aa48d4066b874a20c73fba367302203ad294200a225a68e1a9ab2d3a8c6c45f6597301956c08f0a755ab09bb3b1a6701210256ff87ec3932bd96295da537ad0b53b810ff5f8c7b504d384d7f0e5a77d6133bffffffff0280326b2d000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88acf77bc716710100001976a914e94bcee21766f42c2470a8ee6a28ad52dd9f2f8288ac1e9fcb68000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "GetRawTransactionEth": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "id": 1,
+          "mmrpc": "2.0",
+          "result": {
+            "tx_hex": "f86e8227578503b6ed90e6825208943faaa59e42f616f859d5771cbc07a99412ae44b288026fe9cb1ec6e9a08026a08e04accc3733376cf7b8f8d51c8398fd244fca736277053a7e87093f6db67708a069cc7dbc57094c4cca7828e6f8d92a8221c457ac7b5d0b0562e9d8896f75d1a5"
           }
         },
         "title": "Success"
@@ -1455,6 +1615,38 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "DOC",
+            "fee_details": {
+              "amount": "0.0245",
+              "coin": "DOC",
+              "type": "Utxo"
+            },
+            "from": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-1.0245",
+            "received_by_me": "6.5955",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111210,
+            "to": [
+              "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "d5c0a3129e54c2eb57d67fddb333846aa50bc076a5211af9df43c3e984f875d8",
+            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022059f596d477902cb55935a4965ea3df12ace10fe16a22606a09dd44509ab7cbc70220163bde9dc0b4168740b26d6bf72d2cba44c3227348a2d556997ebd58c92d744901210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac2af11669000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -1647,6 +1839,38 @@
             "transaction_type": "StandardTransfer",
             "tx_hash": "a0ae0747106604245a12d211e34c9e70c6d5e975cdc8b40595ea800de0acbf4c",
             "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a47304402207fd26f79bfcb7dd0ae6721e802c701a9482c4077aeb68c4503e0de82234bd03302206d70593975786e9c2492231598875a9ba8b6f6136523caf4b6392c6e66bfbdc601210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ace75d1469000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "DOC",
+            "fee_details": {
+              "amount": "0.245",
+              "coin": "DOC",
+              "type": "Utxo"
+            },
+            "from": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-1.245",
+            "received_by_me": "6.375",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111212,
+            "to": [
+              "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "0e83cde577b4809e799fe467b013ea109ffc9800fe1e63005ff4c53cb44b728a",
+            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a47304402203239b73adf32cf4d9abae9aaa425295d02f3b0bf7969bceadb11dc1acd4c135e02200885e01ab6759dec3ead6c66606d38e203591c104b62ed3ac79edab53066126501210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac2cf11669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -2036,6 +2260,38 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.01000245",
+            "received_by_me": "7.60999755",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111222,
+            "to": [
+              "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "eed1d2d6447e363cca19d96193afd8b5dceb4e37ff452f22bb93ef4ff6d2a092",
+            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a473044022068762ca0622f724df2516076286a9f061ce5b18dfe09eecb5da98bbcda9d726b02202072699aaeaa78bd3c68c76f2bd56bfd857b64bd1b5d2da709b27d57c576cd2901210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac36f11669000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -2198,6 +2454,38 @@
             "transaction_type": "StandardTransfer",
             "tx_hash": "46d2afb5020caa4d5a96ae84536ee3f9425216c3fbbbebb15f9a0922eb05bd14",
             "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a47304402200fea0e38a94730f9b776f094d0675b50437d0dc95abe5a8d577cd38dfff067830220420fa4b3645d29cb0357b83154becfb9835b082f3db99a6667706bac2ab884c00121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88acf25d1469000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-1.02500245",
+            "received_by_me": "6.59499755",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111223,
+            "to": [
+              "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "571383f8e4ac00497bbe5df0d79fba41252490cff6370fbf783e9e6af57b7944",
+            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a47304402206c52b5f3a38e415f6826a3fd7005f123b00171c6c01e39836beaef07a145daf802200fea5303eecf588e0159b5d6f0c91f70a0e600859dc96ecd5dd6a0159f05aeba0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac37f11669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -2366,6 +2654,38 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.0245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-1.0245",
+            "received_by_me": "6.5955",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111224,
+            "to": [
+              "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "8a56c8f321347c1328b6a06b0960848eec96edff975005fa966941c362ea2a61",
+            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a4730440220792e187c84f5882171c66554cd063302675060333248041dfa56ab5f12759059022007d8a21e6906edda9e9829caa9723f6844444fc7911c8422b35dc4a89a842c0e0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac30ef4f27000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac38f11669000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -2531,6 +2851,38 @@
           }
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.00000245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.00000245",
+            "received_by_me": "7.61999755",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111225,
+            "to": [
+              "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "0b53e24ad6319c67e6c285ff3b3217c37b0fff1cd1f1a42baf28f01c20ab06b7",
+            "tx_hex": "0400008085202f8901c9167df1d7940449b58ce7b0705724190ede7189ec74bee1eaf3e3b9224e7315000000006a47304402207151f6a958636fae8a7235ba6ca0a5cee6218cf4669aa316f6cabe21afd8559102205473505943e6108675e4957db3e21f108e83e78e8dc69789b6d82f38da62230301210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0280969800000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac0b9bd22c000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac39f11669000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
       }
     ]
   },
@@ -2693,6 +3045,38 @@
             "transaction_type": "StandardTransfer",
             "tx_hash": "1a325d6458d84f749659e92a50f5c2040e2aa24d7f6bcba4c7df4493689dd798",
             "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a4730440220086c0e4366b984c0decbe79095caf93ca9ea6cbbb302f54283435fafea762f5702202b54f435f305b2623af0cf86286db171df5875a01933a4668a62afc5a92bd40a0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac607aff25000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88acf55d1469000000000000000000000000000000"
+          }
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "id": 0,
+          "mmrpc": "2.0",
+          "result": {
+            "block_height": 0,
+            "coin": "MARTY",
+            "fee_details": {
+              "amount": "0.245",
+              "coin": "MARTY",
+              "type": "Utxo"
+            },
+            "from": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "internal_id": "",
+            "memo": null,
+            "my_balance_change": "-0.245",
+            "received_by_me": "7.375",
+            "spent_by_me": "7.62",
+            "timestamp": 1763111226,
+            "to": [
+              "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
+            ],
+            "total_amount": "7.62",
+            "transaction_type": "StandardTransfer",
+            "tx_hash": "f550856ce078f3b657960115db1e214aa3c9164f47d5ddb3c7b0f08a33b55c8f",
+            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a473044022050bbda4d75cdd5603ed10ce063224dc243c8519f80d73ff616558ed0d93a16e002205ce417223f39a828736ff81b1fece2155f47ff73fb3701112a97a9219727fd750121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac607aff25000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac3af11669000000000000000000000000000000"
           }
         },
         "title": "Success"
