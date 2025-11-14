@@ -603,6 +603,77 @@
           ]
         },
         "title": "Success"
+      },
+      {
+        "json": {
+          "result": [
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "APE-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "AAVE-PLG20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "NFT_MATIC"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "BAT-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "ETH"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "NZDS-PLG20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "BUSD-BEP20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "MATIC"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "MINDS-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "PGX-PLG20"
+            },
+            {
+              "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
+              "ticker": "BCH"
+            },
+            {
+              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
+              "ticker": "ATOM"
+            },
+            {
+              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+              "ticker": "IRIS"
+            },
+            {
+              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
+              "ticker": "ATOM-IBC_IRIS"
+            },
+            {
+              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+              "ticker": "MARTY"
+            },
+            {
+              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
+              "ticker": "DOC"
+            }
+          ]
+        },
+        "title": "Success"
       }
     ]
   },
@@ -661,6 +732,12 @@
       {
         "json": {
           "result": "12D3KooWDSDJp2v51L2QoqTLzN6Nsk73a9EkC9dYqgoVYBkaEJ81"
+        },
+        "title": "Success"
+      },
+      {
+        "json": {
+          "result": "12D3KooWA8T1Zv14zjKbeg7RnujLCao9N4kNGNUBcCkK4ZjQgudd"
         },
         "title": "Success"
       }

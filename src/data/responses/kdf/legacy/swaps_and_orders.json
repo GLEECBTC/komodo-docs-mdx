@@ -3,19 +3,26 @@
     "error": [],
     "success": [
       {
-        "title": "Response (uuids only)",
-        "notes": "",
         "json": {
           "result": {
+            "statuses": null,
             "uuids": [
               "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+              "177f7fa5-c9f3-4673-a2fa-28451a123e61",
               "7592a07a-2805-4050-8ab8-984480e812f0",
-              "82cbad96-ea9f-40fb-9225-07496323e35d",
-              "177f7fa5-c9f3-4673-a2fa-28451a123e61"
-            ],
-            "statuses": null
+              "82cbad96-ea9f-40fb-9225-07496323e35d"
+            ]
           }
-        }
+        },
+        "notes": "",
+        "title": "Response (uuids only)"
+      },
+      {
+        "json": {
+          "statuses": null,
+          "uuids": []
+        },
+        "title": "Success"
       }
     ]
   },
@@ -23,110 +30,117 @@
     "error": [],
     "success": [
       {
-        "title": "Response (statuses included)",
-        "notes": "",
         "json": {
           "result": {
-            "uuids": [
-              "44798382-8c63-4047-b5d8-70a60fa2546b"
-            ],
             "statuses": {
               "44798382-8c63-4047-b5d8-70a60fa2546b": {
-                "type": "Taker",
-                "uuid": "44798382-8c63-4047-b5d8-70a60fa2546b",
-                "my_order_uuid": "44798382-8c63-4047-b5d8-70a60fa2546b",
-                "events": [
-                  {
-                    "timestamp": 1730634185287,
-                    "event": {
-                      "type": "Started",
-                      "data": {
-                        "taker_coin": "MARTY",
-                        "maker_coin": "DOC",
-                        "maker": "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
-                        "my_persistent_pub": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
-                        "lock_duration": 7800,
-                        "maker_amount": "2.4",
-                        "taker_amount": "2.4",
-                        "maker_payment_confirmations": 1,
-                        "maker_payment_requires_nota": false,
-                        "taker_payment_confirmations": 1,
-                        "taker_payment_requires_nota": false,
-                        "taker_payment_lock": 1730641984,
-                        "uuid": "44798382-8c63-4047-b5d8-70a60fa2546b",
-                        "started_at": 1730634184,
-                        "maker_payment_wait": 1730637304,
-                        "maker_coin_start_block": 803893,
-                        "taker_coin_start_block": 818506,
-                        "fee_to_send_taker_fee": {
-                          "coin": "MARTY",
-                          "amount": "0.00001",
-                          "paid_from_trading_vol": false
-                        },
-                        "taker_payment_trade_fee": {
-                          "coin": "MARTY",
-                          "amount": "0.00001",
-                          "paid_from_trading_vol": false
-                        },
-                        "maker_payment_spend_trade_fee": {
-                          "coin": "DOC",
-                          "amount": "0.00001",
-                          "paid_from_trading_vol": true
-                        },
-                        "maker_coin_htlc_pubkey": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
-                        "taker_coin_htlc_pubkey": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
-                        "p2p_privkey": null
-                      }
-                    }
-                  }
-                ],
-                "maker_amount": "2.4",
-                "maker_coin": "DOC",
-                "maker_coin_usd_price": null,
-                "taker_amount": "2.4",
-                "taker_coin": "MARTY",
-                "taker_coin_usd_price": null,
-                "gui": "mm2_777",
-                "mm_version": "2.2.0-beta_caf803b",
-                "success_events": [
-                  "Started",
-                  "Negotiated",
-                  "TakerFeeSent",
-                  "TakerPaymentInstructionsReceived",
-                  "MakerPaymentReceived",
-                  "MakerPaymentWaitConfirmStarted",
-                  "MakerPaymentValidatedAndConfirmed",
-                  "TakerPaymentSent",
-                  "WatcherMessageSent",
-                  "TakerPaymentSpent",
-                  "MakerPaymentSpent",
-                  "MakerPaymentSpentByWatcher",
-                  "MakerPaymentSpendConfirmed",
-                  "Finished"
-                ],
                 "error_events": [
-                  "StartFailed",
-                  "NegotiateFailed",
-                  "TakerFeeSendFailed",
+                  "MakerPaymentSpendConfirmFailed",
+                  "MakerPaymentSpendFailed",
                   "MakerPaymentValidateFailed",
                   "MakerPaymentWaitConfirmFailed",
-                  "TakerPaymentTransactionFailed",
-                  "TakerPaymentWaitConfirmFailed",
+                  "NegotiateFailed",
+                  "StartFailed",
+                  "TakerFeeSendFailed",
                   "TakerPaymentDataSendFailed",
-                  "TakerPaymentWaitForSpendFailed",
-                  "MakerPaymentSpendFailed",
-                  "MakerPaymentSpendConfirmFailed",
-                  "TakerPaymentWaitRefundStarted",
-                  "TakerPaymentRefundStarted",
                   "TakerPaymentRefunded",
                   "TakerPaymentRefundedByWatcher",
                   "TakerPaymentRefundFailed",
-                  "TakerPaymentRefundFinished"
-                ]
+                  "TakerPaymentRefundFinished",
+                  "TakerPaymentRefundStarted",
+                  "TakerPaymentTransactionFailed",
+                  "TakerPaymentWaitConfirmFailed",
+                  "TakerPaymentWaitForSpendFailed",
+                  "TakerPaymentWaitRefundStarted"
+                ],
+                "events": [
+                  {
+                    "event": {
+                      "data": {
+                        "fee_to_send_taker_fee": {
+                          "amount": "0.00001",
+                          "coin": "MARTY",
+                          "paid_from_trading_vol": false
+                        },
+                        "lock_duration": 7800,
+                        "maker": "15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732",
+                        "maker_amount": "2.4",
+                        "maker_coin": "DOC",
+                        "maker_coin_htlc_pubkey": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
+                        "maker_coin_start_block": 803893,
+                        "maker_payment_confirmations": 1,
+                        "maker_payment_requires_nota": false,
+                        "maker_payment_spend_trade_fee": {
+                          "amount": "0.00001",
+                          "coin": "DOC",
+                          "paid_from_trading_vol": true
+                        },
+                        "maker_payment_wait": 1730637304,
+                        "my_persistent_pub": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
+                        "p2p_privkey": null,
+                        "started_at": 1730634184,
+                        "taker_amount": "2.4",
+                        "taker_coin": "MARTY",
+                        "taker_coin_htlc_pubkey": "034cbf74541c1d3436bc7638a2738f64df4fee22d4443cdf11d54cea7d7f55f256",
+                        "taker_coin_start_block": 818506,
+                        "taker_payment_confirmations": 1,
+                        "taker_payment_lock": 1730641984,
+                        "taker_payment_requires_nota": false,
+                        "taker_payment_trade_fee": {
+                          "amount": "0.00001",
+                          "coin": "MARTY",
+                          "paid_from_trading_vol": false
+                        },
+                        "uuid": "44798382-8c63-4047-b5d8-70a60fa2546b"
+                      },
+                      "type": "Started"
+                    },
+                    "timestamp": 1730634185287
+                  }
+                ],
+                "gui": "mm2_777",
+                "maker_amount": "2.4",
+                "maker_coin": "DOC",
+                "maker_coin_usd_price": null,
+                "mm_version": "2.2.0-beta_caf803b",
+                "my_order_uuid": "44798382-8c63-4047-b5d8-70a60fa2546b",
+                "success_events": [
+                  "Finished",
+                  "MakerPaymentReceived",
+                  "MakerPaymentSpendConfirmed",
+                  "MakerPaymentSpent",
+                  "MakerPaymentSpentByWatcher",
+                  "MakerPaymentValidatedAndConfirmed",
+                  "MakerPaymentWaitConfirmStarted",
+                  "Negotiated",
+                  "Started",
+                  "TakerFeeSent",
+                  "TakerPaymentInstructionsReceived",
+                  "TakerPaymentSent",
+                  "TakerPaymentSpent",
+                  "WatcherMessageSent"
+                ],
+                "taker_amount": "2.4",
+                "taker_coin": "MARTY",
+                "taker_coin_usd_price": null,
+                "type": "Taker",
+                "uuid": "44798382-8c63-4047-b5d8-70a60fa2546b"
               }
-            }
+            },
+            "uuids": [
+              "44798382-8c63-4047-b5d8-70a60fa2546b"
+            ]
           }
-        }
+        },
+        "notes": "",
+        "title": "Response (statuses included)"
+      },
+      {
+        "json": {
+          "statuses": {},
+          "uuids": []
+        },
+        "title": "Success"
       }
     ]
   },
@@ -134,26 +148,78 @@
     "error": [],
     "success": [
       {
-        "title": "Response (success)",
-        "notes": "",
         "json": {
           "result": {
-            "uuids": [
-              "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
-              "7592a07a-2805-4050-8ab8-984480e812f0",
-              "82cbad96-ea9f-40fb-9225-07496323e35d",
-              "177f7fa5-c9f3-4673-a2fa-28451a123e61"
-            ],
+            "found_records": 4,
+            "from_timestamp": null,
             "my_coin": "DOC",
             "other_coin": "MARTY",
-            "from_timestamp": null,
             "to_timestamp": null,
-            "found_records": 4
+            "uuids": [
+              "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
+              "177f7fa5-c9f3-4673-a2fa-28451a123e61",
+              "7592a07a-2805-4050-8ab8-984480e812f0",
+              "82cbad96-ea9f-40fb-9225-07496323e35d"
+            ]
           }
-        }
+        },
+        "notes": "",
+        "title": "Response (success)"
+      }
+    ]
+  },
+  "AllSwapsUuidsByFilterDateRange": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "result": {
+            "found_records": 0,
+            "from_timestamp": 1611705600,
+            "my_coin": "DOC",
+            "other_coin": null,
+            "to_timestamp": 1611792001,
+            "uuids": []
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "AllSwapsUuidsByFilterFromTimestamp": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "result": {
+            "found_records": 0,
+            "from_timestamp": 1611705600,
+            "my_coin": "DOC",
+            "other_coin": null,
+            "to_timestamp": null,
+            "uuids": []
+          }
+        },
+        "title": "Success"
+      }
+    ]
+  },
+  "AllSwapsUuidsByFilterMyAndOtherCoin": {
+    "error": [],
+    "success": [
+      {
+        "json": {
+          "result": {
+            "found_records": 0,
+            "from_timestamp": null,
+            "my_coin": "DOC",
+            "other_coin": "MARTY",
+            "to_timestamp": null,
+            "uuids": []
+          }
+        },
+        "title": "Success"
       }
     ]
   }
 }
-
-
