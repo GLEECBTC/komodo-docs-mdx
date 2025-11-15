@@ -1596,13 +1596,22 @@ class KdfResponseManager:
                     entry = {"error": [], "success": []}
                     responses_data[request_key] = entry
                 success_list = entry.setdefault("success", [])
-                # Prepare success item
                 item = {"title": "Success", "json": canonical_response}
-                # Deduplicate by JSON content
-                exists = any(isinstance(x, dict) and x.get("json") == canonical_response for x in success_list)
-                if not exists:
-                    success_list.append(item)
-                    # Save back
+                
+                # We only keep a single canonical success entry per request to avoid runaway duplication.
+                # Replace existing content if it's different or if multiple entries are present.
+                should_replace = False
+                if not success_list:
+                    should_replace = True
+                elif len(success_list) != 1:
+                    should_replace = True
+                else:
+                    existing = success_list[0] if isinstance(success_list[0], dict) else {}
+                    if existing.get("json") != canonical_response or existing.get("title") != item["title"]:
+                        should_replace = True
+                
+                if should_replace:
+                    entry["success"] = [item]
                     dump_sorted_json(responses_data, resp_path)
                     updated += 1
                     self.logger.info(f"✅ Updated {resp_path.name} with {request_key}")

@@ -92,6 +92,50 @@
         "description": "Number of UUIDs that match the selected filters"
       }
     ]
+  },
+  "BestOrdersRequest": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin to price orders for"
+      },
+      {
+        "parameter": "action",
+        "type": "string",
+        "required": true,
+        "description": "Use \"buy\" to request liquidity to acquire the coin, or \"sell\" to offer the coin"
+      },
+      {
+        "parameter": "volume",
+        "type": "string (decimal)",
+        "required": true,
+        "description": "Amount of `coin` that must be filled by the returned orders"
+      },
+      {
+        "parameter": "exclude_mine",
+        "type": "bool",
+        "required": false,
+        "description": "Optional. Defaults to false. If true, exclude the node's own orders from the response"
+      }
+    ]
+  },
+  "BestOrdersResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "object (map)",
+        "required": true,
+        "description": "Map of `ticker` -> array of standard OrderDataV1 objects representing the best priced counterparties (see /komodo-defi-framework/api/common_structures/orders/#order-data-v1)"
+      },
+      {
+        "parameter": "result.original_tickers",
+        "type": "object (map)",
+        "required": false,
+        "description": "Present when `orderbook_ticker` remaps a coin. Each key is the canonical ticker and the value is a list of original tickers that appear in the response"
+      }
+    ]
   }
 }
 

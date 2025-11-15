@@ -69,6 +69,29 @@
       "legacy"
     ]
   },
+  "best_orders": {
+    "errors_table": "N/A",
+    "examples": {
+      "BestOrders": "Get best orders for a coin"
+    },
+    "prerequisites": [],
+    "request_table": "BestOrdersRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "BestOrdersResponse",
+    "sequence": 238,
+    "tags": [
+      "legacy"
+    ]
+  },
   "coins_needed_for_kick_start": {
     "errors_table": "CoinsNeededForKickStartErrors",
     "examples": {

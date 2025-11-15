@@ -2577,8 +2577,7 @@
     "arguments",
     "response",
     "examples",
-    "command",
-    "response-success"
+    "command"
   ],
   "src/pages/komodo-defi-framework/api/legacy/buy/index.mdx": [
     "buy",

@@ -26,5 +26,12 @@
     "my_coin": "DOC",
     "other_coin": "MARTY",
     "userpass": "RPC_UserP@SSW0RD"
+  },
+  "BestOrders": {
+    "action": "buy",
+    "coin": "BTC",
+    "method": "best_orders",
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": "1"
   }
 }
