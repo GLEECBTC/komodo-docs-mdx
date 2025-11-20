@@ -542,12 +542,34 @@ class ActivationRequestBuilder:
 
     def _build_sia_activation(self, ticker: str, protocol_info: CoinProtocolInfo) -> ActivationRequest:
         """Build SIA coin activation request."""
+        # Resolve server URL from coins config nodes (fallback to default legacy URL)
+
+        def _extract_node_urls(nodes: Optional[List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+            extracted: List[Dict[str, Any]] = []
+            if isinstance(nodes, list):
+                for node in nodes:
+                    if isinstance(node, dict) and node.get("url"):
+                        extracted.append(node)
+            return extracted
+
+        available_nodes = _extract_node_urls(protocol_info.nodes)
+
+        if not available_nodes:
+            coin_config = self.coins_config.get_coin_config(ticker)
+            if isinstance(coin_config, dict):
+                available_nodes = _extract_node_urls(coin_config.get("nodes"))
+        server_url = None
+        if available_nodes:
+            selected_nodes = self._select_preferred_servers(available_nodes, max_count=1)
+            if selected_nodes and selected_nodes[0].get("url"):
+                server_url = selected_nodes[0]["url"]
+
         # Use params aligned with v2 request template
         params = {
             "activation_params": {
                 "client_conf": {
                     "headers": {},
-                    "server_url": "https://sia-walletd.komodo.earth/"
+                    "server_url": server_url
                 },
                 "required_confirmations": 3,
                 "tx_history": True
