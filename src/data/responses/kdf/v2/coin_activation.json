@@ -39,7 +39,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23797949,
+            "current_block": 23803255,
             "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
@@ -100,7 +100,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 79012419,
+            "current_block": 79044374,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -161,7 +161,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 79012455,
+            "current_block": 79044494,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -306,7 +306,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 32737984,
+            "current_block": 32748731,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -330,7 +330,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 32737985,
+            "current_block": 32748732,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -576,7 +576,7 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 5325160,
+              "current_block": 5327163,
               "ticker": "QTUM",
               "wallet_balance": {
                 "accounts": [
@@ -1013,7 +1013,7 @@
                 "spendable": "0",
                 "unspendable": "0"
               },
-              "current_block": 28414325,
+              "current_block": 28425151,
               "ticker": "ATOM",
               "tokens_balances": {}
             },

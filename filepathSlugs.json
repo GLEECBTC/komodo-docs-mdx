@@ -2593,10 +2593,7 @@
     "command-fill-or-kill-type",
     "command-match-by-any",
     "command-match-by-pubkeys",
-    "command-match-by-orders",
-    "response-success",
-    "response-error",
-    "response-error-2"
+    "command-match-by-orders"
   ],
   "src/pages/komodo-defi-framework/api/legacy/cancel_all_orders/index.mdx": [
     "cancel-all-orders",

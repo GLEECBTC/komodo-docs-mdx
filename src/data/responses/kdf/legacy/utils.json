@@ -44,23 +44,7 @@
           "result": [
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "ETH"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MATIC"
+              "ticker": "BAT-ERC20"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -68,19 +52,35 @@
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
+              "ticker": "APE-ERC20"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
+              "ticker": "ETH"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BAT-ERC20"
+              "ticker": "MATIC"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "NFT_MATIC"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "NZDS-PLG20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "MINDS-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "BUSD-BEP20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "AAVE-PLG20"
             },
             {
               "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
@@ -92,11 +92,11 @@
             },
             {
               "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "IRIS"
+              "ticker": "ATOM-IBC_IRIS"
             },
             {
               "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "ATOM-IBC_IRIS"
+              "ticker": "IRIS"
             },
             {
               "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
@@ -117,7 +117,7 @@
     "success": [
       {
         "json": {
-          "result": "12D3KooWD1qVz4NAvvxYvL6zo4R8T6GRC8biroRyHud9uin2yKSe"
+          "result": "12D3KooWAPoPWKN7ENY46ggcV9cQhe6BXVYU6z36UR9HWJxgufnx"
         },
         "title": "Success"
       }

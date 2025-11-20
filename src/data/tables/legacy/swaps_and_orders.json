@@ -136,6 +136,122 @@
         "description": "Present when `orderbook_ticker` remaps a coin. Each key is the canonical ticker and the value is a list of original tickers that appear in the response"
       }
     ]
+  },
+  "BuyRequest": {
+    "data": [
+      {
+        "parameter": "base",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin to receive (the coin you are buying)"
+      },
+      {
+        "parameter": "rel",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin you are spending"
+      },
+      {
+        "parameter": "price",
+        "type": "number | RationalValue | FractionalValue",
+        "required": true,
+        "description": "Price in `rel` per one unit of `base` (supports decimal numbers, num-rational arrays, or fraction objects)"
+      },
+      {
+        "parameter": "volume",
+        "type": "number | RationalValue | FractionalValue",
+        "required": true,
+        "description": "Amount of `base` to purchase; must satisfy each coin's `min_trading_vol` limits"
+      },
+      {
+        "parameter": "min_volume",
+        "type": "number | RationalValue | FractionalValue",
+        "required": false,
+        "description": "Minimum amount of `base` that must remain if the order converts to maker mode"
+      },
+      {
+        "parameter": "match_by",
+        "type": "MatchBy object",
+        "required": false,
+        "description": "Restrict matches to specific pubkeys or order UUIDs (ignored after conversion to maker)"
+      },
+      {
+        "parameter": "order_type",
+        "type": "OrderType object",
+        "required": false,
+        "description": "Controls maker/taker behaviour (`GoodTillCancelled`, `FillOrKill`, etc.)"
+      },
+      {
+        "parameter": "base_confs / rel_confs",
+        "type": "number",
+        "required": false,
+        "description": "Override the confirmation requirements for base or rel sides"
+      },
+      {
+        "parameter": "base_nota / rel_nota",
+        "type": "bool",
+        "required": false,
+        "description": "Override whether notarization is required for base or rel sides"
+      },
+      {
+        "parameter": "save_in_history",
+        "type": "bool",
+        "required": false,
+        "description": "Defaults to true. Set false to skip persisting the short order history locally"
+      }
+    ]
+  },
+  "BuyResponse": {
+    "data": [
+      {
+        "parameter": "action",
+        "type": "string",
+        "required": true,
+        "description": "Always \"Buy\" for this method"
+      },
+      {
+        "parameter": "base / rel",
+        "type": "string",
+        "required": true,
+        "description": "Tickers of the trade pair"
+      },
+      {
+        "parameter": "base_amount / rel_amount",
+        "type": "string",
+        "required": true,
+        "description": "Decimal string totals representing the matched trade size"
+      },
+      {
+        "parameter": "base_amount_rat / rel_amount_rat",
+        "type": "RationalValue",
+        "required": false,
+        "description": "Rational representation of the matched trade size"
+      },
+      {
+        "parameter": "uuid",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the buy request"
+      },
+      {
+        "parameter": "conf_settings",
+        "type": "ConfSettings object",
+        "required": false,
+        "description": "Effective confirmation and notarization settings applied to this order"
+      },
+      {
+        "parameter": "match_by / order_type",
+        "type": "object",
+        "required": false,
+        "description": "Echoes the match filters and order type used for this order"
+      },
+      {
+        "parameter": "base_orderbook_ticker / rel_orderbook_ticker",
+        "type": "string | null",
+        "required": false,
+        "description": "Present when coins are remapped via `orderbook_ticker`"
+      }
+    ]
   }
 }
 
