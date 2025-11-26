@@ -12,17 +12,6 @@
     "success": [
       {
         "json": {
-          "address": "1DgpBvyeUNHasBt3h3qzC1p9Z8qTgr6t5m",
-          "balance": "0.12345678",
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "result": "success"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
           "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
           "balance": "0",
           "coin": "BCH",
@@ -81,20 +70,6 @@
     "success": [
       {
         "json": {
-          "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-          "balance": "762",
-          "coin": "KMD",
-          "mature_confirmations": 100,
-          "required_confirmations": 10,
-          "requires_notarization": true,
-          "result": "success",
-          "unspendable_balance": "0"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
           "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
           "balance": "0",
           "coin": "KMD",
@@ -114,7 +89,7 @@
       {
         "json": {
           "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-          "balance": "7.62",
+          "balance": "7.60454375",
           "coin": "MARTY",
           "mature_confirmations": 100,
           "required_confirmations": 10,
@@ -137,20 +112,6 @@
       }
     ],
     "success": [
-      {
-        "json": {
-          "address": "QjXkGgoiycYRm2NbiMpkEHuQt7SB9BKHjz",
-          "balance": "7.77",
-          "coin": "QTUM",
-          "mature_confirmations": 100,
-          "required_confirmations": 3,
-          "requires_notarization": false,
-          "result": "success",
-          "unspendable_balance": "0"
-        },
-        "notes": "",
-        "title": "Success"
-      },
       {
         "json": {
           "address": "QREk9sFW6sCDGcauAMoF9UuxkbnfyE6Eg5",
@@ -186,19 +147,6 @@
     "success": [
       {
         "json": {
-          "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-          "balance": "45",
-          "coin": "BUSD-BEP20",
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "result": "success",
-          "unspendable_balance": "0"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
           "balance": "0",
           "coin": "BUSD-BEP20",
@@ -214,19 +162,6 @@
   "LegacyEnableEth": {
     "error": [],
     "success": [
-      {
-        "json": {
-          "address": "0x7Bc1bBDD6A0a722fC9bffc49c921B685ECB84b94",
-          "balance": "12.00283000",
-          "locked_by_swaps": "0.00000000",
-          "mature_confirmations": 0,
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "result": "success"
-        },
-        "notes": "",
-        "title": "Success"
-      },
       {
         "json": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -261,19 +196,6 @@
     "success": [
       {
         "json": {
-          "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-          "balance": "50",
-          "coin": "ETH",
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "result": "success",
-          "unspendable_balance": "0"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
           "balance": "0",
           "coin": "ETH",
@@ -304,19 +226,6 @@
       }
     ],
     "success": [
-      {
-        "json": {
-          "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-          "balance": "350",
-          "coin": "NZDS-PLG20",
-          "required_confirmations": 1,
-          "requires_notarization": false,
-          "result": "success",
-          "unspendable_balance": "0"
-        },
-        "notes": "",
-        "title": "Success"
-      },
       {
         "json": {
           "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",

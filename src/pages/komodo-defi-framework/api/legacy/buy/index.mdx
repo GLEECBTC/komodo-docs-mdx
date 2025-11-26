@@ -14,488 +14,60 @@ The `buy` method issues a buy request and attempts to match an order from the or
 
 ## Arguments
 
-| Structure         | Type               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| base              | string             | The name of the coin the user desires to receive                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| rel               | string             | The name of the coin the user desires to sell                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| price             | various            | The price in `rel` the user is willing to pay per one unit of the `base` coin. Can be a numeric string, expressed using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) objects.                                                                                                                                                                                                                                                   |
-| volume            | various            | The amount of coins the user is willing to receive of the `base` coin; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `volume`</li><li>the product of the arguments `volume` and `price`</li></ul>. . Can be a numeric string, expressed using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) objects.                                               |
-| min\_volume       | various (optional) | The minimum amount of `base` coin to be purchased in any `GoodTillCancelled` orders after conversion to maker; the following values must be greater than or equal to the `min_trading_vol` of the corresponding coin: <ul><li>the argument `min_volume`</li><li>the product of the arguments `min_volume` and `price`</li></ul>. Can be a numeric string, expressed using standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) or [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) objects. |
-| match\_by         | object             | Optional. A standard [MatchBy](/komodo-defi-framework/api/common_structures/orders/#match-by) object, to filter to include only matches by pubkey or uuid. *Important:* This condition is not applied after a `GoodTillCancelled` order is converted to a `maker` request.                                                                                                                                                                                                                                                                                     |
-| order\_type       | object             | Optional. A standard [OrderType](/komodo-defi-framework/api/common_structures/orders/#order-type) object.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| base\_confs       | number             | Number of required blockchain confirmations for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| base\_nota        | boolean            | Whether dPoW notarization is required for base coin atomic swap transaction; default to base coin configuration if not set                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| rel\_confs        | number             | Number of required blockchain confirmations for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| rel\_nota         | boolean            | Whether dPoW notarization is required for rel coin atomic swap transaction; default to rel coin configuration if not set                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| save\_in\_history | boolean            | Defaults to `true`. If set to `false` no order history will be saved (though order status will be temporarily stored while in progress). If `true`, each order's short record history is stored in a local SQLite database table, and when the order is cancelled or fully matched, it's history will be saved as a json file                                                                                                                                                                                                                                  |
+<CompactTable source="legacy/swaps_and_orders.BuyRequest" />
 
 ## Response
 
-| Structure               | Type     | Description                                                                                                                                                                                                              |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| action                  | string   | The action of the request (`Buy`)                                                                                                                                                                                        |
-| base                    | string   | The base currency of request                                                                                                                                                                                             |
-| base\_amount            | string   | The resulting amount of base currency that is received if the order matches (in decimal representation)                                                                                                                  |
-| base\_amount\_rat       | rational | The resulting amount of base currency that is received if the order matches, represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.                             |
-| rel                     | string   | The rel currency of the request                                                                                                                                                                                          |
-| rel\_amount             | string   | The maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, in decimal representation)                                                                                       |
-| rel\_amount\_rat        | rational | The maximum amount of `rel` coin that is spent in order to buy the `base_amount` (according to `price`, represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object). |
-| method                  | string   | This field is used for internal P2P interactions; the value is always equal to "request                                                                                                                                  |
-| dest\_pub\_key          | string   | Reserved for future use. `dest_pub_key` allows the user to choose the P2P node that is eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match                   |
-| sender\_pubkey          | string   | The public key of this node                                                                                                                                                                                              |
-| uuid                    | string   | The request uuid                                                                                                                                                                                                         |
-| match\_by               | object   | A standard [MatchBy](/komodo-defi-framework/api/common_structures/orders/#match-by) object, to filter to include only matches by pubkey or uuid.                                                                         |
-| conf\_settings          | object   | A standard [ConfSettings](/komodo-defi-framework/api/common_structures/orders/#conf-settings) object.                                                                                                                    |
-| base\_orderbook\_ticker | string   | The ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value.                                                                     |
-| rel\_orderbook\_ticker  | string   | The ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value.                                                                       |
+<CompactTable source="legacy/swaps_and_orders.BuyResponse" />
+
+Each object inside the `result` map is a standard [OrderDataV1](/komodo-defi-framework/api/common_structures/orders/#order-data-v1) entry describing the order that was created.
 
 #### 📌 Examples
 
 #### Command (decimal representation)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "DOC",
-    "rel": "MARTY",
-    "price": 1.1,
-    "volume": 2.4
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyDecimal" />
 
 #### Command (rational representation in num-rational crate format)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "result": {
-      "base": "DOC",
-      "rel": "MARTY",
-      "base_amount": "2.4",
-      "base_amount_rat": [
-        [
-          1,
-          [
-            12
-          ]
-        ],
-        [
-          1,
-          [
-            5
-          ]
-        ]
-      ],
-      "rel_amount": "2.64",
-      "rel_amount_rat": [
-        [
-          1,
-          [
-            66
-          ]
-        ],
-        [
-          1,
-          [
-            25
-          ]
-        ]
-      ],
-      "action": "Buy",
-      "uuid": "3d2286d1-1eef-487b-a07a-904f33034792",
-      "method": "request",
-      "sender_pubkey": "d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2",
-      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-      "match_by": {
-        "type": "Any"
-      },
-      "conf_settings": {
-        "base_confs": 1,
-        "base_nota": false,
-        "rel_confs": 1,
-        "rel_nota": false
-      },
-      "order_type": {
-        "type": "GoodTillCancelled"
-      },
-      "min_volume": "0.0001",
-      "min_volume_fraction": {
-        "numer": "1",
-        "denom": "10000"
-      },
-      "min_volume_rat": [
-        [
-          1,
-          [
-            1
-          ]
-        ],
-        [
-          1,
-          [
-            10000
-          ]
-        ]
-      ],
-      "base_orderbook_ticker": null,
-      "rel_orderbook_ticker": null
-    },
-    "userpass": "RPC_UserP@SSW0RD"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyRationalArray" />
 
 #### Command (rational representation as fraction object)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "HELLO",
-    "rel": "WORLD",
-    "volume": {
-      "numer": "3",
-      "denom": "2"
-    },
-    "price": {
-      "numer": "2",
-      "denom": "1"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyFraction" />
 
 #### Command (with confirmations and notarization settings)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "HELLO",
-    "rel": "WORLD",
-    "volume": {
-      "numer": "3",
-      "denom": "2"
-    },
-    "price": {
-      "numer": "2",
-      "denom": "1"
-    },
-    "base_confs": 2,
-    "base_nota": true,
-    "rel_confs": 5,
-    "rel_nota": false
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyWithConfSettings" />
 
 #### Command (set to not save order history)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "HELLO",
-    "rel": "WORLD",
-    "volume": {
-      "numer": "3",
-      "denom": "2"
-    },
-    "price": {
-      "numer": "2",
-      "denom": "1"
-    },
-    "save_in_history": false
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyNoHistory" />
 
 #### Command (GoodTillCancelled type)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "BASE",
-    "rel": "REL",
-    "volume": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "price": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "order_type": {
-      "type": "GoodTillCancelled"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyGoodTillCancelled" />
 
 #### Command (FillOrKill type)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "BASE",
-    "rel": "REL",
-    "volume": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "price": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "order_type": {
-      "type": "FillOrKill"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyFillOrKill" />
 
 #### Command (match by Any)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "BASE",
-    "rel": "REL",
-    "volume": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "price": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "match_by": {
-      "type": "Any"
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyMatchAny" />
 
 #### Command (match by Pubkeys)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "BASE",
-    "rel": "REL",
-    "volume": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "price": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "match_by": {
-      "type": "Pubkeys",
-      "data": [
-        "1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"
-      ]
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyMatchPubkeys" />
 
 #### Command (match by Orders)
 
-<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "buy",
-    "base": "BASE",
-    "rel": "REL",
-    "volume": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "price": [
-      [
-        1,
-        [
-          1
-        ]
-      ],
-      [
-        1,
-        [
-          1
-        ]
-      ]
-    ],
-    "match_by": {
-      "type": "Orders",
-      "data": [
-        "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
-      ]
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="buy" mm2MethodDecorate="true" source="legacy/swaps_and_orders.BuyMatchOrders" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (success)
+  <KdfResponses responseKey="legacy/swaps_and_orders.BuySuccess" />
 
-  ```json
-  {
-    "result": {
-      "action": "Buy",
-      "base": "HELLO",
-      "base_amount": "1",
-      "base_amount_rat": [
-        [1, [1]],
-        [1, [1]]
-      ],
-      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-      "method": "request",
-      "rel": "WORLD",
-      "rel_amount": "1",
-      "rel_amount_rat": [
-        [1, [1]],
-        [1, [1]]
-      ],
-      "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-      "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3",
-      "match_by": {
-        "data": [
-          "1ab7edc96abaefb358b52c583048eaaeb8ea42609d096d6cddfafa02fa510c6a"
-        ],
-        "type": "Pubkeys"
-      },
-      "conf_settings": {
-        "base_confs": 2,
-        "base_nota": true,
-        "rel_confs": 5,
-        "rel_nota": false
-      },
-      "base_orderbook_ticker": null,
-      "rel_orderbook_ticker": null
-    }
-  }
-  ```
+  <KdfResponses responseKey="legacy/swaps_and_orders.BuyErrorInsufficientBalance" />
 
-  #### Response (error)
-
-  ```json
-  {
-    "error": "rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"
-  }
-  ```
-
-  #### Response (error)
-
-  ```json
-  {
-    "error": "rpc:275] lp_ordermatch:665] The WORLD amount 40000/3 is larger than available 47.60450107, balance: 47.60450107, locked by swaps: 0.00000000"
-  }
-  ```
+  <KdfResponses responseKey="legacy/swaps_and_orders.BuyErrorAmountTooLarge" />
 </CollapsibleSection>

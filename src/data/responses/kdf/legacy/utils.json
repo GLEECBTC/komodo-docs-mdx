@@ -1,23 +1,38 @@
 {
+  "BanPubkey": {
+    "error": [
+      {
+        "json": {
+          "error": "rpc:208] dispatcher_legacy:160] pubkey_banning:58] Pubkey is banned already"
+        },
+        "notes": "",
+        "title": "Error (already banned)"
+      },
+      {
+        "json": {
+          "error": "rpc:184] dispatcher_legacy:140] pubkey_banning:63] invalid value: string \\\"2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac\\\", expected a hash string"
+        },
+        "notes": "",
+        "title": "Error (invalid pubkey)"
+      }
+    ],
+    "success": [
+      {
+        "json": {
+          "result": "success"
+        },
+        "title": "Success"
+      }
+    ]
+  },
   "CoinsNeededForKickStart": {
     "error": [],
     "success": [
       {
         "json": {
-          "result": [
-            "BTC",
-            "KMD"
-          ]
-        },
-        "notes": "",
-        "title": "Success (BTC and KMD should be activated ASAP in this case)"
-      },
-      {
-        "json": {
           "result": []
         },
-        "notes": "",
-        "title": "Success (no swaps and orders waiting to be started)"
+        "title": "Success"
       }
     ]
   },
@@ -28,17 +43,9 @@
         "json": {
           "result": [
             {
-              "address": "1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
-              "ticker": "BTC"
-            }
-          ]
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": [
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "APE-ERC20"
+            },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "BUSD-BEP20"
@@ -49,19 +56,11 @@
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NFT_MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "BAT-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "PGX-PLG20"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -73,11 +72,19 @@
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "MINDS-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "MATIC"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "PGX-PLG20"
+              "ticker": "NFT_MATIC"
+            },
+            {
+              "address": "65d8c43621020f4cda8b61e75a49d1c6f517b114ab1fe9bf125fe1ac324f03ee9b661127ade3",
+              "ticker": "SC"
             },
             {
               "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
@@ -102,290 +109,6 @@
             {
               "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
               "ticker": "DOC"
-            }
-          ]
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": [
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BAT-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NFT_MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "PGX-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "ETH"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
-            },
-            {
-              "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
-              "ticker": "BCH"
-            },
-            {
-              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
-              "ticker": "ATOM"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "IRIS"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "ATOM-IBC_IRIS"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "MARTY"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "DOC"
-            }
-          ]
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": [
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BAT-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "PGX-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "ETH"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NFT_MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MATIC"
-            },
-            {
-              "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
-              "ticker": "BCH"
-            },
-            {
-              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
-              "ticker": "ATOM"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "ATOM-IBC_IRIS"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "IRIS"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "MARTY"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "DOC"
-            }
-          ]
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": [
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "ETH"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NFT_MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BAT-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "PGX-PLG20"
-            },
-            {
-              "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
-              "ticker": "BCH"
-            },
-            {
-              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
-              "ticker": "ATOM"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "ATOM-IBC_IRIS"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "IRIS"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "MARTY"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "DOC"
-            }
-          ]
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": [
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NFT_MATIC"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BAT-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "ETH"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "PGX-PLG20"
-            },
-            {
-              "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
-              "ticker": "BCH"
-            },
-            {
-              "address": "cosmos1xt2ru7aq7zxnyz3zgs89twzzgpl5s84lxkx0h5",
-              "ticker": "ATOM"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "ATOM-IBC_IRIS"
-            },
-            {
-              "address": "iaa1xt2ru7aq7zxnyz3zgs89twzzgpl5s84ln5x749",
-              "ticker": "IRIS"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "DOC"
-            },
-            {
-              "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "MARTY"
             }
           ]
         },
@@ -398,38 +121,7 @@
     "success": [
       {
         "json": {
-          "result": "12D3KooWS9MeuFZhJCfQTntwbTVnXMAJpz9Tvd1XYFuURrGqnJVR"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": "12D3KooWGupVg2L4DzKDXucStTHFGXCiqHTZNWg9TWe1HJhWn2cJ"
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": "12D3KooWBMXxAErf25fSBDUnbtALf6kkLVdSxvx98VJz4fJbyeyM"
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": "12D3KooWGdekExbPkFRqxpHDPHJ5ZPfbn8VBuHYUuBmrptVfrWH9"
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": "12D3KooWFcBvrgpJVgGL5z9KcYfWSSdZpdn4pbFejE7V1N1WPgcv"
-        },
-        "title": "Success"
-      },
-      {
-        "json": {
-          "result": "12D3KooWQjz7VDgaHvug5yPJ4rYTAnpJtLbNFRtvdMyCmC1RWGwF"
+          "result": "12D3KooWCDzxghNykmc2eJ5Toqy4a8B4teRWhkzoxvgnxG8a3nSi"
         },
         "title": "Success"
       }
@@ -440,16 +132,8 @@
     "success": [
       {
         "json": {
-          "datetime": "2024-05-05T12:34:56Z",
-          "result": "2.0.996_mm2_3bb412578_Linux"
-        },
-        "notes": "",
-        "title": "Success"
-      },
-      {
-        "json": {
-          "datetime": "2025-09-19T08:42:42.719348125+00:00",
-          "result": "2.5.1-beta_dev-d6e2324"
+          "datetime": "2025-11-26T04:10:27.871794255+00:00",
+          "result": "2.6.0-beta_dev-9121639"
         },
         "title": "Success"
       }

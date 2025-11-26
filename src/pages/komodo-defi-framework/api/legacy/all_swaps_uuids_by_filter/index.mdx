@@ -9,84 +9,28 @@ The `all_swaps_uuids_by_filter` method returns all uuids of swaps that match the
 
 ## Arguments
 
-| Structure       | Type                          | Description                                                                            |
-| --------------- | ----------------------------- | -------------------------------------------------------------------------------------- |
-| my\_coin        | string                        | return only swaps that match the `swap.my_coin = request.my_coin` condition            |
-| other\_coin     | string                        | return only swaps that match the `swap.other_coin = request.other_coin` condition      |
-| from\_timestamp | number (timestamp in seconds) | return only swaps that match the `swap.started_at >= request.from_timestamp` condition |
-| to\_timestamp   | number (timestamp in seconds) | return only swaps that match the `swap.started_at < request.to_timestamp` condition    |
+<CompactTable source="legacy/swaps_and_orders.AllSwapsUuidsByFilterRequest" />
 
 ## Response
 
-| Structure       | Type             | Description                                    |
-| --------------- | ---------------- | ---------------------------------------------- |
-| uuids           | array of strings | uuids of swaps that match the selected filters |
-| my\_coin        | string           | my\_coin that was set in request               |
-| other\_coin     | string           | other\_coin that was set in request            |
-| from\_timestamp | number           | from\_timestamp that was set in request        |
-| to\_timestamp   | number           | to\_timestamp that was set in request          |
-| records\_found  | number           | the number of found uuids                      |
+<CompactTable source="legacy/swaps_and_orders.AllSwapsUuidsByFilterResponse" />
 
 #### 📌 Examples
 
 #### Command (select swaps uuids that have my\_coin = DOC and other\_coin = MARTY)
 
-<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "all_swaps_uuids_by_filter",
-    "my_coin": "DOC",
-    "other_coin": "MARTY"
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true" source="legacy/swaps_and_orders.AllSwapsUuidsByFilterMyAndOtherCoin" />
 
 #### Command (select swaps uuids that have my\_coin = DOC and started\_at >= 1611705600 (January 27, 2021 0:00:00 GMT))
 
-<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "all_swaps_uuids_by_filter",
-    "my_coin": "DOC",
-    "from_timestamp": 1611705600
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true" source="legacy/swaps_and_orders.AllSwapsUuidsByFilterFromTimestamp" />
 
 #### Command (select swaps uuids that have started\_at >= 1611705600 (January 27, 2021 0:00:00 GMT) and started\_at \< 1611792001 (January 28, 2021 0:00:01 GMT))
 
-<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "all_swaps_uuids_by_filter",
-    "my_coin": "DOC",
-    "from_timestamp": 1611705600,
-    "to_timestamp": 1611792001
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="all_swaps_uuids_by_filter" mm2MethodDecorate="true" source="legacy/swaps_and_orders.AllSwapsUuidsByFilterDateRange" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response (success)
 
-  ```json
-  {
-    "result": {
-      "uuids": [
-        "015c13bc-da79-43e1-a6d4-4ac8b3099b34",
-        "7592a07a-2805-4050-8ab8-984480e812f0",
-        "82cbad96-ea9f-40fb-9225-07496323e35d",
-        "177f7fa5-c9f3-4673-a2fa-28451a123e61"
-      ],
-      "my_coin": "MARTY",
-      "other_coin": null,
-      "from_timestamp": null,
-      "to_timestamp": null,
-      "found_records": 4
-    }
-  }
-  ```
+  <KdfResponses responseKey="legacy/swaps_and_orders.AllSwapsUuidsByFilter" />
 </CollapsibleSection>

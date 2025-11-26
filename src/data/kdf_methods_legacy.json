@@ -1,4 +1,159 @@
 {
+  "active_swaps": {
+    "errors_table": "N/A",
+    "examples": {
+      "ActiveSwaps": "Active swaps",
+      "ActiveSwapsIncludeStatus": "Active swaps (include_status=true)"
+    },
+    "prerequisites": [],
+    "request_table": "ActiveSwapsRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "ActiveSwapsResponse",
+    "sequence": 235,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "all_swaps_uuids_by_filter": {
+    "errors_table": "N/A",
+    "examples": {
+      "AllSwapsUuidsByFilterMyAndOtherCoin": "Filter swaps by my_coin and other_coin",
+      "AllSwapsUuidsByFilterFromTimestamp": "Filter swaps from a start timestamp",
+      "AllSwapsUuidsByFilterDateRange": "Filter swaps within a timestamp range"
+    },
+    "prerequisites": [],
+    "request_table": "AllSwapsUuidsByFilterRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "iguana"
+      ]
+    },
+    "response_table": "AllSwapsUuidsByFilterResponse",
+    "sequence": 236,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "ban_pubkey": {
+    "errors_table": "N/A",
+    "examples": {
+      "BanPubkey": "Ban a pubkey"
+    },
+    "prerequisites": [],
+    "request_table": "BanPubkeyRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "BanPubkeyResponse",
+    "sequence": 237,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "best_orders": {
+    "errors_table": "N/A",
+    "examples": {
+      "BestOrders": "Get best orders for a coin"
+    },
+    "prerequisites": [],
+    "request_table": "BestOrdersRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "BestOrdersResponse",
+    "sequence": 238,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "buy": {
+    "errors_table": "N/A",
+    "examples": {
+      "BuyDecimal": "Buy (decimal request)",
+      "BuyRationalArray": "Buy (num-rational arrays)",
+      "BuyFraction": "Buy (fraction objects)",
+      "BuyWithConfSettings": "Buy with custom confirmations",
+      "BuyNoHistory": "Buy without saving history",
+      "BuyGoodTillCancelled": "Buy GoodTillCancelled order",
+      "BuyFillOrKill": "Buy FillOrKill order",
+      "BuyMatchAny": "Buy matching any order",
+      "BuyMatchPubkeys": "Buy matching selected pubkeys",
+      "BuyMatchOrders": "Buy matching selected order UUIDs"
+    },
+    "prerequisites": [],
+    "request_table": "BuyRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "BuyResponse",
+    "sequence": 239,
+    "tags": [
+      "legacy"
+    ]
+  },
+  "setprice": {
+    "errors_table": "N/A",
+    "examples": {
+      "SetpriceVolume": "Setprice with explicit volume",
+      "SetpriceTimeout": "Setprice with timeout_in_minutes",
+      "SetpriceMax": "Setprice using max balance",
+      "SetpriceRationalArray": "Setprice (num-rational arrays)",
+      "SetpriceFraction": "Setprice (fraction objects)",
+      "SetpriceMinVolume": "Setprice with min_volume",
+      "SetpriceConfSettings": "Setprice with custom confirmations",
+      "SetpriceNoHistory": "Setprice without saving history"
+    },
+    "prerequisites": [],
+    "request_table": "SetpriceRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "SetpriceResponse",
+    "sequence": 240,
+    "tags": [
+      "legacy"
+    ]
+  },
   "coins_needed_for_kick_start": {
     "errors_table": "CoinsNeededForKickStartErrors",
     "examples": {

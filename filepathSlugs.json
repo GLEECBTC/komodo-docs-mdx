@@ -2545,9 +2545,7 @@
     "response",
     "examples",
     "command-without-include-status",
-    "response-uuids-only",
-    "command-include-status-true",
-    "response-statuses-included"
+    "command-include-status-true"
   ],
   "src/pages/komodo-defi-framework/api/legacy/all_swaps_uuids_by_filter/index.mdx": [
     "all-swaps-uuids-by-filter",
@@ -2564,10 +2562,7 @@
     "arguments",
     "response",
     "examples",
-    "command",
-    "response-success",
-    "error-already-banned",
-    "error-invalid-pubkey"
+    "command"
   ],
   "src/pages/komodo-defi-framework/api/legacy/batch_requests/index.mdx": [
     "batch-requests",
@@ -2582,8 +2577,7 @@
     "arguments",
     "response",
     "examples",
-    "command",
-    "response-success"
+    "command"
   ],
   "src/pages/komodo-defi-framework/api/legacy/buy/index.mdx": [
     "buy",
@@ -2599,10 +2593,7 @@
     "command-fill-or-kill-type",
     "command-match-by-any",
     "command-match-by-pubkeys",
-    "command-match-by-orders",
-    "response-success",
-    "response-error",
-    "response-error-2"
+    "command-match-by-orders"
   ],
   "src/pages/komodo-defi-framework/api/legacy/cancel_all_orders/index.mdx": [
     "cancel-all-orders",
@@ -2990,14 +2981,13 @@
     "response",
     "examples",
     "command-with-volume",
+    "command-with-timeout-in-minutes",
     "command-max-true",
     "command-rational-representation-in-num-rational-crate-format",
     "command-rational-representation-as-fraction-object",
     "command-with-min-volume",
     "command-with-confirmations-and-notarization-settings",
-    "command-set-to-not-save-order-history",
-    "response-success",
-    "response-error"
+    "command-set-to-not-save-order-history"
   ],
   "src/pages/komodo-defi-framework/api/legacy/show_priv_key/index.mdx": [
     "show-priv-key",

@@ -1,4 +1,11 @@
 {
+  "BanPubkey": {
+    "duration_min": 15,
+    "method": "ban_pubkey",
+    "pubkey": "2cd3021a2197361fb70b862c412bc8e44cff6951fa1de45ceabfdd9b4c520420",
+    "reason": "Being a naughty boy",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
   "CoinsNeededForKickStart": {
     "method": "coins_needed_for_kick_start",
     "userpass": "RPC_UserP@SSW0RD"

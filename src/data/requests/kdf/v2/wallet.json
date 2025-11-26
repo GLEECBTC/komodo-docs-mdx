@@ -11,26 +11,6 @@
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
-  "GetRawTransactionDoc": {
-    "id": 1,
-    "method": "get_raw_transaction",
-    "mmrpc": "2.0",
-    "params": {
-      "coin": "DOC",
-      "tx_hash": "eb17aa87eececc3c0144432a97b5effa9f2b3e338083bf17fade8f557bf834e5"
-    },
-    "userpass": "RPC_UserP@SSW0RD"
-  },
-  "GetRawTransactionEth": {
-    "id": 1,
-    "method": "get_raw_transaction",
-    "mmrpc": "2.0",
-    "params": {
-      "coin": "ETH",
-      "tx_hash": "0x529aca42b6b592cca5d400832c83854135b924cada6e1c41b85f27fa0a0984b9"
-    },
-    "userpass": "RPC_UserP@SSW0RD"
-  },
   "FetchUtxos": {
     "method": "fetch_utxos",
     "mmrpc": "2.0",
@@ -78,6 +58,26 @@
         "LTC-segwit"
       ],
       "mode": "iguana"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "GetRawTransactionDoc": {
+    "id": 1,
+    "method": "get_raw_transaction",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "DOC",
+      "tx_hash": "eb17aa87eececc3c0144432a97b5effa9f2b3e338083bf17fade8f557bf834e5"
+    },
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "GetRawTransactionEth": {
+    "id": 1,
+    "method": "get_raw_transaction",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "ETH",
+      "tx_hash": "0x529aca42b6b592cca5d400832c83854135b924cada6e1c41b85f27fa0a0984b9"
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
