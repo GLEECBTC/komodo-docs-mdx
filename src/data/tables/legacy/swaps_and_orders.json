@@ -252,6 +252,146 @@
         "description": "Present when coins are remapped via `orderbook_ticker`"
       }
     ]
+  },
+  "SetpriceRequest": {
+    "data": [
+      {
+        "parameter": "base",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin you want to sell (maker side)"
+      },
+      {
+        "parameter": "rel",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the coin you want to receive"
+      },
+      {
+        "parameter": "price",
+        "type": "number | RationalValue | FractionalValue",
+        "required": true,
+        "description": "Desired amount of `rel` per 1 unit of `base` (supports decimal strings, num-rational arrays, or fraction objects)"
+      },
+      {
+        "parameter": "volume",
+        "type": "number | RationalValue | FractionalValue",
+        "required": false,
+        "description": "Maximum amount of `base` you are willing to sell; required when `max` is false. Must satisfy each coin's `min_trading_vol` limits for both the base amount and the implied rel amount (`volume * price`)"
+      },
+      {
+        "parameter": "min_volume",
+        "type": "number | RationalValue | FractionalValue",
+        "required": false,
+        "description": "Minimum `base` volume that must remain for the order to stay open; must be ≤ `volume` and satisfy `min_trading_vol` limits for both coins"
+      },
+      {
+        "parameter": "max",
+        "type": "bool",
+        "required": false,
+        "description": "If true, uses the entire available `base` balance (leaving 0.001 `base` in reserve for fees)"
+      },
+      {
+        "parameter": "cancel_previous",
+        "type": "bool",
+        "required": false,
+        "description": "Defaults to true. Cancels any existing maker orders for the same pair before placing the new order"
+      },
+      {
+        "parameter": "base_confs / rel_confs",
+        "type": "number",
+        "required": false,
+        "description": "Override the required blockchain confirmations for the base or rel side"
+      },
+      {
+        "parameter": "base_nota / rel_nota",
+        "type": "bool",
+        "required": false,
+        "description": "Override whether dPoW notarization is required for the base or rel side"
+      },
+      {
+        "parameter": "save_in_history",
+        "type": "bool",
+        "required": false,
+        "description": "Defaults to true. Set to false to skip persisting the short order history locally (the order status is still tracked while active)"
+      },
+      {
+        "parameter": "timeout_in_minutes",
+        "type": "number (integer)",
+        "required": false,
+        "description": "Optional expiration timer for maker orders. When set, Komodo DeFi Framework automatically cancels the order after the specified number of minutes"
+      }
+    ]
+  },
+  "SetpriceResponse": {
+    "data": [
+      {
+        "parameter": "result",
+        "type": "object",
+        "required": true,
+        "description": "Order object describing the maker order that was created"
+      },
+      {
+        "parameter": "result.base / result.rel",
+        "type": "string",
+        "required": true,
+        "description": "Tickers of the order's trade pair"
+      },
+      {
+        "parameter": "result.price / result.price_rat",
+        "type": "string | RationalValue",
+        "required": true,
+        "description": "Maker price in decimal and rational representations"
+      },
+      {
+        "parameter": "result.max_base_vol / result.max_base_vol_rat",
+        "type": "string | RationalValue",
+        "required": true,
+        "description": "Maximum base volume that can be filled from this order"
+      },
+      {
+        "parameter": "result.min_base_vol / result.min_base_vol_rat",
+        "type": "string | RationalValue",
+        "required": false,
+        "description": "Minimum base volume the order accepts"
+      },
+      {
+        "parameter": "result.created_at / result.updated_at",
+        "type": "number (timestamp in ms)",
+        "required": true,
+        "description": "Creation and last update timestamps for the order"
+      },
+      {
+        "parameter": "result.matches",
+        "type": "object (map)",
+        "required": true,
+        "description": "Map of currently matched swaps keyed by counterparty UUID; empty for newly created orders"
+      },
+      {
+        "parameter": "result.started_swaps",
+        "type": "array of strings",
+        "required": true,
+        "description": "UUIDs of swaps that were initiated from this order"
+      },
+      {
+        "parameter": "result.uuid",
+        "type": "string",
+        "required": true,
+        "description": "UUID of the created maker order"
+      },
+      {
+        "parameter": "result.conf_settings",
+        "type": "ConfSettings object",
+        "required": false,
+        "description": "Effective confirmation/notarization settings applied to the order"
+      },
+      {
+        "parameter": "base_orderbook_ticker / rel_orderbook_ticker",
+        "type": "string | null",
+        "required": false,
+        "description": "Present when coins are remapped via `orderbook_ticker`; null otherwise"
+      }
+    ]
   }
 }
 

@@ -39,7 +39,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 23803255,
+            "current_block": 23880667,
             "nfts_infos": {},
             "ticker": "ETH",
             "wallet_balance": {
@@ -100,7 +100,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 79044374,
+            "current_block": 79513888,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -161,7 +161,7 @@
           "id": null,
           "mmrpc": "2.0",
           "result": {
-            "current_block": 79044494,
+            "current_block": 79513919,
             "nfts_infos": {},
             "ticker": "MATIC",
             "wallet_balance": {
@@ -226,7 +226,7 @@
           "id": 9,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 12346
+            "task_id": 10
           }
         },
         "title": "Success"
@@ -241,7 +241,7 @@
           "id": 1,
           "mmrpc": "2.0",
           "result": {
-            "task_id": 12345
+            "task_id": 12
           }
         },
         "title": "Success"
@@ -257,13 +257,13 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 123456,
-              "ticker": "SIA",
+              "current_block": 551177,
+              "ticker": "SC",
               "wallet_balance": {
-                "address": "addr:1599ea80d9af168c...17030fb3",
+                "address": "94edcd9c3ce4f2847bceb9f727b631e2849835b2de03e222aa4a34e08f3a5cbdd53a5be86360",
                 "balance": {
-                  "spendable": "10",
-                  "unspendable": "0"
+                  "spendable": "0.000000000000000000000000",
+                  "unspendable": "0.000000000000000000000000"
                 },
                 "wallet_type": "Iguana"
               }
@@ -306,7 +306,7 @@
           "mmrpc": "2.0",
           "result": {
             "address": "iaa1hkg6p4lqnxardx2878clge6vjhfknf6spuaf8m",
-            "current_block": 32748731,
+            "current_block": 32905840,
             "ticker": "IRIS",
             "tokens_tickers": [
               "ATOM-IBC_IRIS"
@@ -330,7 +330,7 @@
               "spendable": "0",
               "unspendable": "0"
             },
-            "current_block": 32748732,
+            "current_block": 32905841,
             "ticker": "IRIS",
             "tokens_balances": {
               "ATOM-IBC_IRIS": {
@@ -576,7 +576,7 @@
           "mmrpc": "2.0",
           "result": {
             "details": {
-              "current_block": 5327163,
+              "current_block": 5356498,
               "ticker": "QTUM",
               "wallet_balance": {
                 "accounts": [
@@ -1013,7 +1013,7 @@
                 "spendable": "0",
                 "unspendable": "0"
               },
-              "current_block": 28425151,
+              "current_block": 28583351,
               "ticker": "ATOM",
               "tokens_balances": {}
             },
@@ -1242,7 +1242,7 @@
                 "ticker": "ZOMBIE"
               },
               "error_path": "lib.init_standalone_coin.z_coin_activation.z_coin",
-              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1138]",
+              "error_trace": "lib:107] init_standalone_coin:216] z_coin_activation:263] z_coin:1134]",
               "error_type": "CoinCreationError"
             },
             "status": "Error"

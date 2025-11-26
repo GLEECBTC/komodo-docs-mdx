@@ -5,7 +5,7 @@
       {
         "json": {
           "result": {
-            "current_block": 1313232,
+            "current_block": 1320500,
             "from_id": null,
             "limit": 1,
             "page_number": null,
@@ -28,7 +28,7 @@
       {
         "json": {
           "result": {
-            "current_block": 1313232,
+            "current_block": 1320500,
             "from_id": "8f24729f566e2b08828ec3e9be34530ace752fe52fad62e8acb46a0090e65eb5",
             "limit": 1,
             "page_number": null,
@@ -131,7 +131,7 @@
       {
         "json": {
           "result": {
-            "current_block": 23803305,
+            "current_block": 23880689,
             "from_id": null,
             "limit": 3,
             "page_number": null,
@@ -154,53 +154,20 @@
       {
         "json": {
           "result": {
-            "current_block": 529014,
+            "current_block": 551177,
             "from_id": null,
             "limit": 10,
             "page_number": null,
             "skipped": 0,
             "sync_status": {
-              "state": "NotEnabled"
+              "state": "Finished"
             },
-            "total": 1,
-            "total_pages": 1,
-            "transactions": [
-              {
-                "block_height": 528310,
-                "coin": "SC",
-                "confirmations": 705,
-                "fee_details": {
-                  "coin": "SC",
-                  "policy": "Unknown",
-                  "total_amount": "0.000010000000000000000000",
-                  "type": "Sia"
-                },
-                "from": [
-                  "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a"
-                ],
-                "internal_id": "",
-                "memo": null,
-                "my_balance_change": "50.000000000000000000000000",
-                "received_by_me": "50.000000000000000000000000",
-                "spent_by_me": "0.000000000000000000000000",
-                "timestamp": 1750438004,
-                "to": [
-                  "0b57980ab60cab20c0d77fc3142eb29c440d4d7739b835b791765fcad8328672c799f7c8df8a",
-                  "2c4a029ef67858d7c3ebf9ce7f1c257fd880b1b073fd3923091423e1658ae23d2b426be204db"
-                ],
-                "total_amount": "500.000000000000000000000000",
-                "transaction_type": "SiaV2Transaction",
-                "tx_hash": "bdf2c3885adaacf88f0042d2738daff4dc5ae8b3d3a61ea3c3497c28be6d2499",
-                "tx_json": {
-                  "minerFee": "10000000000000000000",
-                  "siacoinInputs": [],
-                  "siacoinOutputs": []
-                }
-              }
-            ]
+            "total": 0,
+            "total_pages": 0,
+            "transactions": []
           }
         },
-        "title": "Success (SIA)"
+        "title": "Success"
       }
     ]
   },
@@ -210,7 +177,7 @@
       {
         "json": {
           "result": {
-            "current_block": 23803305,
+            "current_block": 23880689,
             "from_id": null,
             "limit": 0,
             "page_number": null,
@@ -233,7 +200,7 @@
       {
         "json": {
           "result": {
-            "current_block": 1313232,
+            "current_block": 1320501,
             "from_id": null,
             "limit": 0,
             "page_number": null,
@@ -305,14 +272,14 @@
           "my_balance_change": "-1.0245",
           "received_by_me": "6.5955",
           "spent_by_me": "7.62",
-          "timestamp": 1763194158,
+          "timestamp": 1764133024,
           "to": [
             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
           ],
           "total_amount": "7.62",
           "transaction_type": "StandardTransfer",
-          "tx_hash": "7447db586d79b6615077384704f729af4ec2e0fc83614227c041b02a7e167490",
-          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a4730440220041062aca3a87fd4d0ac656cd4918d9083c9021b8791e75b68b34922ce090fa4022067168f95c48fc96274b5b29e2cf86d025ac6ad1719f8261e18f62ae59289c27701210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac2e351869000000000000000000000000000000"
+          "tx_hash": "9cd387438ddb6390f1e04c6001ba194a09f66a3794d7eab0ac19d8ee996e77f5",
+          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022073dddce5114ba0ae98375ece4e6f4dd09fbf6ff8c278aa57b7fa15dd9ff4efe102201bc975977327622b081816ab921d6cb4bd95d4dce083c25e9ebf73b9bc4e64f001210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88aca0882669000000000000000000000000000000"
         },
         "title": "Success"
       }
@@ -338,14 +305,14 @@
           "my_balance_change": "-1.245",
           "received_by_me": "6.375",
           "spent_by_me": "7.62",
-          "timestamp": 1763194159,
+          "timestamp": 1764133025,
           "to": [
             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
           ],
           "total_amount": "7.62",
           "transaction_type": "StandardTransfer",
-          "tx_hash": "26a801aea65d43de7d41bdadb05252122490b7056dee4becb3f8c40ed359892f",
-          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022038ca4b1268a05d8d140bbfc4252daa906515f6114739fd7b06052861e35ec2e802201d28953f362e5732865f3db971d77d3d85f02cffc372cd44d2570161e3ac74f301210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac2f351869000000000000000000000000000000"
+          "tx_hash": "dd1496484db5855af654e4d911f0f7f04e4c213336a32f3e909f38d3b8e9ab45",
+          "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022064cca3da1c65939923576bb634db5ea0d5339ea47af75b47cd1968e883c8cab102204302d4b378c5fde91a3c3794967c8ab52ed89cbf7928f15b519c6fde4a3bfccc01210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88aca1882669000000000000000000000000000000"
         },
         "title": "Success"
       }

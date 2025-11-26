@@ -17,9 +17,9 @@
                 "count": 1,
                 "utxos": [
                   {
-                    "txid": "15734e22b9e3f3eae1be74ec8971de0e19245770b0e78cb5490494d7f17d16c9",
-                    "value": "7.62",
-                    "vout": 0
+                    "txid": "23cd0403085c962870cd373a09a6896d179309de51f028ef945da44bdece5aa9",
+                    "value": "7.60454375",
+                    "vout": 1
                   }
                 ]
               }
@@ -63,7 +63,7 @@
                   "priv_key": "secret-extended-key-main1qwyyyk73qqqqpq95c6xu8dzqmxwjc6hwgm400j56qwshjdetu7cd8zgzgcglg43q520j3ntw8ap0zuu90ljr7tuqh6ynxg0u0huyw6443z3yjjz492csgp9cffacgq3ncp5lc7dhyrdjlhdzqvlvgs6qrgvy9kfvxg09jgcdnj2zdnxedg39y66fr3gegmsvstjkzuraqh9y00tvcnmnaejmz7lqkqahx3vu70p28m62reurmz0x79szzzh5p2yeg4hf88rhlx3u3hs66c3s2",
                   "pubkey": "",
                   "viewing_key": "zxviews1qwyyyk73qqqqpq95c6xu8dzqmxwjc6hwgm400j56qwshjdetu7cd8zgzgcglg43q5g3v327uwyn0dhpeu7fs7jk0fa0lus7a8alnrqqh8gxkl5pua6ern0vc3xceq5vslhgt9lzjx9md853jnwm5pm8c926ef5t4qdqj6t4wnj2zdnxedg39y66fr3gegmsvstjkzuraqh9y00tvcnmnaejmz7lqkqahx3vu70p28m62reurmz0x79szzzh5p2yeg4hf88rhlx3u3hsl3mh2e",
-                  "z_derivation_path": "m/32'/133'/0"
+                  "z_derivation_path": "m/32'/133'/0'"
                 }
               ],
               "coin": "ARRR"
@@ -693,14 +693,14 @@
             "my_balance_change": "-1.0245",
             "received_by_me": "6.5955",
             "spent_by_me": "7.62",
-            "timestamp": 1763194111,
+            "timestamp": 1764132976,
             "to": [
               "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
             ],
             "total_amount": "7.62",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "022cf2b7dd0404b2082f42f973e4a9e5365165d6fa35d9e15be377792a1b1efc",
-            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a47304402202b076c3defc301517fa83f42ac82e77455840943c017b12b17a511bb1d9c9251022056959e10edf0c23c40b8bf42048a398647c62a5ed0370aef4ade99cbb036b77901210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88acff341869000000000000000000000000000000"
+            "tx_hash": "66d8437a0109ab80b33d019e3f712f85e18c9b2033fc376245862e175ddc63a2",
+            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a47304402200618631de563d89485dd09d0e5f23dec0375b4aca63d0ff172132a941068aaa502207afabd6c92c9306ddc212f43b921283c04b6491c76513b1ece49353b73e0a44401210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac30ef4f27000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac70882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -730,14 +730,14 @@
             "my_balance_change": "-1.245",
             "received_by_me": "6.375",
             "spent_by_me": "7.62",
-            "timestamp": 1763194113,
+            "timestamp": 1764132977,
             "to": [
               "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
             ],
             "total_amount": "7.62",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "b1aa4939ed872faf91ee854375b127271fce93cb642f2c1150818399a2de2861",
-            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a4730440220160665f56a14ef38fd2577ef903ffadea0e346451421819d67708bb3cc21313f02204b6124bb41684cae2c07c19336df7a800c725e6f398253a75dcbe13b76055e5501210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac01351869000000000000000000000000000000"
+            "tx_hash": "17b2f603cd4c39fe9886be0f3f2c6ad47ff3470f775711dd6aa0f2b444cc127e",
+            "tx_hex": "0400008085202f8901b55ee690006ab4ace862ad2fe52f75ce0a5334bee9c38e82082b6e569f72248f000000006a473044022048b6768458c2a4fcfa7007c9e612982fe643e91698b7c0e6a5e29cc60a07e97a02206051e772407fe61dc92f057322781dbef48a911e15419c576c5d56e6b50451a801210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac607aff25000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac71882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -988,14 +988,14 @@
             "my_balance_change": "-0.01000245",
             "received_by_me": "7.60999755",
             "spent_by_me": "7.62",
-            "timestamp": 1763194124,
+            "timestamp": 1764132988,
             "to": [
               "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
             ],
             "total_amount": "7.62",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "33951d7a465a88e0c01ef1b31e97c53715de4b859d44077a3b2fe96eb9ee2ebf",
-            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a47304402200ac3573f6050043c5a3acf0ae823295372417c803381920bda7d549df15a673402207f9f1fd8ceadd21228c08e69aadf6114bdd5d76f10329259478563e73108a54001210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac0c351869000000000000000000000000000000"
+            "tx_hash": "70e6710965f7a92ae7b05b0e2d55074441b7a989ae06af2917d693bd95dfeb51",
+            "tx_hex": "0400008085202f8901f19abcd5fca15276ce0a4469ab6fc14a6376f99a40fffadbf2dbf4d065618931000000006a473044022059ac69c6b12e6cee79348cff5d8ccf177de63fdb1197e8d50a2806d6761bc0ce022044d6cd951a1c17dede0d67e7f8fc970fe9f30173ec689703d8a86321989a1a3001210339e82bb13d3bb65a01b8ddb57fa56382e2020e67f825cb9113fcb97ea07fb9a6ffffffff0240420f00000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac4bef5b2d000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac7c882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -1023,16 +1023,16 @@
             "internal_id": "",
             "memo": null,
             "my_balance_change": "-1.02500245",
-            "received_by_me": "6.59499755",
-            "spent_by_me": "7.62",
-            "timestamp": 1763194125,
+            "received_by_me": "6.5795413",
+            "spent_by_me": "7.60454375",
+            "timestamp": 1764132989,
             "to": [
               "RAK5GkKvJKYehFvMavi5QKucriaCu9enHi"
             ],
-            "total_amount": "7.62",
+            "total_amount": "7.60454375",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "7d87f829335bc5f672b396fe111fb7a0432183738017fe0362756b8a31a5080a",
-            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a4730440220760220711d4ecf659b877bb9a42ebbc146277f07293595111c8520a7286600600220094d993019b829aef3268ab6332745ab9dcc6781ba64db0e7b89d382615a24320121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88aceb2a4f27000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac0d351869000000000000000000000000000000"
+            "tx_hash": "e1618faed03e309075143efdad26fad4ebb0fdfc8328062245e230f28cc3fdda",
+            "tx_hex": "0400008085202f89012271b3da81859515cacf81889e21c0f64e9831a4467e71b414ed04d8721f7007010000006a473044022062333f2a5a04ab03d20a61fb22d17fac9384888a7664581164e53b303d1724ad0220066903f4dc46ec9b14debd41e392704802e61d2f1428cd1c043ea24e532373b00121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff02a0061c06000000001976a9140b5346ab6e60cd7f69823fb3b3b289b5e1d70e0b88ac52953727000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac7d882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -1060,16 +1060,16 @@
             "internal_id": "",
             "memo": null,
             "my_balance_change": "-1.0245",
-            "received_by_me": "6.5955",
-            "spent_by_me": "7.62",
-            "timestamp": 1763194126,
+            "received_by_me": "6.58004375",
+            "spent_by_me": "7.60454375",
+            "timestamp": 1764132990,
             "to": [
               "REQAx25g5D1xj3GzQ3PRBMcHP4TegZwsCa"
             ],
-            "total_amount": "7.62",
+            "total_amount": "7.60454375",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "023cd0ff230926d487942c982a01fc03fa817c5197cfecd97af7f132e270c587",
-            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a473044022018e31a5897a32a2d3dd5c9f11b4055998a0db4d653ecf98baef2a5a9475658b00220561caa8d04d3b3a629dfe5a9d7b693dedfe833209d58260b6c5156a3125076740121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac30ef4f27000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac0e351869000000000000000000000000000000"
+            "tx_hash": "00a752f654a80c19b573bfda3110c46f174bcab8a8bcb20910bd863500950dcc",
+            "tx_hex": "0400008085202f89012271b3da81859515cacf81889e21c0f64e9831a4467e71b414ed04d8721f7007010000006a47304402207db1df7ab3ab8807c77d744dded50dbc6ac5ce2ca9b7e499e3a07b43d4102e23022034c360b8295281bc2adac2b172a363484238f619f8d28616ace3f333e915a7f70121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a914382a99167bf08019a1bf480eda14caba638b3c0688ac97593827000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac7e882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -1097,16 +1097,16 @@
             "internal_id": "",
             "memo": null,
             "my_balance_change": "-0.00000245",
-            "received_by_me": "7.61999755",
-            "spent_by_me": "7.62",
-            "timestamp": 1763194127,
+            "received_by_me": "7.6045413",
+            "spent_by_me": "7.60454375",
+            "timestamp": 1764132991,
             "to": [
               "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW"
             ],
-            "total_amount": "7.62",
+            "total_amount": "7.60454375",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "dbbc066e195d8e567c752d0986de2dc2fa2e276702bc9efa208617965035e231",
-            "tx_hex": "0400008085202f8901c9167df1d7940449b58ce7b0705724190ede7189ec74bee1eaf3e3b9224e7315000000006a47304402204ef47cb87f92ce9b3249cfc069f89dd75543e0f002f45adfc6e11f6b819cab8f022013efd4c82852508cddfee92a72304d1c4eeee8811ea5793eb761291de0b7b8d401210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0280969800000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac0b9bd22c000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac0f351869000000000000000000000000000000"
+            "tx_hash": "49118e7129db5ecb83b72a78026621aefd74cdec500084b2ce4d642ebf55feaa",
+            "tx_hex": "0400008085202f8901a95acede4ba45d94ef28f051de0993176d89a6093a37cd7028965c080304cd23010000006a47304402204d1ea4c5d03a18c0353d784958b4bafd595d854f1741ed3d1a39f4910323a3dc02204389d45e84ba9a8851c8d1242c5665357c27f1cd9f986cb5278b3f822eaf505701210388533bd49d81742f1598b9048921646f08d06dcd31d38f7e37cca79f64b977c4ffffffff0280969800000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac7205bb2c000000001976a91432d43e7ba0f08d320a22440e55b842407f481ebf88ac7f882669000000000000000000000000000000"
           }
         },
         "title": "Success"
@@ -1134,16 +1134,16 @@
             "internal_id": "",
             "memo": null,
             "my_balance_change": "-0.245",
-            "received_by_me": "7.375",
-            "spent_by_me": "7.62",
-            "timestamp": 1763194128,
+            "received_by_me": "7.35954375",
+            "spent_by_me": "7.60454375",
+            "timestamp": 1764132992,
             "to": [
               "R9oNwVG9pCZZNu8cUbbKvFxuzFyUAYWZw5"
             ],
-            "total_amount": "7.62",
+            "total_amount": "7.60454375",
             "transaction_type": "StandardTransfer",
-            "tx_hash": "d3ad5387b086124e610dfcb761c190adf4026ed06fe9d75f38e1f5383f2fb201",
-            "tx_hex": "0400008085202f8901378a408f4b87a36ac52e82075be0487bef8ceeafc5f5d9fd67def028b1bcd529000000006a473044022020f17f81f010bb3428924da83cd87564691a1ff8dbfe0dd879f8df12aa12c752022043d83636c1d25067698dc775a09bd898e18d19a73f77933ddbf5284a18dedd7a0121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac607aff25000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac10351869000000000000000000000000000000"
+            "tx_hash": "07a77fcb0ea0481e5e6fcbca7ad461ac096138fc3ce49de5919f19b57b657e15",
+            "tx_hex": "0400008085202f89012271b3da81859515cacf81889e21c0f64e9831a4467e71b414ed04d8721f7007010000006a473044022068b2605d43cb9454dc319e2872718281a31959a840ceb1e852d37fea7268b16e0220402b539667c39de368ea4850561c8bf22f5c33e30d9b91f5e19599c940f59c000121033a546ac195fa8a1f70cda975d035e811d3b903b2ef0253c47ee3a1fedad83c1cffffffff0200e1f505000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88acc7e4e725000000001976a91405b58bafaf5acc706232861edf0478f5cb69e70c88ac80882669000000000000000000000000000000"
           }
         },
         "title": "Success"

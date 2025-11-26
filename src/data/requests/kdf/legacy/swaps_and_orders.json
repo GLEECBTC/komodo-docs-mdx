@@ -313,5 +313,126 @@
       "denom": "2",
       "numer": "3"
     }
+  },
+  "SetpriceConfSettings": {
+    "base": "HELLO",
+    "base_confs": 2,
+    "base_nota": true,
+    "method": "setprice",
+    "price": {
+      "denom": "1",
+      "numer": "2"
+    },
+    "rel": "WORLD",
+    "rel_confs": 5,
+    "rel_nota": false,
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": {
+      "denom": "2",
+      "numer": "3"
+    }
+  },
+  "SetpriceFraction": {
+    "base": "HELLO",
+    "method": "setprice",
+    "price": {
+      "denom": "1",
+      "numer": "2"
+    },
+    "rel": "WORLD",
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": {
+      "denom": "2",
+      "numer": "3"
+    }
+  },
+  "SetpriceMax": {
+    "base": "BASE",
+    "max": true,
+    "method": "setprice",
+    "price": "0.9",
+    "rel": "REL",
+    "userpass": "RPC_UserP@SSW0RD"
+  },
+  "SetpriceMinVolume": {
+    "base": "HELLO",
+    "method": "setprice",
+    "min_volume": "1",
+    "price": {
+      "denom": "1",
+      "numer": "2"
+    },
+    "rel": "WORLD",
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": {
+      "denom": "2",
+      "numer": "3"
+    }
+  },
+  "SetpriceNoHistory": {
+    "base": "KMD",
+    "method": "setprice",
+    "price": {
+      "denom": "12",
+      "numer": "7"
+    },
+    "rel": "TKL",
+    "save_in_history": false,
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": {
+      "denom": "3",
+      "numer": "4"
+    }
+  },
+  "SetpriceRationalArray": {
+    "base": "HELLO",
+    "method": "setprice",
+    "price": [
+      [
+        1,
+        [
+          1
+        ]
+      ],
+      [
+        1,
+        [
+          1
+        ]
+      ]
+    ],
+    "rel": "WORLD",
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": [
+      [
+        1,
+        [
+          1
+        ]
+      ],
+      [
+        1,
+        [
+          1
+        ]
+      ]
+    ]
+  },
+  "SetpriceTimeout": {
+    "base": "BASE",
+    "method": "setprice",
+    "price": "1.25",
+    "rel": "REL",
+    "timeout_in_minutes": 45,
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": "2"
+  },
+  "SetpriceVolume": {
+    "base": "BASE",
+    "method": "setprice",
+    "price": "0.9",
+    "rel": "REL",
+    "userpass": "RPC_UserP@SSW0RD",
+    "volume": "1"
   }
 }

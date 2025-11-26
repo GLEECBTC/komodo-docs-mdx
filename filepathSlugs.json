@@ -2981,14 +2981,13 @@
     "response",
     "examples",
     "command-with-volume",
+    "command-with-timeout-in-minutes",
     "command-max-true",
     "command-rational-representation-in-num-rational-crate-format",
     "command-rational-representation-as-fraction-object",
     "command-with-min-volume",
     "command-with-confirmations-and-notarization-settings",
-    "command-set-to-not-save-order-history",
-    "response-success",
-    "response-error"
+    "command-set-to-not-save-order-history"
   ],
   "src/pages/komodo-defi-framework/api/legacy/show_priv_key/index.mdx": [
     "show-priv-key",

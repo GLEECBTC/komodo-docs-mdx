@@ -124,6 +124,36 @@
       "legacy"
     ]
   },
+  "setprice": {
+    "errors_table": "N/A",
+    "examples": {
+      "SetpriceVolume": "Setprice with explicit volume",
+      "SetpriceTimeout": "Setprice with timeout_in_minutes",
+      "SetpriceMax": "Setprice using max balance",
+      "SetpriceRationalArray": "Setprice (num-rational arrays)",
+      "SetpriceFraction": "Setprice (fraction objects)",
+      "SetpriceMinVolume": "Setprice with min_volume",
+      "SetpriceConfSettings": "Setprice with custom confirmations",
+      "SetpriceNoHistory": "Setprice without saving history"
+    },
+    "prerequisites": [],
+    "request_table": "SetpriceRequest",
+    "requirements": {
+      "environments": [
+        "native",
+        "wasm"
+      ],
+      "wallet_types": [
+        "hd",
+        "iguana"
+      ]
+    },
+    "response_table": "SetpriceResponse",
+    "sequence": 240,
+    "tags": [
+      "legacy"
+    ]
+  },
   "coins_needed_for_kick_start": {
     "errors_table": "CoinsNeededForKickStartErrors",
     "examples": {

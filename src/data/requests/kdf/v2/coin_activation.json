@@ -219,12 +219,12 @@
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
-        },
-        {
           "url": "https://polygon.drpc.org",
           "ws_url": "wss://polygon.drpc.org"
+        },
+        {
+          "url": "https://polygon.gateway.tenderly.co",
+          "ws_url": "wss://polygon.gateway.tenderly.co"
         }
       ],
       "required_confirmations": 5,
@@ -254,16 +254,16 @@
       "mm2": 1,
       "nodes": [
         {
+          "url": "https://0xrpc.io/eth",
+          "ws_url": "wss://0xrpc.io/eth"
+        },
+        {
           "url": "https://eth3.cipig.net:18555",
           "ws_url": "wss://eth3.cipig.net:38555"
         },
         {
           "url": "https://ethereum-rpc.publicnode.com",
           "ws_url": "wss://ethereum-rpc.publicnode.com"
-        },
-        {
-          "url": "https://mainnet.gateway.tenderly.co",
-          "ws_url": "wss://mainnet.gateway.tenderly.co"
         }
       ],
       "priv_key_policy": {
@@ -286,37 +286,37 @@
       "activation_params": {
         "client_conf": {
           "headers": {},
-          "server_url": "https://sia-walletd.komodo.earth/"
+          "server_url": "https://api.siascan.com/wallet/api"
         },
         "required_confirmations": 3,
         "tx_history": true
       },
       "client_id": 0,
-      "ticker": "SIA"
+      "ticker": "SC"
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableSiaInit": {
     "id": 1,
-    "method": "enable_sia::init",
+    "method": "task::enable_sia::init",
     "mmrpc": "2.0",
     "params": {
       "activation_params": {
         "client_conf": {
           "headers": {},
-          "server_url": "https://sia-walletd.komodo.earth/"
+          "server_url": "https://api.siascan.com/wallet/api"
         },
         "required_confirmations": 3,
         "tx_history": true
       },
       "client_id": 0,
-      "ticker": "SIA"
+      "ticker": "SC"
     },
     "userpass": "RPC_UserP@SSW0RD"
   },
   "EnableSiaStatus": {
     "id": 2,
-    "method": "enable_sia::status",
+    "method": "task::enable_sia::status",
     "mmrpc": "2.0",
     "params": {
       "forget_if_finished": true,
@@ -346,6 +346,9 @@
           "url": "https://iris-rpc.publicnode.com"
         },
         {
+          "url": "https://rpc.cosmos.directory/irisnet"
+        },
+        {
           "url": "https://rpc.irishub-1.irisnet.org"
         }
       ],
@@ -367,6 +370,9 @@
       "nodes": [
         {
           "url": "https://iris-rpc.publicnode.com"
+        },
+        {
+          "url": "https://rpc.cosmos.directory/irisnet"
         },
         {
           "url": "https://rpc.irishub-1.irisnet.org"
@@ -396,13 +402,7 @@
       "get_balances": true,
       "nodes": [
         {
-          "api_url": "https://cosmos-api.alpha.komodo.earth/",
-          "grpc_url": "https://cosmos-grpc.alpha.komodo.earth/",
-          "url": "https://cosmos-rpc.alpha.komodo.earth/",
-          "ws_url": "wss://cosmos-rpc.alpha.komodo.earth/websocket"
-        },
-        {
-          "url": "https://cosmoshub.rpc.stakin-nodes.com/"
+          "url": "https://rpc.cosmos.directory/cosmoshub"
         }
       ],
       "ticker": "ATOM",
@@ -525,12 +525,12 @@
           "ws_url": "wss://pol3.cipig.net:38755"
         },
         {
-          "url": "https://polygon-bor-rpc.publicnode.com",
-          "ws_url": "wss://polygon-bor-rpc.publicnode.com"
-        },
-        {
           "url": "https://polygon.drpc.org",
           "ws_url": "wss://polygon.drpc.org"
+        },
+        {
+          "url": "https://polygon.gateway.tenderly.co",
+          "ws_url": "wss://polygon.gateway.tenderly.co"
         }
       ],
       "path_to_address": {
@@ -648,6 +648,9 @@
       "nodes": [
         {
           "url": "https://iris-rpc.publicnode.com"
+        },
+        {
+          "url": "https://rpc.cosmos.directory/irisnet"
         },
         {
           "url": "https://rpc.irishub-1.irisnet.org"

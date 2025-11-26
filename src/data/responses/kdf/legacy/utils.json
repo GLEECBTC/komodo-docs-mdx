@@ -44,6 +44,18 @@
           "result": [
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "APE-ERC20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "BUSD-BEP20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "NZDS-PLG20"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "BAT-ERC20"
             },
             {
@@ -52,11 +64,15 @@
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "APE-ERC20"
+              "ticker": "AAVE-PLG20"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
               "ticker": "ETH"
+            },
+            {
+              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
+              "ticker": "MINDS-ERC20"
             },
             {
               "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
@@ -67,20 +83,8 @@
               "ticker": "NFT_MATIC"
             },
             {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "NZDS-PLG20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "MINDS-ERC20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "BUSD-BEP20"
-            },
-            {
-              "address": "0x9A8ED9876E0D06DF80f16e7d1ad6271055C0E375",
-              "ticker": "AAVE-PLG20"
+              "address": "65d8c43621020f4cda8b61e75a49d1c6f517b114ab1fe9bf125fe1ac324f03ee9b661127ade3",
+              "ticker": "SC"
             },
             {
               "address": "bitcoincash:qqedg0nm5rcg6vs2yfzqu4dcgfq87jq7hujzrcwk5w",
@@ -100,11 +104,11 @@
             },
             {
               "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "DOC"
+              "ticker": "MARTY"
             },
             {
               "address": "RDux85r5XE7xuUs5DCTt7jTY1cJZT7SKAW",
-              "ticker": "MARTY"
+              "ticker": "DOC"
             }
           ]
         },
@@ -117,7 +121,7 @@
     "success": [
       {
         "json": {
-          "result": "12D3KooWAPoPWKN7ENY46ggcV9cQhe6BXVYU6z36UR9HWJxgufnx"
+          "result": "12D3KooWCDzxghNykmc2eJ5Toqy4a8B4teRWhkzoxvgnxG8a3nSi"
         },
         "title": "Success"
       }
@@ -128,8 +132,8 @@
     "success": [
       {
         "json": {
-          "datetime": "2025-09-19T08:42:42.719348125+00:00",
-          "result": "2.5.1-beta_dev-d6e2324"
+          "datetime": "2025-11-26T04:10:27.871794255+00:00",
+          "result": "2.6.0-beta_dev-9121639"
         },
         "title": "Success"
       }
