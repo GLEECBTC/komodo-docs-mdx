@@ -1,18 +1,16 @@
-export const title = "Komodo DeFi SDK Common Structures: Lightning";
-export const description = "Lightning network functionality is now available in the Komodo DeFi SDK!";
+export const title = "Komodo DeFi Framework Method: Lightning Common Structures";
+export const description = "Lightning Network common structures for Komodo DeFi Framework API.";
 
-# Lightning Network Structures
+# Lightning Common Structures
+
+## lightning-common-structures {{label : 'lightning_common_structures', tag : 'structures'}}
 
 ### ConfirmationTargets
 
 This object represents the number of blocks required for an on-chain lightning-related transaction to be confirmed.
 It is used for estimating the transaction fee rate (`feerate`) for different transaction types in the context of permissionless transactions performed by the node. Different target types are `background`, `normal`, and `high_priority`.
 
-| Parameter      | Type    | Description                                                                                                                                                                                                                                                                                                                                                              |
-| -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| background     | integer | Used for transactions that can tolerate slower confirmation times when the transaction fee rate decreases. These transactions are not time-sensitive and can afford to wait longer for confirmation. The recommended range is `12` to `144` blocks to ensure a low `feerate`.                                                                                            |
-| normal         | integer | Used for transactions that we want to confirm promptly, without significant delay (e.g, transactions for opening payment channels). These transactions are important but not critical. Suggested value is `6` blocks to ensure a moderate `feerate`.                                                                                                                     |
-| high\_priority | integer | Used for transactions that require quick confirmation to prevent potential loss of funds (e.g. redeeming a Hashed Time Lock Contract (HTLC) on the blockchain before it times out). These transactions are time-critical and must be confirmed promptly to ensure the security of funds. Recommended value for `high_priority` is 1-2 blocks to ensure a high `feerate`. |
+<CompactTable source="common-structures/lightning.ConfirmationTargets" />
 
 <Note>
   Using the recommended values in the above table with a coin that has a block time of 10 minutes, the equivalent time in minutes is:
@@ -24,53 +22,24 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### CounterpartyChannelConfig
 
-| Parameter                               | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                          |
-| --------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| allow\_outbound\_0conf                  | boolean | Optional, defaults to `true`. When setting an outbound channel, it can be used straight away [without waiting](https://docs.rs/lightning/latest/lightning/util/config/struct.ChannelHandshakeLimits.html#structfield.trust_own_funding_0conf) for any on-chain confirmations.                                                                                                                        |
-| force\_announced\_channel\_preference   | boolean | Optional, defaults to `true`. Set to force an incoming channel to match our announced channel preference in ChannelOptions announced\_channel.                                                                                                                                                                                                                                                       |
-| outbound\_channels\_confirmations       | integer | Optional, defaults to `144`. Confirmations we will wait for before considering an inbound channel locked in.                                                                                                                                                                                                                                                                                         |
-| our\_locktime\_limit                    | boolean | Optional, defaults to `2016`. Set to the amount of blocks we're willing to wait to claim money back to us.                                                                                                                                                                                                                                                                                           |
-| min\_funding\_sats                      | boolean | Optional, defaults to `0`. Minimum allowed satoshis when an inbound channel is funded.                                                                                                                                                                                                                                                                                                               |
-| max\_funding\_sats                      | boolean | Optional, defaults to `16777215`. Maximum allowed satoshis when an inbound channel is funded.                                                                                                                                                                                                                                                                                                        |
-| max\_htlc\_minimum\_msat                | boolean | Optional, defaults to `18446744073709551615`. The remote node sets a limit on the minimum size of HTLCs we can send to them. This allows us to limit the maximum minimum-size they can require.                                                                                                                                                                                                      |
-| min\_max\_htlc\_value\_in\_flight\_msat | boolean | Optional, defaults to `0`. The remote node sets a limit on the maximum value of pending HTLCs to them at any given time to limit their funds exposure to [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract). This allows us to set a minimum such value.                                                                                                                      |
-| max\_channel\_reserve\_sats             | boolean | Optional, defaults to `18446744073709551615`. The remote node will require us to keep a certain amount in direct payment to ourselves at all time, ensuring that we are able to be punished if we broadcast an old state. This allows us to limit the amount which we will have to keep to ourselves (and cannot use for [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract)). |
-| min\_max\_accepted\_htlcs               | boolean | Optional, defaults to `0`. The remote node sets a limit on the maximum number of pending HTLCs to them at any given time. This allows us to set a minimum such value.                                                                                                                                                                                                                                |
+<CompactTable source="common-structures/lightning.CounterpartyChannelConfig" variant="compact" />
 
 ### LightningActivationParams
 
-| Parameter        | Type    | Description                                                                                                                                                                                                                                   |
-| ---------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name             | string  | The name of the node that will be used in [lightning explorers](https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164/r/n)                                                          |
-| listening port   | integer | Optional, defaults to `9735`. The port that this node listens for incoming connections on.                                                                                                                                                    |
-| color            | string  | Optional, defaults to `2b6680`. A hexadecimal color string which will be used in network graphs on [lightning explorers](https://mempool.space/testnet/lightning/node/024e2a940e0cbeda84a0d5e00fa8e83b3f4e7f98382eedb488d058e0f5636dd164/r/n) |
-| payment\_retries | integer | Optional, defaults to `5`. Number of times a payment will be retried if it fails.                                                                                                                                                             |
-| backup\_path     | string  | Optional. The backup path for channel backups, preferably on an external drive.                                                                                                                                                               |
+<CompactTable source="common-structures/lightning.LightningActivationParams" />
 
 ### LightningChannelAmount
 
-| Parameter | Type   | Description                                                                            |
-| --------- | ------ | -------------------------------------------------------------------------------------- |
-| type      | string | `Exact` for a specific amount or `Max` for whole balance.                              |
-| value     | object | Only required if type is `Exact`. The amount in BTC you want to open the channel with. |
+<CompactTable source="common-structures/lightning.LightningChannelAmount" />
 
 ### LightningChannelConfig
 
 <Note>
   The values in this object are only used if the channel is being opened by the user. If the channel is being opened by the counterparty, the values in this object are ignored.
-  If not specified when using the [open\_channel](/komodo-defi-framework/api/v20/lightning/channels/#open-channel) or [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/#update-channel) methods, the values in this object will default to the values set in the `coins` configuration file.
+  If not specified when using the [open\_channel](/komodo-defi-framework/api/v20/lightning/channels/) or [update\_channel](/komodo-defi-framework/api/v20/lightning/channels/) methods, the values in this object will default to the values set in the `coins` configuration file.
 </Note>
 
-| Parameter                               | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| --------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| inbound\_channels\_confirmations        | string  | Optional, defaults to `6`. Should be set in coins file, and applies to all channels. Confirmations we will wait for before considering an inbound channel locked in.                                                                                                                                                                                                                                                                                                                                   |
-| max\_inbound\_in\_flight\_htlc\_percent | integer | Optional, defaults to `10`. Should be set in coins file, and applies to all channels. Sets the percentage of the channel value we will cap the total value of outstanding inbound HTLCs to.                                                                                                                                                                                                                                                                                                            |
-| our\_htlc\_minimum\_msat                | integer | Optional, defaults to `1`. The smallest value HTLC we will accept to process. The channel gets closed any time our counterparty misbehaves by sending us an HTLC with a value smaller than this.                                                                                                                                                                                                                                                                                                       |
-| announced\_channel                      | boolean | Optional, defaults to `false`. Set to announce the channel publicly and notify all nodes that they can route via this channel. GUIs and wallet apps should be set to `false`.                                                                                                                                                                                                                                                                                                                          |
-| commit\_upfront\_shutdown\_pubkey       | boolean | Optional, defaults to `true`. When `true` (and the counterparty agrees), the user must use the same key for cooperative closing. This prevents a user from changing the destination address in a cooperative close, which slightly increases security (however, this option is not required if the counterparty does not support it and a channel can be accepted regardless). **Note that the key for forced closing is always fixed when opening a channel and is different from shutdown\_pubkey.** |
-| counterparty\_locktime                  | integer | Optional, defaults to `144`. The number of blocks we require our counterparty to wait to claim their money on chainif they broadcast a revoked transaction. We have to be online at least once during this time to punish our counterparty for broadcasting a revoked transaction. We have to account also for the time to broadcast and confirm our transaction, possibly with time in between to [RBF (Replace-By-Fee)](https://bitcoinops.org/en/topics/replace-by-fee/) the spending transaction.  |
-| negotiate\_scid\_privacy                | integer | Optional, defaults to `false`. If `true`, we attempt to negotiate the `scid_privacy` (referred to as `scid_alias` in the [BOLTs](https://github.com/lightning/bolts)) option for outbound private channels. This provides better privacy by not including our real on-chain channel UTXO in each invoice and requiring that our counterparty only relay HTLCs to us using the channel's SCID alias.                                                                                                    |
-| their\_channel\_reserve\_sats           | boolean | Optional, defaults to `10000` or 1% of channel value. The minimum balance that the other node has to maintain on their side, at all times. This ensures that if our counterparty broadcasts a revoked state, we can punish them by claiming at least this value on chain.                                                                                                                                                                                                                              |
+<CompactTable source="common-structures/lightning.LightningChannelConfig" variant="compact" />
 
 <Note>
   For GUIs and wallet apps, it is recommended to set `announced_channel` to `false` (the default value), as the node is not expected to be reliably online.
@@ -78,30 +47,11 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### LightningChannelOptions
 
-| Parameter                               | Type    | Description                                                                                                                                                                                                        |
-| --------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| proportional\_fee\_in\_millionths\_sats | integer | Optional, defaults to `0`. Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional\_fee\_in\_millionths\_sats.                                               |
-| base\_fee\_msat                         | integer | Optional, defaults to `1000`. Amount (in milli-satoshi) charged for payments forwarded outbound over the channel, in excess of proportional\_fee\_in\_millionths\_sats.                                            |
-| cltv\_expiry\_delta                     | integer | Optional, defaults to `72`. Blocks until [CheckLockTimeVerify (CLTV)](https://academy.bit2me.com/en/que-es-cltv-bitcoin/) expiry.                                                                                  |
-| max\_dust\_htlc\_exposure\_msat         | integer | Optional, defaults to `5000000`. Limit our total exposure to in-flight [HTLCs](https://academy.binance.com/en/glossary/hashed-timelock-contract) which are burned to fees as they are too small to claim on-chain. |
-| force\_close\_avoidance\_max\_fee\_sats | integer | Optional, defaults to `1000`. The additional fee we're willing to pay to avoid waiting for the counterparty's locktime to reclaim funds.                                                                           |
+<CompactTable source="common-structures/lightning.LightningChannelOptions" />
 
 ### LightningClosedChannelsFilter
 
-| Parameter              | Type    | Description                                                                                                                         |
-| ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| channel\_id            | string  | Optional. Unique string identifying a channel by its ID.                                                                            |
-| counterparty\_node\_id | string  | Optional. A hexadecimal string identifying a counterparty node.                                                                     |
-| funding\_tx            | string  | Optional. A transaction ID which added funds.                                                                                       |
-| from\_funding\_value   | integer | Optional. The minimum value of channel funding in satoshis.                                                                         |
-| to\_funding\_value     | integer | Optional. The maximum value of channel funding in satoshis.                                                                         |
-| channel\_type          | string  | Optional. `Inbound` or `Outbound`.                                                                                                  |
-| closing\_tx            | integer | Optional. A transaction ID which closed the channel.                                                                                |
-| closure\_reason        | integer | Optional. The reason a channel was closed.                                                                                          |
-| claiming\_tx           | integer | Optional. The ID of the transaction that returned the remaining outbound funds when the channel was closed to our on-chain address. |
-| from\_claimed\_balance | integer | Optional. The minimum balance of channel funds claimed in satoshis.                                                                 |
-| to\_claimed\_balance   | integer | Optional. The maximum balance of channel funds claimed in satoshis.                                                                 |
-| channel\_visibility    | integer | Optional. `Public` or `Private`.                                                                                                    |
+<CompactTable source="common-structures/lightning.LightningClosedChannelsFilter" />
 
 <DevComment>
   Response may change to be more consistent in future.
@@ -110,56 +60,41 @@ It is used for estimating the transaction fee rate (`feerate`) for different tra
 
 ### LightningOpenChannelsFilter
 
-| Parameter                      | Type    | Description                                                                                                                                                          |
-| ------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| channel\_id                    | string  | Optional. Unique string identifying a channel by its ID.                                                                                                             |
-| counterparty\_node\_id         | string  | Optional. A hexadecimal string identifying a counterparty node.                                                                                                      |
-| funding\_tx                    | string  | Optional. A transaction ID which added funds.                                                                                                                        |
-| from\_funding\_value\_sats     | integer | Optional. The minimum value of channel funding in satoshis.                                                                                                          |
-| to\_funding\_value\_sats       | integer | Optional. The maximum value of channel funding in satoshis.                                                                                                          |
-| is\_outbound                   | boolean | Optional. If `true`, limits the response to outbound channels only.                                                                                                  |
-| from\_balance\_msat            | integer | Optional. The minimum channel balance in millisatoshis.                                                                                                              |
-| to\_balance\_msat              | integer | Optional. The maximum channel balance in millisatoshis.                                                                                                              |
-| from\_outbound\_capacity\_msat | integer | Optional. The minimum outbound capacity of the channel balance in millisatoshis.                                                                                     |
-| to\_outbound\_capacity\_msat   | integer | Optional. The maximum outbound capacity of the channel balance in millisatoshis.                                                                                     |
-| from\_inbound\_capacity\_msat  | integer | Optional. The minimum inbound capacity of the channel balance in millisatoshis.                                                                                      |
-| to\_inbound\_capacity\_msat    | integer | Optional. The maximum inbound capacity of the channel balance in millisatoshis.                                                                                      |
-| confirmed                      | boolean | Optional. If `true`, only channels with channel opening transactions that passed the number of confirmations required for the channel to be usable will be returned. |
-| is\_usable                     | boolean | Optional. If `true`, only channels that are confirmed and the counterparty is online, meaning that these channels can be used for payments will be returned.         |
-| is\_public                     | boolean | Optional. If `true`, only channels that our node announces to the lightning network, these channels are visible on lightning explorers will be returned.             |
+<CompactTable source="common-structures/lightning.LightningOpenChannelsFilter" variant="compact" />
 
 ### LightningPayment
 
-| Parameter        | Type   | Description                                                                                                                                                                                  |
-| ---------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type             | string | The payment type. Accepted values are `invoice` or [`keysend`](https://cdecker-lightning.readthedocs.io/lightning-keysend.7.html).                                                           |
-| invoice          | string | Only used if `type` is `invoice`. An identifying string which represents the invoice.                                                                                                        |
-| destination      | string | Only used if `type` is `keysend`. A `node_pubkey` (which is also the node address in lightning context). Not to be confused with an onchain address.                                         |
-| amount\_in\_msat | string | Only used if `type` is `keysend`. Amount to be paid, in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter) (A thousandth of a satoshi; the same as 0.00000000001 bitcoin). |
-| expiry           | string | Only used if `type` is `keysend`. Optional, defaults to `3600`. Seconds until the payment expires.                                                                                           |
+<CompactTable source="common-structures/lightning.LightningPayment" />
 
 ### LightningPaymentFilter
 
-| Parameter             | Type    | Description                                                                                                       |
-| --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| payment\_type         | object  | A standard `LightningPaymentType` object.                                                                         |
-| description           | string  | Optional. A note to indicate the purpose of the invoice.                                                          |
-| status                | string  | Optional. Accepted values: `pending`, `succeeded`, `failed`.                                                      |
-| from\_amount\_msat    | integer | Optional. Minimum amount sent in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)             |
-| to\_amount\_msat      | integer | Optional. Maximum amount sent in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)             |
-| from\_fee\_paid\_msat | integer | Optional. Minimum transaction fee paid in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)    |
-| to\_fee\_paid\_msat   | integer | Optional. Maximum transaction fee paid in [millisatoshis](https://bitcoindata.science/bitcoin-units-converter)    |
-| from\_timestamp       | string  | Optional. Minimum timestamp in [unix epoch format](https://www.epochconverter.com/) of payment results to return. |
-| to\_timestamp         | string  | Optional. Maximum timestamp in [unix epoch format](https://www.epochconverter.com/) of payment results to return. |
+<CompactTable source="common-structures/lightning.LightningPaymentFilter" variant="compact" />
 
 ### LightningPaymentType
 
-| Parameter   | Type   | Description                                                                         |
-| ----------- | ------ | ----------------------------------------------------------------------------------- |
-| type        | object | Accepted values are `Outbound Payment` or `Inbound Payment`.                        |
-| destination | string | Only used if `type` is `Outbound Payment`. A pubkey which will receive the payment. |
+<CompactTable source="common-structures/lightning.LightningPaymentType" />
 
 <DevComment>
   Response may change in future.
   See [https://github.com/KomodoPlatform/komodo-docs-mdx/pull/31#discussion\\\_r1206176530](https://github.com/KomodoPlatform/komodo-docs-mdx/pull/31#discussion\\_r1206176530)
 </DevComment>
+
+### ChannelConfigLimits
+
+<CompactTable source="common-structures/lightning.ChannelConfigLimits" variant="compact" />
+
+### LightningActivationParams
+
+<CompactTable source="common-structures/lightning.LightningActivationParams_1" />
+
+### LightningChannelValue
+
+<CompactTable source="common-structures/lightning.LightningChannelValue" />
+
+### LightningChannelConfig
+
+<CompactTable source="common-structures/lightning.LightningChannelConfig_1" variant="compact" />
+
+### LightningClosedChannelsFilter
+
+<CompactTable source="common-structures/lightning.LightningClosedChannelsFilter_1" />

@@ -1,31 +1,9 @@
-export const title = "Komodo DeFi Framework Method: ZHTLC Coin Methods";
+export const title = "Komodo DeFi Framework Method: Task Managed Coin Activation";
 export const description =
-  "The methods in this document allow activation and management of ZHTLC coins like ARRR & ZOMBIE.";
+  "The methods in this document detail task managed activation of coins in HD mode.";
 
-# ZHTLC Coin Methods
+# Coin Activation (v2)
 
-ZHTLC coins, like Pirate (ARRR) and the test coin ZOMBIE take a little longer to enable, and use a new two step method to enable.
-Activation can take a little while the first time, as we need to download some block cache data, and build a wallet database.
-Subsequent enabling will be faster, but still take a bit longer than other coins. The second step for activation is optional, but allows us to check the status of the activation process.
-
-To activate ZHTLC coins, you need to use the [task::enable\_z\_coin](/komodo-defi-framework/api/v20/wallet/task_managed/task_withdraw/#withdraw-tasks) methods:
-
-*   Initialize activation with with [task::enable\_z\_coin::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/task_enable_z_coin/#initialize-zhtlc-coin-activation)
-*   Query activation status with [task::enable\_z\_coin::status](/komodo-defi-framework/api/v20/coin_activation/task_managed/task_enable_z_coin/#activation-status)
-*   Cancel activation with [task::enable\_z\_coin::cancel](/komodo-defi-framework/api/v20/coin_activation/task_managed/task_enable_z_coin/#cancel-activation)
-
-To withdraw ZHTLC coins, you need to use the [task::withdraw](/komodo-defi-framework/api/v20/wallet/task_managed/task_withdraw/#withdraw-tasks) methods:
-
-*   Generate a transaction with [task::withdraw::init](/komodo-defi-framework/api/v20/wallet/task_managed/task_withdraw/#init)
-*   Query its status with [task::withdraw::status](/komodo-defi-framework/api/v20/wallet/task_managed/task_withdraw/#status)
-*   Cancel generating the transaction with [task::withdraw::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/task_withdraw/#cancel)
-*   Broadcast the transaction with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/#send-raw-transaction)
-
-ZHTLC coins are not compatible with the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) and [legacy my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/) methods.
-To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/) method.
+The v2 activation methods introduced more functionality to KDF, such as support for [Hierarchical Deterministic (HD) Wallets](https://atomicdex.io/en/blog/hd-wallet/)
 
 <TocForIndex />
-
-<DevComment>
-  TODO: Add summary for other methods, along with detail for HD methods
-</DevComment>

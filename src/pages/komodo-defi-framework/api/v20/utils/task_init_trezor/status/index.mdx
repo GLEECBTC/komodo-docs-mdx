@@ -1,0 +1,227 @@
+export const title = "task::init_trezor::status";
+export const description = "Query the status of Trezor device initialisation in the Komodo DeFi Framework API.";
+
+# Komodo DeFi Framework Method: task::init\_trezor::status
+
+## task::init\_trezor::status {{label : 'task::init_trezor::status', tag : 'API-v2'}}
+
+After running the `task::init_trezor::init` method, you can query the status of device initialisation to check its progress.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorStatusRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorStatusResponse" />
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::init_trezor::status" tag="POST" label="task::init_trezor::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::status",
+    "params": {
+      "task_id": 0,
+      "forget_if_finished": false
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (in progress)
+
+  Possible "In progress" Cases:
+
+  *   `Initializing` - This is the normal task state. It does not require any action from the user.
+
+  *   `WaitingForTrezorToConnect` - The Komodo DeFi Framework API is waiting for the user to plugin a Trezor device.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "WaitingForTrezorToConnect"
+    },
+    "id": null
+  }
+  ```
+
+  *   `FollowHwDeviceInstructions` - The Komodo DeFi Framework API is waiting for the user to follow instructions displayed on the device (e.g. clicking a button to confirm).
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "FollowHwDeviceInstructions"
+    },
+    "id": null
+  }
+  ```
+
+  *   `UserActionRequired` - This will either be `EnterTrezorPin` or `EnterTrezorPassphrase`. Refer to the [task::init\_trezor::user\_action](/komodo-defi-framework/api/v20/utils/task_init_trezor/user_action/) section for more information.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "UserActionRequired",
+      "details": "EnterTrezorPin"
+    },
+    "id": null
+  }
+  ```
+
+  #### Response (ready, successful)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "result": {
+          "type": "Trezor",
+          "model": "One",
+          "device_name": "Fitzchivalry Farseer",
+          "device_id": "A1CCF11243A795A84111955E",
+          "device_pubkey": "066deb87b0d0500ec2e9b85f5314870b03a53517"
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+
+  #### Error Responses (by `error_type`)
+
+  *   `HwContextInitializingAlready` - Returned if user calls `task::init_trezor::init` before the previous `task::init_trezor::init` task has been completed.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Error",
+      "details": {
+        "error": "Hardware Wallet context is initializing already",
+        "error_path": "init_hw.crypto_ctx",
+        "error_trace": "init_hw:151] crypto_ctx:235]",
+        "error_type": "HwContextInitializingAlready"
+      }
+    },
+    "id": null
+  }
+  ```
+
+  *   `Timeout` - Task timed out while trying to connect to a device.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Error",
+      "details": {
+        "error": "RPC timed out 300s",
+        "error_path": "init_hw.crypto_ctx.hw_client",
+        "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:156]",
+        "error_type": "Timeout",
+        "error_data": {
+          "secs": 300,
+          "nanos": 0
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+
+  *   `NoSuchTask` - Something went wrong or `task::init_trezor::init` was not called. Refer to the [task::init\_trezor::init](/komodo-defi-framework/api/v20/utils/task_init_trezor/init/) section for more information.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '0'",
+    "error_path": "init_hw",
+    "error_trace": "init_hw:184]",
+    "error_type": "NoSuchTask",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+
+  *   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
+</CollapsibleSection>
+
+## Details for `HwError` error type
+
+When requesting the status of a task, if an `error_type` of `HwError` is returned, the GUI / User should check the details in `error_data` field to know which action is required (as detailed below).
+
+### FoundUnexpectedDevice
+
+The connected Trezor device has a different pubkey value than what was specified in the `device_pubkey` parameter
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Found unexpected device. Please re-initialize Hardware wallet",
+      "error_path": "lib.common_impl.coin_balance.utxo_common.hd_pubkey.hw_ctx",
+      "error_trace": "lib:93] common_impl:46] coin_balance:304] utxo_common:163] hd_pubkey:176] hw_ctx:149]",
+      "error_type": "HwError",
+      "error_data": "FoundUnexpectedDevice"
+    }
+  },
+  "id": null
+}
+```
+
+### FoundMultipleDevices
+
+Multiple Trezor devices are plugged in. Remove the additional devices, and keep the one you want to use plugged in.
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Found multiple devices. Please unplug unused devices",
+      "error_path": "init_hw.crypto_ctx.hw_client",
+      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_client:152] hw_client:126]",
+      "error_type": "HwError",
+      "error_data": "FoundMultipleDevices"
+    }
+  },
+  "id": null
+}
+```
+
+### NoTrezorDeviceAvailable
+
+No Trezor device detected by the Komodo DeFi Framework API. Make sure it is plugged in, or try a different USB cable / port.
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "No Trezor device available",
+      "error_path": "init_hw.crypto_ctx.hw_ctx.response.usb.libusb",
+      "error_trace": "init_hw:151] crypto_ctx:248] crypto_ctx:354] hw_ctx:120] response:136] usb:46] libusb:195]",
+      "error_type": "HwError",
+      "error_data": "NoTrezorDeviceAvailable"
+    }
+  },
+  "id": null
+}
+```

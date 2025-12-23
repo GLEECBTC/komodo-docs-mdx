@@ -11,13 +11,13 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure | Type             | Description                                                                                    |
-| --------- | ---------------- | ---------------------------------------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                                              |
-| to        | string           | coins are withdrawn to this address                                                            |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                               |
-| max       | bool             | withdraw the maximum available amount                                                          |
-| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/#fee-info) object. |
+| Structure | Type             | Description                                                                                           |
+| --------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
+| coin      | string           | the name of the coin the user desires to withdraw                                                     |
+| to        | string           | coins are withdrawn to this address                                                                   |
+| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
+| max       | bool             | withdraw the maximum available amount                                                                 |
+| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
 
 ## Response
 

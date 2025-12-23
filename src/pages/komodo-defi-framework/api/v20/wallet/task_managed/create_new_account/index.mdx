@@ -1,0 +1,158 @@
+export const title = "Komodo DeFi Framework Method: HD Account Management Tasks";
+export const description = "The methods in this document allow tracking of balances across multiple addresses under a specified account index.";
+
+# Task: Create New Account
+
+If you have enabled a coin with [task managed activation](/komodo-defi-framework/api/v20/coin_activation/task_managed/) and are using `HD Mode`, your funds may be spread across a range of addresses under a specified account index. The methods below will initialise a wallet account, and scan for existing addresses with a balance.
+
+## task::create\_new\_account::init {{label : 'task::create_new_account::init', tag : 'API-v2'}}
+
+Use the `task::create_new_account::init` method to initialise a HD account.
+
+#### Arguments
+
+| Parameter   | Type   | Description                                                                                                                             |
+| ----------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| coin        | string | Ticker of coin you would like to initialise a HD account for.                                                                           |
+| account\_id | string | Optional. If not defined, will increment to the next unused account id in the wallet.                                                   |
+| scan        | string | Optional. If `true`, will scan the account for funded addresses. Defaults to `true`.                                                    |
+| gap\_limit  | string | Optional. The maximum number of empty addresses in a row. Defaults to the value provided on activation, or 20 if no value was provided. |
+
+#### Response
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::create_new_account::init" tag="POST" label="task::create_new_account::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::init",
+    "params": {
+      "coin": "KMD",
+      "account_id": 77,
+      "scan": true,
+      "gap_limit": 20
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (ready, successful)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 6
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::create\_new\_account::status {{label : 'task::create_new_account::status', tag : 'API-v2'}}
+
+Use the `task::create_new_account::status` method to query the status of a HD account creation task.
+
+#### Arguments
+
+| Parameter            | Type    | Description                                                                               |
+| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| task\_id             | integer | The identifying number returned when initiating the task.                                 |
+| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+
+#### Response
+
+| Parameter | Type             | Description                                                                                                                                                                                       |
+| --------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status    | string           | Status of the task. `Ok`, `InProgress` or `Error`.                                                                                                                                                |
+| details   | string or object | If in progress, either `Preparing` or `RequestingAccountBalance`. Once complete, a standard [WalletAccountInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-account-info) object. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::create_new_account::status" tag="POST" label="task::create_new_account::status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::create_new_account::status",
+    "params": {
+      "task_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (ready, successful)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "status": "Ok",
+          "details": {
+              "account_index": 77,
+              "derivation_path": "m/44'/141'/77'",
+              "total_balance": {
+                  "spendable": "7.777",
+                  "unspendable": "0"
+              },
+              "addresses": [
+                  {
+                      "address": "RMsnNdVfZbxWwDxJafc6scbaN1xYVoR7Gx",
+                      "derivation_path": "m/44'/141'/77'/0/4",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                      }
+                  },
+                  {
+                      "address": "R9roM4acnrrp1BL73MXd9EWdF5biRcSJ5X",
+                      "derivation_path": "m/44'/141'/77'/0/5",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "0",
+                          "unspendable": "0"
+                      }
+                  },
+                  {
+                      "address": "RLNu8gszQ8ENUrY3VSyBS2714CNVwn1f7P",
+                      "derivation_path": "m/44'/141'/77'/0/7",
+                      "chain": "External",
+                      "balance": {
+                          "spendable": "7.777",
+                          "unspendable": "0"
+                      }
+                  }
+              ]
+          }
+      },
+      "id": null
+  }
+  ```
+
+  #### Response (in progress)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "InProgress",
+        "details": "Preparing"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

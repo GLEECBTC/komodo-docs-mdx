@@ -1,0 +1,78 @@
+export const title = "Komodo DeFi Framework Method: Disable Streaming";
+export const description = "Using this method, you can disable specific streaming events.";
+
+# Disable Streaming
+
+## stream::disable {{label : 'stream::disable', tag : 'API-v2'}}
+
+Using this method, you can disable specific streaming events.
+
+### Request Parameters
+
+<CompactTable source="v2/streaming.DisableRequestParameters" />
+
+### Response Parameters
+
+<CompactTable source="v2/streaming.DisableResponseParameters" />
+
+#### 📌 Examples
+
+<CodeGroup title="stream::disable" tag="POST" label="stream::disable" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "stream::disable",
+    "mmrpc": "2.0",
+    "params": {
+      "client_id": 1,
+      "streamer_id": "BALANCE:MATIC"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+    {
+        "mmrpc": "2.0",
+        "result": {
+            "result": "Success"
+        },
+        "id": null
+    }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2/streaming.DisableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Streamer Not Found)
+
+  ```json
+    {
+        "mmrpc": "2.0",
+        "error": "StreamerNotFound",
+        "error_path": "disable",
+        "error_trace": "disable:48]",
+        "error_type": "DisableError",
+        "error_data": "StreamerNotFound",
+        "id": null
+    }
+  ```
+
+  ##### Error (Unknown Client)
+
+  ```json
+    {
+        "mmrpc": "2.0",
+        "error": "UnknownClient",
+        "error_path": "disable",
+        "error_trace": "disable:48]",
+        "error_type": "DisableError",
+        "error_data": "UnknownClient",
+        "id": null
+    }
+  ```
+</CollapsibleSection>

@@ -38,13 +38,22 @@ jobs:
         with:
           node-version: "18.20.4"
 
-      - name: Cache dependencies
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Cache npm dependencies
         uses: actions/cache@v4
+        id: npm-cache
         with:
-          path: ~/.npm
-          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('utils/js/package-lock.json') }}
           restore-keys: |
-            npm-${{ runner.os }}-
+            ${{ runner.os }}-npm-
 
       - name: Generate API methods table
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
@@ -88,6 +97,12 @@ jobs:
           set -e
           set -o pipefail
           node utils/js/h1_presence_format_checker.js
+
+      - name: Validate CompactTable data
+        run: |
+          set -e
+          set -o pipefail
+          node utils/js/validate_compact_table_data.js
 
       - name: Prepare data files for GPTs
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
@@ -145,16 +160,33 @@ jobs:
           cache: yarn
           cache-dependency-path: "website-komodoplatform.com/yarn.lock"
 
-      - name: Restore cache
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Cache Next.js build
         uses: actions/cache@v4
         with:
           path: |
             website-komodoplatform.com/.next/cache
           # Generate a new cache whenever packages or source files change.
-          key:
-            nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/**.[jt]s', 'website-komodoplatform.com/**.[jt]sx') }}
-            # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-${{ hashFiles('website-komodoplatform.com/src/**/*.[jt]s', 'website-komodoplatform.com/src/**/*.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('website-komodoplatform.com/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Get updated content, Install deps, build, Add no-index headers before publishing to cloudflare
         working-directory: website-komodoplatform.com
@@ -202,21 +234,19 @@ jobs:
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_fileData.json src/data/docs/_fileData.json
           rsync -avh --delete $GITHUB_WORKSPACE/utils/_searchIndex.json src/data/docs/searchIndex.json
           
-          # Export and add headers
+          # Build first to create .next directory, then export
+          yarn build
           yarn export          
           echo -e "https://:project.pages.dev/*\n  X-Robots-Tag: noindex" > ./out/_headers
 
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         id: cf_publish
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: komodo-docs
-          directory: ./website-komodoplatform.com/out
+          command: pages deploy ./website-komodoplatform.com/out --project-name=komodo-docs --branch=${{ steps.vars.outputs.BRANCH_NAME }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: "3"
-          branch: ${{ steps.vars.outputs.BRANCH_NAME }}
 
       - name: Post Comprehensive Preview Comment
         uses: actions/github-script@v7
@@ -227,7 +257,7 @@ jobs:
             const prNumber = context.issue.number;
             const repo = context.repo.repo;
             const owner = context.repo.owner;
-            const previewBase = "${{ steps.cf_publish.outputs.url }}/en/docs";
+            const previewBase = "${{ steps.cf_publish.outputs.deployment-url }}/en/docs";
 
             const { data: commits } = await github.rest.pulls.listCommits({
               owner,
@@ -357,7 +387,7 @@ jobs:
           set -e
           set -o pipefail
           echo "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true" >> $GITHUB_ENV
-          echo "CF_PUBLISH_URL=${{ steps.cf_publish.outputs.url }}" >> $GITHUB_ENV
+          echo "CF_PUBLISH_URL=${{ steps.cf_publish.outputs.deployment-url }}" >> $GITHUB_ENV
 
       - name: Generate Preview Images
         if: github.base_ref == 'main' || github.ref == 'refs/heads/main'
@@ -400,6 +430,7 @@ jobs:
           set -e
           set -o pipefail
           rm -rf $GITHUB_WORKSPACE/website-komodoplatform.com
+          rm $GITHUB_WORKSPACE/package.json $GITHUB_WORKSPACE/package-lock.json
 
       # - name: Check if diff exists
       #   id: diff_check

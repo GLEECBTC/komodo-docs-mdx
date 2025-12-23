@@ -8,7 +8,11 @@ export const description =
 
 The `my_tx_history` method returns the blockchain transactions involving the Komodo DeFi Framework API node's coin address.
 
-The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable-method) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method) call.
+The coin that is used must have `tx_history` set to true in its [enable](/komodo-defi-framework/api/legacy/coin_activation/#enable) or [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum) call.
+
+<Note>
+  This method is deprecated and is incompatible with coins activated in HD mode. Use the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method instead.
+</Note>
 
 ## Arguments
 
@@ -107,36 +111,6 @@ The coin that is used must have `tx_history` set to true in its [enable](/komodo
           "tx_hex": "0400008085202f8901a242dc691de64c732e823ed0a4d8cfa6a230f8e31bc9bd21499009f1a90b855a010000006b483045022100d83113119004ac0504f812a853a831039dfc4b0bc1cb863d2c7a94c0670f07e902206af87b846b18c0d5e38bd874d43918e0400e4b6b838ab0793f5976843daa20cd012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9144327a5516b28f66249576c18d15debf6dfbd1124876a105d05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac047f5f5d000000000000000000000000000000"
         }
       ]
-    }
-  }
-  ```
-
-  #### Response (error)
-
-  ```json
-  {
-    "error": "lp_coins:1011] from_id 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
-  }
-  ```
-
-  #### Response (History too large in electrum mode)
-
-  ```json
-  {
-    "result": {
-      "current_block": 144753,
-      "from_id": null,
-      "limit": 0,
-      "skipped": 0,
-      "sync_status": {
-        "additional_info": {
-          "code": -1,
-          "message": "Got `history too large` error from Electrum server. History is not available"
-        },
-        "state": "Error"
-      },
-      "total": 0,
-      "transactions": []
     }
   }
   ```
@@ -266,6 +240,94 @@ The coin that is used must have `tx_history` set to true in its [enable](/komodo
           "tx_hex": "f9010a198502540be400830249f0948500afc0bc5214728082163326c2ff0c73f4a87180b8a402ed292b0b6ed2b0bbdc333949f4847ffe567064a2a9c2239bcef95abd7f8408321dba3d00000000000000000000000000000000000000000000000004102e5c0e719d6cad1841132d7f23ffedb0e036ae85a80a337dface71b2d494893c16603686073500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2b27558e45a3f44853e78b3c4bd05217723f841ba007650709e390395e659776b2ec390d951e2ab82ebcd7c540ce73dc6d352bc399a00d727f58ab77970c62bd92a356d057738b88f36fa4948c57b9b50de0815a951f"
         }
       ]
+    }
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### Error - Coin not active
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "TTT-SLP",
+    "error_path": "my_tx_history_v2.lp_coins",
+    "error_trace": "my_tx_history_v2:389] lp_coins:2847]",
+    "error_type": "CoinIsNotActive",
+    "error_data": "TTT-SLP",
+    "id": null
+  }
+  ```
+
+  ### Error - Coin not compatible
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "TTT-SLP",
+    "error_path": "my_tx_history_v2",
+    "error_trace": "my_tx_history_v2:336]",
+    "error_type": "NotSupportedFor",
+    "error_data": "TTT-SLP",
+    "id": null
+  }
+  ```
+
+  ### Error - Coin enabled without tx\_history = true
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Storage is not initialized for TTT-SLP",
+    "error_path": "my_tx_history_v2",
+    "error_trace": "my_tx_history_v2:343]",
+    "error_type": "StorageIsNotInitialized",
+    "error_data": "Storage is not initialized for TTT-SLP",
+    "id": null
+  }
+  ```
+
+  ### Error - Local database failed
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "SqliteFailure(Error { code: Unknown, extended_code: 1 }, Some(\"no such column: block_height\"))",
+    "error_path": "my_tx_history_v2.sql_tx_history_storage",
+    "error_trace": "my_tx_history_v2:351] sql_tx_history_storage:472]",
+    "error_type": "StorageError",
+    "error_data": "SqliteFailure(Error { code: Unknown, extended_code: 1 }, Some(\"no such column: block_height\"))",
+    "id": null
+  }
+  ```
+
+  #### Error - From ID not found
+
+  ```json
+  {
+    "error": "lp_coins:1011] from_id 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
+  }
+  ```
+
+  #### Error - History too large
+
+  ```json
+  {
+    "result": {
+      "current_block": 144753,
+      "from_id": null,
+      "limit": 0,
+      "skipped": 0,
+      "sync_status": {
+        "additional_info": {
+          "code": -1,
+          "message": "Got `history too large` error from Electrum server. History is not available"
+        },
+        "state": "Error"
+      },
+      "total": 0,
+      "transactions": []
     }
   }
   ```

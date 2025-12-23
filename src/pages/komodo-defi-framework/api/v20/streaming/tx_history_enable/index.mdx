@@ -1,0 +1,118 @@
+export const title = "Komodo DeFi Framework Method: Enable Transaction History Streaming";
+export const description = "Using this method, you can enable transaction history events streaming for a specific coin.";
+
+# Enable Transaction History Streaming
+
+## stream::tx\_history::enable {{label : 'stream::tx_history::enable', tag : 'API-v2'}}
+
+Using this method, you can enable transaction history events streaming for a specific coin.
+This method is only compatible with the following coin types: `UTXO`, `BCH/SLP`, `TENDERMINT`, `QTUM`, `ZHTLC`.
+
+<Note>
+  For this stream to return data, the coin being queried **must** include the `"tx_history": true` parameter in its activation command.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2/streaming.TxHistoryEnableRequestParameters" />
+
+<Note>
+  The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
+  The selected coin must be enabled prior to enabling streaming.
+</Note>
+
+### Response Parameters
+
+<CompactTable source="v2/streaming.TxHistoryEnableResponseParameters" />
+
+#### 📌 Examples
+
+<CodeGroup title="tx_history_enable" tag="POST" label="tx_history_enable" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "stream::tx_history::enable",
+    "mmrpc": "2.0",
+    "params": {
+      "client_id": 1,
+      "coin": "DOC"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "streamer_id": "TX_HISTORY:DOC"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+Here is an example of the stream data you should be able to see in [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) for each transaction event:
+
+`data: {"_type":"TX_HISTORY:KMD","message":{"tx_hex":"0400008085202f89015c649b8da32385ec58802385d179018db8e791d752a2cdf8d7fbf9247049bb81010000006a4730440220224c598d9af09684a848435bded40f9b24cc664d129d2dff5d0c094e6919cf1a0220143d896e7c42d13f57c98fb7eabfdeee27386ece324ec84a18308c106f1cf16301210295546acd9bdd19ec68093fef17e76b098fff5ff9815bb2adbfc2a618f41a74c6ffffffff0200a3e111000000001976a91482a6b17e64687148f4922b1385a11e6221bf5f5988aca0a0548c9c0100001976a914d92154e3a7a6da1b0cc1a4f84bc97fff24a79a3588acb66f1868000000000000000000000000000000","tx_hash":"05e9b6f5c96c71af3435cab55dbb807da47ed93ef1b84fc0a5fa867956e9ce9d","from":["RV5Ge4dLvRHGiYCanRBBEDM1eMR3wHDNLs"],"to":["RMC1cWXngQf2117apEKoLh3x27NoG88yzd","RV5Ge4dLvRHGiYCanRBBEDM1eMR3wHDNLs"],"total_amount":"17721.80883336","spent_by_me":"0","received_by_me":"3","my_balance_change":"3","block_height":0,"timestamp":0,"fee_details":{"type":"Utxo","coin":"KMD","amount":"0.00001"},"coin":"KMD","internal_id":"05e9b6f5c96c71af3435cab55dbb807da47ed93ef1b84fc0a5fa867956e9ce9d","transaction_type":"StandardTransfer","memo":null}}`
+
+### Error Types
+
+<CompactTable source="v2/streaming.TxHistoryEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Coin Not Found)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "CoinNotFound",
+    "error_path": "tx_history",
+    "error_trace": "tx_history:42]",
+    "error_type": "CoinNotFound",
+    "id": null
+  }
+  ```
+
+  ##### Error (Unknown Client)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "UnknownClient",
+    "error_path": "tx_history",
+    "error_trace": "tx_history:75]",
+    "error_type": "EnableError",
+    "error_data": "UnknownClient",
+    "id": null
+  }
+  ```
+
+  ##### Error (Client Already Listening)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "ClientAlreadyListening",
+      "error_path": "tx_history",
+      "error_trace": "tx_history:75]",
+      "error_type": "EnableError",
+      "error_data": "ClientAlreadyListening",
+      "id": null
+  }
+  ```
+
+  ##### Error (Coin Not Supported)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "CoinNotSupported",
+    "error_path": "tx_history",
+    "error_trace": "tx_history:70]",
+    "error_type": "CoinNotSupported",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,0 +1,50 @@
+export const title = "Komodo DeFi Framework Method: Walletconnect: Ping session";
+export const description =
+  "The wc_ping_session method pings a specific WalletConnect session.";
+
+# wc\_ping\_session
+
+The `wc_ping_session` pings the bridge server to check if specific WalletConnect session is responsive.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method.
+
+## Arguments
+
+| Structure            | Type | Description                                                                                                                                                                                     |
+| -------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| with\_pairing\_topic | bool | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command via pairing topic
+
+#### Command via session topic
+
+<CodeGroup title="" tag="POST" label="wc_ping_session" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_ping_session",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+    }
+  }
+  ```
+</CodeGroup>
+
+<Note>
+  Both of the above queries return the same result.
+</Note>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  ```
+</CollapsibleSection>

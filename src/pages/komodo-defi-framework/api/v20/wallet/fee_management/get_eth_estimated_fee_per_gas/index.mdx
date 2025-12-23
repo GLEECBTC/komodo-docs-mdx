@@ -1,16 +1,17 @@
 export const title = "Komodo DeFi Framework Method: Get ETH Estimated Fee per Gas";
 export const description =
-  "The get_eth_estimated_fee_per_gas method allows you to get the gas priority fees from the estimator (started with the 'start_eth_fee_estimator') for an active coin of your choice.";
+  "The get_eth_estimated_fee_per_gas method allows you to get the gas priority fee estimates for an active coin of your choice.";
 
 # get\_eth\_estimated\_fee\_per\_gas
 
-The `get_eth_estimated_fee_per_gas` method allows you to get the estimated gas priority fee for an active coin of your choice. Before using this method, you first need to use the [start\_eth\_fee\_estimator](/komodo-defi-framework/api/v20/wallet/fee_management/start_eth_fee_estimator/) method.
+The `get_eth_estimated_fee_per_gas` method allows you to get the estimated gas priority fee for an active coin of your choice.
 
-| parameter | Type   | Description                                                                  |
-| --------- | ------ | ---------------------------------------------------------------------------- |
-| coin      | string | Ticker of the coin/asset for which we want to start the grass fee estimator. |
+| parameter       | Type   | Description                                                                                                                                                                                                                                                                                                |
+| --------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin            | string | Ticker of the coin/asset for which we want to start the gas fee estimator.                                                                                                                                                                                                                                 |
+| estimator\_type | string | `Simple` or `Provider`. If set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/). |
 
-## Request
+## Request (simple)
 
 <CodeGroup title="" tag="POST" label="get_eth_estimated_fee_per_gas" mm2MethodDecorate="true">
   ```json
@@ -19,43 +20,148 @@ The `get_eth_estimated_fee_per_gas` method allows you to get the estimated gas p
     "method": "get_eth_estimated_fee_per_gas",
     "mmrpc": "2.0",
     "params": {
-      "coin": "ETH"
+      "coin": "ETH",
+      "estimator_type": "Simple"
     }
   }
   ```
 </CodeGroup>
 
-## Response
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ## Response
 
-```json
-{
-  "mmrpc": "2.0",
-  "result": {
-    "base_fee": "10.890879158",
-    "low": {
-      "max_priority_fee_per_gas": "0.1101",
-      "max_fee_per_gas": "11.949818698",
-      "min_wait_time": null,
-      "max_wait_time": null
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "base_fee": "10.890879158",
+      "low": {
+        "max_priority_fee_per_gas": "0.1101",
+        "max_fee_per_gas": "11.949818698",
+        "min_wait_time": null,
+        "max_wait_time": null
+      },
+      "medium": {
+        "max_priority_fee_per_gas": "1.258084291",
+        "max_fee_per_gas": "13.905056537",
+        "min_wait_time": null,
+        "max_wait_time": null
+      },
+      "high": {
+        "max_priority_fee_per_gas": "2.495532249",
+        "max_fee_per_gas": "15.949758042",
+        "min_wait_time": null,
+        "max_wait_time": null
+      },
+      "source": "simple",
+      "base_fee_trend": "",
+      "priority_fee_trend": "",
+      "units": "Gwei"
     },
-    "medium": {
-      "max_priority_fee_per_gas": "1.258084291",
-      "max_fee_per_gas": "13.905056537",
-      "min_wait_time": null,
-      "max_wait_time": null
-    },
-    "high": {
-      "max_priority_fee_per_gas": "2.495532249",
-      "max_fee_per_gas": "15.949758042",
-      "min_wait_time": null,
-      "max_wait_time": null
-    },
-    "source": "simple",
-    "base_fee_trend": "",
-    "priority_fee_trend": "",
-    "units": "Gwei"
-  },
-  "id": null
-}
+    "id": null
+  }
 
-```
+  ```
+</CollapsibleSection>
+
+## Request (provider)
+
+<CodeGroup title="" tag="POST" label="get_eth_estimated_fee_per_gas" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "get_eth_estimated_fee_per_gas",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "ETH",
+      "estimator_type": "Provider"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ## Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "base_fee": "0.629465419",
+          "low": {
+              "max_priority_fee_per_gas": "0.008999999",
+              "max_fee_per_gas": "1.27",
+              "min_wait_time": null,
+              "max_wait_time": null
+          },
+          "medium": {
+              "max_priority_fee_per_gas": "0.049",
+              "max_fee_per_gas": "1.31",
+              "min_wait_time": null,
+              "max_wait_time": null
+          },
+          "high": {
+              "max_priority_fee_per_gas": "0.089",
+              "max_fee_per_gas": "1.35",
+              "min_wait_time": null,
+              "max_wait_time": null
+          },
+          "source": "blocknative",
+          "base_fee_trend": "",
+          "priority_fee_trend": "",
+          "units": "Gwei"
+      },
+      "id": null
+  }
+
+  ```
+</CollapsibleSection>
+
+<Note>
+  The responses above were requested at the same time, for the same coin (MATIC). As you can see, there difference between the returned fee values can be significant.
+</Note>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ### Error - missing parameter
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: missing field `estimator_type`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:122]",
+      "error_type": "InvalidRequest",
+      "error_data": "missing field `estimator_type`",
+      "id": null
+  }
+  ```
+
+  ### Error - Coin not active
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin DOGE",
+      "error_path": "get_estimated_fees.lp_coins",
+      "error_trace": "get_estimated_fees:244] lp_coins:4767]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "DOGE"
+      },
+      "id": null
+  }
+  ```
+
+  ### Error - Coin not supported
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Gas fee estimation not supported for this coin",
+      "error_path": "get_estimated_fees",
+      "error_trace": "get_estimated_fees:206]",
+      "error_type": "CoinNotSupported",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

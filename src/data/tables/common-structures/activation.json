@@ -1,0 +1,263 @@
+{
+  "ActivationMode": {
+    "data": [
+      {
+        "parameter": "rpc",
+        "type": "string",
+        "required": true,
+        "description": "`Native` if running a native blockchain node, `Electrum` if using electrum servers or `Light` for ZHTLC coins."
+      },
+      {
+        "parameter": "rpc_data",
+        "type": "object",
+        "required": false,
+        "description": "`Electrum` or `Light` mode only. A standard [ActivationRpcData](/komodo-defi-framework/api/common_structures/activation/#activation-rpc-data) object."
+      }
+    ]
+  },
+  "ActivationParams": {
+    "data": [
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "description": "Confirmations to wait for steps in swap. Defaults to value in the coins file if not set."
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "For [dPoW](https://komodoplatform.com/en/blog/dpow-demystified/) protected coins, a `true` value will wait for transactions to be notarised when doing swaps. Overrides value if set in `coins` file."
+      },
+      {
+        "parameter": "mode",
+        "type": "object",
+        "required": false,
+        "description": "QTUM, UTXO & ZHTLC coins only. A standard [ActivationMode](/komodo-defi-framework/api/common_structures/activation/#activation-mode) object."
+      },
+      {
+        "parameter": "zcash_params_path",
+        "type": "string",
+        "required": false,
+        "description": "ZHTLC coins only. Path to folder containing [Zcash parameters](https://z.cash/learn/). Defaults to standard location as defined in [this guide](https://forum.komodoplatform.com/t/installing-zcash-params/603)"
+      },
+      {
+        "parameter": "scan_blocks_per_iteration",
+        "type": "integer",
+        "required": false,
+        "default": "1000",
+        "description": "ZHTLC coins only. Sets the number of scanned blocks per iteration during `BuildingWalletDb` state."
+      },
+      {
+        "parameter": "scan_interval_ms",
+        "type": "integer",
+        "required": false,
+        "default": "0",
+        "description": "ZHTLC coins only. Sets the interval in milliseconds between iterations of `BuildingWalletDb` state."
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "description": "Enable transaction history scanning. When active, the Komodo DeFi Framework API will collect transaction history data for local storage, and allow use of the [my_tx_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) method."
+      },
+      {
+        "parameter": "min_addresses_number",
+        "type": "integer",
+        "required": false,
+        "description": "HD wallets only. Number of addresses to generate. If not specified, addresses will be generated up to `path_to_address::address_index`."
+      },
+      {
+        "parameter": "scan_policy",
+        "type": "string",
+        "required": false,
+        "default": "scan_if_new_wallet",
+        "description": "HD wallets only. Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi API and may take some time to complete."
+      },
+      {
+        "parameter": "gap_limit",
+        "type": "integer",
+        "required": false,
+        "default": "20",
+        "description": "HD wallets only. The max number of empty addresses in a row. Transactions sent to an address outside the `gap_limit`, will not be identified when scanning."
+      },
+      {
+        "parameter": "path_to_address",
+        "type": "object",
+        "required": false,
+        "description": "HD wallets only. A standard [AddressPath](/komodo-defi-framework/api/common_structures/wallet/#address-path) object."
+      },
+      {
+        "parameter": "get_balances",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly."
+      }
+    ],
+    "variant": "compact"
+  },
+  "ActivationServers": {
+    "data": [
+      {
+        "parameter": "url",
+        "type": "string",
+        "required": true,
+        "description": "The URL and port for an electrum server."
+      },
+      {
+        "parameter": "ws_url",
+        "type": "string",
+        "required": false,
+        "description": "WSS only. The URL and port for an electrum server's WSS port."
+      },
+      {
+        "parameter": "protocol",
+        "type": "string",
+        "required": false,
+        "default": "TCP",
+        "description": "Transport protocol used to connect to the server. Options: `TCP` or `SSL`"
+      },
+      {
+        "parameter": "disable_cert_verification",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, this disables server SSL/TLS certificate verification (e.g. for self-signed certificates). **Use at your own risk!**"
+      }
+    ]
+  },
+  "AddressInfo": {
+    "data": [
+      {
+        "parameter": "balances",
+        "type": "object",
+        "required": false,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object. Not included in responses where `get_balances` is `false`"
+      },
+      {
+        "parameter": "derivation_method",
+        "type": "object",
+        "required": true,
+        "description": "A standard [DerivationMethod](/komodo-defi-framework/api/common_structures/wallet/#derivation-method) object"
+      },
+      {
+        "parameter": "pubkey",
+        "type": "string",
+        "required": true,
+        "description": "The public key associated with the seed used to launch Komodo DeFi Framework"
+      },
+      {
+        "parameter": "tickers",
+        "type": "array",
+        "required": false,
+        "description": "A list of tokens which were successfully activated. Only included in responses where `get_balances` is `false`"
+      }
+    ]
+  },
+  "CoinProtocol": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "integer",
+        "required": true,
+        "description": "One of the Coin Types supported by the Komodo DeFi Framework"
+      },
+      {
+        "parameter": "protocol_data",
+        "type": "object",
+        "required": true,
+        "description": "A standard [CoinProtocolData](/komodo-defi-framework/api/common_structures/activation/#coin-protocol-data) object."
+      }
+    ]
+  },
+  "CoinProtocolData": {
+    "data": [
+      {
+        "parameter": "platform",
+        "type": "string",
+        "required": true,
+        "description": "Indicates the platform parent coin for EMV-like protocols, or the coin used for lightning nodes."
+      },
+      {
+        "parameter": "network",
+        "type": "string",
+        "required": true,
+        "description": "Either `mainnet` or `testnet`"
+      },
+      {
+        "parameter": "confirmation_targets",
+        "type": "object",
+        "required": true,
+        "description": "A standard [ConfirmationTargets](/komodo-defi-framework/api/common_structures/lightning/#confirmation-targets) object."
+      }
+    ]
+  },
+  "CoinNode": {
+    "data": [
+      {
+        "parameter": "url",
+        "type": "string",
+        "required": true,
+        "description": "URL of an RPC node"
+      },
+      {
+        "parameter": "komodo_auth",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Must be set to `true` to access RPC nodes run behind [komodo-defi-proxy](https://github.com/KomodoPlatform/komodo-defi-proxy)"
+      }
+    ]
+  },
+  "TokenActivationParams": {
+    "data": [
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "description": "Confirmations to wait for steps in swap. Defaults to value in coins file if not set."
+      }
+    ]
+  },
+  "TokensRequest": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the token to be enabled"
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "3",
+        "description": "How many confirmations to wait during the transaction steps of an atomic swap. Overwrites value in coins file"
+      }
+    ]
+  },
+  "UtxoMergeParams": {
+    "data": [
+      {
+        "parameter": "merge_at",
+        "type": "integer",
+        "required": true,
+        "description": "Mamimum UTXO count before merge loop is initiated."
+      },
+      {
+        "parameter": "check_every",
+        "type": "integer",
+        "required": true,
+        "description": "How frequently (in blocks) the wallet UTXO count is evaluated."
+      },
+      {
+        "parameter": "max_merge_at_once",
+        "type": "integer",
+        "required": true,
+        "description": "The maximum nouber of UTXOs to inlude as inputs for a merge transaction. Note that more input UTXOs means a larger transaction and greater fees, and that each blockchain has a limit to the maximum size of a transaction."
+      }
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+export const title = "Komodo DeFi Framework Method: Walletconnect: Get sessions";
+export const description =
+  "The wc_get_sessions method returns a list of active WalletConnect sessions.";
+
+# wc\_get\_sessions
+
+The `wc_get_sessions` method returns a list of active WalletConnect sessions. For details on a specific connection only, use the [wc\_get\_session](/komodo-defi-framework/api/v20-dev/wc_get_session/#wc-get-session) method instead.
+
+## Arguments
+
+| Structure | Type | Description                            |
+| --------- | ---- | -------------------------------------- |
+| None      | N/A  | This method takes no input parameters. |
+
+## Response
+
+| Structure | Type            | Description                                                                                       |
+| --------- | --------------- | ------------------------------------------------------------------------------------------------- |
+| sessions  | list of objects | A list of standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) objects. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="" tag="POST" label="wc_get_sessions" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_get_sessions",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {}
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "sessions": [
+              {
+                  "topic": "feeabbad7ac1f1ba720d4441c299eab2b239f0deefb050fe50dbc7a350d55f75",
+                  "metadata": {
+                      "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                      "url": "https://trustwallet.com",
+                      "icons": [
+                          "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                      ],
+                      "name": "Trust Wallet"
+                  },
+                  "pairing_topic": "ad604cd186f5dc9498343fbd763f6d6963ea511de0e5d557a33a8e3790d6d4d5",
+                  "namespaces": {
+                      "cosmos": {
+                          "chains": [
+                              "cosmos:cosmoshub-4"
+                          ],
+                          "accounts": [
+                              "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                          ],
+                          "methods": [
+                              "cosmos_getAccounts",
+                              "cosmos_signAmino",
+                              "cosmos_signDirect"
+                          ],
+                          "events": []
+                      },
+                      "eip155": {
+                          "chains": [
+                              "eip155:1"
+                          ],
+                          "accounts": [
+                              "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                          ],
+                          "methods": [
+                              "eth_sendTransaction",
+                              "eth_signTransaction",
+                              "personal_sign"
+                          ],
+                          "events": [
+                              "accountsChanged",
+                              "chainChanged"
+                          ]
+                      }
+                  },
+                  "expiry": 1741952829
+              },
+              {
+                  "topic": "ed6c18e392b5d944f46b189be4403beaf8553279dfab946c333cc6d45ddb60a5",
+                  "metadata": {
+                      "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                      "url": "https://trustwallet.com",
+                      "icons": [
+                          "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                      ],
+                      "name": "Trust Wallet"
+                  },
+                  "pairing_topic": "5686b8065981fafca63bb4b2e7e9384bf348612981e69ac99fb8a698204aaed4",
+                  "namespaces": {
+                      "cosmos": {
+                          "chains": [
+                              "cosmos:cosmoshub-4"
+                          ],
+                          "accounts": [
+                              "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                          ],
+                          "methods": [
+                              "cosmos_getAccounts",
+                              "cosmos_signAmino",
+                              "cosmos_signDirect"
+                          ],
+                          "events": []
+                      },
+                      "eip155": {
+                          "chains": [
+                              "eip155:1"
+                          ],
+                          "accounts": [
+                              "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                          ],
+                          "methods": [
+                              "eth_sendTransaction",
+                              "eth_signTransaction",
+                              "personal_sign"
+                          ],
+                          "events": [
+                              "accountsChanged",
+                              "chainChanged"
+                          ]
+                      }
+                  },
+                  "expiry": 1741952162
+              },
+              {
+                  "topic": "24880ee97c56b95491e63d45aa7c743da4ea10bdffa73de7420ed91450c79c09",
+                  "metadata": {
+                      "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                      "url": "https://trustwallet.com",
+                      "icons": [
+                          "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                      ],
+                      "name": "Trust Wallet"
+                  },
+                  "pairing_topic": "2e6e4a25f2d55c26bba9c7c8dbb4979ff6eff30adac83fbc67110d67399f6023",
+                  "namespaces": {
+                      "cosmos": {
+                          "chains": [
+                              "cosmos:cosmoshub-4"
+                          ],
+                          "accounts": [
+                              "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                          ],
+                          "methods": [
+                              "cosmos_getAccounts",
+                              "cosmos_signAmino",
+                              "cosmos_signDirect"
+                          ],
+                          "events": []
+                      },
+                      "eip155": {
+                          "chains": [
+                              "eip155:1",
+                              "eip155:137",
+                              "eip155:43114",
+                              "eip155:56"
+                          ],
+                          "accounts": [
+                              "eip155:137:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                              "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                              "eip155:43114:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                              "eip155:56:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                          ],
+                          "methods": [
+                              "eth_sendTransaction",
+                              "eth_signTransaction",
+                              "personal_sign"
+                          ],
+                          "events": [
+                              "accountsChanged",
+                              "chainChanged"
+                          ]
+                      }
+                  },
+                  "expiry": 1742183855
+              },
+              {
+                  "topic": "bdff85bde684f2f90237d37515177e21d8fa90297c0bf254393629bd9a134a92",
+                  "metadata": {
+                      "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                      "url": "https://trustwallet.com",
+                      "icons": [
+                          "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                      ],
+                      "name": "Trust Wallet"
+                  },
+                  "pairing_topic": "f8aedf596dde182559ed75ea6358db9f49cf5a8757c0f32551fca8062d613191",
+                  "namespaces": {
+                      "cosmos": {
+                          "chains": [
+                              "cosmos:cosmoshub-4"
+                          ],
+                          "accounts": [
+                              "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                          ],
+                          "methods": [
+                              "cosmos_getAccounts",
+                              "cosmos_signAmino",
+                              "cosmos_signDirect"
+                          ],
+                          "events": []
+                      },
+                      "eip155": {
+                          "chains": [
+                              "eip155:1",
+                              "eip155:137"
+                          ],
+                          "accounts": [
+                              "eip155:137:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                              "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                          ],
+                          "methods": [
+                              "eth_sendTransaction",
+                              "eth_signTransaction",
+                              "personal_sign"
+                          ],
+                          "events": [
+                              "accountsChanged",
+                              "chainChanged"
+                          ]
+                      }
+                  },
+                  "expiry": 1741955363
+              }
+          ]
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

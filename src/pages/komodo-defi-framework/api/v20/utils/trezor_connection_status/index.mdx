@@ -1,0 +1,45 @@
+export const title = "Komodo DeFi Framework Method: Trezor Connection Status";
+export const description = "Check whether a Trezor device linked to the node is currently connected and ready for use.";
+
+# Trezor Connection Status
+
+## trezor\_connection\_status {{label : 'trezor_connection_status', tag : 'API-v2'}}
+
+The `trezor_connection_status` method reports the real-time connection state of a **Trezor hardware wallet** that was previously initialized (see [`task::init_trezor::*`](/komodo-defi-framework/api/v20/utils/task_init_trezor/)).
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TrezorConnectionStatusRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TrezorConnectionStatusResponse" />
+
+### 📌 Example
+
+<CodeGroup title="Trezor Connection Status" tag="POST" label="trezor_connection_status" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "trezor_connection_status",
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Trezor Connection Status Response" collapsedText="Show Trezor Connection Status Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Connected"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2/utils.TrezorConnectionStatusErrors" />

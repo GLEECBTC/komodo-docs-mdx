@@ -1,27 +1,23 @@
 export const title = "Komodo DeFi Framework Method: Stop Version Stat Collection";
 export const description = "The stop_version_stat_collection method stops the collection of version stats at the end of the current loop interval.";
 
-# stop\_version\_stat\_collection
+# Stop Version Stat Collection
+
+## stop\_version\_stat\_collection {{label : 'stop_version_stat_collection', tag : 'API-v2'}}
 
 The `stop_version_stat_collection` method stops the collection of version stats at the end of the current loop interval.
 
-#### Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="v2/utils.StopVersionStatCollectionRequest" />
 
-#### Response
+### Response Parameters
 
-| Structure | Type   | Description      |
-| --------- | ------ | ---------------- |
-| result    | string | success or error |
+<CompactTable source="v2/utils.StopVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="stop_version_stat_collection" mm2MethodDecorate="true">
+<CodeGroup title="Stop Version Stat Collection" tag="POST" label="stop_version_stat_collection" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -32,29 +28,35 @@ The `stop_version_stat_collection` method stops the collection of version stats 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Stop Version Stat Collection Response" collapsedText="Show Stop Version Stat Collection Response">
   #### Response (success)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": "success",
-    "id": null
+      "mmrpc": "2.0",
+      "result": "success",
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
-  #### Response (error - stats collection not running)
+### Error Types
+
+<CompactTable source="v2/utils.StopVersionStatCollectionErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### NotRunning
 
   ```json
   {
-    "mmrpc": "2.0",
-    "error": "start_version_stat_collection is not running",
-    "error_path": "lp_stats",
-    "error_trace": "lp_stats:395]",
-    "error_type": "NotRunning",
-    "id": null
+      "mmrpc": "2.0",
+      "error": "start_version_stat_collection is not running",
+      "error_path": "lp_stats",
+      "error_trace": "lp_stats:395]",
+      "error_type": "NotRunning",
+      "id": null
   }
   ```
 </CollapsibleSection>

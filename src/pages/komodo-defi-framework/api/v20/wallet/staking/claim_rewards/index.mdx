@@ -1,0 +1,130 @@
+export const title = "Komodo DeFi Framework Method: Claim Staking Rewards";
+export const description =
+  "The experimental::staking::claim_rewards method claims all delegated staking rewards from a validator.";
+
+# claim\_rewards
+
+The `experimental::staking::claim_rewards` claims all delegated staking rewards from a validator. Currently Tendermint has been integrated, but this functionality may be expanded to more coins in future.
+
+Note: After running `experimental::staking::claim_rewards`, you will need to broadcast the returned hex via [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
+
+## Arguments
+
+| Structure         | Type   | Description                                                                                                 |
+| ----------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
+| coin              | string | the coin being staked                                                                                       |
+| claiming\_details | object | A standard [ClaimingDetails](/komodo-defi-framework/api/common_structures/wallet/#claiming-details) object. |
+
+<Note>
+  To claim rewards for QTUM, use [experimental::staking::undelegate](/komodo-defi-framework/api/v20/wallet/staking/undelegate/#undelegate)
+</Note>
+
+#### 📌 Examples
+
+#### Tendermint Command
+
+<CodeGroup title="" tag="POST" label="experimental::staking::claim_rewards" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::claim_rewards",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "IRIS",
+      "claiming_details": {
+        "type": "Cosmos",
+        "validator_address": "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat",
+        "force": true
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "tx_hex": "0a9b010a93010a372f636f736d6f732e646973747269627574696f6e2e763162657461312e4d7367576974686472617744656c656761746f7252657761726412580a2a696161316576323366633730306a7335643768767477303738357966617961617a7061776e3870687634122a69766131717139337361706d6463783336757a363476767735677a75657674787363376c63667873617418bed9960e12680a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d7cfe014b2003325143ddbed524181505138fd5e1dd46e0f766961b9b00963c912040a020801180612140a0e0a0575697269731205393132383910ecb80b1a40b54f519f3c11c4a85a621ab2e49ac7bd625400383d2424e13379c65738af8f3d72a7f3c17a68584834b3c0658613fdf00eba758a1174c6c58a812ac9151d49fe",
+        "tx_hash": "59125D7A574CB85D065DA339DE1D8B93FCB31E45CBA908565EEE23C84EBC6CF4",
+        "from": [
+            "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat"
+        ],
+        "to": [
+            "iaa1ev23fc700js5d7hvtw0785yfayaazpawn8phv4"
+        ],
+        "total_amount": "0.005319339439621457039999",
+        "spent_by_me": "0.091289",
+        "received_by_me": "0.005319339439621457039999",
+        "my_balance_change": "-0.085969660560378542960001",
+        "block_height": 0,
+        "timestamp": 0,
+        "fee_details": {
+            "type": "Tendermint",
+            "coin": "IRIS",
+            "amount": "0.091289",
+            "gas_limit": 187500
+        },
+        "coin": "IRIS",
+        "internal_id": "59125d7a574cb85d065da339de1d8b93fcb31e45cba908565eee23c84ebc6cf4",
+        "transaction_type": "ClaimDelegationRewards",
+        "memo": ""
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### UnprofitableReward
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Fee (0.091289) exceeds reward (0.005307936696578819099999) which makes this unprofitable. Set 'force' to true in the request to bypass this check.",
+    "error_path": "tendermint_coin",
+    "error_trace": "tendermint_coin:2760]",
+    "error_type": "UnprofitableReward",
+    "error_data": {
+        "reward": "0.005307936696578819099999",
+        "fee": "0.091289"
+    },
+    "id": null
+  }
+  ```
+
+  #### NoSuchCoin
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin IRIS",
+      "error_path": "lp_coins",
+      "error_trace": "lp_coins:5218] lp_coins:5032]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "IRIS"
+      },
+      "id": null
+  }
+  ```
+
+  #### InvalidRequest
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Error parsing request: unknown variant Qtum expected Cosmos",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:122]",
+    "error_type": "InvalidRequest",
+    "error_data": "unknown variant Qtum, expected Cosmos",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,27 +1,25 @@
 export const title = "Komodo DeFi Framework Method: Get Public Key";
 export const description = "The get_public_key method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.";
 
-# get\_public\_key
+# Get Public Key
+
+## get\_public\_key {{label : 'get_public_key', tag : 'API-v2'}}
 
 The `get_public_key` method returns the compressed secp256k1 pubkey corresponding to the user's seed phrase.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="v2/utils.GetPublicKeyRequest" />
 
-#### Response
+### Response Parameters
 
-| Structure   | Type   | Description   |
-| ----------- | ------ | ------------- |
-| public\_key | string | User's pubkey |
+<CompactTable source="v2/utils.GetPublicKeyResponse" />
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="get_public_key" mm2MethodDecorate="true">
+<CodeGroup title="Get Public Key" tag="POST" label="get_public_key" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -33,7 +31,7 @@ The `get_public_key` method returns the compressed secp256k1 pubkey correspondin
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Get Public Key Response" collapsedText="Show Get Public Key Response">
   #### Response (success)
 
   ```json

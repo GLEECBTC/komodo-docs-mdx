@@ -1,0 +1,88 @@
+export const title = "Komodo DeFi Framework Method: Enable Heartbeat Streaming";
+export const description = "Using this method, you can enable heartbeat events streaming.";
+
+# Enable Heartbeat Streaming
+
+## stream::heartbeat::enable {{label : 'stream::heartbeat::enable', tag : 'API-v2'}}
+
+Using this method, you can enable heartbeat events streaming to a specific client.
+
+### Request Parameters
+
+<CompactTable source="v2/streaming.HeartbeatEnableRequestParameters" />
+
+<Note>
+  The client defines its own id when opening a connection to the stream, and each client\_id can only be viewed by a single client (i.e. the `?id=` url param won't work in more than one browser tab).
+</Note>
+
+### Response Parameters
+
+<CompactTable source="v2/streaming.HeartbeatEnableResponseParameters" />
+
+#### 📌 Examples
+
+<CodeGroup title="Enable Heartbeat Events" tag="POST" label="stream::heartbeat::enable" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "stream::heartbeat::enable",
+    "mmrpc": "2.0",
+    "params": {
+      "config": {
+        "stream_interval_seconds": 30
+      },
+      "client_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Enable Heartbeat Events Response" collapsedText="Show Enable Heartbeat Events Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "streamer_id": "HEARTBEAT"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+Here is an example of the stream data you should be able to see in [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) at each heatbeat:
+
+`data: {"_type":"HEARTBEAT","message":{}}`
+
+### Error Types
+
+<CompactTable source="v2/streaming.HeartbeatEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Unknown Client)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "UnknownClient",
+      "error_path": "heartbeat",
+      "error_trace": "heartbeat:35]",
+      "error_type": "EnableError",
+      "error_data": "UnknownClient",
+      "id": null
+  }
+  ```
+
+  ##### Error (Client Already Listening)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "ClientAlreadyListening",
+      "error_path": "heartbeat",
+      "error_trace": "heartbeat:35]",
+      "error_type": "EnableError",
+      "error_data": "ClientAlreadyListening",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

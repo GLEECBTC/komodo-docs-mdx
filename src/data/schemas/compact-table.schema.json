@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CompactTable Schema",
+  "description": "Schema for CompactTable component data",
+  "type": "object",
+  "patternProperties": {
+    "^[A-Za-z0-9][A-Za-z0-9_]*$": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": ["default", "compact"],
+          "description": "Table variant style"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "parameter": {
+                "type": "string",
+                "description": "Parameter name"
+              },
+              "type": {
+                "type": "string", 
+                "description": "Parameter type"
+              },
+              "required": {
+                "type": "boolean",
+                "description": "Whether parameter is required"
+              },
+              "default": {
+                "type": "string",
+                "description": "Default value if parameter is optional"
+              },
+              "description": {
+                "type": "string",
+                "description": "Parameter description"
+              }
+            },
+            "required": ["parameter", "type", "required", "description"],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["data"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

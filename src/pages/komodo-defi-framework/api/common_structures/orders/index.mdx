@@ -1,17 +1,29 @@
 export const title = "Komodo DeFi SDK Common Structures: Orders";
 export const description = "Each order on the Komodo Defi oderbook can be queried to view full details of each order for a pair, or the best orders for a ticker.";
 
-# Order Structures
+# Order Common Structures
+
+## orders\_common\_structures {{label : 'orders_common_structures', tag : 'structures'}}
+
+### 1inchProtocolImage
+
+<CompactTable source="common-structures/orders.1inchProtocolImage" />
+
+### 1inchProtocolInfo
+
+<CompactTable source="common-structures/orders.1inchProtocolInfo" />
+
+### 1inchTokenInfo
+
+<CompactTable source="common-structures/orders.1inchTokenInfo" variant="compact" />
+
+### 1inchTxFields
+
+<CompactTable source="common-structures/orders.1inchTxFields" />
 
 ### CancelBy
 
-| Structure   | Type   | Description                                                                                                                      |
-| ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| Type        | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coin pairs; `Coin` to cancel all orders for a specific coin |
-| data        | object | additional data the cancel condition; present with `Pair` and `Coin` types                                                       |
-| data.base   | string | base coin of the pair; `Pair` type only                                                                                          |
-| data.rel    | string | rel coin of the pair; `Pair` type only                                                                                           |
-| data.ticker | string | order is cancelled if it uses `ticker` as base or rel; `Coin` type only                                                          |
+<CompactTable source="common-structures/orders.CancelBy" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   To cancel all orders for a specific coin:
@@ -40,12 +52,7 @@ export const description = "Each order on the Komodo Defi oderbook can be querie
 
 ### ConfSettings
 
-| Structure   | Type   | Description                                                                                                                                                                     |
-| ----------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| base\_confs | number | Number of required confirmations on the base coin's blockchain for a transaction to complete an atomic swap event.                                                              |
-| base\_nota  | bool   | Whether [dPoW notarization](https://komodoplatform.com/en/blog/dpow-demystified/) is required on the base coin's blockchain for a transaction to complete an atomic swap event. |
-| rel\_confs  | number | Number of required confirmations on the rel coin's blockchain for a transaction to complete an atomic swap event.                                                               |
-| rel\_nota   | bool   | Whether [dPoW notarization](https://komodoplatform.com/en/blog/dpow-demystified/) is required on the rel coin's blockchain for a transaction to complete an atomic swap event.  |
+<CompactTable source="common-structures/orders.ConfSettings" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -60,41 +67,37 @@ export const description = "Each order on the Komodo Defi oderbook can be querie
   ```
 </CollapsibleSection>
 
-### RequestBy
+## MatchBy
 
-| Structure | Type    | Description                                            |                                                                                                                                                                                  |
-| --------- | ------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type      | integer | Defines whether requesting by `volume` or by `number`. |                                                                                                                                                                                  |
-| value     | numeric | string                                                 | If `type` is `volume`, the amount of `coin` (defined in the parent object) the user is willing to buy or sell. If `type` is `number`, the number of best price trades to return. |
+<CompactTable source="common-structures/orders.MatchBy" />
 
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  Filter response to return the best trades for up to 20 of the coin defined in the parent object:
-
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
   ```json
-  {
-    "request_by": {
-      "type": "volume",
-      "value": 20
-    }
-  }
+      "match_by": {
+        "type": "Pubkeys",
+        "data": [
+          "0261eef15cbc141f555aff1aa40fb21de17a0a9e6897eee18c14c6032586b456b3",
+          "036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202c"        
+        ]
+      }
   ```
 
-  Filter response to return the 10 best priced trades:
+  Match by order uuids:
 
   ```json
-  {
-    "type": "number",
-    "value": 10
-  }
+      "match_by": {
+        "type": "Orders",
+        "data": [
+          "6f65968f-e3c6-4978-98c5-5cec2bb5aa5b",
+          "07ce08bf-3db9-4dd8-a671-854affc1b7a3"
+        ]
+      }
   ```
 </CollapsibleSection>
 
 ## OrderAddress
 
-| Structure     | Type   | Description                                                          |
-| ------------- | ------ | -------------------------------------------------------------------- |
-| address\_type | string | Generally `Transparent`, but may be `Shielded` for supporting coins. |
-| address\_data | string | The actual address text for sending and receiving funds.             |
+<CompactTable source="common-structures/orders.OrderAddress" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -105,11 +108,119 @@ export const description = "Each order on the Komodo Defi oderbook can be querie
   ```
 </CollapsibleSection>
 
+### OrderDataV1
+
+<DevComment>
+  Compare and confirm the differences between this object in v1 and v2 methods.
+</DevComment>
+
+<CompactTable source="common-structures/orders.OrderDataV1" />
+
+### OrderDataV2
+
+<DevComment>
+  Compare and confirm the differences between this object in v1 and v2 methods.
+</DevComment>
+
+<CompactTable source="common-structures/orders.OrderDataV2" />
+
+### OrderStatusData
+
+<CompactTable source="common-structures/orders.OrderStatusData" variant="compact" />
+
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  ```json
+  {
+    "available_amount": "1",
+    "base": "DOC",
+    "cancellable": true,
+    "created_at": 1568808684710,
+    "matches": {
+      "60aaacca-ed31-4633-9326-c9757ea4cf78": {
+        "connect": {
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "connect",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "connected": {
+          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "connected",
+          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "last_updated": 1560529572571,
+        "request": {
+          "action": "Buy",
+          "base": "DOC",
+          "base_amount": "1",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "method": "request",
+          "rel": "MARTY",
+          "rel_amount": "1",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "reserved": {
+          "base": "DOC",
+          "base_amount": "1",
+          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "reserved",
+          "rel": "MARTY",
+          "rel_amount": "1",
+          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        }
+      }
+    },
+    "max_base_vol": "1",
+    "max_base_vol_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
+    "min_base_vol": "0",
+    "min_base_vol_rat": [
+      [0, []],
+      [1, [1]]
+    ],
+    "price": "1",
+    "price_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
+    "rel": "AVAX",
+    "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
+    "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
+  }
+  ```
+</CollapsibleSection>
+
+### OrderDataV1
+
+<DevComment>
+  Compare and confirm the differences between this object in v1 and v2 methods.
+</DevComment>
+
+<CompactTable source="common-structures/orders.OrderDataV1_1" />
+
+### OrderDataV2
+
+<DevComment>
+  Compare and confirm the differences between this object in v1 and v2 methods.
+</DevComment>
+
+<CompactTable source="common-structures/orders.OrderDataV2_1" />
+
+## OrderSummaryData
+
+<CompactTable source="common-structures/orders.OrderDataV2_2" />
+
 ### OrderType
 
-| Structure | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                           |
-| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Type      | string | There are two types from which to choose: `GoodTillCancelled` and `FillOrKill`. The `GoodTillCancelled` order is automatically converted to a `maker` order if the order is not matched in 30 seconds, and this `maker` order stays in the orderbook until explicitly cancelled. On the other hand, a `FillOrKill` order is cancelled if it is not matched within 30 seconds. The default type is `GoodTillCancelled` |
+<CompactTable source="common-structures/orders.OrderType" />
 
 <Note>
   If your order includes UTXO coins activated via electrum, and connection to its servers is lost, your order will automatically cancel and will need to be recreated once the connection is restored.
@@ -137,249 +248,52 @@ export const description = "Each order on the Komodo Defi oderbook can be querie
   ```
 </CollapsibleSection>
 
-### OrderStatusData
+### RequestBy
 
-| Structure               | Type            | Description                                                                                                                                                                                 |
-| ----------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| base                    | string          | base currency                                                                                                                                                                               |
-| rel                     | string          | rel currency                                                                                                                                                                                |
-| price                   | number          | order price as decimal number                                                                                                                                                               |
-| price\_rat              | rational number | order price as rational number                                                                                                                                                              |
-| max\_base\_vol          | number          | Maximum trade volume                                                                                                                                                                        |
-| max\_base\_vol\_rat     | rational number | Maximum trade volume as rational number                                                                                                                                                     |
-| min\_base\_vol          | number          | Minimum trade volume                                                                                                                                                                        |
-| min\_base\_vol\_rat     | rational number | Minimum trade volume as rational number                                                                                                                                                     |
-| created\_at             | number          | Timestamp of order creation                                                                                                                                                                 |
-| updated\_at             | number          | Timestamp of last order update                                                                                                                                                              |
-| matches                 | list            | UUIDS of matching orders                                                                                                                                                                    |
-| started\_swaps          | list            | UUIDS of swaps started                                                                                                                                                                      |
-| uuid                    | string          | UUID of this order                                                                                                                                                                          |
-| conf\_settings          | object          | Confirmation / Notarisation settings for order                                                                                                                                              |
-| base\_orderbook\_ticker | string          | The ticker of the base currency if `orderbook_ticker` is configured for the base currency in `coins` file. If not defined, will return a null value.                                        |
-| rel\_orderbook\_ticker  | string          | The ticker of the rel currency if `orderbook_ticker` is configured for the rel currency in `coins` file. If not defined, will return a null value.                                          |
-| cancellable             | boolean         | `true` if order is in a state which it can be cancelled. `false` if not (e.g. swap is in progress)                                                                                          |
-| cancellation\_reason    | string          | `Cancelled` indicates order was withdrawn by user. `Fulfilled` indicates order was swapped successfully. `TimedOut` indicates a taker order with type `FillOrKill` expired before matching. |
-| available\_amount       | string          | Funds available for order to be matched against, taking into account current spendable balance and `max_volume`                                                                             |
+<CompactTable source="common-structures/orders.RequestBy" />
 
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  Filter response to return the best trades for up to 20 of the coin defined in the parent object:
+
   ```json
   {
-    "available_amount": "1",
-    "base": "BEER",
-    "cancellable": true,
-    "created_at": 1568808684710,
-    "matches": {
-      "60aaacca-ed31-4633-9326-c9757ea4cf78": {
-        "connect": {
-          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method": "connect",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-        },
-        "connected": {
-          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method": "connected",
-          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-        },
-        "last_updated": 1560529572571,
-        "request": {
-          "action": "Buy",
-          "base": "BEER",
-          "base_amount": "1",
-          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-          "method": "request",
-          "rel": "PIZZA",
-          "rel_amount": "1",
-          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-        },
-        "reserved": {
-          "base": "BEER",
-          "base_amount": "1",
-          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method": "reserved",
-          "rel": "PIZZA",
-          "rel_amount": "1",
-          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-        }
-      }
-    },
-    "max_base_vol": "1",
-    "max_base_vol_rat": [
-      [1, [1]],
-      [1, [1]]
-    ],
-    "min_base_vol": "0",
-    "min_base_vol_rat": [
-      [0, []],
-      [1, [1]]
-    ],
-    "price": "1",
-    "price_rat": [
-      [1, [1]],
-      [1, [1]]
-    ],
-    "rel": "ETOMIC",
-    "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
-    "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
+    "request_by": {
+      "type": "volume",
+      "value": 20
+    }
+  }
+  ```
+
+  Filter response to return the 10 best priced trades:
+
+  ```json
+  {
+    "type": "number",
+    "value": 10
   }
   ```
 </CollapsibleSection>
 
-### OrderDataV1
+### PairDepth
 
-<DevComment>
-  Compare and confirm the differences between this object in v1 and v2 methods.
-</DevComment>
+Used in [orderbook\_depth](/komodo-defi-framework/api/legacy/orderbook_depth/) responses to represent the depth information for a trading pair.
 
-| Structure                   | Type             | Description                                                                                                                                         |
-| --------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                        | string           | The ticker of the coin                                                                                                                              |
-| address                     | string           | The address offering the trade                                                                                                                      |
-| price                       | string (decimal) | The price the user is willing to buy or sell per one unit of the coin from request                                                                  |
-| price\_rat                  | rational         | The price represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.                           |
-| price\_fraction             | object           | The price represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.                       |
-| maxvolume                   | string (decimal) | The maximum amount of `base` the offer provider is willing to sell                                                                                  |
-| max\_volume\_rat            | rational         | The max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.                      |
-| max\_volume\_fraction       | object           | The max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.                  |
-| min\_volume                 | string (decimal) | The minimum amount of `base` coin the offer provider is willing to sell                                                                             |
-| min\_volume\_rat            | rational         | The min volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.                      |
-| min\_volume\_fraction       | object           | The min volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.                  |
-| pubkey                      | string           | The pubkey of the offer provider                                                                                                                    |
-| age                         | number           | The age of the offer (in seconds)                                                                                                                   |
-| zcredits                    | number           | The zeroconf deposit amount (deprecated)                                                                                                            |
-| netid                       | number           | The id of the network on which the request is made                                                                                                  |
-| uuid                        | string           | The uuid of order                                                                                                                                   |
-| is\_mine                    | bool             | Whether the order is placed by me                                                                                                                   |
-| base\_max\_volume           | string (decimal) | The maximum amount of `base` coin the offer provider is willing to buy or sell                                                                      |
-| base\_max\_volume\_rat      | rational         | The `base_max_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.               |
-| base\_max\_volume\_fraction | object           | The `base_max_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.           |
-| base\_min\_volume           | string (decimal) | The minimum amount of `base` coin the offer provider is willing to buy or sell                                                                      |
-| base\_min\_volume\_rat      | rational         | The `base_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.               |
-| base\_min\_volume\_fraction | object           | The `base_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.           |
-| base\_confs                 | number           | The confirmations settings of `base` coin set by the offer provider                                                                                 |
-| base\_nota                  | bool             | The notarisation settings of `base` coin set by the offer provider                                                                                  |
-| rel\_max\_volume            | string (decimal) | The maximum amount of `rel` coin the offer provider is willing to buy or sell                                                                       |
-| rel\_max\_volume\_rat       | rational         | The `rel_max_volume` max volume represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.     |
-| rel\_max\_volume\_fraction  | object           | The `rel_max_volume` max volume represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
-| rel\_min\_volume            | string (decimal) | The minimum amount of `rel` coin the offer provider is willing to buy or sell                                                                       |
-| rel\_min\_volume\_rat       | rational         | The `rel_min_volume` represented as a standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.                |
-| rel\_min\_volume\_fraction  | object           | The `rel_min_volume` represented as a standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object.            |
-| rel\_confs                  | number           | The confirmations settings of `rel` coin set by the offer provider                                                                                  |
-| rel\_nota                   | bool             | The notarisation settings of `rel` coin set by the offer provider                                                                                   |
-| original\_tickers           | list (string)    | Tickers included in response when `orderbook_ticker` is configured for the queried coin in `coins` file                                             |
+<CompactTable source="common-structures/orders.PairDepth" />
 
-### OrderDataV2
+### DepthInfo
 
-<DevComment>
-  Compare and confirm the differences between this object in v1 and v2 methods.
-</DevComment>
+Used within [PairDepth](/komodo-defi-framework/api/common_structures/orders/#pair-depth) objects to represent ask and bid counts.
 
-| Structure               | Type   | Description                                                                                                                                                                                                                                                                                   |
-| ----------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                    | string | The ticker of the coin                                                                                                                                                                                                                                                                        |
-| address                 | object | A standard [OrderAddress](/komodo-defi-framework/api/common_structures/orders/#order-address) object.                                                                                                                                                                                         |
-| price                   | object | A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the coin price.                                                                                                                                                     |
-| base\_min\_volume       | object | A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the minimum base volume.                                                                                                                                            |
-| base\_max\_volume       | object | A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the maximum base volume.                                                                                                                                            |
-| base\_max\_volume\_aggr | object | Orderbook (v2) only. A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the maximum aggregated base amount at the specified price. The sum of max base volumes of the current order and all orders with a worse price. |
-| rel\_min\_volume        | object | A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the minimum rel volume.                                                                                                                                             |
-| rel\_max\_volume        | object | A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the maximum rel volume.                                                                                                                                             |
-| rel\_max\_volume\_aggr  | object | Orderbook (v2) only. A standard [NumericFormatsValue](/komodo-defi-framework/api/common_structures/#numeric-formats-value) object representing the maximum aggregated rel amount at the specified price. The sum of max rel volumes of the current order and all orders with a worse price.   |
-| pubkey                  | string | The pubkey of the offer provider                                                                                                                                                                                                                                                              |
-| uuid                    | string | The uuid of order                                                                                                                                                                                                                                                                             |
-| is\_mine                | bool   | Whether the order is placed by me                                                                                                                                                                                                                                                             |
-| conf\_settings          | object | A standard [ConfSettings](/komodo-defi-framework/api/common_structures/orders/#conf-settings) object.                                                                                                                                                                                         |
+<CompactTable source="common-structures/orders.DepthInfo" />
 
-## OrderSummaryData
-
-| Structure     | Type             | Description                                                                       |
-| ------------- | ---------------- | --------------------------------------------------------------------------------- |
-| uuid          | string           | uuid of the order                                                                 |
-| order\_type   | string           | Type of the order; "Maker" or "Taker"                                             |
-| base          | string           | base coin of the order                                                            |
-| rel           | string           | rel coin of the order                                                             |
-| price         | number (decimal) | price of the order                                                                |
-| volume        | number (decimal) | volume of the order                                                               |
-| created\_at   | number           | unix timestamp in milliseconds, indicating the order creation time                |
-| last\_updated | number           | unix timestamp in milliseconds, indicating the time the order was last updated    |
-| Was\_taker    | number           | `1` if the order was a "Taker" order that got converted to "Maker", `0` otherwise |
-| status        | string           | status of the Order                                                               |
-
-## MatchBy
-
-| Structure | Type             | Description                                                                                                                  |
-| --------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Type      | string           | `Any` to match with any other order; `Orders` to select specific uuids; `Pubkeys` to select specific nodes; default is `Any` |
-| data      | array of strings | A list of order uuids (to match for `Orders` type) or pubkeys of nodes (to match for `Pubkeys` type)                         |
-
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
-      "match_by": {
-        "type": "Pubkeys",
-        "data": [
-          "0261eef15cbc141f555aff1aa40fb21de17a0a9e6897eee18c14c6032586b456b3",
-          "036879df230663db4cd083c8eeb0f293f46abc460ad3c299b0089b72e6d472202c"        
-        ]
-      }
-  ```
-
-  Match by order uuids:
-
-  ```json
-      "match_by": {
-        "type": "Orders",
-        "data": [
-          "6f65968f-e3c6-4978-98c5-5cec2bb5aa5b",
-          "07ce08bf-3db9-4dd8-a671-854affc1b7a3"
-        ]
-      }
+  {
+    "pair": ["DOC", "MARTY"],
+    "depth": {
+      "asks": 2,
+      "bids": 6
+    }
+  }
   ```
 </CollapsibleSection>
-
-### 1inchTokenInfo
-
-| Structure | Type           | Description                                                |
-| --------- | -------------- | ---------------------------------------------------------- |
-| address   | string         | Token contract address.                                    |
-| symbol    | string         | Token symbol.                                              |
-| name      | string         | Token name.                                                |
-| decimals  | numeric        | Number of digits after decimal point for the token amount. |
-| eip2612   | boolean        | Is Eip-2612 supported.                                     |
-| is\_fot   | boolean        | Is FoT token.                                              |
-| logo\_uri | string         | Token logo uri.                                            |
-| tags      | list of string | Token tags.                                                |
-
-### 1inchProtocolInfo
-
-| Structure            | Type    | Description                  |
-| -------------------- | ------- | ---------------------------- |
-| name                 | string  | Liquidity source name.       |
-| part                 | numeric | Protocol part.               |
-| from\_token\_address | string  | From-token contract address. |
-| to\_token\_address   | numeric | To-token contract address.   |
-
-### 1inchTxFields
-
-| Structure  | Type    | Description       |
-| ---------- | ------- | ----------------- |
-| from       | string  | From address      |
-| to         | string  | To address        |
-| data       | string  | Transaction data  |
-| value      | numeric | Transaction value |
-| gas\_price | float   | Gas price         |
-| gas        | numeric | Gas               |
-
-### 1inchProtocolImage
-
-| Structure  | Type   | Description                   |
-| ---------- | ------ | ----------------------------- |
-| id         | string | Protocol id.                  |
-| title      | string | Protocol title.               |
-| img        | string | Link to protocol image.       |
-| img\_color | string | Link to protocol image color. |

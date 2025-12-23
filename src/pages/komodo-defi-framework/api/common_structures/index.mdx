@@ -1,121 +1,80 @@
-export const title = "Komodo DeFi SDK RPC Protocol v2.0";
+export const title = "Komodo DeFi Framework Method: Common Structures";
 export const description = "Starting with version beta-2.1.3434, the Komodo DeFi SDK supports the standardized protocol format called mmrpc 2.0.";
 
-# Komodo DeFi SDK Common Structures
+# Common Structures
+
+## common-structures {{label : 'common_structures', tag : 'overview'}}
 
 The objects are in the request or response of multiple Komodo DeFi SDK methods have been grouped into the following sections:
 
-*   [Activation](/komodo-defi-framework/api/common_structures/activation/)
-*   [Swaps](/komodo-defi-framework/api/common_structures/swaps/)
-*   [Lightning Network](/komodo-defi-framework/api/common_structures/lightning/)
-*   [Non-fungible Tokens](/komodo-defi-framework/api/common_structures/nfts/)
-*   [Wallet Operations](/komodo-defi-framework/api/common_structures/wallet/)
+*   [Activation Common Structures](/komodo-defi-framework/api/common_structures/activation/): Details on activation modes, parameters, and server configurations for various coin types.
+*   [Enums](/komodo-defi-framework/api/common_structures/enums/): Enumerated values used across multiple methods, such as swap types, order statuses, and key policies.
+*   [Lightning Common Structures](/komodo-defi-framework/api/common_structures/lightning/): Objects for Lightning Network operations, including channel and payment configurations.
+*   [NFT Common Structures](/komodo-defi-framework/api/common_structures/nfts/): Structures for non-fungible token (NFT) operations, filters, and metadata.
+*   [Order Common Structures](/komodo-defi-framework/api/common_structures/orders/): Structures for orderbook entries, order data, and related parameters.
+*   [Swap Common Structures](/komodo-defi-framework/api/common_structures/swaps/): Objects and events related to atomic swaps, including event types and swap status.
+    *   [Maker Events](/komodo-defi-framework/api/common_structures/swaps/maker_events/): Step-by-step events and outcomes for atomic swaps from the maker's perspective.
+    *   [Taker Events](/komodo-defi-framework/api/common_structures/swaps/taker_events/): Step-by-step events and outcomes for atomic swaps from the taker's perspective.
+*   [Wallet Common Structures](/komodo-defi-framework/api/common_structures/wallet/): Structures for wallet operations, address derivation, balances, and key management.
 
 Structures which are used in more than one section are listed below:
-
-## AddressFormat
-
-| Structure | Type          | Description                                                                                                                                                                                        |
-| --------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| format    | string (enum) | address format to which the input address should be converted. Possible values: `mixedcase` for ETH/ERC20 coins; `cashaddress` or `standard` for UTXO coins; `contract` or `wallet` for QTUM/QRC20 |
-| network   | string (enum) | Optional, only used for UTXO coins. Network prefix for `cashaddress` format. Possible values: `bitcoincash` for BCH mainnet; `bchtest` for BCH testnet; `bchreg` for BCH regtest                   |
-
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
-  #### Example
-
-  ```json
-  {
-    "format": "mixedcase"
-  }
-  ```
-
-  ```json
-  {
-    "format": "cashaddress",
-    "network": "bitcoincash"
-  }
-  ```
-</CollapsibleSection>
-
-### BalanceInfo
-
-The `balanceInfo` object includes the following items for a given coin or token:
-
-| Parameter   | Type             | Description                                                                                                              |
-| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| spendable   | string (numeric) | The available amount of a coin or token which is ready to be traded or withdrawn.                                        |
-| unspendable | string (numeric) | The amount of a coin or token which is awaiting confirmation on the block chain for an incoming or outgoing transaction. |
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  ```json
-  {
-      "spendable": "12.11398301",
-      "unspendable": "0.53"
-  }
-  ```
-</CollapsibleSection>
-
-### DerivationMethod
-
-The `DerivationMethod` object includes the following items for a given coin or token:
-
-| Parameter | Type   | Description                                                                     |
-| --------- | ------ | ------------------------------------------------------------------------------- |
-| type      | string | Defines how keypairs will be generated. Possible values: `Iguana` or `HDWallet` |
-
-<Note>
-  Using the same seed or private key to generate keypairs using different derivation methods will result in a different address and private key for each method.
-</Note>
-
-Where the value indicates:
-
-*   `Iguana`: The coin or token is was activated using Iguana derivation (default).
-*   `HDWallet`: The coin or token is was activated using a Heirarchical Deterministic (HD) Wallet derivation path.
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  ```json
-  {
-      "type": "Iguana"
-  }
-  ```
-</CollapsibleSection>
 
 ### EventStreamConfig
 
 The `EventStreamConfig` object defines which events will be streamed to the client:
 
-| Parameter                      | Type   | Description                                                                            |
-| ------------------------------ | ------ | -------------------------------------------------------------------------------------- |
-| access\_control\_allow\_origin | string | Defines CORS whitelist. Use "\*" to allow fromi any origin.                            |
-| active\_events                 | object | Events to be streamed to the client, along with configuration defineing frequency etc. |
-| worker\_path                   | string | WASM only. Path to a custom `worker.js` file.                                          |
+<CompactTable source="common-structures/common.EventStreamConfig" />
 
-Active events are defined as follows:
+Configurable events, and how to enable them, is detailed in the [streaming methods doc](/komodo-defi-framework/api/v20/streaming/)
 
-*   NETWORK: Network status changes. Requires `stream_interval_seconds` configuration.
-*   HEARTBEAT: Allows clients to easily determine whether channels are functioning. Requires `stream_interval_seconds` configuration.
-*   COIN\_BALANCE: Balance changes. Does not require `stream_interval_seconds` configuration, as the event is triggered by the balance change.
+An example of the event stream output can then be viewed in [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=CLIENT\_ID](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html?id=0)
 
-<Note>
-  The `COIN_BALANCE` event may not be available for all coins or tokens.
-</Note>
-
-An example of the event stream output can then be viewed in [https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html](https://github.com/KomodoPlatform/komodo-defi-framework/blob/main/examples/sse/index.html)
+The `CLIENT_ID` value used in the url must match the `client_id` value used when enabling streaming events. In the case of a single client only, defining the client\_id is not required (it will default to `0`).
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
-  "event_stream_configuration": {
+  {
       "access_control_allow_origin": "*",
-      "active_events": {
-          "NETWORK": {
-              "stream_interval_seconds": 1.5,
-          },
-          "COIN_BALANCE": {},
-          "HEATBEAT": {
-              "stream_interval_seconds": 2.4,
-          }
-      },
       "worker_path": "index.js"
+  }
+  ```
+</CollapsibleSection>
+
+### FilterCriteria
+
+The 'FilterCriteria' object allows you to filter the results based on specific parameters.
+
+<CompactTable source="common-structures/common.FractionalValue" />
+
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  #### Example
+
+  ```json
+  {
+    "filter": {
+      "status": "completed",
+      "date_from": "2024-01-01T00:00:00Z",
+      "date_to": "2024-07-01T00:00:00Z",
+      "my_coin": "BTC",
+      "other_coin": "ETH",
+      "from_timestamp": 1672531200,
+      "to_timestamp": 1704067200
+    }
+  }
+  ```
+</CollapsibleSection>
+
+### FractionalValue
+
+The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
+
+<CompactTable source="common-structures/common.NumericFormatsValue" />
+
+<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
+  ```json
+  {
+      "numer": "4561782244811",
+      "denom": "4000000"
   }
   ```
 </CollapsibleSection>
@@ -124,11 +83,7 @@ An example of the event stream output can then be viewed in [https://github.com/
 
 The `NumericFormatsValue` returns a price or amount in three different formats: `fraction`, `rational`, and `decimal`.
 
-| Parameter | Type           | Description                                                                                          |
-| --------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| decimal   | numeric string | A decimal number as a string.                                                                        |
-| rational  | object         | A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object.     |
-| fraction  | object         | A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object. |
+<CompactTable source="common-structures/common.PagingOptions" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   ```json
@@ -146,106 +101,22 @@ The `NumericFormatsValue` returns a price or amount in three different formats: 
   ```
 </CollapsibleSection>
 
-### FeeInfo
+### PagingOptions
 
-The `FeeInfo` response object includes the following items for [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests:
+The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
 
-| Parameter  | Type             | Description                                                                                                                               |
-| ---------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| type       | string           | Type of transaction fee. Possible values: `UtxoFixed`, `UtxoPerKbyte`, `UtxoPriority`, `EthGas`, `Qrc20Gas`, `CosmosGas`                  |
-| amount     | string (numeric) | Fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
-| priority   | string           | Used only when type is `UtxoPriority`. Possible values: 'Low', 'Normal', 'High'.                                                          |
-| gas\_price | string (numeric) | Used only when fee type is `Qrc20Gas` or `EthGas`; sets the gas price in `gwei` units.                                                    |
-| gas\_price | number (double)  | Used only when fee type is `CosmosGas`; sets the gas price.                                                                               |
-| gas        | number (integer) | Used only when fee type is `EthGas`; sets the gas limit for transaction                                                                   |
-| gas\_limit | number (integer) | Used only when fee type is `Qrc20Gas` or `CosmosGas`; sets the gas limit for transaction                                                  |
+<CompactTable source="common-structures/common.Pagination" />
 
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  #### Examples
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  #### Example
 
   ```json
   {
-    "type": "UtxoFixed",
-    "amount": "0.0001"
-  }
-  ```
-
-  ```json
-  {
-    "type": "UtxoPerKbyte",
-    "amount": "0.0001"
-  }
-  ```
-
-  ```json
-  {
-    "type": "UtxoPriority",
-    "priority": "Low"
-  }
-  ```
-
-  ```json
-  {
-    "type": "EthGas",
-    "gas_price": "10",
-    "gas": 21000
-  }
-  ```
-
-  ```json
-  {
-    "type": "Qrc20Gas",
-    "gas_price": "10",
-    "gas_limit": 21000
-  }
-  ```
-
-  ```json
-  {
-    "type": "CosmosGas",
-    "gas_price": 0.05,
-    "gas_limit": 21000
-  }
-  ```
-</CollapsibleSection>
-
-### ExtendedFeeInfo
-
-| Structure                | Type             | Description                                                                                                                                                   |
-| ------------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                     | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount                   | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
-| amount\_rat              | rational         | fee amount (in rational representation)                                                                                                                       |
-| amount\_fraction         | fraction         | fee amount (in fraction representation)                                                                                                                       |
-| amount\_fraction         | fraction         | fee amount (in fraction representation)                                                                                                                       |
-| paid\_from\_trading\_vol | bool             | whether the fee is paid from trading volume and not use actual `coin` balance                                                                                 |
-
-### TotalFeeInfo
-
-| Structure                   | Type             | Description                                                                                                                                                   |
-| --------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                        | string           | the fee is paid from the user's balance of this coin. This coin name may differ from the `base` or `rel` coins. For example, ERC20 fees are paid by ETH (gas) |
-| amount                      | string (numeric) | fee amount (in decimal representation)                                                                                                                        |
-| amount\_rat                 | rational         | fee amount (in rational representation)                                                                                                                       |
-| amount\_fraction            | fraction         | fee amount (in fraction representation)                                                                                                                       |
-| required\_balance           | string (numeric) | the required `coin` balance to pay the fee                                                                                                                    |
-| required\_balance\_rat      | rational         | `required_balance` in rational representation                                                                                                                 |
-| required\_balance\_fraction | fraction         | `required_balance` in fraction representation                                                                                                                 |
-
-### FractionalValue
-
-The `FractionalValue` object includes a [numerator and denominator](https://www.freemathhelp.com/numerator-denominator/) values for a given price or amount:
-
-| Parameter | Type             | Description                              |
-| --------- | ---------------- | ---------------------------------------- |
-| numer     | string (numeric) | The numerator of the fractional value.   |
-| denom     | string (numeric) | The denominator of the fractional value. |
-
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  ```json
-  {
-      "numer": "4561782244811",
-      "denom": "4000000"
+    "paging_options": {
+      "from_uuid": null,
+      "limit": 10,
+      "page_number": 1
+    }
   }
   ```
 </CollapsibleSection>
@@ -254,10 +125,7 @@ The `FractionalValue` object includes a [numerator and denominator](https://www.
 
 For requests which return many results, pagination offsets may be applied. \*\* Use either value, not both. \*\*
 
-| Parameter  | Type    | Description                                             |
-| ---------- | ------- | ------------------------------------------------------- |
-| PageNumber | integer | Optional, defaults to `1`. Offset for paginated results |
-| FromId     | integer | Optional. Ignores any results prior to this UUID        |
+<CompactTable source="common-structures/common.StreamingConfig" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -279,36 +147,61 @@ For requests which return many results, pagination offsets may be applied. \*\* 
 
 The Komodo DeFi SDK now offers the [num-rational crate](https://crates.io/crates/num-rational) feature which allows for higher precision numeric values to represent order volumes and prices in a unique format as explained below:
 
-```json
-[
-  [1, [0, 1]],
-  [1, [1]]
-]
-```
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  ```json
+  [
+    [1, [0, 1]],
+    [1, [1]]
+  ]
+  ```
 
-In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
+  In the above unique format, the first item `[1,[0,1]]` is the `numerator` and the second item `[1,[1]]` is the `denominator`.
 
-The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
+  The `numerator` and `denominator` are BigInteger numbers represented as a sign and a uint32 array (where numbers are 32-bit parts of big integer in little-endian order).
 
-`[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
+  `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
-`[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
+  `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
+</CollapsibleSection>
+
+### StreamingConfig
+
+You can optionally apply more detailed configuration to event streaming methods.
+
+<CompactTable source="common-structures/common.StreamingFeeConfig" />
+
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  #### Example
+
+  ```json
+  {
+      "stream_interval_seconds": 33.3
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  ### StreamingFeeConfig
+
+  <CompactTable source="common-structures/common.SyncStatus" />
+
+  #### Example (stream::fee\_estimator::enable)
+
+  ```json
+  {
+      "estimate_every": 33.3,
+      "estimate_type": "Provider"
+  }
+  ```
+</CollapsibleSection>
 
 ### SyncStatus
 
-| Parameter        | Type   | Description                                                                                                                                                                                                     |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| state            | string | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`                                                                                                           |
-| additional\_info | object | A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only. |
+<CompactTable source="common-structures/common.SyncStatusExtended" />
 
 ### SyncStatusExtended
 
-| Parameter          | Type   | Description                                                                                                  |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
-| blocks\_left       | number | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state  |
-| transactions\_left | number | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state |
-| code               | number | displays the error code for `Error` state                                                                    |
-| message            | number | displays the error message for `Error` state                                                                 |
+<CompactTable source="common-structures/common.WcConnNs" />
 
 <CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
   #### Example
@@ -341,121 +234,65 @@ The `numerator` and `denominator` are BigInteger numbers represented as a sign a
   ```
 </CollapsibleSection>
 
-### WithdrawFee
+### WcConnNs
 
-The `WithdrawFee` object varies depending on the coin or token type. Refer to the examples to view the object structure for each type.
+The `WcConnNs` object contains details of approved chains, methods and events while connected via [WalletConnect](https://specs.walletconnect.com/2.0/).
 
-| Parameter       | Type           | Description                                                                       |
-| --------------- | -------------- | --------------------------------------------------------------------------------- |
-| type            | string         | The fee type. Either `Utxo`, `Tendermint`, `Qrc20` or `Eth`.                      |
-| amount          | numeric string | `Utxo` or `Tendermint` type only. The fee amount.                                 |
-| coin            | string         | The coin which will be used to pay the transaction fee.                           |
-| gas             | integer        | `Eth` type only. The amount of gas to be used for the transaction.                |
-| gas\_price      | numeric string | `Eth` or `Qrc20` type only. Price per unit of gas to be used for the transaction. |
-| gas\_limit      | numeric string | `Tendermint` or `Qrc20` type only. Maximum gas to be used for the transaction.    |
-| miner\_fee      | numeric string | `Tendermint` type only. Fee to mine the transaction.                              |
-| total\_fee      | numeric string | `Eth` type only. Gas price multiplied by gas amount.                              |
-| total\_gas\_fee | numeric string | `Qrc20` type only. Gas price multiplied by gas amount.                            |
+<CompactTable source="common-structures/common.WcSession" />
 
 <CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
-  #### Example of Eth type
+  #### EIP155 Example
 
   ```json
   {
-    "type": "Eth",
-    "coin": "BNB",
-    "gas": 109739,
-    "gas_price": "0.000000003",
-    "total_fee": "0.000329217"
+  	"chains": [
+  		"eip155:1",      // ETH
+  		"eip155:56",     // BNB
+  		"eip155:137",    // POLYGON
+  		"eip155:43114"   // AVAX
+  	],
+  	"methods": [
+  		"eth_sendTransaction",
+  		"eth_signTransaction",
+  		"personal_sign"
+  	],
+  	"events": [
+  		"accountsChanged",
+  		"chainChanged"
+  	]
   }
   ```
 
-  #### Example of Qrc20 type
+  #### Cosmos Example
 
   ```json
   {
-    "type": "Qrc20",
-    "coin": "tQTUM",
-    "miner_fee": "0.00000447",
-    "gas_limit": 100000,
-    "gas_price": 40,
-    "total_gas_fee": "0.04"
-  }
-  ```
-
-  #### Example of Tendermint type
-
-  ```json
-  {
-    "type": "Tendermint",
-    "coin": "IRIS",
-    "amount": "0.038553",
-    "gas_limit": 100000
-  }
-  ```
-
-  #### Example of Utxo type
-
-  ```json
-  {
-    "type": "Utxo",
-    "amount": "0.00001"
+  	"chains": [
+  		"cosmos:cosmoshub-4",
+  		"cosmos:osmosis-1",
+  		"cosmos:irishub-1"
+  	],
+  	"methods": [
+  	  	"cosmos_signDirect",
+  		  "cosmos_signAmino",
+  		  "cosmos_getAccounts"
+  	],
+  	"events": []
   }
   ```
 </CollapsibleSection>
 
-### FilterCriteria
+### WcSession
 
-The 'FilterCriteria' object allows you to filter the results based on specific parameters.
+The `WcSession` object contains details of active WalletConnect sessions.
 
-| Parameter       | Type   | Description                                    |
-| --------------- | ------ | ---------------------------------------------- |
-| status          | string | Status of the transactions (e.g., "completed") |
-| date\_from      | string | \`Start date in ISO 8601 format                |
-| date\_to        | string | End date in ISO 8601 format                    |
-| my\_coin        | string | Coin being used by you for the swap/trade.     |
-| other\_coin     | string | Coin you are trading against                   |
-| from\_timestamp | number | Start timestamp in UNIX format                 |
-| to\_timestamp   | number | End timestamp in UNIX format                   |
+<CompactTable source="common-structures/common.ErrorResponse" />
 
-<CollapsibleSection expandedText="Hide Example" collapsedText="Show Example">
-  #### Example
+Within each session object, there are a some values which are required as input in other WalletConnect methods:
 
-  ```json
-  {
-    "filter": {
-      "status": "completed",
-      "date_from": "2024-01-01T00:00:00Z",
-      "date_to": "2024-07-01T00:00:00Z",
-      "my_coin": "BTC",
-      "other_coin": "ETH",
-      "from_timestamp": 1672531200,
-      "to_timestamp": 1704067200
-    }
-  }
-  ```
-</CollapsibleSection>
+*   `pairing_topic`: Only used when initally connecting with external wallets/dapps.
+*   `topic`: Once connected, this is use for communications with the connected external wallet/dapp.
 
-### PagingOptions
+### ErrorResponse
 
-The `PagingOptions` object includes options of page selection to consult when looking for recent swaps:
-
-| Parameter    | Type             | Description                                                                                                            |
-| ------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| from\_uuid   | string (or null) | Skips records until this UUID, excluding the record with this UUID. Convenient for infinite scrolling implementations. |
-| limit        | number           | Limits the number of returned swaps.                                                                                   |
-| page\_number | number           | Returns limit swaps from the selected page. This parameter is ignored if from\_uuid is set.                            |
-
-<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
-  #### Example
-
-  ```json
-  {
-    "paging_options": {
-      "from_uuid": null,
-      "limit": 10,
-      "page_number": 1
-    }
-  }
-  ```
-</CollapsibleSection>
+<CompactTable source="common-structures/common.ErrorResponse" />

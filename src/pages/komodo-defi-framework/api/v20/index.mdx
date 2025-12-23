@@ -74,6 +74,7 @@ It includes a uniform request, successful and error response formats. At the mom
       "timestamp": 1566472936,
       "fee_details": {
         "type": "Utxo",
+        "coin": "KMD",
         "amount": "0.1"
       },
       "coin": "DOC",
@@ -101,10 +102,6 @@ It includes a uniform request, successful and error response formats. At the mom
   }
   ```
 </CollapsibleSection>
-
-## Common Komodo DeFi SDK Request / Response Objects
-
-The folowing objects are used in the request or response of multiple Komodo DeFi SDK methods.
 
 ## Error types
 
@@ -135,14 +132,6 @@ The `available` balance is not sufficient to transfer the specified amount.
   "id": 0
 }
 ```
-
-#### ZeroBalanceToWithdrawMax
-
-The available balance is zero.
-
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
 
 #### AmountTooLow
 
@@ -228,11 +217,11 @@ The request was failed due to an Komodo DeFi API internal error.
 ```json
 {
   "mmrpc": "2.0",
-  "error": "TTT-SLP",
+  "error": "BCH",
   "error_path": "my_tx_history_v2.lp_coins",
   "error_trace": "my_tx_history_v2:389] lp_coins:2847]",
   "error_type": "CoinIsNotActive",
-  "error_data": "TTT-SLP",
+  "error_data": "BCH",
   "id": null
 }
 ```
@@ -242,11 +231,11 @@ The request was failed due to an Komodo DeFi API internal error.
 ```json
 {
   "mmrpc": "2.0",
-  "error": "TTT-SLP",
+  "error": "BCH",
   "error_path": "my_tx_history_v2",
   "error_trace": "my_tx_history_v2:336]",
   "error_type": "NotSupportedFor",
-  "error_data": "TTT-SLP",
+  "error_data": "BCH",
   "id": null
 }
 ```
@@ -256,11 +245,11 @@ The request was failed due to an Komodo DeFi API internal error.
 ```json
 {
   "mmrpc": "2.0",
-  "error": "Storage is not initialized for TTT-SLP",
+  "error": "Storage is not initialized for BCH",
   "error_path": "my_tx_history_v2",
   "error_trace": "my_tx_history_v2:343]",
   "error_type": "StorageIsNotInitialized",
-  "error_data": "Storage is not initialized for TTT-SLP",
+  "error_data": "Storage is not initialized for BCH",
   "id": null
 }
 ```
@@ -280,10 +269,16 @@ The request was failed due to an Komodo DeFi API internal error.
 ```
 
 <DevComment>
-  There are some common objects that are used in the Komodo DeFi SDK RPC protocol. These standard objects have been collected and grouped into the following sections:
-
-  *   [Activation](/komodo-defi-framework/api/common_structures/activation/)
-  *   [Swaps](/komodo-defi-framework/api/common_structures/swaps/)
-  *   [Lightning Network](/komodo-defi-framework/api/common_structures/lightning/)
-  *   [Non-fungible Tokens](/komodo-defi-framework/api/common_structures/nfts/)
+  Error responses should be moved into their own file groups
 </DevComment>
+
+## Common Komodo DeFi SDK Request / Response Objects
+
+There are some [common objects](/komodo-defi-framework/api/common_structures/) that are used in the Komodo DeFi SDK RPC protocol. These standard objects have been collected and grouped into the following sections:
+
+*   [Activation](/komodo-defi-framework/api/common_structures/activation/)
+*   [Lightning Network](/komodo-defi-framework/api/common_structures/lightning/)
+*   [Non-fungible Tokens](/komodo-defi-framework/api/common_structures/nfts/)
+*   [Orders](/komodo-defi-framework/api/common_structures/orders/)
+*   [Swaps](/komodo-defi-framework/api/common_structures/swaps/)
+*   [Wallet](/komodo-defi-framework/api/common_structures/wallet/)

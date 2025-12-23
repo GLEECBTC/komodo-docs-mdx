@@ -1,8 +1,69 @@
-export const title = "ChangeLog";
+export const title = "Komodo DeFi Framework Change Log";
 export const description =
-  "Find the Changelogs of various versions of Komodo DeFi Framework  on this page.";
+  "Find the Changelogs of various versions of Komodo DeFi Framework on this page.";
 
 # Change Log
+
+## Komodo DeFi Framework v2.6.0-beta (Upcoming)
+
+### UTXO Management Enhancement
+
+This upcoming release introduces improved UTXO management capabilities to help users optimize their wallet performance and transaction efficiency.
+
+#### 🔧 UTXO Optimization
+
+*   **feat(utxo): introduce a utxo consolidation rpc** [PR #2587](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2587): A new [`consolidate_utxos`](/komodo-defi-framework/api/legacy/consolidate_utxos/) RPC method that allows users to consolidate unspent transaction outputs (UTXOs) for UTXO-based coins. This feature helps reduce wallet fragmentation, improve transaction creation speed, and potentially lower transaction fees by merging multiple small UTXOs into fewer larger ones. The method includes configurable merge conditions such as minimum UTXO count thresholds and maximum UTXOs per consolidation transaction.
+
+***
+
+## Komodo DeFi Framework v2.5.2-beta
+
+### Privacy Coins Stats and macOS Universal2 Support
+
+This hotfix release enhances privacy coins support by enabling swap status broadcasting for privacy coins while maintaining user anonymity. It also addresses critical stability issues by resolving a segfault issue affecting Linux users, fixing WASM balance calculations for ARRR, and introducing macOS Universal2 build support for seamless operation on both Intel and Apple Silicon Macs.
+
+### Release Notes
+
+*   **Privacy Coin Status Broadcasting**
+    *   Swap status broadcasting was enabled for privacy coins with the persistent pubkey hidden (set to zeros) to maintain user privacy. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **Stats Database Fix**
+    *   An inconsistency in stats DB was fixed to store persistent pubkeys for both maker and taker instead of incorrectly storing HTLC pubkeys in some cases. [#2648](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2648)
+*   **ARRR WASM Balance Fix**
+    *   The `get_nullifiers` function for Zcoin WASM build was aligned with its sqlite counterpart to return nullifiers for both unspent notes and notes with unconfirmed spends, fixing the `spent_by_me` field in transaction history and balance calculations. [#2651](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2651)
+*   **Linux Stability Fix**
+    *   The `memory_db` size metric that relied on `parity-util-mem::malloc_size` was removed because it intermittently segfaulted on Linux due to allocator conflicts between Jemalloc and glibc. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **macOS Universal2 Build**
+    *   A CI job was added to build macOS Universal2 artifacts for KDF by combining `x86_64-apple-darwin` and `aarch64-apple-darwin` binaries via `lipo`, producing a single binary that runs natively on both Intel and Apple Silicon. The universal binary is uploaded as `kdf_<commit>-mac-universal.zip`. [#2628](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2628)
+*   **Dependency Cleanup**
+    *   The `parity-util-mem` dependency was removed. [#2632](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2632)
+*   **CI Containers Update**
+    *   CI container base image was bumped to `debian:bullseye-slim`. [#2534](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2534) [#2641](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2641)
+
+**Full Changelog**: [Compare v2.5.1-beta...v2.5.2-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.1-beta...v2.5.2-beta)\
+**Release Binaries**: [v2.5.2-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.2-beta)
+
+## Komodo DeFi Framework v2.5.1-beta
+
+### Offline Private Key Export and First AI Agent Contribution
+
+This hotfix release addresses critical wallet management limitations by introducing essential functionality for offline private key export and wallet recovery operations. This release also marks a historic milestone as the first direct contribution from an AI agent to the Komodo DeFi Framework.
+
+### Release Notes
+
+#### 🔐 Private Key Management
+
+*   [feat(wallet): comprehensive offline private key export](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542): A comprehensive `get_private_keys` RPC method was implemented by Devin AI to provide robust offline private key, public key, and address export capabilities for any configured coin without requiring activation. This critical functionality supports both HD and Iguana wallet modes with protocol-specific logic for UTXO, EVM, Tendermint, and ZHTLC (shielded) coins, enabling essential wallet recovery operations.
+
+***
+
+### 🆕 New Contributors
+
+*   🤖 **Devin AI** made their first contribution in [PR #2542](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2542)
+
+***
+
+**Full Changelog**: [Compare v2.5.0-beta...v2.5.1-beta](https://github.com/KomodoPlatform/komodo-defi-framework/compare/v2.5.0-beta...v2.5.1-beta)\
+**Release Binaries**: [v2.5.1-beta on GitHub Releases](https://github.com/KomodoPlatform/komodo-defi-framework/releases/tag/v2.5.1-beta)
 
 ## Komodo DeFi Framework v2.4.0-beta
 

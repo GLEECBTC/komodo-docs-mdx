@@ -138,7 +138,7 @@ If you see something similar, the Komodo DeFi Framework API is up and running!
   When using the Komodo DeFi Framework API on a VPS without accompanying tools such as `tmux` or `screen`, it is recommended to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux). This will ensure that the Komodo DeFi Framework API instance is not shutdown when the user logs out.
 
   ```bash
-  stdbuf -oL nohup ./mm2 "{\"gui\":\"Docs_Walkthru\",\"netid\":8762, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"]
+  stdbuf -oL nohup ./kdf "{\"gui\":\"Docs_Walkthru\",\"netid\":8762, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"]
   , \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
   ```
 </Note>

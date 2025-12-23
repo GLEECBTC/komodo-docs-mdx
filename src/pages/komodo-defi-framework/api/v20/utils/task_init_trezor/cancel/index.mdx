@@ -1,0 +1,57 @@
+export const title = "Komodo DeFi Framework Method: Cancel Trezor Initialization Task";
+export const description = "Cancel the Trezor initialisation task in the Komodo DeFi Framework API.";
+
+# Cancel Trezor Initialization Task
+
+## task::init\_trezor::cancel {{label : 'task::init_trezor::cancel', tag : 'API-v2'}}
+
+Use the `task::init_trezor::cancel` method to cancel the initialisation task.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorCancelRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TaskInitTrezorCancelResponse" />
+
+#### 📌 Examples
+
+<CodeGroup title="Cancel Trezor Initialization Task" tag="POST" label="task::init_trezor::cancel" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "task::init_trezor::cancel",
+    "params": {
+      "task_id": 0
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Cancel Trezor Initialization Task Response" collapsedText="Show Cancel Trezor Initialization Task Response">
+  #### Response (ready, successful)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+
+  #### Response (error, task already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_hw.manager",
+    "error_trace": "init_hw:209] manager:104]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,0 +1,349 @@
+export const title = "Komodo DeFi Framework Method: Tendermint Coin Activation Tasks";
+export const description =
+  "The methods in this document allow activation of Tendermint coins.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Task: Tendermint Activation
+
+## task::enable\_tendermint::init {{label : 'task::enable_tendermint::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of Tendermint coins & tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskEnableTendermintArguments" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskResponse" />
+
+#### 📌 Examples
+
+#### Activation in Trezor mode
+
+<CodeGroup title="task::enable_tendermint::init" tag="POST" label="task::enable_tendermint::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintInit" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 2
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_tendermint::status {{label : 'task::enable_tendermint::status', tag : 'API-v2'}}
+
+After running the `task::enable_tendermint::init` method, we can query the status of activation to check its progress.
+The response will return the following:
+
+*   Result of the task (success or error)
+*   Progress status (what state the task is in)
+*   Required user action (what user should do before the task can continue)
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
+
+#### Command
+
+<CodeGroup title="task::enable_tendermint::status" tag="POST" label="task::enable_tendermint::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintStatus" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskStatusTendermintResponse" />
+
+\|                  |                  |                                                                                                                                                                               |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "ticker": "IRIS",
+            "address": "iaa1p8t6fh9tuq5c9mmnlhuuwuy4hw70cmpdcs8sc6",
+            "current_block": 29775307,
+            "balance": {
+                "spendable": "0",
+                "unspendable": "0"
+            },
+            "tokens_balances": {
+                "ATOM-IBC_IRIS": {
+                    "spendable": "0",
+                    "unspendable": "0"
+                }
+            }
+        }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (in progress)
+
+| Parameter | Type   | Description                                                 |
+| --------- | ------ | ----------------------------------------------------------- |
+| status    | string | Will return `InProgress` if task is not yet comepleted      |
+| details   | string | An indication of the current step of the activation process |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "RequestingWalletBalance"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
+  ### Error Types
+
+  | Structure                  | Type   | Description                                                                         |
+  | -------------------------- | ------ | ----------------------------------------------------------------------------------- |
+  | CoinProtocolParseError     | string | Parsing the protocol of the platform coin you are trying to activate failed         |
+  | InternalError              | string | The request was failed due to an Komodo DeFi Framework API internal error           |
+  | PlatformCoinCreationError  | string | There was an error when trying to activate the platform coin                        |
+  | PlatformConfigIsNotFound   | string | Config of the platform coin you are trying to activate is not found                 |
+  | PlatformIsAlreadyActivated | string | The platform coin you are trying to activate is already activated                   |
+  | PrivKeyNotAllowed          | string | The privkey is not allowed                                                          |
+  | TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                         |
+  | TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                 |
+  | Transport                  | string | The request was failed due to a network error                                       |
+  | UnexpectedDerivationMethod | string | The derivation method used is unexpected                                            |
+  | UnexpectedPlatformProtocol | string | Unexpected platform protocol found for the platform coin you are trying to activate |
+  | UnexpectedTokenProtocol    | string | Unexpected protocol is found in the config of the token you are trying to activate  |
+
+  #### PlatformConfigIsNotFound Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform WALDO config is not found",
+    "error_path": "platform_coin_with_tokens.prelude",
+    "error_trace": "platform_coin_with_tokens:302] prelude:79]",
+    "error_type": "PlatformConfigIsNotFound",
+    "error_data": "WALDO",
+    "id": null
+  }
+  ```
+
+  #### PlatformIsAlreadyActivated Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "IRIS",
+    "error_path": "platform_coin_with_tokens",
+    "error_trace": "platform_coin_with_tokens:297]",
+    "error_type": "PlatformIsAlreadyActivated",
+    "error_data": "IRIS",
+    "id": null
+  }
+  ```
+
+  #### CoinProtocolParseError
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform coin IRIS protocol parsing failed: invalid type: null, expected adjacently tagged enum CoinProtocol",
+    "error_path": "platform_coin_with_tokens.prelude",
+    "error_trace": "platform_coin_with_tokens:302] prelude:82]",
+    "error_type": "CoinProtocolParseError",
+    "error_data": {
+      "ticker": "IRIS",
+      "error": "invalid type: null, expected adjacently tagged enum CoinProtocol"
+    },
+    "id": null
+  }
+  ```
+
+  ### UnexpectedPlatformProtocol Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Unexpected platform protocol BCH { slp_prefix: \"simpleledger\" } for BCH",
+    "error_path": "platform_coin_with_tokens.prelude.tendermint_with_assets_activation",
+    "error_trace": "platform_coin_with_tokens:302] prelude:90] tendermint_with_assets_activation:92]",
+    "error_type": "UnexpectedPlatformProtocol",
+    "error_data": {
+      "ticker": "BCH",
+      "protocol": {
+        "type": "BCH",
+        "protocol_data": {
+          "slp_prefix": "simpleledger"
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+
+  ### TokenConfigIsNotFound Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token GALT config is not found",
+    "error_path": "platform_coin_with_tokens.prelude",
+    "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:79]",
+    "error_type": "TokenConfigIsNotFound",
+    "error_data": "GALT",
+    "id": null
+  }
+  ```
+
+  ### TokenProtocolParseError Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token BABYDOGE-BEP20 protocol parsing failed: unknown variant `WOOF`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
+    "error_path": "platform_coin_with_tokens.prelude",
+    "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:82]",
+    "error_type": "TokenProtocolParseError",
+    "error_data": {
+      "ticker": "BABYDOGE-BEP20",
+      "error": "unknown variant `WOOF`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
+    },
+    "id": null
+  }
+  ```
+
+  ### UnexpectedTokenProtocol Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Unexpected token protocol UTXO for KMD",
+    "error_path": "platform_coin_with_tokens.prelude.tendermint_with_assets_activation",
+    "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:90] tendermint_with_assets_activation:101]",
+    "error_type": "UnexpectedTokenProtocol",
+    "error_data": {
+      "ticker": "KMD",
+      "protocol": {
+        "type": "UTXO"
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_tendermint::user\_action {{label : 'task::enable_tendermint::user_action', tag : 'API-v2'}}
+
+If the `task::enable_tendermint::status` returns `UserActionRequired`, we need to use the `task::enable_tendermint::user_action` method to enter our PIN
+
+#### Arguments
+
+| Parameter                 | Type            | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                      |
+| user\_action              | object          | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+#### Response
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_tendermint::user_action" tag="POST" label="task::enable_tendermint::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintUserAction" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_tendermint::cancel {{label : 'task::enable_tendermint::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+#### Arguments
+
+| Structure | Type    | Description                                                           |
+| --------- | ------- | --------------------------------------------------------------------- |
+| task\_id  | integer | The identifying number returned when initiating the enabling process. |
+
+#### Response
+
+| Structure    | Type   | Description                                                    |
+| ------------ | ------ | -------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was succesful.                     |
+| error        | string | An error message to explain what went wrong.                   |
+| error\_path  | string | An indicator of the class or function which reurned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown. |
+| error\_type  | string | An enumerated value for the returned error.                    |
+| error\_data  | string | The input task ID which resulted in the error.                 |
+
+<CodeGroup title="task::enable_tendermint::cancel" tag="POST" label="task::enable_tendermint::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableTendermintCancel" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (success - already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_standalone_coin.manager",
+    "error_trace": "init_standalone_coin:144] manager:101]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+
+  #### Response (error - no such task)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": null
+  }
+  ```
+</CollapsibleSection>

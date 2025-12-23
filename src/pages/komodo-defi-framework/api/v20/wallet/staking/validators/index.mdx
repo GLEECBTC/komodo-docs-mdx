@@ -1,0 +1,173 @@
+export const title = "Komodo DeFi Framework Method: Validators";
+export const description =
+  "The experimental::staking::query::validators method returns information about validators on the network.";
+
+# Validators
+
+The `experimental::staking::query::validators` method returns information about validators on the network. Currently only Cosmos/Tendermint coins are supported.
+
+## Arguments
+
+| Structure     | Type   | Description                                                                                                        |
+| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
+| coin          | string | the coin being staked                                                                                              |
+| info\_details | object | A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+
+#### 📌 Examples
+
+#### Tendermint Command
+
+<CodeGroup title="" tag="POST" label="experimental::staking::query::validators" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::query::validators",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "IRIS",
+      "info_details": {
+        "type": "Cosmos",
+        "filter_by_status": "Bonded",
+        "limit": 20,
+        "page_number": 1
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "validators": [
+            {
+                "operator_address": "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat",
+                "consensus_pubkey": {
+                    "@type": "/cosmos.crypto.ed25519.PubKey",
+                    "key": "PaFfGZrFH4EFy1DeJUnBKvbCzKiPLGcz1lMU1s688lo="
+                },
+                "jailed": false,
+                "status": 3,
+                "tokens": "1036351457074",
+                "delegator_shares": "1037907383721517130010993713986",
+                "description": {
+                    "moniker": "FreshIriser",
+                    "identity": "",
+                    "website": "",
+                    "security_contact": "",
+                    "details": ""
+                },
+                "unbonding_height": 25673672,
+                "unbonding_time": "2024-07-28T12:40:29.880206886Z",
+                "commission": {
+                    "commission_rates": {
+                        "rate": "20000000000000000",
+                        "max_rate": "1000000000000000000",
+                        "max_change_rate": "1000000000000000000"
+                    },
+                    "update_time": "2024-03-29T00:51:02.592416403Z"
+                },
+                "min_self_delegation": "0"
+            },
+            {
+                "operator_address": "iva1qtq8dwpdth5nwmyw60rm4texdnznk9ld9dewky",
+                "consensus_pubkey": {
+                    "@type": "/cosmos.crypto.ed25519.PubKey",
+                    "key": "SG1L81pZWcKD4QViADVRzCXsVSP2N6hGQDidNIYSFro="
+                },
+                "jailed": false,
+                "status": 3,
+                "tokens": "34963416124",
+                "delegator_shares": "34963416124000000000000000000",
+                "description": {
+                    "moniker": "PXN",
+                    "identity": "",
+                    "website": "",
+                    "security_contact": "",
+                    "details": ""
+                },
+                "unbonding_height": 0,
+                "unbonding_time": "1970-01-01T00:00:00Z",
+                "commission": {
+                    "commission_rates": {
+                        "rate": "20000000000000000",
+                        "max_rate": "1000000000000000000",
+                        "max_change_rate": "1000000000000000000"
+                    },
+                    "update_time": "2024-04-14T07:46:52.142570398Z"
+                },
+                "min_self_delegation": "0"
+            },
+            {
+                "operator_address": "iva1qdq3wcsju2zuhttc0l7wxuna4fvdwa7qpmkwwa",
+                "consensus_pubkey": {
+                    "@type": "/cosmos.crypto.ed25519.PubKey",
+                    "key": "7Tiqj/qq+QdYcMGO2qHckodGQaRSBs6aXj6UxcAtJ9U="
+                },
+                "jailed": false,
+                "status": 3,
+                "tokens": "1009839660382",
+                "delegator_shares": "1010142702899117469552591495078",
+                "description": {
+                    "moniker": "DF-M",
+                    "identity": "",
+                    "website": "",
+                    "security_contact": "",
+                    "details": ""
+                },
+                "unbonding_height": 14952775,
+                "unbonding_time": "2022-06-06T17:45:15.303620498Z",
+                "commission": {
+                    "commission_rates": {
+                        "rate": "50000000000000000",
+                        "max_rate": "1000000000000000000",
+                        "max_change_rate": "1000000000000000000"
+                    },
+                    "update_time": "2025-02-06T03:53:52.846059535Z"
+                },
+                "min_self_delegation": "1"
+            }
+        ]
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### InvalidRequest (unsupported coin type)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: unknown variant `Qtum`, expected `Cosmos`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:122]",
+      "error_type": "InvalidRequest",
+      "error_data": "unknown variant `Qtum`, expected `Cosmos`",
+      "id": null
+  }
+  ```
+
+  #### NoSuchCoin (coin not yet active)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin IRIS",
+      "error_path": "lp_coins",
+      "error_trace": "lp_coins:5218] lp_coins:5032]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "IRIS"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

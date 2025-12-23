@@ -12565,10 +12565,39 @@ Output:
 ## zcsamplejoinsplit
 
 Perform a joinsplit and return the JSDescription.
-export const title = "Change Log";
+export const title = "Komodo Daemon Change Log";
 export const description = "Find the Changelogs of various versions of Komodo daemon on this page.";
 
 # Change Log
+
+## v0.9.1
+
+We are happy to announce the release of `0.9.1`. This release includes binaries that you can download below.
+
+This release contains various bug fixes, build improvements, and CI/CD enhancements.
+
+### What's Changed
+
+*   fix old and new gleec checkpoints by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/629](https://github.com/KomodoPlatform/komodo/pull/629)
+*   cc: fix ed25519 signatures malleability by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/632](https://github.com/KomodoPlatform/komodo/pull/632)
+*   libsodium: don't update config.sub, config.guess from git.savannah.gnu.org by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/635](https://github.com/KomodoPlatform/komodo/pull/635)
+*   GLEEC\_OLD: exception to fix following the notarizations by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/637](https://github.com/KomodoPlatform/komodo/pull/637)
+*   use p2pkh vout instead of p2pk for change when -pubkey specified by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/638](https://github.com/KomodoPlatform/komodo/pull/638)
+*   update artifact actions to v4 by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/639](https://github.com/KomodoPlatform/komodo/pull/639)
+*   build: boost, prevent use of std::unary\_function by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/640](https://github.com/KomodoPlatform/komodo/pull/640)
+*   build: use latest config.\{guess,sub} in depends by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/641](https://github.com/KomodoPlatform/komodo/pull/641)
+*   allow to start without komodo.conf for KMD by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/642](https://github.com/KomodoPlatform/komodo/pull/642)
+*   ci/cd: update runner image ubuntu-20.04 -> ubuntu-22.04 by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/643](https://github.com/KomodoPlatform/komodo/pull/643)
+*   fix linkage on Xenial (16.04) by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/627](https://github.com/KomodoPlatform/komodo/pull/627)
+*   \[CI/CD] fix Windows build by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/645](https://github.com/KomodoPlatform/komodo/pull/645)
+*   tests: fix global variable corruption, make tests execution order-independent by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/646](https://github.com/KomodoPlatform/komodo/pull/646)
+*   \[ci/cd] save time on removal and upgrade packages by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/648](https://github.com/KomodoPlatform/komodo/pull/648)
+*   tests: fix multiple definition of TestCout d'tor by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/649](https://github.com/KomodoPlatform/komodo/pull/649)
+*   README.md: updating information by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/647](https://github.com/KomodoPlatform/komodo/pull/647)
+*   Update DEPRECATION\_HEIGHT to 5 333 777 to extend node support window by @DeckerSU in [https://github.com/KomodoPlatform/komodo/pull/651](https://github.com/KomodoPlatform/komodo/pull/651)
+*   0.9.1 by @ca333 in [https://github.com/KomodoPlatform/komodo/pull/644](https://github.com/KomodoPlatform/komodo/pull/644)
+
+**Full Changelog**: [https://github.com/KomodoPlatform/komodo/compare/v0.9.0...v0.9.1](https://github.com/KomodoPlatform/komodo/compare/v0.9.0...v0.9.1)
 
 ## v0.9.0
 

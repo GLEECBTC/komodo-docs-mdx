@@ -1,0 +1,19 @@
+{
+  "name": "docs-sync-workflow",
+  "version": "1.0.0",
+  "description": "Dependencies for docs sync workflow",
+  "main": "scripts/sync-docs-issues.js",
+  "scripts": {
+    "sync": "node scripts/sync-docs-issues.js",
+    "auto-pr": "node scripts/auto-pr-from-issues.js"
+  },
+  "dependencies": {
+    "@octokit/core": "^5.0.0",
+    "@octokit/plugin-retry": "^6.0.0",
+    "@octokit/plugin-throttling": "^8.0.0",
+    "node-fetch": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

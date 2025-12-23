@@ -1,21 +1,25 @@
 export const title = "Komodo DeFi Framework Method: Start Version Stat Collection";
 export const description = "The start_version_stat_collection method initiates storing version statistics for nodes previously registered via the add_node_to_version_stat method.";
 
-# start\_version\_stat\_collection
+# Start Version Stat Collection
+
+## start\_version\_stat\_collection {{label : 'start_version_stat_collection', tag : 'API-v2'}}
 
 The `start_version_stat_collection` method initiates storing version statistics for nodes previously registered via the `add_node_to_version_stat` method.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type    | Description                                      |
-| --------- | ------- | ------------------------------------------------ |
-| interval  | integer | polling rate (in seconds) to check node versions |
+<CompactTable source="v2/utils.StartVersionStatCollectionRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.StartVersionStatCollectionResponse" />
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="start_version_stat_collection" mm2MethodDecorate="true">
+<CodeGroup title="Start Version Stat Collection" tag="POST" label="start_version_stat_collection" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -28,7 +32,7 @@ The `start_version_stat_collection` method initiates storing version statistics 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Start Version Stat Collection Response" collapsedText="Show Start Version Stat Collection Response">
   #### Response (success)
 
   ```json
@@ -38,8 +42,16 @@ The `start_version_stat_collection` method initiates storing version statistics 
     "id": null
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error - invalid peer id unable to parse)
+### Error Types
+
+<CompactTable source="v2/utils.StartVersionStatCollectionErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### DatabaseError
 
   ```json
   {

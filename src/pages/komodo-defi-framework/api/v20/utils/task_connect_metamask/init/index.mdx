@@ -1,0 +1,50 @@
+export const title = "Komodo DeFi Framework Method: Initialise MetaMask Connection Task";
+export const description = "Begin a task-managed process that initialises and authenticates MetaMask with the Komodo DeFi Framework node.";
+
+# Initialise MetaMask Connection Task
+
+## task::connect\_metamask::init {{label : 'task::connect_metamask::init', tag : 'API-v2'}}
+
+Use this method to begin a task-managed process that establishes a MetaMask context. The method returns a `task_id` that can be polled using `task::connect_metamask::status`.
+
+### Request Parameters
+
+<CompactTable source="v2/utils.TaskConnectMetamaskInitRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.TaskConnectMetamaskInitResponse" />
+
+#### 📌 Examples
+
+<CodeGroup title="connect_metamask::init" tag="POST" label="task::connect_metamask::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "method": "task::connect_metamask::init",
+    "params": {
+      "project": "my_kdf_app"
+    },
+    "id": 1,
+    "userpass": "RPC_UserP@SSW0RD"
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 42
+    },
+    "id": 1
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+<CompactTable source="v2/utils.TaskConnectMetamaskInitErrors" />

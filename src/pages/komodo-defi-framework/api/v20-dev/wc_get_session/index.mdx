@@ -1,0 +1,118 @@
+export const title = "Komodo DeFi Framework Method: Walletconnect: Get session";
+export const description =
+  "The wc_get_session method returns details for a specific WalletConnect session.";
+
+# wc\_get\_session
+
+The `wc_get_session` method returns details for a specific WalletConnect session.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method instead.
+
+## Arguments
+
+| Structure            | Type   | Description                                                                                                                                                                                     |
+| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| with\_pairing\_topic | bool   | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
+| topic                | string | An active session topic (or pairing topic) hex string.                                                                                                                                          |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command via pairing topic
+
+<CodeGroup title="" tag="POST" label="wc_get_session" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_get_session",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "with_pairing_topic": true,
+      "topic": "ad2fbcc28d410158431a3dc181d4365462df5cef6c90402b3e415c9d75f7c6f1"
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Command via session topic
+
+<CodeGroup title="" tag="POST" label="wc_get_session" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_get_session",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "with_pairing_topic": false,
+      "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+    }
+  }
+  ```
+</CodeGroup>
+
+<Note>
+  Both of the above queries return the same result.
+</Note>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "session": {
+            "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95",
+            "metadata": {
+                "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                "url": "https://trustwallet.com",
+                "icons": [
+                    "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                ],
+                "name": "Trust Wallet"
+            },
+            "pairing_topic": "ad2fbcc28d410158431a3dc181d4365462df5cef6c90402b3e415c9d75f7c6f1",
+            "namespaces": {
+                "cosmos": {
+                    "chains": [
+                        "cosmos:cosmoshub-4"
+                    ],
+                    "accounts": [
+                        "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                    ],
+                    "methods": [
+                        "cosmos_getAccounts",
+                        "cosmos_signAmino",
+                        "cosmos_signDirect"
+                    ],
+                    "events": []
+                },
+                "eip155": {
+                    "chains": [
+                        "eip155:43114"
+                    ],
+                    "accounts": [
+                        "eip155:43114:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                    ],
+                    "methods": [
+                        "eth_sendTransaction",
+                        "eth_signTransaction",
+                        "personal_sign"
+                    ],
+                    "events": [
+                        "accountsChanged",
+                        "chainChanged"
+                    ]
+                }
+            },
+            "expiry": 1742187410
+        }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
