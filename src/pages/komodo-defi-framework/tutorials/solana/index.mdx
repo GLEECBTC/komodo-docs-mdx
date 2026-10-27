@@ -1,0 +1,155 @@
+export const title = "Solana and SPL Tokens";
+export const description =
+  "How the Komodo DeFi Framework supports Solana: coins file entries, activation, keys and addresses, fees and rent, memos, transaction history, streaming and message signing.";
+
+# Solana and SPL Tokens
+
+The Komodo DeFi Framework supports Solana (SOL) and SPL tokens from both the Token and Token-2022 programs. Solana coins can be activated, hold balances, send transfers with memos, keep a transaction history, stream balance and history updates, and sign messages.
+
+<Note>
+  Solana coins are currently **wallet-only**: they can't be used in orders or atomic swaps. Order methods such as [setprice](/komodo-defi-framework/api/legacy/setprice/) refuse them with `'SOL' is a wallet only asset and can't be used in orders.`, whatever the coins file says. Atomic swaps are built on the [satomic-swap](https://github.com/GLEECBTC/satomic-swap) HTLC program and will be enabled once it is audited and deployed to mainnet.
+</Note>
+
+## Coins file entries
+
+Solana coins are configured in the [coins file](/komodo-defi-framework/tutorials/coins-file-update/) like any other coin. The platform coin uses the `SOLANA` protocol, and each token uses `SOLANATOKEN`:
+
+```json
+[
+  {
+    "coin": "SOL",
+    "name": "solana",
+    "fname": "Solana",
+    "mm2": 1,
+    "wallet_only": true,
+    "decimals": 9,
+    "avg_blocktime": 0.4,
+    "required_confirmations": 1,
+    "derivation_path": "m/44'/501'",
+    "protocol": {
+      "type": "SOLANA",
+      "protocol_data": {}
+    }
+  },
+  {
+    "coin": "USDC-SOL",
+    "name": "usdc_sol",
+    "fname": "USD Coin",
+    "mm2": 1,
+    "wallet_only": true,
+    "avg_blocktime": 0.4,
+    "required_confirmations": 1,
+    "derivation_path": "m/44'/501'",
+    "protocol": {
+      "type": "SOLANATOKEN",
+      "protocol_data": {
+        "platform": "SOL",
+        "decimals": 6,
+        "mint_address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "program_id": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+      }
+    }
+  }
+]
+```
+
+The `protocol_data` of a `SOLANATOKEN` entry takes the following fields:
+
+| Parameter     | Type    | Description                                                                                                                                                                 |
+| ------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform      | string  | Ticker of the Solana platform coin the token lives on, e.g. `SOL`.                                                                                                          |
+| decimals      | integer | The token's decimals, as set on its mint. The framework reads a token's decimals from here.                                                                                 |
+| mint\_address | string  | Address of the token's mint.                                                                                                                                                |
+| program\_id   | string  | The token program that owns the mint: `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA` for the Token program, or `TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb` for Token-2022. |
+
+Activation fails if the mint exists but is owned by a different program than `program_id`.
+
+For devnet, use the same entries with devnet tickers, `"is_testnet": true` and devnet mints. Devnet USDC, for example, is `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU` under the Token program. Devnet SOL is available from the [Solana faucet](https://faucet.solana.com) and devnet USDC from the [Circle faucet](https://faucet.circle.com).
+
+## Activation
+
+Activate SOL and any tokens with [experimental::enable\_solana\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/). To add a token later, use [experimental::enable\_solana\_token](/komodo-defi-framework/api/v20/coin_activation/enable_solana_token/).
+
+Nodes are Solana JSON-RPC endpoints. A few things to keep in mind when choosing them:
+
+*   **Transaction history comes from the node.** History and swap recovery read `getSignaturesForAddress`, so how far back they reach depends on how much history the node keeps.
+*   **Public endpoints are heavily rate-limited.** `api.mainnet-beta.solana.com` and `api.devnet.solana.com` limit requests per IP, and fetching transactions in particular. They work for trying things out, but a wallet with `tx_history` enabled should use a dedicated RPC provider.
+*   **Several nodes can be listed.** The first reachable node is used, and the next one is tried when it stops responding.
+
+Solana activation supports wallets started from a seed phrase, in both Iguana and HD mode. Hardware wallets, WalletConnect and MetaMask are not supported.
+
+## Keys and addresses
+
+*   **HD wallets** (`"enable_hd": true`) derive the Solana key at `m/44'/501'/0'/0'`, the default path of Phantom, Solflare and `solana-keygen`. The same mnemonic gives the same address in those wallets.
+*   **Iguana wallets** use the 32-byte private key the framework derives from the passphrase as the ed25519 seed. The address differs from what other Solana wallets derive from the same words.
+*   **One address per wallet.** HD account and address selectors, such as the `address` parameter of [sign\_message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/), are not supported.
+*   **Exporting the key.** [show\_priv\_key](/komodo-defi-framework/api/legacy/show_priv_key/) returns the base58-encoded 64-byte keypair that Phantom and Solflare import as a private key. [get\_private\_keys](/komodo-defi-framework/api/v20/wallet/get_private_keys/) does not support Solana yet.
+
+### Token addresses
+
+An SPL token reports the wallet's address, the same as SOL, in activation and [my\_balance](/komodo-defi-framework/api/legacy/my_balance/). The tokens themselves are held in the wallet's **associated token account** for the token's mint, an address derived from the wallet's. Senders' wallets and exchanges work it out from the wallet address, and create it if it doesn't exist yet.
+
+When [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) is given a token account as `to`, as explorers often show, the tokens go straight into that account. A token account for a different mint, or any other account owned by a token program such as a mint, is refused with `InvalidAddress`.
+
+## Fees and rent
+
+### Network fees
+
+A Solana transaction pays a base fee per signature plus a priority fee, which is a price per compute unit requested. The framework sets both parts of that priority fee:
+
+1.  **Compute units.** It requests what the transaction needs plus 10%: a fixed amount for a SOL transfer, and an amount measured by simulating the transaction for a token transfer.
+2.  **Price per unit.** It looks at the lowest price that transactions writing the same accounts paid in each of the last \~150 slots, and takes the 75th percentile, kept between 1,000 and 10,000,000 micro-lamports per unit.
+
+Manual fees aren't supported: the `fee` parameter of [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) is ignored for Solana coins. The cost is reported in a `Solana` type [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) object, and is always paid in SOL, token transfers included.
+
+### Rent
+
+Every Solana account must end a transaction either empty or holding at least its **rent-exempt minimum**: 0.00065024 SOL for a wallet at the time of writing. The framework checks this before signing a withdrawal, so a transfer that the network would reject fails with an error that says what would work instead:
+
+| Situation                                                                        | Error                                                                                                                            |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Sending SOL to an address that holds none, below the minimum                     | `AmountTooLow`, with the minimum as `threshold`. A smaller amount can still be sent to an address that already holds SOL.        |
+| A SOL transfer that would leave the wallet with less than the minimum, but not 0 | `NotSufficientBalance`. Send less, so that the minimum stays behind, or send everything with `"max": true`.                      |
+| An SPL token transfer the SOL balance can't pay for                              | `NotSufficientPlatformBalanceForFee`. The SOL balance must cover the fee and any rent, and keep the minimum unless it reaches 0. |
+
+When the recipient of an SPL token transfer has no account for the token yet, the transaction creates one and the sender pays its rent. This is reported as `rent_amount` in the fee details, and stays in the new account rather than being burned.
+
+`"max": true` on SOL sends the whole balance less the fee, leaving the wallet at exactly 0.
+
+## Memos
+
+[withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) accepts a `memo` of up to 256 bytes for SOL and SPL tokens. It is recorded with the SPL Memo program, which exchanges and explorers recognize, so it can carry an exchange deposit tag. An empty memo is dropped, and a longer one fails with `InvalidMemo`.
+
+## Transaction history
+
+Activate with `"tx_history": true` and read the history with [my\_tx\_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/); the legacy `my_tx_history` doesn't support Solana. The history covers SOL and every token activated with it:
+
+*   Amounts are worked out from balance changes, so transfers made by any program are recorded, not only plain transfers.
+*   A token transfer appears as a row for the token. When the wallet paid for it, it also appears as a row for SOL, for the fee and any rent.
+*   History is fetched oldest first. The newest transactions appear once the sync reaches them, and new transactions are picked up every 30 seconds.
+
+[stream::tx\_history::enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/) streams new history entries for SOL and for each token.
+
+## Balance streaming
+
+Enable [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) on the platform coin only. That one stream reports the balances of SOL and of every token activated with it. Balances are polled every 10 seconds, so an update can take that long to arrive.
+
+## Message signing
+
+[sign\_message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/) produces an ed25519 signature over the raw UTF-8 bytes of the message, encoded in base58. This is the scheme Phantom and Solflare use for `signMessage`, so signatures verify in either direction. No `sign_message_prefix` is needed in the coins file.
+
+## Other methods
+
+*   [validateaddress](/komodo-defi-framework/api/legacy/validateaddress/) accepts any base58-encoded 32-byte address.
+*   [convertaddress](/komodo-defi-framework/api/legacy/convertaddress/) returns an error: Solana has a single address format.
+*   [min\_trading\_vol](/komodo-defi-framework/api/legacy/min_trading_vol/) is one lamport, `0.000000001` SOL.
+*   `sign_raw_transaction` is not implemented for Solana.
+
+## Related methods
+
+*   [experimental::enable\_solana\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/): activate SOL and SPL tokens.
+*   [experimental::enable\_solana\_token](/komodo-defi-framework/api/v20/coin_activation/enable_solana_token/): activate an SPL token.
+*   [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/): create a transfer, then broadcast it with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
+*   [my\_tx\_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/): read the transaction history.
+*   [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) and [stream::tx\_history::enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/): stream balances and history.
+*   [sign\_message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/) and [verify\_message](/komodo-defi-framework/api/v20/utils/message_signing/verify_message/): sign and verify messages.

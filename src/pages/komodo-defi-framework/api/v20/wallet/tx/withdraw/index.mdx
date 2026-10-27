@@ -14,9 +14,9 @@ This method generates a raw transaction which should then be broadcast using [se
 | coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
 | to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                            |
 | amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
-| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                             |
+| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem, Solana). Solana memos are limited to 256 bytes.                                                                                                              |
 | max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                |
-| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                           |
+| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. Ignored for Solana and SPL tokens, whose fee is set automatically.                                                                        |
 | from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
 | ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
 | broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
@@ -697,6 +697,119 @@ Using the Cosmos [Ecosystem IBC protocol](https://everstake.one/blog/cosmos-ibc-
   You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
 </CollapsibleSection>
 
+#### Withdraw SOL
+
+Solana fees can't be set manually: the framework sets the transaction's compute budget itself and prices it from the priority fees recently paid on the same accounts. The fee is reported in a `Solana` type [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) object. See [Solana and SPL tokens](/komodo-defi-framework/tutorials/solana/) for the rent rules a Solana withdrawal must respect.
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "SOL-DEV",
+      "to": "GMtMFbuVgjDnzsBd3LLBfM4X8RyYcDGCM92tPq2PG6B2",
+      "amount": "0.01"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "01dad983fb2fe15fa3cb78519aa04d113db8ecd025bad0f2876ff1be7dc177ae7ba2b6ceceb309149cc53969c96cef9afb6b0e00fea482e23ea361f0d2b591ad0b0100020444cf27eedebc3d4924d677c54739fd03351f2b5c311b3bc31d146ab2bdf6fe76e438fb13812c4aa573031c285990937284bbdfe9c5fcdfc9cad32330d977315100000000000000000000000000000000000000000000000000000000000000000306466fe5211732ffecadba72c39be7bc8ce5bbc5f7126b2c439b3a4000000065a9b9b4d4903bbc515785e3aa74d6c03317e64a19d61daf665ec683d50f412d0303000502ef01000003000903e803000000000000020200010c020000008096980000000000",
+      "tx_hash": "5NnChhTJnb7YG2yfQth5HhuSRK448RibJw5YhN5QRymV38j5f6cCdjvqALdA436gZHm9aGSFv9GMbH1ZVgrXmHWS",
+      "from": [
+        "5dbw8U6zrLFwtYQgy3gxvMFe6PzWRs8yXB7bXShCnbfT"
+      ],
+      "to": [
+        "GMtMFbuVgjDnzsBd3LLBfM4X8RyYcDGCM92tPq2PG6B2"
+      ],
+      "total_amount": "0.01",
+      "spent_by_me": "0.010005001",
+      "received_by_me": "0",
+      "my_balance_change": "-0.010005001",
+      "block_height": 0,
+      "timestamp": 1793122063,
+      "fee_details": {
+        "type": "Solana",
+        "fee_amount": "0.000005001",
+        "rent_amount": "0",
+        "total_amount": "0.000005001"
+      },
+      "coin": "SOL-DEV",
+      "internal_id": "354e6e436868544a6e623759473279665174683548687553524b3434385269624a773559684e355152796d5633386a3566366343646a7671414c6441343336675a486d39614753467639474d6248315a566772586d485753",
+      "transaction_type": "StandardTransfer",
+      "memo": null
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+#### Withdraw SPL tokens with a memo
+
+`to` can be a wallet address, or a token account for the token, which receives the tokens directly. The network fee and any rent are paid in SOL. When the recipient wallet has no account for the token yet, the transaction creates one and the sender pays its rent, reported as `rent_amount`. The memo is recorded on-chain with the SPL Memo program.
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "USDC-SOL-DEV",
+      "to": "FZb3CLhhiLbZJD32SfwSmZ4nDherirFFfTFJaTREmy7j",
+      "amount": "1.5",
+      "memo": "invoice 1042"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "01d67cef3deb48da831a775fde5a40a3458e9b68fed217d6772c5491a16b56ebeba5322026b7e47a60188792b5c56a021c26e5583e8608b8cc3514f9ee29fe55000100070a44cf27eedebc3d4924d677c54739fd03351f2b5c311b3bc31d146ab2bdf6fe761fc01e0bf844957fe72950bcc224b13899b25121b2f592e04d1f610ba0e3faa5964147368705ea1d489a2184d450925cba81914222bc796fd62bbe6c4a285eaf00000000000000000000000000000000000000000000000000000000000000000306466fe5211732ffecadba72c39be7bc8ce5bbc5f7126b2c439b3a40000000054a535a992921064d24e87160da387c7c35b5ddbc92bb81e41fa8404105448d06ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a93b442cb3912157f13a933d0134282d032b5ffecd01a2dbf1b7790608df002ea78c97258f4e2489f1bb3d1029148e0d830b5a1399daff1084048e7bd8dbe9f859d85cb08885919274ac66e27877e0e1eabd0e8189b0dc2c68256463a1699ce3161416f54e0e30cfc47a57d116ecc9606b16dc819107647b6e78d85639119c481c05040005025355000004000903e803000000000000080600020907030601010604010702000a0c60e31600000000000605000c696e766f6963652031303432",
+      "tx_hash": "5HirJXB1HtFbiVt5CxV5zG2y2KyjGX5H2kCNS7bc8VQQ5DxUYdtAYGHNbjKww1QcwH3sfjRbDdZomu1VCmJZWkQP",
+      "from": [
+        "5dbw8U6zrLFwtYQgy3gxvMFe6PzWRs8yXB7bXShCnbfT"
+      ],
+      "to": [
+        "FZb3CLhhiLbZJD32SfwSmZ4nDherirFFfTFJaTREmy7j"
+      ],
+      "total_amount": "1.5",
+      "spent_by_me": "1.5",
+      "received_by_me": "0",
+      "my_balance_change": "-1.5",
+      "block_height": 0,
+      "timestamp": 1793122073,
+      "fee_details": {
+        "type": "Solana",
+        "fee_amount": "0.000005022",
+        "rent_amount": "0.00148844",
+        "total_amount": "0.001493462"
+      },
+      "coin": "USDC-SOL-DEV",
+      "internal_id": "354869724a5842314874466269567435437856357a473279324b796a47583548326b434e533762633856515135447855596474415947484e626a4b777731516377483373666a526244645a6f6d753156436d4a5a576b5150",
+      "transaction_type": {
+        "TokenTransfer": "f812b7007c5abbf4fa91c161ceefd94109c3dd7f2015876cd736a50bf5570253"
+      },
+      "memo": "invoice 1042"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
 ### Error Responses
 
 #### InvalidRequest: Unknown fee type
@@ -737,6 +850,59 @@ Using the Cosmos [Ecosystem IBC protocol](https://everstake.one/blog/cosmos-ibc-
   "error_trace": "utxo_common:1371]",
   "error_type": "InvalidFeePolicy",
   "error_data": "Expected 'UtxoFixed' or 'UtxoPerKbyte' fee types, found EthGas",
+  "id": 0
+}
+```
+
+#### AmountTooLow: Solana transfer below the rent-exempt minimum
+
+A transfer that would open a new Solana account must carry at least the rent-exempt minimum, which `threshold` reports.
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "The amount 0.0001 is too small, required at least 0.00065024",
+  "error_path": "solana_coin",
+  "error_trace": "solana_coin:564]",
+  "error_type": "AmountTooLow",
+  "error_data": {
+    "amount": "0.0001",
+    "threshold": "0.00065024"
+  },
+  "id": 0
+}
+```
+
+#### NotSufficientBalance: Solana wallet left below the rent-exempt minimum
+
+A Solana wallet must end a transaction either empty or holding at least the rent-exempt minimum. Send less, so that the minimum stays behind, or send everything with `"max": true`.
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Not enough SOL-DEV to withdraw: available 4.990490506, required at least 4.991040746",
+  "error_path": "solana_coin",
+  "error_trace": "solana_coin:550]",
+  "error_type": "NotSufficientBalance",
+  "error_data": {
+    "coin": "SOL-DEV",
+    "available": "4.990490506",
+    "required": "4.991040746"
+  },
+  "id": 0
+}
+```
+
+#### InvalidMemo: Solana memo too long
+
+```json
+{
+  "mmrpc": "2.0",
+  "error": "Invalid memo field: the memo is 300 bytes; Solana memos are limited to 256 here",
+  "error_path": "solana_coin",
+  "error_trace": "solana_coin:610]",
+  "error_type": "InvalidMemo",
+  "error_data": "the memo is 300 bytes; Solana memos are limited to 256 here",
   "id": 0
 }
 ```

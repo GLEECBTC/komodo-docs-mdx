@@ -1,0 +1,110 @@
+export const title = "KDF Method: Enable Solana with Assets | Gleec";
+export const description = "Use this method to activate SOL and SPL tokens in a single command.";
+
+# experimental::enable\_solana\_with\_assets
+
+Use this method to activate the Solana platform coin (SOL) together with any number of SPL tokens in a single command. Tokens can also be activated later, one at a time, with [experimental::enable\_solana\_token](/komodo-defi-framework/api/v20/coin_activation/enable_solana_token/).
+
+<Note>
+  This method is in the `experimental::` namespace, so its request and response may still change. Solana coins are currently wallet-only: they can't be used in orders or atomic swaps yet. See [Solana and SPL tokens](/komodo-defi-framework/tutorials/solana/) for the coins file entries and the Solana-specific rules around fees, rent and addresses.
+</Note>
+
+<Note>
+  Solana activation supports wallets started from a seed phrase, in both Iguana and HD (`"enable_hd": true`) mode. Hardware wallets, WalletConnect and MetaMask are not supported.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2/coin_activation.EnableSolanaWithAssetsArguments" />
+
+### Response Parameters
+
+<CompactTable source="v2/coin_activation.EnableSolanaWithAssetsResponse" />
+
+### 📌 Examples
+
+#### Request with a token and transaction history
+
+<CodeGroup title="" tag="POST" label="experimental::enable_solana_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableSolanaWithAssetsBasic" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "ticker": "SOL-DEV",
+      "address": "GMtMFbuVgjDnzsBd3LLBfM4X8RyYcDGCM92tPq2PG6B2",
+      "current_block": 515768675,
+      "balance": {
+        "spendable": "1.999456476",
+        "unspendable": "0"
+      },
+      "tokens_balances": {
+        "USDC-SOL-DEV": {
+          "spendable": "0.01",
+          "unspendable": "0"
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Request without tokens
+
+<CodeGroup title="" tag="POST" label="experimental::enable_solana_with_assets" mm2MethodDecorate="true" source="v2/coin_activation.EnableSolanaWithAssetsNoTokens" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "ticker": "SOL",
+      "address": "GMtMFbuVgjDnzsBd3LLBfM4X8RyYcDGCM92tPq2PG6B2",
+      "current_block": 462155700,
+      "balance": {
+        "spendable": "0",
+        "unspendable": "0"
+      },
+      "tokens_balances": {}
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
+  ### Error Types
+
+  | Structure                  | Type   | Description                                                                                                                          |
+  | -------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+  | CoinProtocolParseError     | string | Parsing the protocol of the platform coin you are trying to activate failed                                                          |
+  | Internal                   | string | The request failed due to a Komodo DeFi Framework API internal error                                                                 |
+  | PlatformCoinCreationError  | string | The platform coin could not be created, e.g. no nodes were given, none of them could be reached, or the wallet type is not supported |
+  | PlatformConfigIsNotFound   | string | Config of the platform coin you are trying to activate is not found                                                                  |
+  | PlatformIsAlreadyActivated | string | The platform coin you are trying to activate is already activated                                                                    |
+  | TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                                                                          |
+  | TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                                                                  |
+  | Transport                  | string | The request failed due to a network error                                                                                            |
+  | UnexpectedPlatformProtocol | string | The `protocol.type` of the platform coin in the coins file is not `SOLANA`                                                           |
+  | UnexpectedTokenProtocol    | string | The `protocol.type` of the token in the coins file is not `SOLANATOKEN`                                                              |
+
+  #### PlatformIsAlreadyActivated Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "SOL-DEV",
+    "error_path": "platform_coin_with_tokens",
+    "error_trace": "platform_coin_with_tokens:475]",
+    "error_type": "PlatformIsAlreadyActivated",
+    "error_data": "SOL-DEV",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

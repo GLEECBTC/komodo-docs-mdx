@@ -820,5 +820,47 @@
     "params": {
       "task_id": 3
     }
+  },
+  "EnableSolanaWithAssetsBasic": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "experimental::enable_solana_with_assets",
+    "params": {
+      "ticker": "SOL-DEV",
+      "nodes": [
+        {
+          "url": "https://api.devnet.solana.com"
+        }
+      ],
+      "tx_history": true,
+      "tokens_params": [
+        {
+          "ticker": "USDC-SOL-DEV"
+        }
+      ]
+    }
+  },
+  "EnableSolanaWithAssetsNoTokens": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "experimental::enable_solana_with_assets",
+    "params": {
+      "ticker": "SOL",
+      "nodes": [
+        {
+          "url": "https://api.mainnet-beta.solana.com"
+        }
+      ],
+      "tokens_params": []
+    }
+  },
+  "EnableSolanaTokenBasic": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "experimental::enable_solana_token",
+    "params": {
+      "ticker": "USDC-SOL-DEV",
+      "activation_params": {}
+    }
   }
 }

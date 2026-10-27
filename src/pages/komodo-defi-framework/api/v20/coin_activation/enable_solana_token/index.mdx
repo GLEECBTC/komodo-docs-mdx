@@ -1,0 +1,108 @@
+export const title = "KDF Method: Enable Solana Token | Gleec";
+export const description = "Use this method to activate an SPL token once its Solana platform coin is active.";
+
+# experimental::enable\_solana\_token
+
+Use this method to activate an SPL token after its platform coin has been activated with [experimental::enable\_solana\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/). Tokens from both the Token and Token-2022 programs are supported.
+
+<Note>
+  This method is in the `experimental::` namespace, so its request and response may still change. See [Solana and SPL tokens](/komodo-defi-framework/tutorials/solana/) for the coins file entries.
+</Note>
+
+### Request Parameters
+
+<CompactTable source="v2/coin_activation.EnableSolanaTokenArguments" />
+
+### Response Parameters
+
+<CompactTable source="v2/coin_activation.EnableSolanaTokenResponse" />
+
+<Note>
+  The `address` returned for a token is the wallet's address, the same as the platform coin's. It is the address to share for receiving the token: Solana wallets and exchanges send to the wallet's associated token account for the mint, which they derive from it.
+</Note>
+
+### 📌 Examples
+
+<CodeGroup title="" tag="POST" label="experimental::enable_solana_token" mm2MethodDecorate="true" source="v2/coin_activation.EnableSolanaTokenBasic" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "ticker": "USDC-SOL-DEV",
+      "address": "5dbw8U6zrLFwtYQgy3gxvMFe6PzWRs8yXB7bXShCnbfT",
+      "current_block": 515780083,
+      "balance": {
+        "spendable": "9.98939",
+        "unspendable": "0"
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Errors" collapsedText="Show Errors">
+  ### Error Types
+
+  | Structure                  | Type   | Description                                                                                  |
+  | -------------------------- | ------ | -------------------------------------------------------------------------------------------- |
+  | Internal                   | string | The request failed due to a Komodo DeFi Framework API internal error                         |
+  | PlatformCoinIsNotActivated | string | The platform coin named in the token's `protocol.platform` must be activated first           |
+  | TokenConfigIsNotFound      | string | Config of the token you are trying to activate is not found                                  |
+  | TokenIsAlreadyActivated    | string | The token you are trying to activate is already activated                                    |
+  | TokenProtocolParseError    | string | Parsing the protocol of the token you are trying to activate failed                          |
+  | Transport                  | string | The request failed due to a network error, or the mint is owned by a different token program |
+  | UnexpectedTokenProtocol    | string | The `protocol.type` of the token in the coins file is not `SOLANATOKEN`                      |
+
+  #### PlatformCoinIsNotActivated Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Platform coin SOL is not activated",
+    "error_path": "token.lp_coins",
+    "error_trace": "token:139] lp_coins:5459]",
+    "error_type": "PlatformCoinIsNotActivated",
+    "error_data": "SOL",
+    "id": null
+  }
+  ```
+
+  #### TokenIsAlreadyActivated Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Token USDC-SOL-DEV is already activated",
+    "error_path": "token",
+    "error_trace": "token:131]",
+    "error_type": "TokenIsAlreadyActivated",
+    "error_data": "USDC-SOL-DEV",
+    "id": null
+  }
+  ```
+
+  #### UnexpectedTokenProtocol Error
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Unexpected token protocol {\"type\":\"UTXO\",\"protocol_data\":null} for DOC",
+    "error_path": "token.prelude.solana_token_activation",
+    "error_trace": "token:135] prelude:124] solana_token_activation:38]",
+    "error_type": "UnexpectedTokenProtocol",
+    "error_data": {
+      "ticker": "DOC",
+      "protocol": {
+        "type": "UTXO",
+        "protocol_data": null
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>

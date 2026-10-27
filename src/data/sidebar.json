@@ -134,6 +134,10 @@
             "href": "/komodo-defi-framework/tutorials/listing-a-new-coin/"
           },
           {
+            "title": "Solana and SPL Tokens",
+            "href": "/komodo-defi-framework/tutorials/solana/"
+          },
+          {
             "title": "How to Become a Liquidity Provider",
             "href": "/komodo-defi-framework/tutorials/how-to-become-a-liquidity-provider/"
           },
@@ -392,6 +396,14 @@
           {
             "title": "enable_bch_with_tokens",
             "href": "/komodo-defi-framework/api/v20/coin_activation/enable_bch_with_tokens/"
+          },
+          {
+            "title": "experimental::enable_solana_with_assets",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/"
+          },
+          {
+            "title": "experimental::enable_solana_token",
+            "href": "/komodo-defi-framework/api/v20/coin_activation/enable_solana_token/"
           }
         ]
       },

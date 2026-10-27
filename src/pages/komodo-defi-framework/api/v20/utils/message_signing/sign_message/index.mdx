@@ -125,6 +125,39 @@ The `sign_message` method allows you to prove ownership of a specific wallet add
   The `chain` is either `External` or `Internal`, and is expressed as an integer with `External` being `0` and `Internal` being `1`.
 </Note>
 
+##### Solana
+
+Solana signatures are ed25519 signatures over the raw UTF-8 bytes of the message, encoded in base58, the same scheme as Phantom's and Solflare's `signMessage`. No `sign_message_prefix` is needed in the coins file. Solana wallets have a single address, so the `address` parameter is not supported.
+
+<CodeGroup title="Sign Message" tag="POST" label="sign_message" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "sign_message",
+    "mmrpc": "2.0",
+    "id": 0,
+    "params": {
+      "coin": "SOL-DEV",
+      "message": "Hello from KDF"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Sign Message (Solana) Response" collapsedText="Show Sign Message (Solana) Response">
+  ### Response (Solana, success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "signature": "4Fq7hj5Y9Yytyaqb9LLhUDGfLo6WAszHVwpLbKP2MHx9KPfH2QR7ZcEYyaedJ6bye9rkoyyQmdQL83rpbgCttsYt"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
 ### Error Types
 
 <CompactTable source="v2/utils.SignMessageErrors" />

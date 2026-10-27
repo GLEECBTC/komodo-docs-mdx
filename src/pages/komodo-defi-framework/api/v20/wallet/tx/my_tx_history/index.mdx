@@ -5,6 +5,7 @@ export const description = "The my_tx_history method allows you to view the tran
 
 To use this method, you must activate your coin with `"tx_history": true`. The response will vary depending on the coin.
 For ZHTLC coins, you must use the [z\_coin\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/) method.
+Solana and SPL tokens only support this v2 method: activate them with `"tx_history": true` in [experimental::enable\_solana\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/).
 For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method.
 
 ## Arguments
@@ -484,6 +485,82 @@ For all other coins, use the legacy [my\_tx\_history](/komodo-defi-framework/api
       }
     },
     "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## Request (SPL token on Solana)
+
+When the wallet pays a token transfer's fee, the transfer also produces a row in the SOL history for the SOL it cost.
+
+<CodeGroup title="" tag="POST" label="my_tx_history" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "my_tx_history",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "USDC-SOL-DEV",
+      "limit": 1
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "coin": "USDC-SOL-DEV",
+      "target": {
+        "type": "iguana"
+      },
+      "current_block": 515771811,
+      "transactions": [
+        {
+          "tx_hex": "01704b7db2c23b2ae09cb83fda8f780984ed942f4f9fdcb6e4b4e8352ec85b0847440bab3c1cff9457d0ace508ae89bb0ea73e5bb2cccbb1487f3287a29efef6000100060be438fb13812c4aa573031c285990937284bbdfe9c5fcdfc9cad32330d977315142aa3fdc287fcb1d3d46c79fed387963c7850e78adeaf855a46721a9e540155b44cf27eedebc3d4924d677c54739fd03351f2b5c311b3bc31d146ab2bdf6fe766d1e44bf1bf2e9f7cbbd7bd82178aca77e75f155aed38bf7842d35af3055a25ba0f9523dc445c1b20406d503bec9d82ee4029bba4da22825925c45f3819343a000000000000000000000000000000000000000000000000000000000000000000306466fe5211732ffecadba72c39be7bc8ce5bbc5f7126b2c439b3a4000000006ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a93b442cb3912157f13a933d0134282d032b5ffecd01a2dbf1b7790608df002ea73c657d41d747128829435d1c592dc197456abd769c598d11205acf4c5a7184d38c97258f4e2489f1bb3d1029148e0d830b5a1399daff1084048e7bd8dbe9f859161d975267b9c5060f62ba2de55319f3c0f8a0e006876ea38104ab777c87d70604060005022f8d000006000903e8030000000000000a060001000805070101090700020801040307587aea0623eae4b43ea87f75ceb8dbcc07f479920d3da645fe552b14e9be068b72da90cc7c632414653643cfe8e6ce72c19c03066a606a7cf0b6e39a2bfaed9a5b9fbb8756a35ddf759d06d66a000000001027000000000000",
+          "tx_hash": "3FDdgAA87GqQzuSKzKBEvksAn7WL6kyEqxPJgDiX1m8mGWWzLyfwSmnpsuo9q6JC4TPUHjWgrDvzwD5RyjtRw8pF",
+          "from": [
+            "BqNjVYfBTpEf5PEGpoXSJYTCW2Knk7XsXidRv7yYsV9Z"
+          ],
+          "to": [
+            "GMtMFbuVgjDnzsBd3LLBfM4X8RyYcDGCM92tPq2PG6B2"
+          ],
+          "total_amount": "0.01",
+          "spent_by_me": "0",
+          "received_by_me": "0.01",
+          "my_balance_change": "0.01",
+          "block_height": 512776291,
+          "timestamp": 1792407706,
+          "fee_details": {
+            "type": "Solana",
+            "fee_amount": "0.000005037",
+            "rent_amount": "0",
+            "total_amount": "0.000005037"
+          },
+          "coin": "USDC-SOL-DEV",
+          "internal_id": "704b7db2c23b2ae09cb83fda8f780984ed942f4f9fdcb6e4b4e8352ec85b0847440bab3c1cff9457d0ace508ae89bb0ea73e5bb2cccbb1487f3287a29efef6003b442cb3912157f13a933d0134282d032b5ffecd01a2dbf1b7790608df002ea7",
+          "transaction_type": {
+            "TokenTransfer": "3b442cb3912157f13a933d0134282d032b5ffecd01a2dbf1b7790608df002ea7"
+          },
+          "memo": null,
+          "confirmations": 2995521
+        }
+      ],
+      "sync_status": {
+        "state": "Finished"
+      },
+      "limit": 1,
+      "skipped": 0,
+      "total": 1,
+      "total_pages": 1,
+      "paging_options": {
+        "PageNumber": 1
+      }
+    },
+    "id": 0
   }
   ```
 </CollapsibleSection>

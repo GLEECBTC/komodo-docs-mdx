@@ -7,6 +7,10 @@ export const description = "The method in this document allows you to verify mes
 
 The `verify_message` method allows you to confirm the authenticity of a signed message. By using the original message, the wallet's address, and the signature, the verification process can confirm that the message was created by the owner and that it has not been altered.
 
+<Note>
+  For Solana, `signature` is a base58-encoded ed25519 signature over the raw UTF-8 bytes of the message, as returned by [sign\_message](/komodo-defi-framework/api/v20/utils/message_signing/sign_message/) or by Phantom's and Solflare's `signMessage`.
+</Note>
+
 ### Request Parameters
 
 <CompactTable source="v2/utils.VerifyMessageRequest" />

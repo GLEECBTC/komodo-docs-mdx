@@ -10,6 +10,10 @@ export const description =
 
 This upcoming release introduces improved UTXO management capabilities to help users optimize their wallet performance and transaction efficiency.
 
+#### 🔗 Solana Support (Wallet-Only)
+
+*   **feat(solana): transaction history, HD derivation and v1 atomic swaps** [PR #XXXX](https://github.com/KomodoPlatform/komodo-defi-framework/pull/XXXX): Completed wallet support for Solana (SOL) and SPL tokens. Activate them with [`experimental::enable_solana_with_assets`](/komodo-defi-framework/api/v20/coin_activation/enable_solana_with_assets/) and [`experimental::enable_solana_token`](/komodo-defi-framework/api/v20/coin_activation/enable_solana_token/). HD wallets derive the Solana address at `m/44'/501'/0'/0'`, matching Phantom. Withdrawals set their compute budget and priority fee automatically, check Solana's rent rules before signing, and accept a `memo`; their fee is reported as a `Solana` type [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee). Transaction history is available through [`my_tx_history` (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/), with balance and history streaming, and messages can be signed and verified. Atomic swaps against the [satomic-swap](https://github.com/GLEECBTC/satomic-swap) program are implemented but stay disabled until the program is audited and deployed to mainnet, so Solana coins remain wallet-only. See [Solana and SPL tokens](/komodo-defi-framework/tutorials/solana/).
+
 #### 🔧 UTXO Optimization
 
 *   **feat(utxo): introduce a utxo consolidation rpc** [PR #2587](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2587): A new [`consolidate_utxos`](/komodo-defi-framework/api/legacy/consolidate_utxos/) RPC method that allows users to consolidate unspent transaction outputs (UTXOs) for UTXO-based coins. This feature helps reduce wallet fragmentation, improve transaction creation speed, and potentially lower transaction fees by merging multiple small UTXOs into fewer larger ones. The method includes configurable merge conditions such as minimum UTXO count thresholds and maximum UTXOs per consolidation transaction.
