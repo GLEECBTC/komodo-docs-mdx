@@ -7,7 +7,7 @@ export const description =
 The Komodo DeFi Framework supports Solana (SOL) and SPL tokens from both the Token and Token-2022 programs. Solana coins can be activated, hold balances, send transfers with memos, keep a transaction history, stream balance and history updates, sign messages, and take part in [atomic swaps](/komodo-defi-framework/tutorials/solana/#atomic-swaps).
 
 <Note>
-  Atomic swaps are implemented but **not enabled yet**: for now, Solana coins are wallet-only. Order methods such as [setprice](/komodo-defi-framework/api/legacy/setprice/) refuse them with `'SOL' is a wallet only asset and can't be used in orders.`, whatever the coins file says. Swaps will be enabled once the [satomic-swap](https://github.com/GLEECBTC/satomic-swap) program they use is audited and deployed to mainnet. The [Atomic swaps](/komodo-defi-framework/tutorials/solana/#atomic-swaps) section describes how they will work, so wallets can prepare for them.
+  Atomic swaps are implemented, but **on mainnet they are not enabled yet**: there, order methods such as [setprice](/komodo-defi-framework/api/legacy/setprice/) refuse Solana coins with `'SOL' is a wallet only asset and can't be used in orders.`, whatever the coins file says. They will be enabled once the [satomic-swap](https://github.com/GLEECBTC/satomic-swap) program they use is audited and deployed to mainnet. Until then, swaps can be tried on devnet: see [Trying swaps on devnet](/komodo-defi-framework/tutorials/solana/#trying-swaps-on-devnet).
 </Note>
 
 ## Coins file entries
@@ -64,7 +64,7 @@ The `protocol_data` of a `SOLANATOKEN` entry takes the following fields:
 
 Activation fails if the mint exists but is owned by a different program than `program_id`.
 
-For devnet, use the same entries with devnet tickers, `"is_testnet": true` and devnet mints. Devnet USDC, for example, is `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU` under the Token program. Devnet SOL is available from the [Solana faucet](https://faucet.solana.com) and devnet USDC from the [Circle faucet](https://faucet.circle.com).
+For devnet, use the same entries with devnet tickers, `"is_testnet": true` and devnet mints, and `"wallet_only": false` to [try swaps](/komodo-defi-framework/tutorials/solana/#trying-swaps-on-devnet). Devnet USDC, for example, is `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU` under the Token program. Devnet SOL is available from the [Solana faucet](https://faucet.solana.com) and devnet USDC from the [Circle faucet](https://faucet.circle.com).
 
 ## Activation
 
@@ -248,6 +248,17 @@ Solana finality is a commitment level rather than a number of blocks, so `requir
 *   Swap events in [my\_swap\_status](/komodo-defi-framework/api/legacy/my_swap_status/) are the same as for any legacy swap. A Solana `tx_hash` is the transaction's base58 signature. Open it at `https://explorer.solana.com/tx/<tx_hash>`, adding `?cluster=devnet` for devnet.
 *   An interrupted swap resumes when the node restarts, and [recover\_funds\_of\_swap](/komodo-defi-framework/api/legacy/recover_funds_of_swap/) works as for other coins.
 *   Because a settled payment's account is closed, both find a payment through the transaction history of its address. The node must keep history that reaches back to the start of the swap.
+
+### Trying swaps on devnet
+
+Swaps can be tried on devnet now, where the satomic-swap program is deployed. A Solana coin can trade when its coins file entry has both:
+
+*   `"is_testnet": true`
+*   `"wallet_only": false`
+
+An entry without `"is_testnet": true` stays wallet-only, so mainnet coins can't trade yet. `is_testnet` is taken from the coins file as written, so only set it on entries that point at devnet nodes.
+
+Activate the devnet coins with a devnet node such as `https://api.devnet.solana.com`, and trade them against a testnet coin such as DOC or MARTY. Swaps between SOL and DOC, and between MARTY and SOL, have been run end to end on devnet.
 
 ## Other methods
 
