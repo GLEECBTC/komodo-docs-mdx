@@ -233,7 +233,7 @@
         "parameter": "address_type",
         "type": "string",
         "required": true,
-        "description": "Generally `Transparent`, but may be `Shielded` for supporting coins."
+        "description": "Generally `Transparent`. `Shielded` for coins whose maker address can't be derived from the order, such as ZHTLC (ARRR), SIA and Solana coins; `address_data` is then absent."
       },
       {
         "parameter": "address_data",

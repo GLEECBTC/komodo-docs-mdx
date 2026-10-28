@@ -12,6 +12,10 @@ The `best_orders` method returns the best price orders that can fill the volume 
   Activation will be required to proceed with the trade.
 </Note>
 
+<Note>
+  Orders for coins whose maker address can't be derived (ZHTLC (ARRR), SIA, and Solana coins) are left out of this method's response. The v2 [best\_orders](/komodo-defi-framework/api/v20/swaps_and_orders/best_orders/) includes them, with the address reported as `Shielded`.
+</Note>
+
 ## Arguments
 
 | Structure | Type   | Description                                         |
