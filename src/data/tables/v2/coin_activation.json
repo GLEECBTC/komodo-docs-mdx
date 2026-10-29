@@ -155,13 +155,13 @@
         "parameter": "swap_contract_address",
         "type": "string",
         "required": true,
-        "description": "Address of etomic swap smart contract"
+        "description": "Address of etomic swap smart contract. For TRX, a Base58 `T...` address. Required when the coins file entry has `\"wallet_only\": false`."
       },
       {
         "parameter": "fallback_swap_contract",
         "type": "string",
         "required": true,
-        "description": "Address of backup etomic swap smart contract."
+        "description": "Address of backup etomic swap smart contract. For TRX, a Base58 `T...` address."
       },
       {
         "parameter": "nodes",
@@ -406,13 +406,13 @@
         "parameter": "swap_contract_address",
         "type": "string",
         "required": true,
-        "description": "Address of etomic swap smart contract"
+        "description": "Address of etomic swap smart contract. For TRX, a Base58 `T...` address. Required when the coins file entry has `\"wallet_only\": false`."
       },
       {
         "parameter": "fallback_swap_contract",
         "type": "string",
         "required": true,
-        "description": "Address of backup etomic swap smart contract."
+        "description": "Address of backup etomic swap smart contract. For TRX, a Base58 `T...` address."
       },
       {
         "parameter": "nodes",

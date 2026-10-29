@@ -19,6 +19,10 @@ Depending on the parameters, the function returns different results:
   Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"` arguments to approximate the fee amounts **only**. Do not use the resulting `volume` as an argument of the `setprice`.
 </Note>
 
+<Note>
+  For TRON coins, the fees are energy estimates paid in TRX, also for TRC20 tokens, and they leave out bandwidth and the energy a TRC20 dex fee transfer needs. See [TRON swap fees](/komodo-defi-framework/tutorials/tron-swaps/#swap-fees).
+</Note>
+
 ## Arguments
 
 | Structure    | Type                                  | Description                                                                                                                          |
