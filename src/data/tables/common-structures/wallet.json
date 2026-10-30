@@ -31,7 +31,6 @@
         "required": false,
         "description": "TRON GasFree tokens only. The deterministic GasFree custody address (derived via TVM CREATE2) for this address. Present only when the platform coin/token was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       }
-    
     ]
   },
   "AccountAddressInfo_1": {
@@ -474,6 +473,44 @@
         "type": "object",
         "required": false,
         "description": "ETH/EVM only. Used for EIP-1559 fee policy config. A standard [PayForGas](/komodo-defi-framework/api/common_structures/wallet/#pay-for-gas) object."
+      },
+      {
+        "parameter": "owner_address",
+        "type": "string",
+        "required": false,
+        "description": "TRON only. The wallet's Base58 `T...` address, which signs and pays for the call."
+      },
+      {
+        "parameter": "contract_address",
+        "type": "string",
+        "required": false,
+        "description": "TRON only. The Base58 `T...` address of the contract to call."
+      },
+      {
+        "parameter": "data",
+        "type": "string",
+        "required": false,
+        "description": "TRON only. The call data in hex without a `0x` prefix: the 4-byte function selector followed by the ABI-encoded arguments."
+      },
+      {
+        "parameter": "call_value",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "TRON only. TRX to send with the call, in SUN (1 TRX = 1,000,000 SUN)."
+      },
+      {
+        "parameter": "fee_limit",
+        "type": "integer",
+        "required": false,
+        "description": "TRON only, and required for TRON. The most TRX, in SUN, the call may burn for energy."
+      },
+      {
+        "parameter": "expiration_seconds",
+        "type": "integer",
+        "required": false,
+        "default": "`60`",
+        "description": "TRON only. How long the signed transaction stays valid, in seconds."
       }
     ]
   },

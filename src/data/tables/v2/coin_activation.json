@@ -155,13 +155,13 @@
         "parameter": "swap_contract_address",
         "type": "string",
         "required": true,
-        "description": "Address of etomic swap smart contract"
+        "description": "Address of etomic swap smart contract. For TRX, a Base58 `T...` address. Required when the coins file entry has `\"wallet_only\": false`."
       },
       {
         "parameter": "fallback_swap_contract",
         "type": "string",
         "required": true,
-        "description": "Address of backup etomic swap smart contract."
+        "description": "Address of backup etomic swap smart contract. For TRX, a Base58 `T...` address."
       },
       {
         "parameter": "nodes",
@@ -241,7 +241,7 @@
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/), except for TRX: TRON swaps use only the legacy swap protocol. A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
       },
       {
         "parameter": "tron_gasless_provider",
@@ -406,13 +406,13 @@
         "parameter": "swap_contract_address",
         "type": "string",
         "required": true,
-        "description": "Address of etomic swap smart contract"
+        "description": "Address of etomic swap smart contract. For TRX, a Base58 `T...` address. Required when the coins file entry has `\"wallet_only\": false`."
       },
       {
         "parameter": "fallback_swap_contract",
         "type": "string",
         "required": true,
-        "description": "Address of backup etomic swap smart contract."
+        "description": "Address of backup etomic swap smart contract. For TRX, a Base58 `T...` address."
       },
       {
         "parameter": "nodes",
@@ -522,7 +522,7 @@
         "parameter": "swap_v2_contracts",
         "type": "object",
         "required": false,
-        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+        "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/), except for TRX: TRON swaps use only the legacy swap protocol. A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
       },
       {
         "parameter": "tron_gasless_provider",

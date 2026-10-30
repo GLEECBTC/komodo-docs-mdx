@@ -7,6 +7,7 @@ This method allows users to:
 
 *   Create a signed UTXO raw transaction given unsigned hex, and optionally a set of prior transaction inputs.
 *   Create a signed EVM raw transaction, given the destination address, amount and gas limit.
+*   Create a signed TRON smart-contract call, given the contract address, the ABI-encoded call data and a fee limit.
 
 The transaction can then be broadcasted to the network using the [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
 
@@ -21,7 +22,7 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
 | Structure | Type   | Description                                                                                     |
 | --------- | ------ | ----------------------------------------------------------------------------------------------- |
 | coin      | string | The coin to sign the raw transaction with                                                       |
-| type      | string | The operation type. Accepted values: UTXO ( for utxo coins), ETH (for emv coins)                |
+| type      | string | The operation type. Accepted values: UTXO (for UTXO coins), ETH (for EVM coins), TRON (for TRX) |
 | tx        | object | A standard [RawTxInfo object](/komodo-defi-framework/api/common_structures/wallet/#raw-tx-info) |
 
 ### Response Parameters
@@ -144,6 +145,46 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
     "id": 0
   }
 ```
+
+#### Sign a TRON contract call
+
+This signs a call to a TRC20 token's `approve(address,uint256)`, setting the swap contract's allowance to zero. `data` is the 4-byte function selector followed by the ABI-encoded arguments, in hex without a `0x` prefix. The response's `tx_hex` is the signed transaction's hex, ready for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
+
+<CodeGroup title="" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "id": 0,
+    "method": "sign_raw_transaction",
+    "params": {
+      "coin": "TRX",
+      "type": "TRON",
+      "tx": {
+        "owner_address": "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9",
+        "contract_address": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+        "data": "095ea7b3000000000000000000000000bfec12aa6f266fc0010df10b9e5a9d49149a5c4e0000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": 0,
+        "fee_limit": 30000000
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "0ad3010a02797722089e9f09517a8b556f40e0acf0c398345aae01081f12a9010a31747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e54726967676572536d617274436f6e747261637412740a1541280bd5f049cb6dc1b71afb9cbe16d3f6aaf45ce5121541eca9bc828a3005b9a3b909f2cc5c2a54794de05f2244095ea7b3000000000000000000000000bfec12aa6f266fc0010df10b9e5a9d49149a5c4e00000000000000000000000000000000000000000000000000000000000000007080d8ecc3983490018087a70e1241232984dd8e18f70e0e6bdb2a242ec154e6f06790a2ddd2795516e0f456487ad163ab391782a3ddfc4cac131fec59f6624869c6183a705badc64311a637ff9c4301"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
 
 <Note>
   Once you have signed the raw transaction, dont forget to broadcast it to

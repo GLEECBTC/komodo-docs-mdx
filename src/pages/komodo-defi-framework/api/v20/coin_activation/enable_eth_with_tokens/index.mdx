@@ -7,7 +7,7 @@ The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platfor
 Additionally, it supports ERC20 tokens on the ETH chain, associated ERC20 like tokens on the rest of the EVM platform coin chains, and TRC20 tokens on TRON. Using this method, you can enable a platform coin along with multiple ERC20/TRC20 like tokens of the platform coin chain in a single command.
 
 <Note>
-  TRON (TRX) is currently supported in **wallet-only mode**. You can activate TRX and TRC20 tokens for balance queries and withdrawals, but atomic swaps are not yet available for TRON-based coins. TRC20 tokens additionally support [gasless transfers via GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) — see the `tron_gasless_provider` parameter below.
+  TRON (TRX) and TRC20 tokens can be activated for balance queries, withdrawals and [atomic swaps](/komodo-defi-framework/tutorials/tron-swaps/). To trade them, pass the swap contract's Base58 `T...` address as `swap_contract_address`. TRC20 tokens additionally support [gasless transfers via GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) — see the `tron_gasless_provider` parameter below.
 </Note>
 
 ### Request Parameters
@@ -123,7 +123,7 @@ Additionally, it supports ERC20 tokens on the ETH chain, associated ERC20 like t
 #### Request for TRON (TRX) with TRC20 tokens
 
 <Note>
-  TRON nodes use HTTP API endpoints (not WebSocket/gRPC). Swap contract parameters are not needed as TRON is wallet-only.
+  TRON nodes use HTTP API endpoints (not WebSocket/gRPC). This request activates TRX and its tokens wallet-only, so it needs no swap contract; the next example activates them for trading.
 </Note>
 
 <CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensTrx" />
@@ -165,6 +165,53 @@ Additionally, it supports ERC20 tokens on the ETH chain, associated ERC20 like t
         "nfts_infos": {}
     },
     "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Request for TRON (TRX) with TRC20 tokens, for trading
+
+To [trade TRON coins](/komodo-defi-framework/tutorials/tron-swaps/), their coins file entries must have `"wallet_only": false`, and `swap_contract_address` must be the swap contract's Base58 `T...` address. The swap contract below is the Nile testnet deployment.
+
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensTrxSwaps" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "current_block": 72240289,
+      "eth_addresses_infos": {
+        "TP7AtLenmsyLpVdKvKzCdHTyDcQgYYzK4i": {
+          "derivation_method": {
+            "type": "Iguana"
+          },
+          "pubkey": "04fcc6905565541be8b8b8e30d9c08035bda4f2ec9778ae83c19927685dd2e26dd9e6082e6b42e397851246239ad80a39a300f6953bbf8133750f8bf49cbeffa03",
+          "balances": {
+            "spendable": "28.2939",
+            "unspendable": "0"
+          }
+        }
+      },
+      "erc20_addresses_infos": {
+        "TP7AtLenmsyLpVdKvKzCdHTyDcQgYYzK4i": {
+          "derivation_method": {
+            "type": "Iguana"
+          },
+          "pubkey": "04fcc6905565541be8b8b8e30d9c08035bda4f2ec9778ae83c19927685dd2e26dd9e6082e6b42e397851246239ad80a39a300f6953bbf8133750f8bf49cbeffa03",
+          "balances": {
+            "BTT-TRC20": {
+              "spendable": "0",
+              "unspendable": "0"
+            }
+          }
+        }
+      },
+      "nfts_infos": {}
+    },
+    "id": 0
   }
   ```
 </CollapsibleSection>

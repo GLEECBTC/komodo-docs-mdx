@@ -872,5 +872,25 @@
     "params": {
       "task_id": 3
     }
+  },
+  "EnableEthWithTokensTrxSwaps": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "enable_eth_with_tokens",
+    "params": {
+      "ticker": "TRX",
+      "nodes": [
+        {
+          "url": "https://nile.trongrid.io"
+        }
+      ],
+      "swap_contract_address": "TTTzsLDg81qoUkiEbeHsKbXZ4rWi1uFpo3",
+      "erc20_tokens_requests": [
+        {
+          "ticker": "BTT-TRC20"
+        }
+      ]
+    },
+    "id": 0
   }
 }
