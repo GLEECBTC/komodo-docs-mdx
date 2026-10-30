@@ -550,7 +550,9 @@ async function processExternalLink(link, currFilePath) {
     } else {
       console.error(`Error when checking the URL ${link} in the file ${currFilePath}`)
       fs.appendFileSync(manualLinkFile, link + "\n");
-      fs.appendFileSync(manualLinkFile, JSON.stringify(err, null, 2) + "\n");
+      // Write the error's code and message rather than the error itself: a TLS error carries
+      // the server's certificate, which refers to itself and can't be serialized as JSON.
+      fs.appendFileSync(manualLinkFile, `${err.code ? `${err.code}: ` : ""}${err.message}\n`);
       fs.appendFileSync(manualLinkFile, "\n");
 
       //throw new Error(err);
