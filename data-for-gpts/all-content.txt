@@ -30932,7 +30932,7 @@ export const description = "This guide describes how to vote in Komodo polls and
 
 # How to Vote in Komodo Polls and Elections
 
-From time to time, a community poll will be held for KMD holders to vote on. Details and options for these polls will be published in the [KIPs repository](https://github.com/KomodoPlatform/kips) or [Notary Node Candidates repository](https://github.com/KomodoPlatform/notaryNodes) and broadcast via the [KomodoPlatform twitter](https://twitter.com/KomodoPlatform), weekly emails and [blog](https://komodoplatform.com/en/blog/).
+From time to time, a community poll will be held for KMD holders to vote on. Details and options for these polls will be published in the [KIPs repository](https://github.com/KomodoPlatform/kips) or [Notary Node Candidates repository](https://github.com/KomodoPlatform/notaryNodes) and broadcast via the [KomodoPlatform twitter](https://x.com/GleecOfficial), weekly emails and [blog](https://komodoplatform.com/en/blog/).
 
 Following a snapshot of the KMD blockchain, vote tokens are airdropped to all holders of KMD, equivalent to the amount of KMD held at the time of the snapshot (funds held in CEX wallets are excluded). Holders can vote using any supporting wallet, or via the command line.
 
@@ -65932,7 +65932,7 @@ Once you are finished using the Komodo DeFi Framework API, you can exit using th
 }
 ```
 
-Don't forget to reach out to us [on Discord](https://komodoplatform.com/discord) or [Twitter](https://twitter.com/komodoplatform) tell us about your experience and ask any questions you may have!
+Don't forget to reach out to us [on Discord](https://komodoplatform.com/discord) or [Twitter](https://x.com/GleecOfficial) tell us about your experience and ask any questions you may have!
 export const title = "Coins File Update";
 export const description = "This guide describes how to update a coins file in a older format to work with the latest Komodo DeFi Framework.";
 

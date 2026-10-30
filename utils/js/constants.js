@@ -11,7 +11,7 @@ export const constants = {
         linkedin: "https://mt.linkedin.com/company/komodoplatform",
         reddit: "https://www.reddit.com/r/komodoplatform/",
         github: "https://www.github.com/KomodoPlatform",
-        twitter: "https://twitter.com/KomodoPlatform/",
+        twitter: "https://x.com/GleecOfficial/",
         youtube: "https://www.youtube.com/channel/UCtp7YrrEnZbW97sgPldyvKg",
     },
     orgName: "Komodo Platform",
