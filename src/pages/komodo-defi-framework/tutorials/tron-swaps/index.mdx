@@ -107,39 +107,37 @@ The swap contract is deployed on the Nile testnet at `TTTzsLDg81qoUkiEbeHsKbXZ4r
 
 ### Nodes
 
-Swaps need TRON nodes that also serve TronGrid's event API (`/v1/contracts/{address}/events`): a taker finds the maker's spend of its payment, and the secret in it, through that API. TronGrid nodes such as `https://api.trongrid.io` and `https://nile.trongrid.io` serve it; a plain java-tron node, or `https://api.nileex.io`, doesn't.
+Swaps need TRON nodes that also serve TronGrid's event API (`/v1/contracts/{address}/events`). A taker finds the maker's spend of its payment, and the secret in it, through that API, and a node finds a swap's payments, spends and refunds there when it resumes the swap after a restart. TronGrid nodes such as `https://api.trongrid.io` and `https://nile.trongrid.io` serve it; a plain java-tron node, or `https://api.nileex.io`, doesn't.
 
 ## How a TRON swap works
 
 *   **Payments are held by the swap contract**, the same HTLC contract the framework uses on EVM chains, deployed on TRON. A TRX payment is sent with the contract call. A TRC20 payment is pulled in by the contract, so the wallet first approves the contract to spend the token when its allowance is too low.
 *   **The receiver can spend a payment at any time** by revealing the secret. **The sender can refund it once the lock time has passed**, judged by the contract against the block's timestamp.
-*   **TRON swaps use the legacy swap protocol**, with SHA-256 secret hashes. Keep [`use_trading_proto_v2`](/komodo-defi-framework/setup/configure-mm2-json/) off on nodes that trade TRON coins.
+*   **TRON swaps use the legacy swap protocol**, with SHA-256 secret hashes, also on nodes with [`use_trading_proto_v2`](/komodo-defi-framework/setup/configure-mm2-json/) on. Orders with a TRON coin on either side are made as legacy orders, so both sides start a legacy swap, and TRX activates without `swap_v2_contracts`.
 *   **Watchers aren't supported.** Keep the node running until a swap finishes or is refunded.
 *   **TRON coins can swap with any coin that supports legacy swaps.** The framework's tests run swaps on Nile between TRX and BTT.
 
 ## Orderbook
 
-The [orderbook](/komodo-defi-framework/api/v20/swaps_and_orders/orderbook/) and [best\\\_orders](/komodo-defi-framework/api/v20/swaps_and_orders/best_orders/) methods, both v2 and legacy, show a TRON maker's address as a Base58 `T...` address.
+The [orderbook](/komodo-defi-framework/api/v20/swaps_and_orders/orderbook/) and [best\_orders](/komodo-defi-framework/api/v20/swaps_and_orders/best_orders/) methods, both v2 and legacy, show a TRON maker's address as a Base58 `T...` address.
 
 ## Swap fees
 
 Every TRON transaction fee in a swap is paid in **TRX**, also when the coin swapped is a TRC20 token. A wallet swapping a token needs TRX as well, as an ERC20 swap needs ETH.
 
-TRON charges contract calls in energy. [trade\\\_preimage](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/) prices each swap transaction at a fixed energy estimate, times the network's current energy price, plus 25%:
+TRON charges contract calls in energy, and every transaction in bandwidth. [trade\_preimage](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/) prices each swap transaction at a fixed energy estimate, times the network's current energy price, plus 25%, and adds its bandwidth at the network's bandwidth price: 500 bytes for a contract call and 300 for a TRX transfer, about 0.5 and 0.3 TRX.
 
-| Transaction                       | TRX swap      | TRC20 swap                                                     |
-| --------------------------------- | ------------- | -------------------------------------------------------------- |
-| Payment                           | 30,000 energy | 40,000 energy, plus 30,000 for the approval when one is needed |
-| Refund, in case it's needed       | 30,000 energy | 30,000 energy                                                  |
-| Spending the other side's payment | 25,000 energy | 35,000 energy                                                  |
+| Transaction                       | TRX swap      | TRC20 swap                                                                                                                               |
+| --------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Payment                           | 30,000 energy | 40,000 energy, plus 30,000 for each approval when the allowance is too low: two when an existing allowance has to be reset to zero first |
+| Refund, in case it's needed       | 30,000 energy | 30,000 energy                                                                                                                            |
+| Spending the other side's payment | 25,000 energy | 35,000 energy                                                                                                                            |
 
-These are estimates, not upper bounds, and they leave out some costs:
+The dex fee transfer (`fee_to_send_taker_fee`) is priced the same way. A TRX dex fee needs bandwidth only. For a TRC20 dex fee, the framework simulates the transfer to get its energy, and assumes 130,000 energy, what a USDT transfer on mainnet to a first-time holder needs, when it can't simulate it, such as when the wallet doesn't hold the fee yet.
 
-*   **Bandwidth isn't counted.** Each account gets a daily free bandwidth allowance that usually covers a swap's transactions; past it, bandwidth is paid in TRX.
-*   **Energy or bandwidth the account has staked isn't counted.** An account with its own energy pays less than the estimate.
-*   **The dex fee transfer (`fee_to_send_taker_fee`) is reported as 0 TRX.** A TRX dex fee needs bandwidth only. A TRC20 dex fee needs energy, which the estimate doesn't include: about 15,000 to 30,000 energy on Nile, and more on mainnet for a recipient that has never held the token. Keep extra TRX when the taker pays its dex fee in a TRC20 token.
+These are estimates, not upper bounds. They don't count what the account has of its own: its daily free bandwidth, and any energy or bandwidth it has staked, lower the actual cost.
 
-For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC. The dex fee (`taker_fee`) is paid in BTT, and the payment's fee in TRX:
+For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC, from a wallet that holds BTT but hasn't approved the swap contract yet. The dex fee (`taker_fee`) is paid in BTT, and the transaction fees in TRX. `base_coin_fee` covers the payment, the approval and a refund: 100,000 energy plus 25% at Nile's 100 SUN, 12.5 TRX, and 1,500 bytes of bandwidth, 1.5 TRX. `fee_to_send_taker_fee` is the BTT transfer, simulated at 28,276 energy, and 500 bytes of bandwidth:
 
 ```json
 {
@@ -164,7 +162,7 @@ For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC. The dex f
   {
     "base_coin_fee": {
       "coin": "TRX",
-      "amount": "12.5",
+      "amount": "14",
       "paid_from_trading_vol": false
     },
     "rel_coin_fee": {
@@ -179,15 +177,10 @@ For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC. The dex f
     },
     "fee_to_send_taker_fee": {
       "coin": "TRX",
-      "amount": "0",
+      "amount": "4.0345",
       "paid_from_trading_vol": false
     },
     "total_fees": [
-      {
-        "coin": "BTT-TRC20",
-        "amount": "20",
-        "required_balance": "20"
-      },
       {
         "coin": "DOC",
         "amount": "0.00000496",
@@ -195,8 +188,13 @@ For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC. The dex f
       },
       {
         "coin": "TRX",
-        "amount": "12.5",
-        "required_balance": "12.5"
+        "amount": "18.0345",
+        "required_balance": "18.0345"
+      },
+      {
+        "coin": "BTT-TRC20",
+        "amount": "20",
+        "required_balance": "20"
       }
     ]
   }
@@ -205,19 +203,20 @@ For example, a `trade_preimage` for selling 1,000 BTT on Nile for DOC. The dex f
 
 ## Confirmations
 
-A TRON swap treats a transaction as confirmed once the node returns its receipt, which happens when the transaction is included in a block, about 3 seconds after it is sent. It doesn't wait for the block to be solidified. `required_confirmations` and `requires_notarization` have no effect on TRON swaps.
+A TRON swap waits for `required_confirmations` confirmations of each transaction, its own block counting as the first. A transaction in a block can still have failed, such as a reverted contract call, which TRON includes in blocks too: a failed transaction never counts as confirmed.
+
+With the default of 1, a transaction is confirmed when it is in a block, about 3 seconds after it is sent. TRON blocks become final after about 19 confirmations, a minute. `requires_notarization` has no effect on TRON swaps.
 
 ## Following a swap
 
-Swap events in [my\\\_swap\\\_status](/komodo-defi-framework/api/legacy/my_swap_status/) are the same as for any legacy swap. A TRON `tx_hash` is the transaction ID: open it at `https://tronscan.org/#/transaction/<tx_hash>`, or `https://nile.tronscan.org/#/transaction/<tx_hash>` on Nile.
+Swap events in [my\_swap\_status](/komodo-defi-framework/api/legacy/my_swap_status/) are the same as for any legacy swap. A TRON `tx_hash` is the transaction ID: open it at `https://tronscan.org/#/transaction/<tx_hash>`, or `https://nile.tronscan.org/#/transaction/<tx_hash>` on Nile.
 
 The `tx_hex` of a TRON swap transaction is the hex encoding of the transaction's hex text, so decode it once to get the transaction's hex.
 
 ## Known limitations
 
-*   **A swap can't be recovered after a restart once the other side has acted.** If the node restarts after the counterparty has spent or refunded a TRON payment, the framework can't yet find that transaction, so the swap can't continue and [recover\\\_funds\\\_of\\\_swap](/komodo-defi-framework/api/legacy/recover_funds_of_swap/) fails. Avoid restarting a node with TRON swaps in progress.
-*   **A taker looks for the maker's spend for 30 seconds**, among the swap contract's 200 most recent spends, once it sees its payment spent. If TronGrid's event index lags behind for longer, or the contract is very busy, the taker can miss the secret and be unable to claim the maker's payment.
-*   **The TPU protocol and watchers aren't supported**, as described above.
+*   **Swaps depend on TronGrid's event index.** A taker that sees its payment spent keeps looking for the maker's spend, and the secret in it, until the swap's deadline. If the index lags behind for longer, the taker can't claim the maker's payment in time. Resuming a swap after a restart needs the index too.
+*   **Watchers aren't supported**, as described above.
 
 ## Trying swaps on Nile
 
@@ -228,8 +227,8 @@ The `tx_hex` of a TRON swap transaction is the hex encoding of the transaction's
 
 ## Related methods
 
-*   [enable\\\_eth\\\_with\\\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) and [task::enable\\\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/): activate TRX and TRC20 tokens for trading.
-*   [trade\\\_preimage](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/) and [max\\\_taker\\\_vol](/komodo-defi-framework/api/legacy/max_taker_vol/): estimate a swap's fees.
+*   [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) and [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/): activate TRX and TRC20 tokens for trading.
+*   [trade\_preimage](/komodo-defi-framework/api/v20/swaps_and_orders/trade_preimage/) and [max\_taker\_vol](/komodo-defi-framework/api/legacy/max_taker_vol/): estimate a swap's fees.
 *   [setprice](/komodo-defi-framework/api/legacy/setprice/), [buy](/komodo-defi-framework/api/legacy/buy/) and [sell](/komodo-defi-framework/api/legacy/sell/): trade.
-*   [my\\\_swap\\\_status](/komodo-defi-framework/api/legacy/my_swap_status/) and [my\\\_recent\\\_swaps](/komodo-defi-framework/api/legacy/my_recent_swaps/): follow swaps.
-*   [sign\\\_raw\\\_transaction](/komodo-defi-framework/api/v20/wallet/tx/sign_raw_transaction/): sign an arbitrary TRON contract call.
+*   [my\_swap\_status](/komodo-defi-framework/api/legacy/my_swap_status/) and [my\_recent\_swaps](/komodo-defi-framework/api/legacy/my_recent_swaps/): follow swaps.
+*   [sign\_raw\_transaction](/komodo-defi-framework/api/v20/wallet/tx/sign_raw_transaction/): sign an arbitrary TRON contract call.

@@ -148,7 +148,7 @@ The transaction can then be broadcasted to the network using the [`send_raw_tran
 
 #### Sign a TRON contract call
 
-This signs a call to a TRC20 token's `approve(address,uint256)`, setting the swap contract's allowance to zero. `data` is the 4-byte function selector followed by the ABI-encoded arguments, in hex without a `0x` prefix. The response has the same shape as for the other types.
+This signs a call to a TRC20 token's `approve(address,uint256)`, setting the swap contract's allowance to zero. `data` is the 4-byte function selector followed by the ABI-encoded arguments, in hex without a `0x` prefix. The response's `tx_hex` is the signed transaction's hex, ready for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/).
 
 <CodeGroup title="" tag="POST" label="sign_raw_transaction" mm2MethodDecorate="true">
   ```json
@@ -171,6 +171,20 @@ This signs a call to a TRC20 token's `approve(address,uint256)`, setting the swa
   }
   ```
 </CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "0ad3010a02797722089e9f09517a8b556f40e0acf0c398345aae01081f12a9010a31747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e54726967676572536d617274436f6e747261637412740a1541280bd5f049cb6dc1b71afb9cbe16d3f6aaf45ce5121541eca9bc828a3005b9a3b909f2cc5c2a54794de05f2244095ea7b3000000000000000000000000bfec12aa6f266fc0010df10b9e5a9d49149a5c4e00000000000000000000000000000000000000000000000000000000000000007080d8ecc3983490018087a70e1241232984dd8e18f70e0e6bdb2a242ec154e6f06790a2ddd2795516e0f456487ad163ab391782a3ddfc4cac131fec59f6624869c6183a705badc64311a637ff9c4301"
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
 
 <Note>
   Once you have signed the raw transaction, dont forget to broadcast it to
