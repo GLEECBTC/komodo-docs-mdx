@@ -10,9 +10,9 @@ dotenv.config();
 const fileData = {};
 
 (async function () {
-    const allContributorsDataUrl = "https://api.github.com/repos/komodoplatform/komodo-docs-mdx/contributors"
+    const allContributorsDataUrl = "https://api.github.com/repos/GLEECBTC/komodo-docs-mdx/contributors"
 
-    const latest100CommitsUrl = "https://api.github.com/repos/komodoplatform/komodo-docs-mdx/commits?sha=dev&per_page=100"
+    const latest100CommitsUrl = "https://api.github.com/repos/GLEECBTC/komodo-docs-mdx/commits?sha=dev&per_page=100"
 
     const userDataUrl = (login) => `https://api.github.com/users/${login}`
 
@@ -39,7 +39,7 @@ const fileData = {};
             const isMissingInContributorData = !Object.values(authorsData).find(author => author.username === contributorLogin) || !contributorData.find(contributor => contributor.login === contributorLogin)
             console.log(contributorLogin)
 
-            const { response } = await httpsGet(`https://api.github.com/repos/komodoplatform/komodo-docs-mdx/commits?sha=dev&author=${contributorLogin}`, options)
+            const { response } = await httpsGet(`https://api.github.com/repos/GLEECBTC/komodo-docs-mdx/commits?sha=dev&author=${contributorLogin}`, options)
             const contributorCommits = JSON.parse(response)
             const commit_emails = new Set();
             contributorCommits.forEach(commit => {

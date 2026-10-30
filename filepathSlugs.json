@@ -4177,6 +4177,7 @@
     "gasless-account-status",
     "request-parameters",
     "response-parameters",
+    "availability-values-and-nullable-fields",
     "examples",
     "response-provider-reachable-account-not-yet-activated",
     "response-provider-unreachable-on-chain-fallback",
