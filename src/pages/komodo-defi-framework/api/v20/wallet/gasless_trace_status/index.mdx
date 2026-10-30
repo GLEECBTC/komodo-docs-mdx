@@ -1,0 +1,124 @@
+export const title = "Komodo DeFi Framework Method: GasFree Trace Status";
+export const description = "The gasless::trace_status method returns the current status of a submitted TRON GasFree (gasless) TRC20 transfer.";
+
+# GasFree Trace Status
+
+## gasless::trace\_status {{label : 'gasless::trace_status', tag : 'API-v2'}}
+
+Returns the current status of a submitted [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) (gasless) TRC20 transfer, identified by the `trace_id` returned from [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) when the gasless transfer was submitted.
+
+This is a one-off poll. To receive live updates as the transfer progresses, use [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) instead.
+
+### Request Parameters
+
+| Parameter | Type   | Description                                                                                             |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| coin      | string | The TRON GasFree TRC20 token the transfer belongs to. Must be activated with a GasFree provider.        |
+| trace\_id | string | The transfer's tracking id, returned by `send_raw_transaction` when the gasless transfer was submitted. |
+
+### Response Parameters
+
+| Parameter           | Type             | Description                                                                                                                                                       |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| state               | string           | Lifecycle state of the transfer. One of `pending`, `submitted`, `on_chain`, `confirmed`, or `failed`. `confirmed` and `failed` are terminal.                      |
+| tx\_hash\_on\_chain | string           | Optional. On-chain transaction hash, populated as soon as the provider reports one (normally by the `on_chain` state).                                            |
+| block\_height       | integer          | Optional. Block height the transfer was included in, once on chain.                                                                                               |
+| confirmed\_at       | integer          | Optional. Unix timestamp (seconds) of block inclusion, once on chain.                                                                                             |
+| final\_fee          | string (numeric) | Optional. Total fee charged in the token, available once the transfer is on chain.                                                                                |
+| failure\_reason     | string           | Optional. Reason for failure, present only when `state` is `failed`. Currently always the literal `unknown` — the provider does not yet supply a detailed reason. |
+
+#### 📌 Examples
+
+<CodeGroup title="" tag="POST" label="gasless::trace_status" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "gasless::trace_status",
+    "params": {
+      "coin": "USDT-TRC20",
+      "trace_id": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (on chain, confirmed)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "state": "confirmed",
+      "tx_hash_on_chain": "2222222222222222222222222222222222222222222222222222222222222222",
+      "block_height": 57175988,
+      "confirmed_at": 1747909638,
+      "final_fee": "2.000000",
+      "failure_reason": null
+    },
+    "id": 0
+  }
+  ```
+
+  #### Response (still in progress)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "state": "submitted",
+      "tx_hash_on_chain": null,
+      "block_height": null,
+      "confirmed_at": null,
+      "final_fee": null,
+      "failure_reason": null
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+### Error Types
+
+| Error Type           | Description                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| CoinNotFound         | The specified coin was not found or is not activated.                               |
+| NotEthCoin           | The specified coin is not an EVM/TRON coin.                                         |
+| CoinNotSupported     | The coin does not support GasFree trace status (only TRON GasFree TRC20 tokens do). |
+| GaslessNotConfigured | The coin has no GasFree provider configured.                                        |
+| TraceNotFound        | No transfer was found for the given `trace_id`.                                     |
+| InvalidTraceId       | The `trace_id` is malformed.                                                        |
+| ProviderError        | The GasFree provider returned an error.                                             |
+| InternalError        | An internal error occurred.                                                         |
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error (Trace Not Found)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Trace '6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0' not found",
+      "error_path": "gasless",
+      "error_trace": "gasless:88]",
+      "error_type": "TraceNotFound",
+      "error_data": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0",
+      "id": 0
+  }
+  ```
+
+  ##### Error (Gasless Not Configured)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Coin 'USDT-TRC20' has no GasFree provider configured",
+      "error_path": "gasless",
+      "error_trace": "gasless:80]",
+      "error_type": "GaslessNotConfigured",
+      "error_data": "USDT-TRC20",
+      "id": 0
+  }
+  ```
+</CollapsibleSection>

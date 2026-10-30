@@ -2022,6 +2022,9 @@
     "swap-v2-contracts",
     "token-activation-params",
     "tokens-request",
+    "tron-gasless-provider-config",
+    "direct-gas-free-api-gas-free",
+    "komodo-proxy-komodo-proxy",
     "utxo-merge-params"
   ],
   "src/pages/komodo-defi-framework/api/common_structures/enums/index.mdx": [
@@ -2494,6 +2497,7 @@
     "derivation-method",
     "extended-fee-info",
     "fee-info",
+    "gasless-withdraw-options",
     "history-target",
     "input-txns",
     "new-address-info",
@@ -2509,6 +2513,10 @@
     "example-of-eth-type",
     "example-of-qrc20-type",
     "example-of-tendermint-type",
+    "example-of-tron-type-native-trx-transfer-to-activated-address",
+    "example-of-tron-type-native-trx-transfer-to-unactivated-address",
+    "example-of-tron-type-trc-20-token-transfer",
+    "example-of-tron-gasless-type-gasless-trc-20-transfer-via-gas-free",
     "example-of-utxo-type",
     "wallet-account-info",
     "wallet-balance-info",
@@ -3131,10 +3139,14 @@
     "response",
     "request-with-get-balances-set-to-false",
     "response-2",
-    "request-including-nft-initialization",
+    "request-for-tron-trx-with-trc-20-tokens",
     "response-3",
-    "request-using-wallet-connect",
+    "request-for-tron-trx-with-gasless-trc-20-transfers-gas-free",
     "response-4",
+    "request-including-nft-initialization",
+    "response-5",
+    "request-using-wallet-connect",
+    "response-6",
     "error-responses",
     "error-types",
     "platform-is-already-activated-error",
@@ -3205,7 +3217,7 @@
     "response-error-no-such-task"
   ],
   "src/pages/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/index.mdx": [
-    "task-eth-evm-activation",
+    "task-eth-evm-tron-activation",
     "task-enable-eth-init",
     "arguments",
     "response",
@@ -3650,6 +3662,17 @@
     "error-unknown-client",
     "error-client-already-listening",
     "error-invalid-request"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/index.mdx": [
+    "enable-gas-free-trace-streaming",
+    "stream-gasless-trace-enable",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "streamed-events",
+    "error-types",
+    "error-coin-not-supported",
+    "error-gasless-not-configured"
   ],
   "src/pages/komodo-defi-framework/api/v20/streaming/heartbeat_enable/index.mdx": [
     "enable-heartbeat-streaming",
@@ -4149,6 +4172,30 @@
     "request",
     "response"
   ],
+  "src/pages/komodo-defi-framework/api/v20/wallet/gasless_account_status/index.mdx": [
+    "gas-free-account-status",
+    "gasless-account-status",
+    "request-parameters",
+    "response-parameters",
+    "availability-values-and-nullable-fields",
+    "examples",
+    "response-provider-reachable-account-not-yet-activated",
+    "response-provider-unreachable-on-chain-fallback",
+    "error-types",
+    "error-gasless-not-configured"
+  ],
+  "src/pages/komodo-defi-framework/api/v20/wallet/gasless_trace_status/index.mdx": [
+    "gas-free-trace-status",
+    "gasless-trace-status",
+    "request-parameters",
+    "response-parameters",
+    "examples",
+    "response-on-chain-confirmed",
+    "response-still-in-progress",
+    "error-types",
+    "error-trace-not-found",
+    "error-gasless-not-configured"
+  ],
   "src/pages/komodo-defi-framework/api/v20/wallet/get_private_keys/index.mdx": [
     "get-private-keys",
     "arguments",
@@ -4448,7 +4495,16 @@
     "withdraw-with-broadcast-true",
     "withdraw-tendermint-coins-with-a-memo-and-custom-gas-fee",
     "withdraw-tendermint-ibc-coins",
+    "withdraw-trx-native-tron",
+    "response-trx-success",
+    "withdraw-trc-20-token-usdt-on-tron",
+    "response-trc-20-success",
+    "withdraw-trc-20-token-gaslessly-gas-free",
+    "response-signed-gasless-authorization",
+    "response-submitted",
     "error-responses",
+    "gasless-gas-free-errors",
+    "error-insufficient-gas-free-balance",
     "invalid-request-unknown-fee-type",
     "invalid-request-wrong-parameter-type",
     "invalid-fee-policy-attempt-to-use-eth-gas-for-utxo-coin"
@@ -4570,6 +4626,7 @@
     "change-log",
     "komodo-de-fi-framework-v2-6-0-beta-upcoming",
     "utxo-management-enhancement",
+    "tron-support-wallet-only",
     "utxo-optimization",
     "komodo-de-fi-framework-v2-5-2-beta",
     "privacy-coins-stats-and-mac-os-universal2-support",
@@ -4884,6 +4941,14 @@
     "install-aws-cli-get-aws-access-credentials",
     "installation",
     "create-an-ec-2-instance"
+  ],
+  "src/pages/komodo-defi-framework/tutorials/tron-gasfree/index.mdx": [
+    "tron-gas-free-gasless-trc-20-transfers",
+    "how-it-works",
+    "custody-first-wallets",
+    "fees",
+    "providers-direct-vs-komodo-proxy",
+    "related-methods"
   ],
   "src/pages/komodo-defi-framework/tutorials/using-komodefi-cli-in-console/index.mdx": [
     "using-komodo-de-fi-framework-cli-in-console",

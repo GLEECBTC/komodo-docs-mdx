@@ -162,6 +162,119 @@
       }
     ]
   },
+  "GaslessTraceEnableRequestParameters": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the TRON GasFree TRC20 token to stream transfer-status updates for. The token must be activated with a GasFree provider first."
+      },
+      {
+        "parameter": "client_id",
+        "type": "integer",
+        "required": false,
+        "default": "`0`",
+        "description": "In the case of a single client, this defaults to `0`. This ID can be used to access data via [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1)"
+      }
+    ]
+  },
+  "GaslessTraceEnableResponseParameters": {
+    "data": [
+      {
+        "parameter": "streamer_id",
+        "type": "string",
+        "required": false,
+        "description": "An identifier for the data stream, of the form `GASLESS_TRACE:<COIN>`. This can be used later to disable streaming for the event with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/)."
+      }
+    ]
+  },
+  "GaslessTraceEnableErrorTypes": {
+    "data": [
+      {
+        "parameter": "EnableError",
+        "type": "string",
+        "required": false,
+        "description": "Failed to enable the GasFree trace streamer."
+      },
+      {
+        "parameter": "CoinNotFound",
+        "type": "string",
+        "required": false,
+        "description": "The specified coin was not found or is not activated yet."
+      },
+      {
+        "parameter": "CoinNotSupported",
+        "type": "string",
+        "required": false,
+        "description": "The coin does not support GasFree trace streaming (only TRON GasFree TRC20 tokens do)."
+      },
+      {
+        "parameter": "GaslessNotConfigured",
+        "type": "string",
+        "required": false,
+        "description": "The coin has no GasFree provider configured. Activate it with a `tron_gasless_provider` first."
+      },
+      {
+        "parameter": "Internal",
+        "type": "string",
+        "required": false,
+        "description": "An internal error occurred while enabling the streamer."
+      }
+    ]
+  },
+  "GaslessTraceEventData": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the token the tracked transfer belongs to."
+      },
+      {
+        "parameter": "trace_id",
+        "type": "string",
+        "required": true,
+        "description": "Identifier of the tracked GasFree transfer (returned as `fee_details.trace_id` by a gasless [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/))."
+      },
+      {
+        "parameter": "state",
+        "type": "string",
+        "required": true,
+        "description": "Lifecycle state of the transfer. One of `pending`, `submitted`, `on_chain`, `confirmed`, or `failed`. `confirmed` and `failed` are terminal states."
+      },
+      {
+        "parameter": "tx_hash_on_chain",
+        "type": "string",
+        "required": false,
+        "description": "On-chain transaction hash, present once the transfer reaches the `on_chain` state."
+      },
+      {
+        "parameter": "block_height",
+        "type": "integer",
+        "required": false,
+        "description": "Block height the transfer was included in, once on chain."
+      },
+      {
+        "parameter": "confirmed_at",
+        "type": "integer",
+        "required": false,
+        "description": "Unix timestamp (seconds) of block inclusion, once on chain."
+      },
+      {
+        "parameter": "final_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "Total fee charged in the token, available once the transfer is on chain."
+      },
+      {
+        "parameter": "failure_reason",
+        "type": "string",
+        "required": false,
+        "description": "Reason for failure, present only when `state` is `failed`."
+      }
+    ]
+  },
   "HeartbeatEnableRequestParameters": {
     "data": [
       {

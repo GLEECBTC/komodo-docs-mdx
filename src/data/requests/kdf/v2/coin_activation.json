@@ -242,6 +242,58 @@
       "requires_notarization": false
     }
   },
+  "EnableEthWithTokensTrx": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable_eth_with_tokens",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "TRX",
+      "mm2": 1,
+      "nodes": [
+        {
+          "url": "https://api.trongrid.io"
+        }
+      ],
+      "erc20_tokens_requests": [
+        {
+          "ticker": "USDT-TRC20"
+        }
+      ]
+    }
+  },
+  "EnableEthWithTokensTrxGasFree": {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "enable_eth_with_tokens",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "TRX",
+      "mm2": 1,
+      "nodes": [
+        {
+          "url": "https://api.trongrid.io"
+        }
+      ],
+      "tron_gasless_provider": {
+        "base_url": "https://open.gasfree.io",
+        "service": {
+          "gas_free": {
+            "api_key": "YOUR_GASFREE_API_KEY",
+            "api_secret": "YOUR_GASFREE_API_SECRET"
+          }
+        },
+        "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E"
+      },
+      "erc20_tokens_requests": [
+        {
+          "ticker": "USDT-TRC20",
+          "gasless": {
+            "enabled": true,
+            "transfer_max_fee": "5"
+          }
+        }
+      ]
+    }
+  },
   "EnableEthWithTokensWalletConnect": {
     "userpass": "RPC_UserP@SSW0RD",
     "method": "enable_eth_with_tokens",

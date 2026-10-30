@@ -31259,6 +31259,37 @@ The `TokensRequest` object includes the following items for a given coin or toke
 }
 ```
 
+### TronGaslessProviderConfig
+
+The `TronGaslessProviderConfig` object configures a [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) provider for gasless TRC20 transfers. It is supplied as the `tron_gasless_provider` field when activating a TRON platform coin (see [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) or [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/)).
+
+The `service` field selects how the node authenticates to the gasless backend. Use `gas_free` with your own API credentials to call the public GasFree API directly, or `komodo_proxy` to route requests through the Komodo proxy (which holds the credentials on your behalf — no API secret is stored on the node).
+
+#### Direct GasFree API (`gas_free`)
+
+```json
+{
+  "base_url": "https://open.gasfree.io",
+  "service": {
+    "gas_free": {
+      "api_key": "YOUR_GASFREE_API_KEY",
+      "api_secret": "YOUR_GASFREE_API_SECRET"
+    }
+  },
+  "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E"
+}
+```
+
+#### Komodo proxy (`komodo_proxy`)
+
+```json
+{
+  "base_url": "https://komodo-defi-proxy.example.com",
+  "service": "komodo_proxy",
+  "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E"
+}
+```
+
 ### UtxoMergeParams
 
 The `UtxoMergeParams` object defines how often and at which thresholds to merge UTXOs. This is useful for wallets which have been used for a long time, and have many small UTXOs from mining activity.
@@ -36133,6 +36164,12 @@ Where the value indicates:
 
 The `FeeInfo` response object includes the following items for [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests:
 
+TRON withdrawals do not support manual fee parameters. Fees are auto-estimated based on bandwidth and energy consumption. Omit the `fee` field for TRON/TRC20 withdrawals.
+
+### GaslessWithdrawOptions
+
+The `GaslessWithdrawOptions` object supplies caller constraints for a gasless TRON TRC20 withdrawal. It is passed as the `gasless` field of a [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) request when `fee_method` is `gasless`. All fields are optional. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/) for the full flow.
+
 ### HistoryTarget
 
 Used to specify a HD wallet `account_id` or `address_id` for [my\_tx\_history v2](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) requests.
@@ -36305,6 +36342,76 @@ The `WithdrawFee` object varies depending on the coin or token type. Refer to th
   "coin": "IRIS",
   "amount": "0.038553",
   "gas_limit": 100000
+}
+```
+
+#### Example of Tron type (native TRX transfer to activated address)
+
+```json
+{
+  "type": "Tron",
+  "coin": "TRX",
+  "bandwidth_used": 265,
+  "energy_used": 0,
+  "bandwidth_fee": "0.265000",
+  "energy_fee": "0.000000",
+  "total_fee": "0.265000"
+}
+```
+
+#### Example of Tron type (native TRX transfer to unactivated address)
+
+When sending TRX to an address that has never been activated on the Tron blockchain,
+an `account_creation_fee` is included. This fee is burned by the network to create
+the destination account. The fee is charged to the sender on top of the transfer
+amount — the recipient receives the full amount.
+
+```json
+{
+  "type": "Tron",
+  "coin": "TRX",
+  "bandwidth_used": 265,
+  "energy_used": 0,
+  "bandwidth_fee": "0.100000",
+  "energy_fee": "0.000000",
+  "account_creation_fee": "1.000000",
+  "total_fee": "1.100000"
+}
+```
+
+The `account_creation_fee` field is only present for native TRX transfers to
+unactivated addresses. It is omitted (not `null`) for transfers to existing
+addresses and for all TRC20 token transfers.
+
+#### Example of Tron type (TRC20 token transfer)
+
+```json
+{
+  "type": "Tron",
+  "coin": "TRX",
+  "bandwidth_used": 345,
+  "energy_used": 29650,
+  "bandwidth_fee": "0.345000",
+  "energy_fee": "12.453000",
+  "total_fee": "12.798000"
+}
+```
+
+#### Example of TronGasless type (gasless TRC20 transfer via GasFree)
+
+The fee is paid in the transferred token, not in TRX. An `activation_fee` appears only when the GasFree address must be activated on its first transfer.
+
+```json
+{
+  "type": "TronGasless",
+  "coin": "USDT-TRC20",
+  "fee_method": "gasless",
+  "provider_name": "gasfree",
+  "gasfree_address": "TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER",
+  "transfer_fee": "2.000000",
+  "total_token_fee": "2.000000",
+  "signed_max_fee": "5.000000",
+  "trace_id": null
 }
 ```
 
@@ -36593,7 +36700,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 
 | Legacy                                                                                                                          | v2.0 (release)                                                                                                                                                    | v2.0 (dev)                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [](/komodo-defi-framework/api/legacy/coin_activation/#coin-activation)                                                          | [](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/#enable-tendermint-with-assets)                                                   | [](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_create/#1inch-v6-0-classic-swap-create)                                                                      |
+| [](/komodo-defi-framework/api/legacy/min_trading_vol/#min-trading-vol)                                                          | [](/komodo-defi-framework/api/v20/non_fungible_tokens/refresh_nft_metadata/#refresh-nft-metadata)                                                                 | [](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_liquidity_sources/#1inch-v6-0-classic-swap-liquidity-sources)                                                |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_create](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_create/#1inch-v6-0-classic-swap-create)                                   |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_liquidity\_sources](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_liquidity_sources/#1inch-v6-0-classic-swap-liquidity-sources) |
 |                                                                                                                                 |                                                                                                                                                                   | [1inch\_v6\_0\_classic\_swap\_quote](/komodo-defi-framework/api/v20-dev/one_inch_v6_0_classic_swap_quote/#1inch-v6-0-classic-swap-quote)                                      |
@@ -36633,6 +36740,9 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [experimental::staking::query::validators](/komodo-defi-framework/api/v20/wallet/staking/validators/#validators)                                                  |                                                                                                                                                                               |
 |                                                                                                                                 | [experimental::staking::undelegate](/komodo-defi-framework/api/v20/wallet/staking/undelegate/#undelegate)                                                         |                                                                                                                                                                               |
 |                                                                                                                                 | [fee\_estimator\_enable](/komodo-defi-framework/api/v20/streaming/fee_estimator/#fee-estimator-streaming)                                                         |                                                                                                                                                                               |
+|                                                                                                                                 | [gasless](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/#gas-free-trace-status)                                                                      |                                                                                                                                                                               |
+|                                                                                                                                 | [gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/#gas-free-account-status)                                                 |                                                                                                                                                                               |
+|                                                                                                                                 | [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/#gas-free-trace-status)                                                       |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_channel\_details](/komodo-defi-framework/api/v20/lightning/channels/#get-channel-details)                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_claimable\_balances](/komodo-defi-framework/api/v20/lightning/channels/#get-claimable-balances)                                                             |                                                                                                                                                                               |
 |                                                                                                                                 | [get\_current\_mtp](/komodo-defi-framework/api/v20/utils/get_current_mtp/#get-current-mtp)                                                                        |                                                                                                                                                                               |
@@ -36697,7 +36807,7 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [remove\_node\_from\_version\_stat](/komodo-defi-framework/api/v20/utils/remove_node_from_version_stat/#remove-node-from-version-stat)                            |                                                                                                                                                                               |
 | [sell](/komodo-defi-framework/api/legacy/sell/#sell)                                                                            |                                                                                                                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [send\_asked\_data](/komodo-defi-framework/api/v20/utils/send_asked_data/#send-asked-data)                                                                        |                                                                                                                                                                               |
-| [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/#send-raw-transaction)                          |                                                                                                                                                                   |                                                                                                                                                                               |
+| [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/#send-raw-transaction)                          | [send\_raw\_transaction](/komodo-defi-framework/api/v20/wallet/tx/withdraw/#withdraw)                                                                             |                                                                                                                                                                               |
 | [set\_required\_confirmations](/komodo-defi-framework/api/legacy/set_required_confirmations/#set-required-confirmations)        |                                                                                                                                                                   |                                                                                                                                                                               |
 | [set\_requires\_notarization](/komodo-defi-framework/api/legacy/set_requires_notarization/#set-requires-notarization)           |                                                                                                                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [set\_swap\_transaction\_fee\_policy](/komodo-defi-framework/api/v20/wallet/fee_management/set_swap_transaction_fee_policy/#set-swap-transaction-fee-policy)      |                                                                                                                                                                               |
@@ -36710,12 +36820,13 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 | [stop](/komodo-defi-framework/api/legacy/stop/#stop)                                                                            |                                                                                                                                                                   |                                                                                                                                                                               |
 |                                                                                                                                 | [stop\_simple\_market\_maker\_bot](/komodo-defi-framework/api/v20/swaps_and_orders/stop_simple_market_maker_bot/#stop-simple-market-maker-bot)                    |                                                                                                                                                                               |
 |                                                                                                                                 | [stop\_version\_stat\_collection](/komodo-defi-framework/api/v20/utils/stop_version_stat_collection/#stop-version-stat-collection)                                |                                                                                                                                                                               |
-|                                                                                                                                 | [stream](/komodo-defi-framework/api/v20/streaming/network_enable/#enable-network-streaming)                                                                       |                                                                                                                                                                               |
+|                                                                                                                                 | [stream](/komodo-defi-framework/api/v20/streaming/fee_estimator/#fee-estimator-streaming)                                                                         |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/#disable-streaming)                                                                            |                                                                                                                                                                               |
+|                                                                                                                                 | [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/#enable-gas-free-trace-streaming)                                  |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/#enable-heartbeat-streaming)                                                |                                                                                                                                                                               |
 |                                                                                                                                 | [stream::orderbook::enable](/komodo-defi-framework/api/v20/streaming/orderbook_enable/#orderbook-streaming)                                                       |                                                                                                                                                                               |
 |                                                                                                                                 | [swap\_status\_enable](/komodo-defi-framework/api/v20/streaming/swap_status_enable/#enable-swap-status-streaming)                                                 |                                                                                                                                                                               |
-|                                                                                                                                 | [task](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                                           |                                                                                                                                                                               |
+|                                                                                                                                 | [task](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                                                  |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                        |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::init](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                          |                                                                                                                                                                               |
 |                                                                                                                                 | [task::account\_balance::status](/komodo-defi-framework/api/v20/wallet/task_managed/account_balance/#task-account-balance)                                        |                                                                                                                                                                               |
@@ -36728,10 +36839,10 @@ Below is a table of the currently available legacy, v2.0 and v2.0 (Dev) methods:
 |                                                                                                                                 | [task::enable\_bch::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/#task-bch-slp-activation)                                        |                                                                                                                                                                               |
 |                                                                                                                                 | [task::enable\_bch::status](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/#task-bch-slp-activation)                                      |                                                                                                                                                                               |
 |                                                                                                                                 | [task::enable\_bch::user\_action](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_bch/#task-bch-slp-activation)                                |                                                                                                                                                                               |
-|                                                                                                                                 | [task::enable\_eth::cancel](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                      |                                                                                                                                                                               |
-|                                                                                                                                 | [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                        |                                                                                                                                                                               |
-|                                                                                                                                 | [task::enable\_eth::status](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                      |                                                                                                                                                                               |
-|                                                                                                                                 | [task::enable\_eth::user\_action](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-activation)                                |                                                                                                                                                                               |
+|                                                                                                                                 | [task::enable\_eth::cancel](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-tron-activation)                                 |                                                                                                                                                                               |
+|                                                                                                                                 | [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-tron-activation)                                   |                                                                                                                                                                               |
+|                                                                                                                                 | [task::enable\_eth::status](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-tron-activation)                                 |                                                                                                                                                                               |
+|                                                                                                                                 | [task::enable\_eth::user\_action](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/#task-eth-evm-tron-activation)                           |                                                                                                                                                                               |
 |                                                                                                                                 | [task::enable\_lightning::cancel](/komodo-defi-framework/api/v20/lightning/activation/#lightning-network-initialization-tasks)                                    |                                                                                                                                                                               |
 |                                                                                                                                 | [task::enable\_lightning::init](/komodo-defi-framework/api/v20/lightning/activation/#lightning-network-initialization-tasks)                                      |                                                                                                                                                                               |
 |                                                                                                                                 | [task::enable\_lightning::status](/komodo-defi-framework/api/v20/lightning/activation/#lightning-network-initialization-tasks)                                    |                                                                                                                                                                               |
@@ -38102,6 +38213,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 *   [Fantom (FTM)](https://fantom.foundation/) & [FTM20 tokens](https://ftmscan.com/tokens)
 *   [Avalanche (AVAX)](https://www.avax.network/) & [AVX20 tokens](https://avascan.info/)
 *   [Moonriver (MOVR)](https://moonbeam.network/networks/moonriver/) & [MVR20 tokens](https://moonriver.moonscan.io/tokens)
+*   [TRON (TRX)](https://tron.network/) & [TRC20 tokens](https://tronscan.org/#/tokens/trc20) (wallet-only)
 *   And more!
 
 ## Electrum
@@ -39873,12 +39985,13 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### Response
 
-| Structure            | Type             | Description                                                                                   |
-| -------------------- | ---------------- | --------------------------------------------------------------------------------------------- |
-| address              | string           | the address that holds the coins                                                              |
-| balance              | string (numeric) | the number of coins in the address; does not include `unspendable_balance`                    |
-| unspendable\_balance | string (numeric) | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs) |
-| coin                 | string           | the name of the coin                                                                          |
+| Structure            | Type             | Description                                                                                                                                                                                                                                                                                                                                                                |
+| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address              | string           | the address that holds the coins                                                                                                                                                                                                                                                                                                                                           |
+| balance              | string (numeric) | the number of coins in the address; does not include `unspendable_balance`                                                                                                                                                                                                                                                                                                 |
+| unspendable\_balance | string (numeric) | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                                                                                                                                                                                                                              |
+| coin                 | string           | the name of the coin                                                                                                                                                                                                                                                                                                                                                       |
+| gasfree\_address     | string           | Optional. TRON GasFree coins/tokens only: the deterministic GasFree custody address for this address. Present only when the coin was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/). |
 
 #### 📌 Examples
 
@@ -43623,16 +43736,22 @@ The `send_raw_transaction` method broadcasts the transaction to the network of s
 
 ## Arguments
 
-| Structure | Type   | Description                                                                                       |
-| --------- | ------ | ------------------------------------------------------------------------------------------------- |
-| coin      | string | the name of the coin network on which to broadcast the transaction                                |
-| tx\_hex   | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method |
+| Structure | Type   | Description                                                                                                                                                                                                                                                                                                                                       |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin      | string | the name of the coin network on which to broadcast the transaction                                                                                                                                                                                                                                                                                |
+| tx\_hex   | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method                                                                                                                                                                                                                                                 |
+| tx\_json  | object | Optional, instead of `tx_hex`. A structured payload for coins that submit JSON rather than raw bytes. For a TRON [GasFree gasless transfer](/komodo-defi-framework/tutorials/tron-gasfree/), pass the relay payload from the gasless `withdraw` response **verbatim** (it carries `relay_type: "tron_gasfree"`; unknown extra keys are rejected). |
 
 ## Response
 
-| Structure | Type   | Description                           |
-| --------- | ------ | ------------------------------------- |
-| tx\_hash  | string | the hash of the broadcast transaction |
+| Structure   | Type   | Description                                                                                                                                    |
+| ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| tx\_hash    | string | the hash of the broadcast transaction                                                                                                          |
+| relay\_type | string | Gasless relay submissions only: the literal `tron_gasfree` (no `tx_hash` is returned — the provider broadcasts on-chain later).                |
+| trace\_id   | string | Gasless relay submissions only: tracking id for polling [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/). |
+| state       | string | Gasless relay submissions only: the provider's initial transfer state (e.g. `WAITING`).                                                        |
+
+For a gasless request/response example, see the [gasless TRC20 transfer section of the withdraw docs](/komodo-defi-framework/api/v20/wallet/tx/withdraw/#withdraw).
 
 #### 📌 Examples
 
@@ -44860,13 +44979,14 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure | Type             | Description                                                                                           |
-| --------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                                                     |
-| to        | string           | coins are withdrawn to this address                                                                   |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
-| max       | bool             | withdraw the maximum available amount                                                                 |
-| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| Structure           | Type             | Description                                                                                           |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
+| coin                | string           | the name of the coin the user desires to withdraw                                                     |
+| to                  | string           | coins are withdrawn to this address                                                                   |
+| amount              | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
+| max                 | bool             | withdraw the maximum available amount                                                                 |
+| fee                 | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| expiration\_seconds | integer          | Optional. Transaction expiration window in seconds. Currently only used by TRON (default 60s).        |
 
 ## Response
 
@@ -45445,11 +45565,11 @@ In this case, you need to [disable](/komodo-defi-framework/api/legacy/disable_co
 ```
 export const title = "Komodo DeFi Framework Method: Enable ERC20";
 export const description =
-  "The enable_erc20 method allows you to activate additional ERC20 like tokens of a EVM type platform coin.";
+  "The enable_erc20 method allows you to activate additional ERC20 like tokens of an EVM type platform coin, including TRC20 tokens on TRON.";
 
 # enable\_erc20
 
-The `enable_erc20` method allows you to activate additional ERC20 like tokens of a EVM type platform coin. Before using this method, you first need to use the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method.
+The `enable_erc20` method allows you to activate additional ERC20 like tokens of an EVM type platform coin, including TRC20 tokens on TRON. Before using this method, you first need to use the [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) method to activate the platform coin (e.g. ETH, MATIC, TRX).
 
 ## Response
 
@@ -45517,8 +45637,10 @@ export const description = "The enable_eth_with_tokens method allows you to enab
 
 # enable\_eth\_with\_tokens
 
-The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum).
-Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 like tokens on the rest of the platform coin chains.Using this method, you can enable a platform coin along with multiple ERC20 like tokens of the platform coin chain in a single command.
+The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum), and TRX(TRON).
+Additionally, it supports ERC20 tokens on the ETH chain, associated ERC20 like tokens on the rest of the EVM platform coin chains, and TRC20 tokens on TRON. Using this method, you can enable a platform coin along with multiple ERC20/TRC20 like tokens of the platform coin chain in a single command.
+
+TRON (TRX) is currently supported in **wallet-only mode**. You can activate TRX and TRC20 tokens for balance queries and withdrawals, but atomic swaps are not yet available for TRON-based coins. TRC20 tokens additionally support [gasless transfers via GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) — see the `tron_gasless_provider` parameter below.
 
 ### Request Parameters
 
@@ -45613,6 +45735,95 @@ When running in HD mode, do not use the `nft_req` object paramater when activati
         "nfts_infos": {}
     },
     "id": null
+}
+```
+
+#### Request for TRON (TRX) with TRC20 tokens
+
+TRON nodes use HTTP API endpoints (not WebSocket/gRPC). Swap contract parameters are not needed as TRON is wallet-only.
+
+#### Response
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+      "current_block": 68000000,
+      "eth_addresses_infos": {
+          "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+              "derivation_method": {
+                  "type": "Iguana"
+              },
+              "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+              "balances": {
+                  "spendable": "50.000000",
+                  "unspendable": "0"
+              }
+          }
+      },
+      "erc20_addresses_infos": {
+          "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+              "derivation_method": {
+                  "type": "Iguana"
+              },
+              "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+              "balances": {
+                  "USDT-TRC20": {
+                      "spendable": "10.000000",
+                      "unspendable": "0"
+                  }
+              }
+          }
+      },
+      "nfts_infos": {}
+  },
+  "id": null
+}
+```
+
+#### Request for TRON (TRX) with gasless TRC20 transfers (GasFree)
+
+To enable [gasless TRC20 transfers](/komodo-defi-framework/tutorials/tron-gasfree/), pass a `tron_gasless_provider` (a standard [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config)) when activating the TRON platform coin, and on each TRC20 [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) a per-token `gasless` object with `enabled: true` (plus an optional `transfer_max_fee` cap) to opt that token into gasless transfers. Once activated, the response includes each address's `gasfree_address`, and gasless withdrawals become available through the [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) `fee_method: "gasless"` option.
+
+Set `service` to `"komodo_proxy"` to route requests through the Komodo proxy instead of supplying your own GasFree API credentials. See [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config).
+
+#### Response
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+      "current_block": 68000000,
+      "eth_addresses_infos": {
+          "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+              "derivation_method": {
+                  "type": "Iguana"
+              },
+              "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+              "balances": {
+                  "spendable": "50.000000",
+                  "unspendable": "0"
+              }
+          }
+      },
+      "erc20_addresses_infos": {
+          "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+              "derivation_method": {
+                  "type": "Iguana"
+              },
+              "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+              "gasfree_address": "TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER",
+              "balances": {
+                  "USDT-TRC20": {
+                      "spendable": "10.000000",
+                      "unspendable": "0"
+                  }
+              }
+          }
+      },
+      "nfts_infos": {}
+  },
+  "id": null
 }
 ```
 
@@ -45774,13 +45985,13 @@ In this case, you need to [disable](/komodo-defi-framework/api/legacy/disable_co
 ```json
 {
     "mmrpc": "2.0",
-    "error": "Token BUSD-ERC20 protocol parsing failed: unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
+    "error": "Token BUSD-ERC20 protocol parsing failed: unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TRX`, `TRC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
     "error_path": "platform_coin_with_tokens.prelude",
     "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:82]",
     "error_type": "TokenProtocolParseError",
     "error_data": {
         "ticker": "BUSD-ERC20",
-        "error": "unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
+        "error": "unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TRX`, `TRC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
     },
     "id": null
 }
@@ -46342,17 +46553,19 @@ If you want to cancel the enabling process before it has completed, you can use 
   "id": null
 }
 ```
-export const title = "Komodo DeFi Framework Method: ETH/EVM Activation Tasks";
+export const title = "Komodo DeFi Framework Method: ETH/EVM/TRON Activation Tasks";
 export const description =
-  "The methods in this document demonstrate the task managed activation of ETH/EVM coins and tokens.";
+  "The methods in this document demonstrate the task managed activation of ETH/EVM and TRON coins and tokens.";
 
 import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
 
-# Task: ETH/EVM Activation
+# Task: ETH/EVM/TRON Activation
 
 ## task::enable\_eth::init {{label : 'task::enable_eth::init', tag : 'API-v2'}}
 
-Use this method for task managed activation of ETH/EVM coins & tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+Use this method for task managed activation of ETH/EVM and TRON coins & tokens. This includes TRX (wallet-only) and TRC20 tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+For TRON, gasless TRC20 transfers are enabled exactly as with [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/): supply a `tron_gasless_provider` (a standard [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config)) and an optional per-token `gasless` constraint. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/).
 
 #### Arguments
 
@@ -51660,6 +51873,88 @@ Here is an example of the stream data you should be able to see in [http://local
     "error_trace": "dispatcher:122]",
     "error_type": "InvalidRequest",
     "error_data": "unknown variant `Complex`, expected `Simple` or `Provider`",
+    "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Enable GasFree Trace Streaming";
+export const description = "Using this method, you can stream live status updates for TRON GasFree (gasless) TRC20 transfers.";
+
+# Enable GasFree Trace Streaming
+
+## stream::gasless\_trace::enable {{label : 'stream::gasless_trace::enable', tag : 'API-v2'}}
+
+Streams live status updates for [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) (gasless) TRC20 transfers of a given token. Once enabled, every gasless transfer submitted for that coin via [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) is tracked automatically, and the stream emits an event each time a tracked transfer changes state, until it reaches a terminal state (`confirmed` or `failed`).
+
+### Request Parameters
+
+The coin must be an activated TRON GasFree TRC20 token (i.e. activated with a `tron_gasless_provider`). The polling interval follows the provider's `status_poll_interval_ms` set at activation. Disable the stream with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/).
+
+### Response Parameters
+
+#### 📌 Examples
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "stream::gasless_trace::enable",
+  "mmrpc": "2.0",
+  "params": {
+    "coin": "USDT-TRC20",
+    "client_id": 1
+  }
+}
+```
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "streamer_id": "GASLESS_TRACE:USDT-TRC20"
+    },
+    "id": null
+}
+```
+
+### Streamed Events
+
+Each event carries the tracked transfer's `trace_id` and its current status. The status fields are described below.
+
+Example of the stream data visible at [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) as a transfer progresses:
+
+`data: {"_type":"GASLESS_TRACE:USDT-TRC20","message":{"coin":"USDT-TRC20","trace_id":"6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0","state":"on_chain","tx_hash_on_chain":"2222222222222222222222222222222222222222222222222222222222222222","block_height":57175988,"confirmed_at":1747909638,"final_fee":"2.000000","failure_reason":null}}`
+
+When polling the provider fails, an error event is emitted instead, carrying the `coin`, `trace_id`, and an `error` message:
+
+`data: {"_type":"GASLESS_TRACE:USDT-TRC20","message":{"coin":"USDT-TRC20","trace_id":"6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0","error":"Request to GasFree provider timed out"}}`
+
+The same status fields are returned synchronously (without a stream) by the [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) method, which is useful for one-off polling.
+
+### Error Types
+
+##### Error (Coin Not Supported)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Coin 'KMD' does not support GasFree trace streaming",
+    "error_path": "gasless_trace",
+    "error_trace": "gasless_trace:67]",
+    "error_type": "CoinNotSupported",
+    "error_data": "KMD",
+    "id": null
+}
+```
+
+##### Error (Gasless Not Configured)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Coin 'USDT-TRC20' has no GasFree provider configured",
+    "error_path": "gasless_trace",
+    "error_trace": "gasless_trace:74]",
+    "error_type": "GaslessNotConfigured",
+    "error_data": "USDT-TRC20",
     "id": null
 }
 ```
@@ -57360,6 +57655,237 @@ The `set_swap_transaction_fee_policy` method allows you to set the gas fee polic
     "id": null
 }
 ```
+export const title = "Komodo DeFi Framework Method: GasFree Account Status";
+export const description = "The gasless::account_status method returns a snapshot of the user's TRON GasFree custody account: balances, fees, activation state, and provider availability.";
+
+# GasFree Account Status
+
+## gasless::account\_status {{label : 'gasless::account_status', tag : 'API-v2'}}
+
+Returns a read-only snapshot of the user's [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) custody account for a gasless-enabled TRC20 token.
+
+The custody account is the deterministic CREATE2 address derived from the user's TRON address. In a custody-first wallet it acts as the user's token account: deposits are received into it, its balance is the spendable balance, and gasless transfers settle from it with fees paid in the token — the user never needs TRX.
+
+The snapshot combines a provider preflight (activation state, frozen amount, current fees, and the largest amount sendable right now) with the raw on-chain balance. When the provider preflight fails for any reason (provider unreachable, authentication failure, provider-side error), the method degrades rather than failing: `provider_available` is `false` and only `gasfree_address` and `on_chain_balance` (read directly from the chain, no provider auth needed) are populated.
+
+`max_withdrawable` matches the amount a `withdraw` request with `"max": true` would sign, so clients can display it without drift.
+
+### Request Parameters
+
+| Parameter | Type   | Description                                                                       |
+| --------- | ------ | --------------------------------------------------------------------------------- |
+| coin      | string | The TRON GasFree TRC20 token to query. Must be activated with a GasFree provider. |
+
+### Response Parameters
+
+| Parameter           | Type             | Description                                                                                                                                                                                                                                                                           |
+| ------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gasfree\_address    | string           | The locally-derived CREATE2 custody address the token settles from. Always present.                                                                                                                                                                                                   |
+| on\_chain\_balance  | string (numeric) | Raw TRC20 balance held at the custody address, in token units. Always present (falls back to a direct on-chain read when the provider preflight fails).                                                                                                                               |
+| provider\_available | boolean          | Whether the GasFree provider preflight succeeded. When `false`, all provider-derived fields below are `null` and gasless transfers cannot be built right now.                                                                                                                         |
+| active              | boolean          | Optional. Whether the custody account has been activated on chain. The first transfer from an inactive account additionally pays `activation_fee`.                                                                                                                                    |
+| frozen\_balance     | string (numeric) | Optional. Amount locked by an in-flight transfer, in token units. Does not include any pending activation fee, which is reported separately as `activation_fee`.                                                                                                                      |
+| spendable\_balance  | string (numeric) | Optional. `on_chain_balance - frozen_balance` — the balance not locked by a pending transfer.                                                                                                                                                                                         |
+| transfer\_fee       | string (numeric) | Optional. Per-transfer provider fee, charged in the token.                                                                                                                                                                                                                            |
+| activation\_fee     | string (numeric) | Optional. One-time account activation fee charged in the token on the first transfer. Omitted (`null`) whenever the provider reports no activation charge — in practice, exactly when the account is already active — so its presence signals that the next transfer pays activation. |
+| max\_withdrawable   | string (numeric) | Optional. Largest amount the user can gaslessly send now, with transfer (and, if inactive, activation) fees already netted out. Matches the withdraw `max` amount.                                                                                                                    |
+
+#### 📌 Examples
+
+```json
+{
+  "mmrpc": "2.0",
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "gasless::account_status",
+  "params": {
+    "coin": "USDT-TRC20"
+  },
+  "id": 0
+}
+```
+
+#### Response (provider reachable, account not yet activated)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "gasfree_address": "TPRN9HuCCTUuEsw5DsPBM8CQGRq77Aey5g",
+    "active": false,
+    "on_chain_balance": "25.000000",
+    "frozen_balance": "0",
+    "spendable_balance": "25.000000",
+    "transfer_fee": "1.000000",
+    "activation_fee": "1.000000",
+    "max_withdrawable": "23.000000",
+    "provider_available": true
+  },
+  "id": 0
+}
+```
+
+#### Response (provider unreachable — on-chain fallback)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "gasfree_address": "TPRN9HuCCTUuEsw5DsPBM8CQGRq77Aey5g",
+    "active": null,
+    "on_chain_balance": "25.000000",
+    "frozen_balance": null,
+    "spendable_balance": null,
+    "transfer_fee": null,
+    "activation_fee": null,
+    "max_withdrawable": null,
+    "provider_available": false
+  },
+  "id": 0
+}
+```
+
+### Error Types
+
+| Error Type           | Description                                                                                                                                                                                                                                                                                                                                  |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CoinNotFound         | The specified coin was not found or is not activated.                                                                                                                                                                                                                                                                                        |
+| NotEthCoin           | The specified coin is not an EVM/TRON coin.                                                                                                                                                                                                                                                                                                  |
+| CoinNotSupported     | The coin does not support GasFree account status (only TRON GasFree TRC20 tokens do).                                                                                                                                                                                                                                                        |
+| GaslessNotConfigured | The coin has no GasFree provider configured.                                                                                                                                                                                                                                                                                                 |
+| ProviderError        | A hard provider error that prevented even the degraded snapshot — notably a custody-address mismatch between the provider and the locally-derived CREATE2 address (a safety hard-error, never reported as a zero balance). Ordinary provider failures do not surface here; they degrade to the `provider_available: false` snapshot instead. |
+| InternalError        | An internal error occurred (including an uninitialized TRON RPC client, which makes the on-chain fallback impossible).                                                                                                                                                                                                                       |
+
+##### Error (Gasless Not Configured)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Coin 'USDT-TRC20' has no GasFree provider configured",
+    "error_path": "gasless",
+    "error_trace": "gasless:80]",
+    "error_type": "GaslessNotConfigured",
+    "error_data": "USDT-TRC20",
+    "id": 0
+}
+```
+export const title = "Komodo DeFi Framework Method: GasFree Trace Status";
+export const description = "The gasless::trace_status method returns the current status of a submitted TRON GasFree (gasless) TRC20 transfer.";
+
+# GasFree Trace Status
+
+## gasless::trace\_status {{label : 'gasless::trace_status', tag : 'API-v2'}}
+
+Returns the current status of a submitted [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) (gasless) TRC20 transfer, identified by the `trace_id` returned from [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) when the gasless transfer was submitted.
+
+This is a one-off poll. To receive live updates as the transfer progresses, use [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) instead.
+
+### Request Parameters
+
+| Parameter | Type   | Description                                                                                             |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| coin      | string | The TRON GasFree TRC20 token the transfer belongs to. Must be activated with a GasFree provider.        |
+| trace\_id | string | The transfer's tracking id, returned by `send_raw_transaction` when the gasless transfer was submitted. |
+
+### Response Parameters
+
+| Parameter           | Type             | Description                                                                                                                                                       |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| state               | string           | Lifecycle state of the transfer. One of `pending`, `submitted`, `on_chain`, `confirmed`, or `failed`. `confirmed` and `failed` are terminal.                      |
+| tx\_hash\_on\_chain | string           | Optional. On-chain transaction hash, populated as soon as the provider reports one (normally by the `on_chain` state).                                            |
+| block\_height       | integer          | Optional. Block height the transfer was included in, once on chain.                                                                                               |
+| confirmed\_at       | integer          | Optional. Unix timestamp (seconds) of block inclusion, once on chain.                                                                                             |
+| final\_fee          | string (numeric) | Optional. Total fee charged in the token, available once the transfer is on chain.                                                                                |
+| failure\_reason     | string           | Optional. Reason for failure, present only when `state` is `failed`. Currently always the literal `unknown` — the provider does not yet supply a detailed reason. |
+
+#### 📌 Examples
+
+```json
+{
+  "mmrpc": "2.0",
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "gasless::trace_status",
+  "params": {
+    "coin": "USDT-TRC20",
+    "trace_id": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0"
+  },
+  "id": 0
+}
+```
+
+#### Response (on chain, confirmed)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "state": "confirmed",
+    "tx_hash_on_chain": "2222222222222222222222222222222222222222222222222222222222222222",
+    "block_height": 57175988,
+    "confirmed_at": 1747909638,
+    "final_fee": "2.000000",
+    "failure_reason": null
+  },
+  "id": 0
+}
+```
+
+#### Response (still in progress)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "state": "submitted",
+    "tx_hash_on_chain": null,
+    "block_height": null,
+    "confirmed_at": null,
+    "final_fee": null,
+    "failure_reason": null
+  },
+  "id": 0
+}
+```
+
+### Error Types
+
+| Error Type           | Description                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| CoinNotFound         | The specified coin was not found or is not activated.                               |
+| NotEthCoin           | The specified coin is not an EVM/TRON coin.                                         |
+| CoinNotSupported     | The coin does not support GasFree trace status (only TRON GasFree TRC20 tokens do). |
+| GaslessNotConfigured | The coin has no GasFree provider configured.                                        |
+| TraceNotFound        | No transfer was found for the given `trace_id`.                                     |
+| InvalidTraceId       | The `trace_id` is malformed.                                                        |
+| ProviderError        | The GasFree provider returned an error.                                             |
+| InternalError        | An internal error occurred.                                                         |
+
+##### Error (Trace Not Found)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Trace '6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0' not found",
+    "error_path": "gasless",
+    "error_trace": "gasless:88]",
+    "error_type": "TraceNotFound",
+    "error_data": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0",
+    "id": 0
+}
+```
+
+##### Error (Gasless Not Configured)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Coin 'USDT-TRC20' has no GasFree provider configured",
+    "error_path": "gasless",
+    "error_trace": "gasless:80]",
+    "error_type": "GaslessNotConfigured",
+    "error_data": "USDT-TRC20",
+    "id": 0
+}
+```
 export const title = "Komodo DeFi Framework Method: get_private_keys";
 export const description = "The get_private_keys method provides unified offline private key export for a given array of coins.";
 
@@ -60710,35 +61236,38 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure            | Type             | Description                                                                                                                                                                                                                                     |
-| -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
-| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                            |
-| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
-| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                             |
-| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                |
-| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                           |
-| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
-| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
-| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
+| Structure            | Type             | Description                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                                                                                                                                             |
+| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                                                                                                                                           |
+| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                                                                                                                                              |
+| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                                                                                                                                            |
+| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                                                                                                                               |
+| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                                                                                                                                          |
+| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                                                                                                                                |
+| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                                                                                                                                |
+| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions.                                                                                                                |
+| expiration\_seconds  | integer          | Optional. Transaction expiration window in seconds. Currently only used by TRON (default 60s). Sets how long the signed transaction remains valid for broadcast.                                                                                                                                                                                               |
+| fee\_method          | string           | TRON only. Optional. Selects the fee rail: `native` (default — pay the TRX bandwidth/energy fee) or `gasless` (route a TRC20 transfer through [GasFree](/komodo-defi-framework/tutorials/tron-gasfree/), paying the fee in the token). Requires a `tron_gasless_provider` configured at activation and the token opted in via its `gasless` activation config. |
+| gasless              | object           | TRON only. Optional. A standard [GaslessWithdrawOptions](/komodo-defi-framework/api/common_structures/wallet/#gasless-withdraw-options) object constraining the gasless transfer (max fee, deadline, native fallback). Only valid together with `fee_method: "gasless"`.                                                                                       |
 
 ### Response
 
-| Structure                    | Type                       | Description                                                                                                                                                                                             |
-| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
-| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
-| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
-| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
-| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
-| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                   |
-| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                      |
-| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                   |
-| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                  |
-| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                         |
-| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
-| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                           |
-| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                  |
+| Structure                    | Type                       | Description                                                                                                                                                                                                  |
+| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                                 |
+| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                         |
+| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                              |
+| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address`      |
+| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                                   |
+| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                        |
+| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for UTXO, ETH/ERC20, and TRON/TRC20 coins. See [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) for details |
+| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                        |
+| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                       |
+| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                              |
+| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                                   |
+| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                                |
+| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                       |
 
 ### 📌 Examples
 
@@ -61344,7 +61873,272 @@ The `ibc_source_channel` value above is for demonstration only. For more informa
 
 You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
 
+#### Withdraw TRX (native TRON)
+
+TRON fees are auto-estimated. Do not pass a `fee` object — EVM gas options are not supported for TRON withdrawals.
+
+```json
+{
+  "mmrpc": "2.0",
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "withdraw",
+  "params": {
+    "coin": "TRX",
+    "to": "TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU",
+    "amount": "10"
+  },
+  "id": 0
+}
+```
+
+#### Response (TRX success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "tx_hex": "0a02a4e22208b9de53a1fe5e892240...",
+    "tx_hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+    "from": ["TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9"],
+    "to": ["TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU"],
+    "total_amount": "10",
+    "spent_by_me": "10.267",
+    "received_by_me": "0",
+    "my_balance_change": "-10.267",
+    "block_height": 0,
+    "timestamp": 1738799040,
+    "fee_details": {
+      "type": "Tron",
+      "coin": "TRX",
+      "bandwidth_used": 267,
+      "energy_used": 0,
+      "bandwidth_fee": "0.267000",
+      "energy_fee": "0.000000",
+      "total_fee": "0.267000"
+    },
+    "coin": "TRX",
+    "internal_id": "",
+    "transaction_type": "StandardTransfer",
+    "memo": null
+  },
+  "id": 0
+}
+```
+
+#### Withdraw TRC20 token (USDT on TRON)
+
+```json
+{
+  "mmrpc": "2.0",
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "withdraw",
+  "params": {
+    "coin": "USDT-TRC20",
+    "to": "TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU",
+    "amount": "5"
+  },
+  "id": 0
+}
+```
+
+#### Response (TRC20 success)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "tx_hex": "0a02b3f12208c4de89a2bf7e312240...",
+    "tx_hash": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+    "from": ["TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9"],
+    "to": ["TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU"],
+    "total_amount": "5",
+    "spent_by_me": "5",
+    "received_by_me": "0",
+    "my_balance_change": "-5",
+    "block_height": 0,
+    "timestamp": 1738799040,
+    "fee_details": {
+      "type": "Tron",
+      "coin": "TRX",
+      "bandwidth_used": 345,
+      "energy_used": 29650,
+      "bandwidth_fee": "0.345000",
+      "energy_fee": "12.453000",
+      "total_fee": "12.798000"
+    },
+    "coin": "USDT-TRC20",
+    "internal_id": "",
+    "transaction_type": "StandardTransfer",
+    "memo": null
+  },
+  "id": 0
+}
+```
+
+For TRC20 token withdrawals, the `fee_details.coin` is always `TRX` because fees are paid in the platform coin. The `spent_by_me` and `my_balance_change` reflect the token amount only — the TRX fee is deducted from the TRX balance separately.
+
+#### Withdraw TRC20 token gaslessly (GasFree)
+
+When `fee_method` is `gasless`, the TRC20 token is transferred through a [GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) provider and the fee is paid in the token itself — no TRX is required. The platform coin must have been activated with a [tron\_gasless\_provider](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config).
+
+A gasless withdrawal does not produce a broadcastable `tx_hex`. Instead it returns a **signed GasFree authorization** (the `relay_type: "tron_gasfree"` payload) together with a `fee_details` object of type [`TronGasless`](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee). The `fee_details.trace_id` is `null` at this stage — the transfer has not yet been submitted.
+
+```json
+{
+  "mmrpc": "2.0",
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "withdraw",
+  "params": {
+    "coin": "USDT-TRC20",
+    "to": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+    "amount": "5",
+    "fee_method": "gasless",
+    "gasless": {
+      "max_fee": "5",
+      "fallback_to_native": false
+    }
+  },
+  "id": 0
+}
+```
+
+#### Response (signed gasless authorization)
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "relay_type": "tron_gasfree",
+    "chain_id": "728126428",
+    "coin": "USDT-TRC20",
+    "from_address": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+    "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+    "verifying_contract": "THQGuFzL87ZqhxkgqYEryRAd7gqFqL5rdc",
+    "signed_authorization": {
+      "token": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+      "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E",
+      "user": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+      "receiver": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+      "value": "5000000",
+      "max_fee": "5000000",
+      "deadline": "1745441554",
+      "version": "1",
+      "nonce": "9",
+      "sig": "1c8f...e01b"
+    },
+    "created_at": "2026-04-23T20:47:34Z",
+    "from": ["TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC"],
+    "to": ["TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC"],
+    "total_amount": "5",
+    "spent_by_me": "7",
+    "received_by_me": "0",
+    "my_balance_change": "-7",
+    "block_height": 0,
+    "timestamp": 1745441254,
+    "fee_details": {
+      "type": "TronGasless",
+      "coin": "USDT-TRC20",
+      "fee_method": "gasless",
+      "provider_name": "gasfree",
+      "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+      "transfer_fee": "2.000000",
+      "total_token_fee": "2.000000",
+      "signed_max_fee": "5.000000",
+      "trace_id": null
+    },
+    "internal_id": "",
+    "transaction_type": "StandardTransfer",
+    "memo": null
+  },
+  "id": 0
+}
+```
+
+To execute the transfer, submit the signed authorization to the provider with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/), passing the payload as a `tx_json` object (note the `relay_type: "tron_gasfree"` field). The submit response returns the `trace_id` and initial `state`:
+
+```json
+{
+  "userpass": "RPC_UserP@SSW0RD",
+  "method": "send_raw_transaction",
+  "coin": "USDT-TRC20",
+  "tx_json": {
+    "relay_type": "tron_gasfree",
+    "chain_id": "728126428",
+    "coin": "USDT-TRC20",
+    "from_address": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+    "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+    "verifying_contract": "THQGuFzL87ZqhxkgqYEryRAd7gqFqL5rdc",
+    "signed_authorization": {
+      "token": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+      "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E",
+      "user": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+      "receiver": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+      "value": "5000000",
+      "max_fee": "5000000",
+      "deadline": "1745441554",
+      "version": "1",
+      "nonce": "9",
+      "sig": "1c8f...e01b"
+    },
+    "created_at": "2026-04-23T20:47:34Z"
+  }
+}
+```
+
+#### Response (submitted)
+
+```json
+{
+  "relay_type": "tron_gasfree",
+  "trace_id": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0",
+  "state": "WAITING"
+}
+```
+
+The fee is paid in the token: `spent_by_me` (and `my_balance_change`) include the token-denominated provider fee (`total_token_fee`) on top of the transfer amount — in the example above, 5 USDT transferred + 2 USDT fee = 7 USDT spent. Track the submitted transfer with [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/), or subscribe to live updates via [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/), using the returned `trace_id`.
+
+HD-wallet withdrawals additionally include an `hd_from` object in the relay payload identifying the signing address. Pass the whole payload back to `send_raw_transaction` **verbatim** — `hd_from` is required there to validate wallet ownership, and any unknown extra key in `tx_json` is rejected.
+
 ### Error Responses
+
+#### Gasless (GasFree) errors
+
+A gasless withdrawal that cannot be served returns an error, unless `gasless.fallback_to_native: true` was set — in that case, deterministic gasless-unavailable conditions (no provider, insufficient GasFree balance, unsupported token) fall back to a normal native (TRX-paid) transfer instead. These errors arrive with `error_type: "Gasless"` and the specific variant nested in `error_data`:
+
+| Variant                                 | HTTP status | Description                                                                                                                                   |
+| --------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unavailable                             | 503         | Gasless is not available for this coin or request (e.g. no provider configured, or the token was not activated with `gasless.enabled: true`). |
+| PendingTransfer                         | 409         | A gasless transfer is already pending for this account; wait for settlement and retry.                                                        |
+| MaxFeeExceeded                          | 400         | The provider's quoted fee exceeds the requested `max_fee` cap.                                                                                |
+| InsufficientGasFreeBalance              | 400         | Not enough tokens in the GasFree custody address to cover amount + transfer fee. Carries `coin`, `available`, and `required` amounts.         |
+| InsufficientGasFreeBalanceForActivation | 400         | As above, but the account is not yet activated, so the one-time `activation_fee` is included in `required`.                                   |
+| QuoteExpired                            | 400         | The signed quote expired before submission; request a new withdrawal.                                                                         |
+| ProviderRejected                        | 502         | The GasFree provider rejected the transfer.                                                                                                   |
+| InvalidProviderResponse                 | 502         | The GasFree provider returned an invalid response.                                                                                            |
+
+An `InvalidFee` error (not nested under `Gasless`) is returned when `gasless` options are sent without `fee_method: "gasless"`, or when `deadline_seconds` is `0`.
+
+##### Error (insufficient GasFree balance)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Not enough USDT-TRC20 in your GasFree deposit address: available 0, required 8 (incl. one-time activation fee 1.5). Deposit USDT-TRC20 into your GasFree address.",
+    "error_path": "withdraw",
+    "error_trace": "withdraw:199]",
+    "error_type": "Gasless",
+    "error_data": {
+        "error_type": "InsufficientGasFreeBalanceForActivation",
+        "error_data": {
+            "coin": "USDT-TRC20",
+            "available": "0",
+            "required": "8",
+            "activation_fee": "1.5"
+        }
+    },
+    "id": 0
+}
+```
 
 #### InvalidRequest: Unknown fee type
 
@@ -62817,6 +63611,11 @@ export const description =
 ### UTXO Management Enhancement
 
 This upcoming release introduces improved UTXO management capabilities to help users optimize their wallet performance and transaction efficiency.
+
+#### 🔗 TRON Support (Wallet-Only)
+
+*   **feat(tron): add TRON wallet support** [PR #2714](https://github.com/KomodoPlatform/komodo-defi-framework/pull/2714): Added wallet-only support for TRON (TRX) and TRC20 tokens. Users can activate TRX via `enable_eth_with_tokens` or `task::enable_eth::init`, query balances, and perform withdrawals (both TRX and TRC20). TRON uses HTTP API nodes and Base58Check addresses (`T...` format). HD wallet derivation follows BIP44 with SLIP-44 coin type 195 (`m/44'/195'`). Atomic swaps are not yet supported for TRON-based coins.
+*   **feat(tron): gasFree gasless TRC20 transfers** [PR #XXXX](https://github.com/KomodoPlatform/komodo-defi-framework/pull/XXXX): Added gasless TRC20 transfers on TRON via GasFree, letting users send TRC20 tokens (e.g. USDT) without holding TRX — the fee is paid in the transferred token. Activate a TRON platform coin with a [`tron_gasless_provider`](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config) (direct GasFree API or Komodo proxy), withdraw with `fee_method: "gasless"`, submit the signed authorization via `send_raw_transaction`, and track status with [`gasless::trace_status`](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) or [`stream::gasless_trace::enable`](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/). The activation and balance responses surface each address's GasFree custody address (`gasfree_address`). See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/).
 
 #### 🔧 UTXO Optimization
 
@@ -66900,6 +67699,61 @@ ssh -o IdentitiesOnly=yes -i ~/.ssh/kdf.pem admin@$nodeIp 'curl -s --url "http:/
 ```
 
 Edit the command above as necessary to exchange one curl command for another from [the Komodo DeFi Framework API.](/komodo-defi-framework/api/)
+export const title = "TRON GasFree: Gasless TRC20 Transfers";
+export const description =
+  "How gasless TRC20 transfers work on TRON in the Komodo DeFi Framework: GasFree custody addresses, TIP-712 permits, providers, token-paid fees, and status tracking.";
+
+# TRON GasFree: Gasless TRC20 Transfers
+
+GasFree lets users send TRC20 tokens (e.g. USDT) on TRON **without holding TRX for gas**. The transfer fee is paid in the transferred token itself, and a GasFree service provider broadcasts the transaction on-chain on the user's behalf in exchange for that token fee.
+
+GasFree applies to **TRC20 token transfers only** (wallet withdrawals). Native TRX transfers and atomic swaps are not gasless. TRON support in the Komodo DeFi Framework is currently wallet-only.
+
+## How it works
+
+Each user address has a deterministic **GasFree custody address** — a smart-contract account derived from the user's address and a per-network controller contract (via TVM `CREATE2`). Tokens held at this custody address are eligible for gasless transfers.
+
+1.  **Activate** the TRON platform coin with a [`tron_gasless_provider`](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config), and on each TRC20 token a per-token `gasless` object with `enabled: true` (plus an optional `transfer_max_fee` cap) to opt it into gasless transfers. Activation returns each address's `gasfree_address` (see [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/)).
+2.  **Fund** the GasFree custody address with the token you want to transfer gaslessly. To inspect the custody account at any time — balance, activation state, current fees, and the largest gaslessly-sendable amount — use [gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/).
+3.  **Withdraw** with `fee_method: "gasless"` ([withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/)). The framework computes the provider fee, signs a TIP-712 `PermitTransferMessage` authorizing `{token, serviceProvider, user, receiver, value, maxFee, deadline, nonce}`, and returns the signed authorization (a `relay_type: "tron_gasfree"` payload) plus a `TronGasless` fee breakdown.
+4.  **Submit** the signed authorization to the provider via [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) (passed as a `tx_json` object). The provider pays the TRX gas, settles the transfer on-chain, and the call returns a `trace_id`.
+5.  **Track** the transfer with [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) (one-off poll) or [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) (live updates) using the `trace_id`.
+
+If the GasFree custody address has never been used, the first transfer also pays a one-time **activation fee** (in the token), reported as `activation_fee` in the `TronGasless` fee details.
+
+## Custody-first wallets
+
+Because deposits can be received **directly into** the GasFree custody address (no TRX involved), a wallet can treat the custody address as the user's token account: show the custody address as the receive address, display the custody balance ([gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/)) as the balance, and send gaslessly from it. In this model the user never needs to hold TRX at all — fees, including the one-time activation fee, are paid in the token.
+
+## Fees
+
+Fees are paid in the transferred token, not in TRX:
+
+*   `transfer_fee` — the provider's fee to broadcast and settle the transfer.
+*   `activation_fee` — a one-time fee, charged in the token, when the GasFree custody address is inactive and must be activated on its first transfer (omitted otherwise).
+*   `total_token_fee` — the total charged in the token (`transfer_fee` + `activation_fee`).
+
+You can cap the fee you are willing to pay with the `gasless.max_fee` option at withdraw time (which is bound into the signed permit), or at activation time with a per-token `gasless.transfer_max_fee`. Set `gasless.fallback_to_native: true` to fall back to a normal TRX-paid transfer when a gasless transfer is unavailable.
+
+The signed permit embeds a **deadline**: `now + gasless.deadline_seconds` from the withdraw request, default **300 s** (`deadline_seconds` must be greater than zero). The GasFree provider advertises its own accepted deadline range (currently 60–600 s). If the deadline passes before the authorization is submitted, `send_raw_transaction` fails with `GaslessAuthorizationExpired` — run a fresh `withdraw` to re-quote and re-sign.
+
+## Providers: direct vs Komodo proxy
+
+The `service` field of the [`tron_gasless_provider`](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config) selects how the node authenticates to the gasless backend:
+
+*   **`gas_free`** — the node calls the public GasFree API directly, authenticating each request with your own HMAC-SHA256 `api_key`/`api_secret`.
+*   **`komodo_proxy`** — requests are routed through the Komodo proxy, which holds the GasFree credentials on your behalf. No API secret is stored on the node; the node authenticates to the proxy with its libp2p key.
+
+When `service_provider` is not pinned in the activation config, the framework resolves it lazily on the **first gasless withdraw or submit** after activation: it fetches the provider list, keeps a configured address if the API still offers it (otherwise it falls back to the first listed provider, with a warning), and **caches the resolved address for the lifetime of the activation**. Switching providers therefore requires re-activating the token/platform coin.
+
+## Related methods
+
+*   [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) / [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/) — activate TRON with a GasFree provider.
+*   [gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/) — inspect the custody account (balance, activation state, fees, max sendable).
+*   [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) — create a gasless transfer (`fee_method: "gasless"`).
+*   [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) — submit the signed transfer to the provider.
+*   [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) — poll a transfer's status.
+*   [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) — stream live transfer status.
 export const title = "Using Komodo DeFi Framework CLI in Console";
 export const description = "This guide details the configuration and usage of the komodefi-cli binary.";
 
