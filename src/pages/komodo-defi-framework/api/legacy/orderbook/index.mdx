@@ -7,6 +7,10 @@ export const description = "The legacy orderbook method requests currently avail
 
 The `orderbook` method requests from the network the currently available orders for the specified trading pair.
 
+<Note>
+  This method returns an error for a pair that has an order for a coin whose maker address it can't derive: ZHTLC (ARRR), SIA, and Solana coins. Use the v2 [orderbook](/komodo-defi-framework/api/v20/swaps_and_orders/orderbook/) instead, which reports such an address as `Shielded`.
+</Note>
+
 ## Arguments
 
 | Structure | Type   | Description                                          |

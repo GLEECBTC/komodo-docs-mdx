@@ -574,7 +574,7 @@
         "parameter": "type",
         "type": "string",
         "required": true,
-        "description": "The fee type. Either `Utxo`, `Tendermint`, `Qrc20`, `Eth`, `Tron`, or `TronGasless` (for TRON gasless TRC20 transfers routed through GasFree)."
+        "description": "The fee type. Either `Utxo`, `Tendermint`, `Qrc20`, `Eth`, `Solana`, `Tron`, or `TronGasless` (for TRON gasless TRC20 transfers routed through GasFree)."
       },
       {
         "parameter": "amount",
@@ -586,7 +586,7 @@
         "parameter": "coin",
         "type": "string",
         "required": true,
-        "description": "The coin which will be used to pay the transaction fee."
+        "description": "The coin which will be used to pay the transaction fee. Not present for the `Solana` type, whose fees are always paid in SOL."
       },
       {
         "parameter": "gas",
@@ -623,6 +623,24 @@
         "type": "numeric string",
         "required": false,
         "description": "`Qrc20` type only. Gas price multiplied by gas amount."
+      },
+      {
+        "parameter": "fee_amount",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Solana` type only. The network fee in SOL: the base fee per signature plus the priority fee."
+      },
+      {
+        "parameter": "rent_amount",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Solana` type only. SOL paid as rent to open the recipient's token account, when an SPL token transfer has to create one; `0` otherwise. The rent stays in the new account rather than being burned."
+      },
+      {
+        "parameter": "total_amount",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Solana` type only. The total SOL cost of the transaction: `fee_amount` plus `rent_amount`."
       },
       {
         "parameter": "bandwidth_used",

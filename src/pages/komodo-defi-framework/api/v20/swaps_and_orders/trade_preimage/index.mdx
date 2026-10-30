@@ -15,6 +15,10 @@ Depending on the parameters, the function returns different results:
   Use the resulting `volume` as an argument of the `buy` or `sell` requests.
 </Note>
 
+<Note>
+  For Solana coins, the fees are upper bounds paid in SOL, also for SPL tokens, and include rent that is returned when the swap's payment settles. See [Solana swap fees](/komodo-defi-framework/tutorials/solana/#swap-fees).
+</Note>
+
 <Note type="warning">
   Use the `trade_preimage` request with `max = true` and `swap_method = "setprice"` arguments to approximate the fee amounts **only**. Do not use the resulting `volume` as an argument of the `setprice`.
 </Note>

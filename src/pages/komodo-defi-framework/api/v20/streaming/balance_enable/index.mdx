@@ -16,6 +16,10 @@ Using this method, you can enable balance events streaming for a specific coin, 
   The selected coin must be enabled prior to enabling streaming.
 </Note>
 
+<Note>
+  For Solana, enable the stream on the platform coin (e.g. `SOL`), not on its tokens. That one stream reports SOL and every SPL token activated with it, including tokens activated after the stream started. Each event's `message` is a list of `{"ticker", "balance"}` entries, one for each coin whose balance changed. Balances are polled every 10 seconds, and `config` must not be set.
+</Note>
+
 ### Response Parameters
 
 <CompactTable source="v2/streaming.BalanceEnableResponseParameters" />

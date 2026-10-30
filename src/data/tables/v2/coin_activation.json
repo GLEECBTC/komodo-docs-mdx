@@ -1007,5 +1007,112 @@
         "description": "Depending on the state of process progress, this will contain different information as detailed in the items below."
       }
     ]
+  },
+  "EnableSolanaWithAssetsArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the Solana platform coin, as it appears in the coins file (e.g. `SOL`, or a devnet entry such as `SOL-DEV`). Its `protocol.type` must be `SOLANA`."
+      },
+      {
+        "parameter": "nodes",
+        "type": "array of objects",
+        "required": true,
+        "description": "Solana JSON-RPC endpoints, each an object with a single `url` field, e.g. `{\"url\": \"https://api.mainnet-beta.solana.com\"}`. At least one is required. The first reachable node is used, and the next one is tried when it stops responding. Transaction history and swap recovery read `getSignaturesForAddress`, so use nodes that keep transaction history."
+      },
+      {
+        "parameter": "tokens_params",
+        "type": "array of objects",
+        "required": true,
+        "description": "SPL tokens to activate along with the platform coin, each an object with the token's `ticker` (e.g. `{\"ticker\": \"USDC-SOL\"}`). Each token's `protocol.platform` in the coins file must be this platform coin. Pass an empty array to activate SOL alone."
+      },
+      {
+        "parameter": "tx_history",
+        "type": "boolean",
+        "required": false,
+        "default": "`false`",
+        "description": "If `true`, the Komodo DeFi Framework API fetches the transaction history of SOL and of every token activated with it in the background. Must be `true` to use [my\\_tx\\_history (v2)](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) or [stream::tx\\_history::enable](/komodo-defi-framework/api/v20/streaming/tx_history_enable/) with these coins."
+      }
+    ]
+  },
+  "EnableSolanaWithAssetsResponse": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the platform coin, as input in the request."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet's Solana address (a base58-encoded ed25519 public key)."
+      },
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "The current slot of the cluster."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object with the SOL balance."
+      },
+      {
+        "parameter": "tokens_balances",
+        "type": "object",
+        "required": true,
+        "description": "The balance of each token activated with the platform coin, keyed by ticker. Each value is a standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      }
+    ]
+  },
+  "EnableSolanaTokenArguments": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the SPL token, as it appears in the coins file (e.g. `USDC-SOL`). Its `protocol.type` must be `SOLANATOKEN`, and the platform coin named in its `protocol.platform` must already be activated."
+      },
+      {
+        "parameter": "activation_params",
+        "type": "object",
+        "required": true,
+        "description": "Token-specific activation parameters. SPL tokens take none, so pass an empty object: `{}`."
+      }
+    ]
+  },
+  "EnableSolanaTokenResponse": {
+    "data": [
+      {
+        "parameter": "ticker",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of the token, as input in the request."
+      },
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "The wallet's address, the same as the platform coin's. Share it to receive the token."
+      },
+      {
+        "parameter": "current_block",
+        "type": "integer",
+        "required": true,
+        "description": "The current slot of the cluster."
+      },
+      {
+        "parameter": "balance",
+        "type": "object",
+        "required": true,
+        "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object with the token balance. A wallet that has never held the token reports a balance of `0`."
+      }
+    ]
   }
 }
