@@ -1,0 +1,109 @@
+# Auto PR from Issues Workflow
+# 
+# This workflow automatically creates pull requests for documentation updates
+# based on issues labeled with "ai-draft-pr".
+#
+# IMPORTANT: Follows AI Agent Reference Guide principles:
+# - Creates documentation files with proper {{label}} attributes
+# - Updates sidebar.json manually
+# - Lets build scripts auto-generate API index and file path slugs
+# - Validates documentation structure with test suite
+#
+# See: AI_AGENT_REFERENCE_GUIDE.md for complete documentation requirements
+
+name: Auto PR from Issues
+
+on:
+  schedule:
+    - cron: "30 4 * * *"   # Daily at 4:30 AM UTC
+  workflow_dispatch:       # Allow manual triggering
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no PRs created)'
+        required: false
+        default: false
+        type: boolean
+      issue_numbers:
+        description: 'Specific issue numbers to process (comma-separated)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+env:
+  TARGET_OWNER: KomodoPlatform
+  TARGET_REPO: komodo-docs-mdx
+  AUTO_PR_LABEL: "ai-draft-pr"
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '.github/package-lock.json'
+          
+      - name: Install dependencies
+        working-directory: .github
+        run: npm ci --only=production
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Activate Python venv and install dependencies
+        run: |
+          source utils/py/.venv/bin/activate
+          pip install --upgrade pip
+          if [ -f utils/py/requirements.txt ]; then
+            pip install -r utils/py/requirements.txt
+          fi
+        
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run auto PR creation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # OpenAI API key for AI-generated content (optional)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || '' }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          SPECIFIC_ISSUES: ${{ inputs.issue_numbers || '' }}
+        run: |
+          # Run the auto-PR creation script from .github directory
+          cd .github
+          node scripts/auto-pr-from-issues.js
+          
+          # Return to root and validate generated documentation
+          cd ..
+          echo "Validating generated documentation..."
+          source utils/py/.venv/bin/activate
+          ./utils/run_tests.sh
+        
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "## Auto PR Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Mode | ${{ inputs.dry_run == 'true' && 'DRY RUN (testing)' || 'WET RUN (creates PRs)' }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Repository | ${{ env.TARGET_OWNER }}/${{ env.TARGET_REPO }}" >> $GITHUB_STEP_SUMMARY

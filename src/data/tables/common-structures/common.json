@@ -1,0 +1,266 @@
+{
+  "EventStreamConfig": {
+    "data": [
+      {
+        "parameter": "access_control_allow_origin",
+        "type": "string",
+        "required": false,
+        "description": "Defines CORS whitelist. Use \"*\" to allow from any origin."
+      },
+      {
+        "parameter": "worker_path",
+        "type": "string",
+        "required": false,
+        "description": "WASM only. Path to a custom `worker.js` file."
+      }
+    ]
+  },
+  "FractionalValue": {
+    "data": [
+      {
+        "parameter": "numer",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "The numerator of the fractional value."
+      },
+      {
+        "parameter": "denom",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "The denominator of the fractional value."
+      }
+    ]
+  },
+  "NumericFormatsValue": {
+    "data": [
+      {
+        "parameter": "decimal",
+        "type": "numeric string",
+        "required": true,
+        "description": "A decimal number as a string."
+      },
+      {
+        "parameter": "rational",
+        "type": "object",
+        "required": true,
+        "description": "A standard [RationalValue](/komodo-defi-framework/api/common_structures/#rational-value) object."
+      },
+      {
+        "parameter": "fraction",
+        "type": "object",
+        "required": true,
+        "description": "A standard [FractionalValue](/komodo-defi-framework/api/common_structures/#fractional-value) object."
+      }
+    ]
+  },
+  "PagingOptions": {
+    "data": [
+      {
+        "parameter": "from_uuid",
+        "type": "string (or null)",
+        "required": false,
+        "default": "null",
+        "description": "Skips records until this UUID, excluding the record with this UUID. Convenient for infinite scrolling implementations."
+      },
+      {
+        "parameter": "limit",
+        "type": "number",
+        "required": false,
+        "description": "Limits the number of returned swaps."
+      },
+      {
+        "parameter": "page_number",
+        "type": "number",
+        "required": false,
+        "description": "Returns limit swaps from the selected page. This parameter is ignored if from_uuid is set."
+      }
+    ]
+  },
+  "Pagination": {
+    "data": [
+      {
+        "parameter": "PageNumber",
+        "type": "integer",
+        "required": false,
+        "default": "1",
+        "description": "Offset for paginated results"
+      },
+      {
+        "parameter": "FromId",
+        "type": "integer",
+        "required": false,
+        "description": "Ignores any results prior to this UUID"
+      }
+    ]
+  },
+  "StreamingConfig": {
+    "data": [
+      {
+        "parameter": "stream_interval_seconds",
+        "type": "float",
+        "required": false,
+        "default": "10/5",
+        "description": "Optional, defaults to `10`/`5`. Interval in seconds between streaming event update requests. Defaults to `10` for [stream::balance::enable](/komodo-defi-framework/api/v20/streaming/balance_enable/) and `5` for [stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/)/[stream::heartbeat::enable](/komodo-defi-framework/api/v20/streaming/heartbeat_enable/)"
+      },
+      {
+        "parameter": "always_send",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "[stream::network::enable](/komodo-defi-framework/api/v20/streaming/network_enable/) only. If `true`, network data will always be sent every `stream_interval_seconds`, even when there is no change. If `false`, network data will be sent regardless."
+      }
+    ]
+  },
+  "StreamingFeeConfig": {
+    "data": [
+      {
+        "parameter": "estimate_every",
+        "type": "float",
+        "required": false,
+        "default": "15",
+        "description": "Interval in seconds between fee estimate updates."
+      },
+      {
+        "parameter": "estimate_type",
+        "type": "string",
+        "required": false,
+        "default": "Simple",
+        "description": "If set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/) Used in [get_eth_estimated_fee_per_gas](/komodo-defi-framework/api/v20/streaming/fee_estimator/) only."
+      }
+    ]
+  },
+  "SyncStatus": {
+    "data": [
+      {
+        "parameter": "state",
+        "type": "string",
+        "required": true,
+        "description": "Current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished`"
+      },
+      {
+        "parameter": "additional_info",
+        "type": "object",
+        "required": true,
+        "description": "A standard [SyncStatusExtended](/komodo-defi-framework/api/common_structures/#sync-status-extended) object. Additional info that helps to track the progress; present for `InProgress` and `Error` states only."
+      }
+    ]
+  },
+  "SyncStatusExtended": {
+    "data": [
+      {
+        "parameter": "blocks_left",
+        "type": "number",
+        "required": false,
+        "description": "Present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state"
+      },
+      {
+        "parameter": "transactions_left",
+        "type": "number",
+        "required": false,
+        "description": "Present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state"
+      },
+      {
+        "parameter": "code",
+        "type": "number",
+        "required": false,
+        "description": "Displays the error code for `Error` state"
+      },
+      {
+        "parameter": "message",
+        "type": "number",
+        "required": false,
+        "description": "Displays the error message for `Error` state"
+      }
+    ]
+  },
+  "WcConnNs": {
+    "data": [
+      {
+        "parameter": "chains",
+        "type": "list of strings",
+        "required": true,
+        "description": "A list of chain IDs. For EIP155, refer to [https://chainid.network/](https://chainid.network/). For Cosmos, refer to [https://cosmos.directory/](https://cosmos.directory/)"
+      },
+      {
+        "parameter": "methods",
+        "type": "list of strings",
+        "required": true,
+        "description": "A list of approved methods, usable while connected. For EIP155, refer to [https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/ethereum-rpc). For Cosmos, refer to [https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc](https://docs.reown.com/advanced/multichain/rpc-reference/cosmos-rpc)"
+      },
+      {
+        "parameter": "events",
+        "type": "list of strings",
+        "required": true,
+        "description": "A list of events to track during the connection. For EIP155, refer to [https://docs.reown.com/advanced/providers/ethereum#events](https://docs.reown.com/advanced/providers/ethereum#events). For Cosmos, refer to [https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html](https://tutorials.cosmos.network/academy/2-cosmos-concepts/10-events.html)"
+      }
+    ]
+  },
+  "WcSession": {
+    "data": [
+      {
+        "parameter": "topic",
+        "type": "string",
+        "required": true,
+        "description": "The session topic hex string, used to identify the session for communications with the external wallet/dapp."
+      },
+      {
+        "parameter": "metadata",
+        "type": "object",
+        "required": true,
+        "description": "Arbitrary data returned from the external wallet/dapp on connection."
+      },
+      {
+        "parameter": "pairing_topic",
+        "type": "string",
+        "required": true,
+        "description": "The pairing topic hex string, used for the initial external wallet/dapp connection."
+      },
+      {
+        "parameter": "namespaces",
+        "type": "object",
+        "required": true,
+        "description": "Contains the same two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects for Cosmos/EIP155 which were input when initialising the connection via [wc_new_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)."
+      },
+      {
+        "parameter": "expiry",
+        "type": "integer",
+        "required": true,
+        "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/) indicating when the connection will expire if not otherwise closed."
+      }
+    ]
+  },
+  "ErrorResponse": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "A human-readable error message."
+      },
+      {
+        "parameter": "error_path",
+        "type": "string",
+        "required": true,
+        "description": "The path in the code where the error occurred."
+      },
+      {
+        "parameter": "error_trace",
+        "type": "string",
+        "required": true,
+        "description": "A stack trace of the error."
+      },
+      {
+        "parameter": "error_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of the error."
+      },
+      {
+        "parameter": "error_data",
+        "type": "object",
+        "required": true,
+        "description": "Additional data related to the error."
+      }
+    ]
+  }
+}

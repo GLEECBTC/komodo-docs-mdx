@@ -76,6 +76,198 @@ For example:
 | max       | boolean | Optional, defaults to `false`. Send whole balance.                                            |
 | memo      | string  | Optional, used for ZHTLC and Tendermint coins only. Attaches a memo to the transaction.       |
 
+### CompactTable Component
+
+For improved table layout and responsive design, use the `CompactTable` component instead of standard markdown tables when dealing with API parameters. The `CompactTable` component allows pulling table data from centralized JSON files and generating tables from the data. This ensures consistency and maintainability across the documentation.
+
+#### How CompactTable Works
+
+CompactTable uses a source attribute that references table data stored in JSON files:
+- Table data is stored in `/src/data/tables/` directory
+- Data is organized by subdirectory: `common-structures/`, `v2/`, etc.
+- Each JSON file contains multiple table definitions
+- Tables are referenced using the format: `directory/filename.tablename`
+
+#### Import and Usage
+
+The CompactTable component is globally imported. To use it with a source reference:
+```jsx
+<CompactTable source="common-structures/activation.ActivationMode" />
+```
+
+With variant option:
+```jsx
+<CompactTable source="v2/streaming.BalanceEnableRequestParameters" variant="compact" />
+```
+
+#### Source Reference Format
+
+The `source` attribute follows this pattern:
+- `directory/filename.tablename`
+- Examples:
+  - `common-structures/activation.ActivationMode`
+  - `v2/utils.GetTokenInfoRequest`
+  - `common-structures/wallet.BalanceInfo`
+
+#### JSON Data Structure
+
+Table data files are located in `/src/data/tables/` and follow this structure:
+
+```json
+{
+  "TableName": {
+    "title": "Table Title (optional)",
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "The name of the coin to activate. Can include [markdown links](/path/to/page/)."
+      },
+      {
+        "parameter": "amount",
+        "type": "float",
+        "required": false,
+        "default": "0",
+        "description": "Optional. The amount to send."
+      }
+    ]
+  }
+}
+```
+
+#### When to Use CompactTable
+
+- **API documentation** with parameter tables
+- **Common structures** used across multiple methods
+- **Consistent data structures** that need central management
+- **Tables with complex descriptions** including internal links
+
+#### Variants
+
+- **Default**: Standard table layout with all columns
+- **`compact`**: Reduced spacing for dense pages with many tables
+- **`minimal`**: Simplified layout for sidebars or quick reference
+
+#### Benefits
+
+- **Centralized data management**: Update table data in one place
+- **Consistency**: Ensures uniform table structure across docs
+- **Validation**: JSON schema validation ensures data integrity
+- **Link validation**: Internal links in descriptions are automatically validated
+- **Reusability**: Same table data can be referenced from multiple pages
+
+#### Migration from Standard Tables
+
+**Before (problematic layout):**
+```markdown
+| Parameter | Type | Required | Default | Description |
+| --------- | ---- | :------: | :-----: | ----------- |
+| coin      | string |    ✓   |   `-`   | Name of coin |
+```
+
+**After (space-efficient):**
+```jsx
+<CompactTable data={[
+  { parameter: "coin", type: "string", required: true, description: "Name of coin" }
+]} />
+```
+
+#### Miscellanious
+
+Also supports sending data directly, but not encouraged.
+
+```jsx
+<CompactTable 
+  data={[
+    {
+      parameter: "coin",
+      type: "string", 
+      required: true,
+      description: "The name of the coin the user desires to activate."
+    },
+    {
+      parameter: "amount",
+      type: "float",
+      required: false,
+      default: "false", 
+      description: "The amount of balance to send."
+    }
+  ]}
+/>
+```
+
+### KdfResponses Component
+
+The `KdfResponses` component is used to display API responses for Komodo DeFi Framework methods. It automatically generates response examples from centralized JSON data files, ensuring consistency across documentation.
+
+#### How KdfResponses Works
+
+KdfResponses pulls response data from JSON files stored in `/src/data/responses/kdf/`:
+- Response data is organized by subdirectory: `legacy/`, `v2/`, etc.
+- Each JSON file contains multiple response definitions
+- Responses are referenced using the `responseKey` attribute
+
+#### Usage
+
+The KdfResponses component is globally imported already. To use it:
+
+```jsx
+<KdfResponses responseKey="legacy/coin_activation.LegacyElectrumBch" />
+```
+
+#### Response Key Format
+
+The `responseKey` attribute follows this pattern:
+- `directory/filename.responsename`
+- Examples:
+  - `legacy/coin_activation.LegacyElectrumBch`
+  - `legacy/coin_activation.LegacyEnableNative`
+  - `v2/activation.EnableCoinResponse`
+
+#### JSON Data Structure
+
+Response data files are located in `/src/data/responses/kdf/` and follow this structure:
+
+```json
+{
+  "ResponseName": {
+    "type": "success",
+    "title": "Response (successful activation)",
+    "description": "Optional description of the response",
+    "data": {
+      "result": {
+        "address": "RNacVDT8GwQ54CWe5PkEUemLz3WPapEXH9",
+        "balance": "0",
+        "coin": "KMD"
+      }
+    }
+  }
+}
+```
+
+#### When to Use KdfResponses
+
+- **API method responses**: Display standardized response examples
+- **Success responses**: Show expected successful returns
+- **Error responses**: Document potential error states
+- **Multiple response variations**: Different responses based on request parameters
+
+#### Benefits
+
+- **Centralized response management**: Update responses in one place
+- **Consistency**: Ensures uniform response structure across docs
+- **Validation**: JSON schema validation ensures data integrity
+- **Reusability**: Same response data can be referenced from multiple pages
+- **Automatic formatting**: Responses are automatically formatted as JSON code blocks
+
+#### Best Practices
+
+- Place `KdfResponses` immediately after the corresponding `CodeGroup` request example
+- Use descriptive response names that match the method name
+- Include both successful and error responses where applicable
+- Group related responses in the same JSON file
+
 ## Variables
 
 - For Komodo DeFi Framework API methods, the userpass variable should always be `RPC_UserP@SSW0RD`

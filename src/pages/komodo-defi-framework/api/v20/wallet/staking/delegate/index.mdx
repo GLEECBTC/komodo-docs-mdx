@@ -1,0 +1,208 @@
+export const title = "Komodo DeFi Framework Method: Add Delegation";
+export const description =
+  "The experimental::staking::delegate method initiates your node's staking of a compatible coin.";
+
+# Delegate
+
+The `experimental::staking::delegate` method initiates your node's staking of a compatible coin. Currently QTUM and tQTUM (test tokens avalable at `https://testnet-faucet.qtum.info/`), along with Cosmos/Tendermint coins are supported.
+
+After running `experimental::staking::delegate`, you will need to broadcast the returned hex via [`send_raw_transaction`](/komodo-defi-framework/api/legacy/send_raw_transaction/) to complete the process.
+
+<Note>
+  Only UTXOs of 100 QTUM / tQTUM will be actively staked. It is recomended to consolidate your balance into a single UTXO before initiating delegated staking.
+  Staking will only work with legacy QTUM addresses (segwit addresses are not supported).
+</Note>
+
+## Arguments
+
+| Structure        | Type   | Description                                                                                               |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------- |
+| coin             | string | the coin being staked                                                                                     |
+| staking\_details | object | A standard [StakingDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-details) object. |
+
+#### 📌 Examples
+
+#### QTUM Command (testnet)
+
+<CodeGroup title="" tag="POST" label="experimental::staking::delegate" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::delegate",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "tQTUM",
+      "staking_details": {
+        "type": "Qtum",
+        "address": "qbgHcqxXYHVJZXHheGpHwLJsB5epDUtWxe"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "tx_hex": "0100000001869eb3e812935cee3263c6323cb05630e641336f0e583e0264e3276e29dfb2d5000000006a47304402201655fe912a77a174df3646a701f933aae2ca26acb39e2c35b639965484eb7fc70220148171692e549b56bbbdb6e6980e73b0443b7f917145af6b7f673c61e843eca5012103d7cfe014b2003325143ddbed524181505138fd5e1dd46e0f766961b9b00963c9ffffffff020000000000000000fd0301540310552201284ce44c0e968c000000000000000000000000c6c08d9ecb35760356219860553bfc7c19c26b44000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000411f054a77805925c41aff71f3ccf93b02b776897cdce7a2008e0e78b1717614931a7e28a56271219673e3866b8fa09ba3e75465d5c124258ae1acb44757c5699a1100000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000086c200955154010000001976a914cb1514e3cf7ca146faec5b9fe3d089e93bd107ae88ac3d220668",
+          "tx_hash": "f7df3204d489d215685e4a00781671ead406826edecd0e46f363664727001902",
+          "from": [
+              "qc5BakMDwHqXyCfA97SpZ7f6pTzc2kYa9W"
+          ],
+          "to": [
+              "qc5BakMDwHqXyCfA97SpZ7f6pTzc2kYa9W"
+          ],
+          "total_amount": "58",
+          "spent_by_me": "58",
+          "received_by_me": "57.096",
+          "my_balance_change": "-0.904",
+          "block_height": 0,
+          "timestamp": 1745232445,
+          "fee_details": {
+              "type": "Qrc20",
+              "coin": "tQTUM",
+              "miner_fee": "0.004",
+              "gas_limit": 2250000,
+              "gas_price": 40,
+              "total_gas_fee": "0.9"
+          },
+          "coin": "tQTUM",
+          "internal_id": "",
+          "transaction_type": "StakingDelegation",
+          "memo": null
+      },
+      "id": null
+  }
+  ```
+
+  <Note>
+    To complete the transaction, the `tx_hex` value of the response needs to be broadcast using the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) method.
+  </Note>
+</CollapsibleSection>
+
+#### Tendermint Command
+
+<CodeGroup title="" tag="POST" label="experimental::staking::delegate" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::delegate",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "IRIS",
+      "staking_details": {
+        "type": "Cosmos",
+        "validator_address": "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat",
+        "amount": "7.77"
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "tx_hex": "0a99010a91010a232f636f736d6f732e7374616b696e672e763162657461312e4d736744656c6567617465126a0a2a696161316576323366633730306a7335643768767477303738357966617961617a7061776e3870687634122a69766131717139337361706d6463783336757a363476767735677a75657674787363376c6366787361741a100a057569726973120737373730303030189a96940e12670a4e0a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2103d7cfe014b2003325143ddbed524181505138fd5e1dd46e0f766961b9b00963c912040a02080112150a0f0a057569726973120631303031343310ecb80b1a405b59861c81ac7986c73ed67be059cd53fd06eb0a536b77f628c80d1152bed100554fbdab7f9d477eb991bea449415c68fa5e0390c9767ec55ab552888b3cd141",
+          "tx_hash": "AF6F47AC75758077BA9118AC06CEF086F8C5204FE0231543DE79B0830EB0F11E",
+          "from": [
+              "iaa1ev23fc700js5d7hvtw0785yfayaazpawn8phv4"
+          ],
+          "to": [
+              "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat"
+          ],
+          "total_amount": "7.870143",
+          "spent_by_me": "7.870143",
+          "received_by_me": "0",
+          "my_balance_change": "-7.870143",
+          "block_height": 0,
+          "timestamp": 0,
+          "fee_details": {
+              "type": "Tendermint",
+              "coin": "IRIS",
+              "amount": "0.100143",
+              "gas_limit": 187500
+          },
+          "coin": "IRIS",
+          "internal_id": "af6f47ac75758077ba9118ac06cef086f8c5204fe0231543de79b0830eb0f11e",
+          "transaction_type": "StakingDelegation",
+          "memo": ""
+      },
+      "id": null
+  }
+  ```
+
+  <Note>
+    To complete the transaction, the `tx_hex` value of the response needs to be broadcast using the [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) method.
+  </Note>
+</CollapsibleSection>
+
+### Error responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### AddressError
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "invalid bech32: '0x64B8eB36e3D0C10a23b85defe7f973143DC8153B'",
+      "error_path": "tendermint_coin",
+      "error_trace": "tendermint_coin:2362]",
+      "error_type": "AddressError",
+      "error_data": "invalid bech32: '0x64B8eB36e3D0C10a23b85defe7f973143DC8153B'",
+      "id": null
+  }
+  ```
+
+  #### Transport (insufficient funds)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Transport error: Could not read gas_info. Error code: 6 Message: rpc error: code = Unknown desc = failed to execute message; message index: 0: failed to delegate; 1121450000uiris is smaller than 7777770000uiris: insufficient funds [cosmos/cosmos-sdk@v0.50.11-lsm/x/bank/keeper/keeper.go:139] with gas used: '76175': unknown request",
+    "error_path": "tendermint_coin",
+    "error_trace": "tendermint_coin:2399] tendermint_coin:1098]",
+    "error_type": "Transport",
+    "error_data": "Could not read gas_info. Error code: 6 Message: rpc error: code = Unknown desc = failed to execute message; message index: 0: failed to delegate; 1121450000uiris is smaller than 7777770000uiris: insufficient funds [cosmos/cosmos-sdk@v0.50.11-lsm/x/bank/keeper/keeper.go:139] with gas used: '76175': unknown request",
+    "id": null
+  }
+  ```
+
+  #### NoSuchCoin (coin not active, or not supported)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such coin ATOM",
+    "error_path": "lp_coins",
+    "error_trace": "lp_coins:5228] lp_coins:5032]",
+    "error_type": "NoSuchCoin",
+    "error_data": {
+        "coin": "ATOM"
+    },
+    "id": null
+  }
+  ```
+
+  #### InvalidRequest (unsupported coin type)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Error parsing request: unknown variant `UTXO`, expected `Qtum` or `Cosmos`",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:122]",
+    "error_type": "InvalidRequest",
+    "error_data": "unknown variant `UTXO`, expected `Qtum` or `Cosmos`",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

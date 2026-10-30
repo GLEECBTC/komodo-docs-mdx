@@ -1,0 +1,306 @@
+export const title = "Komodo DeFi Framework Method: UTXO Coin Activation Tasks";
+export const description =
+  "The methods in this document allow task managed activation of UTXO coins.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Task: UTXO Activation
+
+## task::enable\_utxo::init {{label : 'task::enable_utxo::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of UTXO coins like KMD, LTC, BTC & DOGE. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+#### Arguments
+
+| Parameter                       | Type    | Description                                                                                                                                                                                                      |
+| ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ticker                          | string  | The ticker of the coin you want to enable.                                                                                                                                                                       |
+| activation\_params              | object  | An object containing the actvation parameters below.                                                                                                                                                             |
+| .priv\_key\_policy              | object  | Optional. A standard [PrivKeyPolicy](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) object. Defaults to `{"type": "ContextPrivKey"}`.                                                     |
+| .min\_addresses\_number         | integer | How many additional addreesses to generate at a minimum.                                                                                                                                                         |
+| .scan\_policy                   | string  | Whether or not to scan for new addresses. Select from `do_not_scan`, `scan_if_new_wallet` or `scan`. Note that `scan` will result in multple requests to the Komodo DeFi Framework.                              |
+| .gap\_limit                     | integer | The max number of empty addresses in a row. If transactions were sent to an address outside the `gap_limit`, they will not be identified when scanning.                                                          |
+| .mode                           | object  | An object containing RPC type and data parameters as below.                                                                                                                                                      |
+| ..rpc                           | string  | UTXO RPC mode. Options: `{ "rpc":"Native" }` if running a native blockchain node, or `"rpc":"Electrum"` to use electrum RPCs. If using electrum, a list of electrum servers is required under `rpc_data.servers` |
+| ..rpc\_data                     | object  | An object containing electrum server information.                                                                                                                                                                |
+| ...servers                      | list    | A list of electrum server URLs ([https://github.com/KomodoPlatform/coins/tree/master/electrums](https://github.com/KomodoPlatform/coins/tree/master/electrums))                                                  |
+| ....url                         | object  | The url and port of a coins electrum server                                                                                                                                                                      |
+| ....ws\_url                     | object  | Optional. Used to define electrum server url/port for websocket connections.                                                                                                                                     |
+| ....protocol                    | object  | Defines electrum server protocol as `TCP` or `SSL`. Defaults to `TCP`                                                                                                                                            |
+| ....disable\_cert\_verification | boolean | Optional. For `SSL` electrum connections, this will allow expired certificates.                                                                                                                                  |
+
+#### Response
+
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| task\_id  | integer | An identifying number which is used to query task status. |
+
+#### 📌 Examples
+
+#### Activation in Trezor mode
+
+<CodeGroup title="task::enable_utxo::init" tag="POST" label="task::enable_utxo::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoInit" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_utxo::status {{label : 'task::enable_utxo::status', tag : 'API-v2'}}
+
+After running the `task::enable_utxo::init` method, we can query the status of activation to check its progress.
+The response will return the following:
+
+*   Result of the task (success or error)
+*   Progress status (what state the task is in)
+*   Required user action (what user should do before the task can continue)
+
+#### Arguments
+
+| Parameter            | Type    | Description                                                                               |
+| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| task\_id             | integer | The identifying number returned when initiating the initialisation process.               |
+| forget\_if\_finished | boolean | If `false`, will return final response for completed tasks. Optional, defaults to `true`. |
+
+#### Command
+
+<CodeGroup title="task::enable_utxo::status" tag="POST" label="task::enable_utxo::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoStatus" />
+
+| Parameter | Type   | Description                                                                                                           |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| status    | string | A short indication of how the enabling is progressing.                                                                |
+| details   | object | Depending on the state of enabling progress, this will contain different information as shown in the responses below. |
+
+Possible `status` values while activation is in progress:
+
+*   `ActivatingCoin`: The first step of activation. It does not require any action from the user.
+*   `RequestingWalletBalance`: The first step of activation, while initial balances info is being requested. It does not require any action from the user.
+*   `Finishing`: Activation process completed
+*   `WaitingForTrezorToConnect`: Waiting for the user to plugin a Trezor device
+*   `FollowHwDeviceInstructions`: Waiting for the user to follow the instructions on the device
+
+Once complete, `status`  will be `Ok`, and the `details` object will have the following structure:
+
+#### Response (ready, successful, HD mode)
+
+| Parameter       | Type    | Description                                                                                                                                                                                                          |
+| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| current\_block  | integer | Block height of the coin being activated                                                                                                                                                                             |
+| ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                  |
+| wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the activation request. |
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "ticker": "KMD",
+            "current_block": 4230457,
+            "wallet_balance": {
+                "wallet_type": "HD",
+                "accounts": [
+                    {
+                        "account_index": 0,
+                        "derivation_path": "m/44'/141'/0'",
+                        "total_balance": {
+                            "KMD": {
+                                "spendable": "20",
+                                "unspendable": "0"
+                            }
+                        },
+                        "addresses": [
+                            {
+                                "address": "RMC1cWXngQf2117apEKoLh3x27NoG88yzd",
+                                "derivation_path": "m/44'/141'/0'/0/0",
+                                "chain": "External",
+                                "balance": {
+                                    "KMD": {
+                                        "spendable": "20",
+                                        "unspendable": "0"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "status": "Ok",
+        "details": {
+            "ticker": "KMD",
+            "current_block": 4230467,
+            "wallet_balance": {
+                "wallet_type": "Iguana",
+                "address": "RUYJYSTuCKm9gouWzQN1LirHFEYThwzA2d",
+                "balance": {
+                    "KMD": {
+                        "spendable": "1718.15606485",
+                        "unspendable": "0"
+                    }
+                }
+            }
+        }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (in progress)
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "RequestingWalletBalance"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Response (ready, error)
+
+| Parameter      | Type   | Description                                                                                                         |
+| -------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
+| status         | string | A short indication of how the requested process is progressing.                                                     |
+| details.result | object | Depending on the state of process progress, this will contain different information as detailed in the items below. |
+| .error         | string | The ticker of the coin being activated                                                                              |
+| .error\_path   | string | Used for debugging. A reference to the function in code base which returned the error                               |
+| .error\_trace  | string | Used for debugging. A trace of lines of code which led to the returned error                                        |
+| .error\_type   | string | An enumerated error identifier to indicate the category of error                                                    |
+| .error\_data   | string | Additonal context for the error type                                                                                |
+
+Possible Error Cases:
+
+*   `TaskTimedOut` - Timed out waiting for coin activation, connecting to the device trezor or for user to confirm pubkey)
+*   `CoinCreationError` - Error during activation. E.g. incorrect or inactive electrum servers.
+*   `HwError` - **This is the most important error type.** Unlike other error types, `HwError` requires the GUI / User to check the details in `error_data` field to know which action is required. View the [HwError error type details](/komodo-defi-framework/api/v20/utils/task_init_trezor/status/#details-for-hw-error-error-type) for more info.
+
+## task::enable\_utxo::user\_action {{label : 'task::enable_utxo::user_action', tag : 'API-v2'}}
+
+If the `task::enable_utxo::status` returns `UserActionRequired`, we need to use the `task::enable_utxo::user_action` method to enter our PIN
+
+#### Arguments
+
+| Parameter                 | Type            | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                      |
+| user\_action              | object          | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+#### Response
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_utxo::user_action" tag="POST" label="task::enable_utxo::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoUserAction" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_utxo::cancel {{label : 'task::enable_utxo::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+#### Arguments
+
+| Structure | Type    | Description                                                           |
+| --------- | ------- | --------------------------------------------------------------------- |
+| task\_id  | integer | The identifying number returned when initiating the enabling process. |
+
+#### Response
+
+| Structure    | Type   | Description                                                    |
+| ------------ | ------ | -------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was succesful.                     |
+| error        | string | An error message to explain what went wrong.                   |
+| error\_path  | string | An indicator of the class or function which reurned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown. |
+| error\_type  | string | An enumerated value for the returned error.                    |
+| error\_data  | string | The input task ID which resulted in the error.                 |
+
+<CodeGroup title="task::enable_utxo::cancel" tag="POST" label="task::enable_utxo::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableUtxoCancel" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (success - already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_standalone_coin.manager",
+    "error_trace": "init_standalone_coin:144] manager:101]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+
+  #### Response (error - no such task)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '3'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 3,
+    "id": null
+  }
+  ```
+</CollapsibleSection>

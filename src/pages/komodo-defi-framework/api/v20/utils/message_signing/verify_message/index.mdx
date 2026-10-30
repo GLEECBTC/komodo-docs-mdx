@@ -3,26 +3,21 @@ export const description = "The method in this document allows you to verify mes
 
 # Verify Message
 
-The `verify_Message` method allows one to confirm the authenticity of a signed message. By using the original message, the wallet's address, and the signature, the verification process can confirm that the message was created by the owner and that it has not been altered.
+## verify\_message {{label : 'verify_message', tag : 'API-v2'}}
 
-## Arguments
+The `verify_message` method allows you to confirm the authenticity of a signed message. By using the original message, the wallet's address, and the signature, the verification process can confirm that the message was created by the owner and that it has not been altered.
 
-| Structure | Type   | Description                                          |
-| --------- | ------ | ---------------------------------------------------- |
-| coin      | string | The coin to sign a message with                      |
-| message   | string | The message input via the `sign_message` method sign |
-| signature | string | The signature generated for the message              |
-| address   | string | The address used to sign the message                 |
+### Request Parameters
 
-## Response
+<CompactTable source="v2/utils.VerifyMessageRequest" />
 
-| Structure | Type    | Description                                                 |
-| --------- | ------- | ----------------------------------------------------------- |
-| is\_valid | boolean | `true` is message signature is valid; `false` if it is not. |
+### Response Parameters
 
-## Command
+<CompactTable source="v2/utils.VerifyMessageResponse" />
 
-<CodeGroup title="" tag="POST" label="verify_message" mm2MethodDecorate="true">
+#### 📌 Examples
+
+<CodeGroup title="Verify Message" tag="POST" label="verify_message" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -39,16 +34,16 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Responses" collapsedText="Show Responses">
+<CollapsibleSection expandedText="Hide Verify Message Response" collapsedText="Show Verify Message Response">
   ### Response (valid)
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "is_valid": true
-    },
-    "id": 0
+      "mmrpc": "2.0",
+      "result": {
+          "is_valid": true
+      },
+      "id": 0
   }
   ```
 
@@ -56,26 +51,23 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-      "is_valid": false
-    },
-    "id": 0
+      "mmrpc": "2.0",
+      "result": {
+          "is_valid": false
+      },
+      "id": 0
   }
   ```
 </CollapsibleSection>
 
-## ⚠ Error types
+### Error Types
 
-**PrefixNotFound:** sign\_message\_prefix is not set in coin config
-**CoinIsNotFound:** Specified coin is not found
-**InvalidRequest:** Message verification is not supported by the given coin type
-**InternalError:** An internal error occured during the verification process
-**SignatureDecodingError:** Given signature could not be decoded
-**AddressDecodingError:** Given address could not be decoded
+<CompactTable source="v2/utils.VerifyMessageErrors" />
 
 <CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
-  ### PrefixNotFound
+  #### ⚠️ Error Responses
+
+  ##### PrefixNotFound
 
   ```json
   {
@@ -88,7 +80,7 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
   }
   ```
 
-  ### InternalError
+  ##### InternalError
 
   ```json
   {
@@ -102,7 +94,7 @@ The `verify_Message` method allows one to confirm the authenticity of a signed m
   }
   ```
 
-  ### SignatureDecodingError
+  ##### SignatureDecodingError
 
   ```json
   {

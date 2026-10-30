@@ -1,30 +1,23 @@
 export const title = "Komodo DeFi Framework Method: Get Mnemonic";
 export const description = "The get_mnemonic method returns the user's mnemonic seed phrase, in encrypted or plain text format.";
 
-# get\_mnemonic
+# Get Mnemonic
 
-"The get\_mnemonic method returns the user's mnemonic seed phrase, in encrypted or plain text format."
+## get\_mnemonic {{label : 'get_mnemonic', tag : 'API-v2'}}
 
-## Arguments
+The `get_mnemonic` method returns the user's mnemonic seed phrase, in encrypted or plain text format.
 
-| Structure | Type   | Description                                                                                            |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------ |
-| format    | string | Either `encrypted` or `plaintext`. Defaults to `encrypted`.                                            |
-| password  | string | The password to decrypt your stored mnemonic phrase. Only required if `plaintext` format is requested. |
+### Request Parameters
 
-#### Response
+<CompactTable source="v2/utils.GetMnemonicRequest" />
 
-| Structure                 | Type   | Description                                                                                |
-| ------------------------- | ------ | ------------------------------------------------------------------------------------------ |
-| format                    | string | Same as the input `format` parameter.                                                      |
-| mnemonic                  | string | For `plaintext` requests, the decrypted mnemonic seed phrase                               |
-| encrypted\_mnemonic\_data | object | For `encrpyted` requests, the encrypted format and ciphertext for the mnemonic seed phrase |
+### Response Parameters
 
-#### 📌 Examples
+<CompactTable source="v2/utils.GetMnemonicResponse" />
 
-#### For encrypted output
+#### 📌 Example (encrypted output)
 
-<CodeGroup title="" tag="POST" label="get_mnemonic" mm2MethodDecorate="true">
+<CodeGroup title="Example (encrypted output)" tag="POST" label="get_mnemonic" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -43,37 +36,37 @@ export const description = "The get_mnemonic method returns the user's mnemonic 
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "format": "encrypted",
-        "encrypted_mnemonic_data": {
-            "encryption_algorithm": "AES256CBC",
-            "key_derivation_details": {
-                "Argon2": {
-                    "params": {
-                        "algorithm": "Argon2id",
-                        "version": "0x13",
-                        "m_cost": 65536,
-                        "t_cost": 2,
-                        "p_cost": 1
-                    },
-                    "salt_aes": "CqkfcntVxFJNXqOKPHaG8w",
-                    "salt_hmac": "i63qgwjc+3oWMuHWC2XSJA"
-                }
-            },
-            "iv": "mNjmbZLJqgLzulKFBDBuPA==",
-            "ciphertext": "tP2vF0hRhllW00pGvYiKysBI0vl3acLj+aoocBViTTByXCpjpkLuaMWqe0Vs02cb1wvgPsVqZkE4MPg4sCQxbd18iS7Er6+BbVY3HQ2LSig=",
-            "tag": "TwWXhIFQl1TSdR4cJpbkK2oNXd9zIEhJmO6pML1uc2E="
-        }
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "result": {
+          "format": "encrypted",
+          "encrypted_mnemonic_data": {
+              "encryption_algorithm": "AES256CBC",
+              "key_derivation_details": {
+                  "Argon2": {
+                      "params": {
+                          "algorithm": "Argon2id",
+                          "version": "0x13",
+                          "m_cost": 65536,
+                          "t_cost": 2,
+                          "p_cost": 1
+                      },
+                      "salt_aes": "CqkfcntVxFJNXqOKPHaG8w",
+                      "salt_hmac": "i63qgwjc+3oWMuHWC2XSJA"
+                  }
+              },
+              "iv": "mNjmbZLJqgLzulKFBDBuPA==",
+              "ciphertext": "tP2vF0hRhllW00pGvYiKysBI0vl3acLj+aoocBViTTByXCpjpkLuaMWqe0Vs02cb1wvgPsVqZkE4MPg4sCQxbd18iS7Er6+BbVY3HQ2LSig=",
+              "tag": "TwWXhIFQl1TSdR4cJpbkK2oNXd9zIEhJmO6pML1uc2E="
+          }
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>
 
-#### For plain text output
+#### 📌 Example (plain text output)
 
-<CodeGroup title="" tag="POST" label="get_mnemonic" mm2MethodDecorate="true">
+<CodeGroup title="Example (plain text output)" tag="POST" label="get_mnemonic" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -93,12 +86,12 @@ export const description = "The get_mnemonic method returns the user's mnemonic 
 
   ```json
   {
-    "mmrpc": "2.0",
-    "result": {
-        "format": "plaintext",
-        "mnemonic": "unique spy ugly child cup sad capital invest essay lunch doctor know"
-    },
-    "id": null
+      "mmrpc": "2.0",
+      "result": {
+          "format": "plaintext",
+          "mnemonic": "unique spy ugly child cup sad capital invest essay lunch doctor know"
+      },
+      "id": null
   }
   ```
 </CollapsibleSection>

@@ -1,0 +1,331 @@
+{
+  "Started": {
+    "data": [
+      {
+        "parameter": "taker_coin",
+        "type": "string",
+        "required": true,
+        "description": "the ticker of the taker coin"
+      },
+      {
+        "parameter": "maker_coin",
+        "type": "string",
+        "required": true,
+        "description": "the ticker of the maker coin"
+      },
+      {
+        "parameter": "taker",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "the p2p ID of taker node"
+      },
+      {
+        "parameter": "secret",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "a random secret, the hash of which is used to lock atomic-swap payments"
+      },
+      {
+        "parameter": "secret_hash",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "the hash of the swap secret"
+      },
+      {
+        "parameter": "my_persistent_pub",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "a persistent secp256k1 public key of maker node"
+      },
+      {
+        "parameter": "lock_duration",
+        "type": "number (integer)",
+        "required": true,
+        "description": "the lock duration of swap payments in seconds. The sender can refund the transaction when the lock duration is passed. The taker payment is locked for the lock duration. The maker payment is locked for lock duration * 2"
+      },
+      {
+        "parameter": "maker_amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of coins to be swapped by maker"
+      },
+      {
+        "parameter": "taker_amount",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of coins to be swapped by taker"
+      },
+      {
+        "parameter": "maker_payment_confirmations",
+        "type": "number (integer)",
+        "required": true,
+        "description": "the required number of blockchain confirmations for maker payment"
+      },
+      {
+        "parameter": "maker_payment_requires_nota",
+        "type": "bool",
+        "required": false,
+        "description": "whether dPoW notarization is required for maker payment; can be null; available since `beta-2.0.1738`"
+      },
+      {
+        "parameter": "taker_payment_confirmations",
+        "type": "number (integer)",
+        "required": true,
+        "description": "the required number of blockchain confirmations for taker payment"
+      },
+      {
+        "parameter": "taker_payment_requires_nota",
+        "type": "bool",
+        "required": false,
+        "description": "whether dPoW notarization is required for taker payment; can be null; available since `beta-2.0.1738`"
+      },
+      {
+        "parameter": "maker_payment_lock",
+        "type": "number (UTC timestamp in seconds)",
+        "required": true,
+        "description": "the maker payment is locked until this timestamp"
+      },
+      {
+        "parameter": "uuid",
+        "type": "string",
+        "required": true,
+        "description": "the swap uuid"
+      },
+      {
+        "parameter": "started_at",
+        "type": "number (UTC timestamp in seconds)",
+        "required": true,
+        "description": "the timestamp at the start of the swap"
+      },
+      {
+        "parameter": "maker_coin_start_block",
+        "type": "number (integer)",
+        "required": true,
+        "description": "the maker coin block number at the start of the swap"
+      },
+      {
+        "parameter": "taker_coin_start_block",
+        "type": "number (integer)",
+        "required": true,
+        "description": "the taker coin block number at the start of the swap"
+      }
+    ],
+    "variant": "compact"
+  },
+  "StartFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "Negotiated": {
+    "data": [
+      {
+        "parameter": "taker_payment_locktime",
+        "type": "number (UTC timestamp in seconds)",
+        "required": true,
+        "description": "the taker payment is locked until this timestamp"
+      },
+      {
+        "parameter": "taker_pubkey",
+        "type": "string (hexadecimal)",
+        "required": true,
+        "description": "a persistent secp256k1 public key of taker node"
+      }
+    ]
+  },
+  "NegotiateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerFeeValidated": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "TakerFeeValidateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentTransactionFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentSent": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "MakerPaymentDataSendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentWaitConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerPaymentReceived": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "TakerPaymentValidateFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerPaymentWaitConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerPaymentSpendFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "TakerPaymentSpent": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  },
+  "TakerPaymentSpendConfirmFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentWaitRefundStarted": {
+    "data": [
+      {
+        "parameter": "wait_until",
+        "type": "number (UTC timestamp)",
+        "required": true,
+        "description": "the timestamp at which a refund will occur"
+      }
+    ]
+  },
+  "MakerPaymentRefundFailed": {
+    "data": [
+      {
+        "parameter": "error",
+        "type": "string",
+        "required": true,
+        "description": "error description with stack trace"
+      }
+    ]
+  },
+  "MakerPaymentRefunded": {
+    "data": [
+      {
+        "parameter": "tx_hash",
+        "type": "string",
+        "required": true,
+        "description": "the hash of the transaction"
+      },
+      {
+        "parameter": "tx_hex",
+        "type": "string",
+        "required": true,
+        "description": "transaction bytes in hexadecimal format"
+      }
+    ]
+  }
+}

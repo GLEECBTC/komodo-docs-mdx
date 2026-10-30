@@ -1,27 +1,23 @@
 export const title = "Komodo DeFi Framework Method: Peer Connection Healthcheck";
 export const description = "The peer_connection_healthcheck method checks if a peer is connected to the KDF network.";
 
-# peer\_connection\_healthcheck
+# Peer Connection Healthcheck
+
+## peer\_connection\_healthcheck {{label : 'peer_connection_healthcheck', tag : 'API-v2'}}
 
 The `peer_connection_healthcheck` method checks if a peer is connected to the KDF network using the [currently configured](/komodo-defi-framework/setup/configure-mm2-json/) `netid`.
 
-## Arguments
+### Request Parameters
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+<CompactTable source="v2/utils.PeerConnectionHealthcheckRequest" />
 
-#### Response
+### Response Parameters
 
-| Structure | Type    | Description                             |
-| --------- | ------- | --------------------------------------- |
-| result    | boolean | True if peer found connected to network |
+<CompactTable source="v2/utils.PeerConnectionHealthcheckResponse" />
 
 #### 📌 Examples
 
-#### Command
-
-<CodeGroup title="" tag="POST" label="peer_connection_healthcheck" mm2MethodDecorate="true">
+<CodeGroup title="Peer Connection Healthcheck" tag="POST" label="peer_connection_healthcheck" mm2MethodDecorate="true">
   ```json
   {
     "userpass": "RPC_UserP@SSW0RD",
@@ -34,7 +30,7 @@ The `peer_connection_healthcheck` method checks if a peer is connected to the KD
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Peer Connection Healthcheck Response" collapsedText="Show Peer Connection Healthcheck Response">
   #### Response (peer found)
 
   ```json

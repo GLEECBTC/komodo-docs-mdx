@@ -1,0 +1,241 @@
+{
+  "ElectrumArguments": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "Ticker of coin to activate"
+      },
+      {
+        "parameter": "servers",
+        "type": "list of objects",
+        "required": true,
+        "description": "A list of standard [ActivationServers](/komodo-defi-framework/api/common_structures/activation/#activation-servers) objects."
+      },
+      {
+        "parameter": "mm2",
+        "type": "integer",
+        "required": false,
+        "description": "Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`"
+      },
+      {
+        "parameter": "min_connected",
+        "type": "integer",
+        "required": false,
+        "default": "1",
+        "description": "Minimum number of electrum servers to maintain an active connection to."
+      },
+      {
+        "parameter": "max_connected",
+        "type": "integer",
+        "required": false,
+        "description": "Maximum number of electrum servers to maintain an active connection to. If not set, defaults to all servers in activation request."
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "3",
+        "description": "Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap."
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step."
+      },
+      {
+        "parameter": "swap_contract_address",
+        "type": "string",
+        "required": false,
+        "description": "QRC20 only. Address of etomic swap smart contract"
+      },
+      {
+        "parameter": "fallback_swap_contract",
+        "type": "string",
+        "required": false,
+        "description": "QRC20 only. Address of backup etomic swap smart contract"
+      },
+      {
+        "parameter": "utxo_merge_params",
+        "type": "object",
+        "required": false,
+        "description": "A standard [UtxoMergeParams](/komodo-defi-framework/api/common_structures/activation/#utxo-merge-params) object. Used to reduce a wallet's UTXO count in cases where it is causing significantly slower RPC responses."
+      }
+    ]
+  },
+  "ElectrumResponse": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "the address of the user's `coin` wallet, based on the user's passphrase"
+      },
+      {
+        "parameter": "balance",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`"
+      },
+      {
+        "parameter": "unspendable_balance",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)"
+      },
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the ticker of the enabled coin"
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "number",
+        "required": true,
+        "description": "the number of transaction confirmations for which the Komodo DeFi Framework API must wait during the atomic swap process"
+      },
+      {
+        "parameter": "mature_confirmations",
+        "type": "number",
+        "required": false,
+        "description": "the number of coinbase transaction confirmations required to become mature; UTXO coins only"
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "bool",
+        "required": true,
+        "description": "whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions; applicable only for coins using Komodo dPoW"
+      },
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "the result of the request; this value either indicates `success`, or an error, or another type of failure"
+      }
+    ]
+  },
+  "EnableArguments": {
+    "data": [
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the name of the coin the user desires to enable"
+      },
+      {
+        "parameter": "urls",
+        "type": "array of strings",
+        "required": false,
+        "description": "required for ETH/ERC20 and other gas model chains - urls of Ethereum RPC nodes to which the user desires to connect"
+      },
+      {
+        "parameter": "swap_contract_address",
+        "type": "string",
+        "required": false,
+        "description": "required for QRC20 only - address of etomic swap smart contract"
+      },
+      {
+        "parameter": "fallback_swap_contract",
+        "type": "string",
+        "required": false,
+        "description": "required for QRC20 only - address of backup etomic swap smart contract"
+      },
+      {
+        "parameter": "gas_station_decimals",
+        "type": "integer",
+        "required": false,
+        "default": "8",
+        "description": "optional for ETH/ERC20 and other gas model chains - Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that \"average\": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly."
+      },
+      {
+        "parameter": "gas_station_policy.policy",
+        "type": "string",
+        "required": false,
+        "default": "MeanAverageFast",
+        "description": "optional for ETH/ERC20 and other gas model chains - Defines the method of gas price calculation from the station response. `\"MeanAverageFast\"` will use the mean between average and fast fields. `\"Average\"` will return a simple average value."
+      },
+      {
+        "parameter": "mm2",
+        "type": "integer",
+        "required": false,
+        "description": "Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`"
+      },
+      {
+        "parameter": "tx_history",
+        "type": "bool",
+        "required": false,
+        "description": "If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my_tx_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method"
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "integer",
+        "required": false,
+        "default": "3",
+        "description": "Number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap."
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step."
+      }
+    ]
+  },
+  "EnableResponse": {
+    "data": [
+      {
+        "parameter": "address",
+        "type": "string",
+        "required": true,
+        "description": "the address of the user's `coin` wallet, based on the user's passphrase"
+      },
+      {
+        "parameter": "balance",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the amount of `coin` the user holds in their wallet; does not include `unspendable_balance`"
+      },
+      {
+        "parameter": "unspendable_balance",
+        "type": "string (numeric)",
+        "required": true,
+        "description": "the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)"
+      },
+      {
+        "parameter": "coin",
+        "type": "string",
+        "required": true,
+        "description": "the ticker of enabled coin"
+      },
+      {
+        "parameter": "required_confirmations",
+        "type": "number",
+        "required": true,
+        "description": "Komodo DeFi Framework API will wait for the this number of coin's transaction confirmations during the swap"
+      },
+      {
+        "parameter": "requires_notarization",
+        "type": "bool",
+        "required": true,
+        "description": "whether the node must wait for a notarization of the selected coin that is performing the atomic swap transactions"
+      },
+      {
+        "parameter": "mature_confirmations",
+        "type": "number",
+        "required": false,
+        "description": "the number of coinbase transaction confirmations required to become mature; UTXO coins only"
+      },
+      {
+        "parameter": "result",
+        "type": "string",
+        "required": true,
+        "description": "the result of the request; this value either indicates `success`, or an error or other type of failure"
+      }
+    ]
+  }
+}

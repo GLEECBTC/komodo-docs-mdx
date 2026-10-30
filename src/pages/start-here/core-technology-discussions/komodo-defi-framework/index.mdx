@@ -5,73 +5,80 @@ export const description = "Komodo DeFi Framework allows people to trade cryptoc
 
 ## Introduction
 
-Komodo DeFi Framework allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open source and trading is available for any coin that any developers choose to connect to Komodo DeFi Framework.
+Komodo DeFi Framework implements a revolutionary decentralized exchange protocol that enables trustless cryptocurrency trading without counterparty risk. The protocol is open source and supports trading for any cryptocurrency that developers choose to connect.
+
+<Note>
+  Key Features:
+
+  *   Decentralized order matching
+  *   Atomic cross-chain trading
+  *   No counterparty risk
+  *   Open source protocol
+</Note>
 
 Our service fully realizes decentralized order matching and trade clearing. The order-matching aspect relies on a peer-to-peer network to build public orderbooks, and trade clearing is executed through an atomic cross-chain protocol, also called an "atomic swap."
 
-## Current Problems in Cryptocurrency Exchange
+## Current Problems in Cryptocurrency Trading
 
-### Centralized Exchanges are Popular, but Limited
+### Centralized Exchanges: The Status Quo
 
-The current, most practical method for cryptocurrency exchange requires the use of centralized exchange services.
+<Note type="warning">
+  Centralized exchanges require users to:
 
-These centralized solutions require vouchers to perform the exchange, wherein the user sends their funds into the care of a corporate entity and receives "I Owe You" (IOU) statements in return. The user then trades these IOUs within a controlled environment and, when finished, returns their IOUs to the corporate entity for reimbursement.
+  *   Deposit funds into third-party custody
+  *   Trust exchange operators
+  *   Accept counterparty risk
+  *   Face potential security vulnerabilities
+</Note>
 
-Centralized exchanges carry great risk. Among many dangers present in this system, users are under the constant risk of their assets being stolen either by an inside theft or an outside hack. Furthermore, the operators of centralized exchanges are under intense legal and social pressure, as the operators are responsible both for the safety of thousands of users' funds and for the users' behaviors on their platforms.
+The current, most practical method for cryptocurrency exchange requires the use of centralized exchange services. These centralized solutions require vouchers to perform the exchange, wherein the user sends their funds into the care of a centralized entity and receives "I Owe You" (IOU) statements in return. The user then trades these IOUs within a controlled environment and, when finished, returns their IOUs to the centralized entity for reimbursement.
 
-To eliminate such dangers and limitations requires the creation of a decentralized alternative, wherein either the entity holding the funds during the trading process is not centralized, or the users are allowed to trade directly without middleman involvement.
+### The Limitations of Traditional DEXs
 
-### The Concept and Shortcomings of a Normal Decentralized Exchange
+<Note>
+  Traditional DEXs still have limitations:
 
-A decentralized exchange (DEX) allows users to trade funds within an environment that is at least partially decentralized.
+  *   Require proxy tokens
+  *   Limited decentralization
+  *   Limited user control on the trading process
+</Note>
 
-Decentralization of an exchange can take many forms. For example, in 2014 Komodo developers began one of the earliest instances of a decentralized exchange, called "InstantDEX."
-
-In this DEX, users sent their blockchain coins not to a centralized entity, but rather to a decentralized "gateway." The gateway was owned and controlled by several cooperating entities who were chosen from the online community. The gateway automatically distributed IOUs (called "proxy tokens") to the users, who then traded within the partially decentralized environment.
-
-When finished, users sent their proxy tokens back to the gateway, and the gateway managers collectively signed for the release of the users' blockchain funds. The underlying technology of this solution is still in use by many blockchain platforms, and is sometimes referred to as a proxy-token protocol.
-
-This form of a DEX is too limited to compete with centralized exchanges. Among many drawbacks, a proxy-token decentralized exchange must still have a storage center to hold the external cryptocurrencies represented by the proxy tokens. At best, this storage center is only distributed across several authority figures, and therefore users must still surrender control over their assets for the duration of the trading process.
-
-As of today, no decentralized exchange has successfully replaced any of their centralized counterparts.
+A decentralized exchange (DEX) allows users to trade funds within an environment that is at least partially decentralized. However, most DEX solutions still require users to surrender control of their assets during the trading process, either to a centralized entity or a distributed group of authority figures. In AMM DEXs, there are issues with slippage and impermanent loss.
 
 ## Komodo DeFi Framework — A Complete Solution
 
-We now present a fully functional, new decentralized technology that makes a competitive decentralized exchange possible. We call our technology Komodo DeFi Framework, and it allows people to freely and safely exchange cryptocurrency coins from one person to another.
+We now present a fully functional, new decentralized technology that makes a competitive decentralized exchange possible. The Komodo DeFi Framework includes:
 
-The Komodo DeFi Framework includes a decentralized exchange and creates a competitive method for bartering cryptocurrencies, combining the key components of order matching and trade clearing.
+1.  **Decentralized Order Matching**
+    *   Peer-to-peer network
+    *   Public orderbooks
+    *   No central authority
 
-These components are combined into a single integrated system that allows users to make a request to trade their coins, find a suitable trading partner, and complete the trade using an "atomic swap."
+2.  **Atomic Cross-Chain Trading**
+    *   Direct coin-to-coin/token trading using atomic swaps
+    *   No intermediary custody
+    *   Full user control
 
-Unlike previous DEXs, Komodo DeFi Framework does not require users to send funds to either a centralized or decentralized party during the trading process. Rather, users maintain full control over the private keys of their funds at all times.
+3.  **Public Reputation System (upcoming)**
+    *   Public trading profiles/addresses
+    *   Behavior-based reputation
+    *   Optional trust API
 
-## The Decentralized Orderbook
+<Note>
+  Unlike previous DEXs, Komodo DeFi Framework:
 
-The first component of Komodo DeFi Framework is Order Matching. This is the process of pairing a user’s offer to buy with another user’s offer to sell. The data of these offers form an orderbook.
+  *   Never requires users to send funds to third parties
+  *   Maintains full user control of private keys
+  *   Enables direct peer-to-peer trading
+</Note>
 
-The process of matching orders is not the actual trade itself, but is only a digitally created promise between users stating that they will perform their parts of the trade.
+### The Decentralized Orderbook
 
-Komodo DeFi Framework features several technologies to facilitate order matching, including a peer-to-peer network, a decentralized orderbook, and a multicoin passphrase.
+The first component of Komodo DeFi Framework is Order Matching. This is the process of pairing a user's offer to buy with another user's offer to sell. The data of these offers form an orderbook.
 
-### Order Matching with Full-Relay and Non-Relay Nodes
+### Multi-Coin Wallet
 
-To create a decentralized orderbook, Komodo DeFi Framework creates a custom peer-to-peer (P2P) network.
-
-In this network, when a node places an order, other nodes on the network collaborate to distribute the data until all nodes are informed. Each node utilizes the data to build the orderbook locally. No centralized server is required.
-
-To manage this P2P network, Komodo DeFi Framework utilizes two separate types of nodes: a full-relay node and a non-relay node.
-
-The difference between a full-relay node and a non-relay node is that the former is typically a high-volume trader who provides liquidity to the network in exchange for being a trading hub on the network. This puts the trader in the position of being able to complete trades more quickly than their competitors.
-
-The latter type of node (non-relay) is the more common user, and these nodes rely on the full-relay nodes. A non-relay node has all the same available trading options. We expect that most nodes joining the network will be non-relay nodes.
-
-There are no requirements or payments necessary to become either type of node, and so anyone desiring to become a high-volume full-relay node will find no restrictions.
-
-### One Passphrase, Many Addresses
-
-As a part of order matching, Komodo DeFi Framework features a specialty wallet that can manage and trade among a multiplicity of different blockchain coins. In this technology, the user creates a single passphrase and uses this to unlock all public addresses associated with their desired coins.
-
-The complexities of this process are managed by Komodo's Iguana Core technology.
+Komodo DeFi Framework features a wallet that can manage and trade among multiple different blockchain coins using a single passphrase. This allows a user to trade on multiple chains/protocols with a single wallet.
 
 ## Atomic Swaps
 
@@ -89,15 +96,14 @@ Therefore, one person must release control over their money first. The atomic-sw
 
 A key aspect of a proper atomic swap is that at each stage of the trade-clearing process, each user has incentives to proceed to the next step in the proper manner and disincentives to avoid abandoning the procedure. With this structure in place, regardless of a failure by either user to complete the protocol, each user receives a proper reward.
 
-### Komodo DeFi Framework Manages a Public Trading Profile for Maker and Taker
+<Note>
+  Atomic swaps enable:
 
-In addition to the atomic-swap protocol, Komodo DeFi Framework also allows users to track the behavior of trading partners on the network via a Trust API.
-
-The Trust API is not based on personal identity, but rather on behavior as associated with public addresses.
-
-As a user practices good behavior on the network while maintaining a consistent public address, their network trust can increase, thus improving their odds of a willing trading partner.
-
-Use of the Trust API is optional for all users.
+  *   Cross-chain trading without a third-party
+  *   Trustless execution
+  *   Automatic refunds in case of failure
+  *   No counterparty risk
+</Note>
 
 ### Introducing Taker and Maker
 
@@ -109,23 +115,9 @@ The process of an atomic swap begins with the person who makes the initial reque
 
 Taker will need two transactions to perform her swap. One transaction will cover the protocol fee, which is roughly 1/777th the size of the desired order. We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Taker from spamming the network with rapid requests.
 
-<Note>
-  The `dexfee` is actually calculated as "the greater of either `0.0001 TAKER COIN` or `1/777th` the size of the desired order"
-</Note>
+### The Atomic Swap Process
 
-The second transaction required of Taker sends the actual amount she intends to swap. Komodo DeFi Framework first verifies that she has these funds, but for the moment she retains these funds in the safety of her own digital wallet.
-
-#### Maker Answers Taker
-
-On the other side of the atomic swap, we have the liquidity provider — Maker. Maker sees the request on the network for Taker’s atomic swap and decides to accept the trade. Now his part of the process begins.
-
-To complete the trade, he must send one transaction. It will be worth 100% of what he and Taker intend to actually trade.
-
-### Taker and Maker Are Committed
-
-Assuming Taker and Maker are successfully connected, the process from this point forward becomes quite simple:
-
-A summary of the procedure, starting from the beginning.
+Assuming Taker and Maker are successfully connected, the process from this point forward becomes quite simple.
 
 1.  Taker requests a swap and sends the `<dexfee>` transaction data to Maker.
 
@@ -136,22 +128,22 @@ A summary of the procedure, starting from the beginning.
     *   Maker does not send the payment to Taker directly, but rather into a temporary holding address
 
         *   On [utxo-based](/start-here/core-technology-discussions/miscellaneous/#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
-        *   On ETH/ERC20 based blockchains, this address is an etomic-swap smart contract
+        *   On ETH/ERC20 (EVM) based blockchains, this address is an "etomic-swap" smart contract
 
-    *   `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by encryption, awaiting either for Taker to spend the payment, or for the swap to time out
+    *   `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by cryptography and blockchain technology, awaiting either for Taker to spend the payment, or for the swap to time out
 
-    *   If the latter occurs, `<makerpayment>` is automatically refunded to Maker via the Komodo DeFi Framework protocol
+    *   If the latter occurs, `<makerpayment>` is allowed to be automatically refunded to Maker by the Komodo DeFi Framework protocol
 
 3.  Taker now sends `<takerpayment>`
 
     *   Taker does not send the payment to Maker directly, but rather into a temporary holding address
 
         *   On [utxo-based](/start-here/core-technology-discussions/miscellaneous/#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
-        *   On ETH/ERC20 based blockchains, this address is an etomic-swap smart contract
+        *   On ETH/ERC20 (EVM) based blockchains, this address is an "etomic-swap" smart contract
 
-    *   `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by encryption, awaiting either for Maker to spend the payment, or for the swap to time out
+    *   `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by cryptography and blockchain technology, awaiting either for Maker to spend the payment, or for the swap to time out
 
-    *   If the latter occurs, `<takerpayment>` is automatically refunded to Taker via the Komodo DeFi Framework protocol
+    *   If the latter occurs, `<takerpayment>` is allowed to be automatically refunded to Taker by the Komodo DeFi Framework protocol
 
 4.  Maker now spends the `<takerpayment>`
 
@@ -167,7 +159,7 @@ While it may seem inefficient to have five transactions for a swap that could be
 
 As we will now explain, at every step along the way there are incentives for each side to proceed, and there are various financial protections in place should one side fail.
 
-Also, because payments are sent to these "temporary holding addresses" that exist within the Komodo DeFi Framework protocol, the protocol itself can assist in the process of moving money at the appropriate steps.
+Also, because payments are sent to these "temporary holding addresses" that exist on the respective blockchains, the protocol itself can assist in the process of moving money at the appropriate steps.
 
 Let us now examine what is happening after each step.
 
@@ -181,17 +173,17 @@ So long as the frequency of Makers failing is low, the occasional extra `<dexfee
 
 #### 2 - Maker Successfully Sends `<makerpayment>`
 
-If Taker does not follow with her next step, the `<takerpayment>`, then Taker loses not only the `<dexfee>`, but she also receives a mark on her public Komodo DeFi Framework profile. She gains nothing, and Maker has no reason to fear as `<makerpayment>` will automatically return to him via the Komodo DeFi Framework protocol.
+If Taker does not follow with her next step, the `<takerpayment>`, then Taker loses not only the `<dexfee>`, but she also receives a mark on her public Komodo DeFi Framework profile. She gains nothing, and Maker has no reason to fear as the `<makerpayment>` will automatically return to him via the Komodo DeFi Framework protocol.
 
 #### 3 - Taker Successfully Sends `<takerpayment>`
 
-If Maker does not proceed with his next step (spending the payment), then after lock time expires Taker can simply activate an Komodo DeFi Framework protocol that will refund the payment.
+If Maker does not proceed with his next step (spending the payment), then after lock time expires, Taker's Komodo DeFi Framework protocol will automatically refund the payment.
 
 #### 4 - Maker Spends `<takerpayment>`
 
-If Taker does not follow by also "spending" the `<makerpayment>`, it is of no concern to Maker because he has already received his funds. If Taker is simply sleeping and forgets to spend the `<makerpayment>`, she can only hurt herself.
+If Taker does not follow by also "spending" the `<makerpayment>`, it is of no concern to Maker because he has already received his funds. If Taker is simply offline and doesn't spend the `<makerpayment>`, she can only hurt herself.
 
-Naturally, for Taker this is slightly dangerous. Taker’s best course of action is to remain alert and spend the `<makerpayment>` once the `<takerpayment>` is spent and the secret is revealed.
+Naturally, for Taker this is slightly dangerous. Taker’s best course of action is to remain online and let their Komodo DeFi Framework protocol spend the `<makerpayment>` once the `<takerpayment>` is spent and the secret is revealed.
 
 #### 5 - Taker Spends `<makerpayment>`
 
@@ -215,34 +207,58 @@ We emphasize to users here that the process of performing these actions over a p
 
 If a user attempts a trade and no response returns from the network, the user should slightly adjust the parameters of their offer and try again. As Komodo DeFi Framework continues to iterate and improve, and as the number of users increases, we expect any required effort to lessen for users, the network, and the Komodo DeFi Framework GUI apps.
 
+<Note type="warning">
+  Important Considerations:
+
+  *   Internet connectivity is crucial
+  *   Trade only manageable amounts
+  *   Check trading partner reputation
+  *   Monitor transaction confirmations
+</Note>
+
 ### The DEX Fee
 
-People will notice that there is a small `<dexfee>` required as part of the Komodo DeFi Framework protocol. This is 1/777 of the transaction amount and it is calibrated to make spam attacks impractical. The 1/777 fee is about equal to 0.1287% of the `<takerpayment>`.
+The `<dexfee>` is calculated as the greater of:
 
-By forcing a would-be attacker to spend real money, attacking the network becomes costly. Without this spam prevention, Komodo DeFi Framework could otherwise be attacked at the protocol level by any person performing a plethora of trade requests.
+*   0.0001 TAKER COIN
+*   1/777th of the order size
 
-Naturally, some atomic swaps can initiate and then fail to complete, which raises questions about what happens to the `<dexfee>` in this scenario. The `<dexfee>` is the first charge in the protocol; in this sense, there is a `<dexfee>` charged for these failed atomic swaps.
+This fee serves multiple purposes:
 
-However, this failure should not be looked upon in isolation. The Komodo DeFi Framework protocol is based on statistics. Statistically speaking, there will be some percentage of atomic swaps that start and will not complete.
+*   Prevents network spam
+*   Maintains network health
+*   Enables protocol operations
 
-Let us suppose a 15% failure rate at this stage of the atomic swap (15% is three times higher than the rate of failure we currently observe in our testing). Even in this scenario, the effective `<dexfee>` cost is still only 0.15% to all Taker-side requests across the entire network.
+<Note>
+  Typical effective fee: \~0.15%
+  Best case fee: 0.1287%
+</Note>
 
-If you experience the loss of a `<dexfee>` transaction for an atomic swap that fails to complete, know that this is all part of the statistical process. If you find yourself paying more than 0.15% of your completed trades in fees, please let us know.
+## Additional Information
 
-As an organization, when speaking generally to our audience online, we state that the `<dexfee>` is just 0.15%. In this manner, we hope to create the expectation that 0.15% is normal; if the network performs perfectly, on the other hand, users will get a blessing in the form of a lower fee, 0.1287%.
+### Risk Management
 
-### Dealing with Confirmations
+*   Trade only amounts you can afford to risk
+*   Ensure stable internet connection
 
-Since Komodo DeFi Framework is trading permanently on blockchains — as opposed to updating an internal database of vouchers — both sides of the trading pair need to wait and watch as miners on the respective blockchains calculate transaction confirmations.
+### Network Connection
 
-Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop with the other blockchain performing its duties as normal — the Komodo DeFi Framework protocol must automatically observe and adjust as necessary.
+Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop the other blockchain performing its duties as normal — the Komodo DeFi Framework protocol will automatically observe and adjust as necessary.
 
-### Komodo DeFi Framework is Entirely Experimental, and Should Be Treated As Such
+<Note>
+  If a trade attempt fails:
 
-We warn our readers, nevertheless. Every element of the Komodo ecosystem is still considered to be highly experimental. We provide no investment advice, nor any guarantees of any funds utilized on our network. Use our products only at your own risk.
+  1.  Adjust offer parameters
+  2.  Try again
+  3.  Contact support if issues persist
+</Note>
 
-### The Komodo DeFi Framework API
+### Experimental Nature
 
-We created an API model that is generally the same for all coins.
+<Note type="warning">
+  Important: Komodo DeFi Framework is experimental software. Use at your own risk. No investment advice or guarantees are provided.
+</Note>
 
-For more information, [please turn to the Komodo DeFi Framework documentation.](/komodo-defi-framework/)
+### API Documentation
+
+For detailed technical information about the Komodo DeFi Framework API, please refer to our [API documentation](/komodo-defi-framework/).

@@ -1,0 +1,144 @@
+export const title = "Komodo DeFi Framework: QTUM Activation Tasks";
+export const description =
+  "The methods in this document allow activation of QTUM.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Task: QTUM Activation
+
+## task::enable\_qtum::init {{label : 'task::enable_qtum::init', tag : 'API-v2'}}
+
+Use this method for task managed activation of QTUM coins and tokens. Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskEnableQtumArguments" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskResponse" />
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_qtum::init" tag="POST" label="task::enable_qtum::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumInit" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 1
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_qtum::status {{label : 'task::enable_qtum::status', tag : 'API-v2'}}
+
+After running the `task::enable_qtum::init` method, we can query the status of activation to check its progress.
+The response will return the following:
+
+*   Result of the task (success or error)
+*   Progress status (what state the task is in)
+*   Required user action (what user should do before the task can continue)
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
+
+#### Request
+
+<CodeGroup title="task::enable_qtum::status" tag="POST" label="task::enable_qtum::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumStatus" />
+
+The response formats for this method are the same as the [task managed activation](/komodo-defi-framework/api/v20/coin_activation/task_managed/) responses.
+
+## task::enable\_qtum::user\_action {{label : 'task::enable_qtum::user_action', tag : 'API-v2'}}
+
+If the `task::enable_qtum::status` returns `UserActionRequired`, we need to use the `task::enable_qtum::user_action` method to enter our PIN
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskUserActionArguments" />
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskUserActionResponse" />
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_qtum::user_action" tag="POST" label="task::enable_qtum::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumUserAction" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## Error Cases
+
+`CoinCreationError`: Returned when a coin is not supported.
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+    "status": "Error",
+    "details": {
+      "error": "Error on platform coin QTUM creation: Coin doesn't support Trezor hardware wallet. Please consider adding the 'trezor_coin' field to the coins config",
+      "error_path": "lib.init_qtum_activation.utxo_coin_builder",
+      "error_trace": "lib:103] init_qtum_activation:71] utxo_coin_builder:234]",
+      "error_type": "CoinCreationError",
+      "error_data": {
+        "ticker": "QTUM",
+        "error": "Coin doesn't support Trezor hardware wallet. Please consider adding the 'trezor_coin' field to the coins config"
+      }
+    }
+  },
+  "id": null
+}
+```
+
+## task::enable\_qtum::cancel {{label : 'task::enable_qtum::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskCancelArguments" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskCancelResponse" />
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_qtum::cancel" tag="POST" label="task::enable_qtum::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableQtumCancel" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

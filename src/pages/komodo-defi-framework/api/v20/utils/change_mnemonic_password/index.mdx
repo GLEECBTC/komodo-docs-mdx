@@ -1,7 +1,9 @@
 export const title = "Komodo DeFi Framework Method: Change Mnemonic Password";
 export const description = "The change_mnemonic_password method allows a user to update the password used to encrypt a mnemonic phrase in their local database.";
 
-# change\_mnemonic\_password
+# Change Mnemonic Password
+
+## change\_mnemonic\_password {{label : 'change_mnemonic_password', tag : 'API-v2'}}
 
 The `change_mnemonic_password` method allows a user to update the password used to encrypt a mnemonic phrase in their local database.
 
@@ -10,18 +12,19 @@ The `change_mnemonic_password` method allows a user to update the password used 
   This will need to be updated manually, otherise you will see a log error `Error initializing wallet: Error generating or decrypting mnemonic: Error decrypting mnemonic: HMAC error: MAC tag mismatch` on next launch.
 </Note>
 
-## Arguments
+### Request Parameters
 
-| Structure         | Type   | Description                                                          |
-| ----------------- | ------ | -------------------------------------------------------------------- |
-| current\_password | string | the active mnemonic password for your wallet                         |
-| new\_password     | string | the new password to use for encrypting your active mnemonic password |
+<CompactTable source="v2/utils.ChangeMnemonicPasswordRequest" />
+
+### Response Parameters
+
+<CompactTable source="v2/utils.ChangeMnemonicPasswordResponse" />
 
 #### 📌 Examples
 
 #### Command
 
-<CodeGroup title="" tag="POST" label="change_mnemonic_password" mm2MethodDecorate="true">
+<CodeGroup title="Change Mnemonic Password" tag="POST" label="change_mnemonic_password" mm2MethodDecorate="true">
   ```json
   {
     "mmrpc": "2.0",
@@ -35,7 +38,7 @@ The `change_mnemonic_password` method allows a user to update the password used 
   ```
 </CodeGroup>
 
-<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+<CollapsibleSection expandedText="Hide Change Mnemonic Password Response" collapsedText="Show Change Mnemonic Password Response">
   #### Response (success)
 
   ```json
@@ -45,8 +48,16 @@ The `change_mnemonic_password` method allows a user to update the password used 
     "id": null
   }
   ```
+</CollapsibleSection>
 
-  #### Response (error - wrong password)
+### Error Types
+
+<CompactTable source="v2/utils.ChangeMnemonicPasswordErrors" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### ⚠️ Error Responses
+
+  ##### WalletsStorageError (Wrong Password)
 
   ```json
   {

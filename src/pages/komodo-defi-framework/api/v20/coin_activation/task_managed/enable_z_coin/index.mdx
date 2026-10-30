@@ -1,0 +1,437 @@
+export const title = "Komodo DeFi Framework Method: ZHTLC Coin Activation";
+export const description =
+  "The methods in this document allow activation of ZHTLC coins like ARRR & ZOMBIE.";
+
+import trezorpin from "@/public/images/docs/api-images/trezor_pin.png";
+
+# Task: Z Coin Activation
+
+## task::enable\_z\_coin::init {{label : 'task::enable_z_coin::init', tag : 'API-v2'}}
+
+ZHTLC coins, like Pirate (ARRR) and the test coin ZOMBIE take a little longer to enable, and use a new two step method to enable. Activation can take a little while the first time, as we need to download some block cache data, and build a wallet database.
+Subsequent enabling will be faster, but still take a bit longer than other coins. The second step for activation is optional, but allows us to check the status of the activation process.
+
+Refer to the [task managed activation overview](/komodo-defi-framework/api/v20/coin_activation/task_managed/) for activation of other coin types.
+
+To withdraw ZHTLC coins, you need to use the [task::withdraw](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#withdraw-tasks) methods:
+
+*   Generate a transaction with [task::withdraw::init](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-init)
+*   Query its status with [task::withdraw::status](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-status)
+*   Cancel generating the transaction with [task::withdraw::cancel](/komodo-defi-framework/api/v20/wallet/task_managed/withdraw/#task-withdraw-cancel)
+*   Broadcast the transaction with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/#send-raw-transaction)
+
+ZHTLC coins are not compatible with the [v2 my\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/my_tx_history/) and [legacy my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/) methods.
+To get the transaction history for ZHTLC coins, you need to use the [z\_coin\_tx\_history](/komodo-defi-framework/api/v20/wallet/tx/zhtlc_tx_history/) method.
+
+<Note>
+  To enable Z coins you also need to [install some Zcash
+  Params](https://forum.komodoplatform.com/t/installing-zcash-params/603)
+</Note>
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskEnableZCoinArguments" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskResponse" />
+
+#### 📌 Examples
+
+#### Enable Z coin without any optional parameters
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitBasic" />
+
+#### Sync from block 2528700, with custom `.zcash-params` path and scan params
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinInitWithSyncParams" />
+
+#### Sync from sapling activation height (earliest)
+
+The Z coin lightwallet client only supports blocks that are post-sapling. The sapling activation height for Z coins can be found in the [coins file](https://github.com/KomodoPlatform/coins/blob/master/coins)
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "url": "zombie.dragonhound.info:10133"
+              },
+              {
+                "url": "zombie.dragonhound.info:20133",
+                "protocol": "SSL",
+                "ws_url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ],
+            "sync_params": "earliest"
+          }
+        },
+        "zcash_params_path": "/home/username/path_to/.zcash-params",
+        "scan_blocks_per_iteration": 100,
+        "scan_interval_ms": 200
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+#### Using websockets to sync from Proof of Keys Day, 2023.
+
+<Note>[About proof of Keys Day](https://hackernoon.com/not-your-keys-not-your-bitcoin-jan3bitcoin-z6k3ktb)</Note>
+
+<CodeGroup title="task::enable_z_coin::init" tag="POST" label="task::enable_z_coin::init" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "task::enable_z_coin::init",
+    "mmrpc": "2.0",
+    "params": {
+      "ticker": "ZOMBIE",
+      "activation_params": {
+        "mode": {
+          "rpc": "Light",
+          "rpc_data": {
+            "electrum_servers": [
+              {
+                "protocol": "SSL",
+                "url": "zombie.dragonhound.info:20133",
+                "ws_url": "zombie.dragonhound.info:30059"
+              }
+            ],
+            "light_wallet_d_servers": [
+              "http://zombie.dragonhound.info:1443"
+            ],
+            "sync_params": {
+              "date": 1672704000
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "task_id": 0
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_z\_coin::status {{label : 'task::enable_z_coin::status', tag : 'API-v2'}}
+
+Z coins need to build sync a local block cache and wallet database before they can be used. Using `task_id` as an input, this method will return the current status of the activation process.
+
+#### Arguments
+
+<CompactTable source="v2/coin_activation.TaskStatusArguments" />
+
+#### Response
+
+<CompactTable source="v2/coin_activation.TaskStatusResponse" />
+
+Possible `status` values while activation is in progress:
+
+*   `ActivatingCoin`: The first step of activation. It does not require any action from the user.
+*   `RequestingWalletBalance`: The first step of activation, while initial balances info is being requested. It does not require any action from the user.
+*   `Finishing`: Activation process completed
+*   `WaitingForTrezorToConnect`: Waiting for the user to plugin a Trezor device
+*   `FollowHwDeviceInstructions`: Waiting for the user to follow the instructions on the device
+
+Once complete, `status`  will be `Ok`, and the `details` object will have the following structure:
+
+| Parameter       | Type    | Description                                                                                                                                                                                                          |
+| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| current\_block  | integer | Block height of the coin being activated                                                                                                                                                                             |
+| ticker          | string  | Ticker of the coin being activated.                                                                                                                                                                                  |
+| wallet\_balance | object  | A standard [WalletBalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#wallet-balance-info) object. Note: the structure may vary based on the `get_balances` parameter value in the activation request. |
+
+#### 📌 Examples
+
+#### Status of Z coin activation
+
+<CodeGroup title="task::enable_z_coin::status" tag="POST" label="task::enable_z_coin::status" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinStatus" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (ActivatingCoin - enabling has started)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": "ActivatingCoin"
+    },
+    "id": null
+  }
+  ```
+
+  #### Response (UpdatingBlocksCache)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": {
+        "UpdatingBlocksCache": {
+          "current_scanned_block": 265930,
+          "latest_block": 269656
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+
+  #### Response (BuildingWalletDb)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "InProgress",
+      "details": {
+        "BuildingWalletDb": {
+          "current_scanned_block": 265311,
+          "latest_block": 269656
+        }
+      }
+    },
+  "id": null
+  }
+  ```
+
+  #### Response (Enabling complete)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Ok",
+      "details": {
+        "ticker": "ZOMBIE",
+        "current_block": 269657,
+        "wallet_balance": {
+          "wallet_type": "Iguana",
+          "address": "zs1e3puxpnal8ljjrqlxv4jctlyndxnm5a3mj5rarjvp0qv72hmm9caduxk9asu9kyc6erfx4zsauj",
+          "balance": {
+            "spendable": "29.99989008",
+            "unspendable": "0"
+          }
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (CoinCreationError - no Zcash Params)
+
+  ```json
+  {
+  	"error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+  	"error_path": "lib.z_coin_activation.z_coin",
+  	"error_trace": "lib:104] z_coin_activation:218] z_coin:1007]",
+  	"error_type": "CoinCreationError",
+  	"error_data": {
+  		"ticker": "ZOMBIE",
+  		"error": "ZCashParamsNotFound"
+  	}
+  }
+  ```
+
+  #### Response (error - NoSuchTask)
+
+  You'll see this if the task number does not exist, or the task has already completed.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": null
+  }
+  ```
+
+  #### Response (error - InvalidRequest)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Error parsing request: invalid value: integer `-205`, expected u64",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:109]",
+    "error_type": "InvalidRequest",
+    "error_data": "invalid value: integer `-205`, expected u64",
+    "id": 42
+  }
+  ```
+
+  #### Response (no Zcash Params)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "status": "Error",
+      "details": {
+        "error": "Error on platform coin ZOMBIE creation: ZCashParamsNotFound",
+        "error_path": "lib.z_coin_activation.z_coin",
+        "error_trace": "lib:103] z_coin_activation:192] z_coin:761]",
+        "error_type": "CoinCreationError",
+        "error_data": {
+          "ticker": "ZOMBIE",
+          "error": "ZCashParamsNotFound"
+        }
+      }
+    },
+    "id": null
+  }
+  ```
+
+  #### Response (error - no such task)
+
+  You'll see this if the task number does not exist, or the task has already completed.
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_z\_coin::user\_action   {{label : 'task::enable_z_coin::user_action', tag : 'API-v2'}}
+
+If the `task::enable_z_coin::status` returns `UserActionRequired`, we need to use the `task::enable_z_coin::user_action` method to enter our PIN
+
+#### Arguments
+
+| Parameter                 | Type            | Description                                                                                                                                                                                      |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| task\_id                  | integer         | The identifying number returned when initiating the initialisation process.                                                                                                                      |
+| user\_action              | object          | Object containing the params below                                                                                                                                                               |
+| user\_action.action\_type | string          | Will be `TrezorPin` for this method                                                                                                                                                              |
+| user\_action.pin          | string (number) | When the Trezor device is displaying a grid of numbers for PIN entry, this param will contain your Trezor pin, as mapped through your keyboard numpad. See the image below for more information. |
+
+<OptimizedImage src={trezorpin} classNaming="w-full" alt="Trezor Pin" />
+
+#### Response
+
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| result    | string | The outcome of the request. |
+
+<CodeGroup title="task::enable_z_coin::user_action" tag="POST" label="task::enable_z_coin::user_action" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinUserAction" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+## task::enable\_z\_coin::cancel {{label : 'task::enable_z_coin::cancel', tag : 'API-v2'}}
+
+If you want to cancel the enabling process before it has completed, you can use this method.
+
+#### Arguments
+
+| Structure | Type    | Description                                                           |
+| --------- | ------- | --------------------------------------------------------------------- |
+| task\_id  | integer | The identifying number returned when initiating the enabling process. |
+
+#### Response
+
+| Structure    | Type   | Description                                                    |
+| ------------ | ------ | -------------------------------------------------------------- |
+| result       | string | Indicates task cancellation was succesful.                     |
+| error        | string | An error message to explain what went wrong.                   |
+| error\_path  | string | An indicator of the class or function which reurned the error. |
+| error\_trace | string | An indicator of where in the source code the error was thrown. |
+| error\_type  | string | An enumerated value for the returned error.                    |
+| error\_data  | string | The input task ID which resulted in the error.                 |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="task::enable_z_coin::cancel" tag="POST" label="task::enable_z_coin::cancel" mm2MethodDecorate="true" source="v2/coin_activation.TaskEnableZCoinCancel" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": "success",
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### Response (success - already finished)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Task is finished already",
+    "error_path": "init_standalone_coin.manager",
+    "error_trace": "init_standalone_coin:144] manager:101]",
+    "error_type": "TaskFinished",
+    "error_data": 0,
+    "id": null
+  }
+  ```
+
+  #### Response (error - no such task)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such task '1'",
+    "error_path": "init_standalone_coin",
+    "error_trace": "init_standalone_coin:119]",
+    "error_type": "NoSuchTask",
+    "error_data": 1,
+    "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -1,31 +1,18 @@
 export const title = "Komodo DeFi Framework Method: Enable ETH with Tokens";
-export const description = "The enable_eth_with_tokens method allows you to enable a platform coin like ETH along with multiple ERC20 like tokens of the platform coin chain in a single command.";
+export const description = "Learn how enable_eth_with_tokens activates a platform coin like ETH along with multiple ERC20 tokens in a single API command";
 
 # enable\_eth\_with\_tokens
 
-The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum).
-Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 like tokens on the rest of the platform coin chains.Using this method, you can enable a platform coin along with multiple ERC20 like tokens of the platform coin chain in a single command.
+The Komodo DeFi Framework supports ETH(Ethereum) and many other EVM type platform coins like AVAX(Avalanche), BNB(Binance), FTM(Fantom), MATIC(Polygon), ONE(Harmony), ETH-ARB20(Arbitrum), and TRX(TRON).
+Additionally, it supports ERC20 tokens on the ETH chain, associated ERC20 like tokens on the rest of the EVM platform coin chains, and TRC20 tokens on TRON. Using this method, you can enable a platform coin along with multiple ERC20/TRC20 like tokens of the platform coin chain in a single command.
+
+<Note>
+  TRON (TRX) is currently supported in **wallet-only mode**. You can activate TRX and TRC20 tokens for balance queries and withdrawals, but atomic swaps are not yet available for TRON-based coins. TRC20 tokens additionally support [gasless transfers via GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) — see the `tron_gasless_provider` parameter below.
+</Note>
 
 ### Request Parameters
 
-| Parameter                   | Type             | Description                                                                                                                                                                                                                                                                                                                                  |
-| --------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                      | string           | Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`                                                                                                                                                                                                                                      |
-| mm2                         | integer          | Required if not set in `coins` file. Informs the Komodo DeFi Framework API whether or not the coin is expected to function. Accepted values are `0` or `1`                                                                                                                                                                                   |
-| swap\_contract\_address     | string           | Address of etomic swap smart contract                                                                                                                                                                                                                                                                                                        |
-| fallback\_swap\_contract    | string           | Address of backup etomic swap smart contract.                                                                                                                                                                                                                                                                                                |
-| nodes                       | array of objects | A list of standard [CoinNode](/komodo-defi-framework/api/common_structures/activation/#coin-node) objects.                                                                                                                                                                                                                                   |
-| erc20\_tokens\_requests     | array of objects | A list of standard [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) objects.                                                                                                                                                                                                                         |
-| gas\_station\_decimals      | integer          | Optional, for ETH/ERC20 and other gas model chains. Defaults to `8`. Defines the decimals used to denominate the gas station response to gwei units. For example, the ETH gas station uses 8 decimals, which means that "average": 860 is equal to 86 gwei. While the Matic gas station uses 9 decimals, so 860 would mean 860 gwei exactly. |
-| gas\_station\_policy.policy | string           | Optional, for ETH/ERC20 and other gas model chains. Defaults to `"MeanAverageFast"`. Defines the method of gas price calculation from the station response. `"MeanAverageFast"` will use the mean between average and fast fields. `"Average"` will return a simple average value.                                                           |
-| get\_balances               | boolean          | Optional, defaults to `true`. If `false`, coin and token balances will not be returned in the response, and the response will be returned more quickly.                                                                                                                                                                                      |
-| priv\_key\_policy           | string           | Optional, defaults to `ContextPrivKey`. value can be `ContextPrivKey`,`Trezor` when Komodo DeFi Framework is built for native platforms. value can be `ContextPrivKey`, `Trezor`, `Metamask` when the Komodo DeFi Framework is built targeting `wasm`                                                                                        |
-| required\_confirmations     | integer          | Optional, defaults to `3`. When the platform coin is involved, the number of confirmations for the Komodo DeFi Framework API to wait during the transaction steps of an atomic swap                                                                                                                                                          |
-| requires\_notarization      | boolean          | Optional, defaults to `false`. If `true`, coins protected by [Komodo Platform's dPoW security](https://satindergrewal.medium.com/delayed-proof-of-work-explained-9a74250dbb86) will wait for a notarization before progressing to the next atomic swap transactions step.                                                                    |
-| rpc\_mode                   | string           | Optional, defaults to `Default`. Value can be `Metamask` only when the Komodo DeFi Framework is built targeting `wasm`.                                                                                                                                                                                                                      |
-| tx\_history                 | boolean          | Optional, defaults to `false`. If `true` the Komodo DeFi Framework API will preload transaction history as a background process. Must be set to `true` to use the [my\_tx\_history](/komodo-defi-framework/api/legacy/my_tx_history/#my-tx-history) method                                                                                   |
-| nft\_req                    | object           | Optional, encapsulates the request parameters for NFT activation, including NFT provider configuration. A standard [NftProvider](/komodo-defi-framework/api/common_structures/nfts/#nft-provider) object.                                                                                                                                    |
-| swap\_v2\_contracts         | object           | Optional, must be provided if "use\_trading\_proto\_v2" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object.                                                                                     |
+<CompactTable source="v2/coin_activation.EnableEthWithTokensArguments" />
 
 <Note>
   When running in HD mode, do not use the `nft_req` object paramater when activating your NFT network coins. Instead, use the [enable\_nft](/komodo-defi-framework/api/v20/non_fungible_tokens/enable_nft/) method after activating.
@@ -33,73 +20,13 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 ### Response Parameters
 
-| Parameter               | Type    | Description                                                                                                                                                                              |
-| ----------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| current\_block          | integer | Block height of the coin being activated                                                                                                                                                 |
-| eth\_addresses\_infos   | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/activation/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
-| erc20\_addresses\_infos | object  | A standard [AddressInfo](/komodo-defi-framework/api/common_structures/activation/#address-info) object. Note: the structure may vary based on the value of the `get_balances` parameter. |
-| nfts\_infos             | list    | A list of standard [NftInfoBasic](/komodo-defi-framework/api/common_structures/nfts/#nft-info) objects.                                                                                  |
+<CompactTable source="v2/coin_activation.EnableEthWithTokensResponse" />
 
 ### 📌 Examples
 
 #### Request including optional gas station parameters
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "ETH",
-      "gas_station_url": "https://ethgasstation.info/json/ethgasAPI.json",
-      "gas_station_decimals": 8,
-      "gas_station_policy": {
-        "policy": "MeanAverageFast"
-      },
-      "mm2": 1,
-      "priv_key_policy": "ContextPrivKey",
-      "swap_contract_address": "0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80",
-      "fallback_swap_contract": "0x8500AFc0bc5214728082163326C2FF0C73f4a871",
-      "nodes": [
-        {
-          "url": "https://eth1.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth2.cipig.net:18555",
-          "komodo_proxy": false
-        },
-        {
-          "url": "https://eth3.cipig.net:18555",
-          "komodo_proxy": false
-        }
-      ],
-      "tx_history": true,
-      "erc20_tokens_requests": [
-        {
-          "ticker": "APE-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "BCH-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "MINDS-ERC20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "BUSD-ERC20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensGasStation" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -156,51 +83,7 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
 
 #### Request with `get_balances` set to false
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
-  ```json
-  {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
-    "mmrpc": "2.0",
-    "params": {
-      "ticker": "MATIC",
-      "get_balances": false,
-      "tx_history": false,
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "swap_v2_contracts": {
-        "maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "taker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-        "nft_maker_swap_v2_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE"
-      },
-      "nodes": [
-        {
-          "url": "https://polygon-rpc.com"
-        },
-        {
-          "url": "https://node.komodo.earth:8080/polygon"
-        },
-        {
-          "url": "https://block-proxy.komodo.earth/rpc/matic"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
-  }
-  ```
-</CodeGroup>
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensMaticBalancesFalse" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -237,54 +120,110 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
   ```
 </CollapsibleSection>
 
-#### Request including NFT initialization
+#### Request for TRON (TRX) with TRC20 tokens
 
-<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true">
+<Note>
+  TRON nodes use HTTP API endpoints (not WebSocket/gRPC). Swap contract parameters are not needed as TRON is wallet-only.
+</Note>
+
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensTrx" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
   ```json
   {
-    "userpass": "RPC_UserP@SSW0RD",
-    "method": "enable_eth_with_tokens",
     "mmrpc": "2.0",
-    "params": {
-      "ticker": "MATIC",
-      "get_balances": false,
-      "tx_history": false,
-      "nft_req": {
-        "type": "Moralis",
-        "info": {
-          "url": "https://moralis-proxy.komodo.earth"
-        }
-      },
-      "gas_station_url": "https://gasstation-mainnet.matic.network/",
-      "swap_contract_address": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "fallback_swap_contract": "0x9130b257D37A52E52F21054c4DA3450c72f595CE",
-      "nodes": [
-        {
-          "url": "https://polygon-rpc.com"
+    "result": {
+        "current_block": 68000000,
+        "eth_addresses_infos": {
+            "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+                "derivation_method": {
+                    "type": "Iguana"
+                },
+                "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+                "balances": {
+                    "spendable": "50.000000",
+                    "unspendable": "0"
+                }
+            }
         },
-        {
-          "url": "https://node.komodo.earth:8080/polygon"
+        "erc20_addresses_infos": {
+            "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+                "derivation_method": {
+                    "type": "Iguana"
+                },
+                "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+                "balances": {
+                    "USDT-TRC20": {
+                        "spendable": "10.000000",
+                        "unspendable": "0"
+                    }
+                }
+            }
         },
-        {
-          "url": "https://block-proxy.komodo.earth/rpc/matic"
-        }
-      ],
-      "erc20_tokens_requests": [
-        {
-          "ticker": "PGX-PLG20",
-          "required_confirmations": 4
-        },
-        {
-          "ticker": "AAVE-PLG20",
-          "required_confirmations": 4
-        }
-      ],
-      "required_confirmations": 5,
-      "requires_notarization": false
-    }
+        "nfts_infos": {}
+    },
+    "id": null
   }
   ```
-</CodeGroup>
+</CollapsibleSection>
+
+#### Request for TRON (TRX) with gasless TRC20 transfers (GasFree)
+
+To enable [gasless TRC20 transfers](/komodo-defi-framework/tutorials/tron-gasfree/), pass a `tron_gasless_provider` (a standard [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config)) when activating the TRON platform coin, and on each TRC20 [TokensRequest](/komodo-defi-framework/api/common_structures/activation/#tokens-request) a per-token `gasless` object with `enabled: true` (plus an optional `transfer_max_fee` cap) to opt that token into gasless transfers. Once activated, the response includes each address's `gasfree_address`, and gasless withdrawals become available through the [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) `fee_method: "gasless"` option.
+
+<Note>
+  Set `service` to `"komodo_proxy"` to route requests through the Komodo proxy instead of supplying your own GasFree API credentials. See [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config).
+</Note>
+
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensTrxGasFree" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "current_block": 68000000,
+        "eth_addresses_infos": {
+            "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+                "derivation_method": {
+                    "type": "Iguana"
+                },
+                "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+                "balances": {
+                    "spendable": "50.000000",
+                    "unspendable": "0"
+                }
+            }
+        },
+        "erc20_addresses_infos": {
+            "TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9": {
+                "derivation_method": {
+                    "type": "Iguana"
+                },
+                "pubkey": "04d8064eece4fa5c0f8dc0267f68cee9bdd527f9e88f3594a323428718c391ecc2a91c9ce32b6fc5489c49e33b688423b655177168afee1b128be9b2fee67e3f3b",
+                "gasfree_address": "TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER",
+                "balances": {
+                    "USDT-TRC20": {
+                        "spendable": "10.000000",
+                        "unspendable": "0"
+                    }
+                }
+            }
+        },
+        "nfts_infos": {}
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Request including NFT initialization
+
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensMaticNft" />
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   #### Response
@@ -333,6 +272,19 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
     },
     "id": null
   }
+  ```
+</CollapsibleSection>
+
+#### Request using WalletConnect
+
+Prior to coin activation using WalletConnect, you need to establish a connection with [wc\_new\_connection](/komodo-defi-framework/api/v20-dev/wc_new_connection/#wc-new-connection)
+
+<CodeGroup title="" tag="POST" label="enable_eth_with_tokens" mm2MethodDecorate="true" source="v2/coin_activation.EnableEthWithTokensWalletConnect" />
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
   ```
 </CollapsibleSection>
 
@@ -436,13 +388,13 @@ Additionally, it supports ERC20 tokens on the ETH chain and associated ERC20 lik
   ```json
   {
       "mmrpc": "2.0",
-      "error": "Token BUSD-ERC20 protocol parsing failed: unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
+      "error": "Token BUSD-ERC20 protocol parsing failed: unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TRX`, `TRC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`",
       "error_path": "platform_coin_with_tokens.prelude",
       "error_trace": "platform_coin_with_tokens:314] platform_coin_with_tokens:109] prelude:82]",
       "error_type": "TokenProtocolParseError",
       "error_data": {
           "ticker": "BUSD-ERC20",
-          "error": "unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `SLPTOKEN`, `BCH`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
+          "error": "unknown variant `TERC20`, expected one of `UTXO`, `QTUM`, `QRC20`, `ETH`, `ERC20`, `TRX`, `TRC20`, `TENDERMINT`, `TENDERMINTTOKEN`, `LIGHTNING`, `SOLANA`, `SPLTOKEN`, `ZHTLC`"
       },
       "id": null
   }

@@ -1,0 +1,700 @@
+{
+  "GetNftTransfersFilters": {
+    "data": [
+      {
+        "parameter": "receive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers where user received NFTs are included in the response."
+      },
+      {
+        "parameter": "send",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers where user sent NFTs are included in the response."
+      },
+      {
+        "parameter": "from_date",
+        "type": "integer",
+        "required": false,
+        "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/). If `true`, filter includes transfers from this date onwards (inclusive)."
+      },
+      {
+        "parameter": "to_date",
+        "type": "integer",
+        "required": false,
+        "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/). If `true`, filter includes transfers up to this date (inclusive)."
+      },
+      {
+        "parameter": "exclude_spam",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers which have param `possible_spam:false` are included in the response."
+      },
+      {
+        "parameter": "exclude_phishing",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers which have param `possible_phishing:false` are included in the response."
+      }
+    ]
+  },
+  "NftFilter": {
+    "data": [
+      {
+        "parameter": "exclude_spam",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Optional, defaults to `false`. If `true`, only tokens which have param `possible_spam:false` are included in the response."
+      },
+      {
+        "parameter": "exclude_phishing",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Optional, defaults to `false`. If `true`, only tokens which have param `possible_phishing:false` are included in the response."
+      }
+    ]
+  },
+  "NftInfoBasic": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the NFT contract."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The token ID of the NFT."
+      }
+    ]
+  },
+  "NftInfo": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
+      },
+      {
+        "parameter": "block_number_minted",
+        "type": "integer",
+        "required": false,
+        "description": "The block height when the NFT was minted. May be `null`."
+      },
+      {
+        "parameter": "block_number",
+        "type": "integer",
+        "required": true,
+        "description": "The block height when the amount or owner changed."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "last_token_uri_sync",
+        "type": "string",
+        "required": true,
+        "description": "When the token_uri was last updated."
+      },
+      {
+        "parameter": "last_metadata_sync",
+        "type": "string",
+        "required": true,
+        "description": "When the metadata was last updated."
+      },
+      {
+        "parameter": "metadata",
+        "type": "object",
+        "required": false,
+        "description": "A JSON object containing NFT metadata. May be `null`."
+      },
+      {
+        "parameter": "minter_address",
+        "type": "string",
+        "required": false,
+        "description": "Minter address. May be `null`."
+      },
+      {
+        "parameter": "owner_of",
+        "type": "string",
+        "required": true,
+        "description": "The wallet address of the owner of the NFT."
+      },
+      {
+        "parameter": "possible_spam",
+        "type": "boolean",
+        "required": true,
+        "description": "If `true`, the contract address has [been identified](https://docs.moralis.io/web3-data-api/evm/nft-spam-detection) as associated with spam or suspicious activities."
+      },
+      {
+        "parameter": "possible_phishing",
+        "type": "boolean",
+        "required": true,
+        "description": "If `true`, the token has been identified as associated with phishing, as at least one of domain fields is found in database with phishing domains."
+      },
+      {
+        "parameter": "synced_at",
+        "type": "string",
+        "required": true,
+        "description": "When the token was last synced with the node."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The address of the NFT contract."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The token ID of the NFT."
+      },
+      {
+        "parameter": "token_hash",
+        "type": "string",
+        "required": false,
+        "description": "The token hash. May be `null`."
+      },
+      {
+        "parameter": "token_uri",
+        "type": "string",
+        "required": false,
+        "description": "The URI to the metadata of the token. May be `null`."
+      },
+      {
+        "parameter": "token_domain",
+        "type": "string",
+        "required": false,
+        "description": "Token domain. May be `null`."
+      },
+      {
+        "parameter": "uri_meta",
+        "type": "object",
+        "required": true,
+        "description": "A standard [NftMetadata](/komodo-defi-framework/api/common_structures/nfts/#nft-metadata) object."
+      }
+    ],
+    "variant": "compact"
+  },
+  "NftMetadata": {
+    "data": [
+      {
+        "parameter": "image",
+        "type": "string",
+        "required": false,
+        "description": "Direct URL to the NFT's image."
+      },
+      {
+        "parameter": "image_url",
+        "type": "string",
+        "required": false,
+        "description": "Url to the NFT's image. Derived from the `image` or `image_url` fields to prioritize the non-null value. Can be null if neither is provided."
+      },
+      {
+        "parameter": "image_domain",
+        "type": "string",
+        "required": false,
+        "description": "Extracted domain from the 'image_url', if valid."
+      },
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": false,
+        "description": "Name of the token."
+      },
+      {
+        "parameter": "description",
+        "type": "string",
+        "required": false,
+        "description": "Description of the token."
+      },
+      {
+        "parameter": "attributes",
+        "type": "object or array of objects",
+        "required": false,
+        "description": "The values within this parameter will vary, and are set by the creator. Often used to store traits."
+      },
+      {
+        "parameter": "animation_url",
+        "type": "string",
+        "required": false,
+        "description": "Url to an animation to be displayed instead of a static image."
+      },
+      {
+        "parameter": "animation_domain",
+        "type": "string",
+        "required": false,
+        "description": "Extracted domain from the `animation_url`, if valid."
+      },
+      {
+        "parameter": "external_url",
+        "type": "string",
+        "required": false,
+        "description": "URL to the external source related to the token."
+      },
+      {
+        "parameter": "external_domain",
+        "type": "string",
+        "required": false,
+        "description": "Extracted domain from the `external_url`, if valid."
+      },
+      {
+        "parameter": "image_details",
+        "type": "object",
+        "required": false,
+        "description": "JSON containing additional details or attributes of the image."
+      }
+    ],
+    "variant": "compact"
+  },
+  "NftProvider": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Specifies the type of the provider."
+      },
+      {
+        "parameter": "info",
+        "type": "object",
+        "required": true,
+        "description": "Additional information about the provider"
+      },
+      {
+        "parameter": "info.url",
+        "type": "string",
+        "required": true,
+        "description": "URL of the provider's endpoint"
+      },
+      {
+        "parameter": "info.komodo_proxy",
+        "type": "boolean",
+        "required": false,
+        "description": "Indicates whether proxy authentication is enabled for the endpoint"
+      }
+    ]
+  },
+  "NftTransfer": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "Amount of tokens transferred."
+      },
+      {
+        "parameter": "block_hash",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Hash of block in which transfer occurred."
+      },
+      {
+        "parameter": "block_number",
+        "type": "integer",
+        "required": true,
+        "description": "Height of block in which transfer occurred."
+      },
+      {
+        "parameter": "block_timestamp",
+        "type": "integer",
+        "required": true,
+        "description": "Block time in [unix epoch format](https://www.epochconverter.com/)."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "token_uri",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. The URI to the metadata of the token."
+      },
+      {
+        "parameter": "token_domain",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Extracted domain from the `token_uri`, if valid."
+      },
+      {
+        "parameter": "collection_name",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Name of collection which token belongs to."
+      },
+      {
+        "parameter": "image_url",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. The URI to the token image."
+      },
+      {
+        "parameter": "image_domain",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Extracted domain from the `image_url`, if valid."
+      },
+      {
+        "parameter": "token_name",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Name of the token."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "Contract type. `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "Address of token transferred."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "Token ID."
+      },
+      {
+        "parameter": "possible_spam",
+        "type": "boolean",
+        "required": true,
+        "description": "If `true`, the contract address has [been identified](https://docs.moralis.io/web3-data-api/evm/nft-spam-detection) as associated with spam or suspicious activities."
+      },
+      {
+        "parameter": "possible_phishing",
+        "type": "boolean",
+        "required": true,
+        "description": "If `true`, the token has been identified as associated with phishing, as at least one of domain fields is found in database with phishing domains."
+      },
+      {
+        "parameter": "transaction_hash",
+        "type": "string",
+        "required": true,
+        "description": "Transaction ID of the transfer."
+      },
+      {
+        "parameter": "transaction_index",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Transaction index of the transfer."
+      },
+      {
+        "parameter": "log_index",
+        "type": "string",
+        "required": true,
+        "description": "Log index of the transfer."
+      },
+      {
+        "parameter": "value",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Tranfer value."
+      },
+      {
+        "parameter": "transaction_type",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. Transaction type. Possible values are `Single`."
+      },
+      {
+        "parameter": "from_address",
+        "type": "string",
+        "required": true,
+        "description": "Address of previous owner which sent the token(s)."
+      },
+      {
+        "parameter": "to_address",
+        "type": "string",
+        "required": true,
+        "description": "Address of new owner which received the token(s)."
+      },
+      {
+        "parameter": "status",
+        "type": "string",
+        "required": true,
+        "description": "Transfer status. Will be either `Send` or `Receive`. When the `from_address` and `to_address` are the same (i.e. sending to yourself), this value will be `Receive`."
+      },
+      {
+        "parameter": "verified",
+        "type": "integer",
+        "required": false,
+        "description": "May be `null`. A deprecated field which will be removed in future."
+      },
+      {
+        "parameter": "operator",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`."
+      },
+      {
+        "parameter": "fee_details",
+        "type": "object",
+        "required": false,
+        "description": "A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object."
+      },
+      {
+        "parameter": "confirmations",
+        "type": "integer",
+        "required": true,
+        "description": "The count of blocks produced since this transaction was confirmed."
+      }
+    ],
+    "variant": "compact"
+  },
+  "NftTransferFilter": {
+    "data": [
+      {
+        "parameter": "receive",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers where user received NFTs are included in the response."
+      },
+      {
+        "parameter": "send",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers where user sent NFTs are included in the response."
+      },
+      {
+        "parameter": "from_date",
+        "type": "integer",
+        "required": false,
+        "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/). If `true`, filter includes transfers from this date onwards (inclusive)."
+      },
+      {
+        "parameter": "to_date",
+        "type": "integer",
+        "required": false,
+        "description": "A timestamp in [unix epoch format](https://www.epochconverter.com/). If `true`, filter includes transfers up to this date (inclusive)."
+      },
+      {
+        "parameter": "exclude_spam",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers which have param `possible_spam:false` are included in the response."
+      },
+      {
+        "parameter": "exclude_phishing",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "If `true`, only transfers which have param `possible_phishing:false` are included in the response."
+      }
+    ]
+  },
+  "MoralisNftDetails": {
+    "data": [
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": true,
+        "description": "The amount of this NFT the user owns (used by `ERC1155`)."
+      },
+      {
+        "parameter": "block_number_minted",
+        "type": "integer",
+        "required": false,
+        "description": "The block height when the NFT was minted. May be `null`."
+      },
+      {
+        "parameter": "block_number",
+        "type": "integer",
+        "required": true,
+        "description": "The block height when the amount or owner changed."
+      },
+      {
+        "parameter": "chain",
+        "type": "string",
+        "required": true,
+        "description": "Chain name. One of `AVALANCHE`, `BSC`, `ETH`, `FANTOM`, or `POLYGON`."
+      },
+      {
+        "parameter": "name",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. An NFT collection name."
+      },
+      {
+        "parameter": "contract_type",
+        "type": "string",
+        "required": true,
+        "description": "The type of NFT contract standard. One of `ERC721` or `ERC1155`."
+      },
+      {
+        "parameter": "last_token_uri_sync",
+        "type": "string",
+        "required": true,
+        "description": "When the token_uri was last updated."
+      },
+      {
+        "parameter": "metadata",
+        "type": "string",
+        "required": false,
+        "description": "May be `null` or a JSON stringified object containing NFT metadata."
+      },
+      {
+        "parameter": "normalized_metadata",
+        "type": "object",
+        "required": false,
+        "description": "A JSON object containing NFT metadata."
+      },
+      {
+        "parameter": "possible_spam",
+        "type": "boolean",
+        "required": true,
+        "description": "Indicates if the NFT collection is flagged as spam."
+      },
+      {
+        "parameter": "symbol",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. The symbol of the NFT collection."
+      },
+      {
+        "parameter": "synced_at",
+        "type": "string",
+        "required": true,
+        "description": "When the NFT was last synced with the node."
+      },
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The smart contract address of this NFT."
+      },
+      {
+        "parameter": "token_hash",
+        "type": "string",
+        "required": true,
+        "description": "A hash uniquely identifying this NFT's metadata."
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The token ID of this NFT."
+      },
+      {
+        "parameter": "token_uri",
+        "type": "string",
+        "required": false,
+        "description": "May be `null`. A URI to the NFT metadata (Usually an IPFS link)."
+      },
+      {
+        "parameter": "possible_phishing",
+        "type": "boolean",
+        "required": true,
+        "description": "Indicates if the NFT is flagged as phishing."
+      }
+    ],
+    "variant": "compact"
+  },
+  "TokenProtocol": {
+    "data": [
+      {
+        "parameter": "type",
+        "type": "string",
+        "required": true,
+        "description": "Token type - e.g `ERC20` for tokens on the Ethereum network"
+      },
+      {
+        "parameter": "protocol_data",
+        "type": "object",
+        "required": true,
+        "description": "Protocol-specific data object"
+      }
+    ]
+  },
+  "TokenProtocolData": {
+    "data": [
+      {
+        "parameter": "platform",
+        "type": "string",
+        "required": true,
+        "description": "The parent coin of the token's platform - e.g `MATIC` for PLG20 tokens"
+      },
+      {
+        "parameter": "contract_address",
+        "type": "string",
+        "required": true,
+        "description": "**Must be mixed case** The identifying hex string for the token's contract. Can be found on sites like [EthScan](https://etherscan.io/), [BscScan](https://bscscan.com/) & [PolygonScan](https://polygonscan.com/)"
+      }
+    ]
+  },
+  "WithdrawNftData": {
+    "data": [
+      {
+        "parameter": "token_address",
+        "type": "string",
+        "required": true,
+        "description": "The contract address of the NFT"
+      },
+      {
+        "parameter": "token_id",
+        "type": "string",
+        "required": true,
+        "description": "The ID of the NFT"
+      },
+      {
+        "parameter": "to",
+        "type": "string",
+        "required": true,
+        "description": "The recipient's address"
+      },
+      {
+        "parameter": "amount",
+        "type": "string",
+        "required": false,
+        "description": "The amount to withdraw (for ERC1155 NFTs). For ERC721 NFTs, this is always `1` and can be omitted."
+      }
+    ]
+  }
+}

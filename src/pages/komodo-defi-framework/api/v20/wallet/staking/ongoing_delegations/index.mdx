@@ -1,0 +1,95 @@
+export const title = "Komodo DeFi Framework Method: Ongoing Undelegations";
+export const description =
+  "The experimental::staking::query::ongoing_undelegations method returns information about undelegations in progress.";
+
+# Ongoing Undelegations
+
+The `experimental::staking::query::ongoing_undelegations` method returns information about undelegations in progress. Currently Cosmos/Tendermint coins are supported.
+
+## Arguments
+
+| Structure     | Type   | Description                                                                                                        |
+| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
+| coin          | string | the coin being staked                                                                                              |
+| info\_details | object | A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+
+#### 📌 Examples
+
+#### Tendermint Command
+
+<CodeGroup title="" tag="POST" label="experimental::staking::query::ongoing_undelegations" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::query::ongoing_undelegations",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "IRIS",
+      "info_details": {
+        "type": "Cosmos",
+        "limit": 20,
+        "page_number": 1
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "ongoing_undelegations": [
+            {
+                "validator_address": "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat",
+                "entries": [
+                    {
+                        "creation_height": 29732238,
+                        "completion_datetime": "2025-05-12T10:20:27.498461529Z",
+                        "balance": "7.77"
+                    }
+                ]
+            }
+        ]
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### InvalidRequest (unsupported coin type)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Error parsing request: unknown variant `Qtum`, expected `Cosmos`",
+      "error_path": "dispatcher",
+      "error_trace": "dispatcher:122]",
+      "error_type": "InvalidRequest",
+      "error_data": "unknown variant `Qtum`, expected `Cosmos`",
+      "id": null
+  }
+  ```
+
+  #### NoSuchCoin (coin not yet active)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "No such coin IRIS",
+      "error_path": "lp_coins",
+      "error_trace": "lp_coins:5218] lp_coins:5032]",
+      "error_type": "NoSuchCoin",
+      "error_data": {
+          "coin": "IRIS"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>

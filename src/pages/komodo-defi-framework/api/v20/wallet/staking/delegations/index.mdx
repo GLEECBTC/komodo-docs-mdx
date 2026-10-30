@@ -1,0 +1,144 @@
+export const title = "Komodo DeFi Framework Method: Delegations";
+export const description =
+  "The experimental::staking::query::delegations method returns information about your node's staking.";
+
+# Delegations
+
+The `experimental::staking::query::delegations` method returns information about your node's staking. Currently QTUM and tQTUM (test tokens avalable at `https://testnet-faucet.qtum.info/`), along with Cosmos/Tendermint coins are supported.
+
+## Arguments
+
+| Structure     | Type   | Description                                                                                                                     |
+| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| coin          | string | the coin being staked                                                                                                           |
+| info\_details | object | Cosmos Only. A standard [StakingInfoDetails](/komodo-defi-framework/api/common_structures/wallet/#staking-info-details) object. |
+
+#### 📌 Examples
+
+#### QTUM Command (testnet)
+
+<CodeGroup title="" tag="POST" label="experimental::staking::query::delegations" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "method": "experimental::staking::query::delegations",
+    "params": {
+      "coin": "tQTUM"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (not currently staking)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "staking_infos_details": {
+        "type": "Qtum",
+        "amount": "0",
+        "staker": null,
+        "am_i_staking": false,
+        "is_staking_supported": true
+      }
+    },
+    "id": 0
+  }
+  ```
+
+  #### Response (staking active)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "staking_infos_details": {
+              "type": "Qtum",
+              "amount": "8",
+              "staker": "qbgHcqxXYHVJZXHheGpHwLJsB5epDUtWxe",
+              "am_i_staking": true,
+              "is_staking_supported": true
+          }
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+#### Tendermint Command
+
+<CodeGroup title="" tag="POST" label="experimental::staking::delegations" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "experimental::staking::query::delegations",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "ATOM",
+      "info_details": {
+        "type": "Cosmos",
+        "limit": 20,
+        "page_number": 1
+      }
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "delegations": [
+            {
+                "validator_address": "iva1qq93sapmdcx36uz64vvw5gzuevtxsc7lcfxsat",
+                "delegated_amount": "7.77",
+                "reward_amount": "0.000000767283749739569999"
+            }
+        ]
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Error responses
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  #### NoSuchCoin (coin not active, or not supported)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "No such coin ATOM",
+    "error_path": "lp_coins",
+    "error_trace": "lp_coins:5228] lp_coins:5032]",
+    "error_type": "NoSuchCoin",
+    "error_data": {
+        "coin": "ATOM"
+    },
+    "id": null
+  }
+  ```
+
+  #### InvalidRequest (unsupported coin type)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "Error parsing request: unknown variant `UTXO`, expected `Qtum` or `Cosmos`",
+    "error_path": "dispatcher",
+    "error_trace": "dispatcher:122]",
+    "error_type": "InvalidRequest",
+    "error_data": "unknown variant `UTXO`, expected `Qtum` or `Cosmos`",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

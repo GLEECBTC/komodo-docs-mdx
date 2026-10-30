@@ -31,7 +31,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"stop\",\"userpass\":\"$
 stdbuf -oL nohup ./kdf
 ```
 
-*   Enable the coins involved in the swap using the [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum-method) command
+*   Enable the coins involved in the swap using the [electrum](/komodo-defi-framework/api/legacy/coin_activation/#electrum) command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"RICK\",\"servers\":[{\"url\":\"electrum1.cipig.net:10017\"},{\"url\":\"electrum2.cipig.net:10017\"},{\"url\":\"electrum3.cipig.net:10017\"}]}"

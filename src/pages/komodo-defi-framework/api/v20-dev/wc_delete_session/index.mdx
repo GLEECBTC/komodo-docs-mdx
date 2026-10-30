@@ -1,0 +1,49 @@
+export const title = "Komodo DeFi Framework Method: Walletconnect: Delete session";
+export const description =
+  "The wc_delete_session method closes the specified WalletConnect session.";
+
+# wc\_delete\_session
+
+The `wc_delete_session` method closes the specified WalletConnect session.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method.
+
+## Arguments
+
+| Structure | Type   | Description                                            |
+| --------- | ------ | ------------------------------------------------------ |
+| topic     | string | An active session topic (or pairing topic) hex string. |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command
+
+<CodeGroup title="" tag="POST" label="wc_delete_session" mm2MethodDecorate="true">
+  ```json
+  {
+    "method": "wc_delete_session",
+    "userpass": "RPC_UserP@SSW0RD",
+    "mmrpc": "2.0",
+    "params": {
+      "with_pairing_topic": false,
+      "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+    }
+  }
+  ```
+</CodeGroup>
+
+<Note>
+  Both of the above queries return the same result.
+</Note>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response
+
+  ```json
+  ```
+</CollapsibleSection>

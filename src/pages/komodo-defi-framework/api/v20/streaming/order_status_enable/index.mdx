@@ -1,0 +1,81 @@
+export const title = "Komodo DeFi Framework Method: Enable Order Status Streaming";
+export const description = "Using this method, you can enable the order status stream.";
+
+# Enable Order Status Streaming
+
+## stream::order\_status::enable {{label : 'stream::order_status::enable', tag : 'API-v2'}}
+
+Using this method, you can enable the order status stream.
+
+### Request Parameters
+
+<CompactTable source="v2/streaming.OrderStatusEnableRequestParameters" />
+
+### Response Parameters
+
+<CompactTable source="v2/streaming.OrderStatusEnableResponseParameters" />
+
+#### 📌 Examples
+
+<CodeGroup title="order_status_enable" tag="POST" label="order_status_enable" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "stream::order_status::enable",
+    "mmrpc": "2.0",
+    "params": {
+      "client_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+        "streamer_id": "ORDER_STATUS"
+    },
+    "id": null
+  }
+  ```
+</CollapsibleSection>
+
+Here is an example of the stream data you should be able to see in [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) for each order status event:
+
+`data: {"_type":"ORDER_STATUS","message":{"order_type":"TakerMatch","order_data":{"reserved":{"base":"DOC","rel":"MARTY","base_amount":[[1,[12]],[1,[5]]],"rel_amount":[[1,[12]],[1,[5]]],"taker_order_uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","maker_order_uuid":"3842068d-d8ca-4dc3-85d7-7fb2b6f4b691","sender_pubkey":"15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732","dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000","conf_settings":{"base_confs":1,"base_nota":false,"rel_confs":1,"rel_nota":false},"base_protocol_info":[145,168,115,116,97,110,100,97,114,100],"rel_protocol_info":[145,168,115,116,97,110,100,97,114,100]},"connect":{"taker_order_uuid":"4bfe3af7-dd62-4dbe-9c16-68697c4aa24d","maker_order_uuid":"3842068d-d8ca-4dc3-85d7-7fb2b6f4b691","sender_pubkey":"71792f7a6846a0da28f3422501927ae103355c02750bc4c4d8430375329a09ac","dest_pub_key":"15d9c51c657ab1be4ae9d3ab6e76a619d3bccfe830d5363fa168424c0d044732"},"connected":null,"last_updated":1746432440044}}}`
+
+### Error Types
+
+<CompactTable source="v2/streaming.OrderStatusEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error Response (Unknown Client)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "UnknownClient",
+    "error_path": "orders",
+    "error_trace": "orders:29]",
+    "error_type": "EnableError",
+    "error_data": "UnknownClient",
+    "id": null
+  }
+  ```
+
+  ##### Error (Client Already Listening)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "error": "ClientAlreadyListening",
+    "error_path": "orders",
+    "error_trace": "orders:29]",
+    "error_type": "EnableError",
+    "error_data": "ClientAlreadyListening",
+    "id": null
+  }
+  ```
+</CollapsibleSection>

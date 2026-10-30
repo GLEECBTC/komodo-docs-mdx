@@ -22,15 +22,11 @@ The Komodo Defi Framework allows users to benefit from this improvement with che
 
 *   Set swap transaction fee policy for an EVM coin/token [set\_swap\_transaction\_fee\_policy](/komodo-defi-framework/api/v20/wallet/fee_management/set_swap_transaction_fee_policy/).
 
-*   Start tracking the fee market for an EVM coin/token [start\_eth\_fee\_estimator](/komodo-defi-framework/api/v20/wallet/fee_management/start_eth_fee_estimator/).
-
-*   Stop tracking the fee market for an EVM coin/token [stop\_eth\_fee\_estimator](/komodo-defi-framework/api/v20/wallet/fee_management/stop_eth_fee_estimator/).
-
 ## Fee Management Configuration
 
 There is also a new `gas_fee_estimator` parameter in the coins file, which can be set to `provider` or `simple`.
 
-By default, `simple` gas fee estimation suggests a fee based on fee history. If set `gas_fee_estimator` is set to `provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
+By default, `Simple` gas fee estimation suggests a fee based on fee history. If set `gas_fee_estimator` is set to `Provider`, users must set the `gas_api` setting in their [MM2.json file](/komodo-defi-framework/setup/configure-mm2-json/) to source recommended fee values from third party providers [Infura](https://www.infura.io/) or [Blocknative](https://www.blocknative.com/).
 
 ### In the coins file
 
@@ -56,7 +52,7 @@ Below is an example of the information required in EVM token configurations in y
   "derivation_path": "m/44'/60'",
   "use_access_list": true,
   "max_eth_tx_type": 2,
-  "gas_fee_estimator": "provider",
+  "gas_fee_estimator": "Provider",
   "gas_limit": {
       "eth_send_erc20": 60000,
       "erc20_payment": 110000,
@@ -72,7 +68,7 @@ The [`gas_limit` object](/komodo-defi-framework/tutorials/listing-a-new-coin/) v
 
 ### In the MM2.json file
 
-If `gas_fee_estimator` is set to `provider`, you'll also need to add the `gas_api` parameter to your [MM2.json configuration file](/komodo-defi-framework/setup/configure-mm2-json/):
+If `gas_fee_estimator` is set to `Provider`, you'll also need to add the `gas_api` parameter to your [MM2.json configuration file](/komodo-defi-framework/setup/configure-mm2-json/):
 
 ```json
 {

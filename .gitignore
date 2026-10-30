@@ -38,3 +38,5 @@ Thumbs.db
 filepathSlugs.json
 links-to-manually-check
 .env
+MM2.json
+utils/docker/kdf-config/coins

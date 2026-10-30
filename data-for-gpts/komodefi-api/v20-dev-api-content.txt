@@ -148,6 +148,17 @@ export const description = "Komodo DeFi Framework API now supports mmrpc 2.0 pro
 # Komodo DeFi Framework API RPC Protocol v2.0 (Dev)
 
 The methods in this section are still undergoing testing and enhancement. To use these methods, you will need to run a version of `kdf` from the dev branch or a feature specific branch with an active pull request to the dev branch.
+
+## Common Komodo DeFi SDK Request / Response Objects
+
+There are some [common objects](/komodo-defi-framework/api/common_structures/) that are used in the Komodo DeFi SDK RPC protocol. These standard objects have been collected and grouped into the following sections:
+
+*   [Activation](/komodo-defi-framework/api/common_structures/activation/)
+*   [Lightning Network](/komodo-defi-framework/api/common_structures/lightning/)
+*   [Non-fungible Tokens](/komodo-defi-framework/api/common_structures/nfts/)
+*   [Orders](/komodo-defi-framework/api/common_structures/orders/)
+*   [Swaps](/komodo-defi-framework/api/common_structures/swaps/)
+*   [Wallet](/komodo-defi-framework/api/common_structures/wallet/)
 export const title = "Komodo DeFi Framework Method: 1inch v6.0 Classic Swap Create (v2)";
 export const description =
   "The 1inch_v6_0_classic_swap_create method returns transaction data for classic swap from 1inch API version 6.0.";
@@ -746,4 +757,523 @@ Refer to the [1inch Classic Swap documentation](https://portal.1inch.dev/documen
     }
   }
 }
+```
+export const title = "Komodo DeFi Framework Method: Walletconnect: Delete session";
+export const description =
+  "The wc_delete_session method closes the specified WalletConnect session.";
+
+# wc\_delete\_session
+
+The `wc_delete_session` method closes the specified WalletConnect session.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method.
+
+## Arguments
+
+| Structure | Type   | Description                                            |
+| --------- | ------ | ------------------------------------------------------ |
+| topic     | string | An active session topic (or pairing topic) hex string. |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command
+
+```json
+{
+  "method": "wc_delete_session",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {
+    "with_pairing_topic": false,
+    "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+  }
+}
+```
+
+Both of the above queries return the same result.
+
+#### Response
+
+```json
+```
+export const title = "Komodo DeFi Framework Method: Walletconnect: Get session";
+export const description =
+  "The wc_get_session method returns details for a specific WalletConnect session.";
+
+# wc\_get\_session
+
+The `wc_get_session` method returns details for a specific WalletConnect session.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method instead.
+
+## Arguments
+
+| Structure            | Type   | Description                                                                                                                                                                                     |
+| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| with\_pairing\_topic | bool   | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
+| topic                | string | An active session topic (or pairing topic) hex string.                                                                                                                                          |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command via pairing topic
+
+```json
+{
+  "method": "wc_get_session",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {
+    "with_pairing_topic": true,
+    "topic": "ad2fbcc28d410158431a3dc181d4365462df5cef6c90402b3e415c9d75f7c6f1"
+  }
+}
+```
+
+#### Command via session topic
+
+```json
+{
+  "method": "wc_get_session",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {
+    "with_pairing_topic": false,
+    "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+  }
+}
+```
+
+Both of the above queries return the same result.
+
+#### Response
+
+```json
+{
+  "mmrpc": "2.0",
+  "result": {
+      "session": {
+          "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95",
+          "metadata": {
+              "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+              "url": "https://trustwallet.com",
+              "icons": [
+                  "https://trustwallet.com/assets/images/media/assets/TWT.png"
+              ],
+              "name": "Trust Wallet"
+          },
+          "pairing_topic": "ad2fbcc28d410158431a3dc181d4365462df5cef6c90402b3e415c9d75f7c6f1",
+          "namespaces": {
+              "cosmos": {
+                  "chains": [
+                      "cosmos:cosmoshub-4"
+                  ],
+                  "accounts": [
+                      "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                  ],
+                  "methods": [
+                      "cosmos_getAccounts",
+                      "cosmos_signAmino",
+                      "cosmos_signDirect"
+                  ],
+                  "events": []
+              },
+              "eip155": {
+                  "chains": [
+                      "eip155:43114"
+                  ],
+                  "accounts": [
+                      "eip155:43114:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                  ],
+                  "methods": [
+                      "eth_sendTransaction",
+                      "eth_signTransaction",
+                      "personal_sign"
+                  ],
+                  "events": [
+                      "accountsChanged",
+                      "chainChanged"
+                  ]
+              }
+          },
+          "expiry": 1742187410
+      }
+  },
+  "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Walletconnect: Get sessions";
+export const description =
+  "The wc_get_sessions method returns a list of active WalletConnect sessions.";
+
+# wc\_get\_sessions
+
+The `wc_get_sessions` method returns a list of active WalletConnect sessions. For details on a specific connection only, use the [wc\_get\_session](/komodo-defi-framework/api/v20-dev/wc_get_session/#wc-get-session) method instead.
+
+## Arguments
+
+| Structure | Type | Description                            |
+| --------- | ---- | -------------------------------------- |
+| None      | N/A  | This method takes no input parameters. |
+
+## Response
+
+| Structure | Type            | Description                                                                                       |
+| --------- | --------------- | ------------------------------------------------------------------------------------------------- |
+| sessions  | list of objects | A list of standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) objects. |
+
+#### 📌 Examples
+
+#### Command
+
+```json
+{
+  "method": "wc_get_sessions",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {}
+}
+```
+
+#### Response
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "sessions": [
+            {
+                "topic": "feeabbad7ac1f1ba720d4441c299eab2b239f0deefb050fe50dbc7a350d55f75",
+                "metadata": {
+                    "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                    "url": "https://trustwallet.com",
+                    "icons": [
+                        "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                    ],
+                    "name": "Trust Wallet"
+                },
+                "pairing_topic": "ad604cd186f5dc9498343fbd763f6d6963ea511de0e5d557a33a8e3790d6d4d5",
+                "namespaces": {
+                    "cosmos": {
+                        "chains": [
+                            "cosmos:cosmoshub-4"
+                        ],
+                        "accounts": [
+                            "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                        ],
+                        "methods": [
+                            "cosmos_getAccounts",
+                            "cosmos_signAmino",
+                            "cosmos_signDirect"
+                        ],
+                        "events": []
+                    },
+                    "eip155": {
+                        "chains": [
+                            "eip155:1"
+                        ],
+                        "accounts": [
+                            "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                        ],
+                        "methods": [
+                            "eth_sendTransaction",
+                            "eth_signTransaction",
+                            "personal_sign"
+                        ],
+                        "events": [
+                            "accountsChanged",
+                            "chainChanged"
+                        ]
+                    }
+                },
+                "expiry": 1741952829
+            },
+            {
+                "topic": "ed6c18e392b5d944f46b189be4403beaf8553279dfab946c333cc6d45ddb60a5",
+                "metadata": {
+                    "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                    "url": "https://trustwallet.com",
+                    "icons": [
+                        "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                    ],
+                    "name": "Trust Wallet"
+                },
+                "pairing_topic": "5686b8065981fafca63bb4b2e7e9384bf348612981e69ac99fb8a698204aaed4",
+                "namespaces": {
+                    "cosmos": {
+                        "chains": [
+                            "cosmos:cosmoshub-4"
+                        ],
+                        "accounts": [
+                            "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                        ],
+                        "methods": [
+                            "cosmos_getAccounts",
+                            "cosmos_signAmino",
+                            "cosmos_signDirect"
+                        ],
+                        "events": []
+                    },
+                    "eip155": {
+                        "chains": [
+                            "eip155:1"
+                        ],
+                        "accounts": [
+                            "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                        ],
+                        "methods": [
+                            "eth_sendTransaction",
+                            "eth_signTransaction",
+                            "personal_sign"
+                        ],
+                        "events": [
+                            "accountsChanged",
+                            "chainChanged"
+                        ]
+                    }
+                },
+                "expiry": 1741952162
+            },
+            {
+                "topic": "24880ee97c56b95491e63d45aa7c743da4ea10bdffa73de7420ed91450c79c09",
+                "metadata": {
+                    "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                    "url": "https://trustwallet.com",
+                    "icons": [
+                        "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                    ],
+                    "name": "Trust Wallet"
+                },
+                "pairing_topic": "2e6e4a25f2d55c26bba9c7c8dbb4979ff6eff30adac83fbc67110d67399f6023",
+                "namespaces": {
+                    "cosmos": {
+                        "chains": [
+                            "cosmos:cosmoshub-4"
+                        ],
+                        "accounts": [
+                            "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                        ],
+                        "methods": [
+                            "cosmos_getAccounts",
+                            "cosmos_signAmino",
+                            "cosmos_signDirect"
+                        ],
+                        "events": []
+                    },
+                    "eip155": {
+                        "chains": [
+                            "eip155:1",
+                            "eip155:137",
+                            "eip155:43114",
+                            "eip155:56"
+                        ],
+                        "accounts": [
+                            "eip155:137:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                            "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                            "eip155:43114:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                            "eip155:56:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                        ],
+                        "methods": [
+                            "eth_sendTransaction",
+                            "eth_signTransaction",
+                            "personal_sign"
+                        ],
+                        "events": [
+                            "accountsChanged",
+                            "chainChanged"
+                        ]
+                    }
+                },
+                "expiry": 1742183855
+            },
+            {
+                "topic": "bdff85bde684f2f90237d37515177e21d8fa90297c0bf254393629bd9a134a92",
+                "metadata": {
+                    "description": "Trust Wallet is a secure and easy-to-use mobile wallet",
+                    "url": "https://trustwallet.com",
+                    "icons": [
+                        "https://trustwallet.com/assets/images/media/assets/TWT.png"
+                    ],
+                    "name": "Trust Wallet"
+                },
+                "pairing_topic": "f8aedf596dde182559ed75ea6358db9f49cf5a8757c0f32551fca8062d613191",
+                "namespaces": {
+                    "cosmos": {
+                        "chains": [
+                            "cosmos:cosmoshub-4"
+                        ],
+                        "accounts": [
+                            "cosmos:cosmoshub-4:cosmos1r5expjvu46u4s9yd4d2lpmss22p848lw2a7wa8"
+                        ],
+                        "methods": [
+                            "cosmos_getAccounts",
+                            "cosmos_signAmino",
+                            "cosmos_signDirect"
+                        ],
+                        "events": []
+                    },
+                    "eip155": {
+                        "chains": [
+                            "eip155:1",
+                            "eip155:137"
+                        ],
+                        "accounts": [
+                            "eip155:137:0x85ed99633e9d03a30ed60209079944e1f4272048",
+                            "eip155:1:0x85ed99633e9d03a30ed60209079944e1f4272048"
+                        ],
+                        "methods": [
+                            "eth_sendTransaction",
+                            "eth_signTransaction",
+                            "personal_sign"
+                        ],
+                        "events": [
+                            "accountsChanged",
+                            "chainChanged"
+                        ]
+                    }
+                },
+                "expiry": 1741955363
+            }
+        ]
+    },
+    "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Walletconnect: new connection";
+export const description =
+  "The wc_new_connection method returns a connection string which can be scanned as a QR code.";
+
+# wc\_new\_connection
+
+The `wc_new_connection` method returns a connection string which can be scanned as a QR code.
+Once the connection has been established, you can activate EVM and Tendermint coins/tokens with WalletConnect via the [`priv_key_policy`](/komodo-defi-framework/api/common_structures/wallet/#priv-key-policy) parameter in [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/#enable-eth-with-tokens) and [enable\_tendermint\_with\_assets](/komodo-defi-framework/api/v20/coin_activation/enable_tendermint_with_assets/#enable-tendermint-with-assets).
+
+EIP155 chain IDs are listed at [https://chainid.network/](https://chainid.network/).
+Cosmos chain IDs are listed at [https://cosmos.directory/](https://cosmos.directory/).
+For more detailed technical information, check out the [Walletconnect documentation](https://specs.walletconnect.com/2.0).
+
+## Arguments
+
+| Structure            | Type   | Description                                                                                                                                                                                                   |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| required\_namespaces | object | Contains two [WcConnNs](/komodo-defi-framework/api/common_structures/#wc-conn-ns) objects under the keys `eip155` and `cosmos`, which contain details of approved chains, methods and events while connected. |
+
+## Response
+
+| Structure | Type   | Description                                                                                                                               |
+| --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| url       | string | A WalletConnect URI address ([EIP-1328](https://eips.ethereum.org/EIPS/eip-1328)) used to send a connection request to the bridge server. |
+
+Generally, this WalletConnect URI will be converted into a scanable [QR code](https://www.qr-code-generator.com/) in graphic user interfaces, so mobile dapps can easily request a connection.
+
+When connecting with Metamask, only the network currently active in the mobile app should be included under the `required_namespaces.eip155.chains` parameter. The Metamask app will handle any subsequent coin network changes.
+When connecting to Tendermint chains with Keplr, all coins intended to activate should be included under the `required_namespaces.cosmos.chains` parameter. The Keplr app will not handle subsequent coin network changes on the fly - they must be preapproved.
+
+#### 📌 Examples
+
+#### Command
+
+```json
+{
+  "method": "wc_new_connection",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {
+    "required_namespaces": {
+      "eip155": {
+        "chains": [
+          "eip155:1",
+          "eip155:56",
+          "eip155:137",
+          "eip155:43114"
+        ],
+        "methods": [
+          "eth_sendTransaction",
+          "eth_signTransaction",
+          "personal_sign"
+        ],
+        "events": [
+          "accountsChanged",
+          "chainChanged"
+        ]
+      },
+      "cosmos": {
+        "chains": [
+          "cosmos:cosmoshub-4"
+        ],
+        "methods": [
+          "cosmos_signDirect",
+          "cosmos_signAmino",
+          "cosmos_getAccounts"
+        ],
+        "events": []
+      }
+    }
+  }
+}
+```
+
+#### Response
+
+```json
+{
+    "mmrpc": "2.0",
+    "result": {
+        "url": "wc:31ad8ac6f21312e01ef7ff656ed5507eb9fdf435662fd86331e00b301e3627bfc14@2?symKey=589807f2063d237adfacc18d9443232785b532eaabe7838162c3d78cc3a9060f&relay-protocol=irn&expiryTimestamp=1741584419"
+    },
+    "id": null
+}
+```
+export const title = "Komodo DeFi Framework Method: Walletconnect: Ping session";
+export const description =
+  "The wc_ping_session method pings a specific WalletConnect session.";
+
+# wc\_ping\_session
+
+The `wc_ping_session` pings the bridge server to check if specific WalletConnect session is responsive.
+For details on a full list of active WalletConnect sessions, use the [wc\_get\_sessions](/komodo-defi-framework/api/v20-dev/wc_get_sessions/#wc-get-sessions) method.
+
+## Arguments
+
+| Structure            | Type | Description                                                                                                                                                                                     |
+| -------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| with\_pairing\_topic | bool | Defaults to `false`. If `true`, allows using the pairing\_topic hex string in the `topic` param to fetch session details. If `false`, expects `topic` param to be the session topic hex string. |
+
+## Response
+
+| Structure | Type   | Description                                                                              |
+| --------- | ------ | ---------------------------------------------------------------------------------------- |
+| session   | object | A standard [WcSession](/komodo-defi-framework/api/common_structures/#wc-session) object. |
+
+#### 📌 Examples
+
+#### Command via pairing topic
+
+#### Command via session topic
+
+```json
+{
+  "method": "wc_ping_session",
+  "userpass": "RPC_UserP@SSW0RD",
+  "mmrpc": "2.0",
+  "params": {
+    "topic": "008bb50bc495f768d74d1a0c558fc3ca32ef35f5c507790ea27d01983421ed95"
+  }
+}
+```
+
+Both of the above queries return the same result.
+
+#### Response
+
+```json
 ```

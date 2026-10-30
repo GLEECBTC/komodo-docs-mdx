@@ -1,5 +1,5 @@
-export const title = "Komodo DeFi Framework Method: Withdraw";
-export const description = "The withdraw method generates, signs, and returns a transaction that transfers the amount of coin to the address indicated in the to argument.";
+export const title = "KDF Legacy Method: Withdraw Funds | Gleec";
+export const description = "The legacy withdraw method generates, signs, and returns a transaction sending coins to a specified address";
 
 # withdraw
 
@@ -11,13 +11,14 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure | Type             | Description                                                                                    |
-| --------- | ---------------- | ---------------------------------------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                                              |
-| to        | string           | coins are withdrawn to this address                                                            |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                               |
-| max       | bool             | withdraw the maximum available amount                                                          |
-| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/#fee-info) object. |
+| Structure           | Type             | Description                                                                                           |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
+| coin                | string           | the name of the coin the user desires to withdraw                                                     |
+| to                  | string           | coins are withdrawn to this address                                                                   |
+| amount              | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
+| max                 | bool             | withdraw the maximum available amount                                                                 |
+| fee                 | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| expiration\_seconds | integer          | Optional. Transaction expiration window in seconds. Currently only used by TRON (default 60s).        |
 
 ## Response
 

@@ -107,7 +107,7 @@ async function convertMdxToMd(fileContent, filePath) {
             })
             .process(fileContent);
 
-        return mdContent
+        return String(mdContent)
     } catch (error) {
         if (error) {
             throw new Error(`Error in file: ${filePath} \n ${error}`);
