@@ -151,7 +151,17 @@ Where the value indicates:
 
 The `FeeInfo` response object includes the following items for [withdraw (v2)](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) requests:
 
+<Note>
+  TRON withdrawals do not support manual fee parameters. Fees are auto-estimated based on bandwidth and energy consumption. Omit the `fee` field for TRON/TRC20 withdrawals.
+</Note>
+
 <CompactTable source="common-structures/wallet.FeeInfo" />
+
+### GaslessWithdrawOptions
+
+The `GaslessWithdrawOptions` object supplies caller constraints for a gasless TRON TRC20 withdrawal. It is passed as the `gasless` field of a [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) request when `fee_method` is `gasless`. All fields are optional. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/) for the full flow.
+
+<CompactTable source="common-structures/wallet.GaslessWithdrawOptions" />
 
 ### HistoryTarget
 
@@ -376,6 +386,78 @@ The `WithdrawFee` object varies depending on the coin or token type. Refer to th
     "coin": "IRIS",
     "amount": "0.038553",
     "gas_limit": 100000
+  }
+  ```
+
+  #### Example of Tron type (native TRX transfer to activated address)
+
+  ```json
+  {
+    "type": "Tron",
+    "coin": "TRX",
+    "bandwidth_used": 265,
+    "energy_used": 0,
+    "bandwidth_fee": "0.265000",
+    "energy_fee": "0.000000",
+    "total_fee": "0.265000"
+  }
+  ```
+
+  #### Example of Tron type (native TRX transfer to unactivated address)
+
+  When sending TRX to an address that has never been activated on the Tron blockchain,
+  an `account_creation_fee` is included. This fee is burned by the network to create
+  the destination account. The fee is charged to the sender on top of the transfer
+  amount — the recipient receives the full amount.
+
+  ```json
+  {
+    "type": "Tron",
+    "coin": "TRX",
+    "bandwidth_used": 265,
+    "energy_used": 0,
+    "bandwidth_fee": "0.100000",
+    "energy_fee": "0.000000",
+    "account_creation_fee": "1.000000",
+    "total_fee": "1.100000"
+  }
+  ```
+
+  <Note>
+    The `account_creation_fee` field is only present for native TRX transfers to
+    unactivated addresses. It is omitted (not `null`) for transfers to existing
+    addresses and for all TRC20 token transfers.
+  </Note>
+
+  #### Example of Tron type (TRC20 token transfer)
+
+  ```json
+  {
+    "type": "Tron",
+    "coin": "TRX",
+    "bandwidth_used": 345,
+    "energy_used": 29650,
+    "bandwidth_fee": "0.345000",
+    "energy_fee": "12.453000",
+    "total_fee": "12.798000"
+  }
+  ```
+
+  #### Example of TronGasless type (gasless TRC20 transfer via GasFree)
+
+  The fee is paid in the transferred token, not in TRX. An `activation_fee` appears only when the GasFree address must be activated on its first transfer.
+
+  ```json
+  {
+    "type": "TronGasless",
+    "coin": "USDT-TRC20",
+    "fee_method": "gasless",
+    "provider_name": "gasfree",
+    "gasfree_address": "TNER12mMVWruqopsW9FQtKxCGfZcEtb3ER",
+    "transfer_fee": "2.000000",
+    "total_token_fee": "2.000000",
+    "signed_max_fee": "5.000000",
+    "trace_id": null
   }
   ```
 

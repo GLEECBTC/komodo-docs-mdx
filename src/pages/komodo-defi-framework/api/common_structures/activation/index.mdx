@@ -223,6 +223,43 @@ The `TokensRequest` object includes the following items for a given coin or toke
   ```
 </CollapsibleSection>
 
+### TronGaslessProviderConfig
+
+The `TronGaslessProviderConfig` object configures a [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) provider for gasless TRC20 transfers. It is supplied as the `tron_gasless_provider` field when activating a TRON platform coin (see [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) or [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/)).
+
+<CompactTable source="common-structures/activation.TronGaslessProviderConfig" />
+
+<Note>
+  The `service` field selects how the node authenticates to the gasless backend. Use `gas_free` with your own API credentials to call the public GasFree API directly, or `komodo_proxy` to route requests through the Komodo proxy (which holds the credentials on your behalf — no API secret is stored on the node).
+</Note>
+
+<CollapsibleSection expandedText="Hide Examples" collapsedText="Show Examples">
+  #### Direct GasFree API (`gas_free`)
+
+  ```json
+  {
+    "base_url": "https://open.gasfree.io",
+    "service": {
+      "gas_free": {
+        "api_key": "YOUR_GASFREE_API_KEY",
+        "api_secret": "YOUR_GASFREE_API_SECRET"
+      }
+    },
+    "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E"
+  }
+  ```
+
+  #### Komodo proxy (`komodo_proxy`)
+
+  ```json
+  {
+    "base_url": "https://komodo-defi-proxy.example.com",
+    "service": "komodo_proxy",
+    "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E"
+  }
+  ```
+</CollapsibleSection>
+
 ### UtxoMergeParams
 
 The `UtxoMergeParams` object defines how often and at which thresholds to merge UTXOs. This is useful for wallets which have been used for a long time, and have many small UTXOs from mining activity.

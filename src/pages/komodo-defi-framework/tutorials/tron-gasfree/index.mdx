@@ -1,0 +1,63 @@
+export const title = "TRON GasFree: Gasless TRC20 Transfers";
+export const description =
+  "How gasless TRC20 transfers work on TRON in the Komodo DeFi Framework: GasFree custody addresses, TIP-712 permits, providers, token-paid fees, and status tracking.";
+
+# TRON GasFree: Gasless TRC20 Transfers
+
+GasFree lets users send TRC20 tokens (e.g. USDT) on TRON **without holding TRX for gas**. The transfer fee is paid in the transferred token itself, and a GasFree service provider broadcasts the transaction on-chain on the user's behalf in exchange for that token fee.
+
+<Note>
+  GasFree applies to **TRC20 token transfers only** (wallet withdrawals). Native TRX transfers and atomic swaps are not gasless. TRON support in the Komodo DeFi Framework is currently wallet-only.
+</Note>
+
+## How it works
+
+Each user address has a deterministic **GasFree custody address** — a smart-contract account derived from the user's address and a per-network controller contract (via TVM `CREATE2`). Tokens held at this custody address are eligible for gasless transfers.
+
+1.  **Activate** the TRON platform coin with a [`tron_gasless_provider`](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config), and on each TRC20 token a per-token `gasless` object with `enabled: true` (plus an optional `transfer_max_fee` cap) to opt it into gasless transfers. Activation returns each address's `gasfree_address` (see [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/)).
+2.  **Fund** the GasFree custody address with the token you want to transfer gaslessly. To inspect the custody account at any time — balance, activation state, current fees, and the largest gaslessly-sendable amount — use [gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/).
+3.  **Withdraw** with `fee_method: "gasless"` ([withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/)). The framework computes the provider fee, signs a TIP-712 `PermitTransferMessage` authorizing `{token, serviceProvider, user, receiver, value, maxFee, deadline, nonce}`, and returns the signed authorization (a `relay_type: "tron_gasfree"` payload) plus a `TronGasless` fee breakdown.
+4.  **Submit** the signed authorization to the provider via [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) (passed as a `tx_json` object). The provider pays the TRX gas, settles the transfer on-chain, and the call returns a `trace_id`.
+5.  **Track** the transfer with [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) (one-off poll) or [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) (live updates) using the `trace_id`.
+
+<Note>
+  If the GasFree custody address has never been used, the first transfer also pays a one-time **activation fee** (in the token), reported as `activation_fee` in the `TronGasless` fee details.
+</Note>
+
+## Custody-first wallets
+
+Because deposits can be received **directly into** the GasFree custody address (no TRX involved), a wallet can treat the custody address as the user's token account: show the custody address as the receive address, display the custody balance ([gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/)) as the balance, and send gaslessly from it. In this model the user never needs to hold TRX at all — fees, including the one-time activation fee, are paid in the token.
+
+## Fees
+
+Fees are paid in the transferred token, not in TRX:
+
+*   `transfer_fee` — the provider's fee to broadcast and settle the transfer.
+*   `activation_fee` — a one-time fee, charged in the token, when the GasFree custody address is inactive and must be activated on its first transfer (omitted otherwise).
+*   `total_token_fee` — the total charged in the token (`transfer_fee` + `activation_fee`).
+
+You can cap the total token-denominated GasFree fee you are willing to pay — `transfer_fee` plus, on the account's first transfer, the one-time `activation_fee` — with the `gasless.max_fee` option at withdraw time (which is bound into the signed permit), or at activation time with a per-token `gasless.transfer_max_fee`. Set `gasless.fallback_to_native: true` to fall back to a normal TRX-paid transfer when a gasless transfer is unavailable.
+
+<Note>
+  The signed permit embeds a **deadline**: `now + gasless.deadline_seconds` from the withdraw request, default **300 s** (`deadline_seconds` must be greater than zero). The GasFree provider advertises its own accepted deadline range (currently 60–600 s). If the deadline passes before the authorization is submitted, `send_raw_transaction` fails with `GaslessAuthorizationExpired` — run a fresh `withdraw` to re-quote and re-sign.
+</Note>
+
+## Providers: direct vs Komodo proxy
+
+The `service` field of the [`tron_gasless_provider`](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config) selects how the node authenticates to the gasless backend:
+
+*   **`gas_free`** — the node calls the public GasFree API directly, authenticating each request with your own HMAC-SHA256 `api_key`/`api_secret`.
+*   **`komodo_proxy`** — requests are routed through the Komodo proxy, which holds the GasFree credentials on your behalf. No API secret is stored on the node; the node authenticates to the proxy with its libp2p key.
+
+<Note>
+  When `service_provider` is not pinned in the activation config, the framework resolves it lazily on the **first gasless operation** (`gasless::account_status`, a gasless withdraw, or a submit) after activation, and uses the first provider returned by the GasFree API. If a pinned provider is present in the fetched list, it is kept; if the list is fetched successfully but does not include the pinned provider, that operation fails with `ProviderIdentityMismatch` — activation itself does not fetch or validate the provider list. If fetching the provider list fails and `service_provider` was configured, the framework logs a warning and uses the configured address. The resolved address is **cached for the lifetime of the activation**; switching providers therefore requires re-activating the token/platform coin.
+</Note>
+
+## Related methods
+
+*   [enable\_eth\_with\_tokens](/komodo-defi-framework/api/v20/coin_activation/enable_eth_with_tokens/) / [task::enable\_eth::init](/komodo-defi-framework/api/v20/coin_activation/task_managed/enable_eth/) — activate TRON with a GasFree provider.
+*   [gasless::account\_status](/komodo-defi-framework/api/v20/wallet/gasless_account_status/) — inspect the custody account (balance, activation state, fees, max sendable).
+*   [withdraw](/komodo-defi-framework/api/v20/wallet/tx/withdraw/) — create a gasless transfer (`fee_method: "gasless"`).
+*   [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) — submit the signed transfer to the provider.
+*   [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) — poll a transfer's status.
+*   [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/) — stream live transfer status.

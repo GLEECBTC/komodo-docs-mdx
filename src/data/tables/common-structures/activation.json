@@ -235,6 +235,48 @@
         "required": false,
         "default": "3",
         "description": "How many confirmations to wait during the transaction steps of an atomic swap. Overwrites value in coins file"
+      },
+      {
+        "parameter": "gasless",
+        "type": "object",
+        "required": false,
+        "description": "TRON TRC20 tokens only. Per-token GasFree settings, an object with: `enabled` (boolean, default `false`) — must be `true` to opt this token into gasless transfers; and `transfer_max_fee` (numeric string, optional) — caps the total token-denominated GasFree fee (the transfer fee plus, on the account's first transfer, the one-time activation fee) you will allow, in token units. Requires the platform coin to be activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config). See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
+      }
+    ]
+  },
+  "TronGaslessProviderConfig": {
+    "data": [
+      {
+        "parameter": "base_url",
+        "type": "string",
+        "required": true,
+        "description": "Base URL of the GasFree provider. For the public GasFree API (`gas_free` service), use a host-only `https` URL e.g. `https://open.gasfree.io` (mainnet) or `https://open-test.gasfree.io` (Nile/Shasta testnets) — the network path segment (`/tron/`, `/nile/`, `/shasta/`) is appended automatically, and non-`https` schemes are rejected at activation since requests to the provider carry API credentials. For the `komodo_proxy` service, the full proxy URL is used as-is (`http` or `https`)."
+      },
+      {
+        "parameter": "service",
+        "type": "object or string",
+        "required": true,
+        "description": "Selects the gasless auth rail. Either an object `{ \"gas_free\": { \"api_key\": \"...\", \"api_secret\": \"...\" } }` to authenticate directly to the GasFree API with HMAC-SHA256 credentials, or the string `\"komodo_proxy\"` to route requests through the Komodo proxy (the proxy holds the GasFree credentials and the node authenticates with its libp2p key, so no API secret is stored locally)."
+      },
+      {
+        "parameter": "service_provider",
+        "type": "string",
+        "required": false,
+        "description": "Optional. TRON address (`T...`) of the GasFree service provider to pin for the TIP-712 `PermitTransferMessage`. When omitted, the provider is fetched automatically from the GasFree API (`/api/v1/config/provider/all`) on the first gasless operation (account status, withdraw, or submit) after activation, the first returned provider is used, and the resolved address is cached for the life of the activation. A configured address is kept when present in the fetched list; if the list is fetched successfully but does not include the configured address, that first gasless operation fails with `ProviderIdentityMismatch` — activation itself does not fetch or validate the provider list. If fetching the provider list fails and `service_provider` was configured, the framework logs a warning and uses the configured address."
+      },
+      {
+        "parameter": "request_timeout_ms",
+        "type": "integer",
+        "required": false,
+        "default": "15000",
+        "description": "Optional. Request timeout in milliseconds for GasFree API calls."
+      },
+      {
+        "parameter": "status_poll_interval_ms",
+        "type": "integer",
+        "required": false,
+        "default": "3000",
+        "description": "Optional. Polling interval in milliseconds for transfer status checks (used by [stream::gasless_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/))."
       }
     ]
   },

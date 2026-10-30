@@ -24,7 +24,14 @@
         "type": "object",
         "required": true,
         "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      },
+      {
+        "parameter": "gasfree_address",
+        "type": "string",
+        "required": false,
+        "description": "TRON GasFree tokens only. The deterministic GasFree custody address (derived via TVM CREATE2) for this address. Present only when the platform coin/token was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       }
+    
     ]
   },
   "AccountAddressInfo_1": {
@@ -62,6 +69,12 @@
         "type": "string",
         "required": true,
         "description": "The public key associated with the seed used to launch Komodo DeFi Framework"
+      },
+      {
+        "parameter": "gasfree_address",
+        "type": "string",
+        "required": false,
+        "description": "TRON GasFree tokens only. The deterministic GasFree custody address (derived via TVM CREATE2) for this address. Tokens sent to it become eligible for gasless transfers. Present only when the platform coin/token was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       },
       {
         "parameter": "tickers",
@@ -280,6 +293,12 @@
         "type": "object",
         "required": true,
         "description": "A standard [BalanceInfo](/komodo-defi-framework/api/common_structures/wallet/#balance-info) object."
+      },
+      {
+        "parameter": "gasfree_address",
+        "type": "string",
+        "required": false,
+        "description": "TRON GasFree tokens only. The deterministic GasFree custody address (derived via TVM CREATE2) for this address. Present only when the platform coin/token was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       },
       {
         "parameter": "chain",
@@ -526,13 +545,36 @@
       }
     ]
   },
+  "GaslessWithdrawOptions": {
+    "data": [
+      {
+        "parameter": "max_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "Optional. Maximum provider fee (in token units) you authorize for the gasless transfer. The signed TIP-712 permit binds this cap, so the provider cannot charge more. When both this and the token's activation-time `gasless.transfer_max_fee` are set, the lower of the two is bound into the permit; when neither is set, the provider's quoted total fee is bound."
+      },
+      {
+        "parameter": "deadline_seconds",
+        "type": "integer",
+        "required": false,
+        "description": "Optional, defaults to `300`. How long (in seconds) the signed permit stays valid for the provider to submit on-chain. Must be greater than zero."
+      },
+      {
+        "parameter": "fallback_to_native",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Optional. When `true`, if a gasless transfer is unavailable (e.g. no provider configured or the token is ineligible) the withdrawal falls back to a normal native (TRX-paid) transfer instead of returning an error."
+      }
+    ]
+  },
   "WithdrawFee": {
     "data": [
       {
         "parameter": "type",
         "type": "string",
         "required": true,
-        "description": "The fee type. Either `Utxo`, `Tendermint`, `Qrc20` or `Eth`."
+        "description": "The fee type. Either `Utxo`, `Tendermint`, `Qrc20`, `Eth`, `Tron`, or `TronGasless` (for TRON gasless TRC20 transfers routed through GasFree)."
       },
       {
         "parameter": "amount",
@@ -574,13 +616,91 @@
         "parameter": "total_fee",
         "type": "numeric string",
         "required": false,
-        "description": "`Eth` type only. Gas price multiplied by gas amount."
+        "description": "`Eth` or `Tron` type only. For `Eth`: gas price multiplied by gas amount. For `Tron`: sum of bandwidth, energy, and account creation fees."
       },
       {
         "parameter": "total_gas_fee",
         "type": "numeric string",
         "required": false,
         "description": "`Qrc20` type only. Gas price multiplied by gas amount."
+      },
+      {
+        "parameter": "bandwidth_used",
+        "type": "integer",
+        "required": false,
+        "description": "`Tron` type only. Transaction size in bytes consumed as bandwidth."
+      },
+      {
+        "parameter": "energy_used",
+        "type": "integer",
+        "required": false,
+        "description": "`Tron` type only. Energy units consumed (non-zero for TRC20 transfers)."
+      },
+      {
+        "parameter": "bandwidth_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Tron` type only. Fee in TRX for bandwidth consumed beyond free allowance."
+      },
+      {
+        "parameter": "energy_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Tron` type only. Fee in TRX for energy consumed beyond free allowance."
+      },
+      {
+        "parameter": "account_creation_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`Tron` type only. Fee in TRX burned for creating a new account at the destination address. Only present for native TRX transfers to unactivated addresses; omitted otherwise."
+      },
+      {
+        "parameter": "fee_method",
+        "type": "string",
+        "required": false,
+        "description": "`TronGasless` type only. Always `gasless` — indicates a provider-sponsored TRC20 transfer authorized through GasFree."
+      },
+      {
+        "parameter": "provider_name",
+        "type": "string",
+        "required": false,
+        "description": "`TronGasless` type only. Identifier of the GasFree provider that broadcasts the transfer (currently `gasfree`)."
+      },
+      {
+        "parameter": "gasfree_address",
+        "type": "string",
+        "required": false,
+        "description": "`TronGasless` type only. The GasFree custody address the transfer is sent from."
+      },
+      {
+        "parameter": "transfer_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`TronGasless` type only. Provider fee for the transfer, charged in the transferred token (not in TRX)."
+      },
+      {
+        "parameter": "activation_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`TronGasless` type only. Extra fee, charged in the token, when the GasFree address is inactive and must be activated on its first transfer. Omitted when the account is already active."
+      },
+      {
+        "parameter": "total_token_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`TronGasless` type only. Total fee paid in the token, i.e. `transfer_fee` plus `activation_fee` when present."
+      },
+      {
+        "parameter": "signed_max_fee",
+        "type": "numeric string",
+        "required": false,
+        "description": "`TronGasless` type only. The fee cap actually bound into the signed TIP-712 permit: the request/activation cap when one was set, otherwise the provider's quoted total fee. Always present in the `withdraw` response."
+      },
+      {
+        "parameter": "trace_id",
+        "type": "string",
+        "required": false,
+        "description": "`TronGasless` type only. `null` in the `withdraw` response — the transfer is not submitted yet. The tracking id is returned by [send_raw_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) when the signed transfer is broadcast to the provider, then used with [gasless::trace_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) or [stream::gasless_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/)."
       }
     ]
   },

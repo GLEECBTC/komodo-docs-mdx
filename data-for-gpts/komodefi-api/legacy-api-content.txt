@@ -1316,6 +1316,7 @@ Komodo DeFi Framework is a true cross chain, cross protocol Decentralized Exchan
 *   [Fantom (FTM)](https://fantom.foundation/) & [FTM20 tokens](https://ftmscan.com/tokens)
 *   [Avalanche (AVAX)](https://www.avax.network/) & [AVX20 tokens](https://avascan.info/)
 *   [Moonriver (MOVR)](https://moonbeam.network/networks/moonriver/) & [MVR20 tokens](https://moonriver.moonscan.io/tokens)
+*   [TRON (TRX)](https://tron.network/) & [TRC20 tokens](https://tronscan.org/#/tokens/trc20) (wallet-only)
 *   And more!
 
 ## Electrum
@@ -3087,12 +3088,13 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### Response
 
-| Structure            | Type             | Description                                                                                   |
-| -------------------- | ---------------- | --------------------------------------------------------------------------------------------- |
-| address              | string           | the address that holds the coins                                                              |
-| balance              | string (numeric) | the number of coins in the address; does not include `unspendable_balance`                    |
-| unspendable\_balance | string (numeric) | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs) |
-| coin                 | string           | the name of the coin                                                                          |
+| Structure            | Type             | Description                                                                                                                                                                                                                                                                                                                                                                |
+| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address              | string           | the address that holds the coins                                                                                                                                                                                                                                                                                                                                           |
+| balance              | string (numeric) | the number of coins in the address; does not include `unspendable_balance`                                                                                                                                                                                                                                                                                                 |
+| unspendable\_balance | string (numeric) | the `coin` balance that is unspendable at the moment (e.g. if the address has immature UTXOs)                                                                                                                                                                                                                                                                              |
+| coin                 | string           | the name of the coin                                                                                                                                                                                                                                                                                                                                                       |
+| gasfree\_address     | string           | Optional. TRON GasFree coins/tokens only: the deterministic GasFree custody address for this address. Present only when the coin was activated with a [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config); omitted otherwise. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/). |
 
 #### 📌 Examples
 
@@ -6837,16 +6839,22 @@ The `send_raw_transaction` method broadcasts the transaction to the network of s
 
 ## Arguments
 
-| Structure | Type   | Description                                                                                       |
-| --------- | ------ | ------------------------------------------------------------------------------------------------- |
-| coin      | string | the name of the coin network on which to broadcast the transaction                                |
-| tx\_hex   | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method |
+| Structure | Type   | Description                                                                                                                                                                                                                                                                                                                                       |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin      | string | the name of the coin network on which to broadcast the transaction                                                                                                                                                                                                                                                                                |
+| tx\_hex   | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method                                                                                                                                                                                                                                                 |
+| tx\_json  | object | Optional, instead of `tx_hex`. A structured payload for coins that submit JSON rather than raw bytes. For a TRON [GasFree gasless transfer](/komodo-defi-framework/tutorials/tron-gasfree/), pass the relay payload from the gasless `withdraw` response **verbatim** (it carries `relay_type: "tron_gasfree"`; unknown extra keys are rejected). |
 
 ## Response
 
-| Structure | Type   | Description                           |
-| --------- | ------ | ------------------------------------- |
-| tx\_hash  | string | the hash of the broadcast transaction |
+| Structure   | Type   | Description                                                                                                                                    |
+| ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| tx\_hash    | string | the hash of the broadcast transaction                                                                                                          |
+| relay\_type | string | Gasless relay submissions only: the literal `tron_gasfree` (no `tx_hash` is returned — the provider broadcasts on-chain later).                |
+| trace\_id   | string | Gasless relay submissions only: tracking id for polling [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/). |
+| state       | string | Gasless relay submissions only: the provider's initial transfer state (e.g. `WAITING`).                                                        |
+
+For a gasless request/response example, see the [gasless TRC20 transfer section of the withdraw docs](/komodo-defi-framework/api/v20/wallet/tx/withdraw/#withdraw).
 
 #### 📌 Examples
 
@@ -8074,13 +8082,14 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure | Type             | Description                                                                                           |
-| --------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                                                     |
-| to        | string           | coins are withdrawn to this address                                                                   |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
-| max       | bool             | withdraw the maximum available amount                                                                 |
-| fee       | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| Structure           | Type             | Description                                                                                           |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
+| coin                | string           | the name of the coin the user desires to withdraw                                                     |
+| to                  | string           | coins are withdrawn to this address                                                                   |
+| amount              | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                      |
+| max                 | bool             | withdraw the maximum available amount                                                                 |
+| fee                 | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object. |
+| expiration\_seconds | integer          | Optional. Transaction expiration window in seconds. Currently only used by TRON (default 60s).        |
 
 ## Response
 

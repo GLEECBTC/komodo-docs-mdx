@@ -1,0 +1,102 @@
+export const title = "Komodo DeFi Framework Method: Enable GasFree Trace Streaming";
+export const description = "Using this method, you can stream live status updates for TRON GasFree (gasless) TRC20 transfers.";
+
+# Enable GasFree Trace Streaming
+
+## stream::gasless\_trace::enable {{label : 'stream::gasless_trace::enable', tag : 'API-v2'}}
+
+Streams live status updates for [TRON GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) (gasless) TRC20 transfers of a given token. Once enabled, every gasless transfer submitted for that coin via [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/) is tracked automatically, and the stream emits an event each time a tracked transfer changes state, until it reaches a terminal state (`confirmed` or `failed`).
+
+### Request Parameters
+
+<CompactTable source="v2/streaming.GaslessTraceEnableRequestParameters" />
+
+<Note>
+  The coin must be an activated TRON GasFree TRC20 token (i.e. activated with a `tron_gasless_provider`). The polling interval follows the provider's `status_poll_interval_ms` set at activation. Disable the stream with [stream::disable](/komodo-defi-framework/api/v20/streaming/disable/).
+</Note>
+
+### Response Parameters
+
+<CompactTable source="v2/streaming.GaslessTraceEnableResponseParameters" />
+
+#### 📌 Examples
+
+<CodeGroup title="Gasless Trace Enable" tag="POST" label="stream::gasless_trace::enable" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "stream::gasless_trace::enable",
+    "mmrpc": "2.0",
+    "params": {
+      "coin": "USDT-TRC20",
+      "client_id": 1
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Gasless Trace Enable Response" collapsedText="Show Gasless Trace Enable Response">
+  ```json
+  {
+      "mmrpc": "2.0",
+      "result": {
+          "streamer_id": "GASLESS_TRACE:USDT-TRC20"
+      },
+      "id": null
+  }
+  ```
+</CollapsibleSection>
+
+### Streamed Events
+
+Each event carries the tracked transfer's `trace_id` and its current status. The status fields are described below.
+
+<CompactTable source="v2/streaming.GaslessTraceEventData" />
+
+Example of the stream data visible at [http://localhost:7783/event-stream?id=1](http://localhost:7783/event-stream?id=1) as a transfer progresses:
+
+`data: {"_type":"GASLESS_TRACE:USDT-TRC20","message":{"coin":"USDT-TRC20","trace_id":"6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0","state":"on_chain","tx_hash_on_chain":"2222222222222222222222222222222222222222222222222222222222222222","block_height":57175988,"confirmed_at":1747909638,"final_fee":"2.000000","failure_reason":null}}`
+
+When polling the provider fails, an error event is emitted instead, carrying the `coin`, `trace_id`, and an `error` message:
+
+`data: {"_type":"GASLESS_TRACE:USDT-TRC20","message":{"coin":"USDT-TRC20","trace_id":"6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0","error":"Request to GasFree provider timed out"}}`
+
+Repeated identical errors are deduplicated — an error event is only re-emitted when the message changes. Polling for a trace stops permanently after too many consecutive failures: 10 for deterministic errors (e.g. an invalid provider response), or 200 for connectivity-class errors (timeouts, rate limits, provider outages — roughly 10 minutes at the default 3-second interval). The final error event's message ends with `stopped polling after N consecutive trace status errors`; after that, use [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) to check the transfer manually.
+
+<Note>
+  The same status fields are returned synchronously (without a stream) by the [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/) method, which is useful for one-off polling.
+</Note>
+
+### Error Types
+
+<CompactTable source="v2/streaming.GaslessTraceEnableErrorTypes" />
+
+<CollapsibleSection expandedText="Hide Error Responses" collapsedText="Show Error Responses">
+  ##### Error (Coin Not Supported)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Coin 'KMD' does not support GasFree trace streaming",
+      "error_path": "gasless_trace",
+      "error_trace": "gasless_trace:67]",
+      "error_type": "CoinNotSupported",
+      "error_data": "KMD",
+      "id": null
+  }
+  ```
+
+  ##### Error (Gasless Not Configured)
+
+  ```json
+  {
+      "mmrpc": "2.0",
+      "error": "Coin 'USDT-TRC20' has no GasFree provider configured",
+      "error_path": "gasless_trace",
+      "error_trace": "gasless_trace:74]",
+      "error_type": "GaslessNotConfigured",
+      "error_data": "USDT-TRC20",
+      "id": null
+  }
+  ```
+</CollapsibleSection>

@@ -9,35 +9,38 @@ This method generates a raw transaction which should then be broadcast using [se
 
 ## Arguments
 
-| Structure            | Type             | Description                                                                                                                                                                                                                                     |
-| -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                              |
-| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                            |
-| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                               |
-| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                             |
-| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                |
-| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                           |
-| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                 |
-| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                 |
-| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions. |
+| Structure            | Type             | Description                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin                 | string           | The name of the coin the user desires to withdraw.                                                                                                                                                                                                                                                                                                             |
+| to                   | string           | Coins are withdrawn to this address.                                                                                                                                                                                                                                                                                                                           |
+| amount               | string (numeric) | The amount the user desires to withdraw, ignored when `max=true`.                                                                                                                                                                                                                                                                                              |
+| memo                 | string           | Optional. Adds a transaction memo for compatible coins (e.g. Tendermint ecosystem).                                                                                                                                                                                                                                                                            |
+| max                  | bool             | Optional. Withdraw the maximum available amount.                                                                                                                                                                                                                                                                                                               |
+| fee                  | object           | Optional. A standard [FeeInfo](/komodo-defi-framework/api/common_structures/wallet/#fee-info) object.                                                                                                                                                                                                                                                          |
+| from                 | object           | HD wallets only. A standard [WithdrawFromInfo](/komodo-defi-framework/api/common_structures/wallet/#withdraw-from-info) object.                                                                                                                                                                                                                                |
+| ibc\_source\_channel | integer          | Tendermint IBC transfers only. The source channel for the [IBC](https://tutorials.cosmos.network/academy/3-ibc/1-what-is-ibc.html) transaction.                                                                                                                                                                                                                |
+| broadcast            | bool             | Optional, defaults to `false`. When `false`, signed transaction hex must be broadcast manually with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/). Must be set to `true` for Metamask managed transactions.                                                                                                                |
+| expiration\_seconds  | integer          | Optional. Transaction expiration window in seconds. Currently only used by TRON (default 60s). Sets how long the signed transaction remains valid for broadcast.                                                                                                                                                                                               |
+| fee\_method          | string           | TRON only. Optional. Selects the fee rail: `native` (default — pay the TRX bandwidth/energy fee) or `gasless` (route a TRC20 transfer through [GasFree](/komodo-defi-framework/tutorials/tron-gasfree/), paying the fee in the token). Requires a `tron_gasless_provider` configured at activation and the token opted in via its `gasless` activation config. |
+| gasless              | object           | TRON only. Optional. A standard [GaslessWithdrawOptions](/komodo-defi-framework/api/common_structures/wallet/#gasless-withdraw-options) object constraining the gasless transfer (max fee, deadline, native fallback). Only valid together with `fee_method: "gasless"`.                                                                                       |
 
 ### Response
 
-| Structure                    | Type                       | Description                                                                                                                                                                                             |
-| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                            |
-| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                    |
-| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                         |
-| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address` |
-| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                              |
-| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                   |
-| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details                                                                      |
-| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                   |
-| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                  |
-| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                         |
-| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                              |
-| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                           |
-| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                  |
+| Structure                    | Type                       | Description                                                                                                                                                                                                  |
+| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| from                         | array of strings           | coins are withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                                                                 |
+| to                           | array of strings           | coins are withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                                                         |
+| my\_balance\_change          | string (numeric)           | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                                              |
+| received\_by\_me             | string (numeric)           | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that the Komodo DeFi Framework API send change to `my_address`      |
+| spent\_by\_me                | string (numeric)           | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                                                   |
+| total\_amount                | string (numeric)           | the total amount of coins transferred                                                                                                                                                                        |
+| fee\_details                 | object                     | the fee details of the generated transaction; this value differs for UTXO, ETH/ERC20, and TRON/TRC20 coins. See [WithdrawFee](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee) for details |
+| tx\_hash                     | string                     | the hash of the generated transaction                                                                                                                                                                        |
+| tx\_hex                      | string                     | transaction bytes in hexadecimal format; use this value as input for [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/)                                                       |
+| coin                         | string                     | the name of the coin the user wants to withdraw                                                                                                                                                              |
+| kmd\_rewards                 | object (optional)          | an object containing information about accrued rewards; always exists if the coin is `KMD`                                                                                                                   |
+| kmd\_rewards.amount          | string (numeric, optional) | the amount of accrued rewards                                                                                                                                                                                |
+| kmd\_rewards.claimed\_by\_me | bool (optional)            | whether the rewards been claimed by me                                                                                                                                                                       |
 
 ### 📌 Examples
 
@@ -697,7 +700,301 @@ Using the Cosmos [Ecosystem IBC protocol](https://everstake.one/blog/cosmos-ibc-
   You can see the memo is included on the [block explorer](https://irishub.iobscan.io/#/txs/E00982A2A8442D7140916A34E29E287A0B1CBB4B38940372D1966BA7ACDE5BD6)
 </CollapsibleSection>
 
+#### Withdraw TRX (native TRON)
+
+<Note>
+  TRON fees are auto-estimated. Do not pass a `fee` object — EVM gas options are not supported for TRON withdrawals.
+</Note>
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "TRX",
+      "to": "TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU",
+      "amount": "10"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (TRX success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "0a02a4e22208b9de53a1fe5e892240...",
+      "tx_hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "from": ["TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9"],
+      "to": ["TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU"],
+      "total_amount": "10",
+      "spent_by_me": "10.267",
+      "received_by_me": "0",
+      "my_balance_change": "-10.267",
+      "block_height": 0,
+      "timestamp": 1738799040,
+      "fee_details": {
+        "type": "Tron",
+        "coin": "TRX",
+        "bandwidth_used": 267,
+        "energy_used": 0,
+        "bandwidth_fee": "0.267000",
+        "energy_fee": "0.000000",
+        "total_fee": "0.267000"
+      },
+      "coin": "TRX",
+      "internal_id": "",
+      "transaction_type": "StandardTransfer",
+      "memo": null
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+#### Withdraw TRC20 token (USDT on TRON)
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "USDT-TRC20",
+      "to": "TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU",
+      "amount": "5"
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (TRC20 success)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "tx_hex": "0a02b3f12208c4de89a2bf7e312240...",
+      "tx_hash": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+      "from": ["TDcxD6E5wTzvqCJd4RfkGfw9NkCBdvYcV9"],
+      "to": ["TW9RqU6bTJnM4quyRbvTwm3xfSHgk718qU"],
+      "total_amount": "5",
+      "spent_by_me": "5",
+      "received_by_me": "0",
+      "my_balance_change": "-5",
+      "block_height": 0,
+      "timestamp": 1738799040,
+      "fee_details": {
+        "type": "Tron",
+        "coin": "TRX",
+        "bandwidth_used": 345,
+        "energy_used": 29650,
+        "bandwidth_fee": "0.345000",
+        "energy_fee": "12.453000",
+        "total_fee": "12.798000"
+      },
+      "coin": "USDT-TRC20",
+      "internal_id": "",
+      "transaction_type": "StandardTransfer",
+      "memo": null
+    },
+    "id": 0
+  }
+  ```
+
+  <Note>
+    For TRC20 token withdrawals, the `fee_details.coin` is always `TRX` because fees are paid in the platform coin. The `spent_by_me` and `my_balance_change` reflect the token amount only — the TRX fee is deducted from the TRX balance separately.
+  </Note>
+</CollapsibleSection>
+
+#### Withdraw TRC20 token gaslessly (GasFree)
+
+When `fee_method` is `gasless`, the TRC20 token is transferred through a [GasFree](/komodo-defi-framework/tutorials/tron-gasfree/) provider and the fee is paid in the token itself — no TRX is required. The platform coin must have been activated with a [tron\_gasless\_provider](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config).
+
+A gasless withdrawal does not produce a broadcastable `tx_hex`. Instead it returns a **signed GasFree authorization** (the `relay_type: "tron_gasfree"` payload) together with a `fee_details` object of type [`TronGasless`](/komodo-defi-framework/api/common_structures/wallet/#withdraw-fee). The `fee_details.trace_id` is `null` at this stage — the transfer has not yet been submitted.
+
+When `max: true` is used with `fee_method: "gasless"`, KDF first preflights the GasFree transfer with a transfer value of `0`, then derives the signed authorization amount from that preflight response. Pending-transfer, unsupported-token, provider identity/address mismatch, and token-decimal mismatch states return their specific typed errors before any max amount is computed, rather than a generic zero-balance error.
+
+<CodeGroup title="Withdraw" tag="POST" label="withdraw" mm2MethodDecorate="true">
+  ```json
+  {
+    "mmrpc": "2.0",
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "withdraw",
+    "params": {
+      "coin": "USDT-TRC20",
+      "to": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+      "amount": "5",
+      "fee_method": "gasless",
+      "gasless": {
+        "max_fee": "5",
+        "fallback_to_native": false
+      }
+    },
+    "id": 0
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (signed gasless authorization)
+
+  ```json
+  {
+    "mmrpc": "2.0",
+    "result": {
+      "relay_type": "tron_gasfree",
+      "chain_id": "728126428",
+      "coin": "USDT-TRC20",
+      "from_address": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+      "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+      "verifying_contract": "THQGuFzL87ZqhxkgqYEryRAd7gqFqL5rdc",
+      "signed_authorization": {
+        "token": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+        "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E",
+        "user": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+        "receiver": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+        "value": "5000000",
+        "max_fee": "5000000",
+        "deadline": "1745441554",
+        "version": "1",
+        "nonce": "9",
+        "sig": "1c8f...e01b"
+      },
+      "created_at": "2025-04-23T20:47:34Z",
+      "from": ["TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC"],
+      "to": ["TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC"],
+      "total_amount": "5",
+      "spent_by_me": "7",
+      "received_by_me": "0",
+      "my_balance_change": "-7",
+      "block_height": 0,
+      "timestamp": 1745441254,
+      "fee_details": {
+        "type": "TronGasless",
+        "coin": "USDT-TRC20",
+        "fee_method": "gasless",
+        "provider_name": "gasfree",
+        "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+        "transfer_fee": "2.000000",
+        "total_token_fee": "2.000000",
+        "signed_max_fee": "5.000000",
+        "trace_id": null
+      },
+      "internal_id": "",
+      "transaction_type": "StandardTransfer",
+      "memo": null
+    },
+    "id": 0
+  }
+  ```
+</CollapsibleSection>
+
+To execute the transfer, submit the signed authorization to the provider with [send\_raw\_transaction](/komodo-defi-framework/api/legacy/send_raw_transaction/), passing the payload as a `tx_json` object (note the `relay_type: "tron_gasfree"` field). The submit response returns the `trace_id` and initial `state`:
+
+<CodeGroup title="" tag="POST" label="send_raw_transaction" mm2MethodDecorate="true">
+  ```json
+  {
+    "userpass": "RPC_UserP@SSW0RD",
+    "method": "send_raw_transaction",
+    "coin": "USDT-TRC20",
+    "tx_json": {
+      "relay_type": "tron_gasfree",
+      "chain_id": "728126428",
+      "coin": "USDT-TRC20",
+      "from_address": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+      "gasfree_address": "TCtSt8fCkZcVdrGpaVHUr6P8EmdjysswMF",
+      "verifying_contract": "THQGuFzL87ZqhxkgqYEryRAd7gqFqL5rdc",
+      "signed_authorization": {
+        "token": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+        "service_provider": "TKtWbdzEq5ss9vTS9kwRhBp5mXmBfBns3E",
+        "user": "TMVQGm1qAQYVdetCeGRRkTWYYrLXuHK2HC",
+        "receiver": "TJM1BE5wq1VdHh3gwjUeyaVkvZp9DVYCfC",
+        "value": "5000000",
+        "max_fee": "5000000",
+        "deadline": "1745441554",
+        "version": "1",
+        "nonce": "9",
+        "sig": "1c8f...e01b"
+      },
+      "created_at": "2025-04-23T20:47:34Z"
+    }
+  }
+  ```
+</CodeGroup>
+
+<CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
+  #### Response (submitted)
+
+  ```json
+  {
+    "relay_type": "tron_gasfree",
+    "trace_id": "6c3ff67e-0bf4-4c09-91ca-0c7c254b01a0",
+    "state": "WAITING"
+  }
+  ```
+</CollapsibleSection>
+
+<Note>
+  The fee is paid in the token: `spent_by_me` (and `my_balance_change`) include the token-denominated provider fee (`total_token_fee`) on top of the transfer amount — in the example above, 5 USDT transferred + 2 USDT fee = 7 USDT spent. Track the submitted transfer with [gasless::trace\_status](/komodo-defi-framework/api/v20/wallet/gasless_trace_status/), or subscribe to live updates via [stream::gasless\_trace::enable](/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/), using the returned `trace_id`.
+</Note>
+
+<Note>
+  HD-wallet withdrawals additionally include an `hd_from` object in the relay payload identifying the signing address. Pass the whole payload back to `send_raw_transaction` **verbatim** — `hd_from` is required there to validate wallet ownership, and any unknown extra key in `tx_json` is rejected.
+</Note>
+
 ### Error Responses
+
+#### Gasless (GasFree) errors
+
+A gasless withdrawal that cannot be served returns an error, unless `gasless.fallback_to_native: true` was set — in that case, bounded deterministic gasless-unavailable conditions fall back to a normal native (TRX-paid) transfer instead. This fallback covers no provider or missing `tron_gasless_token_config`, unsupported token, insufficient GasFree custody balance, `NotSufficientBalance`, `NotSufficientBalanceForActivation`, and `ZeroBalanceToWithdrawMax`. It does **not** cover provider identity/address or token-decimal mismatches, pending transfers, max-fee-exceeded, quote-expired, connectivity/auth/provider-upstream errors, or other non-deterministic failures.
+
+GasFree withdraw variants such as `Unavailable`, `PendingTransfer`, `MaxFeeExceeded`, balance errors, `QuoteExpired`, `ProviderRejected`, `InvalidProviderResponse`, and `TraceNotFound` are nested under `error_type: "Gasless"` with the specific variant in `error_data`. Runtime provider errors do not all use that shape: invalid provider responses, identity/address/decimal mismatches, and provider bad requests map into `Gasless`, while auth/connectivity/upstream classes surface as top-level `Transport`, and `InvalidRequest`/`Internal`/`NotImplemented` surface as top-level `InternalError`.
+
+| Variant                                 | HTTP status | Description                                                                                                                                   |
+| --------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unavailable                             | 503         | Gasless is not available for this coin or request (e.g. no provider configured, or the token was not activated with `gasless.enabled: true`). |
+| PendingTransfer                         | 409         | A gasless transfer is already pending for this account; wait for settlement and retry.                                                        |
+| MaxFeeExceeded                          | 400         | The provider's quoted total fee (transfer fee plus any one-time activation fee) exceeds the requested `max_fee` cap.                          |
+| InsufficientGasFreeBalance              | 400         | Not enough tokens in the GasFree custody address to cover amount + transfer fee. Carries `coin`, `available`, and `required` amounts.         |
+| InsufficientGasFreeBalanceForActivation | 400         | As above, but the account is not yet activated, so the one-time `activation_fee` is included in `required`.                                   |
+| QuoteExpired                            | 400         | The signed quote expired before submission; request a new withdrawal.                                                                         |
+| ProviderRejected                        | 502         | The GasFree provider rejected the transfer.                                                                                                   |
+| InvalidProviderResponse                 | 502         | The GasFree provider returned an invalid response.                                                                                            |
+| TraceNotFound                           | 404         | Gasless transfer trace was not found.                                                                                                         |
+
+An `InvalidFee` error (not nested under `Gasless`) is returned when `gasless` options are sent without `fee_method: "gasless"`, or when `deadline_seconds` is `0`.
+
+##### Error (insufficient GasFree balance)
+
+```json
+{
+    "mmrpc": "2.0",
+    "error": "Not enough USDT-TRC20 in your GasFree deposit address: available 0, required 8 (incl. one-time activation fee 1.5). Deposit USDT-TRC20 into your GasFree address.",
+    "error_path": "withdraw",
+    "error_trace": "withdraw:199]",
+    "error_type": "Gasless",
+    "error_data": {
+        "error_type": "InsufficientGasFreeBalanceForActivation",
+        "error_data": {
+            "coin": "USDT-TRC20",
+            "available": "0",
+            "required": "8",
+            "activation_fee": "1.5"
+        }
+    },
+    "id": 0
+}
+```
 
 #### InvalidRequest: Unknown fee type
 

@@ -134,6 +134,10 @@
             "href": "/komodo-defi-framework/tutorials/listing-a-new-coin/"
           },
           {
+            "title": "TRON GasFree (Gasless TRC20 Transfers)",
+            "href": "/komodo-defi-framework/tutorials/tron-gasfree/"
+          },
+          {
             "title": "How to Become a Liquidity Provider",
             "href": "/komodo-defi-framework/tutorials/how-to-become-a-liquidity-provider/"
           },
@@ -495,6 +499,10 @@
             "href": "/komodo-defi-framework/api/v20/streaming/fee_estimator/"
           },
           {
+            "title": "Enable Gasless Trace",
+            "href": "/komodo-defi-framework/api/v20/streaming/gasless_trace_enable/"
+          },
+          {
             "title": "Enable Heartbeat",
             "href": "/komodo-defi-framework/api/v20/streaming/heartbeat_enable/"
           },
@@ -649,6 +657,14 @@
           {
             "title": "withdraw",
             "href": "/komodo-defi-framework/api/v20/wallet/tx/withdraw/"
+          },
+          {
+            "title": "GasFree Account Status",
+            "href": "/komodo-defi-framework/api/v20/wallet/gasless_account_status/"
+          },
+          {
+            "title": "GasFree Trace Status",
+            "href": "/komodo-defi-framework/api/v20/wallet/gasless_trace_status/"
           }
         ]
       },

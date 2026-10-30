@@ -143,7 +143,7 @@
         "parameter": "ticker",
         "type": "string",
         "required": true,
-        "description": "Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`"
+        "description": "Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`, `TRX`"
       },
       {
         "parameter": "mm2",
@@ -242,6 +242,12 @@
         "type": "object",
         "required": false,
         "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+      },
+      {
+        "parameter": "tron_gasless_provider",
+        "type": "object",
+        "required": false,
+        "description": "TRON (`TRX`) only. Enables gasless TRC20 transfers by configuring a GasFree provider for this platform coin. A standard [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config) object. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       }
     ]
   },
@@ -388,7 +394,7 @@
         "parameter": "ticker",
         "type": "string",
         "required": true,
-        "description": "Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`"
+        "description": "Ticker of the platform protocol coin. Options: `ETH`, `AVAX`, `BNB`, `FTM`, `MATIC`, `ONE`, `ETH-ARB20`, `TRX`"
       },
       {
         "parameter": "mm2",
@@ -517,6 +523,12 @@
         "type": "object",
         "required": false,
         "description": "Must be provided if \"use_trading_proto_v2\" is true in [your configuration](/komodo-defi-framework/setup/configure-mm2-json/). A standard [SwapV2Contracts](/komodo-defi-framework/api/common_structures/activation/#tokens-request) object."
+      },
+      {
+        "parameter": "tron_gasless_provider",
+        "type": "object",
+        "required": false,
+        "description": "TRON (`TRX`) only. Enables gasless TRC20 transfers by configuring a GasFree provider for this platform coin. A standard [TronGaslessProviderConfig](/komodo-defi-framework/api/common_structures/activation/#tron-gasless-provider-config) object. See [TRON GasFree transfers](/komodo-defi-framework/tutorials/tron-gasfree/)."
       }
     ]
   },
