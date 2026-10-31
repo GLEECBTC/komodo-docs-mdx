@@ -1,0 +1,198 @@
+# Komodo DeFi Framework Protocol Integration Compatibility
+
+This document outlines the technical requirements for blockchain protocols to integrate with the Komodo DeFi Framework (KDF) and Komodo Wallet. It serves as an initial compatibility assessment tool for projects interested in KDF integration. Protocols meeting these requirements will be compatible with KDF's cross-chain trading features, while those with gaps may require custom interface development.
+
+## 1. Protocol Fundamentals
+
+### Protocol Identification
+
+* Protocol type: (UTXO/EVM/Cosmos/Other)
+  * Note: UTXO, EVM, and Cosmos are directly compatible if all requirements are met
+  * Other protocol types require additional interface implementation
+
+### Transaction Requirements
+
+* For UTXO:
+  * Transaction follows Bitcoin-compatible serialization format with inputs and outputs
+  * Transaction includes standard fields (version, inputs, outputs, locktime)
+  * Transaction ID calculation matches Bitcoin standard (double SHA-256 of serialized tx)
+* For EVM:
+  * Transaction follows RLP encoding with standard Ethereum transaction fields
+  * Transaction includes gas price, gas limit, nonce, to, value, and data fields
+* For Cosmos:
+  * Transaction follows Protobuf encoding with standard Cosmos SDK transaction structure
+  * Transaction includes proper memo, fee, signatures, and messages.
+
+### Block Header Requirements
+
+* For UTXO:
+  * Block header contains standard fields (version, prev_block, merkle_root, timestamp, bits, nonce)
+* For EVM/Cosmos/Other:
+  * No specific block header requirements for integration purposes
+
+## 2. HTLC Capability Requirements
+
+### Hash Lock Requirements
+
+* Must support appropriate hash functions for secret verification:
+  * SHA-256 for EVM
+  * HASH160 (RIPEMD160(SHA256)) for UTXO
+  * Cosmos doesn't need hash functions as a Cosmos chain will be used for asset swapping after transferring assets using IBC
+  * Other protocols need to support at least SHA-256
+* Hash comparison operation must be available in script/contract
+* Hash verification must work with 32-byte secrets
+* Secret must be verifiably revealed on-chain when HTLC redemption path is executed
+
+### Time Lock Requirements
+
+* Must support absolute time locks (timestamp)
+* Time lock must be enforceable on-chain (cannot be bypassed)
+* Time lock must support durations up to at least 24 hours
+* Time lock must be readable from chain for verification purposes
+
+### Conditional Execution Requirements
+
+* Must support conditional execution paths (if/else logic)
+* Must support at least two execution paths (secret revealed or timeout)
+* Contract/script must verify conditions before allowing spend
+* Conditional execution must be enforceable on-chain
+* Execution path taken must be determinable from transaction data
+
+## 3. Protocol-Specific Requirements
+
+### For UTXO-Based Protocols
+
+* Must support the following script operations:
+  * OP_CHECKLOCKTIMEVERIFY or equivalent time lock operation
+  * OP_HASH160 hash operation
+  * OP_EQUAL or equivalent comparison operation
+  * OP_IF/OP_ELSE or equivalent conditional branching
+  * OP_CHECKSIGVERIFY or equivalent multiple signature verification operation
+* Must support P2SH (pay-to-script-hash) for HTLC deployment
+* Script size limit must accommodate HTLC implementation
+* Must support standard Bitcoin-compatible signature scheme
+
+### For EVM-Compatible Protocols
+
+* Must support Solidity smart contracts
+* Must support sha256 hash functions in contracts
+* Must support block.timestamp or equivalent for time locks in contracts
+* Must support standard Ethereum signature scheme
+* Must allow contract events for swap monitoring
+* Contract bytecode size limit must accommodate HTLC implementation
+* Must support standard ERC-20 token interface for token swaps
+
+### For Tendermint/Cosmos SDK Protocols
+
+* Must support IBC as Nucleus or Iris chain will be used for the swaps
+
+## 4. API/RPC Interface Requirements
+
+### General API Requirements
+
+* Must provide transaction broadcast endpoint that accepts signed transactions
+* Must provide transaction query endpoint that returns full transaction data
+* Must provide block query endpoint with timestamp and/or height information
+* Must provide address balance query endpoint
+* Must provide fee estimation or fee information endpoint, if it does not support a fixed fee
+* API must be publicly accessible or provide dedicated access for integration purposes
+
+### UTXO-Specific RPC Requirements
+
+* Must implement unspent management:
+  * list_unspent: Returns list of unspent outputs for an address
+  * list_unspent_group: Returns unspent outputs for multiple addresses
+* Must implement transaction operations:
+  * send_raw_transaction: Broadcasts a raw transaction to the network
+  * get_transaction_bytes: Returns the raw bytes of a transaction
+  * get_verbose_transaction: Returns detailed transaction information
+* Must implement balance operations:
+  * display_balance: Returns balance for an address
+  * display_balances: Returns balances for multiple addresses
+* Must implement blockchain information:
+  * get_block_count: Returns current blockchain height
+  * get_median_time_past: Returns median time past for a block range
+  * get_block_timestamp: Returns timestamp for a specific block
+* Must implement fee estimation:
+  * estimate_fee_sat: Estimates fee in satoshis
+  * get_relay_fee: Returns minimum relay fee
+
+#### SPV availability
+
+* Must maintain reliable SPV server infrastructure:
+  * Self-hosted SPV servers with 99.9% uptime guarantee, or
+  * Use of community-hosted SPV servers with proven reliability
+* Contingency if provided SPV servers are unreliable:
+  * Asset trading will be suspended if SPV service becomes unreliable
+  * Re-listing requires using Komodo's SPV infrastructure:
+    * Infrastructure costs based on:
+      * Blockchain size requirements
+      * Memory/resource requirements
+      * + Additional buffer for scaling
+    * One-time fee for integration work
+* Komodo's SPV infrastructure service includes:
+  * Dedicated SPV server hosting
+  * 24/7 monitoring and maintenance
+  * Automatic failover systems
+  * Regular backup and recovery procedures
+
+### EVM-Specific API Requirements
+
+* Must implement standard Web3 JSON-RPC API including:
+  * eth_sendRawTransaction: Broadcasts a signed transaction
+  * eth_call: Executes a contract call without broadcasting
+  * eth_getTransactionReceipt: Returns transaction receipt with status
+  * eth_blockNumber: Returns current block number
+  * eth_getBalance: Returns account balance
+  * eth_estimateGas: Estimates gas cost for transaction
+  * eth_getCode: Returns contract bytecode at address
+  * eth_getLogs: Returns event logs matching filter criteria
+* Must support event subscription or filtering mechanism
+* API must support standard JSON-RPC 2.0 format
+
+### Other Protocol API Requirements
+
+* Must provide transaction submission endpoint that accepts signed transactions
+* Must provide transaction query endpoint that returns full transaction data including status
+* Must provide block information endpoint with timestamp and/or height information
+* Must provide address/account balance and transaction history query capabilities
+* Must provide fee estimation or fee information endpoint (if protocol doesn't use fixed fees)
+* Must provide method to query the state of HTLCs or smart contracts
+* Must provide capability to interact with deployed contracts/scripts
+* Must support a way to monitor transaction confirmation
+* Must provide mechanism to identify HTLC redemptions and extract secrets
+
+## 5. Final Compatibility Determination
+
+### Core Requirements (All Must Be Met)
+
+* All HTLC requirements satisfied (hash locks, time locks, conditional execution)
+* All required API endpoints implemented and functional
+* All transaction verification mechanisms implemented and functional
+* Secret extraction from redemption transactions must be possible
+
+### Compatibility Classification
+
+* **Fully Compatible:** UTXO, EVM, or Tendermint protocols that meet all requirements in this checklist
+* **Compatible with Minor Adaptations:** UTXO, EVM, or Tendermint protocols that meet core requirements but need minor interface adaptations
+* **Requires Custom Integration:**
+  * "Other" protocol types that can implement HTLC functionality
+  * Protocols missing several requirements but where integration is possible with custom development
+* **Incompatible:** Missing fundamental requirements that prevent integration
+
+### Next Steps After Compatibility Determination
+
+* For fully compatible protocols: Proceed to integration testing
+* For protocols requiring adaptations: Develop necessary interface components
+* For custom integrations: Define scope of work and integration plan
+* For "Other" protocol types: Refer to the custom interface implementation document
+
+## Glossary
+
+* **HTLC**: Hash Time Locked Contract, a cryptographic payment method that uses hashlocks and timelocks to secure transactions
+* **UTXO**: Unspent Transaction Output, a model used by Bitcoin and similar blockchains
+* **EVM**: Ethereum Virtual Machine, the runtime environment for smart contracts in Ethereum-compatible blockchains
+* **Tendermint**: A blockchain consensus engine used by Cosmos and other blockchains
+* **IBC**: Inter-Blockchain Communication, a protocol for interoperability between different blockchains
+* **RPC**: Remote Procedure Call, a protocol for requesting a service from a program on another computer
+
