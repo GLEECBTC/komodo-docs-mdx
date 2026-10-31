@@ -23,13 +23,13 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 | gas\_api                        | object          | Optional, Used for [EVM gas fee management](/komodo-defi-framework/api/v20/wallet/fee_management/). Contains fields for `provider` and `url` to source third party fee market information.                                                                                                                                                                                                                                            |
 | gui                             | string          | Information to identify which app, tool or product is using the API, e.g. `KomodoWallet iOS 1.0.1`. Helps developers identify if an issue is related to specific builds or operating systems etc.                                                                                                                                                                                                                                     |
 | https                           | boolean         | Optional. Only used with wss. Defaults to `false`, set to `true` to allow TLS/SSL enabled RPC (e.g. remote queries to a domain with a valid SSL certificate).                                                                                                                                                                                                                                                                         |
-| i\_am\_seed                     | boolean         | Optional, defaults to `false`. Runs Komodo DeFi Framework API as a seed node mode (acting as a relay for Komodo DeFi Framework API clients). Use of this mode is not reccomended on the main network (8762) as it could result in a pubkey ban if non-compliant. On alternative testing or private networks, at least one seed node is required to relay information to other Komodo DeFi Framework API clients using the same netID. |
+| i\_am\_seed                     | boolean         | Optional, defaults to `false`. Runs Komodo DeFi Framework API as a seed node mode (acting as a relay for Komodo DeFi Framework API clients). Use of this mode is not reccomended on the main network (6133) as it could result in a pubkey ban if non-compliant. On alternative testing or private networks, at least one seed node is required to relay information to other Komodo DeFi Framework API clients using the same netID. |
 | is\_bootstrap\_node             | boolean         | Optional, defaults to `false`. If `true`, and `i_am_seed` is also true, KDF will act as a bootstrap node for the network.                                                                                                                                                                                                                                                                                                             |
 | is\_watcher                     | boolean         | Optional, defaults to `false`. If `true`, KDF will operate as a watcher seed nodes which may (in some cases) complete the final steps of a swap when a party goes offline.                                                                                                                                                                                                                                                            |
 | message\_service\_cfg           | object          | Optional. This data is used to configure [Telegram](https://telegram.org/) messenger alerts for swap events when running using the [makerbot functionality](/komodo-defi-framework/api/v20/swaps_and_orders/start_simple_market_maker_bot/). For more information check out the [telegram alerts guide](/komodo-defi-framework/setup/telegram-alerts/)                                                                                |
 | metrics                         | integer         | Optional, defaults to `300`. The interval in seconds which metrics are logged. Set to `0` to disable metrics.                                                                                                                                                                                                                                                                                                                         |
 | myipaddr                        | string          | Optional. IP address to bind to for P2P networking.                                                                                                                                                                                                                                                                                                                                                                                   |
-| netid                           | integer         | Nework ID number, telling the Komodo DeFi Framework  which network to join. 8762 is the current main network, though alternative netids can be used for testing or "private" trades as long as seed nodes exist to support it.                                                                                                                                                                                                        |
+| netid                           | integer         | Nework ID number, telling the Komodo DeFi Framework  which network to join. 6133 is the current main network, though alternative netids can be used for testing or "private" trades as long as seed nodes exist to support it.                                                                                                                                                                                                        |
 | p2p\_in\_memory                 | boolean         | Optional, defaults to `false`. Enables in-memory peer-to-peer (P2P) networking mode. When set to true, the application bypasses traditional seed nodes and sets up in-memory relay for P2P communication. This is typically used in testing or isolated environments where external P2P communication is not desired.                                                                                                                 |
 | p2p\_in\_memory\_port           | integer         | Optional (required when `p2p_in_memory` is `true`). Specifies the port number used by the in-memory relay node. This value is required if p2p\_in\_memory mode is active. It defines the local port for the relay to operate and accept in-memory peer connections.                                                                                                                                                                   |
 | passphrase                      | string          | Optional. Your passphrase (mnemonic phrase) in plain text. This is the source of each of your coins private keys. [**KEEP IT SAFE!**](https://www.youtube.com/watch?v=WFpxVbTqhB8). For more secure, encrypted storage in a local database, use the `wallet_name` and `wallet_password` parameters below.                                                                                                                             |
@@ -48,7 +48,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 | wss\_certs                      | object          | Optional. Contains fields for `server_priv_key` and `certificate` to allow RPC or P2P communications over TLS/SSL.                                                                                                                                                                                                                                                                                                                    |
 
 <Note>
-  A list of current seed nodes running on the `8762` netid can be sourced from [https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json](https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json)
+  A list of current seed nodes running on the `6133` netid can be sourced from [https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json](https://github.com/KomodoPlatform/coins/blob/master/seed-nodes.json)
   WASM nodes can only be run as a seed node when `p2p_in_memory` is `true`.
   In the 2.4.0-beta release of KDF, the `event_stream_configuration` has been renamed to `event_streaming_configuration` and no longer contains the `active_events` object. Rather than define the configuration for events in global config, a [suite of new RPC methods](/komodo-defi-framework/api/v20/streaming/) to define streaming has been added which allows for much greater control over which events to track.
 </Note>
@@ -58,7 +58,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "ENTER_UNIQUE_PASSWORD",
   "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
@@ -72,7 +72,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
@@ -86,7 +86,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
@@ -102,7 +102,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
@@ -119,7 +119,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "wallet_name": "Gringotts Retirement Fund",
@@ -132,7 +132,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "1inch_api": "https://api.1inch.dev"
@@ -144,7 +144,7 @@ When running the Komodo DeFi API via commandline with the `kdf` binary, some bas
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd"
   "event_streaming_configuration": {
       "access_control_allow_origin": "*",
@@ -176,7 +176,7 @@ If you are using HD wallets, you will need to set `enable_hd` to `true` in to yo
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "rpc_password": "Ent3r_Un1Qu3_Pa$$w0rd",
   "passphrase": "ENTER_UNIQUE_SEED_PHRASE_DONT_USE_THIS_CHANGE_IT_OR_FUNDS_NOT_SAFU",
@@ -198,7 +198,7 @@ For bootstrap nodes:
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "is_bootstrap_node": true,
   "i_am_seed": true,
@@ -216,7 +216,7 @@ For a normal seed node:
 ```json
 {
   "gui": "DEVDOCS_CLI",
-  "netid": 8762,
+  "netid": 6133,
   "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"],
   "is_bootstrap_node": false,
   "i_am_seed": true,

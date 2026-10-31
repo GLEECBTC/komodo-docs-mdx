@@ -93,7 +93,7 @@ We also need to create an MM2.json file in the same directory as the `coins` fil
 The MM2.json configuration commands can also be supplied at runtime, as below:
 
 ```bash
-stdbuf -oL ./kdf "{\"gui\":\"Docs_Walkthru\",\"netid\":8762, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"], \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
+stdbuf -oL ./kdf "{\"gui\":\"Docs_Walkthru\",\"netid\":6133, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"], \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphrase and password, and then execute the command in the terminal.
@@ -138,7 +138,7 @@ If you see something similar, the Komodo DeFi Framework API is up and running!
   When using the Komodo DeFi Framework API on a VPS without accompanying tools such as `tmux` or `screen`, it is recommended to use [`nohup`](https://www.digitalocean.com/community/tutorials/nohup-command-in-linux). This will ensure that the Komodo DeFi Framework API instance is not shutdown when the user logs out.
 
   ```bash
-  stdbuf -oL nohup ./kdf "{\"gui\":\"Docs_Walkthru\",\"netid\":8762, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"]
+  stdbuf -oL nohup ./kdf "{\"gui\":\"Docs_Walkthru\",\"netid\":6133, "seednodes": ["seed01.kmdefi.net", "seed02.kmdefi.net"]
   , \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
   ```
 </Note>
@@ -303,7 +303,7 @@ The response below shows a list of users willing to send DOC in exchange for MAR
 
 <CollapsibleSection expandedText="Hide Response" collapsedText="Show Response">
   ```json
-  {"bids": [],"numbids": 0,"biddepth": 0,"asks": [{"coin": "DOC","address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","price": "0.89999998","price_rat": [[1, [813957463, 471859]],[1, [0, 524288]]],"price_fraction": {"numer": "2026619787280727","denom": "2251799813685248"},"maxvolume": "10855.85028615","max_volume_rat": [[1, [3593286463, 1389548]],[1, [0, 128]]],"max_volume_fraction": {"numer": "5968066809508671","denom": "549755813888"},"pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","age": 5,"uuid": "5bff6021-b086-477e-b874-f45d898933fe","is_mine": false}],"numasks": 1,"askdepth": 0,"base": "DOC","rel": "MARTY","timestamp": 1549319941,"netid": 8762}
+  {"bids": [],"numbids": 0,"biddepth": 0,"asks": [{"coin": "DOC","address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","price": "0.89999998","price_rat": [[1, [813957463, 471859]],[1, [0, 524288]]],"price_fraction": {"numer": "2026619787280727","denom": "2251799813685248"},"maxvolume": "10855.85028615","max_volume_rat": [[1, [3593286463, 1389548]],[1, [0, 128]]],"max_volume_fraction": {"numer": "5968066809508671","denom": "549755813888"},"pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","age": 5,"uuid": "5bff6021-b086-477e-b874-f45d898933fe","is_mine": false}],"numasks": 1,"askdepth": 0,"base": "DOC","rel": "MARTY","timestamp": 1549319941,"netid": 6133}
   ```
 </CollapsibleSection>
 
@@ -366,7 +366,7 @@ Try again this time adding ` | jq` to the end of the `bash` example below:
   	"base": "DOC",
   	"rel": "MARTY",
   	"timestamp": 1549320152,
-  	"netid": 8762
+  	"netid": 6133
   }
   ```
 </CollapsibleSection>

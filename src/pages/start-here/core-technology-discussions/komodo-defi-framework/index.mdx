@@ -113,7 +113,7 @@ There are two parties in an atomic swap: the liquidity provider and the liquidit
 
 The process of an atomic swap begins with the person who makes the initial request.
 
-Taker will need two transactions to perform her swap. One transaction will cover the protocol fee, which is roughly 1/777th the size of the desired order. We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Taker from spamming the network with rapid requests.
+Taker will need two transactions to perform her swap. One transaction will cover the protocol fee, which is 2% of the desired order (1% when trading GLEEC). We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Taker from spamming the network with rapid requests.
 
 ### The Atomic Swap Process
 
@@ -165,7 +165,7 @@ Let us now examine what is happening after each step.
 
 #### 1 - Taker Sends `<dexfee>`
 
-If Maker accepts the offer to trade, but does not send `<makerpayment>`, Taker only stands to lose the `<dexfee>`. This is only 1/777th of the entire transaction amount, so she loses very little.
+If Maker accepts the offer to trade, but does not send `<makerpayment>`, Taker only stands to lose the `<dexfee>`. This is only 2% of the entire transaction amount, so she loses very little.
 
 Maker, on the other hand, stands to lose more. Since Maker did not follow through with his end of the bargain, the Komodo DeFi Framework network indicates on his public Komodo DeFi Framework trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Maker continues this behavior as a habit, he may find it difficult to discover trading partners.
 
@@ -221,7 +221,7 @@ If a user attempts a trade and no response returns from the network, the user sh
 The `<dexfee>` is calculated as the greater of:
 
 *   0.0001 TAKER COIN
-*   1/777th of the order size
+*   2% of the order size (1% when trading GLEEC)
 
 This fee serves multiple purposes:
 
